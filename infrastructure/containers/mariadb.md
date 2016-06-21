@@ -16,6 +16,18 @@
 
 This container doesn't expose public ports. If you want to access the container itself please refer [to this article](access.md) (access with no SSH).
 
+### Access via drush
+
+You can connect the database by executing the following command in the Drupal docroot inside of the [nginx-php container](nginx-php/README.md):
+
+```bash
+$ drush sql-cli
+```
+
+### Access via PhpMyAdmin
+
+You can deploy optional container with [PhpMyAdmin](phpmyadmin.md) to access the database.  
+
 ### Access via tunnel
 
 If you want to access the database outside of the Wodby infrastructure you will have to use SSH tunnel via the main container: 
@@ -28,14 +40,6 @@ $ ssh -L 53306:services:3306 -p <SSH Port> wodby@<Node IP> -N
 2. Connect to the database (mysql) via the tunnel on port `53306`:
 ```bash
 $ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
-```
-
-### Access via drush
-
-You can connect the database by executing the following command in the Drupal docroot inside of the [nginx-php container](nginx-php/README.md):
-
-```bash
-$ drush sql-cli
 ```
 
 ## Versions

@@ -1,8 +1,8 @@
 # Wodby Documentation
 
-Welcome to Wodby documentation. This site will help you to understand how to deploy your [apps](/apps/README.md) using cloud infrastructure provided by Wodby. Read about [key features](product/features.md) of the Wodby platform.
+Welcome to Wodby documentation. This site will help you to understand how to deploy your [apps](/apps/README.md) using cloud infrastructure provided by Wodby. 
 
-**Learn how to [deploy your first app](apps/deploy.md)**. 
+* **Learn how to [deploy your first app](apps/deploy.md)**
 
 Also:
 
