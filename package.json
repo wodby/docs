@@ -1,0 +1,20 @@
+{
+  "name": "wodby-docs",
+  "version": "1.0.0",
+  "description": "Welcome to Wodby documentation. This site will help you to understand how to deploy your [apps](/apps/README.md) using cloud infrastructure provided by Wodby.",
+  "main": " ",
+  "dependencies": {
+    "gitbook-plugin-addcssjs": "^1.0.2",
+    "gitbook-plugin-toggle-chapters": "0.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.gitbook.com/wodby/docs.git"
+  },
+  "author": "",
+  "license": "ISC"
+}

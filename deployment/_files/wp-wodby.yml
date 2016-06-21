@@ -1,0 +1,9 @@
+pipeline:
+  - name: update db
+    type: command
+    command: wp core update-db
+    directory: $WODBY_APP_DOCROOT
+  - name: clear cache
+    type: command
+    command: wp cache flush
+    directory: $WODBY_APP_DOCROOT

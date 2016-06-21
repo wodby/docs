@@ -1,0 +1,12 @@
+{
+  "plugins": ["addcssjs", "toggle-chapters", "sitemap"],
+  "pluginsConfig": {
+    "addcssjs": {
+      "js": ["intercom.js", "ga.js"],
+      "css": ["styles.css"]
+    },
+    "sitemap": {
+      "hostname": "https://docs.wodby.com/"
+    }
+  }
+}
