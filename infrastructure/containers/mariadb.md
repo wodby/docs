@@ -2,19 +2,20 @@
 
 > Service: Database
 
-* [Access](#access)
-    * [Accessing container](#accessing-container)
+* [Accessing container](#accessing-container)
+* [Accessing database](#accessing-database)
     * [Access via tunnel](#access-via-tunnel)
+    * [Access via PhpMyAdmin](#access-via-phpmyadmin)
     * [Access via drush](#access-via-drush)
 * [Versions](#versions)
 * [Integration with Drupal](#integration-with-drupal)
 * [Integration with WordPress](#integration-with-wordpress)
 
-## Access
-
-### Accessing container 
+## Accessing container 
 
 This container doesn't expose public ports. If you want to access the container itself please refer [to this article](access.md) (access with no SSH).
+
+## Accessing database
 
 ### Access via drush
 
