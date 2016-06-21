@@ -69,6 +69,7 @@
     * [Can't access container by SSH](troubleshooting/container-ssh.md)
     * [Server is unreachable](troubleshooting/server-unreachable.md)
     * [Vagrant is unreachable](troubleshooting/vagrant-unreachable.md)
+    * [Host identification has changed](troubleshooting/host-identification-has-changed.md)
 * [Product](product/README.md)
     * [Features](product/features.md)
     * [Product roadmap](product/roadmap.md)
