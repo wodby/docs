@@ -43,7 +43,7 @@
         * [Nginx-php container](infrastructure/containers/nginx-php/README.md)
             * [Nginx](infrastructure/containers/nginx-php/nginx.md)
             * [PHP](infrastructure/containers/nginx-php/php.md)
-        * [Postfix](infrastructure/containers/nginx-php/postfix.md)
+            * [Postfix](infrastructure/containers/nginx-php/postfix.md)
         * [MariaDB](infrastructure/containers/mariadb.md)
         * [Redis](infrastructure/containers/redis.md)
         * [Memcached](infrastructure/containers/memcached.md)
