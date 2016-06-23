@@ -24,8 +24,8 @@ If you want to access the container itself please refer [to this article (with n
 ## Versions
 
 | Version | Stacks using |
-| ------ | ----------------------------- |
-| 3.0.5  | Drupal 7, Drupal 8, WordPress |
+| ----- | ----------------------------- |
+| 3.0.5 | Drupal 7, Drupal 8, WordPress |
 
 ## Integration with Drupal
 
@@ -33,11 +33,11 @@ All configuration settings already specified in [wodby.settings.php](../drupal/w
 
 ### Drupal 7
 
-1. Install and enable <a href="https://www.drupal.org/project/redis" target="_blank">redis</a> module.
+1. Install and enable <a href="https://www.drupal.org/project/redis" target="_blank">redis</a> module
 
 ### Drupal 8
 
-1. Install and enable <a href="https://github.com/md-systems/redis" target="_blank">redis</a> module
+1. Install and enable <a href="https://www.drupal.org/project/redis" target="_blank">redis</a> module
 2. Enable Redis integration from `App page > Cache > Cache settings`
 
 ## Integration with WordPress

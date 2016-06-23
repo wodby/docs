@@ -14,3 +14,4 @@ The following containers are currently available:
 * [Redis](redis.md)
 * [Memcached](memcached.md)
 * [Apache Solr](apache-solr.md)        
+* [Varnish](varnish.md)        

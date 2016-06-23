@@ -6,8 +6,8 @@ HSTS specification was subsequently developed to combat <a href="https://en.wiki
 
 Applications deployed via Wodby has enabled HSTS by default (header `Strict-Transport-Security "max-age=31536000"`).
 
-## How to disable HSTS
+## How to disable HSTS (Google Chrome)
 
-In case you no longer use HTTPS for your app, but your browser (Chrome) keeps redirecting you to the HTTPS version you should delete this domain from the HSTS set from the page `chrome://net-internals/#hsts`. 
+In case you no longer use HTTPS for your app, but your Chrome browser keeps redirecting you to the HTTPS version you should delete this domain from the HSTS set from the page `chrome://net-internals/#hsts`. 
 
 Alternatively, you can use <a href="https://chrome.google.com/webstore/detail/cache-killer/jpfbieopdmepaolggioebjmedmclkbap?hl=en" target="_blank">cache killer</a> plugin.
