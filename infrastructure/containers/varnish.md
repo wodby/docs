@@ -15,15 +15,7 @@ This container doesn't expose public ports. If you want to access the container 
 
 ## Integration with Drupal
 
-### Drupal 7
-
-1. Install and enable <a href="https://www.drupal.org/project/varnish" target="_blank">redis module</a> (**dev** version)
-2. Enable Varnish integration from `App page > Cache > Cache settings`
-3. Also, we recommend to install <a href="https://www.drupal.org/project/expire" target="_blank">expire module</a> to configure auto purge of pages when some content has been updated
-
-### Drupal 8
-
-1. Install and enable <a href="https://www.drupal.org/project/varnish" target="_blank">redis module</a>
+1. Install and enable <a href="https://www.drupal.org/project/varnish" target="_blank">redis module</a> (for Drupal 7 use the dev version)
 2. Enable Varnish integration from `App page > Cache > Cache settings`
 3. Also, we recommend to install <a href="https://www.drupal.org/project/expire" target="_blank">expire module</a> to configure auto purge of pages when some content has been updated
 
