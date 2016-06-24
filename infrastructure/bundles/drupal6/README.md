@@ -1,4 +1,4 @@
-# Drupal bundle
+# Drupal 6 bundle
 
 This section contains information related to the bundle for [Drupal 6 websites](../../../apps/drupal/README.md). 
 
