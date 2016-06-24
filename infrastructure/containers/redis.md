@@ -3,7 +3,6 @@
 > Service: Cache storage
 
 * [Access](#access)
-* [Versions](#versions)
 * [Integration with Drupal](#integration-with-drupal)
     * [Drupal 7](#drupal-7)
     * [Drupal 8](#drupal-8)
