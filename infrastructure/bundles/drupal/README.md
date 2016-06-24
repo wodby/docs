@@ -1,10 +1,11 @@
-# Drupal Infrastructure
+# Drupal bundle
 
-This section contains information related to infrastructure deployed for [Drupal websites](../../apps/drupal/README.md). 
+This section contains information related to [Drupal](../../apps/drupal/README.md) bundle. 
 
 * [wodby.settings.php](wodby-settings-php.md)
+* [Bundle versioning](versioning.md)
 
-## Available services
+## Bundle services
 
 ### Drupal 8
 

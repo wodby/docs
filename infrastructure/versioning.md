@@ -13,9 +13,6 @@ Unsupported legacy versions: v0.1.0, v1.0.0, v2.0.0
  
 ## Changelog
 
-* [v3.5.0](#v350)
-    * [Changes since v3.4.0](#changes-since-v340)
-    * [Upgrade policy](#upgrade-policy-v350)
 * [v3.4.0](#v340)
     * [Changes since v3.3.0](#changes-since-v330)
     * [Upgrade policy](#upgrade-policy-v340)
@@ -32,28 +29,6 @@ Unsupported legacy versions: v0.1.0, v1.0.0, v2.0.0
 * [v2.0.0](#v200)
 * [v1.0.0](#v100)
 * [v0.1.0](#v010)
-
-### v3.5.0
-
-#### Changes since v3.4.0
-
-* Containers base OS Alpine Linux upgraded to 3.4
-* [Nginx](containers/nginx-php/nginx.md) upgraded to 1.10.1 
-* [PHP 5.6](containers/nginx-php/php.md) upgraded to 5.6.22
-* [Postfix](containers/nginx-php/postfix.md) upgraded to 3.1.1
-* [MariaDB](containers/mariadb.md) upgraded to 10.1.14
-* [Redis](containers/redis.md) upgraded to 3.2.0
-* Default option `always_populate_raw_post_data = -1` added to php.ini of [PHP 5.6](containers/nginx-php/php.md) 
-* Added mysql_extension (in addition to mysqli_extension) to [PHP 5.6](containers/nginx-php/php.md)
-* New container [Varnish](containers/varnish.md) is now available
-* New container [PhpMyAdmin](containers/phpmyadmin.md) is now available
-* Fixed the bug in all [PHP containers](containers/nginx-php/php.md) with an incorrect value of `error_reporting` for dev instances 
-
-Release date: `June 24th, 2016`
-
-#### Upgrade policy v3.5.0
-
-[Contact our support team](../product/support.md) to schedule the upgrade. Instance downtime ~10 minutes.
 
 ### v3.4.0
 

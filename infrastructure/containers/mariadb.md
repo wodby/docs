@@ -8,8 +8,6 @@
     * [Access via PhpMyAdmin](#access-via-phpmyadmin)
     * [Access via drush](#access-via-drush)
 * [Versions](#versions)
-* [Integration with Drupal](#integration-with-drupal)
-* [Integration with WordPress](#integration-with-wordpress)
 
 ## Accessing container 
 
@@ -19,11 +17,7 @@ This container doesn't expose public ports. If you want to access the container 
 
 ### Access via drush
 
-You can connect the database by executing the following command in the Drupal docroot inside of the [nginx-php container](nginx-php/README.md):
-
-```bash
-$ drush sql-cli
-```
+Please read [drush article](../../apps/drupal/drush.md).
 
 ### Access via PhpMyAdmin
 
@@ -53,9 +47,3 @@ $ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
 ## Configuration files
 
 The configuration files located under `/srv/conf/` of the mysql container.
-
-## Integration with Drupal
-
-The configuration settings specified in [wodby.settings.php](../drupal/wodby-settings-php.md).
-
-## Integration with WordPress

@@ -30,7 +30,7 @@ If you want to access the container itself please refer [to this article (with n
 
 ## Integration with Drupal
 
-All configuration settings already specified in [wodby.settings.php](../drupal/wodby-settings-php.md).
+All configuration settings already specified in [wodby.settings.php](../bundles/drupal/wodby-settings-php.md).
 
 ### Drupal 7
 

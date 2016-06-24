@@ -1,6 +1,6 @@
 # wodby.settings.php
 
-Located under `/srv/conf` of the [Backend service](../../infrastructure/drupal/README.md) container.
+Located under `/srv/conf` of the [Backend service](README.md) container.
 
 **! Do not edit wodby.settings.php**, all changes to this file will be reset.
 

@@ -16,7 +16,7 @@ Select one of the [connected servers](../servers/connecting-server/README.md) fo
  
 ## Step 2: infrastructure configuration
 
-Choose pre-configured stack for deployment: [Drupal](../infrastructure/drupal/README.md) or [WordPress](../infrastructure/wordpress/README.md) (more stacks are coming soon). The list of the available services will be displayed. Configure which containers you'd like to use for each of the service. 
+Choose pre-configured stack for deployment: [Drupal](../infrastructure/bundles/drupal/README.md) or [WordPress](../infrastructure/bundles//wordpress/README.md) (more stacks are coming soon). The list of the available services will be displayed. Configure which containers you'd like to use for each of the service. 
 
 Additionally, check optional services such as a cache storage, database management and a search engine.  
  

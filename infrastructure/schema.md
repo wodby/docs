@@ -1,6 +1,6 @@
 # Overview
 
-* [Drupal services schema](drupal/README.md)
-* [WordPress services schema](wordpress/README.md)
+* [Drupal bundle schema](bundles/drupal/README.md)
+* [WordPress bundle schema](bundles/wordpress/README.md)
 
 ![Example schema](_images/schema.png)

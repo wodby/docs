@@ -4,9 +4,9 @@ This section contains information related to Drupal websites deployed via Wodby.
 
 * [Drupal apps settings](settings.md)
 * [Multi-site](multi-site.md)
-* [Drush aliases](drush-aliases.md)
+* [Drush](drush.md)
 * [Importing existing Drupal website](import.md)
 * [Redirects](redirects.md)
 * [Drupal preset](preset.md)
 
-To learn more about Drupal infrastructure please visit [this section](../../infrastructure/drupal/README.md)
+To learn more about Drupal infrastructure please visit [this section](../../infrastructure/bundles/drupal/README.md)

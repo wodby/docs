@@ -1,8 +1,10 @@
-# WordPress Infrastructure
+# WordPress bundle
 
-This section contains information related to infrastructure deployed for [WordPress websites](../../apps/wordpress/README.md). 
+This section contains information related to [WordPress](../../apps/wordpress/README.md) bundle.
+ 
+* [Bundle versioning](versioning.md)
 
-## Available services
+## Bundle services
 
 | Service | Available containers | Mandatory |
 | --------------------- | ---------------------------------------------- | - |

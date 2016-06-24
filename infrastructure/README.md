@@ -9,6 +9,7 @@ We actively support these two amazing projects and OSS in general.
 
 Further reading:
 
+* [Bundles](bundles/README.md)
 * [Containers](containers/README.md)
 * [Memory consumption](memory-consumption.md)
 * [Versioning](versioning.md)
