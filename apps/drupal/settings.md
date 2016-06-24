@@ -18,7 +18,11 @@
 
 ### settings.php
 
-Wodby automatically adds include of `/srv/wodby.settings.php` to `settings.php` file inside of `sites/default`. If directory doesn't exist Wodby will create it automatically. If you want to use directory other than default please read the [article about multi-site](multi-site.md) configuration.
+Wodby automatically adds include of `/srv/conf/wodby.settings.php` to `settings.php` file inside of `sites/default`. If directory doesn't exist Wodby will create it automatically. If you want to use directory other than default please read the [article about multi-site](multi-site.md) configuration.
+
+**! Do not edit wodby.settings.php**, all changes to this file will be reset.
+
+The `wodby.settings.php` file contains configuration settings for integration with Wodby services such as Database, Cache storage and Reverse Caching Proxy. You can override settings specified in wodby.settings.php in your `sites/*/settings.php` file after the include of wodby.settings.php 
 
 ### sites.php
 

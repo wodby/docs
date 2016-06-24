@@ -12,4 +12,4 @@ If you want to access the container itself please refer [to this article](access
 
 1. Download and install <a href="https://www.drupal.org/project/memcache" target="_blank">memcache</a> module.
 
-All configuration settings already specified in [wodby.settings.php](../bundles/drupal/wodby-settings-php.md).
+All configuration settings already specified in [wodby.settings.php](../../apps/drupal/settings.md).

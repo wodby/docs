@@ -1,6 +1,6 @@
-# WordPress bundle
+# Drupal bundle
 
-This section contains information related to the bundle for [WordPress websites](../../../apps/wordpress/README.md).
+This section contains information related to the bundle for [Drupal 7 websites](../../../apps/drupal/README.md). 
 
 * [Services](#services)
 * [Changelog](#changelog)
