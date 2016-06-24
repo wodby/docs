@@ -7,7 +7,7 @@
         * [Settings](apps/drupal/settings.md)
         * [Multi-site](apps/drupal/multi-site.md)
         * [Import](apps/drupal/import.md)
-        * [Drush aliases](apps/drupal/drush-aliases.md)
+        * [Drush](apps/drupal/drush.md)
         * [Redirects](apps/drupal/redirects.md)
         * [Preset](apps/drupal/preset.md)
     * [WordPress](apps/wordpress/README.md)

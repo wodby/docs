@@ -4,7 +4,6 @@
 
 * [Access](#access)
     * [Solr admin panel](#solr-admin-panel)
-* [Versions](#versions)
 * [Logs](#logs)
 * [Cores](#cores)
 * [Configuration files](#configuration-files)
@@ -25,12 +24,6 @@ You can find password by connecting to the [nginx-php container](nginx-php/READM
 ```bash
 $ echo $WODBY_SOLR_PASSWORD`
 ```
-
-## Versions 
-
-| Version | Infrastructure |
-| ------- | -------------- |
-| 5.5.x   | [3.0+](../../versioning.md) |
 
 ## Logs
 

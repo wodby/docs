@@ -46,7 +46,7 @@ Read more about sending emails in [Mail Transfer Agent (SMTP)](../../infrastruct
 
 ### Drush
 
-Every web container of Drupal instance has pre-installed drush. You can use remotely by using [drush aliases](drush-aliases.md).
+Every web container of Drupal instance has pre-installed drush. You can use remotely by using [drush aliases](drush.md).
 
 ## Drupal 8
 

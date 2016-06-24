@@ -7,7 +7,6 @@
     * [Access via tunnel](#access-via-tunnel)
     * [Access via PhpMyAdmin](#access-via-phpmyadmin)
     * [Access via drush](#access-via-drush)
-* [Versions](#versions)
 
 ## Accessing container 
 
@@ -36,13 +35,6 @@ $ ssh -L 53306:services:3306 -p <SSH Port> wodby@<Node IP> -N
 ```bash
 $ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
 ```
-
-## Versions
-
-| Version | Infrastructure |
-| ------- | -------------- |
-| 10.1.12 | [3.0+](../../versioning.md) | 
-| 10.1.14 | [3.5+](../../versioning.md) | 
 
 ## Configuration files
 

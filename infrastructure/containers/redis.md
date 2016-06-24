@@ -21,13 +21,6 @@ $ redis-cli -h $REDIS_SERVICE_HOST -p $REDIS_SERVICE_PORT -a $WODBY_REDIS_PASSWO
 
 If you want to access the container itself please refer [to this article (with no SSH)](access.md).
 
-## Versions
-
-| Version | Infrastructure |
-| ------- | -------------- |
-| 3.0.5 | [3.0+](../../versioning.md) | 
-| 3.2.0 | [3.5+](../../versioning.md) | 
-
 ## Integration with Drupal
 
 All configuration settings already specified in [wodby.settings.php](../bundles/drupal/wodby-settings-php.md).

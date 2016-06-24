@@ -6,13 +6,6 @@
 
 This container doesn't expose public ports. If you want to access the container itself please refer [to this article](access.md) (access with no SSH). 
 
-## Versions
-
-| Version | Infrastructure |
-| ------- | -------------- |
-| 4.1.x | [3.5+](../../versioning.md) |
-
-
 ## Integration with Drupal
 
 1. Install and enable <a href="https://www.drupal.org/project/varnish" target="_blank">varnish module</a> (for Drupal 7 use the dev version)

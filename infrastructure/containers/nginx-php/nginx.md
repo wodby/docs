@@ -1,7 +1,6 @@
 # Nginx
  
 * [Access](#access)
-* [Versions](#versions)
 * [Logs](#logs)
 * [Configuration files](#configuration-files)
 * [CLI](#cli)
@@ -11,13 +10,6 @@
 ## Access
 
 Nginx is a part of [nginx-php container](README.md).
-
-## Versions 
-
-| Version | Infrastructure |
-| ------- | -------------- |
-| 1.9.3  | [3.0+](../../versioning.md) | 
-| 1.10.1 | [3.5+](../../versioning.md) |
 
 ## Logs
 
