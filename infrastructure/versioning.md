@@ -45,10 +45,15 @@ Unsupported legacy versions: v0.1.0, v1.0.0, v2.0.0
 * [Redis](containers/redis.md) upgraded to 3.2.0
 * Default option `always_populate_raw_post_data = -1` added to php.ini of [PHP 5.6](containers/nginx-php/php.md) 
 * Added mysql_extension (in addition to mysqli_extension) to [PHP 5.6](containers/nginx-php/php.md)
-* New container [Varnish](varnish.md) is now available
+* New container [Varnish](containers/varnish.md) is now available
+* New container [PhpMyAdmin](containers/phpmyadmin.md) is now available
 * Fixed the bug in all [PHP containers](containers/nginx-php/php.md) with an incorrect value of `error_reporting` for dev instances 
 
 Release date: `June 24th, 2016`
+
+#### Upgrade policy v3.5.0
+
+[Contact our support team](../product/support.md) to schedule the upgrade. Instance downtime ~10 minutes.
 
 ### v3.4.0
 
