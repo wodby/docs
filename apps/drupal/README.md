@@ -7,5 +7,6 @@ This section contains information related to Drupal websites deployed via Wodby.
 * [Drush aliases](drush-aliases.md)
 * [Importing existing Drupal website](import.md)
 * [Redirects](redirects.md)
+* [Drupal preset](preset.md)
 
 To learn more about Drupal infrastructure please visit [this section](../../infrastructure/drupal/README.md)

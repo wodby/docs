@@ -8,9 +8,9 @@ This container doesn't expose public ports. If you want to access the container 
 
 ## Versions
 
-| Version | Stacks using |
-| ----- | --------------------------------------- |
-| 4.1.x | Drupal 6, Drupal 7, Drupal 8, WordPress |
+| Version | Infrastructure |
+| ------- | -------------- |
+| 4.1.x | [3.5+](../../versioning.md) |
 
 
 ## Integration with Drupal

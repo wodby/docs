@@ -10,6 +10,6 @@ The URL of the phpmyadmin can be found on `Instance page > Containers > PhpMyAdm
 
 ## Versions
 
-| Version | Stacks using |
-| ----- | --------------------------------------- |
-| 4.6.2 | Drupal 6, Drupal 7, Drupal 8, WordPress |
+| Version | Infrastructure |
+| ------- | -------------- |
+| 4.6.2 | [3.4+](../../versioning.md) |

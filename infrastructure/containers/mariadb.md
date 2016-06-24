@@ -45,9 +45,10 @@ $ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
 
 ## Versions
 
-| Version | Stacks using |
-| -------------------------------- | --------------------------------------- |
-| Ver 15.1 Distrib 10.1.12-MariaDB | Drupal 6, Drupal 7, Drupal 8, WordPress | 
+| Version | Infrastructure |
+| ------- | -------------- |
+| 10.1.12 | [3.0+](../../versioning.md) | 
+| 10.1.14 | [3.5+](../../versioning.md) | 
 
 ## Configuration files
 

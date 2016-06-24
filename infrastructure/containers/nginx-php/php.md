@@ -15,11 +15,24 @@ PHP and PHP-fpm are parts of [nginx-php container](README.md).
 
 ## Versions
 
-| Version | Stacks using |
-| ------ | ----------------------------- |
-| 5.3.29 | Drupal 6                      | 
-| 5.6.x  | Drupal 6, Drupal 7, WordPress | 
-| 7.0.x  | Drupal 8, WordPress           |
+### PHP 7
+
+| Version | Infrastructure |
+| ------- | -------------- |
+| 7.0.7 | [3.0+](../../versioning.md) |
+
+### PHP 5.6
+
+| Version | Infrastructure |
+| ------- | -------------- |
+| 5.3.29 | [3.0+](../../versioning.md) |
+ 
+### PHP 5.3
+
+| Version | Infrastructure |
+| ------- | -------------- |
+| 5.6.21 | [3.0+](../../versioning.md) |
+| 5.6.22 | [3.5+](../../versioning.md) |
 
 ## Logs
 

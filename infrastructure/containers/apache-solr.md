@@ -28,9 +28,9 @@ $ echo $WODBY_SOLR_PASSWORD`
 
 ## Versions 
 
-| Version | Stacks using |
-| ------- | --------------------------------------- |
-| 5.5.x   | Drupal 6, Drupal 7, Drupal 8, WordPress |
+| Version | Infrastructure |
+| ------- | -------------- |
+| 5.5.x   | [3.0+](../../versioning.md) |
 
 ## Logs
 

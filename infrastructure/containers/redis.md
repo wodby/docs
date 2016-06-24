@@ -23,9 +23,10 @@ If you want to access the container itself please refer [to this article (with n
 
 ## Versions
 
-| Version | Stacks using |
-| ----- | ----------------------------- |
-| 3.0.5 | Drupal 7, Drupal 8, WordPress |
+| Version | Infrastructure |
+| ------- | -------------- |
+| 3.0.5 | [3.0+](../../versioning.md) | 
+| 3.2.0 | [3.5+](../../versioning.md) | 
 
 ## Integration with Drupal
 

@@ -14,9 +14,10 @@ Nginx is a part of [nginx-php container](README.md).
 
 ## Versions 
 
-| Version | Stacks using |
-| ------ | --------------------------------------- |
-| 1.9.3  | Drupal 6, Drupal 7, Drupal 8, WordPress | 
+| Version | Infrastructure |
+| ------- | -------------- |
+| 1.9.3  | [3.0+](../../versioning.md) | 
+| 1.10.1 | [3.5+](../../versioning.md) |
 
 ## Logs
 
