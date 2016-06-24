@@ -6,5 +6,7 @@ The bundle has a requirement for the minimal [version of infrastructure](../vers
 
 We will notify you about new bundles versions.
 
-* [Drupal bundle changelog](drupal/changelog.md)
-* [WordPress bundle changelog](wordpress/changelog.md)
+* <a href="drupal8#changelog">Drupal 8 bundle changelog</a>
+* <a href="drupal7#changelog">Drupal 7 bundle changelog</a>
+* <a href="drupal6#changelog">Drupal 6 bundle changelog</a>
+* <a href="wordpress#changelog">WordPress bundle changelog</a>
