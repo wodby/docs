@@ -1,6 +1,7 @@
 # Nginx
  
 * [Access](#access)
+* [Version](#version)
 * [Logs](#logs)
 * [Configuration files](#configuration-files)
 * [CLI](#cli)
@@ -10,6 +11,10 @@
 ## Access
 
 Nginx is a part of [nginx-php container](README.md).
+
+## Version
+
+The current version of Nginx can be found on `Instance > Containers > Backend` page.
 
 ## Logs
 

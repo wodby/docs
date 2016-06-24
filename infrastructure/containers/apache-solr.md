@@ -4,6 +4,7 @@
 
 * [Access](#access)
     * [Solr admin panel](#solr-admin-panel)
+* [Version](#version)    
 * [Logs](#logs)
 * [Cores](#cores)
 * [Configuration files](#configuration-files)
@@ -17,13 +18,11 @@ This container doesn't expose public ports. If you want to access the container 
 
 ### Solr admin panel
 
-URL: You can find URL on `Instance > Containers > Solr` page<br>
-Login: `admin` <br>
+URL: You can find URL and login/password on `Instance > Containers > Search engine` page.
 
-You can find password by connecting to the [nginx-php container](nginx-php/README.md) by SSH and executing: 
-```bash
-$ echo $WODBY_SOLR_PASSWORD`
-```
+## Version
+
+The current version of Apache Solr can be found on `Instance > Containers > Search engine` page.
 
 ## Logs
 
@@ -60,20 +59,15 @@ synonyms.txt
 ### Connecting server
 
 1. Download and install <a href="https://www.drupal.org/project/search_api_solr" target="_blank">Search API Solr Search</a> module
-2. Connect to [nginx-php container](nginx-php/README.md) by SSH
-3. Execute the following commands to learn Solr basic auth password: 
-```bash
-$ echo $WODBY_SOLR_PASSWORD
-``` 
-4. Go to `Configuration » Search and metadata » Search API` and select Service class to "Solr service"  
-5. In expanded settings fieldset specify:
+2. Go to `Configuration » Search and metadata » Search API` and select Service class to "Solr service"  
+3. In expanded settings fieldset specify:
 ```
 HTTP protocol: http
-Solr host: <Copy hostname from "Instance > Containers > Solr" page>
+Solr host: <Copy Internal hostname from "Instance > Containers > Search engine">
 Solr port: 8983
 Solr path: /solr/wodby
 Basic authentication:
   Username: admin
-  Password: <Put there password you acquired on step 3>
+  Password: <Copy password from "Instance > Containers > Search engine">
 ```
 

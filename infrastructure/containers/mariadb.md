@@ -7,6 +7,8 @@
     * [Access via tunnel](#access-via-tunnel)
     * [Access via PhpMyAdmin](#access-via-phpmyadmin)
     * [Access via drush](#access-via-drush)
+* [Version](#version)    
+* [Configuration files](#configuration-files)
 
 ## Accessing container 
 
@@ -35,6 +37,10 @@ $ ssh -L 53306:services:3306 -p <SSH Port> wodby@<Node IP> -N
 ```bash
 $ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
 ```
+
+## Version
+
+The current version of MariaDB can be found on `Instance > Containers > Database` page.
 
 ## Configuration files
 

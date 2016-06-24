@@ -3,6 +3,7 @@
 > Service: Cache storage
 
 * [Access](#access)
+* [Version](#version)
 * [Integration with Drupal](#integration-with-drupal)
     * [Drupal 7](#drupal-7)
     * [Drupal 8](#drupal-8)
@@ -19,6 +20,10 @@ $ redis-cli -h $REDIS_SERVICE_HOST -p $REDIS_SERVICE_PORT -a $WODBY_REDIS_PASSWO
 ```
 
 If you want to access the container itself please refer [to this article (with no SSH)](access.md).
+
+## Version
+
+The current version of Redis can be found on `Instance > Containers > Cache storage` page.
 
 ## Integration with Drupal
 

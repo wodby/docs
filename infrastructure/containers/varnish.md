@@ -2,9 +2,17 @@
 
 > Service: Reverse caching proxy
 
+* [Access](#access)
+* [Version](#version)    
+* [Integration with Drupal](#integration-with-drupal)
+
 ## Access
 
 This container doesn't expose public ports. If you want to access the container itself please refer [to this article](access.md) (access with no SSH). 
+
+## Version
+
+The current version of Varnish can be found on `Instance > Containers > Reverse caching proxy` page
 
 ## Integration with Drupal
 

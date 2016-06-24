@@ -3,6 +3,7 @@
 By default PHP works via PHP-FPM under FastCGI with Nginx web server.  
 
 * [Access](#access)
+* [Version](#version)
 * [Logs](#logs)
 * [Configuration files](#configuration-files)
 * [PHP-FPM](#php-fpm)
@@ -11,6 +12,10 @@ By default PHP works via PHP-FPM under FastCGI with Nginx web server.
 ## Access
 
 PHP and PHP-fpm are parts of [nginx-php container](README.md).
+
+## Version
+
+The current version of PHP can be found on `Instance > Containers > Backend` page.
 
 ## Logs
 

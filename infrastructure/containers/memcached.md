@@ -2,11 +2,19 @@
 
 > Service: Cache storage
 
+* [Access](#access)
+* [Version](#version)    
+* [Integration with Drupal](#integration-with-drupal)
+
 ## Access
 
 This container doesn't expose public ports. You can access memcache from the [nginx-php container](nginx-php/README.md) by using telnet. 
 
 If you want to access the container itself please refer [to this article](access.md) (access with no SSH). 
+
+## Version
+
+The current version of Memcached can be found on `Instance > Containers > Cache storage` page
 
 ## Integration with Drupal
 
