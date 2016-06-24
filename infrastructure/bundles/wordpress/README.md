@@ -1,13 +1,6 @@
 # WordPress bundle
 
 This section contains information related to the bundle for [WordPress websites](../../../apps/wordpress/README.md).
-
-* [Services](#services)
-* [Changelog](#changelog)
-    * [v3.1.0](#v310)
-        * [Changes since v3.0.0](#changes-since-v300)
-        * [Upgrade policy](#upgrade-policy-v310)
-    * [v3.0.0](#v300)
     
 ## Services
 
@@ -21,6 +14,11 @@ This section contains information related to the bundle for [WordPress websites]
 | Reverse caching proxy | [Varnish](../../containers/varnish.md)            | &nbsp; |
 
 ## Changelog
+
+* [v3.1.0](#v310)
+    * [Changes since v3.0.0](#changes-since-v300)
+    * [Upgrade policy](#upgrade-policy-v310)
+* [v3.0.0](#v300)
 
 ### v3.1.0
 
