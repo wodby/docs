@@ -55,6 +55,5 @@ var cookie = getCookie('intercom');
 if (cookie) {
     var parsed = JSON.parse(decodeURIComponent(cookie));
 
-    window.intercomSettings = parsed.settings;
     window.Intercom('boot', parsed.data);
 }
