@@ -2,7 +2,7 @@
 
 This section contains information related to the bundle for [WordPress websites](../../../apps/wordpress/README.md).
  
-* [Bundle versioning](changelog.md)
+* [Bundle changelog](changelog.md)
 
 ## Bundle services
 

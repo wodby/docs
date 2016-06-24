@@ -3,7 +3,7 @@
 This section contains information related to the bundle for [Drupal websites](../../../apps/drupal/README.md). 
 
 * [wodby.settings.php](wodby-settings-php.md)
-* [Bundle versioning](changelog.md)
+* [Bundle changelog](changelog.md)
 
 ## Bundle services
 
