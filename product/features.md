@@ -14,7 +14,7 @@ The key features of the Wodby platform:
 
 ## Ready-to-run optimized infrastructure
 
-Wodby provides pre-configured stacks for [Drupal](../infrastructure/bundles/drupal/README.md) and [WordPress](../infrastructure/bundles/drupal/README.md). Stacks consist of mandatory services (web server, database) and an optional services such as a search engine ([Apache Solr](../containers/apache-solr.html)) and Web database management (PhpMyAdmin). 
+Wodby provides ready-to-run bundles for [Drupal](../infrastructure/bundles/drupal8/README.md) and [WordPress](../infrastructure/bundles/drupal/README.md). Stacks consist of mandatory services (web server, database) and an optional services such as a search engine ([Apache Solr](../containers/apache-solr.html)) and Web database management (PhpMyAdmin). 
 
 More pre-configured stacks are coming soon.
 

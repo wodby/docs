@@ -9,4 +9,8 @@ This section contains information related to Drupal websites deployed via Wodby.
 * [Redirects](redirects.md)
 * [Drupal preset](preset.md)
 
-To learn more about Drupal infrastructure please visit [this section](../../infrastructure/bundles/drupal/README.md)
+To learn more about Drupal infrastructure please visit:
+
+* [Drupal 8 bundle](../../infrastructure/bundles/drupal8/README.md)
+* [Drupal 7 bundle](../../infrastructure/bundles/drupal7/README.md)
+* [Drupal 6 bundle](../../infrastructure/bundles/drupal6/README.md)
