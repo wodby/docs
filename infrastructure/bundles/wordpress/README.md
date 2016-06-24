@@ -1,8 +1,8 @@
 # WordPress bundle
 
-This section contains information related to [WordPress](../../apps/wordpress/README.md) bundle.
+This section contains information related to the bundle for [WordPress websites](../../../apps/wordpress/README.md).
  
-* [Bundle versioning](versioning.md)
+* [Bundle versioning](changelog.md)
 
 ## Bundle services
 

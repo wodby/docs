@@ -4,7 +4,7 @@ The backend service of Drupal includes drush.
 
 ## Access database
 
-You can connect the database by executing the following command in the Drupal docroot inside of the [nginx-php container](nginx-php/README.md):
+You can connect the database by executing the following command in the Drupal docroot inside of the Backend service:
 
 ```bash
 $ drush sql-cli

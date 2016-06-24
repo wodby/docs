@@ -1,9 +1,9 @@
 # Drupal bundle
 
-This section contains information related to [Drupal](../../apps/drupal/README.md) bundle. 
+This section contains information related to the bundle for [Drupal websites](../../../apps/drupal/README.md). 
 
 * [wodby.settings.php](wodby-settings-php.md)
-* [Bundle versioning](versioning.md)
+* [Bundle versioning](changelog.md)
 
 ## Bundle services
 

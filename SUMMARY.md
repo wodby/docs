@@ -46,6 +46,7 @@
             * [Changelog](infrastructure/bundles/drupal/changelog.md)
         * [WordPress](infrastructure/bundles/wordpress/README.md)    
             * [Changelog](infrastructure/bundles/wordpress/changelog.md)
+        * [Versioning](infrastructure/bundles/versioning.md)
     * [Containers](infrastructure/containers/README.md)
         * [Accessing containers](infrastructure/containers/access.md)
         * [Nginx-php container](infrastructure/containers/nginx-php/README.md)
