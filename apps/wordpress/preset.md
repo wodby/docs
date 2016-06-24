@@ -1,4 +1,4 @@
-# Pre-configure WordPress preset
+# Pre-configured WordPress preset
 
 You can try out Wodby for WordPress by selecting `User pre-configured WordPress preset` as the data source option on the 3rd step of [application deployment form](../deploy.md). You can also deploy WordPress preset to your own git repository.
 

@@ -1,4 +1,4 @@
-# Pre-configure Drupal preset
+# Pre-configured Drupal presets
 
 You can try out Wodby for Drupal by selecting `User pre-configured Drupal X preset` as the data source option on the 3rd step of [application deployment form](../deploy.md). You can also deploy Drupal preset to your own git repository.
 
