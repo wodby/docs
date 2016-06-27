@@ -66,6 +66,7 @@
     * [Security](infrastructure/security.md)
     * [CLI commands](infrastructure/cli.md)
     * [HSTS](infrastructure/hsts.md)
+    * [Integration with CloudFlare](infrastructure/cloudflare.md)
 * [Team](team/README.md)
 * [SSH Keys](keys/README.md)
 * [Vagrant](vagrant/README.md)
