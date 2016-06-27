@@ -2,32 +2,33 @@
 
 ## In progress
 
-* Optional container with PhpMyAdmin
-* Optional container with reverse caching proxy Varnish
-* Instance management
+* Instances management
+* Auto-update of bundles and servers infrastructure
 * Containers resources limitation
+* Integration with CloudFlare
 
-## Planned Q3 (To be confirmed)
-
-* New pricing plan 
+## Planned Q3 (TBC)
+ 
 * Custom SSL certificates
 * Windows support for Vagrant
 * Crontab customization via the dashboard
-* Configs customization via the dashboard
 * Post-deployment scripts via the dashboard
+* Integrations: Linode, AWS, GitHub, BitBucket
 * NodeJS apps
-* Containers constructor - beta
-* Headless Drupal (?)
-* Deployment to cluster (?)
+* Headless Drupal
+* New pricing plan
 
 ## Planned Q4 (TBC)
 
 * Integration entity
-* Slack integration
+* Clusters support
+* Containers constructor - beta
 * Public API
+* Configs customization via the dashboard
 * Logs streaming 
 * Tags for apps
 * Notifications
-* Rework Wodby agent to Go
+* Lightweight golang Wodby agent
+* Slack integration
 * Nodes monitoring
 * Native integration with Linode/AWS/GCP/Azure/Rackspace
