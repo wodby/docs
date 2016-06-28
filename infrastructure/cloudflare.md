@@ -4,7 +4,7 @@
 
 If you're using SSL with CloudFlare there're 2 ways how it integration it with Wodby.
 
-## Simple way (less secure);
+## Simple way (less secure)
 
 1. Open your CloudFlare dashboard and navigate to the Crypto tab of your domain
 2. Go to block SSL and choose Flexible mode

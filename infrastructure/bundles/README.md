@@ -1,6 +1,8 @@
 # Bundle
 
-Bundle is a pre-configured orchestratable and ready-to-run infrastructure available for CMS or frameworks. Currently we provide the following list of bundles:
+Bundle is a representation of the app in context of infrastructure.
+
+Bundle is a pre-configured orchestratable set of containers for CMS or frameworks. Currently we provide the following list of bundles:
 
 * [Drupal 8](drupal8/README.md)
 * [Drupal 7](drupal7/README.md)
