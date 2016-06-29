@@ -5,6 +5,10 @@
 * [Access](#access)
 * [Version](#version)    
 * [Integration with Drupal](#integration-with-drupal)
+* [Integration with WordPress](#integration-with-wordpress)
+* [Caching rules](#caching-rules)
+* [Headers](#headers)
+* [CLI](#cli)
 
 ## Access
 
@@ -33,10 +37,56 @@ The current version of Varnish can be found on `Instance > Containers > Reverse 
 2. Enable Varnish integration from `App page > Cache > Cache settings`
 3. Go to `Home » Administration » Configuration » Development` page of Drupal website and enter the following settings (copy from `Instance > Containers > Reverse caching proxy` page of Wodby Dashboard): 
     * Varnish version = 4.x
-    * Varnish Control Terminal = <Internal hostname>:6082
-    * Varnish Control Key = <Secret>
-
+    * Varnish Control Terminal = varnish:6082
+    * Varnish Control Key = <Copy Secret >
+    
 ## Integration with WordPress
 
 1. Install and activate <a href="https://wordpress.org/plugins/varnish-http-purge/" target="_blank">varnish plugin</a>
 2. Enable Varnish integration from `App page > Cache > Cache settings`
+
+## Caching rules
+
+Varnish ignores the following GET parameters for cache id generation: 
+
+```
+utm_source
+utm_medium
+utm_campaign
+utm_content
+gclid
+cx
+ie
+cof
+siteurl
+```
+
+Set header `Cache-Control:no-cache` to tell Varnish to not cache this page.
+
+## Headers
+
+* `X-Varnish-Cache`: HIT or MISS, corresponds to when the cache was found or not 
+* `Age: 34`: age of the cache in seconds
+* `X-Varnish: 65658 65623` - the first number is the ID of a request, the second is the ID of cache inside of Varnish. When operating normally the first number changes with every request of the same page and the second stays the same.
+
+## CLI
+
+Grouped list with the most usual entries from different logs:
+```bash
+$ varnishtop
+```
+
+A histogram that shows the time taken for the requests processing:
+```bash
+$ varnishhist
+```
+
+Varnish stats, shows how many contents on cache hits, resource consumption, etc..:
+```bash
+$ varnishstat
+``` 
+
+Log showing requests made to the web backend server:
+```bash
+$ varnishlog
+``` 

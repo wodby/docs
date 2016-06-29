@@ -5,4 +5,4 @@
 * [Drupal 6 bundle](bundles/drupal6/README.md)
 * [WordPress bundle](bundles/wordpress/README.md)
 
-![Example schema](_images/schema.png)
+![Example schema](_images/schema.jpg)
