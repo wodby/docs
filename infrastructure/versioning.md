@@ -13,6 +13,9 @@ Unsupported legacy versions: v0.1.0, v1.0.0, v2.0.0
  
 ## Changelog
 
+* [v3.5.0](#v350)
+    * [Changes since v3.4.0](#changes-since-v340)
+    * [Upgrade policy](#upgrade-policy-v350)
 * [v3.4.0](#v340)
     * [Changes since v3.3.0](#changes-since-v330)
     * [Upgrade policy](#upgrade-policy-v340)
@@ -29,6 +32,20 @@ Unsupported legacy versions: v0.1.0, v1.0.0, v2.0.0
 * [v2.0.0](#v200)
 * [v1.0.0](#v100)
 * [v0.1.0](#v010)
+
+### v3.5.0
+
+#### Changes since v3.4.0
+
+* Updated Nginx (1.10.1) for a system container Edge  
+* New version of Wodby agent supporting containers upgrade
+* New version of Kubernetes (containers orchestration tool, part of Wodby infrastructure)
+
+Release date: `July 1st, 2016`
+
+#### Upgrade policy v3.5.0
+
+[Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
 
 ### v3.4.0
 
