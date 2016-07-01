@@ -25,8 +25,6 @@ This section contains information related to the bundle for [Drupal 8 websites](
 
 ### v3.1.1
 
-Minimal [server infrastructure version](../../versioning.md) v3.0.0 is required.
-
 #### Changes since v3.1.0
 
 * Persistent configuration files and data directory for [Redis container](../../containers/redis.md) 
