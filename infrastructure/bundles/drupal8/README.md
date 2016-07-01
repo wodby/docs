@@ -29,8 +29,8 @@ Minimal [server infrastructure version](../../versioning.md) v3.0.0 is required.
 
 #### Changes since v3.1.0
 
-* Persistent configuration files and data directory for [Redis](../../containers/redis.md) 
-* Persistent configuration files [MariaDB](../../containers/mariadb.md)
+* Persistent configuration files and data directory for [Redis container](../../containers/redis.md) 
+* Persistent configuration files for [MariaDB container](../../containers/mariadb.md)
 * Fixed an issue inside of [Nginx-php container](../../containers/nginx-php/README.md) that user IP detected incorrectly when the app is behind a reverse proxy
 
 Release date: `June 30th, 2016`
