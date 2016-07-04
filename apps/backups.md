@@ -2,15 +2,11 @@
 
 ## Manual and auto backups
 
-[`Instance page > Backups`]
-
 Wodby provides backups for database and files. The depth of backups by default is `7 days`. You can configure time when auto-backups run (in UTC). You can always restore from the selected backup in one click.
 
 To avoid extra load on your server, backups run successively per server. You can always run a manual backup of your app's database/files. Backups files are available to download in tar.gz archives.
 
 ## Mirroring 
-
-[`Instance page > Backups > Mirroring`]
 
 Wodby provides backup mirroring to different storages. Currently only AWS S3 supported. You can either connect your own AWS S3 bucket or use AWS S3 bucket provided by Wodby.
 
