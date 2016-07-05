@@ -2,16 +2,15 @@
 
 Infrastructure provided by Wodby is powered by docker containers. Light-weight containers based on <a href="http://alpinelinux.org" target="_blank">Alpine Linux</a>.
  
-* [Accessing containers](access.md)
+* [How to access containers](access.md)
 
 The following containers are currently available:
 
-* [Nginx-php container](nginx-php/README.md)
-    * [Nginx](nginx-php/nginx.md)
-    * [PHP](nginx-php/php.md)
-    * [Postfix](nginx-php/postfix.md)
-* [MariaDB](mariadb.md)
-* [Redis](redis.md)
-* [Memcached](memcached.md)
-* [Apache Solr](apache-solr.md)        
-* [Varnish](varnish.md)        
+| Service | Available containers | SSH access |
+| --------------------- | -------------------------------- | - |
+| Backend               | [Nginx-php](nginx-php/README.md) | ✓ |
+| Database              | [MariaDB](mariadb.md)            |   |
+| Cache storage         | [Redis](redis.md)                |   |
+| Search engine         | [Solr](apache-solr.md)           |   |
+| Database management   | [PhpMyAdmin](phpmyadmin.md)      |   |
+| Reverse caching proxy | [Varnish](varnish.md)            | &nbsp; |
