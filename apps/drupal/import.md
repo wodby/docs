@@ -41,7 +41,7 @@ Alternatively, you can import Drupal via separate archives for code, database an
 In case your Drupal website is huge it makes sense to import your database/files manually from the server. Follow these steps:
     
 1. Deploy your Drupal website from a git repository without upload database and files
-2. Once the app is deployed, go to `Containers > nginx-php` and copy SSH command
+2. Once the app is deployed, go to `Bundle > nginx-php` and copy SSH command
 3. Connect the container by SSH and navigate to Drupal docroot (normally it's `/srv/app`)
 4. Copy your database archive here using wget or scp, unpack the archive
 5. Import unpacked database dump using `drush sql-cli < my-db-dump.sql`

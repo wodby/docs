@@ -1,7 +1,5 @@
 # Using remote workspace via SSHFS
 
-[`Instance page > Codebase > Remote workspace`]
-
 ## Instructions for Linux
 
 * Install SSHFS and add your user to the new group
@@ -14,7 +12,7 @@ $ sudo gpasswd -a "$USER" fuse
 
 * Create a directory where you want to mount 
 
-* Navigate to `Containers > [Web container] (e.g. web-php)` of your app instance page and copy the `SSHFS command`
+* Navigate to `[Instance] > Bundle > [Backend]` and copy the `SSHFS command`
 
 * In the command replace token `%dir%` with the directory you has created
   
@@ -32,7 +30,7 @@ $ fusermount -u %dir%
 
 * Create a directory where you want to mount 
 
-* Navigate to `Containers > [Web container] (e.g. web-php)` of your app instance page and copy the `SSHFS command`
+* Navigate to `[Instance] > Bundle > [Backend]` and copy the `SSHFS command`
 
 * In the command replace token `%dir%` with the directory you has created
   

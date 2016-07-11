@@ -8,7 +8,7 @@ Currently, we don't have a native integration with AWS. But you still can connec
 
 3. Choose `Instances > Click "Launch Instance"`
 
-4. Choose an image (AMI) from the list of [supported OS](../supported-os.md)
+4. Choose an image (AMI) from the list of [supported OS](../supported-os.md). We recommend to choose Debian 8 (search for it under AWS Marketplace tab).
 
 5. Click `6. Configure Security Group` in top vertical tabs
 

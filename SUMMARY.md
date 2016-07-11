@@ -16,6 +16,7 @@
     * [Remote workspace](apps/remote-workspace/README.md)
         * [via SFTP](apps/remote-workspace/sftp.md)
         * [via SSHFS](apps/remote-workspace/sshfs.md)
+    * [Application instance](apps/instance.md)
     * [Backups](apps/backups.md)
     * [Domains](apps/domains.md)
     * [Maintenance mode](apps/maintenance-mode.md)       

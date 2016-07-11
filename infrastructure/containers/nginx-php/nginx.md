@@ -14,7 +14,7 @@ Nginx is a part of [nginx-php container](README.md).
 
 ## Version
 
-The current version of Nginx can be found on `Instance > Containers > Backend` page.
+The current version of Nginx can be found on `[Instance] > Bundle > Backend` page.
 
 ## Logs
 

@@ -8,7 +8,7 @@ Includes Drupal 8 core and <a href="https://www.drupal.org/project/redis" target
 
 ## Drupal 7
 
-Includes Drupal 7 core and <a href="https://www.drupal.org/project/redis" target="_blank">redis module</a>. Integration with Redis (`Instance page > Cache > Settings`) enabled by default.
+Includes Drupal 7 core and <a href="https://www.drupal.org/project/redis" target="_blank">redis module</a>. Integration with Redis (`[Instance] > Cache > Settings`) enabled by default.
 
 ## Drupal 6
 

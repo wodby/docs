@@ -15,7 +15,7 @@ PHP and PHP-fpm are parts of [nginx-php container](README.md).
 
 ## Version
 
-The current version of PHP can be found on `Instance > Containers > Backend` page.
+The current version of PHP can be found on `[Instance] > Bundle > Backend` page.
 
 ## Logs
 

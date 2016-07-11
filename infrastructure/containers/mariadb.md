@@ -40,7 +40,7 @@ $ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
 
 ## Version
 
-The current version of MariaDB can be found on `Instance > Containers > Database` page.
+The current version of MariaDB can be found on `[Instance] > Bundle > Database` page.
 
 ## Configuration files
 

@@ -4,7 +4,7 @@
 
 ## Access
 
-You can access this container by SSH, credentials could be found on `Instance page > Containers > nginx-php` page.
+You can access this container by SSH, credentials could be found on `[Instance] > Bundle > nginx-php` page.
 
 ## Content
 

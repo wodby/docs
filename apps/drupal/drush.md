@@ -12,7 +12,7 @@ $ drush sql-cli
  
 ## Drush aliases 
 
-Wodby provides integration with Drush for Drupal apps. Navigate `Instance page > Settings > Drush` and download the aliases file. 
+Wodby provides integration with Drush for Drupal apps. Navigate `[Instance] > Settings > Drush` and download the aliases file. 
 
 Download and copy drush aliases into `~/.drush` or your local drush aliases directory. To use them navigate into your project repository directory and run (replace [tokens] with the real values):
 

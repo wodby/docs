@@ -5,20 +5,19 @@
 * [HTTPS (SSL via Let's Encrypt)](#https-ssl-via-lets-encrypt)
 * [WWW redirects](#www-redirects)
 * [Basic auth](#basic-auth)
+* [Indexation](#indexation)
 
 ## Default .wod.by domain name
 
 Wodby provides a short `*.wod.by` domain name to every application, it depends on the name of the application and the name of the organization. It looks like this: `[instance].[app name].[organization name].wod.by`
 
-For exact domain name look at the "Domain" tab of the application instance page.
-
-> Dev, staging instances and all instances accessible by technical `*.wod.by` domains not indexed by search engines (header X-Robots-Tag)  
+For exact domain name look at the "Domain" tab of the instance page.  
 
 ## Attaching a custom domain name
 
 You can attach your custom domain name by following these steps:
 
-1. Go to `Domains > Add` on your application instance page
+1. Go to `Domains > Add` on your instance page
 
 2. Add your domain
 
@@ -46,4 +45,8 @@ If you want your www subdomain to automatically redirect to non-www domain or vi
 
 ## Basic auth
 
-You can enable basic auth for all domains of an app instance from `Instance page > Domains > Basic auth`
+You can enable basic auth for all domains of an app instance from `[Instance] > Domains > Basic auth`
+
+## Indexation
+
+Dev, staging instances and all instances accessible by technical `*.wod.by` domains not indexed by search engines (header X-Robots-Tag)

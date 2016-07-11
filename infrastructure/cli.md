@@ -10,13 +10,13 @@ Show currently running containers:
 $ docker ps
 ```
 
-Show running containers filtered by instance (namespace). You can find <INSTANCE_NAMESPACE> on the `Settings > Info` tab of your instance page. 
+Show running containers filtered by instance (namespace). You can find <INSTANCE_NAMESPACE> on the `[Instance] > Settings > Info` tab. 
 
 ```bash
 $ docker ps | grep <INSTANCE_NAMESPACE>
 ```
 
-Show running containers filtered by app. You can find <APP_UUID> on the `Settings > Info` tab of your instance page.
+Show running containers filtered by app. You can find <APP_UUID> on the `[Instance] > Settings > Info` tab.
 
 ```bash
 $ docker ps | grep <APP_UUID>

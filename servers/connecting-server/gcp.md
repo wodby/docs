@@ -14,7 +14,7 @@ Currently, we don't have a native integration with GCP. But you still can connec
 5. Set VM instance attributes and submit `Create` button
 <hr>![](_images/gcp-create-instance.png)<hr>
 
-6. Once it's created, navigate to instance page
+6. Once it's created, navigate to the instance page
 <hr>![](_images/gcp-instance-page.png)<hr>
 
 7. Now connect the server (`Servers > Connect > GCP`) and follow the instructions. You can obtain SSH access to your VM as shown below

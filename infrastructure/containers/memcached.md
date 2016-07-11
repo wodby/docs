@@ -14,7 +14,7 @@ If you want to access the container itself please refer [to this article](access
 
 ## Version
 
-The current version of Memcached can be found on `Instance > Containers > Cache storage` page
+The current version of Memcached can be found on `[Instance] > Bundle > Cache storage` page
 
 ## Integration with Drupal
 

@@ -18,11 +18,11 @@ This container doesn't expose public ports. If you want to access the container 
 
 ### Solr admin panel
 
-URL: You can find URL and login/password on `Instance > Containers > Search engine` page.
+URL: You can find URL and login/password on `[Instance] > Bundle > Search engine` page.
 
 ## Version
 
-The current version of Apache Solr can be found on `Instance > Containers > Search engine` page.
+The current version of Apache Solr can be found on `[Instance] > Bundle > Search engine` page.
 
 ## Logs
 
@@ -63,11 +63,11 @@ synonyms.txt
 3. In expanded settings fieldset specify:
 ```
 HTTP protocol: http
-Solr host: <Copy Internal hostname from "Instance > Containers > Search engine">
+Solr host: <Copy Internal hostname from "[Instance] > Bundle > Search engine">
 Solr port: 8983
 Solr path: /solr/wodby
 Basic authentication:
   Username: admin
-  Password: <Copy password from "Instance > Containers > Search engine">
+  Password: <Copy password from "[Instance] > Bundle > Search engine">
 ```
 

@@ -3,7 +3,7 @@
 * [Redirect from one domain to another](#redirect-from-one-domain-to-another)
 * [Redirect from multiple domains](#redirect-from-multiple-domains)
 * [Redirect from HTTP to HTTPS](#redirect-from-http-to-https)
-* [Redirect requests for non-existing static files to Drupal](#redirect-requests-for-non-existing-static-files-to-drupal)
+* [Redirect requests for non-existing static files](#redirect-requests-for-non-existing-static-files)
     * [Example: XML files](#example-xml-files)
 
 If you need to make a redirect from one domain to another you can do it by customizing configuration files of [nginx](../../infrastructure/containers/nginx-php/nginx.md) or by adding the snippets below to your `settings.php` file.
