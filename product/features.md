@@ -31,7 +31,7 @@ More bundles are coming soon.
 
 ## Instance management
 
-Do you need a new copy (development, staging) of your app? With Wodby you can [deploy new copies of your app](../apps/instance.md) to any server in a few clicks. Copies have a complete environment consistency because they use the same [bundle](../infrastructure/bundles/README.md).  
+Do you need a new copy (development, staging) of your app? With Wodby you can [deploy new copies of your app](../apps/instances.md) to any server in a few clicks. Copies have a complete environment consistency because they use the same [bundle](../infrastructure/bundles/README.md).  
 
 ## Bring your own server and git
 

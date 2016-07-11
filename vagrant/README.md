@@ -27,3 +27,5 @@ For Linux:
 ```bash
 $ mkdir ./wodby && sudo mount [VAGRANT_IP]:/srv/wodby/usr ./wodby
 ```
+
+On some linux systems you also might need to install `nfs-common` package.
