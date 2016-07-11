@@ -2,23 +2,23 @@
 
 Deployment of the new applications consist of 3 steps:
 
-* [Step 1: select server](#step-1-select-server)
-* [Step 2: infrastructure configuration](#step-2-infrastructure-configuration)
-* [Step 3: choose data source](#step-3-choose-data-source)
+* [Step 1: Select a server](#step-1-select-a-server)
+* [Step 2: Choose a bundle](#step-2-choose-a-bundle)
+* [Step 3: Choose data source](#step-3-choose-data-source)
     * [Use code from the selected git repo](#use-code-from-the-selected-git-repo)
     * [Use pre-configured preset by Wodby](#use-pre-configured-preset)
     * [Import from separate archives](#import-from-separate-archives)
     * [Application specific import](#application-specific-import)
 
-## Step 1: Select Server
+## Step 1: Select a server
 
 Select one of the [connected servers](../servers/connecting-server/README.md) for deployment. The [infrastructure](../infrastructure/README.md) for the application will be deployed to this server.
  
-## Step 2: Infrastructure Configuration
+## Step 2: Choose a bundle
 
-Choose [**bundle**](../infrastructure/bundles/README.md) for deployment (e.g. Drupal or WordPress). 
+Choose a [**bundle**](../infrastructure/bundles/README.md) for deployment. 
 
-Additionally, check optional services such as a cache storage, database management, search engine and reverse caching proxy. Configure which containers you'd like to use for each of the services.
+Additionally, check optional containers for deployment such as a cache storage, database management, search engine and reverse caching proxy. Some containers, such as [Nginx + PHP container](../infrastructure/containers/nginx-php/README.md), can be switched: using PHP 5.6 or PHP 7.
  
 ## Step 3: Specify Data Sources
 
