@@ -2,11 +2,11 @@
 
 ## Overview
 
-### Before v3.3.0
+### Before 3.3.0
 
 Wodby infrastructure includes <a href="https://www.opensmtpd.org/" target="_blank">OpenSMTPD</a> per each server. Every application instance has <a href="http://msmtp.sourceforge.net/">msmtp</a> client installed contacting OpenSMTPD server.
  
-### Since <a href="versioning.html#v330">v3.3.0</a>
+### Since <a href="versioning.html#330">3.3.0</a>
 
 Every web container has postfix server. Configuration files located in `/srv/conf/postfix`. 
 

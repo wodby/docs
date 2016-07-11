@@ -15,17 +15,17 @@ This section contains information related to the bundle for [Drupal 8 websites](
 
 ## Changelog
 
-* [v3.1.1](#v311)
-    * [Changes since v3.0.0](#changes-since-v310)
-    * [Upgrade policy](#upgrade-policy-v311)
-* [v3.1.0](#v310)
-    * [Changes since v3.0.0](#changes-since-v300)
-    * [Upgrade policy](#upgrade-policy-v310)
-* [v3.0.0](#v300)
+* [3.1.1](#311)
+    * [Changes since 3.0.0](#changes-since-310)
+    * [Upgrade policy](#upgrade-policy-311)
+* [3.1.0](#310)
+    * [Changes since 3.0.0](#changes-since-300)
+    * [Upgrade policy](#upgrade-policy-310)
+* [3.0.0](#300)
 
-### v3.1.1
+### 3.1.1
 
-#### Changes since v3.1.0
+#### Changes since 3.1.0
 
 * Persistent configuration files and data directory for [Redis container](../../containers/redis.md) 
 * Persistent configuration files for [MariaDB container](../../containers/mariadb.md)
@@ -33,15 +33,15 @@ This section contains information related to the bundle for [Drupal 8 websites](
 
 Release date: `June 30th, 2016`
 
-#### Upgrade policy v3.1.1
+#### Upgrade policy 3.1.1
 
 [Contact our support team](../../../product/support.md) to schedule the upgrade. Instance downtime ~5 minutes.
 
-### v3.1.0
+### 3.1.0
 
-Minimal [server infrastructure version](../../versioning.md) v3.0.0 is required.
+Minimal [server infrastructure version](../../versioning.md) 3.0.0 is required.
 
-#### Changes since v3.0.0
+#### Changes since 3.0.0
 
 * [Nginx](../../containers/nginx-php/nginx.md) upgraded to 1.10.1 
 * [Postfix](../../containers/nginx-php/postfix.md) upgraded to 3.1.1
@@ -51,10 +51,10 @@ Minimal [server infrastructure version](../../versioning.md) v3.0.0 is required.
 
 Release date: `June 24th, 2016`
 
-#### Upgrade policy v3.1.0
+#### Upgrade policy 3.1.0
 
 [Contact our support team](../../../product/support.md) to schedule the upgrade. Instance downtime ~10 minutes.
 
-### v3.0.0
+### 3.0.0
 
 Initial bundle version.

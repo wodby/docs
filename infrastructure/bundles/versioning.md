@@ -8,7 +8,7 @@ The latest version of bundles:
 
 | Bundle | Current stable version |
 | --------- | ----------------------------------- |
-| Drupal 8  | <a href="drupal8#v311">v3.1.1</a>   |
-| Drupal 7  | <a href="drupal7#v311">v3.1.1</a>   |
-| Drupal 6  | <a href="drupal6#v311">v3.1.1</a>   |
-| WordPress | <a href="wordpress#v311">v3.1.1</a> |
+| Drupal 8  | <a href="drupal8#311">3.1.1</a>   |
+| Drupal 7  | <a href="drupal7#311">3.1.1</a>   |
+| Drupal 6  | <a href="drupal6#311">3.1.1</a>   |
+| WordPress | <a href="wordpress#311">3.1.1</a> |

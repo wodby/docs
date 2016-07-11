@@ -8,34 +8,34 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Versions
 
-Stable mainline versions: v3.x.x<br />
-Unsupported legacy versions: v0.1.0, v1.0.0, v2.0.0
+Stable mainline versions: 3.x.x<br />
+Unsupported legacy versions: 0.1.0, 1.0.0, 2.0.0
  
 ## Changelog
 
-* [v3.5.0](#v350)
-    * [Changes since v3.4.0](#changes-since-v340)
-    * [Upgrade policy](#upgrade-policy-v350)
-* [v3.4.0](#v340)
-    * [Changes since v3.3.0](#changes-since-v330)
-    * [Upgrade policy](#upgrade-policy-v340)
-* [v3.3.0](#v330)
-    * [Changes since v3.2.0](#changes-since-v320)
-    * [Upgrade policy](#upgrade-policy-v330) 
-* [v3.2.0](#v320)
-    * [Changes since v3.1.0](#changes-since-v310)
-    * [Upgrade policy](#upgrade-policy-v320)
-* [v3.1.0](#v310)
-    * [Changes since v3.0.0](#changes-since-v300)
-    * [Upgrade policy](#upgrade-policy-v310)
-* [v3.0.0](#v300)
-* [v2.0.0](#v200)
-* [v1.0.0](#v100)
-* [v0.1.0](#v010)
+* [3.5.0](#350)
+    * [Changes since 3.4.0](#changes-since-340)
+    * [Upgrade policy](#upgrade-policy-350)
+* [3.4.0](#340)
+    * [Changes since 3.3.0](#changes-since-330)
+    * [Upgrade policy](#upgrade-policy-340)
+* [3.3.0](#330)
+    * [Changes since 3.2.0](#changes-since-320)
+    * [Upgrade policy](#upgrade-policy-330) 
+* [3.2.0](#320)
+    * [Changes since 3.1.0](#changes-since-310)
+    * [Upgrade policy](#upgrade-policy-320)
+* [3.1.0](#310)
+    * [Changes since 3.0.0](#changes-since-300)
+    * [Upgrade policy](#upgrade-policy-310)
+* [3.0.0](#300)
+* [2.0.0](#200)
+* [1.0.0](#100)
+* [0.1.0](#010)
 
-### v3.5.0
+### 3.5.0
 
-#### Changes since v3.4.0
+#### Changes since 3.4.0
 
 * Updated Nginx (1.10.1) for a system container Edge  
 * New version of Wodby agent supporting containers upgrade
@@ -43,13 +43,13 @@ Unsupported legacy versions: v0.1.0, v1.0.0, v2.0.0
 
 Release date: `July 1st, 2016`
 
-#### Upgrade policy v3.5.0
+#### Upgrade policy 3.5.0
 
 [Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
 
-### v3.4.0
+### 3.4.0
 
-#### Changes since v3.3.0
+#### Changes since 3.3.0
 
 * includeSubdomains option removed from [HSTS header](hsts.md)
 * Now `X-Robots-Tag` header added always (not only for 20x, 30x response codes)
@@ -60,13 +60,13 @@ Release date: `July 1st, 2016`
 
 Release date: `June 16th, 2016`
 
-#### Upgrade policy v3.4.0
+#### Upgrade policy 3.4.0
 
 [Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
 
-### v3.3.0
+### 3.3.0
 
-#### Changes since v3.2.0
+#### Changes since 3.2.0
 
 * <a href="../apps/drupal/settings.html#base-url">$base_url orchestration for Drupal</a>
 * <a href="../apps/drupal/settings.html#trusted-hosts-patterns">Auto generation of trusted host patterns for Drupal 8</a>
@@ -75,46 +75,46 @@ Release date: `June 16th, 2016`
 * [msmtp + opensmtpd replaced with postfix](mta.md)
 * Workaround for Drupal `sites/default` auto permissions change. This caused problems when settings.php file was changed
 
-#### Upgrade policy v3.3.0
+#### Upgrade policy 3.3.0
 
 [Contact our support team](../product/support.md) to schedule the upgrade. Downtime 10-60 minutes depending on the app type.
 
-### v3.2.0
+### 3.2.0
 
-#### Changes since v3.1.0
+#### Changes since 3.1.0
 
 * <a href="../apps/domains.html#www-redirects">WWW redirect actions</a> for domains
 * <a href="../apps/domains.html#basic-auth">Basic auth</a> configuration
 * [Maintenance mode](../apps/maintenance-mode.md)
 * Dev, staging instances and all instances accessible by technical `*.wod.by` domains not indexed by search engines (header X-Robots-Tag)  
 
-#### Upgrade policy v3.2.0
+#### Upgrade policy 3.2.0
 
 [Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
 
-### v3.1.0
+### 3.1.0
 
-#### Changes since v3.0.0
+#### Changes since 3.0.0
 
 * Enable <a href="../apps/domains.html#https-ssl-via-lets-encrypt">HTTPS</a> for domains (SSL certificates via Let's Encrypt) 
 * <a href="../apps/backups.html#mirroring">Backup mirroring</a> features added.
 
-#### Upgrade policy v3.0.0
+#### Upgrade policy 3.0.0
 
 [Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~1 hour.
 
-### v3.0.0
+### 3.0.0
 
 The latest stable version with completely reworked containers structure.
 
-### v2.0.0
+### 2.0.0
 
 In this version we've moved git to the docroot and made major structural changes.
 
-### v1.0.0
+### 1.0.0
 
 Production-ready version with lots of improvements.
 
-### v0.1.0
+### 0.1.0
 
 The first public version of our infrastructure.
