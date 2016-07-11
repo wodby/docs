@@ -10,6 +10,6 @@ There are four types of instances: local, dev, staging and production. The local
 
 The difference between the dev, staging and prod are:
  
-* [Indexation rules for search robots](domains.md): do not index any domains (including custom) for dev and staging
+* <a href="domains.html#indexation">Indexation rules for search robots</a>: do not index any domains (including custom) for dev and staging
 * Error reporting level: display all errors on dev and none on staging and prod 
  
