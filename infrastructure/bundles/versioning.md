@@ -4,9 +4,11 @@ Every application instance has its own [bundle](README.md) version. You can find
  
 The bundle has a requirement for the minimal [version of infrastructure](../versioning.md) of the server where this bundle is deployed.
 
-We will notify you about new bundles versions.
+The latest version of bundles:
 
-* <a href="drupal8#changelog">Drupal 8 bundle changelog</a>
-* <a href="drupal7#changelog">Drupal 7 bundle changelog</a>
-* <a href="drupal6#changelog">Drupal 6 bundle changelog</a>
-* <a href="wordpress#changelog">WordPress bundle changelog</a>
+| Bundle | Current stable version |
+| --------- | ----------------------------------- |
+| Drupal 8  | <a href="drupal8#v311">v3.1.1</a>   |
+| Drupal 7  | <a href="drupal7#v311">v3.1.1</a>   |
+| Drupal 6  | <a href="drupal6#v311">v3.1.1</a>   |
+| WordPress | <a href="wordpress#v311">v3.1.1</a> |
