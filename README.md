@@ -35,7 +35,7 @@ After deploying an app:
 
 Wodby as a product: 
 
-* [Key features](features.md)
-* [Billing and payment](billing-payment.md)
-* [Getting support](support.md)
-* [Our product roadmap](roadmap.md)
+* [Key features](product/features.md)
+* [Billing and payment](product/billing-payment.md)
+* [Getting support](product/support.md)
+* [Our product roadmap](product/roadmap.md)
