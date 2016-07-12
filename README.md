@@ -31,7 +31,7 @@ After deploying an app:
 * Configure [post-deployment scenario](deployment/post-deployment-scripts.md)
 * Configure [backups](apps/backups.md)
 * [Add your SSH key](keys/README.md) to access the containers
-* Try [remote workspace](remote-workspace/README.md) 
+* Try [remote workspace](apps/remote-workspace/README.md) 
 
 Wodby as a product: 
 
