@@ -4,6 +4,14 @@ Welcome to Wodby documentation. This site will help you to understand how to dep
 
 * **Learn how to [deploy your first application](apps/deploy.md)**
 
+Quick start:
+
+* [Bring your server](servers/connecting-server/README.md) to Wodby
+* [Connect your git repository](git/connecting-git/README.md)
+* [Deploy your first application](apps/deploy.md)
+* [Bring your team](team/README.md) to Wodby
+* [Connect your local machine via Vagrant](vagrant/README.md)
+
 Basic concepts:
 
 * [Applications](apps/README.md) 
@@ -15,14 +23,6 @@ Infrastructure provided by Wodby:
 * [Overview](infrastructure/README.md) 
 * [Bundles](infrastructure/bundles/README.md)
 * [Containers](infrastructure/containers/README.md) 
-
-Quick start:
-
-* [Bring your server](servers/connecting-server/README.md) to Wodby
-* [Connect your git repository](git/connecting-git/README.md)
-* [Deploy your first application](apps/deploy.md)
-* [Bring your team](team/README.md) to Wodby
-* [Connect your local machine via Vagrant](vagrant/README.md)
 
 After deploying an app:
 
