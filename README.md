@@ -2,17 +2,40 @@
 
 Welcome to Wodby documentation. This site will help you to understand how to deploy your [apps](/apps/README.md) using cloud infrastructure provided by Wodby. 
 
-* **Learn how to [deploy your first app](apps/deploy.md)**
+* **Learn how to [deploy your first application](apps/deploy.md)**
 
-Also:
+Basic concepts:
 
-* [Bring your team to Wodby](team/README.md)
+* [Applications](apps/README.md) 
+* [Servers](servers/README.md) 
+* [Git repositories](git/README.md)
+
+Infrastructure provided by Wodby:
+
+* [Overview](infrastructure/README.md) 
+* [Bundles](infrastructure/bundles/README.md)
+* [Containers](infrastructure/containers/README.md) 
+
+Quick start:
+
+* [Bring your server](servers/connecting-server/README.md) to Wodby
 * [Connect your git repository](git/connecting-git/README.md)
-* [Bring your server to Wodby](servers/connecting-server/README.md)
-* [Configure deployment scenario](deployment/post-deployment-scripts.md)
-* [Learn more about cloud infrastructure provided by Wodby](infrastructure/README.md) 
-* [Learn more about bundles](infrastructure/bundles/README.md) 
-* [Learn more about containers](infrastructure/containers/README.md) 
-* [Add your SSH key](keys/README.md) to access the containers
+* [Deploy your first application](apps/deploy.md)
+* [Bring your team](team/README.md) to Wodby
 * [Connect your local machine via Vagrant](vagrant/README.md)
-* Learn more about [Wodby as a product](product/README.md)
+
+After deploying an app:
+
+* Deploy new [instances](apps/instances.md)
+* Manage your [domains](apps/domains.md)
+* Configure [post-deployment scenario](deployment/post-deployment-scripts.md)
+* Configure [backups](apps/backups.md)
+* [Add your SSH key](keys/README.md) to access the containers
+* Try [remote workspace](remote-workspace/README.md) 
+
+Wodby as a product: 
+
+* [Key features](features.md)
+* [Billing and payment](billing-payment.md)
+* [Getting support](support.md)
+* [Our product roadmap](roadmap.md)
