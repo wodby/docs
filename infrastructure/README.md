@@ -1,18 +1,18 @@
 # Infrastructure
 
-Wodby infrastructure is mainly based on two open-source projects:
+When you [connect a server](../servers/connecting-server/README.md) to Wodby we deploy [container-based](containers/README.md) infrastructure to this server. This infrastructure will further allow you to [deploy apps](../apps/deploy.md) by installing their [bundles](bundles/README.md). 
 
-* Container virtualization <a href="https://docker.com" target="_blank">Docker</a> 
-* Orchestration system <a href="http://kubernetes.io/" target="_blank">Kubernetes</a>
+The infrastructure deployed to your server has a [version](versioning.md). We regularly update the infrastructure we provide by releasing [newer versions](versioning.md), such updates can include security updates and performance improvements. 
 
-We actively support these two amazing projects and OSS in general.
+Basic concepts:
+
+* [Infrastructure versioning](versioning.md)
+* [Bundles](bundles/README.md)
+* [Containers](containers/README.md)
 
 Further reading:
 
-* [Bundles](bundles/README.md)
-* [Containers](containers/README.md)
-* [Memory consumption](memory-consumption.md)
-* [Versioning](versioning.md)
+* [Infrastructure memory consumption](memory-consumption.md)
 * [Cron](cron.md)
 * [Schema](schema.md)
 * [Mail Transfer Agent (SMTP)](mta.md)

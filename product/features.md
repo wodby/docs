@@ -16,16 +16,16 @@ The key features of the Wodby platform:
 
 ## Ready-to-run infrastructure
 
-Wodby provides pre-configured [bundles](../infrastructure/bundles/README.md) for [Drupal](../infrastructure/bundles/drupal8/README.md) and [WordPress](../infrastructure/bundles/wordpress/README.md). All bundles are already optimized and need almost no additional configuration. Typical bundle looks like this:
+Wodby provides pre-configured [bundles](../infrastructure/bundles/README.md) for [Drupal](../apps/drupal/README.md) and [WordPress](../apps/wordpress/README.md). All bundles are already optimized and need almost no additional configuration. Typical bundle looks like this:
   
 | Service | Available containers | Mandatory |
 | --------------------- | ---------------------------------------------- | - |
-| Backend               | [Nginx-php](../../containers/nginx-php/README.md) | ✓ |
-| Database              | [MariaDB](../../containers/mariadb.md)            | ✓ |
-| Cache storage         | [Redis](../../containers/redis.md)                |   |
-| Search engine         | [Solr](../../containers/apache-solr.md)           |   |
-| Database management   | [PhpMyAdmin](../../containers/phpmyadmin.md)      |   |
-| Reverse caching proxy | [Varnish](../../containers/varnish.md)            | &nbsp; |
+| Backend               | [Nginx-php](../infrastructure/containers/nginx-php/README.md) | ✓ |
+| Database              | [MariaDB](../infrastructure/containers/mariadb.md)            | ✓ |
+| Cache storage         | [Redis](../infrastructure/containers/redis.md)                |   |
+| Search engine         | [Solr](../infrastructure/containers/apache-solr.md)           |   |
+| Database management   | [PhpMyAdmin](../infrastructure/containers/phpmyadmin.md)      |   |
+| Reverse caching proxy | [Varnish](../infrastructure/containers/varnish.md)            | &nbsp; |
 
 More bundles are coming soon.
 
@@ -39,7 +39,7 @@ Wodby works with any hosting providers. Simply [connect your server](../servers/
 
 ## Regular updates 
 
-We constantly improve the infrastructure we provide and regularly release [new versions of infrastructure](../infrastructure/versioning.md) and [bundles](../infrastructure/bundles/versioning.md). New versions include the latest improvements and security updates of components. 
+We constantly improve the infrastructure we provide and regularly release [new versions of infrastructure](../infrastructure/versioning.md) and [bundles](../infrastructure/bundles/README.md). New versions include the latest improvements and security updates of components. 
 
 ## Integration with Vagrant
 

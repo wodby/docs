@@ -12,7 +12,7 @@ Learn how to [deploy a new app](deploy.md). Wodby support the following list of 
 
 Further reading once the application is deployed:
 
-* [Application instances](instance.md)
+* [Application instances](instances.md)
 * [Domains](domains.md)
 * [Backups](backups.md)
 * [Remote workspace](remote-workspace/README.md)

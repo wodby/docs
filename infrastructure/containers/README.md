@@ -1,6 +1,6 @@
 # Containers
 
-Infrastructure provided by Wodby is powered by docker containers. Light-weight containers based on <a href="http://alpinelinux.org" target="_blank">Alpine Linux</a>.
+Infrastructure provided by Wodby is powered by docker containers. Our light-weight containers are based on <a href="http://alpinelinux.org" target="_blank">Alpine Linux</a>.
  
 * [How to access containers](access.md)
 
