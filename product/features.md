@@ -2,7 +2,7 @@
 
 The key features of the Wodby platform:
 
-* [Ready-to-run optimized infrastructure](#ready-to-run-optimized-infrastructure)
+* [Ready-to-run infrastructure](#ready-to-run-infrastructure)
 * [Instance management](#instance-management)
 * [Bring your own server and git](#bring-your-own-server-and-git)
 * [Regular updates](#regular-updates)
