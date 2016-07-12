@@ -2,7 +2,7 @@
 
 This section contains information related to [the bundle](README.md) for [WordPress websites](../../apps/wordpress/README.md).
     
-## Services
+## Containers
 
 | Service | Available containers | Mandatory |
 | --------------------- | ---------------------------------------------- | - |

@@ -2,7 +2,7 @@
 
 This section contains information related to [the bundle](README.md) for [Drupal 6 websites](../../apps/drupal/README.md). 
 
-## Services
+## Containers
 
 | Service | Available containers | Mandatory |
 | --------------------- | ---------------------------------------------- | - |
