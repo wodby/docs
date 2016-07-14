@@ -10,7 +10,6 @@ Quick start:
 * [Connect your git repository](git/connecting-git/README.md)
 * [Deploy your first application](apps/deploy.md)
 * [Bring your team](team/README.md) to Wodby
-* [Connect your local machine via Vagrant](vagrant/README.md)
 
 Basic concepts:
 
@@ -23,6 +22,11 @@ Infrastructure provided by Wodby:
 * [Overview](infrastructure/README.md) 
 * [Bundles](infrastructure/bundles/README.md)
 * [Containers](infrastructure/containers/README.md) 
+
+Local environment:
+
+* <a href="http://docker4drupal.org/" target="_blank">Spin up your local environment with Docker native app</a>
+* [Connect your local machine via Vagrant](vagrant/README.md)
 
 After deploying an app:
 

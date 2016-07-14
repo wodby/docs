@@ -15,13 +15,29 @@ This section contains information related to [the bundle](README.md) for [Drupal
 
 ## Changelog
 
+* [3.2.0](#320)
+    * [Changes since 3.1.1](#changes-since-311)
+    * [Upgrade policy](#upgrade-policy-320)
 * [3.1.1](#311)
-    * [Changes since 3.0.0](#changes-since-310)
+    * [Changes since 3.1.0](#changes-since-310)
     * [Upgrade policy](#upgrade-policy-311)
 * [3.1.0](#310)
     * [Changes since 3.0.0](#changes-since-300)
     * [Upgrade policy](#upgrade-policy-310)
 * [3.0.0](#300)
+
+### 3.2.0
+
+#### Changes since 3.1.1
+
+* Added a new tool for [Sass compilation](../../apps/sass.md)
+* Fixed a few bugs in [nginx](../containers/nginx-php/nginx.md) config
+
+Release date: `July 14th, 2016`
+
+#### Upgrade policy 3.2.0
+
+[Contact our support team](../../product/support.md) to schedule the upgrade. Instance downtime ~5 minutes.
 
 ### 3.1.1
 
