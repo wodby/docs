@@ -15,6 +15,9 @@ This section contains information related to [the bundle](README.md) for [Drupal
 
 ## Changelog
 
+* [3.2.1](#321)
+    * [Changes since 3.2.0](#changes-since-320)
+    * [Upgrade policy](#upgrade-policy-321)
 * [3.2.0](#320)
     * [Changes since 3.1.1](#changes-since-311)
     * [Upgrade policy](#upgrade-policy-320)
@@ -25,6 +28,20 @@ This section contains information related to [the bundle](README.md) for [Drupal
     * [Changes since 3.0.0](#changes-since-300)
     * [Upgrade policy](#upgrade-policy-310)
 * [3.0.0](#300)
+
+### 3.2.1
+
+#### Changes since 3.2.0
+
+* Updated containers' base OS Alpine Linux 3.4.2
+* Fixed <a href="https://httpoxy.org/#mitigate-nginx" target="_blank">HTTPoxy vulnerability</a>
+* New PHP version 5.6.24 with security updates
+
+Release date: `July 27th, 2016`
+
+#### Upgrade policy 3.2.1
+
+[Contact our support team](../../product/support.md) to schedule the upgrade. Instance downtime ~5 minutes.
 
 ### 3.2.0
 
