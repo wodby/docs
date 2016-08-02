@@ -2,33 +2,17 @@
 
 ## In progress
 
-* Instances management
-* Auto-update of bundles and servers infrastructure
+* Deployment to cluster (Google Cloud Platform, AWS, ...)
+* Custom [bundles](../infrastructure/bundles/README.md) constructor
 * Containers resources limitation
-* Integration with CloudFlare
-
-## Planned Q3 (TBC)
- 
 * Custom SSL certificates
-* Windows support for Vagrant
 * Crontab customization via the dashboard
-* Post-deployment scripts via the dashboard
-* Integrations: Linode, AWS, GitHub, BitBucket
-* NodeJS apps
-* Headless Drupal
-* New pricing plan
+* Logs streaming
 
 ## Planned Q4 (TBC)
 
-* Integration entity
-* Clusters support
-* Containers constructor - beta
+* Node monitoring
+* Native integrations: Linode/AWS/GCP/Azure/GitHub/BitBucket
 * Public API
-* Configs customization via the dashboard
-* Logs streaming 
-* Tags for apps
 * Notifications
-* Lightweight golang Wodby agent
 * Slack integration
-* Nodes monitoring
-* Native integration with Linode/AWS/GCP/Azure/Rackspace
