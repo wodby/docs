@@ -1,6 +1,6 @@
 # Connecting linode
 
-Currently, we don't have a native integration with AWS. But you still can connect your server by following these steps: 
+Currently, we don't have a native integration with Linode. But you still can connect your server by following these steps: 
 
 1. Login to <a href="https://manager.linode.com/" target="_blank">Linode manager</a> 
 
