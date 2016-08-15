@@ -2,14 +2,8 @@
 
 ## Overview
 
-### Before 3.3.0
-
-Wodby infrastructure includes <a href="https://www.opensmtpd.org/" target="_blank">OpenSMTPD</a> per each server. Every application instance has <a href="http://msmtp.sourceforge.net/">msmtp</a> client installed contacting OpenSMTPD server.
+By default [bundles](bundles/README.md) include [OpenSMTPD container](containers/opensmtpd.md). Additionally, you can catch all your emails by deploying optional [Mailhog container](containers/mailchog.md). 
  
-### Since <a href="versioning.html#330">3.3.0</a>
-
-Every web container has postfix server. Configuration files located in `/srv/conf/postfix`. 
-
 ## Guaranteed delivery of transaction emails
 
 To make sure your transaction emails will be guaranteed delivered we recommend to use Transaction email services such as:

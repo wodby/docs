@@ -55,6 +55,8 @@
             * [Postfix](infrastructure/containers/nginx-php/postfix.md)
         * [MariaDB](infrastructure/containers/mariadb.md)
         * [Redis](infrastructure/containers/redis.md)
+        * [OpenSMTPD](infrastructure/containers/opensmtpd.md)
+        * [Mailhog](infrastructure/containers/mailhog.md)
         * [Memcached](infrastructure/containers/memcached.md)
         * [Apache Solr](infrastructure/containers/apache-solr.md)
         * [PhpMyAdmin](infrastructure/containers/phpmyadmin.md)

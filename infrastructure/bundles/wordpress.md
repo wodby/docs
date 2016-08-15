@@ -9,6 +9,8 @@ This section contains information related to [the bundle](README.md) for [WordPr
 | Backend               | [Nginx-php](../containers/nginx-php/README.md) | ✓ |
 | Database              | [MariaDB](../containers/mariadb.md)            | ✓ |
 | Cache storage         | [Redis](../containers/redis.md)                |   |
+| Mail server           | [OpenSMTPD](../containers/opensmtpd.md)        |   |
+| Mail catcher          | [Mailhog](../containers/mailhog.md)            |   |
 | Search engine         | [Solr](../containers/apache-solr.md)           |   |
 | Database management   | [PhpMyAdmin](../containers/phpmyadmin.md)      |   |
 | Reverse caching proxy | [Varnish](../containers/varnish.md)            | &nbsp; |
@@ -28,6 +30,19 @@ This section contains information related to [the bundle](README.md) for [WordPr
     * [Changes since 3.0.0](#changes-since-300)
     * [Upgrade policy](#upgrade-policy-310)
 * [3.0.0](#300)
+
+### 3.3.0
+
+#### Changes since 3.2.1
+
+* Postfix replaced with an optional container [OpenSMTPD](../containers/opensmtpd.md) (enabled by default)
+* New optional container with [Mailhog](../containers/mailhog.md) to catch all outbound emails from your instance 
+
+Release date: `August 15th, 2016`
+
+#### Upgrade policy 3.3.0
+
+[Contact our support team](../../product/support.md) to schedule the upgrade. Instance downtime ~5 minutes.
 
 ### 3.2.1
 

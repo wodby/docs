@@ -12,7 +12,7 @@
 
 ## Access
 
-This container doesn't expose public ports. If you want to access the container itself please refer [to this article](access.md) (access with no SSH). 
+This container doesn't provide SSH access, if you want to access the container please refer [to this article](access.md) (with no SSH).
 
 ## Version
 
