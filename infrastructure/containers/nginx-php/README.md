@@ -12,5 +12,5 @@ The container includes:
 
 * [Nginx](nginx.md)
 * [PHP](php.md)
-* [Postfix](postfix.md)
+* [Postfix](postfix.md) **!!! NO LONGER INCLUDED SINCE BUNDLE 3.3.0 (REPLACED WITH OPENSMTPD)**
 * Redis client (redis-cli)

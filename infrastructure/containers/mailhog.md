@@ -1,5 +1,7 @@
 # Mailhog
 
+Official website: <a href="https://github.com/mailhog/MailHog" target="_blank">https://github.com/mailhog/MailHog</a>
+
 > Service: Mail catcher
 
 ## Integration

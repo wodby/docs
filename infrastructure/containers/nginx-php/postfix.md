@@ -1,5 +1,7 @@
 # Postfix 
 
+**!!! NO LONGER INCLUDED SINCE BUNDLE 3.3.0 (REPLACED WITH OPENSMTPD)**
+
 Wodby provides postfix has a default Mail Transfer Agent (MTA) inside of [nginx-php container](README.md).  
 
 * [Access](#access)

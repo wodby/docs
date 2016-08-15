@@ -1,5 +1,7 @@
 # PHP
 
+Official website: <a href="http://php.net/" target="_blank">http://php.net/</a>
+
 By default PHP works via PHP-FPM under FastCGI with Nginx web server.  
 
 * [Access](#access)

@@ -1,5 +1,7 @@
 # PhpMyAdmin
 
+Official website: <a href="https://www.phpmyadmin.net/" target="_blank">https://www.phpmyadmin.net/</a>
+
 > Service: Database management
 
 ## Access

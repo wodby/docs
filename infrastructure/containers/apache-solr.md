@@ -1,5 +1,7 @@
 # Apache Solr 
 
+Official website: <a href="http://lucene.apache.org/solr/" target="_blank">http://lucene.apache.org/solr/</a>
+
 > Service: Search engine
 
 * [Access](#access)
