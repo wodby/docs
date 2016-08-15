@@ -15,4 +15,4 @@ The following containers are currently available:
 | Mail catcher          | [Mailhog](mailhog.md)            |   |   |
 | Search engine         | [Solr](apache-solr.md)           |   |   |
 | Database management   | [PhpMyAdmin](phpmyadmin.md)      |   |   |
-| Reverse caching proxy | [Varnish](varnish.md)            |   |   |
+| Reverse caching proxy | [Varnish](varnish.md)            |   | &nbsp; |
