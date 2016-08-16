@@ -1,5 +1,7 @@
 # Application instance
 
+![](_images/instances.png)
+
 When we say "application", we actually mean an application instance. By default we deploy development (or just dev) instance of the application. But you can create as many instances as you want.
 
 You can remove or add a new instance from the `Instances` page. To get there navigate to the instance page and click on a cogwheel in the header.

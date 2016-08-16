@@ -22,6 +22,7 @@
     * [Maintenance mode](apps/maintenance-mode.md)       
     * [Remote debugging](apps/remote-debugging.md)
     * [Compiling Sass](apps/sass.md)
+    * [Going live](apps/going-live.md)
 * [Deployment](deployment/README.md)
     * [Auto-deployment](deployment/auto-deploy.md)
     * [Post-deployment scripts](deployment/post-deployment-scripts.md)   

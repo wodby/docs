@@ -1,7 +1,7 @@
 # Domains
 
 * [Default .wod.by domain name](#default-wodby-domain-name)
-* [Attaching a custom domain name](#default-wodby-domain-name)
+* [Attaching custom domain name](#attaching-custom-domain-name)
 * [HTTPS (SSL via Let's Encrypt)](#https-ssl-via-lets-encrypt)
 * [WWW redirects](#www-redirects)
 * [Basic auth](#basic-auth)
@@ -13,7 +13,7 @@ Wodby provides a short `*.wod.by` domain name to every application, it depends o
 
 For exact domain name look at the "Domain" tab of the instance page.  
 
-## Attaching a custom domain name
+## Attaching custom domain name
 
 You can attach your custom domain name by following these steps:
 

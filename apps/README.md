@@ -19,3 +19,4 @@ Further reading once the application is deployed:
 * [Remote debugging](remote-debugging.md)
 * [Maintenance mode](maintenance-mode.md)
 * [Compiling Sass](sass.md)
+* [Going live](going-live.md)

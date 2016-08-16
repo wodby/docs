@@ -1,6 +1,6 @@
 # Bundle
 
-Bundle is a pre-configured orchestratable set of [containers](../containers/README.md) for [the app](../../apps/README.md). Every application has its own bundle. You can think of a bundle as a representation of an app in the context of [the infrastructure provided by Wodby](../README.md).
+Bundle is a pre-configured orchestratable set of [containers](../containers/README.md) (or simply an infrastructure) for [the app](../../apps/README.md). Every application has its own bundle. You can think of a bundle as a representation of an app in the context of [the infrastructure provided by Wodby](../README.md).
 
 The following bundles are currently available:
 
