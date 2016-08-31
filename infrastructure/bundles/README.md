@@ -6,10 +6,10 @@ The following bundles are currently available:
 
 | Bundle | Current stable version |
 | --------- | ----------------------------------- |
-| [Drupal 8](drupal8.md)    | <a href="drupal8.html#330">3.3.0</a>   |
-| [Drupal 7](drupal7.md)    | <a href="drupal7.html#330">3.3.0</a>   |
+| [Drupal 8](drupal8.md)    | <a href="drupal8.html#331">3.3.1</a>   |
+| [Drupal 7](drupal7.md)    | <a href="drupal7.html#331">3.3.1</a>   |
 | [Drupal 6](drupal6.md)    | <a href="drupal6.html#330">3.3.0</a>   |
-| [WordPress](wordpress.md) | <a href="wordpress.html#330">3.3.0</a> |
+| [WordPress](wordpress.md) | <a href="wordpress.html#331">3.3.1</a> |
 
 ## Versioning
 
