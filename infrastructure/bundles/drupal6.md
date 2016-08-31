@@ -18,7 +18,7 @@ This section contains information related to [the bundle](README.md) for [Drupal
 ## Changelog
 
 * [3.3.0](#330)
-    * [Changes since 3.3.0](#changes-since-321)
+    * [Changes since 3.2.1](#changes-since-321)
     * [Upgrade policy](#upgrade-policy-330)
 * [3.2.1](#321)
     * [Changes since 3.2.0](#changes-since-320)

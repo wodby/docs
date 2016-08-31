@@ -17,6 +17,12 @@ This section contains information related to [the bundle](README.md) for [Drupal
 
 ## Changelog
 
+* [3.3.1](#331)
+    * [Changes since 3.3.0](#changes-since-330)
+    * [Upgrade policy](#upgrade-policy-331)
+* [3.3.0](#330)
+    * [Changes since 3.2.1](#changes-since-321)
+    * [Upgrade policy](#upgrade-policy-330)
 * [3.2.1](#321)
     * [Changes since 3.2.0](#changes-since-320)
     * [Upgrade policy](#upgrade-policy-321)
@@ -30,6 +36,19 @@ This section contains information related to [the bundle](README.md) for [Drupal
     * [Changes since 3.0.0](#changes-since-300)
     * [Upgrade policy](#upgrade-policy-310)
 * [3.0.0](#300)
+
+### 3.3.1
+
+#### Changes since 3.3.0
+
+* New [PHP](../containers/nginx-php/php.md) version 5.6.25 with security updates 
+* New [PHP](../containers/nginx-php/php.md) version 7.0.10 with security updates 
+
+Release date: `August 31st, 2016`
+
+#### Upgrade policy 3.3.1
+
+[Contact our support team](../../product/support.md) to schedule the upgrade. Instance downtime ~5 minutes.
 
 ### 3.3.0
 
