@@ -71,6 +71,7 @@
     * [CLI commands](infrastructure/cli.md)
     * [HSTS](infrastructure/hsts.md)
     * [Integration with CloudFlare](infrastructure/cloudflare.md)
+* [Cluster](cluster/README.md)
 * [Team](team/README.md)
 * [SSH Keys](keys/README.md)
 * [Vagrant](vagrant/README.md)
@@ -88,4 +89,5 @@
     * [Status](product/status.md)
     * [Support](product/support.md)
 * <a href="http://docker4drupal.org" target="_blank">docker4drupal.org</a>
+* <a href="http://docker4wordpress.org" target="_blank">docker4wordpress.org</a>
 
