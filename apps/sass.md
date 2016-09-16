@@ -1,4 +1,4 @@
-# Compile Sass
+# Compiling Sass
 
 **Available only for bundle versions starting [3.2.0](../infrastructure/bundles/README.md)**
 

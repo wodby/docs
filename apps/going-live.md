@@ -1,4 +1,4 @@
-# Going live with Wodby
+# Going Live with Wodby
 
 Going live process with Wodby is very simple and straightforward – you just need to create a new production [instance](instances.md) and attach your live domain: 
 

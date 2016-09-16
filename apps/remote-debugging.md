@@ -1,4 +1,4 @@
-# Remote debugging with xdebug
+# Remote Debugging with XDebug
 
 To debug remote instance with <a href="http://xdebug.org/docs/install" target="_blank">xdebug</a> please follow these steps:
 

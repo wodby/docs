@@ -1,17 +1,13 @@
 # Product roadmap
 
-## In progress
-
-* Deployment to cluster (Google Cloud Platform, AWS, ...)
 * Custom [bundles](../infrastructure/bundles/README.md) constructor
 * Containers resources limitation
-* Custom SSL certificates
+* Custom SSL certificates via UI
 * Crontab customization via the dashboard
+* Wildcard domains via UI 
 * Logs streaming
-
-## Planned Q4 (TBC)
-
 * Node monitoring
+* Bundle upgrade
 * Native integrations: Linode/AWS/GCP/Azure/GitHub/BitBucket
 * Public API
 * Notifications

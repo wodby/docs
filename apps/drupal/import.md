@@ -1,4 +1,4 @@
-# Import existing Drupal website
+# Importing Existing Drupal Website
 
 There are different way to import existing Drupal website:
 

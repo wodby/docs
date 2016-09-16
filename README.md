@@ -6,14 +6,15 @@ Welcome to Wodby documentation. This site will help you to understand how to dep
 
 Quick start:
 
-* [Bring your server](servers/connecting-server/README.md) to Wodby
-* [Connect your git repository](git/connecting-git/README.md)
+* [Bring your server](servers/README.md) to Wodby
+* [Connect your git repository](git/README.md)
 * [Deploy your first application](apps/deploy.md)
 * [Bring your team](team/README.md) to Wodby
 
 Basic concepts:
 
 * [Applications](apps/README.md) 
+* [Integrations](integrations/README.md) 
 * [Servers](servers/README.md) 
 * [Git repositories](git/README.md)
 
@@ -25,8 +26,8 @@ Infrastructure provided by Wodby:
 
 Local environment:
 
-* <a href="http://docker4drupal.org/" target="_blank">Spin up your local environment with Docker native app</a>
-* [Connect your local machine via Vagrant](vagrant/README.md)
+* [With Docker native app (recommended)](infrastructure/local.md)
+* [Connect your local machine via Vagrant](servers/connect/vagrant.md)
 
 After deploying an app:
 
@@ -34,7 +35,7 @@ After deploying an app:
 * Manage your [domains](apps/domains.md)
 * Configure [post-deployment scenario](deployment/post-deployment-scripts.md)
 * Configure [backups](apps/backups.md)
-* [Add your SSH key](keys/README.md) to access the containers
+* [Add your SSH key](infrastructure/keys.md) to access the containers
 * Try [remote workspace](apps/remote-workspace/README.md) 
 
 Wodby as a product: 

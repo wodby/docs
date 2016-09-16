@@ -1,4 +1,4 @@
-# Drupal multi-site
+# Drupal Multi-site
 
 You can deploy your existing multi-site Drupal (only 7.x and 8.x) as separate apps (one per each site). Go to `Apps > Deploy` and follow these steps: 
 

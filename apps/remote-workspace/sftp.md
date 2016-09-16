@@ -1,4 +1,4 @@
-# Using remote workspace via SFTP (PhpStorm example)
+# Using Remote Workspace via SFTP (PhpStorm example)
 
 1. Clone the app via git to your local machine
 

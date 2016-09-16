@@ -1,4 +1,4 @@
-# Getting support
+# Getting Support
 
 Our support team is always here to help, you can contact us 24/7 in one of these ways:
 

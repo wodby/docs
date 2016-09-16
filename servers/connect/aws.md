@@ -1,4 +1,4 @@
-# Connecting EC2 node from AWS
+# Connecting EC2 Node from AWS
 
 Currently, we don't have a native integration with AWS. But you still can connect your server by following these steps: 
 

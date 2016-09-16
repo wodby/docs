@@ -1,8 +1,8 @@
 # Infrastructure
 
-When you [connect a server](../servers/connecting-server/README.md) to Wodby we deploy [container-based](containers/README.md) infrastructure to this server. This infrastructure will further allow you to [deploy apps](../apps/deploy.md) by installing their [bundles](bundles/README.md). 
+When you [connect a server](../servers/README.md) to Wodby we deploy [container-based](containers/README.md) infrastructure to this server. This will further allow you to deploy infrastructure [for your applications](../apps/deploy.md) which we call [bundles](bundles/README.md). 
 
-The infrastructure deployed to your server has a [version](versioning.md). We regularly update the infrastructure we provide by releasing [newer versions](versioning.md), such updates can include security updates and performance improvements. 
+Both server infrastructure and bundles have versioning. We regularly update them by releasing [newer versions](versioning.md), such updates can include security updates and performance improvements. 
 
 Basic concepts:
 
@@ -20,3 +20,4 @@ Further reading:
 * [CLI commands](cli.md)
 * [HTTP Strict Transport Security (HSTS)](hsts.md)
 * [Integration with CloudFlare](cloudflare.md)
+* [Adding SSH Key](keys.md)

@@ -1,12 +1,12 @@
-# Connecting droplet from DigitalOcean
+# Connecting Droplet from DigitalOcean
 
 Wodby provides a native integration with <a href="http://digitalocean.com" target="_blank">DigitalOcean (DO)</a>: 
 
-1. Navigate to `Servers > Connect` from Wodby Dashboard and select DigitalOcean from the list of providers
+1. Connect your DigitalOcean account by adding a [new integration](../../integrations/README.md) 
 
-2. Click `Connect my DigitalOcean account` button below and authorize Wodby access to your account
+2. Navigate to `Servers > Connect`, select DigitalOcean from the list of providers and your integration
   
-3. Choose droplet region, size and click `Create Droplet`
+3. Click proceed, choose droplet region, size and click `Create Droplet`
  
 4. Wodby will spin a new droplet and automatically install all required infrastructure
 

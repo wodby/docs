@@ -1,4 +1,4 @@
-# Connecting GitLab repo
+# Connecting Git Repository from GitLab
 
 1. Go to your repository page on GitLab. Choose SSH type of the clone URL and copy it
 ![![](_images/gitlab-repo-url.png)

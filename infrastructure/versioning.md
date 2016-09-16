@@ -1,4 +1,4 @@
-# Infrastructure versioning
+# Infrastructure Versioning
 
 ## Overview
 
@@ -39,7 +39,7 @@ Unsupported legacy versions: 0.1.0, 1.0.0, 2.0.0
 
 * Updated Nginx (1.10.1) for a system container Edge  
 * New version of Wodby agent supporting containers upgrade
-* New version of Kubernetes (containers orchestration tool, part of Wodby infrastructure)
+* New version of orchestration system
 
 Release date: `July 1st, 2016`
 

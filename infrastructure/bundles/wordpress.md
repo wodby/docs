@@ -1,4 +1,4 @@
-# WordPress bundle
+# WordPress Bundle
 
 This section contains information related to [the bundle](README.md) for [WordPress websites](../../apps/wordpress/README.md).
     

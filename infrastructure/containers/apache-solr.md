@@ -12,7 +12,7 @@ Official website: <a href="http://lucene.apache.org/solr/" target="_blank">http:
 * [Configuration files](#configuration-files)
 * [Integration with Drupal](#integration-with-drupal)
     * [Configuration files](#configuration-files)
-    * [Connecting server](#connecting-server)
+    * [Connecting server](#connect)
 
 ## Access
 

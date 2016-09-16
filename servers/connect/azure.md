@@ -1,4 +1,4 @@
-# Connecting a server from MS Azure
+# Connecting VM from MS Azure
 
 Currently, we don't have a native integration with Azure. But you still can connect your server by following these steps:
 

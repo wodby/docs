@@ -1,4 +1,4 @@
-# Post-deployment scripts
+# Post-deployment Scripts
 
 * [Intro](#intro)
 * [Available environment variables](#available-environment-variables)

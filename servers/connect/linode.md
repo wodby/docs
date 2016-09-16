@@ -1,4 +1,4 @@
-# Connecting linode
+# Connecting Linode
 
 Currently, we don't have a native integration with Linode. But you still can connect your server by following these steps: 
 

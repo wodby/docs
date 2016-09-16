@@ -1,4 +1,4 @@
-# Drupal 8 bundle
+# Drupal 8 Bundle
 
 This section contains information related to [the bundle](README.md) for [Drupal 8 websites](../../apps/drupal/README.md). 
 

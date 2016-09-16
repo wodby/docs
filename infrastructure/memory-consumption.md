@@ -1,4 +1,4 @@
-# Memory consumption of Wodby infrastructure
+# Wodby Infrastructure Memory Consumption 
 
 The table below demonstrates how much memory our infrastructure consumes with the different # of apps. 
 

@@ -1,4 +1,4 @@
-# Container-based cluster
+# Container-based Cluster
 
 For large scale web applications we recommend to deploy the container-based cluster. Currently, we support cluster deployments to Amazon Web Services and Google Cloud Platform. We can use either your servers or ours (recommended), we don't charge extra for AWS resources.
 

@@ -8,4 +8,4 @@ $  vagrant up
 
 Usually, it takes about `5 minutes` for Vagrant to start the machine. It can take longer (`up to 10 minutes` depending on the speed of your Internet connection) if Wodby needs to update the infrastructure.
 
-Also, you will probably need to [remount the magic directory](../vagrant/README.md) again
+Also, you will probably need to [remount the magic directory](../servers/connect/vagrant.md) again

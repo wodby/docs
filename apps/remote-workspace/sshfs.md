@@ -1,4 +1,4 @@
-# Using remote workspace via SSHFS
+# Using Remote Workspace via SSHFS
 
 ## Instructions for Linux
 

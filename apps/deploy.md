@@ -1,4 +1,4 @@
-# Deploy new application via Wodby
+# Deploying New Application with Wodby
 
 Deployment of the new applications consist of 3 steps:
 
@@ -12,7 +12,7 @@ Deployment of the new applications consist of 3 steps:
 
 ## Step 1: Select a server
 
-Select one of the [connected servers](../servers/connecting-server/README.md) for deployment. The [infrastructure](../infrastructure/README.md) for the application will be deployed to this server.
+Select one of the [connected servers](../servers/README.md) for deployment. The [infrastructure](../infrastructure/README.md) for the application will be deployed to this server.
  
 ## Step 2: Choose a bundle
 
@@ -22,7 +22,7 @@ Additionally, check optional containers for deployment such as a cache storage, 
  
 ## Step 3: Specify Data Sources
 
-Choose one of the [connected git repositories](../git/connecting-git/README.md) or use Demo git server. Then choose one of the following options indicating how you want to import the data (code/database/files) for your application. 
+Choose one of the [connected git repositories](../git/README.md) or use Demo git server. Then choose one of the following options indicating how you want to import the data (code/database/files) for your application. 
 
 ### Use code from the selected git repo
 

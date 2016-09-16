@@ -1,4 +1,4 @@
-# Drupal settings
+# Drupal Settings
 
 * [General](#general)
     * [settings.php](#settingsphp)

@@ -1,4 +1,4 @@
-# Connecting a server from Google Cloud Platform (GCP)
+# Connecting Virtual Machine from Google Cloud Platform (GCP)
 
 Currently, we don't have a native integration with GCP. But you still can connect your server by following these steps:
 

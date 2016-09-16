@@ -35,7 +35,7 @@ Do you need a new copy (development, staging) of your app? With Wodby you can [d
 
 ## Bring your own server and git
 
-Wodby works with any hosting providers. Simply [connect your server](../servers/connecting-server/README.md) to Wodby from any hosting provider and deploy your apps. In the same fashion [bring your own git repository](../git/connecting-git/README.md) from any git provider. You keep the control over your servers and the code.
+Wodby works with any hosting providers. Simply [connect your server](../servers/README.md) to Wodby from any hosting provider and deploy your apps. In the same fashion [bring your own git repository](../git/README.md) from any git provider. You keep the control over your servers and the code.
 
 ## Regular updates 
 
@@ -43,7 +43,7 @@ We constantly improve the infrastructure we provide and regularly release [new v
 
 ## Integration with Vagrant
 
-Streamline your entire workflow all the way to production by connecting your local machine to Wodby. [Connect your Vagrant box](../vagrant/README.md) to Wodby and deploy consistent copies of your apps to your local machine. 
+Streamline your entire workflow all the way to production by connecting your local machine to Wodby. [Connect your Vagrant box](../servers/connect/vagrant.md) to Wodby and deploy consistent copies of your apps to your local machine. 
 
 ## Remote Workspace and Debugging
 

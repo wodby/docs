@@ -1,4 +1,4 @@
-# Automatic deployment
+# Automatic Deployment
 
 If you want to run deployment automatically every time you push code to a git branch (all instances using this branch will be deployed) follow these steps:
 

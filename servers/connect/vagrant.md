@@ -1,5 +1,7 @@
 # Vagrant
 
+**We recommend using [docker native app for local machine](../../infrastructure/local.md) instead of Vagrant.**
+
 ## Connecting your local machine via Vagrant
 
 Wodby allows you to connect your local machine using Vagrant. Vagrant machine is personal for every user and not available to other users from the same organization. You will be able to deploy new apps and apps local instance to Vagrant.

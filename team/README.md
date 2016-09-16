@@ -1,4 +1,4 @@
-# Roles and permissions
+# Team Management
 
 Wodby provides a set of default roles with following permissions:
 

@@ -1,4 +1,4 @@
-# Connecting a custom server
+# Connecting Custom Server
 
 In case there's no native integration for your hosting provider, you can always connect your node by using feature "Custom server" regardless what hosting you're using:
 
