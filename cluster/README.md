@@ -25,3 +25,7 @@ In such a way server is just a unit of compute resources that can be added or re
 This approach helps us to divide compute resources from the infrastructure. The job of a cloud provider is to provide reliable compute resource and ours, in a turn, is to provide the best infrastructure for your applications.
 
 ![Cluster schema](_images/cluster.png)
+
+## How to purchase
+
+Navigate to the clusters tab in the Wodby dashboard. Select cloud (AWS, Azure, GCP), desired cluster configuration (CPU, RAM, Disk size, # of nodes) and submit request. We'll contact you shortly and discuss the details.
