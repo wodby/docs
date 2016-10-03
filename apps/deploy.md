@@ -8,13 +8,13 @@ Select one of the [**connected servers**](../servers/README.md) where you want t
  
 Choose a [**bundle**](../infrastructure/bundles/README.md) for deployment. 
 
-Additionally, check optional containers for deployment such as a cache storage, database management, search engine and reverse caching proxy. Some containers, such as [Nginx + PHP container](../infrastructure/containers/nginx-php/README.md), can be switched: using PHP 5.6 or PHP 7.
+Additionally, check optional services for deployment such as a cache storage, and search engine. Some services, such as backend, have different container implementations (Nginx + PHP 5.6 or Nginx + PHP7).
  
 ## Step 2: Enter App Name and Specify Data Sources
 
 Enter the name of your application. The URL for your application will be automatically generated based on this name, you can optionally adjust it.
 
-Specify data (codebase/database/files) sources for your application. Select one of the [connected git repositories](../git/README.md) or use Demo git server. Then choose one of the following options indicating how you want to import the data for your application. 
+Specify data (codebase/database/files) sources for your application. Select one of the [**connected git repositories**](../git/README.md) or use Demo git server. Then choose one of the following options indicating how you want to import the data for your application. 
 
 #### Use code from the selected git repo
 
