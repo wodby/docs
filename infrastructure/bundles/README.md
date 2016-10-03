@@ -1,6 +1,6 @@
 # Bundle
 
-Bundle is a pre-configured orchestratable set of [containers](../containers/README.md) (or simply an infrastructure) for [the app](../../apps/README.md). Every application has its own bundle. You can think of a bundle as a representation of an app in the context of [the infrastructure provided by Wodby](../README.md).
+Bundle is a pre-configured infrastructure package for [your application](../../apps/README.md). Every bundle consist of a few services, some of them are mandatory (backend, database), some of them are optional (cache storage, mail server, etc). Every service has at least one [container implementation](../containers/README.md), e.g. for database services there's a MariaDB container. 
 
 The following bundles are currently available:
 
