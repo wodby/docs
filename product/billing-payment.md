@@ -2,7 +2,7 @@
 
 ## Overview
 
-Wodby provides subscriptions on per [connected server](../servers/README.md) basis. You can find available pricing plans on <a href="https://wodby.com/pricing-plans" target="_blank">our billing page</a>. The price specified for 1 month (30 days).
+Wodby provides subscriptions on per [application instance](../apps/instances.md) basis. You can find available pricing plans on <a href="https://wodby.com/pricing-plans" target="_blank">our billing page</a>. The price specified for 1 month (30 days).
 
 ## Free Trial
 
