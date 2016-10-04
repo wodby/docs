@@ -66,7 +66,7 @@
     * [Cron](infrastructure/cron.md)
     * [HSTS](infrastructure/hsts.md)
     * [Integration with CloudFlare](infrastructure/cloudflare.md)
-    * [Local Environment](infrastructure/local.md)
+    * [Local development](infrastructure/local.md)
     * [Memory consumption](infrastructure/memory-consumption.md)
     * [Mail Transfer Agent (SMTP)](infrastructure/mta.md)
     * [Security](infrastructure/security.md)
@@ -91,3 +91,4 @@
     * [Billing and Payment](product/billing-payment.md)
     * [Status](product/status.md)
     * [Support](product/support.md)
+* [API](api/README.md)
