@@ -1,9 +1,19 @@
 # FAQ
 
-<span id="team-plan">
-> Why does the team plan starts with 10 instances minimum?
-</span>
+> How can I purchase a server?
 
+Wodby is not a hosting provider. We believe that there are plenty of reliable providers on the market already. Instead we provide a way to [connect your own server](../servers/connect/README.md) from any cloud. 
+
+> I have a large-scale application, how can you help me?
+
+For large-scale application we have a [container-based cluster solution](../cluster/README.md).
+
+> It's so complex, how do I start?
+
+Watch our <a href="https://www.youtube.com/watch?v=PMqjcU4cMPM" target="_blank">demo video</a>
+
+<span id="team-plan"></span>
+> Why does the team plan starts with 10 instances minimum?
 
 We have a good reason for that, actually even 2 reasons:
  
