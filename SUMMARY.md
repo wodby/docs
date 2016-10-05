@@ -91,4 +91,5 @@
     * [Billing and Payment](product/billing-payment.md)
     * [Status](product/status.md)
     * [Support](product/support.md)
+    * [FAQ](product/faq.md)
 * [API](api/README.md)
