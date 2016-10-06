@@ -3,8 +3,8 @@
 <span id="team-plan"></span>
 ### Why does the team plan starts from $50
 
-The team plan starts with 10 instances minimum. And here is why – when people use Wodby in production they expect a certain level of support which we can't provide for less than $50/mo. On the other hand we don't want to provide poor customers service.
-   
+The team plan starts with 10 instances minimum. And here is why – when people use Wodby in production they expect a service level which we can't provide for less than $50/mo. On the other hand we don't want to provide poor service.
+
 Quality over quantity.
 
 ### How can I purchase a server?
