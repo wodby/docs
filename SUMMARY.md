@@ -73,6 +73,7 @@
     * [Schema](infrastructure/schema.md)
     * [SSH Keys](infrastructure/keys.md)
     * [Versioning](infrastructure/versioning.md)
+* [CI/CD](cicd/README.md)
 * [Deployment](deployment/README.md)
     * [Auto-deployment](deployment/auto-deploy.md)
     * [Post-deployment scripts](deployment/post-deployment-scripts.md)   
