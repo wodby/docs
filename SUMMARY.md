@@ -75,6 +75,7 @@
     * [Versioning](infrastructure/versioning.md)
 * [CI/CD](cicd/README.md)
 * [Deployment](deployment/README.md)
+    * [Via composer](deployment/composer.md)
     * [Auto-deployment](deployment/auto-deploy.md)
     * [Post-deployment scripts](deployment/post-deployment-scripts.md)   
 * [Cluster](cluster/README.md)
