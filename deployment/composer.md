@@ -8,9 +8,13 @@ For drupal we recommend using <a href="https://github.com/drupal-composer/drupal
 
 ```
 pipeline:
+  - name: Download composer dependencies in parallel
+    type: command
+    command: composer global require hirak/prestissimo:^0.3 --optimize-autoloader > /dev/null 2>&1
+    directory: $WODBY_APP_ROOT
   - name: Install dependencies
     type: command
-    command: composer install
+    command: composer install > /dev/null 2>&1
     directory: $WODBY_APP_ROOT
   - name: Add Wodby include to settings.php file
     type: command
@@ -19,7 +23,7 @@ pipeline:
     directory: $WODBY_APP_DOCROOT/sites/$WODBY_APP_SUBSITE
   - name: Install Drupal if not installed
     type: command
-    command: drush site-install -y
+    command: drush site-install -y > /dev/null 2>&1
     only_if: "[ $(drush sqlq \"SHOW TABLES LIKE 'users'\" | grep -ic users) -eq 0 ]"
     directory: $WODBY_APP_DOCROOT/sites/$WODBY_APP_SUBSITE
 ```
