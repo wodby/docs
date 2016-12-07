@@ -72,6 +72,7 @@
     * [Security](infrastructure/security.md)
     * [Schema](infrastructure/schema.md)
     * [SSH Keys](infrastructure/keys.md)
+    * [Configuring UFW](infrastructure/ufw.md)
     * [Versioning](infrastructure/versioning.md)
 * [CI/CD](cicd/README.md)
 * [Deployment](deployment/README.md)

@@ -21,3 +21,4 @@ Further reading:
 * [HTTP Strict Transport Security (HSTS)](hsts.md)
 * [Integration with CloudFlare](cloudflare.md)
 * [Adding SSH Key](keys.md)
+* [Configuring UFW](ufw.md)
