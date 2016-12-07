@@ -4,12 +4,17 @@ If you want to use ufw (uncomplicated firewall) on a server connected to Wodby, 
  
 Steps:
 
-1. Edit the UFW configuration file, which is usually /etc/default/ufw or /etc/sysconfig/ufw. Set the DEFAULT_FORWARD_POLICY policy to ACCEPT.
+1. Enable ufw
+```bash
+$ ufw enable
+```
+
+2. Edit the UFW configuration file, which is usually /etc/default/ufw or /etc/sysconfig/ufw. Set the DEFAULT_FORWARD_POLICY policy to ACCEPT.
 ```
 DEFAULT_FORWARD_POLICY="ACCEPT"
 ```
 
-2. Add following rules:
+3. Add following rules:
 ```bash
 $ ufw allow ssh
 $ ufw allow http
@@ -18,8 +23,7 @@ $ ufw allow 31222:32222/tcp
 $ ufw allow 4001/tcp
 ```
 
-3. Enable and reload UFW:
+4. Reload UFW:
 ```bash
-$ ufw enable
 $ ufw reload
 ```
