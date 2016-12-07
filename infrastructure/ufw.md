@@ -21,6 +21,7 @@ $ ufw allow http
 $ ufw allow https
 $ ufw allow 31222:32222/tcp
 $ ufw allow 4001/tcp
+$ ufw allow 6443/tcp
 ```
 
 4. Reload UFW:
