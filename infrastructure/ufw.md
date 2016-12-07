@@ -9,12 +9,17 @@ Steps:
 DEFAULT_FORWARD_POLICY="ACCEPT"
 ```
 
-2. Allow allow rule for port 4001 (etcd):
+2. Add following rules:
 ```bash
+$ ufw allow ssh
+$ ufw allow http
+$ ufw allow https
+$ ufw allow 31222:32222/tcp
 $ ufw allow 4001/tcp
 ```
 
-3. Reload UFW:
+3. Enable and reload UFW:
 ```bash
-$ sudo ufw reload
+$ ufw enable
+$ ufw reload
 ```
