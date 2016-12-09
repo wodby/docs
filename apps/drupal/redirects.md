@@ -6,7 +6,7 @@
 * [Redirect requests for non-existing static files](#redirect-requests-for-non-existing-static-files)
     * [Example: XML files](#example-xml-files)
 
-If you need to make a redirect from one domain to another you can do it by customizing configuration files of [nginx](../../infrastructure/containers/nginx-php/nginx.md) or by adding the snippets below to your `settings.php` file.
+If you need to make a redirect from one domain to another you can do it by customizing configuration files of [nginx](../../bundles/containers/nginx-php/nginx.md) or by adding the snippets below to your `settings.php` file.
 
 ## Redirect from one domain to another
 
@@ -47,7 +47,7 @@ This might be useful when you want to generate static files via Drupal, like `rs
 
 ### Example: XML files 
 
-**1.** Connect to your [nginx-php container](../../infrastructure/containers/nginx-php/README.md) and open nginx config (example for Drupal 7, change the version number in the path for Drupal 6 or 8) with `nano` or `vi`:
+**1.** Connect to your [nginx-php container](../../bundles/containers/nginx-php/README.md) and open nginx config (example for Drupal 7, change the version number in the path for Drupal 6 or 8) with `nano` or `vi`:
 
 ```bash
 $ nano /srv/conf/nginx/conf.d/app.d/drupal/7/config.conf

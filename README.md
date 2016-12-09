@@ -21,8 +21,8 @@ Basic concepts:
 Infrastructure provided by Wodby:
 
 * [Overview](infrastructure/README.md) 
-* [Bundles](infrastructure/bundles/README.md)
-* [Containers](infrastructure/containers/README.md) 
+* [Bundles](bundles/README.md)
+* [Containers](bundles/containers/README.md) 
 
 Local environment:
 

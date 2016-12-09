@@ -1,6 +1,6 @@
 # Product roadmap
 
-* Custom [bundles](../infrastructure/bundles/README.md) constructor
+* Custom [bundles](../bundles/README.md) constructor
 * Containers resources limitation
 * Custom SSL certificates via UI
 * Crontab customization via the dashboard

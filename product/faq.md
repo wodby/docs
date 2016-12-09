@@ -25,4 +25,4 @@ Yes, please read [how-to instructions](../git/connect/README.md).
 
 ### What is bundle?
 
-Bundle is a pre-configured infrastructure package for [your application](../../apps/README.md). You can learn more about bundles [here](../infrastructure/bundles/README.md). 
+Bundle is a pre-configured infrastructure package for [your application](../apps/README.md). You can learn more about bundles [here](../bundles/README.md). 

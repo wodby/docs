@@ -16,22 +16,22 @@ The key features of the Wodby platform:
 
 ## Ready-to-run infrastructure
 
-Wodby provides pre-configured [bundles](../infrastructure/bundles/README.md) for [Drupal](../apps/drupal/README.md) and [WordPress](../apps/wordpress/README.md). All bundles are already optimized and need almost no additional configuration. Typical bundle looks like this:
+Wodby provides pre-configured [bundles](../bundles/README.md) for [Drupal](../apps/drupal/README.md) and [WordPress](../apps/wordpress/README.md). All bundles are already optimized and need almost no additional configuration. Typical bundle looks like this:
   
 | Service | Available containers | Mandatory |
 | --------------------- | ---------------------------------------------- | - |
-| Backend               | [Nginx-php](../infrastructure/containers/nginx-php/README.md) | ✓ |
-| Database              | [MariaDB](../infrastructure/containers/mariadb.md)            | ✓ |
-| Cache storage         | [Redis](../infrastructure/containers/redis.md)                |   |
-| Search engine         | [Solr](../infrastructure/containers/apache-solr.md)           |   |
-| Database management   | [PhpMyAdmin](../infrastructure/containers/phpmyadmin.md)      |   |
-| Reverse caching proxy | [Varnish](../infrastructure/containers/varnish.md)            | &nbsp; |
+| Backend               | [Nginx-php](../bundles/containers/nginx-php/README.md) | ✓ |
+| Database              | [MariaDB](../bundles/containers/mariadb.md)            | ✓ |
+| Cache storage         | [Redis](../bundles/containers/redis.md)                |   |
+| Search engine         | [Solr](../bundles/containers/apache-solr.md)           |   |
+| Database management   | [PhpMyAdmin](../bundles/containers/phpmyadmin.md)      |   |
+| Reverse caching proxy | [Varnish](../bundles/containers/varnish.md)            | &nbsp; |
 
 More bundles are coming soon.
 
 ## Instance management
 
-Do you need a new copy (development, staging) of your app? With Wodby you can [deploy new copies of your app](../apps/instances.md) to any server in a few clicks. Copies have a complete environment consistency because they use the same [bundle](../infrastructure/bundles/README.md).  
+Do you need a new copy (development, staging) of your app? With Wodby you can [deploy new copies of your app](../apps/instances.md) to any server in a few clicks. Copies have a complete environment consistency because they use the same [bundle](../bundles/README.md).  
 
 ## Bring your own server and git
 
@@ -39,7 +39,7 @@ Wodby works with any hosting providers. Simply [connect your server](../servers/
 
 ## Regular updates 
 
-We constantly improve the infrastructure we provide and regularly release [new versions of infrastructure](../infrastructure/versioning.md) and [bundles](../infrastructure/bundles/README.md). New versions include the latest improvements and security updates of components. 
+We constantly improve the infrastructure we provide and regularly release [new versions of infrastructure](../infrastructure/versioning.md) and [bundles](../bundles/README.md). New versions include the latest improvements and security updates of components. 
 
 ## Integration with Vagrant
 

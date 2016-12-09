@@ -2,7 +2,7 @@
 
 ## Overview
 
-By default [bundles](bundles/README.md) include [OpenSMTPD container](containers/opensmtpd.md). Additionally, you can catch all your emails by deploying optional [Mailhog container](containers/mailhog.md). 
+By default [bundles](../bundles/README.md) include [OpenSMTPD container](../bundles/containers/opensmtpd.md). Additionally, you can catch all your emails by deploying optional [Mailhog container](../bundles/containers/mailhog.md). 
  
 ## Guaranteed delivery of transaction emails
 
