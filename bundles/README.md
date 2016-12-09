@@ -10,8 +10,11 @@ The following predefined bundles are currently available:
 | [Drupal 7](drupal7.md)    | <a href="drupal7.html#331">3.3.1</a>   |
 | [Drupal 6](drupal6.md)    | <a href="drupal6.html#331">3.3.1</a>   |
 | [WordPress](wordpress.md) | <a href="wordpress.html#331">3.3.1</a> |
+| [Custom bundles](custom/README.md) | N/A | 
 
-If you need a custom bundle please [contact our support team](../product/support.md). 
+## Template
+
+You can create and edit bundles by modifying/defining [bundle template](template.md).  
 
 ## Versioning
 
