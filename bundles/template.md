@@ -33,7 +33,7 @@ This section contains a list of all configuration options supported by a service
 
 ## Global Volumes
 
-You can define global volumes and use them in services under `volumes`. 
+You can define global volumes and use them in services under `volumes`. We recommend using `./` as a host path to mount volumes which is an equals `/srv/wodby/instances/<Instance UUID>`.
 
 Example:
 
@@ -48,9 +48,9 @@ services:
         db: /var/www
 volumes:
     docroot:
-        path: /srv/wodby/docroot
+        path: ./docroot
     db:
-        path: /srv/wodby/db
+        path: ./db
 ```
 
 ## Variable Substitution
