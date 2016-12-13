@@ -2,6 +2,8 @@
 
 ## Overview
 
+This article covers server infrastructure versioning, to learn about bundles versioning see [this article](../bundles/README.md).
+
 We constantly improve the infrastructure we deploy to our customers' servers. You can see the version of the infrastructure deployed to your server in the Dashboard on the servers list page. It's not always possible to update the infrastructure automatically so if you want update your infrastructure please [contact our support team](../product/support.md) to schedule the upgrade. 
 
 You will be notified each time a new version of the infrastructure is released.

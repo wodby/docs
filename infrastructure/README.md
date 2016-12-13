@@ -1,11 +1,16 @@
 # Infrastructure
 
-When you [connect a server](../servers/README.md) to Wodby we deploy [container-based](../bundles/containers/README.md) infrastructure to this server. This will further allow you to deploy infrastructure [for your applications](../apps/deploy.md) which we call [bundles](../bundles/README.md). 
+When you [connect a server](../servers/README.md) to Wodby we deploy [container-based](../bundles/containers/README.md) infrastructure to this server. This will further allow you to deploy environment [for your applications](../apps/deploy.md) which we call [bundles](../bundles/README.md). 
 
-Both server infrastructure and bundles have versioning. We regularly update them by releasing [newer versions](versioning.md), such updates can include security updates and performance improvements. 
+Both server infrastructure and bundles have versioning. We regularly update them by releasing [newer versions](versioning.md), such updates can include security updates and performance improvements.
+ 
+> The infrastructure we provide is based on [containers](../bundles/containers/README.md) and powered by Docker and Kubernetes.
 
 Basic concepts:
 
+* [Bundles](../bundles/README.md)
+* [Containers](../bundles/containers/README.md)
+* [Schema](schema.md)
 * [Infrastructure versioning](versioning.md)
 
 Further reading:
@@ -21,4 +26,3 @@ Further reading:
 * [Local development](local.md)
 * [Mail Transfer Agent (SMTP)](mta.md)
 * [Security](security.md)
-* [Schema](schema.md)
