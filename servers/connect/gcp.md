@@ -14,8 +14,13 @@ Currently, we don't have a native integration with GCP. But you still can connec
 5. Set VM instance attributes and submit `Create` button
 <hr>![](_images/gcp-create-instance.png)<hr>
 
-6. Once it's created, navigate to the instance page
-<hr>![](_images/gcp-instance-page.png)<hr>
+6. Navigate to a newly created instance page and find network link. Click on it
+<hr>![](_images/gcp-instance-network.png)<hr>
 
-7. Now connect the server (`Servers > Connect > GCP`) and follow the instructions. You can obtain SSH access to your VM as shown below
-<hr>![](_images/gcp-ssh.png)
+7. We need to add a new firewall rule for container ports 
+<hr>![](_images/gcp-firewall-rule.png)<hr>
+
+8. Allow access for ports range 31222-32222 
+<hr>![](_images/gcp-rule-ports.png)<hr>
+
+9. Now it's all set on GCP side. Now connect the server (`Servers > Connect > GCP`) and follow the instructions

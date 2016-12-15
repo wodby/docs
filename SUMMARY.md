@@ -2,7 +2,7 @@
 
 * [Introduction](README.md)
 * [Applications](apps/README.md)
-    * [Deploying a new app](apps/deploy.md)
+    * [Deploying new application](apps/deploy.md)
     * [Drupal](apps/drupal/README.md)
         * [Settings](apps/drupal/settings.md)
         * [Multi-site](apps/drupal/multi-site.md)
