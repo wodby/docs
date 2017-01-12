@@ -15,3 +15,16 @@ The difference between the dev, staging and prod are:
 * <a href="domains.html#indexation">Indexation rules for search robots</a>: do not index any domains (including custom) for dev and staging
 * Error reporting level: display all errors on dev and none on staging and prod 
  
+## Deletion
+
+When you delete an instance Wodby does not delete containers' persistent files (database, codebase, etc) on your server to ensure no valuable data will be lost. Please follow the instructions below to clean up your server from these outdated files:
+ 
+1. Move outdated files to a separate directory:
+```bash
+$ docker run --rm -it -v /srv/wodby:/srv/wodby wodby/cleanup 'API Token'
+```
+
+2. Make sure your applications still operate correctly. Delete outdated files:
+```bash
+$ rm -rf /srv/wodby/_deleted
+```

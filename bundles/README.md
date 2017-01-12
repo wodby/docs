@@ -5,11 +5,13 @@ Bundle is a pre-configured infrastructure package for [your application](../apps
 The following predefined bundles are currently available:
 
 | Bundle | Current stable version |
-| --------- | ----------------------------------- |
-| [Drupal 8](drupal8.md)    | <a href="drupal8.html#331">3.3.1</a>   |
-| [Drupal 7](drupal7.md)    | <a href="drupal7.html#331">3.3.1</a>   |
-| [Drupal 6](drupal6.md)    | <a href="drupal6.html#331">3.3.1</a>   |
-| [WordPress](wordpress.md) | <a href="wordpress.html#331">3.3.1</a> |
+| ------ | ---------------------- |
+| [Drupal 8](drupal8.md) | v3.3.1 |
+| [Drupal 7](drupal7.md) | v3.3.1 |
+| [Drupal 6](drupal6.md) | v3.3.1 |
+| [WordPress](wordpress.md) | v3.3.1 |
+| [Apache Solr 5.5](solr.md) | N/A |
+| [Apache Solr 6.3](solr.md) | N/A |
 | [Custom bundles](custom/README.md) | N/A | 
 
 ## Template
