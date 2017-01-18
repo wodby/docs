@@ -44,12 +44,14 @@ The current version of Varnish can be found on `[Instance] > Bundle > Reverse ca
     
 ## Integration with WordPress
 
-1. Install and activate <a href="https://wordpress.org/plugins/varnish-http-purge/" target="_blank">varnish plugin</a>
-2. Enable Varnish integration from `App page > Cache > Cache settings`
+1. Install and activate <a href="https://wordpress.org/plugins/vcaching/" target="_blank">Varnish Caching plugin</a>
+2. Enable Varnish Caching as shown below:
+
+![](_images/wp-varnish-caching.png)
 
 ## Caching rules
 
-Varnish ignores the following GET parameters for cache id generation: 
+Varnish (for Drupal only) ignores the following GET parameters for cache id generation: 
 
 ```
 utm_source
