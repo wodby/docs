@@ -10,11 +10,8 @@ You can remove or add a new instance from the `Instances` page. To get there nav
 
 There are four types of instances: local, dev, staging and production. The local instance can be deployed only to [Vagrant](../servers/connect/vagrant.md), it's also unique per user and not visible to other members of the organization.
 
-The difference between the dev, staging and prod are:
- 
-* <a href="domains.html#indexation">Indexation rules for search robots</a>: do not index any domains (including custom) for dev and staging
-* Error reporting level: display all errors on dev and none on staging and prod 
- 
+There's almost no difference between instance types except error reporting level – all errors are displayed on dev instances and none on staging and production. 
+
 ## Deletion
 
 When you delete an instance Wodby does not delete containers' persistent files (database, codebase, etc) on your server to ensure no valuable data will be lost. Please follow the instructions below to clean up your server from these outdated files:

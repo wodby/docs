@@ -5,7 +5,7 @@
 * [HTTPS (SSL via Let's Encrypt)](#https-ssl-via-lets-encrypt)
 * [WWW redirects](#www-redirects)
 * [Basic auth](#basic-auth)
-* [Indexation](#indexation)
+* [Indexation by Search Robots](#indexation-by-search-robots)
 
 ## Default .wod.by domain name
 
@@ -47,6 +47,6 @@ If you want your www subdomain to automatically redirect to non-www domain or vi
 
 You can enable basic auth for all domains of an app instance from `[Instance] > Domains > Basic auth`
 
-## Indexation
+## Indexation by Search Robots
 
-Dev, staging instances and all instances accessible by technical `*.wod.by` domains not indexed by search engines (header X-Robots-Tag)
+All technical `*.wod.by` domains are not indexed by search engines (header X-Robots-Tag). Additionally, you can optionally prevent indexation for your custom domains on domain edit/add pages.
