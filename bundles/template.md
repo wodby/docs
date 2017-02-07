@@ -44,8 +44,8 @@ services:
         ports:
             - 'edge::80/tcp'
     volumes:
-        docroot: /var/www
-        db: /var/www
+        - 'docroot:/var/www'
+        - 'db:/var/www'
 volumes:
     docroot:
         path: ./docroot
