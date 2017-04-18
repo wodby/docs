@@ -43,14 +43,9 @@ services:
         image: example/myapp
         ports:
             - 'edge::80/tcp'
-    volumes:
-        - 'docroot:/var/www'
-        - 'db:/var/www'
-volumes:
-    docroot:
-        path: ./docroot
-    db:
-        path: ./db
+        volumes:
+            - 'docroot:/var/www'
+            - 'db:/var/www'
 ```
 
 ## Variable Substitution
@@ -65,9 +60,9 @@ services:
         image: example/backend
         ports:
             - 'edge::80/tcp'
-    environment:
-        username: %user
-        password: %pass
+        environment:
+            username: '%user'
+            password: '%pass'
 
 variables:
     user: 'admin'
@@ -148,7 +143,6 @@ services:
 ```
 "32223::80:8080"
 ```
-
 
 ## Examples
 
