@@ -46,6 +46,11 @@ services:
         volumes:
             - 'docroot:/var/www'
             - 'db:/var/www'
+volumes:
+    docroot:
+        path: ./docroot
+    db:
+        path: ./db
 ```
 
 ## Variable Substitution
