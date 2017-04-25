@@ -28,8 +28,6 @@ push:
             password: $DOCKER_PASSWORD
             repository: wodby/docs
             tag: latest, $WERCKER_GIT_BRANCH
-            entrypoint: /usr/local/bin/docker-entrypoint.sh
-            cmd: nginx -g 'daemon off;'
 
 deployment:
     steps:
