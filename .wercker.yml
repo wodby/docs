@@ -9,7 +9,9 @@ build:
                 gitbook build
 
 push:
-    box: nginx:alpine
+    box:
+        id: nginx:alpine
+        cmd: /bin/sh
     steps:
         - script:
             name: install dependencies
@@ -26,6 +28,7 @@ push:
             password: $DOCKER_PASSWORD
             repository: wodby/docs
             tag: latest, $WERCKER_GIT_BRANCH
+            cmd: nginx -g 'daemon off;'
 
 deployment:
     steps:
