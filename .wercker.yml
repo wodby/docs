@@ -5,6 +5,7 @@ build:
         - script:
             name: build
             code: |
+                gitbook install
                 gitbook build
 
 push:
