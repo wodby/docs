@@ -26,7 +26,7 @@ push:
             registry: https://registry.hub.docker.com
             username: $DOCKER_USERNAME
             password: $DOCKER_PASSWORD
-            repository: wodby/wodby-docs
+            repository: wodby/docs
             tag: latest, $WERCKER_GIT_BRANCH
             entrypoint: /usr/local/bin/docker-entrypoint.sh
             cmd: nginx -g 'daemon off;'
@@ -39,4 +39,4 @@ deployment:
                 curl -sS \
                         -H "Content-type: application/json" \
                         -H "Authorization: token ${WODBY_API_TOKEN}" \
-                        -X POST https://api.wodby.com/api/v2/bundles/deploy?org_id="${WODBY_ORG_UUID}"\&service_image=wodby/wodby-docs:"${WERCKER_GIT_BRANCH}"\&cause="${WERCKER_GIT_COMMIT}"
+                        -X POST https://api.wodby.com/api/v2/bundles/deploy?org_id="${WODBY_ORG_UUID}"\&service_image=wodby/docs:"${WERCKER_GIT_BRANCH}"\&cause="${WERCKER_GIT_COMMIT}"
