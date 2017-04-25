@@ -5,7 +5,6 @@ build:
         - script:
             name: build
             code: |
-                cd $WERCKER_SOURCE_DIR
                 gitbook build
 
 push:
