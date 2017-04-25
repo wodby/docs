@@ -11,6 +11,6 @@ This section contains information related to Drupal websites deployed via Wodby.
 
 To learn more about Drupal infrastructure please visit:
 
-* [Drupal 8 bundle](../../bundles/drupal8.md)
-* [Drupal 7 bundle](../../bundles/drupal7.md)
-* [Drupal 6 bundle](../../bundles/drupal6.md)
+* [Drupal 8 stack](../../stacks/drupal8.md)
+* [Drupal 7 stack](../../stacks/drupal7.md)
+* [Drupal 6 stack](../../stacks/drupal6.md)

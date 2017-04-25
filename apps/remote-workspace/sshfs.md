@@ -12,7 +12,7 @@ $ sudo gpasswd -a "$USER" fuse
 
 * Create a directory where you want to mount 
 
-* Navigate to `[Instance] > Bundle > [Backend]` and copy the `SSHFS command`
+* Navigate to `[Instance] > Stack > [Backend]` and copy the `SSHFS command`
 
 * In the command replace token `%dir%` with the directory you has created
   
@@ -30,7 +30,7 @@ $ fusermount -u %dir%
 
 * Create a directory where you want to mount 
 
-* Navigate to `[Instance] > Bundle > [Backend]` and copy the `SSHFS command`
+* Navigate to `[Instance] > Stack > [Backend]` and copy the `SSHFS command`
 
 * In the command replace token `%dir%` with the directory you has created
   

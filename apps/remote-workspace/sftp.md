@@ -6,7 +6,7 @@
 
 3. Go to `Tools > Deployment > Configuration`, add a new server with type SFTP
 
-4. Navigate to `Bundle > nginx-php` in the dashboard and copy/paste SFTP credentials. Specify the path to your private SSH key and make sure you've added the public key from the same pair to your Wodby profile. Click `Test SFTP connection` to make sure everything works.
+4. Navigate to `Stack > nginx-php` in the dashboard and copy/paste SFTP credentials. Specify the path to your private SSH key and make sure you've added the public key from the same pair to your Wodby profile. Click `Test SFTP connection` to make sure everything works.
 <br>![](images/phpstorm-wodby-deployment.jpg)
 
 5. Now go to tab `Mappings` and set `Deployment on server` path to `/`

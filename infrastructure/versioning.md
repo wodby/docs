@@ -2,7 +2,7 @@
 
 ## Overview
 
-This article covers server infrastructure versioning, to learn about bundles versioning see [this article](../bundles/README.md).
+This article covers server infrastructure versioning, to learn about stacks versioning see [this article](../stacks/README.md).
 
 We constantly improve the infrastructure we deploy to our customers' servers. You can see the version of the infrastructure deployed to your server in the Dashboard on the servers list page. It's not always possible to update the infrastructure automatically so if you want update your infrastructure please [contact our support team](../product/support.md) to schedule the upgrade. 
 
@@ -56,7 +56,7 @@ Release date: `July 1st, 2016`
 * includeSubdomains option removed from [HSTS header](hsts.md)
 * Now `X-Robots-Tag` header added always (not only for 20x, 30x response codes)
 * New version of Wodby agent. Now with automated infrastructure update (will be announced later)
-* Exif extension added to [PHP 5.6, 7](../bundles/containers/nginx-php/php.md)
+* Exif extension added to [PHP 5.6, 7](../stacks/containers/nginx-php/php.md)
 * Fixed bug when `X-Wodby-Node` header missed sometimes
 * Added default nginx host for port 443 with self-signed certificates 
 

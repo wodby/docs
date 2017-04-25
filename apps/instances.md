@@ -2,7 +2,7 @@
 
 ![](_images/instances.png)
 
-Application instance is a single environment (bundle) deployed for your app (dev, staging, prod, feature, etc). Every app can have unlimited instances but at least one. By default we deploy development (or just dev) instance of your application. But you can deploy as many instances as you want. 
+Application instance is a single environment (stack) deployed for your app (dev, staging, prod, feature, etc). Every app can have unlimited instances but at least one. By default we deploy development (or just dev) instance of your application. But you can deploy as many instances as you want. 
 
 You can remove or add a new instance from the `Instances` page. To get there navigate to the instance page and click on a cogwheel in the header.
  

@@ -25,7 +25,7 @@ If you want to access the container itself please refer [to this article (with n
 
 ## Version
 
-The current version of Redis can be found on `[Instance] > Bundle > Cache storage` page.
+The current version of Redis can be found on `[Instance] > Stack > Cache storage` page.
 
 ## Integration with Drupal
 

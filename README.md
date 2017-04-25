@@ -21,8 +21,8 @@ Basic concepts:
 Infrastructure provided by Wodby:
 
 * [Overview](infrastructure/README.md) 
-* [Bundles](bundles/README.md)
-* [Containers](bundles/containers/README.md) 
+* [Stacks](stacks/README.md)
+* [Containers](stacks/containers/README.md) 
 
 Local environment:
 
@@ -43,4 +43,3 @@ Wodby as a product:
 * [Key features](product/features.md)
 * [Billing and payment](product/billing-payment.md)
 * [Getting support](product/support.md)
-* [Our product roadmap](product/roadmap.md)

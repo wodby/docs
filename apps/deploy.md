@@ -2,11 +2,11 @@
 
 Deployment of the new applications consist of 2 simple steps:
 
-## Step 1: Choose Server and Bundle
+## Step 1: Choose Server and Stack
 
 Select one of the [**connected servers**](../servers/README.md) where you want to deploy your app. 
  
-Choose a [**bundle**](../bundles/README.md) for deployment. 
+Choose a [**stack**](../stacks/README.md) for deployment. 
 
 Additionally, check optional services for deployment such as a cache storage, and search engine. Some services, such as backend, have different container implementations (Nginx + PHP 5.6 or Nginx + PHP7).
  

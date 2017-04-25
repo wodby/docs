@@ -18,7 +18,7 @@ This container doesn't provide SSH access, if you want to access the container p
 
 ## Version
 
-The current version of Varnish can be found on `[Instance] > Bundle > Reverse caching proxy` page
+The current version of Varnish can be found on `[Instance] > Stack > Reverse caching proxy` page
 
 ## Integration with Drupal
 
@@ -37,7 +37,7 @@ The current version of Varnish can be found on `[Instance] > Bundle > Reverse ca
 
 1. Install and enable <a href="https://www.drupal.org/project/varnish" target="_blank">varnish module</a>
 2. Enable Varnish integration from `App page > Cache > Cache settings`
-3. Go to `Home » Administration » Configuration » Development` page of Drupal website and enter the following settings (copy from `[Instance] > Bundle > Reverse caching proxy` page of Wodby Dashboard): 
+3. Go to `Home » Administration » Configuration » Development` page of Drupal website and enter the following settings (copy from `[Instance] > Stack > Reverse caching proxy` page of Wodby Dashboard): 
     * Varnish version = 4.x
     * Varnish Control Terminal = varnish:6082
     * Varnish Control Key = <Copy Secret >

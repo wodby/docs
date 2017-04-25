@@ -10,4 +10,4 @@ This container doesn't expose public ports. If you want to access the container 
 
 ## Version
 
-The current version of OpenSMTPD can be found on `[Instance] > Bundle > Mail server` page.
+The current version of OpenSMTPD can be found on `[Instance] > Stack > Mail server` page.

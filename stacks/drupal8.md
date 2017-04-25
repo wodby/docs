@@ -1,6 +1,6 @@
-# Drupal 8 Bundle
+# Drupal 8 Stack
 
-This section contains information related to [the bundle](README.md) for [Drupal 8 websites](../apps/drupal/README.md). 
+This section contains information related to [the stack](README.md) for [Drupal 8 websites](../apps/drupal/README.md). 
 
 ## Containers
 
@@ -125,4 +125,4 @@ Release date: `June 24th, 2016`
 
 ### 3.0.0
 
-Initial bundle version.
+Initial stack version.

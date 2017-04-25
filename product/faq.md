@@ -23,6 +23,6 @@ Watch our <a href="https://www.youtube.com/watch?v=PMqjcU4cMPM" target="_blank">
 
 Yes, please read [how-to instructions](../git/connect/README.md).
 
-### What is bundle?
+### What is stack?
 
-Bundle is a pre-configured infrastructure package for [your application](../apps/README.md). You can learn more about bundles [here](../bundles/README.md). 
+Stack is a pre-configured infrastructure package for [your application](../apps/README.md). You can learn more about stacks [here](../stacks/README.md). 

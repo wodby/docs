@@ -1,16 +1,16 @@
-# WordPress Bundle
+# Drupal 6 Stack
 
-This section contains information related to [the bundle](README.md) for [WordPress websites](../apps/wordpress/README.md).
-    
+This section contains information related to [the stack](README.md) for [Drupal 6 websites](../apps/drupal/README.md). 
+
 ## Containers
 
 | Service | Available containers | Mandatory |
 | --------------------- | ---------------------------------------------- | - |
 | Backend               | [Nginx-php](containers/nginx-php/README.md) | ✓ |
 | Database              | [MariaDB](containers/mariadb.md)            | ✓ |
-| Cache storage         | [Redis](containers/redis.md)                |   |
+| Cache storage         | [Memcached](containers/memcached.md)        |   |
 | Mail server           | [OpenSMTPD](containers/opensmtpd.md)        |   |
-| Mail catcher          | [Mailhog](containers/mailhog.md)            |   |
+| Mail catcher          | [Mailhog](containers/mailhog.md)            |   | 
 | Search engine         | [Solr](containers/apache-solr.md)           |   |
 | Database management   | [PhpMyAdmin](containers/phpmyadmin.md)      |   |
 | Reverse caching proxy | [Varnish](containers/varnish.md)            | &nbsp; |
@@ -46,10 +46,6 @@ This section contains information related to [the bundle](README.md) for [WordPr
 
 Release date: `August 31st, 2016`
 
-#### Upgrade policy 3.3.1
-
-[Contact our support team](../product/support.md) to schedule the upgrade. Instance downtime ~5 minutes.
-
 ### 3.3.0
 
 #### Changes since 3.2.1
@@ -70,7 +66,6 @@ Release date: `August 15th, 2016`
 * Updated containers' base OS Alpine Linux 3.4.2
 * Fixed <a href="https://httpoxy.org/#mitigate-nginx" target="_blank">HTTPoxy vulnerability</a>
 * New PHP version 5.6.24 with security updates
-* New PHP version 7.0.9 with security updates
 
 Release date: `July 27th, 2016`
 
@@ -112,12 +107,8 @@ Minimal [server infrastructure version](../infrastructure/versioning.md) 3.0.0 i
 #### Changes since 3.0.0
 
 * [Nginx](containers/nginx-php/nginx.md) upgraded to 1.10.1 
-* [PHP 5.6](containers/nginx-php/php.md) upgraded to 5.6.22
 * [Postfix](containers/nginx-php/postfix.md) upgraded to 3.1.1
 * [MariaDB](containers/mariadb.md) upgraded to 10.1.14
-* [Redis](containers/redis.md) upgraded to 3.2.0
-* Default option `always_populate_raw_post_data = -1` added to php.ini of [PHP 5.6](containers/nginx-php/php.md) 
-* Added mysql_extension (in addition to mysqli_extension) to [PHP 5.6](containers/nginx-php/php.md)
 * Fixed the bug in all [PHP containers](containers/nginx-php/php.md) with an incorrect value of `error_reporting` for dev instances 
 
 Release date: `June 24th, 2016`
@@ -128,4 +119,4 @@ Release date: `June 24th, 2016`
 
 ### 3.0.0
 
-Initial bundle version.
+Initial stack version.

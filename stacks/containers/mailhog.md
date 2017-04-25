@@ -14,8 +14,8 @@ This container doesn't provide SSH access, if you want to access the container p
 
 ### Mailhog admin UI
 
-You can find URL and login/password on `[Instance] > Bundle > Mail catcher` page.
+You can find URL and login/password on `[Instance] > Stack > Mail catcher` page.
 
 ## Version
 
-The current version of Mailhog can be found on `[Instance] > Bundle > Mail catcher` page.
+The current version of Mailhog can be found on `[Instance] > Stack > Mail catcher` page.

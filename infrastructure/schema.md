@@ -4,4 +4,4 @@
 
 Further reading:
 
-* [Bundles](../bundles/README.md)
+* [Stacks](../stacks/README.md)

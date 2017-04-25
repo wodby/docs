@@ -4,4 +4,4 @@ We recommend to use docker native app (1.12+) for local development. Check out t
 
 * For Drupal: <a href="https://github.com/wodby/docker4drupal" target="_blank">docker4drupal</a>
 * For WordPress: <a href="https://github.com/wodby/docker4wordpress" target="_blank">docker4wordpress</a>
-* For custom bundles please [contact us](../troubleshooting/README.md)
+* For custom stacks please [contact us](../troubleshooting/README.md)

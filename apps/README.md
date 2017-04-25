@@ -6,7 +6,7 @@ Learn how to [deploy a new app](deploy.md). Wodby support the following list of 
 
 * [Drupal](drupal/README.md) (version 6, 7, 8)
 * [WordPress](wordpress/README.md)
-* [Custom](../bundles/custom/README.md)
+* [Custom](../stacks/custom/README.md)
 
 > Every application deployed via Wodby has at least one instance. In other words, when we say app what we really mean is application instance. 
 

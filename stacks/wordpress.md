@@ -1,7 +1,7 @@
-# Drupal 7 Bundle
+# WordPress Stack
 
-This section contains information related to [the bundle](README.md) for [Drupal 7 websites](../apps/drupal/README.md). 
-
+This section contains information related to [the stack](README.md) for [WordPress websites](../apps/wordpress/README.md).
+    
 ## Containers
 
 | Service | Available containers | Mandatory |
@@ -128,4 +128,4 @@ Release date: `June 24th, 2016`
 
 ### 3.0.0
 
-Initial bundle version.
+Initial stack version.
