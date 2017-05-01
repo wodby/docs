@@ -1,8 +1,10 @@
 # Stack Template
 
+You can create custom stacks by defining one via template or by forking stacks provided by Wodby. 
+
 Stack template is a YML defining services, it's similar to <a href="https://docs.docker.com/compose/compose-file/" target="_blank">docker compose</a> format but has a fewer options.
 
-> Stacks provided by Wodby (including forks) may have additional configurations not covered by templates.
+> Stacks provided by Wodby (including forks) may have additional configurations not covered by templates. 
  
 * [Service configuration reference](#service-configuration-reference)
 * [Global volumes](#global-volumes)

@@ -1,3 +1,7 @@
+# Containers
+
+Infrastructure provided by Wodby is powered by docker containers. Our light-weight containers in most cases are based on <a href="http://alpinelinux.org" target="_blank">Alpine Linux</a>.
+ 
 # Accessing containers
 
 Some of the containers have SSH access, some of them not. If a container has SSHd, just copy and execute SSH command from `[Instance] > Stack > [CONTAINER]` page. 

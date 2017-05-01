@@ -1,18 +1,8 @@
 # Stack
 
-Stack is a pre-configured infrastructure package for [your application](../apps/README.md). Every stack consist of a few services, some of them are mandatory (backend, database), some of them are optional (cache storage, mail server, etc). Every service has at least one [container implementation](containers/README.md), e.g. for database services there's a MariaDB container. 
+Stack is a pre-configured infrastructure package for [your application](../apps/README.md). Every stack consist of a few services (mandatory and optional). Every service has at least one [container implementation](containers.md), e.g. for database services there's a MariaDB container. 
 
-The following predefined stacks are currently available:
-
-| Stack | Current stable version |
-| ------ | ---------------------- |
-| [Drupal 8](drupal8.md) | v3.3.1 |
-| [Drupal 7](drupal7.md) | v3.3.1 |
-| [Drupal 6](drupal6.md) | v3.3.1 |
-| [WordPress](wordpress.md) | v3.3.1 |
-| [Apache Solr 5.5](solr.md) | N/A |
-| [Apache Solr 6.3](solr.md) | N/A |
-| [Custom stacks](custom/README.md) | N/A | 
+Please visit [Stack Hub](https://cloud.wodby.com/#/hub/explore) to explore all the stacks.
 
 ## Template
 

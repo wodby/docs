@@ -22,7 +22,7 @@ Infrastructure provided by Wodby:
 
 * [Overview](infrastructure/README.md) 
 * [Stacks](stacks/README.md)
-* [Containers](stacks/containers/README.md) 
+* [Containers](stacks/containers.md) 
 
 Local environment:
 
@@ -36,10 +36,8 @@ After deploying an app:
 * Configure [post-deployment scenario](deployment/post-deployment-scripts.md)
 * Configure [backups](apps/backups.md)
 * [Add your SSH key](infrastructure/keys.md) to access the containers
-* Try [remote workspace](apps/remote-workspace/README.md) 
 
 Wodby as a product: 
 
-* [Key features](product/features.md)
 * [Billing and payment](product/billing-payment.md)
 * [Getting support](product/support.md)

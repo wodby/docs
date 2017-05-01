@@ -56,7 +56,7 @@ Release date: `July 1st, 2016`
 * includeSubdomains option removed from [HSTS header](hsts.md)
 * Now `X-Robots-Tag` header added always (not only for 20x, 30x response codes)
 * New version of Wodby agent. Now with automated infrastructure update (will be announced later)
-* Exif extension added to [PHP 5.6, 7](../stacks/containers/nginx-php/php.md)
+* Exif extension added to PHP 5.6, 7
 * Fixed bug when `X-Wodby-Node` header missed sometimes
 * Added default nginx host for port 443 with self-signed certificates 
 
@@ -70,11 +70,11 @@ Release date: `June 16th, 2016`
 
 #### Changes since 3.2.0
 
-* <a href="../apps/drupal/settings.html#base-url">$base_url orchestration for Drupal</a>
-* <a href="../apps/drupal/settings.html#trusted-hosts-patterns">Auto generation of trusted host patterns for Drupal 8</a>
-* [Drupal 7.x, 8.x multi-site support](../apps/drupal/multi-site.md)
+* $base_url orchestration for Drupal
+* Auto generation of trusted host patterns for Drupal 8
+* Drupal 7.x, 8.x multi-site support
 * Drupal 8 and WordPress now come with PHP7 and Redis
-* [msmtp + opensmtpd replaced with postfix](mta.md)
+* msmtp + opensmtpd replaced with postfix
 * Workaround for Drupal `sites/default` auto permissions change. This caused problems when settings.php file was changed
 
 #### Upgrade policy 3.3.0

@@ -22,14 +22,9 @@ Specify data (codebase/database/files) sources for your application. Select one 
 
 This option indicates that your code will be used from the cloned git repository. Additionally, you can upload archives for database and files.
 
-#### Use pre-configured preset
-
-Wodby provides pre-configured presets (for [Drupal](drupal/preset.md) and [WordPress](wordpress/preset.md)). Existing files in the default branch will be removed. Files of the preset will be added. **The code won't be committed to your repository.** You will be able to see new files from the [remote workspace](remote-workspace/README.md) tab.
-
 #### Import from separate archives
 
-Upload three separate archives for code, database and files. The following formats are supported: `.zip .gz .tar.gz .tgz .tar`. Existing files in the default branch will be removed. Files from the extracted code/files archives will be added. **The code won't be committed to your repository.** You will be able to see new files from the [remote workspace](remote-workspace/README.md) tab. 
-
+Upload three separate archives for code, database and files. The following formats are supported: `.zip .gz .tar.gz .tgz .tar`. Existing files in the default branch will be removed. Files from the extracted code/files archives will be added. 
 #### Application specific import
 
 See details: 
