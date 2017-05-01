@@ -10,18 +10,14 @@ Basic concepts:
 
 * [Stacks](../stacks/README.md)
 * [Containers](../stacks/containers.md)
-* [Schema](schema.md)
 * [Infrastructure versioning](versioning.md)
 
 Further reading:
 
 * [Adding SSH Key](keys.md)
-* [CLI commands](cli.md)
 * [Cloudflare integration](cloudflare.md)
 * [Configuring UFW](ufw.md)
-* [Cron](cron.md)
 * [HTTP Strict Transport Security (HSTS)](hsts.md)
 * [Infrastructure memory consumption](memory-consumption.md)
 * [Integration with CloudFlare](cloudflare.md)
 * [Local development](local.md)
-* [Security](security.md)

@@ -8,4 +8,3 @@ Resources:
 
 * <a href="http://docs.wodbyapi.apiary.io/" target="_blank">API reference</a>
 * <a href="https://github.com/Wodby/wodby-sdk-php" target="_blank">Wodby PHP SDK</a>
-* [Using Wodby API in your CI/CD workflow](../cicd/README.md)
