@@ -147,6 +147,7 @@ PHP container has pre-installed WP CLI.
 | Variable  | Description |
 | --------- | ----------- |
 | `$APP_ROOT`                       | `/var/www/html` by default |
+| `$WODBY_APP_ROOT` (deprecated)    | `/var/www/html` by default |
 | `$HTTP_ROOT`                      | e.g. `/var/www/html/web`   |
 | `$WODBY_APP_DOCROOT` (deprecated) | e.g. `/var/www/html/web`   |
 | `$WODBY_ENVIRONMENT_NAME`         | Staging                    |
