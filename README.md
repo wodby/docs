@@ -24,11 +24,6 @@ Infrastructure provided by Wodby:
 * [Stacks](stacks/README.md)
 * [Containers](stacks/containers.md) 
 
-Local environment:
-
-* [With Docker native app (recommended)](infrastructure/local.md)
-* [Connect your local machine via Vagrant](servers/connect/vagrant.md)
-
 After deploying an app:
 
 * Deploy new [instances](apps/instances.md)

@@ -8,5 +8,4 @@ List of the known issues:
 * [Can't connect to a container via SSH](container-ssh.md)
 * [Can't connect a server](connecting-server.md)
 * [Server is unreachable](server-unreachable.md)
-* [Vagrant is unreachable](vagrant-unreachable.md)
 * [Host identification has changed](host-identification-has-changed.md)

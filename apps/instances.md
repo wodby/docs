@@ -8,7 +8,7 @@ You can remove or add a new instance from the `Instances` page. To get there nav
  
 ## Instance type
 
-There are four types of instances: local, dev, staging and production. The local instance can be deployed only to [Vagrant](../servers/connect/vagrant.md), it's also unique per user and not visible to other members of the organization.
+There are 3 types of instances: dev, staging and production. 
 
 There's almost no difference between instance types except error reporting level – all errors are displayed on dev instances and none on staging and production. 
 

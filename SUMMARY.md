@@ -50,7 +50,6 @@
     * [Can't connect server](troubleshooting/connecting-server.md)
     * [Can't access container by SSH](troubleshooting/container-ssh.md)
     * [Server is unreachable](troubleshooting/server-unreachable.md)
-    * [Vagrant is unreachable](troubleshooting/vagrant-unreachable.md)
     * [Host identification has changed](troubleshooting/host-identification-has-changed.md)
 * [Product](product/README.md)
     * [Billing and Payment](product/billing-payment.md)
