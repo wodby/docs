@@ -23,7 +23,7 @@ pipeline:
   - name: Drupal 8 clear cache on dev
     type: command
     command: drush cr
-    directory: $HTTP_ROOT
+    directory: $WODBY_APP_DOCROOT
     only_if: test "$WODBY_ENVIRONMENT_TYPE" = "dev" 
 ```    
     
@@ -33,7 +33,7 @@ Or like this (example for [shell stage](#shell-script-stage)):
 pipeline:
   - name: Run my custom script
     type: shell
-    file: "$APP_ROOT/scripts/my-script.sh"
+    file: "$WODBY_APP_DOCROOT/scripts/my-script.sh"
 ```
 
 > The pipeline is an automated manifestation of your deployment process. In other words, it's just a set of post-deployment actions to execute

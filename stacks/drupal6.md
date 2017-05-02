@@ -152,10 +152,11 @@ You can enable this redirect by checking the corresponding option on a domain ed
 
 | Variable  | Description |
 | --------- | ----------- |
-| `$APP_ROOT`               | `/var/www/html` by default |
-| `$HTTP_ROOT`              | `/var/www/html` by default |
-| `$WODBY_ENVIRONMENT_NAME` | |
-| `$WODBY_ENVIRONMENT_TYPE` | |
+| `$APP_ROOT`                       | `/var/www/html` by default |
+| `$HTTP_ROOT`                      | e.g. `/var/www/html/web`   |
+| `$WODBY_APP_DOCROOT` (deprecated) | e.g. `/var/www/html/web`   |
+| `$WODBY_ENVIRONMENT_NAME`         | Staging                    |
+| `$WODBY_ENVIRONMENT_TYPE`         | dev, stage, prod           |
 
 ## Import
 
