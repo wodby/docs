@@ -18,6 +18,4 @@ Further reading:
 * [Cloudflare integration](cloudflare.md)
 * [Configuring UFW](ufw.md)
 * [HTTP Strict Transport Security (HSTS)](hsts.md)
-* [Infrastructure memory consumption](memory-consumption.md)
 * [Integration with CloudFlare](cloudflare.md)
-* [Local development](local.md)
