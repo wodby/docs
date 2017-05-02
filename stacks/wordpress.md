@@ -44,12 +44,14 @@ StackHub URL:
 
 If you want to access the database outside of the Wodby infrastructure you will have to use SSH tunnel via the main container:
 
-1. Set up SSH tunnel on port `53306` (you can change it). You can find `<SSH Port>` on `[Instance] > Stack > SSH` page. For MySQL (port `3306` by default) use the following command:
-```
+1\. Set up SSH tunnel on port `53306` (you can change it). You can find `<SSH Port>` on `[Instance] > Stack > SSH` page. For MySQL (port `3306` by default) use the following command:
+
+```bash
 $ ssh -L 53306:mariadb:3306 -p <SSH Port> wodby@<Server IP> -N
 ```
 
-2. Connect to the database (mysql) via the tunnel on port `53306`:
+2\. Connect to the database (mysql) via the tunnel on port `53306`:
+
 ```bash
 $ mysql --protocol=TCP -P53306 -udrupal -p<MySQL password> drupal
 ```
