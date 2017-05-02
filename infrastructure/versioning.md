@@ -15,25 +15,54 @@ Unsupported legacy versions: 0.1.0, 1.0.0, 2.0.0
  
 ## Changelog
 
+* [5.2.0](#520)
+* [5.1.0](#510)
+* [5.0.0](#500)
 * [3.5.0](#350)
-    * [Changes since 3.4.0](#changes-since-340)
-    * [Upgrade policy](#upgrade-policy-350)
 * [3.4.0](#340)
-    * [Changes since 3.3.0](#changes-since-330)
-    * [Upgrade policy](#upgrade-policy-340)
 * [3.3.0](#330)
-    * [Changes since 3.2.0](#changes-since-320)
-    * [Upgrade policy](#upgrade-policy-330) 
 * [3.2.0](#320)
-    * [Changes since 3.1.0](#changes-since-310)
-    * [Upgrade policy](#upgrade-policy-320)
 * [3.1.0](#310)
-    * [Changes since 3.0.0](#changes-since-300)
-    * [Upgrade policy](#upgrade-policy-310)
 * [3.0.0](#300)
 * [2.0.0](#200)
 * [1.0.0](#100)
 * [0.1.0](#010)
+
+### 5.2.0
+
+#### Changes since 5.1.0
+
+* Decoupled services for system containers
+* Improved agent installer
+* Bug fixes
+
+#### Upgrade policy
+
+[Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
+
+### 5.1.0
+
+#### Changes since 5.0.0
+
+* Revamped DNS services
+* Improved agent installer
+* Bug fixes
+
+#### Upgrade policy
+
+[Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
+
+### 5.0.0
+
+#### Changes since 3.5.0
+
+* New kubernetes
+* New installer with frozen docker version
+* Revamped wodby agent
+
+#### Upgrade policy
+
+[Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
 
 ### 3.5.0
 
