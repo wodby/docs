@@ -135,7 +135,7 @@ The copy of PHP container runs with SSHd. You can find access information on `[I
 
 ## Cron
 
-The copy of PHP container runs with cron and runs every hour.
+The copy of PHP container runs with cron and runs every hour via `wp cron event run`.
 
 ## WP CLI
 
