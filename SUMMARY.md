@@ -31,7 +31,6 @@
         * [Google Cloud Platform](servers/connect/gcp.md)
         * [Linode](servers/connect/linode.md)
         * [Microsoft Azure](servers/connect/azure.md)
-        * [Vagrant](servers/connect/vagrant.md)
         * [Custom server](servers/connect/custom.md)
     * [Disconnecting a server](servers/disconnect-server.md)
     * [Supported OS](servers/supported-os.md)

@@ -10,8 +10,6 @@ Wodby supports the following options for connecting a server:
 | [Google Cloud Platform (GCP)](gcp.md) | |
 | [Linode](linode.md) | |
 | [Microsoft Azure](azure.md) | |
-| [Vagrant](vagrant.md) | |
-| Rackspace | &nbsp; |
 
 ## Recommendations when connecting a server
 
