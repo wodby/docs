@@ -4,6 +4,13 @@ Stack is a pre-configured infrastructure package for [your application](../apps/
 
 Please visit [Stack Hub](https://cloud.wodby.com/#/hub/explore) to explore all the stacks.
 
+## Stack documentation
+
+* [Drupal 8](drupal8.md)
+* [Drupal 7](drupal7.md)
+* [Drupal 6](drupal6.md)
+* [WordPress](wordpress.md)
+
 ## Template
 
 You can create and edit stacks by modifying/defining [stack template](template.md).  
