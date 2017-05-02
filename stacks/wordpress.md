@@ -44,15 +44,14 @@ StackHub URL:
 
 If you want to access the database outside of the Wodby infrastructure you will have to use SSH tunnel via the main container:
 
-1. Set up SSH tunnel on port `53306` (you can change it). You can find `<SSH Port>` `<Node IP>` on the main container page. For MySQL (port `3306` by default) use the following command:
-
-```bash
-$ ssh -L 53306:services:3306 -p <SSH Port> wodby@<Node IP> -N
+1. Set up SSH tunnel on port `53306` (you can change it). You can find `<SSH Port>` on `[Instance] > Stack > SSH` page. For MySQL (port `3306` by default) use the following command:
+```
+$ ssh -L 53306:mariadb:3306 -p <SSH Port> wodby@<Server IP> -N
 ```
 
 2. Connect to the database (mysql) via the tunnel on port `53306`:
 ```bash
-$ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
+$ mysql --protocol=TCP -P53306 -udrupal -p<MySQL password> drupal
 ```
 
 ### Redis
@@ -169,10 +168,10 @@ Alternatively, you can import WordPress via separate archives for code, database
 In case your WordPress website is huge it makes sense to import your database/files manually from the server. Follow these steps:
 
 1. Deploy your WordPress website from a git repository without upload database and files
-2. Once the app is deployed, go to `Stack > nginx-php` and copy SSH command
-3. Connect the container by SSH and navigate to WordPress docroot (normally it's `/srv/app`)
+2. Once the app is deployed, go to `Stack > SSH` and copy SSH command
+3. Connect the container by SSH and navigate to WordPress docroot (normally it's `/var/www/html`)
 4. Copy your database archive here using wget or scp, unpack the archive
 5. Import unpacked database dump using `wp dm import my-db-dump.sql`
-6. Now let's import your files, cd to `/srv/files`
-7. Copy your files archive here using wget or scp and unpack the archive
+6. Now let's import your files, cd to `/mnt/files`
+7. Copy your files archive here using `wget` or `scp` and unpack the archive
 8. That's it! Clear app cache from the dashboard and don't forget to remove archives and extracted db dump

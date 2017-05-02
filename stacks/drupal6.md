@@ -45,14 +45,14 @@ StackHub URL: https://cloud.wodby.com/#/hub/0ade1c32-7b75-41ad-b796-4de97fb7dc4e
 
 If you want to access the database outside of the Wodby infrastructure you will have to use SSH tunnel via the main container:
 
-1. Set up SSH tunnel on port `53306` (you can change it). You can find <SSH Port> <Node IP> on the main container page. For MySQL (port `3306` by default) use the following command:
+1. Set up SSH tunnel on port `53306` (you can change it). You can find `<SSH Port>` on `[Instance] > Stack > SSH` page. For MySQL (port `3306` by default) use the following command:
 ```
-$ ssh -L 53306:services:3306 -p <SSH Port> wodby@<Node IP> -N
+$ ssh -L 53306:mariadb:3306 -p <SSH Port> wodby@<Server IP> -N
 ```
 
 2. Connect to the database (mysql) via the tunnel on port `53306`:
 ```bash
-$ mysql --protocol=TCP -P53306 -uwodby -p<MySQL password> wodby
+$ mysql --protocol=TCP -P53306 -udrupal -p<MySQL password> drupal
 ```
 
 ### Memcached
@@ -192,10 +192,10 @@ Alternatively, you can import Drupal via separate archives for code, database an
 In case your Drupal website is huge it makes sense to import your database/files manually from the server. Follow these steps:
 
 1. Deploy your Drupal website from a git repository without upload database and files
-2. Once the app is deployed, go to `Stack > nginx-php` and copy SSH command
-3. Connect the container by SSH and navigate to Drupal docroot (normally it's `/srv/app`)
-4. Copy your database archive here using wget or scp, unpack the archive
+2. Once the app is deployed, go to `Stack > SSH` and copy SSH command
+3. Connect the container by SSH and navigate to Drupal docroot (normally it's `/var/www/html`)
+4. Copy your database archive here using `wget` or `scp`, unpack the archive
 5. Import unpacked database dump using `drush sql-cli < my-db-dump.sql`
-6. Now let's import your files, cd to `/srv/files`
-7. Copy your files archive here using wget or scp and unpack the archive
+6. Now let's import your files, cd to `/mnt/files`
+7. Copy your files archive here using `wget` or `scp` and unpack the archive
 8. That's it! Clear app cache from the dashboard and don't forget to remove archives and extracted db dump
