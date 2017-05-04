@@ -8,25 +8,18 @@ Select one of the [**connected servers**](../servers/README.md) where you want t
  
 Choose a [**stack**](../stacks/README.md) for deployment. 
 
-Additionally, check optional services for deployment such as a cache storage, and search engine. Some services, such as backend, have different container implementations (Nginx + PHP 5.6 or Nginx + PHP7).
+Some stacks such as Drupal allow to enable additional services such as cache storage, reverse caching proxy and others.
  
-## Step 2: Enter App Name and Specify Data Sources
+## Step 2: Application Details
 
 Enter the name of your application. The URL for your application will be automatically generated based on this name, you can optionally adjust it.
 
-Specify data (codebase/database/files) sources for your application. Select one of the [**connected git repositories**](../git/README.md) or use Demo git server. Then choose one of the following options indicating how you want to import the data for your application. 
+### Optional Features
 
-#### Use code from the selected git repo
+#### Git Integration
 
-> The option is not available for Demo wodby git server. 
+Some stack allow you to connect a [git repository](../git/README.md) that will be used as a source of codebase. Once you deploy an app, you will also be able to deploy new code. 
+  
+#### Content Import
 
-This option indicates that your code will be used from the cloned git repository. Additionally, you can upload archives for database and files.
-
-#### Import from separate archives
-
-Upload three separate archives for code, database and files. The following formats are supported: `.zip .gz .tar.gz .tgz .tar`. Existing files in the default branch will be removed. Files from the extracted code/files archives will be added. 
-#### Application specific import
-
-See details: 
-* <a href="drupal/import.html#via-drush-archive">Import existing Drupal websites via drush archive</a> 
-* <a href="wordpress/import.html#via-duplicator-archive">Import existing WordPress websites via duplicator archive</a> 
+Some stack allow you to import content such as database and files. See details in description of your stack on [Stack Hub](https://cloud.wodby.com/stackhub). 

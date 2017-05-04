@@ -2,14 +2,7 @@
 
 Stack is a pre-configured infrastructure package for [your application](../apps/README.md). Every stack consist of a few services (mandatory and optional). Every service has at least one [container implementation](containers.md), e.g. for database services there's a MariaDB container. 
 
-Please visit [Stack Hub](https://cloud.wodby.com/#/hub/explore) to explore all the stacks.
-
-## Stack documentation
-
-* [Drupal 8](drupal8.md)
-* [Drupal 7](drupal7.md)
-* [Drupal 6](drupal6.md)
-* [WordPress](wordpress.md)
+Please visit [Stack Hub](https://cloud.wodby.com/stackhub) to explore all the stacks.
 
 ## Template
 
