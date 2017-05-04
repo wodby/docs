@@ -6,6 +6,10 @@ Both server infrastructure and stacks have versioning. We regularly update them 
  
 > The infrastructure we provide is based on [containers](../stacks/containers.md) and powered by Docker and Kubernetes.
 
+## Schema
+
+![](_images/schema.png)
+
 Basic concepts:
 
 * [Stacks](../stacks/README.md)
