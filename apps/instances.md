@@ -6,6 +6,10 @@ Application instance is a single environment (stack) deployed for your app (dev,
 
 You can remove or add a new instance from the `Instances` page. To get there navigate to the instance page and click on a cogwheel in the header.
  
+## Schema
+
+![](_images/schema.png)
+
 ## Instance type
 
 There are 3 types of instances: dev, staging and production. 

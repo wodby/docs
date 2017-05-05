@@ -7,6 +7,14 @@ The team plan starts with 10 [instances](../apps/instances.md) minimum. And here
 
 Quality over quantity.
 
+### What is instance?
+
+Application instance is a single environment (bundle) deployed for your app (dev, staging, prod, feature, etc). Every app can have unlimited instances but at least one. Read more about instance [here](../apps/instances.md)
+
+### How Wodby's availability affects my apps
+
+Wodby's availability does not affect availability of your server or apps. Although if Wodby becomes unavailable some tasks such as auto deployment won't be processed and auto backups will be postponed.   
+
 ### How can I purchase a server?
 
 Wodby is not a hosting provider. We believe that there are plenty of reliable providers on the market already. Instead we provide a way to [connect your own server](../servers/connect/README.md) from any cloud. 
@@ -22,7 +30,3 @@ Watch our <a href="https://www.youtube.com/watch?v=PMqjcU4cMPM" target="_blank">
 ### Can I connect my own git repository?
 
 Yes, please read [how-to instructions](../git/connect/README.md).
-
-### What is stack?
-
-Stack is a pre-configured infrastructure package for [your application](../apps/README.md). You can learn more about stacks [here](../stacks/README.md). 
