@@ -8,7 +8,7 @@ You can remove or add a new instance from the `Instances` page. To get there nav
  
 ## Schema
 
-![](_images/schema.png)
+![](../infrastructure/_images/schema.png)
 
 ## Instance type
 
