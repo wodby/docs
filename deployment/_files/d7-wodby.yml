@@ -1,9 +1,0 @@
-pipeline:
-  - name: update db
-    type: command
-    command: drush updb -y
-    directory: $WODBY_APP_DOCROOT
-  - name: clear cache
-    type: command
-    command: drush cc all
-    directory: $WODBY_APP_DOCROOT

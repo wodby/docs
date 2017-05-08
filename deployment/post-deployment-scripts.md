@@ -199,7 +199,3 @@ The files specified in pipeline configuration file need to have two blocks **nam
 ## Logs
 
 You can find output logs of executed post-deployment scripts in directory `/srv/logs/deployments/`  of the web container with the name `deployment-$(date +"%Y-%m-%dT%H-%M-%S").log`
-
-## Examples
-
-See `wodby.yml` examples for [WordPress](_files/wp-wodby.yml), [Drupal 7](_files/d7-wodby.yml) and [Drupal 8](_files/d8-wodby.yml) in attachments.
