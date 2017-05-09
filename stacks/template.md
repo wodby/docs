@@ -52,7 +52,7 @@ This section contains a list of all configuration options supported by a service
 
 | Name | Description | Mandatory | Schema | 
 | ---- | ----------- | -------- | ------ |
-| strategy | `rolling_update` or `recreate` (`rolling_update` by default). |  | string |
+| strategy | `rolling_update` or `recreate` (`rolling_update` by default). **Always use `recreate` strategy for stateful services like database and search engines.** |  | string |
 | replicas | Number of desired containers. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1. |  | int |
 | min_ready_seconds | Minimum number of seconds for which a newly created service should be ready without any of its container crashing, for it to be considered available. Defaults to 0. |  | int |
 | progress_deadline_seconds | The maximum time in seconds for a deployment to make progress before it is considered to be failed, not set by default. | | int |
@@ -187,16 +187,19 @@ services:
             MYSQL_ROOT_PASSWORD: '%db_password'
         volumes:
             - './mysql:/var/lib/mysql'
-    piwik:
-        image: piwik
+        deployment:
+            strategy: recreate            
+    php:
+        image: php
         environment:
-            MYSQL_ROOT_PASSWORD: '%db_password'
+            DB_USER: root
+            DB_PASSWORD: '%db_password'
         memory: 512:1024
         cpu: 100
     nginx:
         image: nginx
-        environment:
-            MYSQL_ROOT_PASSWORD: '%db_password'
+        ports:
+            - "edge::80:80"
 variables:
     db_password: 'auto:password:64'
 ```
