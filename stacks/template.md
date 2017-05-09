@@ -7,6 +7,8 @@ Stack template is a YML defining services, it's similar to <a href="https://docs
 > Stacks provided by Wodby (including forks) may have additional configurations not covered by templates. 
  
 * [Service configuration reference](#service-configuration-reference)
+    * [check-ready reference](#check-ready-reference)
+    * [deployment reference](#deployment-reference)
 * [Global volumes](#global-volumes)
 * [Variable substitution](#variable-substitution)
 * [Details](#details)
@@ -14,6 +16,7 @@ Stack template is a YML defining services, it's similar to <a href="https://docs
     * [cpu](#cpu)
     * [ports](#ports)
 * [Examples](#examples)
+* [Permissions](#permissions)
 
 ## Service configuration reference
 
@@ -34,7 +37,7 @@ This section contains a list of all configuration options supported by a service
 | [check_ready](#service-check-ready-reference) | Describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic. |  | string array |
 | [deployment](#service-deployment-reference) | Deployment enables declarative updates for services. |  | string array |
 
-## Service check-ready reference
+### check-ready reference
 
 | Name | Description | Mandatory | Schema | 
 | ---- | ----------- | -------- | ------ |
@@ -45,7 +48,7 @@ This section contains a list of all configuration options supported by a service
 | success_threshold | Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Minimum value is 1.| | int |
 | timeout_seconds | Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. | | int |
 
-## Service deployment reference
+### deployment reference
 
 | Name | Description | Mandatory | Schema | 
 | ---- | ----------- | -------- | ------ |
@@ -197,3 +200,7 @@ services:
 variables:
     db_password: 'auto:password:64'
 ```
+
+## Permissions
+
+If you mount volumes from the server, the owner of the mounted directory in a container will be root (UID 0). This may cause issues because very often main process run from a different user. To avoid potential problems make sure you're either fixing volumes permissions in your container entrypoint script (recommended) or run the main process as root.  
