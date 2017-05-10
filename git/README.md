@@ -1,6 +1,6 @@
 # Git
 
-Applications are required to use git. We provide our git server for demo purposes only and encourage you to connect your own git repository. If you don't have one we recommend using <a href="https://bitbucket.org" target="_blank">BitBucket</a>, it's free for small team with private repositories.
+Some stacks can use git a source of codebase along with basic git orchestration like pulling new code. You can connect your git repository to Wodby and then select it as codebase source on the 2nd step of a new application deployment form.
 
 * [Connecting git repository](connect/README.md)
 * [Configuring git hook for auto-pull](auto-deployment-hooks.md)
