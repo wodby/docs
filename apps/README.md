@@ -11,6 +11,5 @@ Further reading once the application is deployed:
 * [Application instances](instances.md)
 * [Domains](domains.md)
 * [Backups](backups.md)
-* [Remote debugging](remote-debugging.md)
 * [Maintenance mode](maintenance-mode.md)
 * [Going live](going-live.md)

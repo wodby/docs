@@ -1,19 +1,28 @@
 # Backups
 
-## Manual and auto backups
+Some services in stacks such as database come with backups orchestration. You can run backups manually for applications based on such stacks from Wodby Dashboard. Backups of an application instance will be stored on the same server where the instance is deployed. Additionally, you can restore data from backups.
 
-Wodby provides backups for database and files. The depth of backups by default is `7 days`. You can configure time when auto-backups run (in UTC). You can always restore from the selected backup in one click.
+## Auto Backups
 
-To avoid extra load on your server, backups run successively per server. You can always run a manual backup of your app's database/files. Backups files are available to download in tar.gz archives.
+You can enable auto backups for your applications by specifying backup depth (backups older than this # of days will be cleaned up automatically) and time in UTC when to start the backup process. 
+
+To avoid extra load on your server, backups run successively per server. 
 
 ## Mirroring 
 
-Wodby provides backup mirroring to different storages. Currently only AWS S3 supported. You can either connect your own AWS S3 bucket or use AWS S3 bucket provided by Wodby.
+Wodby provides backup mirroring to different storages. You can either use your own storage (currently only AWS S3 supported) or Wodby Storage.
 
-### Mirroring to AWS S3 provided by Wodby
+### Wodby Storage
 
-The simplest way to setup backup mirroring is to use simply select Wodby storage as the provider. We will store your backups in <a href="https://aws.amazon.com/s3/" target="_blank">AWS S3</a> bucket. The depth of the backups is `7 days`. Meaning that backups with age more than 7 days (since the moment of upload) will be deleted automatically.  
+The simplest way to setup backup mirroring is to use simply select Wodby Storage as a provider. 
+ 
+Backups older than 7 days (since the moment of upload) stored in Wodby Storage will be deleted automatically. **Limitation for Wodby Storage will soon be updated to X MB/GB per instance.**
 
-### Create your own Bucket
+### AWS S3
 
-Please read official <a href="http://docs.aws.amazon.com/AmazonS3/latest/gsg/CreatingABucket.html" target="_blank">Getting Started Guide</a> by AWS. 
+To mirror backups to your own AWS S3 bucket you'll need to specify the following information:
+
+* AWS Access Key Id
+* AWS Secret Access Key
+* Bucket name
+* Bucket region

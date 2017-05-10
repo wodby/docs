@@ -7,7 +7,6 @@
     * [Backups](apps/backups.md)
     * [Domains](apps/domains.md)
     * [Maintenance mode](apps/maintenance-mode.md)       
-    * [Remote debugging](apps/remote-debugging.md)
     * [Going live](apps/going-live.md)
 * [Stacks](stacks/README.md)
     * [Template](stacks/template.md)
