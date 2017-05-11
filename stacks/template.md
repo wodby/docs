@@ -123,7 +123,7 @@ You can specify CPU limits and requests for a container in the following formats
 1000 - Request 1 Core.
 1500 - Request 1.5 Core.
 650 - Request 0.65 Core.
-200:250 - Request 0.2 Core. Limit .25 Core.
+200:250 - Request 0.2 Core. Limit 0.25 Core.
 ```
 Minimum value is 100.
 
