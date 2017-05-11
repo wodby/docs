@@ -120,12 +120,14 @@ Limit is a maximum memory (in megabytes) available for a container. When a conta
 You can specify CPU limits and requests for a container in the following formats:
 
 ```
-100 - Request 1 Core.
-150 - Request 1.5 Core.
-100:200 - Request 1 Core. Limit 2 Cores.
+1000 - Request 1 Core.
+1500 - Request 1.5 Core.
+650 - Request 0.65 Core.
+200:250 - Request 0.2 Core. Limit .25 Core.
 ```
+Minimum value is 100.
 
-Limit is a # of CPU cores (100 for 1 core) available for a container. When a container exceeds this limit, it will be terminated (and automatically started again). Request defines how many CPU cores must be available on a server to start this container (used in clusters).
+Limit is a # of CPU cores (1000 for 1 core) available for a container. When a container exceeds this limit, it will be terminated (and automatically started again). Request defines how many CPU cores must be available on a server to start this container (used in clusters).
 
 ### ports
 
@@ -194,8 +196,8 @@ services:
         environment:
             DB_USER: root
             DB_PASSWORD: '%db_password'
-        memory: 512:1024
-        cpu: 100
+        memory: '512:1024'
+        cpu: '900'
     nginx:
         image: nginx
         ports:
