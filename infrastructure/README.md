@@ -19,7 +19,6 @@ Basic concepts:
 Further reading:
 
 * [Adding SSH Key](keys.md)
-* [Cloudflare integration](cloudflare.md)
 * [Configuring UFW](ufw.md)
 * [HTTP Strict Transport Security (HSTS)](hsts.md)
-* [Integration with CloudFlare](cloudflare.md)
+* [Using external volumes](../volumes.md)

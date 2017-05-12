@@ -9,3 +9,4 @@ Available integrations:
 | [GitHub](../git/connect/github.md) | Git |
 | [BitBucket](../git/connect/bitbucket.md) | Git |
 | [DigitalOcean](../servers/connect/do.md) | Cloud Hosting |
+| [CloudFlare](../cloudflare.md) | SSL |
