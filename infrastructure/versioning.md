@@ -10,8 +10,9 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Versions
 
-Stable mainline versions: 5.x.x<br />
-Unsupported legacy versions: 0.1.0, 1.x, 2.x, 3.x
+Stable mainline versions: 5.x<br />
+Support ends soon: 3.x<br />
+Unsupported legacy versions: 0.1.0, 1.x, 2.x
  
 ## Changelog
 

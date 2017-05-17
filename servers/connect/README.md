@@ -4,12 +4,12 @@ Wodby supports the following options for connecting a server:
 
 | Hosting provider | [Native integration](../../integrations/README.md) |
 | ---------------- | --------------------------------------------------- |
-| [Any](custom.md) |  |
+| [– Any –](custom.md) |  |
 | [DigitalOcean](do.md) | ✓ |
 | [AWS](aws.md) | |
 | [Google Cloud Platform (GCP)](gcp.md) | |
 | [Linode](linode.md) | |
-| [Microsoft Azure](azure.md) | |
+| [Microsoft Azure](azure.md) | &nbsp; |
 
 ## Recommendations when connecting a server
 

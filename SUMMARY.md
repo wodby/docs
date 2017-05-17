@@ -6,6 +6,7 @@
     * [Instances](apps/instances.md)
     * [Backups](apps/backups.md)
     * [Domains](apps/domains.md)
+    * [SSL](apps/ssl.md)
     * [Maintenance mode](apps/maintenance-mode.md)       
     * [Going live](apps/going-live.md)
 * [Stacks](stacks/README.md)

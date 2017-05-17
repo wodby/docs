@@ -1,6 +1,6 @@
 # Backups
 
-Some services in stacks such as database come with backups orchestration. You can run backups manually for applications based on such stacks from Wodby Dashboard. Backups of an application instance will be stored on the same server where the instance is deployed. Additionally, you can restore data from backups.
+Some stacks provide backups orchestration for services such as database. You can run backups manually for applications based on such stacks from the dashboard. Backups of an application instance will be stored on the same server where the instance is deployed.  
 
 ## Auto Backups
 

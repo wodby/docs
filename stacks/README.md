@@ -15,3 +15,11 @@ We regularly update stacks by releasing newer versions of stacks, such updates c
 You can find a stack's version of your application on the list of your apps or under `Stack` tab of your [instance](../apps/instances.md). If a stack is outdated you will see an appropriate indicator. If you want perform the upgrade of your instances' stacks please [contact our support team](../product/support.md) to schedule the upgrade.
  
 The stack has a requirement for the minimal [version of infrastructure](../infrastructure/versioning.md) of the server where this stack is deployed.
+
+## Upgrading
+
+When a new version of your stack has been released on Stack Hub, you will see the alert on Stacks page. To upgrade the stack go to the stack page (inside of your organization) and submit `Upgrade`. Please note that applications using this stack will not be upgraded automatically, you'll have to upgrade stack manually for each application from `[Instance] > Stack > Operations` page.    
+
+## Customization 
+
+You can customize stacks for specific application instance by overriding environment variables. Go to `[Instance] > Stack`, find a service you'd like to customize and click on a cogwheel icon. In a modal window you can edit environment variables for this service, disable it and manage # of replicas.

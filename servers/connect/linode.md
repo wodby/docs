@@ -1,5 +1,7 @@
 # Connecting Linode
 
+**Debian 8 provided by Linode is not compatible (because of custom kernel), please use Ubuntu instead**
+
 Currently, we don't have a native integration with Linode. But you still can connect your server by following these steps: 
 
 1. Login to <a href="https://manager.linode.com/" target="_blank">Linode manager</a> 

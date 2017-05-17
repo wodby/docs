@@ -7,8 +7,8 @@ If you want Wodby to use an external storage (mounted volume) instead of a serve
 3. [Connect the server](../servers/connect/README.md) to Wodby if it's not already connected
 4. Stop docker and kubernetes services (systemd):
 ```bash
-$ service docker stop
 $ service kube-* stop
+$ service docker stop
 ```
 5. Move docker's and Wodby's directories to the mounted volume and symlink them back:
 ```bash
