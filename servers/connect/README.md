@@ -19,3 +19,4 @@ Wodby supports the following options for connecting a server:
 * We strongly recommend to avoid connecting working servers
 * The following ports must be free: 80 (http), 443 (https), 31222-32222
 * When external firewall used – open inbound ports 80 (http), 443 (https), 31222-32222
+* SWAP should either not exist (we set it automatically) or be a half as the size of RAM but in range 2-12GB 
