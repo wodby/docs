@@ -2,13 +2,14 @@
 
 You can create custom stacks by defining one via template or by forking stacks provided by Wodby. 
 
-Stack template is a YML defining services, it's similar to <a href="https://docs.docker.com/compose/compose-file/" target="_blank">docker compose</a> format but has a fewer options.
+Stack template is a YML defining services, it's basically a simplified and limited version of [kubernetes schema](https://kubernetes.io/docs/resources-reference/v1.6/) in a format very close to docker compose.
 
 > Stacks provided by Wodby (including forks) may have additional configurations not covered by templates. 
  
 * [Service configuration reference](#service-configuration-reference)
     * [check-ready reference](#check-ready-reference)
     * [deployment reference](#deployment-reference)
+    * [security_context reference](#security-context-reference)
 * [Global volumes](#global-volumes)
 * [Variable substitution](#variable-substitution)
 * [Details](#details)
@@ -25,22 +26,22 @@ This section contains a list of all configuration options supported by a service
 | Name | Description | Mandatory | Schema | 
 | ---- | ----------- | -------- | ------ |
 | image | The image the container is running. | ✓ | string |
-| privileged | Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. |  | string |
 | entrypoint | Entrypoint string or array. The docker image’s ENTRYPOINT is used if this is not provided. |  | string, string array |
 | command | Arguments to the entrypoint. The docker image’s CMD is used if this is not provided. |  | string, string array |
 | working_dir | Container’s working directory. If not specified, the container runtime’s default will be used, which might be configured in the container image. |  | string |
-| [memory](#memory) | Memory rules and limitations |  | int, string | 
-| [cpu](#cpu) | CPU resources rules and limitations |  | int, string |
 | environment | List of environment variables to set in the container. |  | string array |
 | volumes | Volumes to mount into the container’s filesystem. |  | string array |
+| [memory](#memory) | Memory rules and limitations |  | int, string | 
+| [cpu](#cpu) | CPU resources rules and limitations |  | int, string |
 | [ports](#ports) | List of ports to expose from the container. |  | string array |
-| [check_ready](#service-check-ready-reference) | Describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic. |  | string array |
-| [deployment](#service-deployment-reference) | Deployment enables declarative updates for services. |  | string array |
+| [check_ready](#check-ready-reference) | Describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic. |  | string array |
+| [deployment](#deployment-reference) | Deployment enables declarative updates for services. |  | string array |
+| [security_context](#security-context-reference) | Security context holds security configuration that will be applied to a container. |  | string array |
 
 ### check-ready reference
 
 | Name | Description | Mandatory | Schema | 
-| ---- | ----------- | -------- | ------ |
+| ---- | ----------- | --------- | ------ |
 | exec | Exec specifies the action to take. | ✓ | command - array of strings |
 | initial_delay_seconds | Number of seconds after the container has started before liveness probes are initiated. |  | int |
 | period_seconds | How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1. |  | int |
@@ -51,13 +52,23 @@ This section contains a list of all configuration options supported by a service
 ### deployment reference
 
 | Name | Description | Mandatory | Schema | 
-| ---- | ----------- | -------- | ------ |
+| ---- | ----------- | --------- | ------ |
 | strategy | `rolling_update` or `recreate` (`rolling_update` by default). **Always use `recreate` strategy for stateful services like database and search engines.** |  | string |
 | replicas | Number of desired containers. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1. |  | int |
 | min_ready_seconds | Minimum number of seconds for which a newly created service should be ready without any of its container crashing, for it to be considered available. Defaults to 0. |  | int |
 | progress_deadline_seconds | The maximum time in seconds for a deployment to make progress before it is considered to be failed, not set by default. | | int |
 | max_surge | The maximum number of containers that can be scheduled above the desired number of containers. Value must be an absolute number. Defaults to 1. | | int |
 | max_unavailable | The maximum number of containers that can be unavailable during the update. Value must be an absolute number. Defaults to 1. | | int |
+
+### security_context reference
+
+| Name | Description | Mandatory | Schema | 
+| ---- | ----------- | --------- | ------ |
+| privileged | Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. |  | string |
+| capabilities | The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. |  | array of strings |
+| read_only_root_filesystem | Whether this container has a read-only root filesystem. Default is false. |  | string |
+| run_as_non_root | Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. |  | string |
+| run_as_user | The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. |  | int |
 
 ## Global Volumes
 
@@ -198,6 +209,12 @@ services:
             DB_PASSWORD: '%db_password'
         memory: '512:1024'
         cpu: '900'
+        security_context: 
+            capabilities:
+                add:    
+                    - SYS_PTRACE
+                drop:
+                    - SYS_ADMIN
     nginx:
         image: nginx
         ports:
