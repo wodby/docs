@@ -16,6 +16,7 @@ Unsupported legacy versions: 0.1.0, 1.x, 2.x
  
 ## Changelog
 
+* [5.3.0](#530)
 * [5.2.0](#520)
 * [5.1.0](#510)
 * [5.0.0](#500)
@@ -28,6 +29,19 @@ Unsupported legacy versions: 0.1.0, 1.x, 2.x
 * [2.0.0](#200)
 * [1.0.0](#100)
 * [0.1.0](#010)
+
+### 5.3.0
+
+#### Changes since 5.2.0
+
+* New kubernetes version
+* Improved agent installer
+* Enabled unattended upgrades 
+* Significantly improved performance (less load on CPU and disk IO)
+
+#### Upgrade policy
+
+[Contact our support team](../product/support.md) to schedule the upgrade. Downtime ~10 minutes.
 
 ### 5.2.0
 
