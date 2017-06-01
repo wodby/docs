@@ -10,8 +10,9 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Versions
 
-Stable mainline versions: 5.x<br />
-Support ends soon: 3.x<br />
+Stable mainline versions: 5.4.0+<br />
+Unstable 5.x versions that require update: <=5.3.0 (linux kernel bug was found)<br />
+Support ends soon: 3.5.0<br />
 Unsupported legacy versions: 0.1.0, 1.x, 2.x
  
 ## Changelog
