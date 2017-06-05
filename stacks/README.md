@@ -1,6 +1,6 @@
 # Stack
 
-Stack is a pre-configured infrastructure package for [your application](../apps/README.md). Every stack consist of a few services (mandatory and optional). Every service has at least one [container implementation](containers/containers.md), e.g. for database services there's a MariaDB container. 
+Stack is a pre-configured infrastructure package for [your application](../apps/README.md). Every stack consist of a few services (mandatory and optional). Every service has at least one [container implementation](containers/README.md), e.g. for database services there's a MariaDB container. 
 
 Please visit [Stack Hub](https://cloud.wodby.com/stackhub) to explore all the stacks.
 
