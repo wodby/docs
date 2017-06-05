@@ -1,7 +1,5 @@
 # Containers logs
 
-To get containers logs copy and execute `Show logs command` (can be found on `[Instance] > Stack > [CONTAINER]` page) from a host server. 
+Most of the applications provided by Wodby stream their logs to a container output. These logs stored on disk but they are **not persistent**, docker deletes container's logs after its restart. Read [docker logs](https://docs.docker.com/engine/reference/commandline/logs/) to learn more. However some applications do not write all logs to output, e.g. Jira/Confluence/Cachet write some of their logs on a disk. 
 
-Containers' logs stored on disk but **not persistent**, docker deletes container's logs after its restart. Read [docker logs](https://docs.docker.com/engine/reference/commandline/logs/) to learn more.
-
-Please note that some applications do not write all logs to output, e.g. Jira/Confluence/Cachet write some of their logs on a disk, in this case you would need to [access the container](access.md). 
+To get containers' output logs copy `Show logs command` from `[Instance] > Stack > [CONTAINER]` page and execute it from a host server. 
