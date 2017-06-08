@@ -8,7 +8,7 @@ In a modal window you can edit environment variables for this service, disable i
 
 ![](_images/service-config-popup.png)
 
-To apply changes you must redeploy your stack.
+To apply changes you must [redeploy](redeployment.md) your stack.
 
 ## Custom Docker Image
 

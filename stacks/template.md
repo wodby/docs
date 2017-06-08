@@ -6,19 +6,19 @@ Stack template is a YML defining services, it's basically a simplified and limit
 
 > Stacks provided by Wodby (including forks) may have additional configurations not covered by templates. 
  
-* [Service configuration reference](#service-configuration-reference)
+* [Service Configuration Reference](#service-configuration-reference)
     * [memory](#memory)
     * [cpu](#cpu)
     * [ports](#ports)
     * [check-ready](#check-ready)
     * [deployment](#deployment)
     * [security_context](#securitycontext)
-* [Global volumes](#global-volumes)
-* [Variable substitution](#variable-substitution)
+* [Global Volumes](#global-volumes)
+* [Variable Substitution](#variable-substitution)
 * [Examples](#examples)
 * [Permissions](#permissions)
 
-## Service configuration reference
+## Service Configuration Reference
 
 This section contains a list of all configuration options supported by a service definition.
 

@@ -4,7 +4,8 @@ Stack is a pre-configured infrastructure package for [your application](../apps/
 
 You can find all stacks offered by Wodby on [Stack Hub](https://cloud.wodby.com/stackhub).
 
-* [Stack template](template.md)
-* [Versioning and upgrade](versioning.md)
-* [Configuration](configuration.md)
+* [Stack configuration](configuration.md)
 * [Containers](containers/README.md)
+* [Stacks versioning and Upgrade](versioning.md)
+* [Redeployment](redeployment.md)
+* [Stack Template](template.md)
