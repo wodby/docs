@@ -7,3 +7,4 @@ You can find all stacks offered by Wodby on [Stack Hub](https://cloud.wodby.com/
 * [Stack template](template.md)
 * [Versioning and upgrade](versioning.md)
 * [Configuration](configuration.md)
+* [Containers](containers/README.md)
