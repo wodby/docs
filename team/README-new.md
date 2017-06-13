@@ -1,37 +1,25 @@
 # Team Management
 
-## Roles
+## Global Roles
 
-Wodby provides a set of roles with the following permissions:
+By default Wodby provides only two roles: Owners and Administrators, both have full access to organization's resources. The only difference is that Administrators can't access billing. Owner role designed for CxO (especially CTO, CIO), Administrator role designed for system administrators, Ops, DevOps, Head/VP of Engineering, in other words, for guys who is responsible for servers and infrastructure in your organization.
 
-* **O**wners can do anything
-* **A**dministrators can do anything inside of the organization
-* **T**eam leaders are like administrator but can't manage servers and global team
-* **D**evelopers can work with existing applications
-* **U**nprivileged can't do nothing  
+## Access Control
 
-| Action                             | O | A | T | D | U |
-| ---------------------------------- | - | - | - | - | - |
-| View applications instances	     | ✓ | ✓ | ✓ | ✓ |   |
-| View servers	                     | ✓ | ✓ | ✓ | ✓ |   |
-| View repositories                  | ✓ | ✓ | ✓ | ✓ |   |
-| View bundles                       | ✓ | ✓ | ✓ | ✓ |   |
-| View integrations                  | ✓ | ✓ | ✓ | ✓ |   |
-| View team     	                 | ✓ | ✓ | ✓ | ✓ |   |
-| Deploy new applications            | ✓ | ✓ | ✓ |   |   |
-| Manage application settings 	     | ✓ | ✓ | ✓ |   |   |
-| Manage repositories	             | ✓ | ✓ | ✓ |   |   |
-| Manage integrations	             | ✓ | ✓ | ✓ |   |   |
-| Manage bundles    	             | ✓ | ✓ | ✓ |   |   |
-| Manage team 	                     | ✓ | ✓ |   |   |   |
-| Manage servers	                 | ✓ | ✓ |   |   |   |
-| Manage organization	             | ✓ |   |   |   |   |
-| Manage billing    	             | ✓ |   |   |   | &nbsp; |	 
+In Wodby, access control is based on two main concepts – teams and resources. Available resources:
 
-Developers can view only resources used by applications they have access to
+* [Applications](../apps/README.md) and [instances](../apps/instances.md)
+* [Integrations](../integrations/README.md)
+* [Repositories](../git/README.md)
+* [Servers](../servers/README.md)
+* [Stacks](../stacks/README.md)
 
-## Access to Applications and Instances 
+Every resource is assigned to a team that can be created by Administrators. There are two roles in every team - Team Leaders and Team Members. Team Members can create and access all resources assigned to their team except servers and application instances with type Production, such resources are available only for Team Leaders. Team Leaders are managed by Administrators, Team Members are managed by Team Leaders. 
 
-By default all team members except unprivileged have access to a newly created applications. Optionally, you can restrict an application's access to certain team members. This access will be used by default for all newly created instances but you can override it during new instances creation.
+A typical use case:
 
-Owners and administrators always have full access to all applications and instances
+1. Administrator connects servers to Wodby, marks one of them as production
+2. Administrator creates a team and assign a leader
+3. Team leader adds members to his team 
+4. Team members create all required resources to start building an application
+5. When the application is ready, team leader deploys a production instance to a production server (available only for him)
