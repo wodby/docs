@@ -2,7 +2,13 @@
 
 ## Global Roles
 
-By default Wodby provides only two roles: Owners and Administrators, both have full access to organization's resources. The only difference is that Administrators can't access billing. Owner role designed for CxO (especially CTO, CIO), Administrator role designed for system administrators, Ops, DevOps, Head/VP of Engineering, in other words, for guys who is responsible for servers and infrastructure in your organization.
+By default Wodby provides the following roles: 
+
+* Owners, have full access to all resources
+* Administrators, are like owners but can't access billing 
+* Unprivileged, can't access any resources until added to a team
+
+Owner role designed for CxO (especially CTO, CIO), Administrator role designed for system administrators, Ops, DevOps, Head/VP of Engineering, in other words, for guys who are responsible for servers and infrastructure in your organization.
 
 ## Access Control
 
