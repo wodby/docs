@@ -21,4 +21,5 @@ Further reading:
 * [Adding SSH Key](keys.md)
 * [Configuring UFW](ufw.md)
 * [HTTP Strict Transport Security (HSTS)](hsts.md)
-* [Using external volumes](../volumes.md)
+* [Using External Volumes](../volumes.md)
+* [Environment Variables](../environment-variables.md)

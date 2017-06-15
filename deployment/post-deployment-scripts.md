@@ -40,7 +40,7 @@ pipeline:
 
 ##  Available environment variables
 
-See your stack detailed page for available environment variables 
+See [Environment Variables article](../infrastructure/environment-variables.md). 
 
 ## Cleanup pipeline
 
