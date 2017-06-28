@@ -15,7 +15,7 @@ Currently, we don't have a native integration with Linode. But you still can con
 4. Click "Deploy an image"
 <br>![](_images/linode-deploy-image.png)
 
-5. Choose image attributes and deploy
+5. Choose image attributes (list of [supported OS](../supported-os.md)) and deploy
 <br>![](_images/linode-image-attributes.png)
 
 6. Wait until all disks are create and boot the linode

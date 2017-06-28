@@ -1,6 +1,6 @@
 # Connecting Custom Server
 
-In case there's no native integration for your hosting provider, you can always connect your node by using feature "Custom server" regardless what hosting you're using:
+In case there's no native integration for your hosting provider, you can always connect your node (list of [supported OS](../supported-os.md)) by using feature "Custom server" regardless what hosting you're using:
 
 1. Go to `My servers > Add`. Select `Custom server` and click proceed
 

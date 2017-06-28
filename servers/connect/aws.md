@@ -2,13 +2,15 @@
 
 Currently, we don't have a native integration with AWS. But you still can connect your server by following these steps: 
 
-1. Login to your <a href="https://console.aws.amazon.com/console/home" target="_blank">AWS Console</a> 
+1. Login to your AWS Console 
 
 2. Choose EC2 (Virtual Servers in the Cloud)
 
 3. Choose `Instances > Click "Launch Instance"`
 
-4. Choose an image (AMI) from the list of [supported OS](../supported-os.md). We recommend to choose Debian 8 (search for it under AWS Marketplace tab).
+> ! DO NOT choose instance type t2 (burstable performance) unless you know what you're doing!
+
+4. Choose an image (AMI) from the list of [supported OS](../supported-os.md)
 
 5. Click `6. Configure Security Group` in top vertical tabs
 
