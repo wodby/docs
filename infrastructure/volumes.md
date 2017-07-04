@@ -7,27 +7,27 @@ If you want Wodby to use an external storage (mounted volume) instead of a serve
 3. [Connect the server](../servers/connect/README.md) to Wodby if it's not already connected
 4. Stop docker and kubernetes services (systemd):
 ```bash
-$ systemctl stop kube-apiserver
-$ systemctl stop kube-controller
-$ systemctl stop kube-kubelet
-$ systemctl stop kube-proxy
-$ systemctl stop kube-scheduler
-$ systemctl stop docker
+systemctl stop kube-apiserver
+systemctl stop kube-controller
+systemctl stop kube-kubelet
+systemctl stop kube-proxy
+systemctl stop kube-scheduler
+systemctl stop docker
 ```
 5. Move docker's and Wodby's directories to the mounted volume and symlink them back:
 ```bash
-$ mv /var/lib/docker /mnt/my-volume
-$ mv /srv/wodby /mnt/my-volume
-$ ln -s /mnt/my-volume/docker /var/lib/docker
-$ ln -s /mnt/my-volume/wodby /srv/wodby
+mv /var/lib/docker /mnt/my-volume
+mv /srv/wodby /mnt/my-volume
+ln -s /mnt/my-volume/docker /var/lib/docker
+ln -s /mnt/my-volume/wodby /srv/wodby
 ```
 6. Start services
 ```bash
-$ systemctl start docker
-$ systemctl start kube-apiserver
-$ systemctl start kube-controller
-$ systemctl start kube-kubelet
-$ systemctl start kube-proxy
-$ systemctl start kube-scheduler
+systemctl start docker
+systemctl start kube-apiserver
+systemctl start kube-controller
+systemctl start kube-kubelet
+systemctl start kube-proxy
+systemctl start kube-scheduler
 ```
 7. That's it, from now on applications' containers and their data will be stored on the mounted volume
