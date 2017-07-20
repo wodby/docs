@@ -10,6 +10,12 @@ Go to `Instance > Logs`, choose a service (container) and click Stream. Last N l
 
 ![](_images/logs-streaming.png)
 
+Log streaming is not available for the following stacks:
+
+* Drupal stacks 3.x
+* WordPress, all-new 4.x version with log streaming support is coming soon
+* Some old custom stacks (redeploy the stack to make it work)
+
 ## 2. CLI
 
 Go to `Instance > Stack > Service` and copy `Show logs command`. Connect to the host server as root and run the command. Adjust the value of `tail` param to specify how many messages to fetch. For more params see [`kubectl logs reference`](https://kubernetes.io/docs/user-guide/kubectl/v1.7/#logs).
