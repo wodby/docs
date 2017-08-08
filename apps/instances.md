@@ -12,9 +12,7 @@ You can remove or add a new instance from the `Instances` page. To get there nav
 
 ## Instance type
 
-There are 3 types of instances: dev, staging and production. 
-
-There's almost no difference between instance types except error reporting level – all errors are displayed on dev instances and none on staging and production. 
+There are 3 types of instances: dev, staging and production. The difference between instance types depends on a stack (see your stack documentation) but usually they differ in error reporting level, e.g. show all errors on dev instances and none on production. Some stacks may have no difference in configuration for different instance types, in this case, we recommend using production instance type in case changes affecting this behavior will be introduced in future.  
 
 ## Deletion
 
