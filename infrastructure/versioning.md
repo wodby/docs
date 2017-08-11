@@ -37,7 +37,7 @@ Unsupported legacy versions: 0.1.0, 1.x, 2.x
 
 #### Changes since 5.4.0
 
-* Updated Let's Encrypt client
+* Updated <a href="../apps/domains.html#https-ssl-via-lets-encrypt">Let's Encrypt client</a>
 
 #### Upgrade policy
 
