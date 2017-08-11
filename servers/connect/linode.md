@@ -15,10 +15,14 @@ Currently, we don't have a native integration with Linode. But you still can con
 4. Click "Deploy an image"
 <br>![](_images/linode-deploy-image.png)
 
-5. Choose image attributes and deploy
+5. By default Linode uses a custom Linux Kernel version, we should replace it to the Kernel version that comes with the Linux distribution. Click Edit to view a distribution’s configuration profile options as shown below and change Kernel to `GRUB2`:
+<br>![](_images/linode-image-edit.png)
+<br>![](_images/linode-kernel.png)
+
+6. Choose image attributes (list of [supported OS](../supported-os.md)) and deploy
 <br>![](_images/linode-image-attributes.png)
 
-6. Wait until all disks are create and boot the linode
+7. Wait until all disks are create and boot the linode
 <br>![](_images/linode-boot.png)
 
-7. Now it's all set on Linode's side. Now connect the server (`Servers > Connect > Linode`) and follow the instructions
+8. Now it's all set on Linode's side. Now connect the server (`Servers > Connect > Linode`) and follow the instructions

@@ -23,3 +23,4 @@ Further reading:
 * [HTTP Strict Transport Security (HSTS)](hsts.md)
 * [Using External Volumes](../volumes.md)
 * [Environment Variables](../environment-variables.md)
+* [Using Private Docker Registry](../docker-registry.md)

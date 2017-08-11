@@ -2,7 +2,7 @@
 
 Currently, we don't have a native integration with GCP. But you still can connect your server by following these steps:
 
-1. Log in to <a href="http://cloud.google.com/" target="_blank">GCP</a> with your account 
+1. Log in to GCP console with your account 
 
 2. Create a new project if you don't have any
 
@@ -11,7 +11,7 @@ Currently, we don't have a native integration with GCP. But you still can connec
 
 4. Once GCP prepare Compute Engine for your project, create a new virtual machine instance
 
-5. Set VM instance attributes and submit `Create` button
+5. Set VM instance attributes (list of [supported OS](../supported-os.md)) and submit `Create` button
 <hr>![](_images/gcp-create-instance.png)<hr>
 
 6. Navigate to a newly created instance page and find network link. Click on it

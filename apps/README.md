@@ -8,8 +8,9 @@ Learn how to [deploy a new app](deploy.md).
 
 Further reading once the application is deployed:
 
-* [Application instances](instances.md)
+* [Application Instances](instances.md)
 * [Domains](domains.md)
+* [Logs](logs.md)
 * [SSL](ssl.md)
 * [Backups](backups.md)
 * [Maintenance mode](maintenance-mode.md)
