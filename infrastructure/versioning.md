@@ -10,11 +10,12 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Versions
 
-* Stable mainline versions: 5.4.0+<br />
+* Supported mainline versions: 5.4.0+<br />
 * Unsupported legacy versions: 0.1.0, 1.x, 2.x, 3.x
 
 ## Changelog
 
+* [5.5.0](#550)
 * [5.4.1](#541)
 * [5.4.0](#540)
 * [5.3.0](#530)
@@ -30,6 +31,17 @@ You will be notified each time a new version of the infrastructure is released.
 * [2.0.0](#200)
 * [1.0.0](#100)
 * [0.1.0](#010)
+
+### 5.5.0
+
+#### Changes since 5.4.1
+
+* New Docker 17.06.1
+* Improved response codes on Edge
+
+#### Upgrade policy
+
+[Contact our support team](../product/support.md) to schedule the upgrade. Downtime 10-20 minutes.
 
 ### 5.4.1
 
