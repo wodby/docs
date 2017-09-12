@@ -6,5 +6,11 @@ API is not available for organizations on legacy pricing plans.
 
 Resources:
 
-* <a href="http://docs.wodbyapi.apiary.io/" target="_blank">API reference</a>
+### Version 2 (DEPRECATED)
+
 * <a href="https://github.com/Wodby/wodby-sdk-php" target="_blank">Wodby PHP SDK</a>
+* <a href="http://docs.wodbyapi.apiary.io/" target="_blank">API reference</a>
+
+### Version 3
+
+Coming soon
