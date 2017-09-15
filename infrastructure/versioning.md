@@ -15,6 +15,7 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+* [5.5.1](#551)
 * [5.5.0](#550)
 * [5.4.1](#541)
 * [5.4.0](#540)
@@ -31,6 +32,18 @@ You will be notified each time a new version of the infrastructure is released.
 * [2.0.0](#200)
 * [1.0.0](#100)
 * [0.1.0](#010)
+
+### 5.5.1
+
+#### Changes since 5.5.0
+
+* Increased kernel param `aio-max-nr` for databases
+* Updated paths for systemd unit files
+* Uninstall fixes
+
+#### Upgrade policy
+
+[Contact our support team](../product/support.md) to schedule the upgrade. 
 
 ### 5.5.0
 
