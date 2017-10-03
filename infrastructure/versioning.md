@@ -15,6 +15,7 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+* [5.5.2](#552)
 * [5.5.1](#551)
 * [5.5.0](#550)
 * [5.4.1](#541)
@@ -32,6 +33,12 @@ You will be notified each time a new version of the infrastructure is released.
 * [2.0.0](#200)
 * [1.0.0](#100)
 * [0.1.0](#010)
+
+### 5.5.2
+
+#### Changes since 5.5.1
+
+* Security vulnerability fix for dnsmasq [CVE-2017-14491](https://security.googleblog.com/2017/10/behind-masq-yet-more-dns-and-dhcp.html)
 
 ### 5.5.1
 
