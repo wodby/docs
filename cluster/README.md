@@ -1,36 +1,56 @@
-# Container-based Cluster
+# Kubernetes Cluster
 
-* [Key features](#key-features)
-* [How it works](#how-it-works)
-* [Cattle vs Pet](#cattle-vs-pet)
-* [How to purchase](#how-to-purchase)
+In addition to our single server infrastructure setup we offer a Kubernetes cluster solution. Currently, we offer cluster setup only for public clouds (AWS, GCP, Azure). 
 
-For large scale web applications we recommend to deploy the container-based cluster. Currently, we support cluster deployments to Amazon Web Services and Google Cloud Platform. We can use either your servers or ours (recommended), we don't charge extra for AWS resources.
+Setup and maintenance of the cluster is significantly more complex and expensive than a single-server setup. Normally we recommend cluster setups only if you need one of the following:
 
-## Key features
+* Scalability
+* High availability
+* Fault tolerance
 
-* High-availability. Servers pool consist of at least 2 servers. If one of the servers become unreachable, the system will re-deployed containers to another server
-* Auto-scaling of servers and containers. Our system will automatically spin up another server and it to the pool when there's a lack of resources
-* Load balancing. Our system will automatically balance extra load across multiple containers
+## Kubernetes cluster on AWS
 
-## How it works
+![Cluster schema](_images/wodby-aws-cluster.png)
 
-We create a pool of servers where containers will be deployed. Every server use the same distributed file storage and every container use the same overlay network. Once you [deploy an app](../apps/deploy.md) from the dashboard our system will automatically distribute containers across the servers. When there's not enough compute powers to handle all the containers the system will automatically spin up another server.
- 
-## Cattle vs Pet
+#### AWS Services:
 
-This concept was presented by Gavin McCance at CERN in 2012.
+* Route53 
+* AWS Certificate Manager
+* Elastic Load Balancing (ELB)
+* Elastic Compute Cloud (EC2)
+* Relational Database Service (RDS)
+* Amazon Elastic File System (EFS) or Simple Storage Service (S3)
+* Optional: CloudFront CDN
+* Optional: ElastiCache
 
-![Cluster schema](_images/servers_pets_or_cattle.jpg)
+#### Basic concept
 
-In our container-based cluster every server treated as cattle not a pet. This means that we don't care if a particular server is running or not, if one of the servers goes down we simply schedule deployment of another server. 
+* Only specific stacks provided by Wodby are suitable for cluster deployment
+* Domains will be hosted on Route53
+* SSL certificates will be managed via AWS Certificate Manager
+* Database server could be RDS or stateful container deployed to EC2 (only single AZ)
+* Files can be stored on EFS or on S3 (requires integration on app side)
+* CloudFront CDN can be used for S3 storage
+* CI/CD workflow required for deployments
+* Scalability can be on container level and node level
+* Cluster will run under your AWS account
+* Additional applications deployed to cluster will cost you additional money (ELB, traffic, usage) 
 
-In such a way server is just a unit of compute resources that can be added or removed when is not needed. All we care about are containers because your application works when containers work. 
+#### Available setups
 
-This approach helps us to divide compute resources from the infrastructure. The job of a cloud provider is to provide reliable compute resource and ours, in a turn, is to provide the best infrastructure for your applications.
+Single availability zone:
 
-![Cluster schema](_images/cluster.png)
+* DB server can be either RDS or deployed as a stateful service to EC2
+* No fault tolerance: if AZ goes down, your application goes down
 
-## How to purchase
+Multi availability zones:
 
-Navigate to the clusters tab in the Wodby dashboard. Select cloud (AWS, Azure, GCP), desired cluster configuration (CPU, RAM, Disk size, # of nodes) and submit request. We'll contact you shortly and discuss the details.
+* We simultaneously run two complete copies of infrastructure in multiple AZ
+* Multi-AZ RDS must be used as DB server
+* Multi-AZ EFS or S3 must be used as file storage  
+
+##### Optional features
+
+* Centralized log streaming to Elasticsearch
+* Monitoring and alerting via Grafana
+* Integration with ElastiCache as scalable cache storage
