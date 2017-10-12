@@ -25,38 +25,17 @@ If entire cloud provider's availability zone goes down (unplanned outages), your
 
 #### Fault tolerance
 
-A fault tolerant environment has no service interruption but a significantly higher cost. We simultaneously run two complete copies of infrastructure in multiple availability zones (inside the same region) provided by public cloud. The chance that two availability zones simultaneously goes down is extremely low but for extra high availability, infrastructure can be deployed across multiple regions. 
+A fault tolerant environment has no service interruption but a significantly higher cost. We simultaneously run complete copies of infrastructure in multiple availability zones (inside the same region) provided by public cloud. The chance that two (or more) availability zones simultaneously goes down is extremely low but for extra high availability, infrastructure can be deployed across multiple regions. 
 
-## Kubernetes cluster on AWS
+## Supported Public Clouds
 
-![Cluster schema](_images/wodby-aws-cluster.png)
+* [AWS](aws.md)
+* [GCP (TBA)](gcp.md)
+* [Azure (TBA)](azure.md)
 
-#### AWS Services:
+## Stacks supported cluster deployments
 
-* Route53 
-* AWS Certificate Manager
-* Elastic Load Balancing (ELB)
-* Elastic Compute Cloud (EC2)
-* Relational Database Service (RDS)
-* Amazon Elastic File System (EFS) or Simple Storage Service (S3)
-* Optional: CloudFront CDN
-* Optional: ElastiCache
-
-#### Basic concept
-
-* Domains will be hosted on Route53
-* SSL certificates will be managed via AWS Certificate Manager
-* Database server could be RDS or stateful container deployed to EC2 (only single AZ)
-* Files can be stored on EFS or on S3 (requires integration on app side)
-* CloudFront CDN can be used for S3 storage
-* CI/CD workflow required for deployments
-* Scalability can be on container level and node level
-* Cluster will run under your AWS account
-* Additional applications deployed to cluster will cost you additional money (ELB, traffic, usage) 
-* For HA/FT setup RDS used as DB server and EFS / S3 used as a file storage  
-
-#### Optional features
-
-* Centralized log streaming to Elasticsearch
-* Monitoring and alerting via Grafana
-* Integration with ElastiCache as scalable cache storage
+* [Drupal 8](https://cloud.wodby.com/stackhub/ada51e9b-2204-45ee-8e49-a4151912a168/overview), [Drupal 7](https://cloud.wodby.com/stackhub/35e3e058-936b-4695-9871-08c855aae898/overview)
+* [WordPress](https://cloud.wodby.com/stackhub/a54a0f59-f4fd-49af-ad16-8d9ff776c50e/overview)
+* Generic PHP app
+* By request: MariaDB Galera cluster, PostgreSQL, Elasticsearch, Solr, Gitlab 
