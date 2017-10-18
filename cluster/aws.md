@@ -1,31 +1,27 @@
 # Kubernetes cluster on AWS
 
-![Cluster schema](_images/wodby-aws-cluster.png)
+![Cluster schema](_images/aws-cluster-schema.png)
 
 ## AWS Services:
 
-* Route53 
-* AWS Certificate Manager
+* Virtual Private Cloud (VPC)
 * Elastic Load Balancing (ELB)
 * Elastic Compute Cloud (EC2)
 * Relational Database Service (RDS)
-* Amazon Elastic File System (EFS) or Simple Storage Service (S3)
-* Optional: CloudFront CDN, ElastiCache
+* Amazon Elastic File System (EFS)
+* Additional: Simple Safe Storage (S3), ElastiCache, Route53, Certificate Manager, CloudFront
 
 ## Basic concept
 
-* We set up the cluster under your AWS account
-* Domains will be hosted on Route53
-* SSL certificates will be managed via AWS Certificate Manager
+* Single AZ or multi-AZ (fault tolerance) setups
 * Database server could be RDS (recommended) or stateful container deployed to EC2 (only single AZ)
-* Files can be stored on EFS or S3, the latter requires integration on an application level
-* CloudFront CDN can be used in pair with S3 storage 
+* Static files stored on EFS
 * CI/CD workflow required for deployments
 
-## Optional features
+#### Optional
 
+* CloudFront CDN integration 
+* Domains can be hosted on Route53
+* SSL certificates can be managed via AWS Certificate Manager
 * Centralized log streaming to Elasticsearch
 * Monitoring and alerting via Grafana
-* Integration with ElastiCache as scalable HA cache storage
-* Reverse caching proxy setup for consistent cache storage
-* CloudFront (or any third-party CDN) configuration for EFS

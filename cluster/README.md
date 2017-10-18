@@ -26,7 +26,7 @@ If entire cloud provider's availability zone goes down (unplanned outages), your
 
 #### Fault tolerance
 
-A fault tolerant environment has no service interruption but a significantly higher cost. We simultaneously run complete copies of infrastructure in multiple availability zones (inside the same region) provided by public cloud. The chance that two (or more) availability zones simultaneously goes down is extremely low but for extra high availability, infrastructure can be deployed across multiple regions. 
+A fault tolerant environment has no service interruption but a significantly higher cost. We run additional services replicas in multiple availability zones (inside the same region) for redundancy. The chance that two (or more) availability zones simultaneously goes down is extremely low but for extra high availability, infrastructure can be deployed across multiple regions. 
 
 ## Supported Public Clouds
 
