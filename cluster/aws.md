@@ -1,6 +1,6 @@
 # Kubernetes cluster on AWS
 
-![Cluster schema](_images/aws-cluster-schema.png)
+[![Cluster schema](_images/aws-cluster-schema.png)](_images/aws-cluster-schema.png)
 
 ## AWS Services:
 
