@@ -6,7 +6,14 @@ Both server infrastructure and stacks have versioning. We regularly update them 
  
 > The infrastructure we provide is based on [containers](../stacks/containers/README.md) and powered by Docker and Kubernetes.
 
-## Schema
+## Cluster Schema
+
+* [AWS](../cluster/aws.md)
+* GCP (TBA) 
+* Azure (TBA)
+* Custom Data Center (TBA)
+
+## Single-server Schema
 
 ![](_images/schema.png)
 
