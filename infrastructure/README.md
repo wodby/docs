@@ -15,7 +15,7 @@ Both server infrastructure and stacks have versioning. We regularly update them 
 
 ## Single-server Schema
 
-![](_images/schema.png)
+![](_images/single-server-setup-schema.png)
 
 Basic concepts:
 
