@@ -1,6 +1,6 @@
 # Stack Configuration 
 
-You can customize stacks for specific application instance by configuring stack services via environment variables. Go to `[Instance] > Stack`, find a service you'd like to customize and click on a cogwheel icon. 
+You can customize stacks for specific application instance by configuring stack services via environment variables. Go to `Application > Stack`, find a service you'd like to customize and click on a cogwheel icon. 
 
 ![](_images/service-config.png)
 

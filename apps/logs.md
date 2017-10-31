@@ -6,7 +6,7 @@ There 2 ways to get your applications logs:
 
 ## 1. Dashboard: Logs Streaming
 
-Go to `Instance > Logs`, choose a service (container) and click Stream. Last N log messages will be fetched, plus all new messages will be shown in real-time.
+Go to `Application > Logs`, choose a service (container) and click Stream. Last N log messages will be fetched, plus all new messages will be shown in real-time.
 
 ![](_images/logs-streaming.png)
 
@@ -18,7 +18,7 @@ Log streaming is not available for the following stacks:
 
 ## 2. CLI
 
-Go to `Instance > Stack > Service` and copy `Show logs command`. Connect to the host server as root and run the command. Adjust the value of `tail` param to specify how many messages to fetch. For more params see [`kubectl logs reference`](https://kubernetes.io/docs/user-guide/kubectl/v1.7/#logs).
+Go to `Application > Stack > Service` and copy `Show logs command`. Connect to the host server as root and run the command. Adjust the value of `tail` param to specify how many messages to fetch. For more params see [`kubectl logs reference`](https://kubernetes.io/docs/user-guide/kubectl/v1.7/#logs).
 
 > Some software like JIRA and Cachet store their application logs in files inside of a container
 

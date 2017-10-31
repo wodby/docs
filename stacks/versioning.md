@@ -13,4 +13,4 @@ When a new version of a stack has been released  your stack will be marked as ou
 
 ## Upgrading Application Stack
 
-Once you update a stack in your organization, you can upgrade the application instances. Go the `[Instance] > Stack > Operations` page and click Upgrade. The downtime depends on the number of services affected in a new version and what <a href="template.html#deployment">deployment strategy</a> used in these services. 
+Once you update a stack in your organization, you can upgrade the application instances. Go the `Application > Stack > Operations` page and click Upgrade. The downtime depends on the number of services affected in a new version and what <a href="template.html#deployment">deployment strategy</a> used in these services. 

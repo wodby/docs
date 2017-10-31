@@ -2,7 +2,7 @@
 
 ## Free Let's Encrypt Certificates
  
-You can enable HTTPS for your custom domains by requesting a free SSL certificate from [Let's Encrypt](https://letsencrypt.org). Navigate to `[Instance] > Domains` and click on `Get certificate` in the list of domains (not available for `*.wod.by` domains). Choose a provider `Let's encrypt` and submit the form. Before requesting the certificate make sure that your domain already attached to the server where the instance is currently deployed.  
+You can enable HTTPS for your custom domains by requesting a free SSL certificate from [Let's Encrypt](https://letsencrypt.org). Navigate to `Cloud hosting Domains` and click on `Get certificate` in the list of domains (not available for `*.wod.by` domains). Choose a provider `Let's encrypt` and submit the form. Before requesting the certificate make sure that your domain already attached to the server where the instance is currently deployed.  
 
 Additionally you can enable redirect for all HTTP requests to HTTPS from a domain edit page.
  
