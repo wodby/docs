@@ -18,11 +18,4 @@ The simplest way to setup backup mirroring is to use simply select Wodby Storage
  
 Backups older than 7 days (since the moment of upload) stored in Wodby Storage will be deleted automatically. **Limitation for Wodby Storage will soon be updated to X MB/GB per instance.**
 
-### AWS S3
-
-To mirror backups to your own AWS S3 bucket you'll need to specify the following information:
-
-* AWS Access Key Id
-* AWS Secret Access Key
-* Bucket name
-* Bucket region
+### [AWS S3](/cloud/aws/s3.md)
