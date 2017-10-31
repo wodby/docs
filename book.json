@@ -1,5 +1,5 @@
 {
-  "plugins": ["addcssjs", "toggle-chapters", "sitemap", "redirect"],
+  "plugins": ["addcssjs", "toggle-chapters", "sitemap", "redirect", "nocache"],
   "pluginsConfig": {
     "addcssjs": {
       "js": ["intercom.js", "ga.js"],
