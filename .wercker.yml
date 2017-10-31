@@ -39,3 +39,9 @@ deployment:
                 -H "Content-type: application/json" \
                 -H "Authorization: token ${WODBY_API_TOKEN}" \
                 -X POST https://api.wodby.com/api/v2/bundles/deploy?org_id="${WODBY_ORG_UUID}"\&service_image=wodby/docs:"${WERCKER_GIT_BRANCH}"\&cause="${WERCKER_GIT_COMMIT}"
+  after-steps:
+    - slack-notifier:
+      url: $SLACK_URL
+      channel: activity
+      username: wecker
+      branch: master
