@@ -30,9 +30,9 @@ A fault tolerant environment has no service interruption but a significantly hig
 
 ## Supported Public Clouds
 
-* [AWS](aws.md)
-* [GCP (TBA)](gcp.md)
-* [Azure (TBA)](azure.md)
+* [AWS](/cloud/aws/cluster.md)
+* GCP (TBA)
+* Azure (TBA)
 
 ## Stacks supported cluster deployments
 

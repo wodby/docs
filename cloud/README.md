@@ -7,4 +7,4 @@ This sections contains documentation related to the following cloud providers:
 * [Linode](linode/README.md)
 * [Azure](azure/README.md)
 * [Google Cloud Platform](gcp/README.md)
-* [<Custom Cloud Provider>](custom/README.md)
+* [_Custom Cloud Provider_](custom/README.md)
