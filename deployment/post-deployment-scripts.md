@@ -199,4 +199,4 @@ The files specified in pipeline configuration file need to have two blocks **nam
 
 ## Logs
 
-You can find output logs of executed post-deployment scripts in directory `/srv/logs/deployments/`  of the web container with the name `deployment-$(date +"%Y-%m-%dT%H-%M-%S").log`
+You can find output logs of executed post-deployment scripts under `Application > Tasks`
