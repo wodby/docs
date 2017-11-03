@@ -2,6 +2,7 @@
 
 You can send emails from your applications via SendGrid by configuring mail transfer agent OpenSMTPD:
 
+0. Make sure your application stack has enabled OpenSMTPD service
 1. Log in to your SendGrid account and visit guide https://app.sendgrid.com/guide
 2. Start with `Integrate using our Web API or SMTP relay` option
 3. Choose `SMTP Relay`

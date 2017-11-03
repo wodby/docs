@@ -2,6 +2,7 @@
 
 You can send emails from your applications via SES by configuring mail transfer agent OpenSMTPD:
 
+0. Make sure your application stack has enabled OpenSMTPD service
 1. [Verify your domain](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/verify-domains.html) or email address you will use to send emails from. AWS **will not** send emails from unverified sender
 2. [Obtain your SMTP credentials](http://docs.aws.amazon.com/ses/latest/DeveloperGuide/smtp-credentials.html)
 3. Obtain SMTP Server Name from your AWS console. Open "SES > Email Sending > SMTP Setting"

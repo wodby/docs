@@ -30,7 +30,7 @@ $ mount /dev/NAME /mnt/my-volume
 /dev/NAME /mnt/my-volume ext4 defaults,noatime 0 2
 ```
 
-#### 3. Move docker and wodby's data to new volume
+#### 3. Moving docker and wodby's data to new volume
 
 ! THIS WILL CAUSE DOWNTIME OF ALL APPLICATIONS ON THE SERVER
 
