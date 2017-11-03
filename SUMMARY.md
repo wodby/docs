@@ -41,6 +41,7 @@
 * [Infrastructure](infrastructure/README.md)
     * [Environment Variables](infrastructure/environment-variables.md)
     * [Configuring UFW](infrastructure/ufw.md)
+    * [Monitoring](infrastructure/monitoring.md)
     * [HSTS](infrastructure/hsts.md)
     * [Private Docker Registry](infrastructure/docker-registry.md)
     * [SSH Keys](infrastructure/keys.md)
