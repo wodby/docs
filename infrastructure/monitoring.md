@@ -2,13 +2,13 @@
 
 ## Single-server setup
 
-Currently, Wodby does not provide monitoring tools for your servers and applications in single-server setup. 
+Currently, Wodby does not provide monitoring tools for your servers or applications out of the box. 
 
-##### Servers monitoring
+###### Servers monitoring
 
 We recommend connecting your server manually to [NewRelic Servers](https://docs.newrelic.com/docs/servers) or [NewRelic Infrastructure](https://newrelic.com/infrastructure) (or other 3rd party monitoring tool of your choice) to track essentials metrics like CPU / RAM / Disk consumption. Nothing specific required during the installation, just follow the official guide.
 
-##### Containers monitoring
+###### Containers monitoring
 
 Additionally, if you want to see resources consumption per container or per application, we recommend using  [`ctop`](https://github.com/bcicen/ctop). 
 
