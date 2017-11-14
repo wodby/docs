@@ -23,7 +23,7 @@ push:
         rm -rf /usr/share/nginx/html/*
         mv $WERCKER_SOURCE_DIR/_book/* /usr/share/nginx/html
     - internal/docker-push:
-      registry: https://registry.hub.docker.com
+      registry: https://registry.hub.docker.com/v2
       username: $DOCKER_USERNAME
       password: $DOCKER_PASSWORD
       repository: wodby/docs
