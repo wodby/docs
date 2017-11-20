@@ -44,3 +44,4 @@ deployment:
       url: $SLACK_URL
       channel: activity
       username: wecker
+      branch: master
