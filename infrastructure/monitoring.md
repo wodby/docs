@@ -23,7 +23,7 @@ Show containers of a specific application instance:
 ctop -f [INSTANCE UUID]
 ``` 
 
-Press `S` to sort containers by CPU / RAM consumption. 
+Press `s` to sort containers by CPU / RAM consumption. 
 
 You can identify which application a container belongs by copying a container ID (CID column) and executing:
 
