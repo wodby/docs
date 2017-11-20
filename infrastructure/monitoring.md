@@ -24,3 +24,9 @@ ctop -f [INSTANCE UUID]
 ``` 
 
 Press `S` to sort containers by CPU / RAM consumption. 
+
+You can identify which application a container belongs by copying a container ID (CID column) and executing:
+
+```bash
+docker exec [CONTAINER_ID] sh -c 'echo $WODBY_APP_NAME'
+```
