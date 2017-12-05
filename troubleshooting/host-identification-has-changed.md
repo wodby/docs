@@ -18,7 +18,7 @@ RSA host key for [node-xxxxx.wod.by]:xxxx has changed and you have requested str
 Host key verification failed.
 ```
 
-This means that the container you're trying connect to was rebooted and RSA key has changed.
+This means that the container you're trying connect to was recreated and RSA key has changed.
 
 To avoid this kind of errors you can disable strict host key checking for *.wod.by host by adding the following lines to `~/.ssh/config` file: 
 
