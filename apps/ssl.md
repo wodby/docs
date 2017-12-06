@@ -15,3 +15,13 @@ Notes:
 ## Custom SSL Certificates
 
 It's not currently possible to upload certificates from the dashboard. Please [contact us](../product/support.md) if you need to set up a custom SSL certificate.
+
+## HSTS
+
+Since [infrastructure version](/infrastructure/versioning.md) >= 5.5.3 you can configure [HSTS](/infrastructure/hsts.md) per domain via three provided options:
+
+* Disable
+* Enable for this domain (default)
+* Enable for this domain and all subdomains
+
+Max age is `31536000` and can't be changed.

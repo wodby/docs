@@ -6,7 +6,7 @@ HSTS specification was subsequently developed to combat [SSL stripping attacks](
 
 Applications deployed via Wodby has enabled HSTS by default (header `Strict-Transport-Security "max-age=31536000"`).
 
-Since infrastructure version [5.5.3](/infrastructure/versioning.md#553) HSTS can be configured per domain.
+Since infrastructure version [5.5.3](/infrastructure/versioning.md#553) HSTS can be [configured per domain](/apps/ssl.md).
 
 ## How to disable HSTS (Google Chrome)
 

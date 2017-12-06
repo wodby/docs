@@ -199,4 +199,4 @@ The files specified in pipeline configuration file need to have two blocks **nam
 
 ## Logs
 
-You can find output logs of executed post-deployment scripts under `Application > Tasks`
+You can find output logs of executed post-deployment scripts under `Instance > Tasks`
