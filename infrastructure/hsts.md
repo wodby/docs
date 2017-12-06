@@ -6,6 +6,8 @@ HSTS specification was subsequently developed to combat [SSL stripping attacks](
 
 Applications deployed via Wodby has enabled HSTS by default (header `Strict-Transport-Security "max-age=31536000"`).
 
+Since infrastructure version [5.5.3](/infrastructure/versioning.md#553) HSTS can be configured per domain.
+
 ## How to disable HSTS (Google Chrome)
 
 In case you no longer use HTTPS for your app, but your Chrome browser keeps redirecting you to the HTTPS version you should delete this domain from the HSTS set from the page `chrome://net-internals/#hsts`. 

@@ -15,6 +15,7 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+* [5.5.3](#553)
 * [5.5.2](#552)
 * [5.5.1](#551)
 * [5.5.0](#550)
@@ -33,6 +34,12 @@ You will be notified each time a new version of the infrastructure is released.
 * [2.0.0](#200)
 * [1.0.0](#100)
 * [0.1.0](#010)
+
+### 5.5.3
+
+#### Changes since 5.5.2
+
+* [HSTS](/infrastructure/hsts.md) can now be configured per domain
 
 ### 5.5.2
 
