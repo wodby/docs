@@ -25,4 +25,4 @@ To simplify management of your servers and git repositories we introduced integr
 | [SendGrid](sendgrid.md)                           | Email delivery     |
 | [AWS SES](/cloud/aws/ses.md)                      | Email delivery     |
 | [AWS S3](/cloud/aws/s3.md)                        | Backup mirroring   |
-| [Docker registry](/docker-registry.md)            | Container registry |
+| [Docker registry](docker-registry.md)            | Container registry |
