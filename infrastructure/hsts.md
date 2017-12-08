@@ -11,5 +11,3 @@ Since infrastructure version [5.5.3](/infrastructure/versioning.md#553) HSTS can
 ## How to disable HSTS (Google Chrome)
 
 In case you no longer use HTTPS for your app, but your Chrome browser keeps redirecting you to the HTTPS version you should delete this domain from the HSTS set from the page `chrome://net-internals/#hsts`. 
-
-Alternatively, you can use [cache killer](https://chrome.google.com/webstore/detail/cache-killer/jpfbieopdmepaolggioebjmedmclkbap?hl=en) plugin.
