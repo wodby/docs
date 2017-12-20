@@ -23,6 +23,7 @@ Infrastructure provided by Wodby:
 * [Overview](infrastructure/README.md) 
 * [Stacks](stacks/README.md)
 * [Containers](stacks/containers/README.md) 
+* [Kubernetes cluster](cluster/README.md) 
 
 After deploying an app:
 
