@@ -40,3 +40,5 @@ A fault tolerant environment has no service interruption but a significantly hig
 * [WordPress](https://cloud.wodby.com/stackhub/a54a0f59-f4fd-49af-ad16-8d9ff776c50e/overview)
 * Generic PHP app
 * By request: MariaDB Galera cluster, PostgreSQL, Elasticsearch, Solr, Gitlab 
+
+If you're interested in our managed Kubernetes solution, please fill out the form http://go.wod.by/cluster-application
