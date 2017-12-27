@@ -9,7 +9,6 @@
     * [Logs](apps/logs.md)
     * [SSL](apps/ssl.md)
     * [Maintenance mode](apps/maintenance-mode.md)       
-    * [Going Live](apps/going-live.md)
 * [Stacks](stacks/README.md)
     * [Containers](stacks/containers/README.md)
         * [Access](stacks/containers/access.md)

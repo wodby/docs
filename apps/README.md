@@ -14,4 +14,3 @@ Further reading once the application is deployed:
 * [SSL](ssl.md)
 * [Backups](backups.md)
 * [Maintenance mode](maintenance-mode.md)
-* [Going live](going-live.md)
