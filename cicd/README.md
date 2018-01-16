@@ -2,7 +2,7 @@
 
 There are 2 ways to organize CI/CD workflow with Wodby depending on what stack you're using:
  
-## 1. Managed Stack from Stack Hub
+## 1. Managed Stack
  
 TBD
  

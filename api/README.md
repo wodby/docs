@@ -8,8 +8,8 @@ Resources:
 
 ### Version 2 (DEPRECATED)
 
-* <a href="https://github.com/Wodby/wodby-sdk-php" target="_blank">Wodby PHP SDK</a>
-* <a href="http://docs.wodbyapi.apiary.io/" target="_blank">API reference</a>
+* [Wodby PHP SDK](https://github.com/Wodby/wodby-sdk-php)
+* [API reference](http://docs.wodbyapi.apiary.io)
 
 ### Version 3
 

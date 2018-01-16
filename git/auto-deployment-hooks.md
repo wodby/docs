@@ -8,7 +8,7 @@ Please follow these instructions depending on your git provider:
 
 1. Navigate to your git repo page in Wodby Dashboard and copy the auto-deployment webhook URL 
 2. Connect to the server with your origin git repository
-3. Go to `.git/hooks` directory and download there <a href="_files/post-receive.sh" target="_blank">`post-receive.sh`</a> file
+3. Go to `.git/hooks` directory and download there [`post-receive.sh`](_files/post-receive.sh) file
 4. Replace `<WEBHOOK URL>` in this file with the URL you copied before
 5. Now let's make this file executable:
 ```bash

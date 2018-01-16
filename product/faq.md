@@ -25,8 +25,8 @@ Wodby is not a hosting provider. We believe that there are plenty of reliable pr
 
 ### I have a large-scale application, how can you help me?
 
-For large-scale application we have a [container-based cluster solution](../cluster/README.md).
+For large-scale application we have a [managed Kubernetes cluster solution](../cluster/README.md).
 
 ### It's so complex, how do I start?
 
-Watch our <a href="https://www.youtube.com/watch?v=PMqjcU4cMPM" target="_blank">demo video</a>.
+Watch our [demo video](https://www.youtube.com/watch?v=PMqjcU4cMP).

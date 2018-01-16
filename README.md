@@ -7,9 +7,9 @@ Welcome to Wodby documentation. This site will help you to understand how to dep
 Quick start:
 
 * [Bring your server](servers/README.md) to Wodby
-* [Connect your git repository](git/README.md)
-* [Deploy your first application](apps/deploy.md)
-* [Bring your team](team/README.md) to Wodby
+* Connect your [git repository](git/README.md)
+* [Deploy](apps/deploy.md) your first application
+* Bring your [team](team/README.md) to Wodby
 
 Basic concepts:
 

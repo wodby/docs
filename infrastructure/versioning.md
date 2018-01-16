@@ -74,7 +74,7 @@ You will be notified each time a new version of the infrastructure is released.
 
 #### Changes since 5.4.0
 
-* Updated <a href="../apps/domains.html#https-ssl-via-lets-encrypt">Let's Encrypt client</a>
+* Updated [Let's Encrypt client](../apps/domains.html#https-ssl-via-lets-encrypt)
 
 #### Upgrade policy
 
@@ -191,9 +191,9 @@ Release date: `June 16th, 2016`
 
 #### Changes since 3.1.0
 
-* <a href="../apps/domains.html#www-redirects">WWW redirect actions</a> for domains
-* <a href="../apps/domains.html#basic-auth">Basic auth</a> configuration
-* [Maintenance mode](../apps/maintenance-mode.md)
+* [WWW redirect actions](/apps/domains.html#www-redirects) for domains
+* [Basic auth](/apps/domains.html#basic-auth) configuration
+* [Maintenance mode](/apps/maintenance-mode.md)
 * Dev, staging instances and all instances accessible by technical `*.wod.by` domains not indexed by search engines (header X-Robots-Tag)  
 
 #### Upgrade policy 3.2.0
@@ -204,8 +204,8 @@ Release date: `June 16th, 2016`
 
 #### Changes since 3.0.0
 
-* Enable <a href="../apps/domains.html#https-ssl-via-lets-encrypt">HTTPS</a> for domains (SSL certificates via Let's Encrypt) 
-* <a href="../apps/backups.html#mirroring">Backup mirroring</a> features added.
+* Enable [HTTPS](../apps/domains.html#https-ssl-via-lets-encrypt) for domains (SSL certificates via Let's Encrypt) 
+* [Backup mirroring](../apps/backups.html#mirroring) features added.
 
 #### Upgrade policy 3.0.0
 
