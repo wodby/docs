@@ -9,13 +9,13 @@ You can restrict access to technical domains by:
 * Disabling domain
 * Setting [basic auth](#basic-auth) for this domain
 
-## Attaching custom domain name
+## Attaching custom domain name (single server setup)
 
 You can attach your custom domain name by following these steps:
 
 1. Go to `Instance > Domains > Add` on your instance page
 2. Add your domain
-3. Add an `A record` with Wodby's IP address from your DNS provider's control panel
+3. Add an `A record` targeted to your server IP from your DNS provider's control panel
 4. You're all set. Please note that DNS records propagation may take up to 24 hours
 
 > You can attach wildcard domains, e.g. *.example.com
