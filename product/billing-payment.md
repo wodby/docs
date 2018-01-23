@@ -26,6 +26,10 @@ Wodby uses recurring payment for all the subscriptions. The subscriptions automa
 
 If you cancel your subscription before the end of the current billing period your card won't be charged.
 
+## Invoices
+
+We send an invoice after every charge to an email address specified in the billing email field (`Billing > Settings`) or to an email of the user who added the bank card. Additionally, you can find all invoices and download them in PDF from `Billing > Invoices` tab. 
+
 ## Billing address and VAT
 
 You can specify all required billing details from Billings > Settings page. The details will appear on your invoices. 
