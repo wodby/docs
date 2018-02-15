@@ -6,7 +6,7 @@ If you want Wodby to use an external storage (mounted volume) instead of a serve
 
 See your cloud provider documentation
 
-* [AWS](docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html)
+* [AWS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumes.html)
 * [DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-use-block-storage-on-digitalocean)
 * ...
 
