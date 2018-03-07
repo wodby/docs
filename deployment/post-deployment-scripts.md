@@ -23,9 +23,11 @@ pipeline:
   - name: Drupal 8 clear cache on dev
     type: command
     command: drush cr
-    directory: $APP_ROOT
+    directory: $HTTP_ROOT
     only_if: test "$WODBY_ENVIRONMENT_TYPE" = "dev" 
 ```    
+
+> In the example above `$HTTP_ROOT` used as a directory instead of `$APP_ROOT` because drupal root is in a subdirectory (composer-based project) 
     
 Or like this (example for [shell stage](#shell-script-stage)):
 
