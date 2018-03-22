@@ -5,7 +5,6 @@
 * [Cleanup pipeline](#cleanup-pipeline)
 * [Pipeline stages](#pipeline-stages)
     * [Command stage](#command-stage)
-    * [Shell script stage](#shell-script-stage)
     * [Parallel stages](#parallel-stages)
     * [Reusing the results from stages](#reusing-the-results-from-stages)
     * [Wait for running stages until the conditions are satisfied](#wait-for-running-stages-until-the-conditions-are-satisfied)
@@ -29,7 +28,7 @@ pipeline:
 
 > In the example above `$HTTP_ROOT` used as a directory instead of `$APP_ROOT` because drupal root is in a subdirectory (composer-based project) 
     
-Or like this (example for [shell stage](#shell-script-stage)):
+Or like this:
 
 ```yml
 pipeline:
