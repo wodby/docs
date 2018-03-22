@@ -35,7 +35,7 @@ Or like this (example for [shell stage](#shell-script-stage)):
 pipeline:
   - name: Run my custom script
     type: command
-    command: sh my-script.sh
+    command: ./my-script.sh
     directory: $APP_ROOT
 ```
 
@@ -73,16 +73,6 @@ The following is the parameter of Command stage.
 |   `command`      | false      | shell command run in the stage                                              |
 |   `only_if`      | true       | run specified command on when the condition written in only_if is satisfied |
 |   `directory`    | true       | the directory where wodby runs the specified command                       |
-
-### Shell script stage
-
-Shell script stage executes specified shell script file. Users specify Shell script stage adding shell in type.
-
-The following is the parameter of Shell script stage.
-
-|  Configuration   | Optional   | meaning                                |
-|:----------------:|:----------:|:--------------------------------------:|
-|   `file`           | false      | shell script file run in the stage     |
 
 ### Parallel stages
 
