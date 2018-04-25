@@ -10,3 +10,4 @@ List of the known issues:
 * [Emails delivery fail](emails-delivery-fail.md)
 * [Server is unreachable](server-unreachable.md)
 * [Host identification has changed](host-identification-has-changed.md)
+* [Applications issues](apps-issues.md)
