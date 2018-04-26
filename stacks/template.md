@@ -33,9 +33,9 @@ This section contains a list of all configuration options supported by a service
 | [memory](#memory) | Memory rules and limitations |  | int, string | 
 | [cpu](#cpu) | CPU resources rules and limitations |  | int, string |
 | [ports](#ports) | List of ports to expose from the container. |  | string array |
-| [check_ready](#check-ready-reference) | Describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic. |  | string array |
-| [deployment](#deployment-reference) | Deployment enables declarative updates for services. |  | string array |
-| [security_context](#security-context-reference) | Security context holds security configuration that will be applied to a container. |  | string array |
+| [check_ready](#check-ready) | Describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic. |  | string array |
+| [deployment](#deployment) | Deployment enables declarative updates for services. |  | string array |
+| [security_context](#securitycontext) | Security context holds security configuration that will be applied to a container. |  | string array |
 
 ### memory
 
@@ -107,7 +107,7 @@ services:
 "auto::80:8080"
 ```
 
-* Map 8080 to 80 within a stack, assign public port automatically.
+* Map 8080 to 80 within a stack, assign a specific public port from range `31222-32222`
 ```
 "32223::80:8080"
 ```
