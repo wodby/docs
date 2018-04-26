@@ -12,6 +12,6 @@ script:
   - wget -qO- https://api.wodby.com/api/v1/get/cli | sh
   - wodby ci init "${WODBY_INSTANCE_UUID}"
   - wodby ci run -i billryan/gitbook:base -- sh -c 'gitbook install && gitbook build'
-  - wodby ci build
+  - wodby ci build --from _book
   - wodby ci release
   - wodby ci deploy
