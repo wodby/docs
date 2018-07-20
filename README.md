@@ -1,39 +1,9 @@
-# Wodby Documentation
+# Drupal stacks documentation
 
-Welcome to Wodby documentation. This site will help you to understand how to deploy your [apps](/apps/README.md) using cloud infrastructure provided by Wodby. 
+[![wercker status](https://app.wercker.com/status/b429374b8a5172c7a347792ca00bfeec/s/master "wercker status")](https://app.wercker.com/project/byKey/b429374b8a5172c7a347792ca00bfeec)
+[![Wodby Slack](http://slack.wodby.com/badge.svg)](http://slack.wodby.com)
+[![Wodby Twitter](https://img.shields.io/twitter/follow/wodbyhq.svg?style=social&label=Follow)](https://twitter.com/wodbyhq)
 
-* **Learn how to [deploy your first application](apps/deploy.md)**
+Docs are built using [mkdocs](http://www.mkdocs.org)
 
-Quick start:
-
-* [Bring your server](servers/README.md) to Wodby
-* Connect your [git repository](git/README.md)
-* [Deploy](apps/deploy.md) your first application
-* Bring your [team](team/README.md) to Wodby
-
-Basic concepts:
-
-* [Applications](apps/README.md) 
-* [Integrations](integrations/README.md) 
-* [Servers](servers/README.md) 
-* [Git repositories](git/README.md)
-
-Infrastructure provided by Wodby:
-
-* [Overview](infrastructure/README.md) 
-* [Stacks](stacks/README.md)
-* [Containers](stacks/containers/README.md) 
-* [Kubernetes cluster](cluster/README.md) 
-
-After deploying an app:
-
-* Deploy new [instances](apps/instances.md)
-* Manage your [domains](apps/domains.md)
-* Configure [post-deployment scenario](deployment/post-deployment-scripts.md)
-* Configure [backups](apps/backups.md)
-* [Add your SSH key](infrastructure/keys.md) to access the containers
-
-Wodby as a product: 
-
-* [Billing and payment](product/billing-payment.md)
-* [Getting support](product/support.md)
+See https://wodby.com/stacks/drupal/docs

@@ -1,1 +1,0 @@
-!REDIRECT "/cloud/aws/connect.html"

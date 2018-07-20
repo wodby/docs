@@ -1,0 +1,139 @@
+site_name: Wodby documentation
+site_description: Wodby documentation
+site_author: Wodby, Inc.
+site_url: https://docs.wodby.com
+
+repo_name: wodby/docs
+repo_url: https://github.com/wodby/docs
+
+copyright: Wodby, Inc.
+
+extra:
+  social:
+    - type: globe
+      link: https://wodby.com
+    - type: github-alt
+      link: https://github.com/wodby
+    - type: twitter
+      link: https://twitter.com/WodbyHQ
+
+theme:
+  name: material
+  feature:
+    tabs: true
+  palette:
+    primary: 'indigo'
+    accent: 'indigo'
+  custom_dir: 'theme'
+
+extra_css: ["assets/wodby.css"]
+extra_javascript: ["assets/intercom.js"]
+
+markdown_extensions:
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - markdown_include.include:
+      base_path: docs
+
+pages:
+  - Home: index.md
+  - User roles: roles.md
+  - Development: dev.md
+  - Support: support.md
+  - Status: status.md
+  - Billing: billing.md
+  - FAQ: faq.md
+  - Troubleshooting: troubleshooting.md
+  - Apps:
+    - Deploy new app: apps/new.md
+    - Instances: apps/instances.md
+    - Code deployment: apps/deploy.md
+    - Domains: apps/domains.md
+    - Backups: apps/backups.md
+    - Logging: apps/logs.md
+    - Post-deployment scripts: apps/post-deployment-scripts.md
+  - Infrastructure:
+    - Overview: infrastructure/index.md
+    - Connecting server: infrastructure/connecting-server.md
+    - Monitoring: infrastructure/monitoring.md
+    - Environment variables: infrastructure/env-vars.md
+    - Accessing containers: infrastructure/containers-access.md
+    - Disk: infrastructure/disk.md
+    - Maintenance: infrastructure/maintenance.md
+    - Adding SSH key: infrastructure/ssh.md
+    - Security: infrastructure/security.md
+    - HSTS: infrastructure/hsts.md
+    - UFW: infrastructure/ufw.md
+  - Stacks:
+    - Overview: stacks/index.md
+    - Configuration: stacks/config.md
+    - Template: stacks/template.md
+    - Maintenance: stacks/maintenance.md
+    - Drupal:
+      - Overview: stacks/drupal/index.md
+      - Containers: stacks/drupal/containers.md
+      - Changelog: stacks/drupal/changelog.md
+      - Local environment: stacks/drupal/local.md
+    - WordPress:
+      - Overview: stacks/wordpress/index.md
+      - Containers: stacks/wordpress/containers.md
+      - Changelog: stacks/wordpress/changelog.md
+      - Local environment: stacks/wordpress/local.md
+    - PHP:
+      - Overview: stacks/php/index.md
+      - Containers: stacks/php/containers.md
+      - Local environment: stacks/php/local.md
+    - HTML: stacks/html/index.md
+    - Matomo: stacks/matomo/index.md
+    - MariaDB: stacks/mariadb/index.md
+    - GitLab:
+      - Overview: stacks/gitlab/index.md
+      - Changelog: stacks/gitlab/changelog.md
+    - PostgreSQL: stacks/postgres/index.md
+    - Cachet: stacks/cachet/index.md
+    - Solr: stacks/solr/index.md
+    - Solr for Drupal: stacks/solr-drupal/index.md
+    - OpenSMTPD: stacks/opensmtpd/index.md
+    - Elasticsearch: stacks/elasticsearch/index.md
+    - AthenaPDF: stacks/athenapdf/index.md
+    - Docker registry: stacks/docker-registry/index.md
+    - Redis: stacks/redis/index.md
+    - Jenkins: stacks/jenkins/index.md
+    - Slackin: stacks/slackin/index.md
+    - Varnish: stacks/varnish/index.md
+
+  - Integrations:
+    - AWS: integrations/aws.md
+    - Azure: integrations/azure.md
+    - BitBucket: integrations/bitbucket.md
+    - CloudFlare: integrations/cloudflare.md
+    - DigitalOcean: integrations/digitalocean.md
+    - Docker registry: integrations/docker-registry.md
+    - GCP: integrations/gcp.md
+    - GitHub: integrations/github.md
+    - GitLab: integrations/gitlab.md
+    - Linode: integrations/linode.md
+    - SendGrid: integrations/sendgrid.md
+    - Custom provider: integrations/custom.md
+  - Cluster:
+    - Kubernetes cluster: cluster/index.md
