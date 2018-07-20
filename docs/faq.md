@@ -42,7 +42,7 @@ Wodby is not a hosting provider. We believe that there are plenty of reliable pr
 
 ## Why does team plan starts from $50?
 
-The team plan starts with 10 [app instances](../apps/instances.md) minimum. And here is why – when people use Wodby in production they expect a certain level of service which we can't provide for less than $50/mo. On the other hand we don't want to provide poor service.
+The team plan starts with 10 [app instances](apps/instances.md) minimum. And here is why – when people use Wodby in production they expect a certain level of service which we can't provide for less than $50/mo. On the other hand we don't want to provide poor service.
 
 Quality over quantity.
 

@@ -6,5 +6,3 @@ When you connect a server to Wodby we enable automatic security updates for the 
 * [Stacks maintenance](../stacks/maintenance.md)
 
 We release unplanned updates to our infrastructure for all critical security updates and notify all affected customers by email (you cannot unsubscribe from those emails).
-
-Security updates in stacks included in the [usual stacks maintenance process](../stacks/upgrade.md).

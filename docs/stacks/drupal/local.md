@@ -41,20 +41,16 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 5. Optional: for Drupal 7 or 6 comment out corresponding `PHP_TAG` and `NGINX_TAG` in your `.env` file
 6. Optional: [import existing database]()
 7. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
-8. Optional: macOS users please read [this](../_includes/docker-for-mac.md)
-9. Optional: Windows users please read [this](../_includes/permissions.md#windows)
-10. Run containers: `docker-compose up -d` or `make up` (see all [make commands](../_includes/make-commands.md))
+8. Optional: macOS users please read [this](#docker-for-mac)
+9. Optional: Windows users please read [this](#permissions-issues)
+10. Run containers: `docker-compose up -d` or `make up` (see all [make commands](#make-commands)
 11. That's it! Your drupal website should be up and running at http://drupal.docker.localhost:8000
 12. You can see status of your containers and their logs via portainer: http://portainer.drupal.docker.localhost:8000
 
 !!! info "Optional files"
-    If you don't need to [run multiple projects](../_includes/multiple-projects.md) and don't use [docker-sync to improve volumes performance on macOS](../_includes/docker-for-mac.md) feel free to delete `traefik.yml` and `docker-sync.yml` that come with the `docker4drupal.tar.gz`
+    If you don't need to [run multiple projects](#running-multiple-projects) and don't use [docker-sync to improve volumes performance on macOS](#docker-for-mac) feel free to delete `traefik.yml` and `docker-sync.yml` that come with the `docker4drupal.tar.gz`
 
-You can stop containers by executing `docker-compose stop` or `make stop`
-
-Have a problem? See [known issues](../../local/known-issues.md), submit a new issue on [GitHub](https://github.com/wodby/docker4drupal/issues) or ask [community on Slack](http://slack.wodby.com)
-
-Feel free to adjust volumes and ports in the compose file for your convenience. 
+You can stop containers by executing `docker-compose stop` or `make stop`.
 
 ## Domains
 
@@ -64,18 +60,18 @@ By default `BASE_URL` set to `drupal.docker.localhost`, you can change it in `.e
 
 Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:
 
-| Service      | Domain                                          |
-| ------------ | ----------------------------------------------- |
+| Service        | Domain                                          |
+| ------------   | ----------------------------------------------- |
 | `nginx/apache` | `http://drupal.docker.localhost:8000`           |
-| `pma` | `http://pma.drupal.docker.localhost:8000`       |
-| `adminer` | `http://adminer.drupal.docker.localhost:8000`   |
-| `mailhog` | `http://mailhog.drupal.docker.localhost:8000`   |
-| `solr` | `http://solr.drupal.docker.localhost:8000`      |
-| `nodejs` | `http://nodejs.drupal.docker.localhost:8000`    |
-| `node` | `http://front.drupal.docker.localhost:8000`     |
-| `varnish` | `http://varnish.drupal.docker.localhost:8000`   |
-| `portainer` | `http://portainer.drupal.docker.localhost:8000` |
-| `webgrind` | `http://webgrind.drupal.docker.localhost:8000`  |
+| `pma`          | `http://pma.drupal.docker.localhost:8000`       |
+| `adminer`      | `http://adminer.drupal.docker.localhost:8000`   |
+| `mailhog`      | `http://mailhog.drupal.docker.localhost:8000`   |
+| `solr`         | `http://solr.drupal.docker.localhost:8000`      |
+| `nodejs`       | `http://nodejs.drupal.docker.localhost:8000`    |
+| `node`         | `http://front.drupal.docker.localhost:8000`     |
+| `varnish`      | `http://varnish.drupal.docker.localhost:8000`   |
+| `portainer`    | `http://portainer.drupal.docker.localhost:8000` |
+| `webgrind`     | `http://webgrind.drupal.docker.localhost:8000`  |
 
 ## Database import and export
 

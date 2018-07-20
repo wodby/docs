@@ -7,7 +7,11 @@ You can send emails from your applications via SendGrid by configuring mail tran
 2. Start with `Integrate using our Web API or SMTP relay` option
 3. Choose `SMTP Relay`
 4. Enter API Key to generate password
-5. Open OpenSMTPD service configuration window
-6. Add environment variables `RELAY_HOST`, `RELAY_USER` and `RELAY_PASSWORD` with values of `Server`, `Username` and `Password` from SendGrid
-7. Proceed to the next step in SendGrid dashboard to verify integration
-6. [Send a test email from OpenSMTPD container](https://cloud.wodby.com/stackhub/a545abfe-6882-4d47-b7b6-0e49516cefb7/overview#sending-test-emails-from-cli)
+5. Add the following environment variables to OpenSMTPD service (replace `[Tokens]` with your values):
+    ```
+    RELAY_HOST=[Server]
+    RELAY_USER=[Username]
+    RELAY_PASSWORD=[Password]
+    ```
+6. Proceed to the next step in SendGrid dashboard to verify integration
+7. [Send a test email](../stacks/opensmtpd/index.md#sending-test-emails-from-cli) from OpenSMTPD container

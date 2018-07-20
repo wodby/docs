@@ -52,7 +52,7 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Rsyslog
 
-{!stacks/_includes/containers/rsyslog.md!}
+{!stacks/_includes/containers/php-rsyslog.md!}
 
 ## Blackfire
 

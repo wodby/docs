@@ -4,7 +4,7 @@
 
 Wodby provides a native integration with DigitalOcean: 
 
-1. Connect your DigitalOcean account by adding a [new integration](../../integrations/README.md) 
+1. Connect your DigitalOcean account via Wodby dashboard (`Integrations`) 
 
 2. Navigate to `Servers > Connect`, select DigitalOcean from the list of providers and your integration
   

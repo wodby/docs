@@ -119,7 +119,7 @@ For more details see [Varnish stack documentation](../varnish/index.md)
 
 ## Rsyslog
 
-{!stacks/_includes/containers/rsyslog.md!}
+{!stacks/_includes/containers/php-rsyslog.md!}
 
 ## Blackfire
 

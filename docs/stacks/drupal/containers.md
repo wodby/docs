@@ -124,13 +124,13 @@ See [Solr for Drupal stack documentation](../solr-drupal/index.md).
 
 ### Drupal 8
 
-Install [redis module](https://www.drupal.org/project/redis) and enable redis integration under `[Instance] > Cache > Settings` page of Wodby dashboard to use it as an internal cache storage for Drupal. All required configuration already provided in [`wodby.settings.php` file](/stacks/drupal/index.md).
+Install [redis module](https://www.drupal.org/project/redis) and enable redis integration under `[Instance] > Cache > Settings` page of Wodby dashboard to use it as an internal cache storage for Drupal. All required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings).
 
 ### Drupal 7
 
-Install [redis module](https://www.drupal.org/project/redis) to use it as an internal cache storage for Drupal. All required configuration already provided in [`wodby.settings.php` file](../stacks/drupal/drupal-settings.md).
+Install [redis module](https://www.drupal.org/project/redis) to use it as an internal cache storage for Drupal. All required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings).
 
-[Redis stack documentation](/stacks/redis/index.md)
+[Redis stack documentation](../redis/index.md)
 
 ## Varnish
 

@@ -12,19 +12,19 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 1. Download `docker4php.tar.gz` from the [latest stable release](https://github.com/wodby/docker4php/releases) and unpack to your PHP project root
 2. Make sure `NGINX_SERVER_ROOT` (or `APACHE_SERVER_ROOT`) is set to your project public directory with `index.php` (by default `/var/www/html/public`)  
 3. Ensure database credentials match in your database config and `.env` files
-4. [Configure domains](domains.md) 
-5. Optional: [import existing database](import-export.md) 
-6. Optional: uncomment lines in the compose file to run [redis](../containers/redis.md), [elasticsearch](../containers/elasticsearch.md), [kibana](../containers/kibana.md), etc
-7. Optional: macOS users please read [this](docker-for-mac.md)
-8. Optional: Windows users please read [this](permissions.md#windows)
-9. Run containers: `docker-compose up -d` or `make up` (see all [make commands](make-commands.md))
+4. [Configure domains](#domains) 
+5. Optional: [import existing database](#database-import-and-export) 
+6. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
+7. Optional: macOS users please read [this](#docker-for-mac)
+8. Optional: Windows users please read [this](#permissions-issues)
+9. Run containers: `docker-compose up -d` or `make up` (see all [make commands](#make-commands))
 10. That's it! Your php application should be up and running at http://php.docker.localhost:8000
 11. You can see status of your containers and their logs via portainer: http://portainer.php.docker.localhost:8000
 
 !!! info "Optional files"
-    If you don't need to [run multiple projects](multiple-projects.md) and don't use [docker-sync to improve volumes performance on macOS](docker-for-mac.md) feel free to delete `traefik.yml` and `docker-sync.yml` that come with the `docker4php.tar.gz`
+    If you don't need to [run multiple projects](#running-multiple-projects) and don't use [docker-sync to improve volumes performance on macOS](#docker-for-mac) feel free to delete `traefik.yml` and `docker-sync.yml` that come with the `docker4php.tar.gz`
 
-You can stop containers by executing `docker-compose stop` or `make stop`. Feel free to adjust volumes and ports in the compose file for your convenience. 
+You can stop containers by executing `docker-compose stop` or `make stop`.
 
 ## Domains
 
@@ -34,18 +34,18 @@ By default `BASE_URL` set to `php.docker.localhost`, you can change it in `.env`
 
 Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
-| Service      | Domain                                     |
-| ------------ | ------------------------------------------ |
-| `nginx/apache` | `http://php.docker.localhost:8000` |
-| `pma` | `http://pma.php.docker.localhost:8000` |
-| `adminer` | `http://adminer.php.docker.localhost:8000` |
-| `mailhog` | `http://mailhog.php.docker.localhost:8000` |
-| `solr` | `http://solr.php.docker.localhost:8000` |
-| `kibana` | `http://kibana.php.docker.localhost:8000` |
-| `node` | `http://front.php.docker.localhost:8000` |
-| `varnish` | `http://varnish.php.docker.localhost:8000` |
-| `portainer` | `http://portainer.php.docker.localhost:8000` |
-| `webgrind` | `http://webgrind.php.docker.localhost:8000` |
+| Service        | Domain                                       |
+| ------------   | ------------------------------------------   |
+| `nginx/apache` | `http://php.docker.localhost:8000`           |
+| `pma`          | `http://pma.php.docker.localhost:8000`       |
+| `adminer`      | `http://adminer.php.docker.localhost:8000`   |
+| `mailhog`      | `http://mailhog.php.docker.localhost:8000`   |
+| `solr`         | `http://solr.php.docker.localhost:8000`      |
+| `kibana`       | `http://kibana.php.docker.localhost:8000`    |
+| `node`         | `http://front.php.docker.localhost:8000`     |
+| `varnish`      | `http://varnish.php.docker.localhost:8000`   |
+| `portainer`    | `http://portainer.php.docker.localhost:8000` |
+| `webgrind`     | `http://webgrind.php.docker.localhost:8000`  |
 
 ## Database import and export
 

@@ -27,7 +27,7 @@ theme:
   custom_dir: 'theme'
 
 extra_css: ["assets/wodby.css"]
-extra_javascript: ["assets/intercom.js"]
+extra_javascript: ["assets/intercom.js","assets/wodby.js"]
 
 markdown_extensions:
   - markdown.extensions.admonition
@@ -84,6 +84,7 @@ pages:
     - Security: infrastructure/security.md
     - HSTS: infrastructure/hsts.md
     - UFW: infrastructure/ufw.md
+    - CLI: infrastructure/cli.md
   - Stacks:
     - Overview: stacks/index.md
     - Configuration: stacks/config.md

@@ -4,7 +4,7 @@
 
 ### Environment variables
 
-In addition to [global environment variables](../../../infrastructure/env-vars.md), we provide the following variables in PHP container that you can use in your post-deployment scripts:
+In addition to [global environment variables](/infrastructure/env-vars.md), we provide the following variables in PHP container that you can use in your post-deployment scripts:
 
 | Variable              | Description                                                      |
 | --------------------- | ---------------------------------------------------------------- |
@@ -128,4 +128,4 @@ You can add NewRelic APM monitoring for PHP by adding environment variables `PHP
 
 ### Profiling
 
-You can profile your PHP application either via Xdebug traces (+[Webgrind](webgrind.md)) or Tideways XHProf extensions.
+You can profile your PHP application either via Xdebug traces (+[Webgrind](#webgrind)) or Tideways XHProf extensions.
