@@ -26,7 +26,8 @@ Steps to set up two projects on one host:
 
 This set up also works for any Docker projects. You can replace nginx-proxy config with Traefik and get other projects all routed with on traefik container.
 
-macOS users make sure names of `syncs` in `docker-sync.yml` file must be unique per project. The recommended way is to run stand-alone docker-sync with syncs definition for all projects. Do not forget to update `src` paths for projects. 
+!!! warning "For macOS users with docker-sync"
+    Make sure names of `syncs` in `docker-sync.yml` are unique per project. The recommended way is to run a stand-alone docker-sync with syncs definition for all projects. Do not forget to update `src` paths for projects 
 
 In case of issues:
 

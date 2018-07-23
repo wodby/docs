@@ -57,6 +57,7 @@ markdown_extensions:
 
 pages:
   - Home: index.md
+  - Account: account.md
   - User roles: roles.md
   - Development: dev.md
   - Support: support.md
@@ -65,9 +66,9 @@ pages:
   - FAQ: faq.md
   - Troubleshooting: troubleshooting.md
   - Apps:
-    - Deploy new app: apps/new.md
+    - New app: apps/new.md
     - Instances: apps/instances.md
-    - Code deployment: apps/deploy.md
+    - Deployment: apps/deploy.md
     - Domains: apps/domains.md
     - Backups: apps/backups.md
     - Logging: apps/logs.md
@@ -93,25 +94,25 @@ pages:
     - Drupal:
       - Overview: stacks/drupal/index.md
       - Containers: stacks/drupal/containers.md
-      - Changelog: stacks/drupal/changelog.md
       - Local environment: stacks/drupal/local.md
+      - Changelog: stacks/drupal/changelog.md
     - WordPress:
       - Overview: stacks/wordpress/index.md
       - Containers: stacks/wordpress/containers.md
-      - Changelog: stacks/wordpress/changelog.md
       - Local environment: stacks/wordpress/local.md
+      - Changelog: stacks/wordpress/changelog.md
     - PHP:
       - Overview: stacks/php/index.md
       - Containers: stacks/php/containers.md
       - Local environment: stacks/php/local.md
-    - HTML: stacks/html/index.md
-    - Matomo: stacks/matomo/index.md
-    - MariaDB: stacks/mariadb/index.md
     - GitLab:
       - Overview: stacks/gitlab/index.md
       - Changelog: stacks/gitlab/changelog.md
-    - PostgreSQL: stacks/postgres/index.md
+    - HTML: stacks/html/index.md
+    - Matomo: stacks/matomo/index.md
     - Cachet: stacks/cachet/index.md
+    - MariaDB: stacks/mariadb/index.md
+    - PostgreSQL: stacks/postgres/index.md
     - Solr: stacks/solr/index.md
     - Solr for Drupal: stacks/solr-drupal/index.md
     - OpenSMTPD: stacks/opensmtpd/index.md

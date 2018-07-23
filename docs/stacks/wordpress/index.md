@@ -26,16 +26,9 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
   ```
 3. Enter `web` (it's a directory name with WordPress root in our boilerplate) in `Codebase dir` input on the 3rd step of new application deployment form
 
-### Via third-party CI
+### CI/CD
 
-* CircleCI: [`.circleci/config.yml`](https://github.com/wodby/wodby-ci/blob/master/php/circleci.yml)
-* TravisCI: [`.travis.yml`](https://github.com/wodby/wodby-ci/blob/master/php/travis.yml)
-* BitBucket pipelines: [`bitbucket-pipelines.yml`](https://github.com/wodby/wodby-ci/blob/master/php/bitbucket.yml)
-* Custom shell script: [`custom.sh`](https://github.com/wodby/wodby-ci/blob/master/php/custom.sh)
-
-### Wodby CI
-
-Coming soon
+{!stacks/_includes/php-cicd.md!}
 
 ## Import
 
@@ -84,7 +77,21 @@ Files for WordPress located in `/mnt/files/public` and symlinked to `wp-content/
 
 ### Base URL
 
-The domain marked with primary flag will be used as a `WP_HOME` and `WP_SITEURL` in `wodby.wp-config.php` file. 
+The domain marked with primary flag will be used as a `WP_HOME` and `WP_SITEURL` in `wodby.wp-config.php` file.
+
+## Mail delivery
+
+{!stacks/_includes/email-delivery.md!}
+
+## Cron
+
+By default we run the following cron command from [crond container](containers.md#crond) every hour:
+
+```
+wp cron event run --due-now --path="${HTTP_ROOT}" --url="${BASE_URL}"
+``` 
+
+You can customize crontab from `[Instance] > Stack > Settings` page.   
 
 ## Cache control
 

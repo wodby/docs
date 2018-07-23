@@ -1,5 +1,7 @@
 # WordPress stack changelog
 
+This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
+
 ## 5.1.0
 
 * Vanilla WordPress core updated to 4.9.6
@@ -112,7 +114,7 @@ stream_ssl_preread_module
 
 ### Changes since 4.4.1
 
-* All containers now have [resources request](https://docs.wodby.com/stacks/config#resources) as listed [here in Resources column](https://wodby.com/stacks/wordpress/docs/containers/), in addition, crond has CPU limit
+* All containers now have [resources request](../config.md#resources) as listed [here in Resources column](https://wodby.com/stacks/wordpress/docs/containers/), in addition, crond has CPU limit
 * PHP:
   * Container default user has been changed to `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
   * PHP updated to 7.2.2, 7.1.14, 7.0.27 (security updates)
@@ -209,7 +211,7 @@ stream_ssl_preread_module
 * Redis:
   * Redis updated to 3.2.11, 4.0.2
   * Fixed init failure when there's no `/sys/kernel/mm/transparent_hugepage/enabled`
-* [Global environment variables](https://docs.wodby.com/infrastructure/env-vars) changes:
+* Global environment variables changes:
   * `$WODBY_APP_NAME` no longer contains instance machine name, only application machine name
   * `$WODBY_ENVIRONMENT_` variables have been deprecated and replaced with `$WODBY_INSTANCE_`
   * New variables `$WODBY_INSTANCE_UUID` and `$WODBY_APP_UUID`

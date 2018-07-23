@@ -71,7 +71,7 @@ docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db
 
 * Updated to 10.1.31, 10.2.12
 * Rebased to Alpine Linux 3.7
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 64m
+* Default [memory request](../config.md#resources) set to 64m
 
 ### 2.0.1
 

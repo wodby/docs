@@ -2,7 +2,7 @@
 
 The only difference from [Solr stack](../solr/index.md) is that core created with a config set from [Search API Solr module](https://www.drupal.org/project/search_api_solr) by default, for more details on the version see https://github.com/wodby/drupal-solr.
 
-!!! tip "TIP"
+!!! info "Default core"
     We automatically create a default solr core named `default` when no cores found.
 
 ### Drupal 8
@@ -41,7 +41,7 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 ### 1.2.0
 
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 256m
+* Default [memory request](../config.md#resources) set to 256m
 
 ### 1.1.0
 

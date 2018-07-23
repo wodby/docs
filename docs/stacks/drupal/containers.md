@@ -52,10 +52,14 @@ Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disable
 
 {!stacks/_includes/containers/php.md!}
 
+#### Drupal-specific
+
 Additionally, variable `$DRUPAL_SITE` (previous deprecated name `$WODBY_APP_SUBSITE`) contains Drupal site directory, e.g. `default`.  
 
 !!! warning "WARNING" 
     Some environment variables used by PHP may be overridden in [`wodby.settings.php`](index.md#drupal-settings) file
+    
+{!stacks/_includes/containers/php-dev.md!}
 
 ### PHPUnit
 

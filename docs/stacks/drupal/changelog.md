@@ -1,5 +1,7 @@
 # Drupal stack changelog
 
+This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
+
 ## 5.1.0
 
 * Drupal
@@ -105,7 +107,7 @@ stream_ssl_preread_module
 
 ### Changes since 4.4.1
 
-* All containers now have [resources request](https://docs.wodby.com/stacks/config#resources) as listed [here in Resources column](https://wodby.com/stacks/drupal/docs/containers/), in addition, crond has CPU limit
+* All containers now have [resources request](../config.md#resources) as listed [here in Resources column](https://wodby.com/stacks/drupal/docs/containers/), in addition, crond has CPU limit
 * PHP:
   * Container default user has been changed to `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
   * PHP updated to 7.1.14, 7.0.27, 5.6.33 (security updates)
@@ -215,7 +217,7 @@ stream_ssl_preread_module
 * Varnish:
   * Varnish updated to 4.1.9
   * Cache hash id now respects protocol (http/https)
-* [Global environment variables](https://docs.wodby.com/infrastructure/env-vars) changes:
+* Global environment variables changes:
   * `$WODBY_APP_NAME` no longer contains instance machine name, only application machine name
   * `$WODBY_ENVIRONMENT_` variables have been deprecated and replaced with `$WODBY_INSTANCE_`
   * New variables `$WODBY_INSTANCE_UUID` and `$WODBY_APP_UUID`

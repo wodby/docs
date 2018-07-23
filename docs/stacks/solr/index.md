@@ -22,7 +22,7 @@ You can create new cores via Solr admin UI or create it manually from CLI with a
 
 ### 1.2.0
 
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 256m
+* Default [memory request](../config.md#resources) set to 256m
 
 ### 1.1.0
 

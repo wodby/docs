@@ -2,7 +2,7 @@
 
 ## Setup
 
-Use the following credentials during the inital setup on the Database Setup step:
+Use the following credentials during the initial setup on the Database Setup step:
 
 * Database Server: `matomo`
 * Login: `matomo`
@@ -33,9 +33,41 @@ password = "Copy the value of `REDIS_PASSWORD` from `[Instance] > Stack > Redis 
 database = 14
 ```
 
-## Email configuration
+## Mail delivery
 
 Go to `Settings > System > General settings > Email server settings` in your Matomo instance. Specify `opensmtpd` as server address and `25` as port. For more details how to configure guaranteed email delivery see [OpenSMTPD stack documentation](../opensmtpd/index.md)
+
+{!stacks/_includes/email-delivery-warning.md!}
+
+## Cron
+
+By default we run the following cron command from [crond container](#crond) every hour:
+
+```
+/usr/local/bin/php /var/www/html/console core:archive --url=${WODBY_URL_PRIMARY}
+```
+
+## Containers
+
+### PHP
+
+{!stacks/_includes/containers/php.md!}
+
+### Crond
+
+{!stacks/_includes/containers/php-crond.md!}
+
+`$WODBY_HOST_PRIMARY` is a domain marked as primary. 
+
+### SSHd
+
+{!stacks/_includes/containers/php-sshd.md!}
+
+### [OpenSMTPD](../opensmtpd/index.md)
+
+### [MariaDB](../mariadb/index.md)
+
+### [Redis](../redis/index.md)
 
 ## Changelog
 

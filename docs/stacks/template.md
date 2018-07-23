@@ -122,6 +122,7 @@ services:
 | progress_deadline_seconds | The maximum time in seconds for a deployment to make progress before it is considered to be failed, not set by default. | | int |
 | max_surge | The maximum number of containers that can be scheduled above the desired number of containers. Value must be an absolute number. Defaults to 1. | | int |
 | max_unavailable | The maximum number of containers that can be unavailable during the update. Value must be an absolute number. Defaults to 1. | | int |
+| type | If set to CI the service will be used for [CI deployments](../apps/deploy.md#cicd). CI services excluded from the initial deployment (replicas set to 0) until you deploy your first build to avoid deployment failures. |  | string |
 
 ### security_context
 

@@ -33,7 +33,7 @@ $ curl http://athenapdf:8080/convert\?auth\=wodby-athenapdf\&url\=http://google.
 
 ### 1.0.3
 
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 16m
+* Default [memory request](../config.md#resources) set to 16m
 
 ### 1.0.2
 

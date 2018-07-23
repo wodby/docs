@@ -1,10 +1,9 @@
 # Accessing containers
 
-Some stacks provide an SSHd container to access your codebase, in this case you can copy and execute SSH command from `Instance > Stack > SSHd` page. 
+!!! tip "Stacks with SSHd container"
+    Some stacks provide an SSHd container to access your codebase, in this case you can copy and execute SSH command from `Instance > Stack > SSHd` page. 
 
-If your stack does not provide SSHd container or you need to access a different container follow instructions below
-
-## Access container as container default user
+## Access container as default user
 
 * Connect to the server where app instance is deployed by SSH
 * Navigate to `Instance > Stack > [CONTAINER]` from Wodby dashboard

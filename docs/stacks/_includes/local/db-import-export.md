@@ -2,6 +2,6 @@
 
 See [MariaDB stack documentation](/stacks/mariadb/index.md#local-environment)
 
-### Postgres
+### PostgreSQL
 
 See [PostgreSQL stack documentation](/stacks/postgres/index.md#local-environment)

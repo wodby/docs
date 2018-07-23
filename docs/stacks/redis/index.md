@@ -7,7 +7,7 @@ Redis can be configured with the following [environment variables](https://githu
 ### 1.1.0
 
 * Redis updated to 4.0.8
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 256m
+* Default [memory request](../config.md#resources) set to 256m
 * Bugfix: redis 4 init could not disable THP on some servers
 
 ### 1.0.4

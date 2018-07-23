@@ -5,7 +5,7 @@
 ### 0.4.0
 
 * GitLab CE updated to 10.5.2
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to ~1.5G
+* Default [memory request](../config.md#resources) set to ~1.5G
 
 ### 0.3.0
 
@@ -30,7 +30,7 @@ Initial release
 ### 0.2.0
 
 * GitLab Runner updated to 10.5.0
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 8m
+* Default [memory request](../config.md#resources) set to 8m
 
 ### 0.1.0
 

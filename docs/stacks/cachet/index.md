@@ -1,5 +1,35 @@
 # Cachet stack documentation
 
+Cachet can be configured with the following [environment variables](https://github.com/wodby/cachet#environment-variables)
+
+## Mail delivery
+
+{!stacks/_includes/email-delivery-warning.md!}
+
+## Cron
+
+By default we run the following cron command from [crond container](#crond) every hour:
+
+```
+/usr/local/bin/php -q ./artisan schedule:run
+```
+
+## Containers
+
+### PHP
+
+{!stacks/_includes/containers/php.md!}
+
+### Crond
+
+{!stacks/_includes/containers/php-crond.md!}
+
+### [OpenSMTPD](../opensmtpd/index.md)
+
+### [PostgreSQL](../postgres/index.md)
+
+### [Redis](../redis/index.md)
+
 ## Changelog
 
 ### 1.1.1
@@ -16,7 +46,7 @@
 
 * Nginx image `wodby/cachet-nginx` replaced with `wodby/php-nginx`
 * Now when your upgrade stack with a new version of Cachet, your source code will be updated
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to:
+* Default [memory request](../config.md#resources) set to:
   * Cachet: 64m
   * Crond: 4m
   * PostgreSQL: 64m

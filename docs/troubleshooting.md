@@ -131,7 +131,7 @@ chown :www-data -R YOUR_DIR
 chmod 664 -R YOUR_DIR
 ```
 
-### Infrastructure 5.x known issues ☹️
+## Infrastructure 5.x known issues ☹️
 
 * Sometimes we can't get logs of a task with the error `Container not found`. Task may have been completed but we consider it as failed
 * Sometimes we can't get the size of a backup archive so we don't show it in the dashboard

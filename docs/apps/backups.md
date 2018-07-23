@@ -25,3 +25,6 @@ Specify the following AWS credentials to set up mirroring to your S3 bucket:
 * Bucket name
 * Bucket region
 ​
+## How backup process affect my server performance
+
+We limit all backup-related tasks by CPU and RAM including mirroring to decrease the impact on your server performance. Additionally, we recommend to set auto backups start time to a night period when your application have the lowest traffic.

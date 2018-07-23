@@ -4,7 +4,10 @@
 
 ![](../assets/new-app-1.png)​
 ​
-Select one of your connected servers or Demo server by Wodby where you want to deploy your applications. Please note that all applications deployed to Demo server automatically cleaned up every 12 hours.
+Select one of your connected servers or Demo server by Wodby where you want to deploy your applications. 
+
+!!! warning "Demo server"
+    All applications deployed to Demo server will be automatically cleaned in 12 hours.
 
 Choose a stack for deployment.
 

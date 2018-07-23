@@ -40,7 +40,7 @@ Environment variable `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add 
 
 ### 1.1.0
 
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 16m
+* Default [memory request](../config.md#resources) set to 16m
 * The following environment variables changed names (old version no longer supported), DEPRECATED > NEW:
 ```
 VARNISHD_THREAD_POOLS > VARNISHD_PARAM_THREAD_POOLS

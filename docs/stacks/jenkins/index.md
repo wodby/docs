@@ -11,7 +11,7 @@ Default jenkins user is `admin`. You can find automatically generated Jenkins pa
 
 ### 1.0.1
 
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 128m
+* Default [memory request](../config.md#resources) set to 128m
 
 ### 1.0.0
 

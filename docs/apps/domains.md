@@ -48,7 +48,7 @@ Additionally you can enable redirect for all HTTP requests to HTTPS from a domai
     We automatically renew all certificates acquired via Let's Encrypt.
 
 !!! warning "Let's Encrypt limitations"
-    Let's Encrypt have some [rate limits](https://docs.wodby.com/apps/href=%22https:/community.letsencrypt.org/t/rate-limits-for-lets-encrypt/6769) and [may not be trusted by old browsers](https://community.letsencrypt.org/t/which-browsers-and-operating-systems-support-lets-encrypt/4394)
+    Let's Encrypt have some [rate limits](https://community.letsencrypt.org/t/rate-limits-for-lets-encrypt/6769) and [may not be trusted by old browsers](https://community.letsencrypt.org/t/which-browsers-and-operating-systems-support-lets-encrypt/4394)
 
 ### Custom SSL Certificates
 
@@ -56,7 +56,7 @@ It's not currently possible to upload certificates from the dashboard. Please co
 
 ### HSTS
 
-Since infrastructure version >= 5.5.3 you can configure [HSTS](https://help.wodby.com/infrastructure/hsts) per domain via three provided options:
+Since infrastructure version >= 5.5.3 you can configure [HSTS](../infrastructure/hsts.md) per domain via three provided options:
 
 * Disable
 * Enable for this domain (default)

@@ -1,6 +1,6 @@
 # Local environment with Docker4PHP
 
-Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/docker4php)) that provides pre-configured `docker-compose.yml` file from to spin up local environment on Linux, Mac OS X and Windows. 
+Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/docker4php)) that provides pre-configured `docker-compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
 
 ## Requirements
 
@@ -8,6 +8,8 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 * For Linux additionally install [docker compose](https://docs.docker.com/compose/install)
 
 ## Usage
+
+{!stacks/_includes/local/db-data-persistence.md!}
 
 1. Download `docker4php.tar.gz` from the [latest stable release](https://github.com/wodby/docker4php/releases) and unpack to your PHP project root
 2. Make sure `NGINX_SERVER_ROOT` (or `APACHE_SERVER_ROOT`) is set to your project public directory with `index.php` (by default `/var/www/html/public`)  
@@ -17,15 +19,18 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 6. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
 7. Optional: macOS users please read [this](#docker-for-mac)
 8. Optional: Windows users please read [this](#permissions-issues)
-9. Run containers: `docker-compose up -d` or `make up` (see all [make commands](#make-commands))
-10. That's it! Your php application should be up and running at http://php.docker.localhost:8000
+9. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+10. Your php application should be up and running at http://php.docker.localhost:8000
 11. You can see status of your containers and their logs via portainer: http://portainer.php.docker.localhost:8000
+
+You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
 
 !!! info "Optional files"
     If you don't need to [run multiple projects](#running-multiple-projects) and don't use [docker-sync to improve volumes performance on macOS](#docker-for-mac) feel free to delete `traefik.yml` and `docker-sync.yml` that come with the `docker4php.tar.gz`
 
-You can stop containers by executing `docker-compose stop` or `make stop`.
-
+!!! success "Get updates"
+    We release updates to images from time to time, you can find detailed changelog and update instructions on GitHub under [releases page](https://github.com/wodby/docker4php/releases)  
+    
 ## Domains
 
 Docker4PHP uses [traefik](https://hub.docker.com/_/traefik) container for routing. By default, we use port `8000` to avoid potential conflicts but if port `80` is free on your host machine just replace traefik's ports definition in the compose file.

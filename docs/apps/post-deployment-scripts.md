@@ -1,8 +1,11 @@
-# Post-deployment Scripts (legacy)
+# Post-deployment scripts
+
+!!! info "Only for PHP"
+    Currently this option available only for PHP stacks
 
 ## Intro
 
-Wodby provides you a way to run your scripts after each deployment. Currently this option available **only for PHP stacks**. You can defined post-deployment scripts in `wodby.yml` file via pipelines (example for [command stage](#command-stage)):
+Wodby provides you a way to run your scripts after each deployment. You can defined post-deployment scripts in `wodby.yml` file via pipelines (example for [command stage](#command-stage)):
 
 ```yml
 pipeline:

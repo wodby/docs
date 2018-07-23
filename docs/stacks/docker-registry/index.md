@@ -13,7 +13,7 @@ You can acquire auto-generated redis password from `App > Stack > Redis` page.
 
 ### 0.1.1
 
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 8m
+* Default [memory request](../config.md#resources) set to 8m
 
 ### 0.1.0
 

@@ -1,0 +1,2 @@
+!!! warning "No delivery guarantee" 
+    If you're using a server from a public cloud there's a good chance that its IP is already compromised and blacklisted by major mail services, hence your emails will not be delivered or will land in the spam folder. We strongly recommend using OpenSMTPD [in pair with a third-party SMTP services](/stacks/opensmtpd/index.md#integration-with-3rd-party-smtp-servers).

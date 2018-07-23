@@ -33,6 +33,7 @@ Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disable
 ## PHP
 
 {!stacks/_includes/containers/php.md!}
+{!stacks/_includes/containers/php-dev.md!}
 
 ### WP CLI
 

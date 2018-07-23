@@ -17,7 +17,7 @@ For demo purposes and simple Drupal installations you can use Vanilla Drupal dep
 
 ### Direct git integration
 
-We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](/apps/post-deployment-scripts.md):
+We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](../../apps/post-deployment-scripts.md):
 
 1. Fork [our boilerplate](https://github.com/wodby/drupal-composer) or use the original [composer template for Drupal](https://github.com/drupal-composer/drupal-project)
 2. Create `wodby.yml` in repository root (our boilerplate already has it) with the following content:
@@ -32,16 +32,9 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
     * Specify `web` in `Codebase dir` (default name of subdir with Drupal's codebase) 
     * Make sure git branch matches to your Drupal version
 
-### Via third-party CI
+### CI/CD
 
-* CircleCI: [`.circleci/config.yml`](https://github.com/wodby/wodby-ci/blob/master/php/circleci.yml)
-* TravisCI: [`.travis.yml`](https://github.com/wodby/wodby-ci/blob/master/php/travis.yml)
-* BitBucket pipelines: [`bitbucket-pipelines.yml`](https://github.com/wodby/wodby-ci/blob/master/php/bitbucket.yml)
-* Custom shell script: [`custom.sh`](https://github.com/wodby/wodby-ci/blob/master/php/custom.sh)
-
-### Wodby CI
-
-Coming soon  
+{!stacks/_includes/php-cicd.md!}
 
 ## Import
 
@@ -151,11 +144,17 @@ The domain marked with primary flag will be used as a `$base_url` in settings.ph
 
 ## Mail delivery
 
-Mail transfer agent [OpenSMTPD](../opensmtpd/index.md) included in the stack and used as a default mail delivery service. Emails will be sent from the server hosting your application. Additionally, you can enable mail catcher service [Mailhog](containers.md#mailhog) to catch all outbound emails and release them manually from UI to an SMTP server. You can switch an active mail delivery service from `Application > Stack > Settings` page.
+{!stacks/_includes/email-delivery.md!}
 
 ## Cron
 
-See [crond container](containers.md#crond). The domain marked as primary will be used as `-l` for drush cron run.
+By default we run the following cron command from [crond container](containers.md#crond) every hour:
+
+```
+drush -r "${HTTP_ROOT}" -l "${WODBY_HOST_PRIMARY}" cron
+``` 
+
+`$WODBY_HOST_PRIMARY` is a domain marked as primary. You can customize crontab from `[Instance] > Stack > Settings` page.
 
 ## Redirects
 
@@ -194,7 +193,7 @@ Redirect from HTTP to HTTPS can be enabled on a domain edit page from the dashbo
 
 ## Multi-site 
 
-You can deploy your existing multi-site Drupal application as separate application instances. You will need to specify `Site directory` on the 2nd step of new application deployment form. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate `settings.php` file and files directory. Also, [`sites.php` file](#drupal-settings) will be created automatically inside `sites/` with mapping of all domains attached to this instance.
+You can deploy your existing multi-site Drupal application as separate application instances. You will need to specify `Site directory` on the 2nd step of new application deployment form. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate `settings.php` file and files directory. Also, [`sites.php` file](#sites-php) will be created automatically inside `sites/` with mapping of all domains attached to this instance.
 
 ## Cache control
 

@@ -5,7 +5,7 @@
 ### 1.1.0
 
 * Redmine updated to 3.4
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to:
+* Default [memory request](../config.md#resources) set to:
   * Redmine: 128m
   * PostgreSQL: 64m
   * OpenSMTPD: 64m

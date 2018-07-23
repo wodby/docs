@@ -15,7 +15,7 @@ PostgreSQL updated to 10.4, 9.6.9, 9.5.13, 9.4.18, 9.3.23
 ### 1.2.0
 
 * PostgreSQL updated to 10.2, 9.6.7, 9.5.11, 9.4.16, 9.3.21
-* Default [memory request](https://docs.wodby.com/stacks/config#resources) set to 64m
+* Default [memory request](../config.md#resources) set to 64m
 
 ### 1.1.0
 

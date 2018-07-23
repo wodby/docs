@@ -6,7 +6,7 @@ Since version 5.0 the default php container user `wodby` has uid/gid `1000` that
 
 ### macOS
 
-Use `-dev-macos` version of php image where default `wodby` user has `501:20` uid/gid that matches default macOS user.
+[Use `-dev-macos` version](#macos-permissions-issues) of php image where default `wodby` user has `501:20` uid/gid that matches default macOS user.
 
 ### Windows
 
@@ -20,3 +20,7 @@ Since you [can't change owner of mounted volumes](https://github.com/docker/for-
       PHP_FPM_USER: root
       PHP_FPM_GROUP: root
 ```
+
+### Different uid/gid?
+
+You can rebuild the base image [wodby/php](https://github.com/wodby/php) with custom user/group ids by using docker build arguments `WODBY_USER_ID`, `WODBY_USER_ID` (both `1000` by default)
