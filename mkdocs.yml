@@ -116,11 +116,11 @@ pages:
     - OpenSMTPD: stacks/opensmtpd/index.md
     - Elasticsearch: stacks/elasticsearch/index.md
     - AthenaPDF: stacks/athenapdf/index.md
-    - Docker registry: stacks/docker-registry/index.md
     - Redis: stacks/redis/index.md
-    - Jenkins: stacks/jenkins/index.md
-    - Slackin: stacks/slackin/index.md
     - Varnish: stacks/varnish/index.md
+    - Jenkins: stacks/jenkins/index.md
+    - Docker registry: stacks/docker-registry/index.md
+    - Slackin: stacks/slackin/index.md
 
   - Integrations:
     - AWS: integrations/aws.md

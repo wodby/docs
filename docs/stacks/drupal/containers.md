@@ -6,8 +6,14 @@
 ## Nginx
 
 * Nginx can be configured with the following [environment variables](https://github.com/wodby/drupal-nginx#environment-variables)
-* Default Nginx virtual host config for [Drupal 8](https://github.com/wodby/drupal-nginx/blob/master/templates/d8-vhost.conf.tpl), [Drupal 7](https://github.com/wodby/drupal-nginx/blob/master/templates/d7-vhost.conf.tpl), [Drupal 6](https://github.com/wodby/drupal-nginx/blob/master/templates/d6-vhost.conf.tpl)
-* Installed [nginx modules](https://github.com/wodby/nginx/blob/master/test/nginx_modules) 
+* Default Nginx virtual host config for:
+    * [Drupal 8](https://github.com/wodby/drupal-nginx/blob/master/templates/d8-vhost.conf.tpl)
+    * [Drupal 7](https://github.com/wodby/drupal-nginx/blob/master/templates/d7-vhost.conf.tpl)
+    * [Drupal 6](https://github.com/wodby/drupal-nginx/blob/master/templates/d6-vhost.conf.tpl)
+* Installed [nginx modules](https://github.com/wodby/nginx/blob/master/test/nginx_modules)
+
+!!! warning "Do not gzip pages in Drupal"
+    We already gzip content on Nginx side and it works faster. Having double gzip may cause issues. 
 
 ### PHP endpoints
 

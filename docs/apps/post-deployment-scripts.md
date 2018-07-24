@@ -179,6 +179,20 @@ In the above setting, the stages (`mypackage::hello` and `mypackage::goodbye`) w
 
 The files specified in pipeline configuration file need to have two blocks **namespace** and **stages**. In namespace, we add the package name, the package name is need to avoid collisions of the stage names in multiple required files. The stages block contains the list of stage definitions. We can define the stages same as the stages in pipeline configurations.
 
+## Initializing git submodules
+
+```yaml
+pipeline:
+  - name: Ignore SSH host key check for github and bitbucket
+    type: command
+    command: 'printf "Host bitbucket.org github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config'
+
+  - name: Git sub-modules setup
+    type: command
+    command: git submodule update --init --checkout
+    directory: $WODBY_APP_ROOT
+```
+
 ## Logs
 
 You can find output logs of executed post-deployment scripts under `Instance > Tasks`

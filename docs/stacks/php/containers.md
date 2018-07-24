@@ -6,6 +6,9 @@
 * Default Nginx [virtual host config](https://github.com/wodby/php-nginx/blob/master/templates/vhost.conf.tpl)
 * Installed [nginx modules](https://github.com/wodby/nginx/blob/master/test/nginx_modules)
 
+!!! warning "Do not gzip pages in your PHP application"
+    We already gzip content on Nginx side and it works faster. Having double gzip may cause issues.
+    
 ### Custom config
 
 If the default config and available environment variables are not enough for your customizations you can replace the config with your own:

@@ -14,23 +14,37 @@ Set header `Cache-Control:no-cache` on backend to tell Varnish to not cache this
 
 Grouped list with the most usual entries from different logs:
 ```bash
-$ varnishtop
+varnishtop
 ```
 
 A histogram that shows the time taken for the requests processing:
 ```bash
-$ varnishhist
+varnishhist
 ```
 
 Varnish stats, shows how many contents on cache hits, resource consumption, etc..:
 ```bash
-$ varnishstat
+varnishstat
 ```
 
 Log showing requests made to the web backend server:
 ```bash
-$ varnishlog
+varnishlog
 ```
+
+## Troubleshooting 503 (guru meditation) errors
+
+You can get more details on 503 responses by filtering the logs:
+```bash
+varnishlog -q 'RespStatus == 503' -g request
+```
+
+A few reasons why you may get 503:
+
+* A problem on backend, see backend container's logs
+* Varnish may cache non-broken page from backend when backend gives 5xx, in this cases you will sometimes get 503 (fetch from backend) and sometimes 200 OK (from cache)
+* Broken backend headers that prevent from parsing backend response's body, e.g. gzip encoding header when the body in fact is not gzipped (you should not gzip pages on your backend, we already do that on Nginx)  
+* Timeouts on varnish are too low (unlikely, the defaults are high enough for 95% cases), you can increase them via environment variables 
 
 ## Changelog
 
