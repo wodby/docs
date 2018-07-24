@@ -61,6 +61,31 @@ In case your import data is huge it makes sense to import it manually from the s
 
 You can import database and files from one instance to another regardless of whether instances are on the same server or not. Go to `[Instance] > Import` tab and select an instance where you'd like to import database/files from.
 
+## Upgrading WordPress
+
+!!! tldr "Use composer"
+    We recommend managing WordPress core and plugins dependencies with composer, you can find a boilerplate at https://github.com/wodby/wordpress-composer
+
+### Upgrading core
+
+Upgrading WordPress core requires a full writing permissions on the entire codebase, we do not provide such wide permissions for security reasons. So you'll have to upgrade your core either manually via your git or by upgrading your stack if you deployed a vanilla WordPress. 
+
+### Upgrading themes and plugins
+
+If your theme or plugin introduces a new directory or a file under a non-standard path, you'll have to grant writing permissions manually by changing the owner's group to `:www-data` and adding writing permissions to the group. Connect to your app instance by SSH and run:
+
+```shell
+chown :www-data YOUR_FILE
+chmod 664 YOUR_FILE
+```
+
+Or if you want to set writing permission on a directory recursively:
+
+```shell
+chown :www-data -R YOUR_DIR
+chmod 664 -R YOUR_DIR
+```
+
 ## WordPress config
 
 ### wp-config.php

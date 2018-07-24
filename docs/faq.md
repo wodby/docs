@@ -36,6 +36,26 @@ Infrastructure version 5.5.4 does not have this function, please contact us and 
 
 You can put your app instance to maintenance from `Instance > Stack > Settings`
 
+## How can I access my DigitalOcean server by SSH
+
+See [this article](integrations/digitalocean.md#accessing-droplet)
+
+## Can I access my application codebase by SSH
+
+See [this article](infrastructure/containers-access.md)
+
+## Do you support drush aliases for Drupal apps
+
+See [this article](infrastructure/containers-access.md)
+
+## How can I upgrade my WordPress applications
+
+See [this article](stacks/wordpress/index.md#upgrading-wordpress) 
+
+## How can I build my frontend application with Node (npm)?
+
+You should use [CI/CD deployment](apps/deploy.md#cicd) 
+
 ## How can I purchase a server?
 
 Wodby is not a hosting provider. We believe that there are plenty of reliable providers on the market already. Instead we provide a way to connect your own server from any cloud.

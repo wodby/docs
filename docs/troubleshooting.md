@@ -106,30 +106,7 @@ This error means that the HTTP server could not find the entrypoint (in case of 
 
 ## Cannot update WordPress core or its plugins/themes
 
-This permissions problem usually caused by insufficient writing permissions by PHP-FPM. For security reasons we allow PHP-FPM writing to only a set of standard known WordPress directories. 
-
-!!! tip "Use composer"
-    We recommend managing WordPress core and plugins dependencies with composer, you can find a boilerplate at https://github.com/wodby/wordpress-composer
-
-### Upgrading WordPress core
-
-Upgrading WordPress core requires a full writing permissions on the entire codebase, we do not provide such wide permissions for security reasons. So you'll have to upgrade your core either manually via your git or by upgrading your stack if you deployed a vanilla WordPress. 
-
-### Upgrading themes and plugins
-
-If your theme or plugin introduces a new directory or a file under a non-standard path, you'll have to grant writing permissions manually by changing the owner's group to `:www-data` and adding writing permissions to the group. Connect to your app instance by SSH and run:
-
-```shell
-chown :www-data YOUR_FILE
-chmod 664 YOUR_FILE
-```
-
-Or if you want to set writing permission on a directory recursively:
-
-```shell
-chown :www-data -R YOUR_DIR
-chmod 664 -R YOUR_DIR
-```
+See [this article](stacks/wordpress/index.md#upgrading-wordpress)
 
 ## Infrastructure 5.x known issues ☹️
 

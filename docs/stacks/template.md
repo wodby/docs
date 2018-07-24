@@ -196,6 +196,8 @@ services:
             DB_PASSWORD: '%db_password'
         memory: '512:1024'
         cpu: '900'
+        deployment:
+            type: ci      
         security_context: 
             capabilities:
                 add:    

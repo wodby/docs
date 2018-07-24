@@ -2,7 +2,7 @@
 
 We regularly update stacks by releasing new versions, such updates can include security updates and performance improvements. You can find more details under the Changelog tab on a stack page.
 
-!!! info "Stacks updates and infrastructure updates are different"
+!!! tldr "Stacks and infrastructure maintained separately"
     For infrastructure maintenance see [this article](../infrastructure/maintenance.md) 
 
 The stack has a requirement for the minimal version of infrastructure of the server where this stack is deployed. You can find a stack's version of your application on the list of your apps or under Stack tab of your instance. If a stack is outdated you will see an appropriate indicator.

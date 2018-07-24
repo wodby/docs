@@ -7,7 +7,7 @@ We constantly improve the infrastructure we deploy to our customers' servers. Yo
 
 You will be notified each time a new version of the infrastructure is released.
 
-!!! info "Stacks updates and infrastructure updates are different"
+!!! tldr "Stacks and infrastructure maintained separately"
     For stacks maintenance see [this article](../stacks/maintenance.md) 
 
 ## Changelog

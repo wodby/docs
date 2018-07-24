@@ -44,7 +44,7 @@ You can enable HTTPS for your custom domains by requesting a free SSL certificat
 
 Additionally you can enable redirect for all HTTP requests to HTTPS from a domain edit page.
 
-!!! info "Let's Encrypt certificates renewal"
+!!! tip "Let's Encrypt certificates renewal"
     We automatically renew all certificates acquired via Let's Encrypt.
 
 !!! warning "Let's Encrypt limitations"
