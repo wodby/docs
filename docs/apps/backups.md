@@ -14,7 +14,7 @@ Wodby provides backup mirroring to different storages. You can either use your o
 
 ### Wodby Storage
 
-The simplest way to setup backup mirroring is to use simply select Wodby Storage as a provider. Backups older than 7 days (since the moment of upload) stored in Wodby Storage will be deleted automatically. 
+The simplest way to setup backup mirroring is to use simply select Wodby Storage as a provider. The default location is US east region if not specified differently. Backups older than a year (365 days) since the moment of upload will be deleted automatically.
 
 ### AWS S3
 

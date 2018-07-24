@@ -1,12 +1,10 @@
 # FAQ
 
-## How to access applications data from host
+## How to access applications data from host?
 
-Containers persistent data can be accessed from the host server under `/srv/wodby/instances/[INSTANCE_UUID]​`
+Please see [this article](infrastructure/containers.md#accessing-containers-data-from-host)
 
-Be careful while modifying containers' files as root – it could cause unexpected permissions issues because containers have a default user different from root 
-
-## How to upgrade my application
+## How to upgrade my application?
 
 If you're running a vanilla application via Wodby's managed stack and this application provides an option to upgrade it via UI (like WordPress or Matomo) this option will not work because it requires a full writing permission on the entire codebase which we avoid for security reasons. The way you upgrade to a new version is by upgrading your application stack that contains this update (see stack changelog). 
 
@@ -42,11 +40,11 @@ See [this article](integrations/digitalocean.md#accessing-droplet)
 
 ## Can I access my application codebase by SSH
 
-See [this article](infrastructure/containers-access.md)
+Yes, if your stack has sshd container, if not you can still access any container via shell, see [this article](infrastructure/containers.md#accessing-containers) for details
 
 ## Do you support drush aliases for Drupal apps
 
-See [this article](infrastructure/containers-access.md)
+Yes, see [this article](stacks/drupal/index.md#drush) to learn how to use them
 
 ## How can I upgrade my WordPress applications
 
@@ -72,3 +70,15 @@ If you have many low-traffic applications we recommend consider the following:
 
 * Do not deploy too many apps per one server because the overhead growth relatively to # of containers is not linear. ~200-300 containers is a recommended maximum
 * Use dedicated (or bare-metal) server instead of VPS. It will be cheaper (but less reliable) if you know how many resources you need. You will get a guaranteed stable CPU performance unlike on VPS (cloud providers usually oversell) 
+
+## How can I delete my account?
+
+You can delete your account from `Account > delete` page
+
+## What's the origin of Wodby name?
+
+Wodby pronounced as wɔːdbi. Wodby is a name of a water spirit in a slavic mythology (https://en.wikipedia.org/wiki/Vodyanoy). Vodyanoy or Wodby in Upper Sorbian language.
+
+## What's the location of Wodby team?
+
+Wodby is a US corporation with a distributed team. Currently we provide support mostly in EU hours (CET).

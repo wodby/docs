@@ -57,14 +57,13 @@ markdown_extensions:
 
 pages:
   - Home: index.md
-  - Account: account.md
-  - User roles: roles.md
-  - Development: dev.md
-  - Support: support.md
-  - Status: status.md
   - Billing: billing.md
+  - Development: dev.md
   - FAQ: faq.md
+  - Status: status.md
+  - Support: support.md
   - Troubleshooting: troubleshooting.md
+  - User roles: roles.md
   - Apps:
     - New app: apps/new.md
     - Instances: apps/instances.md

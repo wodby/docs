@@ -36,6 +36,16 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
 
 {!stacks/_includes/php-cicd.md!}
 
+## Drush
+
+You can execute drush commands remotely via drush aliases. Download drush aliases from `Profile > Misc > Drush aliases` page and place them to `~/.drush`. Execute commands (replace `[tokens]` with the real values) like this:
+
+```bash
+$  drush @[organization].[application].[instance] [drush command]
+```
+
+The domain marked as primary will be used as `-l` for drush aliases.
+
 ## Import
 
 ### From drush archive

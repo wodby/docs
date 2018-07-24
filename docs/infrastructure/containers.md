@@ -4,11 +4,11 @@ Most of the container images provided in our managed stacks based on a light-wei
 
 ## Accessing containers
 
-### SSH container
+### via SSH container
 
 Some stacks provide an SSHd container to access your codebase, you can find the SSH command on `Instance > Stack > SSHd` page. We'll automatically add your public SSH keys to this container. You can add your public keys from `Profile > Keys > Add new key` page. 
 
-### Accessing container as default user
+### as default user
 
 If your stack does not have sshd container or you need to access a different container follow these steps:
 
@@ -18,7 +18,7 @@ If your stack does not have sshd container or you need to access a different con
 * Execute the copied command on the server as root
 * Now you're inside of the container as container default user
 
-### Accessing container as root
+### as root
 
 If you need root permissions inside a container and container's default user is not root, follow these steps:
 
@@ -31,3 +31,10 @@ If you need root permissions inside a container and container's default user is 
     ```shell
     docker exec -ti --user=root $(docker ps | grep [HOSTNAME] | grep -v pause | awk '{ print $1 }') sh
     ``` 
+
+### Accessing containers data from host
+
+Containers persistent data can be accessed from the host server under `/srv/wodby/instances/[INSTANCE_UUID]​`
+
+!!! warning "This may cause unexpected issues"
+    Be careful while modifying containers' files as root – it could cause unexpected permissions issues because containers have a default user different from root

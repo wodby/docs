@@ -68,7 +68,7 @@ Or you can use [`wodby/wodby-cli`](https://hub.docker.com/r/wodby/wodby-cli/) do
 wodby ci init [INSTANCE UUID]
 ```
 
-This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have your [Wodby API key](../account.md#api-key) exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is secured and not exposed to public. 
+This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have your [Wodby API key](../dev.md#api-keys) exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is secured and not exposed to public. 
 
 #### Build
 

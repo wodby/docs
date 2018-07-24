@@ -71,14 +71,6 @@ Additionally, variable `$DRUPAL_SITE` (previous deprecated name `$WODBY_APP_SUBS
 
 PHP container comes with pre-installed drush and drush launcher. Drush launcher will help you use drush that comes with your project without specifying the full path to it. 
 
-You can execute drush commands remotely via drush aliases. Download drush aliases from `Profile > Misc > Drush aliases` page and place them to `~/.drush`. Execute commands (replace `[tokens]` with the real values) like this:
-
-```bash
-$  drush @[organization].[application].[instance] [drush command]
-```
-
-The domain marked as primary will be used as `-l` for drush aliases.
-
 ### Drupal Console
 
 PHP container comes with installed drupal console launcher (not the same as drupal console), the launcher used to be able run drupal console without specified the full path to it. Please note that starting Drupal Console ~1.0 you have to install it manually (via composer) per project.

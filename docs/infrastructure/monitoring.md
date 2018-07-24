@@ -1,6 +1,6 @@
 # Monitoring
 
-## Single-server monitoring
+## Single-server infrastructure monitoring
 
 As of infrastructure 5.x Wodby does not provide monitoring tools for your servers, we recommend connecting your server manually to [NewRelic Servers](https://docs.newrelic.com/docs/servers) or [NewRelic Infrastructure](https://newrelic.com/infrastructure) (or other 3rd party monitoring tool of your choice) to track essentials metrics like CPU / RAM / Disk consumption. Nothing specific required during the installation, just follow the official guide.
 

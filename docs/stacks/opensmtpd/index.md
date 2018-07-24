@@ -6,7 +6,7 @@ OpenSMTPD can be configured with the following [environment variables](https://g
 
 ## Sending test emails from CLI
 
-1. [Access](../../infrastructure/containers-access.md) OpenSMTPD container
+1. [Access](../../infrastructure/containers.md#accessing-containers) OpenSMTPD container
 2. Run `sendmail -v -f verified-sender@verified-domain.com to@example.com`
 3. Enter email subject and body in the input:
   ```
