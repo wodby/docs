@@ -7,6 +7,7 @@
 * Installed [nginx modules](https://github.com/wodby/nginx/blob/master/test/nginx_modules)
 
 Restarting nginx as default user:
+
 ```shell
 sudo nginx -s reload
 ```

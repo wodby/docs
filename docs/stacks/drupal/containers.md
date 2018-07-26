@@ -16,6 +16,7 @@
     We already gzip content on Nginx side and it works faster. Having double gzip may cause issues. 
 
 Restarting nginx as default user:
+
 ```shell
 sudo nginx -s reload
 ```
