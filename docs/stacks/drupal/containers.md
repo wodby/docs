@@ -15,6 +15,11 @@
 !!! warning "Do not gzip pages in Drupal"
     We already gzip content on Nginx side and it works faster. Having double gzip may cause issues. 
 
+Restarting nginx as default user:
+```shell
+sudo nginx -s reload
+```
+
 ### PHP endpoints
 
 For security reasons, default nginx config allows executing limited php endpoints. This is how you can add additional php endpoints:

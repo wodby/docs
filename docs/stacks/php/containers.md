@@ -8,6 +8,11 @@
 
 !!! warning "Do not gzip pages in your PHP application"
     We already gzip content on Nginx side and it works faster. Having double gzip may cause issues.
+
+Restarting nginx as default user:
+```shell
+sudo nginx -s reload
+```
     
 ### Custom config
 

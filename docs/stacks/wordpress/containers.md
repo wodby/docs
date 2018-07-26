@@ -6,6 +6,11 @@
 * Default Nginx [virtual host config](https://github.com/wodby/wordpress-nginx/blob/master/templates/vhost.conf.tpl)
 * Installed [nginx modules](https://github.com/wodby/nginx/blob/master/test/nginx_modules)
 
+Restarting nginx as default user:
+```shell
+sudo nginx -s reload
+```
+
 !!! warning "Do not gzip pages in WordPress"
     We already gzip content on Nginx side and it works faster. Having double gzip may cause issues.
 
