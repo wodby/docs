@@ -33,9 +33,9 @@ stream_ssl_preread_module
   * Unrestricted purge is now allowed in internal network (from containers within the same instance)
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
 
-## ❗Upgrade instructions
+## Upgrade instructions
 
-* Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+* ❗Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
 ## 5.0.11
 
