@@ -7,13 +7,12 @@ cache:
 
 script:
   - set -e
-  - wget -qO- https://api.chingis.proxy.wodby.com/api/v1/get/cli | sh
+  - wget -qO- https://api.wodby.com/api/v1/get/cli | sh
   - wodby ci init "${WODBY_INSTANCE_UUID}"
 
   - wodby ci run -v $HOME/.cache:$HOME/.cache -i wodby/python:3.6 -- pip install mkdocs-material
-
   - wodby ci run -i wodby/python:3.6 -- mkdocs build
-  - wodby ci build --from ./site --to /var/www/html/stacks/gitlab/docs
 
+  - wodby ci build --from ./site
   - wodby ci release
   - wodby ci deploy
