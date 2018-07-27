@@ -124,17 +124,17 @@ watchdog
 
 ## Drupal settings
 
+### Default site
+
+When you deploy a new Drupal application you can optionally specify `Site directory` on the 3rd step, if not specified we use `default`. If directory does not exist Wodby will create it automatically. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate [`settings.php`](#settings-php) file and for building [`sites.php`](#sites-php) mapping. The default [cron job](#cron) and orchestrations performed from Wodby dashboard such Drupal cache flush will be applied for this site.
+
 ### settings.php
 
-Wodby automatically adds include of `wodby.settings.php` to `settings.php` file inside of `sites/[SITE NAME]`. The value of `[SITE NAME]` is `default` unless you specify it distinctly on a new application deployment form. If directory doesn't exist Wodby will create it automatically.
-
-Do not edit `wodby.settings.php`, all changes to this file will be reset.
-
-The `wodby.settings.php` file contains configuration settings for integration with Wodby services such as Database, Cache storage and Reverse Caching Proxy. You can override settings specified in wodby.settings.php in your `sites/*/settings.php` file after the include of wodby.settings.php
+Wodby automatically adds the include of `wodby.settings.php` to [default site's](#default-site) `settings.php`. The `wodby.settings.php` file contains configuration settings for integration with Wodby services such as Database, Cache storage and Reverse Caching Proxy. You can override settings from this file in your `sites/*/settings.php` file after the include of `wodby.settings.php`. If your `settings.php` file already has the line with `wodby.settings.php` include the include will not be added again. Do not edit `wodby.settings.php`, all changes to this file will be reset with the next deployment.
 
 ### sites.php
 
-Wodby automatically generates `sites.php` with the mapping of all domains attached via Wodby to the directory.
+Wodby automatically adds the include of `wodby.sites.php` to `sites.php`. The file `wodby.sites.php` generated automatically and contains the mapping of all attached domains to the site directory you've specified for this application.
 
 ### Trusted hosts patterns
 
@@ -150,7 +150,7 @@ Files for Drupal located in `/mnt/files` and symlinked to `sites/[SITE NAME]/fil
 
 ### Base URL
 
-The domain marked with primary flag will be used as a `$base_url` in settings.php file and as an `-l` parameter for cron. 
+The domain marked with primary flag will be used as a `$base_url` in [`settings.php`](#settings-php) file and as an `-l` parameter for the [default cron job](#cron). 
 
 ## Mail delivery
 
@@ -203,11 +203,20 @@ Redirect from HTTP to HTTPS can be enabled on a domain edit page from the dashbo
 
 ## Multi-site 
 
-There two ways how you can deploy your multi-site Drupal application via Wodby:
+There two ways how you can deploy your multi-site Drupal application via Wodby
 
-1. Deploy sites as separate [app instances](../../apps/instances.md). You will need to specify `Site directory` on the 2nd step of new application deployment form. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate `settings.php` file and files directory. Also, [`sites.php` file](#sites-php) will be created automatically inside `sites/` with mapping of all domains attached to this instance
+## Deploy sites as separate app instances 
 
-2. Deploy all sites in one instance. Same as 1 but you'll have to manually include of `wodby.settings.php` file in `sites/*/settings.php` of all sites and generate `sites.php`. You can do after the `init` step of your [CI/CD build](../../apps/deploy.md#cicd). Also, you'll have to update [cron](#cron) jobs to run it for every site, not only the primary 
+Deploy every site as a separate application instance by specifying the [default site](#default-site) of every subsite. In this scheme every site will be deployed as a separate [application instance](../../apps/instances.md) with its own database. 
+
+## Deploy all sites in one instance
+
+1. Add the include of [`wodby.settings.php`](#settings-php) file in `sites/*/settings.php` of all sites as we do it for the [default site](#default-site)
+2. Update [`sites.php`](#sites-php) file with your domains to directories mapping, make sure to add it after the include of `wodby.settings.php` to override the default mapping (or just delete the include completely)
+
+You should perform these modifications after the `init` step of your [CI/CD build](../../apps/deploy.md#cicd) (recommended) or via [post-deployment scripts](../../apps/post-deployment-scripts.md). Also, you'll have to update [cron](#cron) jobs to run it for every site, not only the primary. Please note that all dashboard orchestration such as Drupal cache clear will be applied only to the default site.
+
+In this scheme every site will use the database by default.  
 
 ## Cache control
 
