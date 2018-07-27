@@ -203,7 +203,11 @@ Redirect from HTTP to HTTPS can be enabled on a domain edit page from the dashbo
 
 ## Multi-site 
 
-You can deploy your existing multi-site Drupal application as separate application instances. You will need to specify `Site directory` on the 2nd step of new application deployment form. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate `settings.php` file and files directory. Also, [`sites.php` file](#sites-php) will be created automatically inside `sites/` with mapping of all domains attached to this instance.
+There two ways how you can deploy your multi-site Drupal application via Wodby:
+
+1. Deploy sites as separate [app instances](../../apps/instances.md). You will need to specify `Site directory` on the 2nd step of new application deployment form. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate `settings.php` file and files directory. Also, [`sites.php` file](#sites-php) will be created automatically inside `sites/` with mapping of all domains attached to this instance
+
+2. Deploy all sites in one instance. Same as 1 but you'll have to manually include of `wodby.settings.php` file in `sites/*/settings.php` of all sites and generate `sites.php`. You can do after the `init` step of your [CI/CD build](../../apps/deploy.md#cicd). Also, you'll have to update [cron](#cron) jobs to run it for every site, not only the primary 
 
 ## Cache control
 
