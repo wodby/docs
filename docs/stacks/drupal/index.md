@@ -205,11 +205,11 @@ Redirect from HTTP to HTTPS can be enabled on a domain edit page from the dashbo
 
 There two ways how you can deploy your multi-site Drupal application via Wodby
 
-## Deploy sites as separate app instances 
+### Deploy sites as separate app instances 
 
 Deploy every site as a separate application instance by specifying the [default site](#default-site) of every subsite. In this scheme every site will be deployed as a separate [application instance](../../apps/instances.md) with its own database. 
 
-## Deploy all sites in one instance
+### Deploy all sites in one instance
 
 1. Add the include of [`wodby.settings.php`](#settings-php) file in `sites/*/settings.php` of all sites as we do it for the [default site](#default-site)
 2. Update [`sites.php`](#sites-php) file with your domains to directories mapping, make sure to add it after the include of `wodby.settings.php` to override the default mapping (or just delete the include completely)
