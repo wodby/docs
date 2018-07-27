@@ -211,10 +211,23 @@ Deploy every site as a separate application instance by specifying the [default 
 
 ### Deploy all sites in one instance
 
-1. Add the include of [`wodby.settings.php`](#settings-php) file in `sites/*/settings.php` of all sites as we do it for the [default site](#default-site)
-2. Update [`sites.php`](#sites-php) file with your domains to directories mapping, make sure to add it after the include of `wodby.settings.php` to override the default mapping (or just delete the include completely)
+Perform the following modifications in your code:
 
-You should perform these modifications after the `init` step of your [CI/CD build](../../apps/deploy.md#cicd) (recommended) or via [post-deployment scripts](../../apps/post-deployment-scripts.md). Also, you'll have to update [cron](#cron) jobs to run it for every site, not only the primary. Please note that all dashboard orchestration such as Drupal cache clear will be applied only to the default site.
+1. Add the following include in `sites/*/settings.php` of all sites, specify db prefix for every site:
+    ```php
+    include '/var/www/conf/wodby.settings.php';
+    // After the include specify db prefix for every site.
+    // $databases['default']['default']['prefix'] = 'site_prefix_';
+    ```
+2. In your [`sites.php`](#sites-php) file the following lines with include and your domains to directories mapping:
+    ```php
+    include '/var/www/conf/wodby.sites.php';
+
+    // Add mapping after the include to override:
+    $sites['your.domain.com'] = 'dir.name.under.sites';
+    ```
+
+Also, you'll have to update [cron](#cron) jobs to run it for every site, not only the primary. Please note that all dashboard orchestration such as Drupal cache clear will be applied only to the default site.
 
 In this scheme every site will use the database by default.  
 
