@@ -43,3 +43,7 @@
 .md-footer-meta, .md-footer-nav {
     background-color: #0000008a !important;
 }
+
+.md-source__facts {
+    display: none;
+}
