@@ -12,9 +12,7 @@ script:
 
   - >
     wodby ci run -v $HOME/.cache/pip:/home/wodby/.cache/pip -i wodby/python:3.6 -- \
-      pip install mkdocs-material markdown-include
-
-  - wodby ci run -i wodby/python:3.6 -- mkdocs build
+      sh -c "pip install mkdocs-material markdown-include && mkdocs build"
 
   - wodby ci build --from ./site
   - wodby ci release
