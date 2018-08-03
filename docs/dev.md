@@ -15,7 +15,7 @@ We provide API to perform most common tasks such as deployment of a new applicat
 
 ### Version 2 (deprecated)
 
-* [Wodby PHP SDK](https://github.com/wodby/wodby-sdk-php)
+* [Wodby PHP SDK](https://github.com/wodby/wodby-sdk-php/tree/2.x)
 * [API reference](http://docs.wodbyapi.apiary.io)
 
 Coming soon
