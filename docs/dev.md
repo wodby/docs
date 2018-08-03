@@ -8,12 +8,15 @@ We automatically generate an API key when you register, it can be found under `A
 
 We provide API to perform most common tasks such as deployment of a new applications and instances, code deployments, etc. To use API you would need an access token you can find on your profile page in the dashboard.
 
-### Version 2 (deprecated)
+### Version 3 (beta)
 
 * [Wodby PHP SDK](https://github.com/wodby/wodby-sdk-php)
 * [API reference](https://app.swaggerhub.com/apis/wodby/api)
 
-### Version 3
+### Version 2 (deprecated)
+
+* [Wodby PHP SDK](https://github.com/wodby/wodby-sdk-php)
+* [API reference](http://docs.wodbyapi.apiary.io)
 
 Coming soon
 
