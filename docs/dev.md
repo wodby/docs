@@ -10,17 +10,13 @@ We provide API to perform most common tasks such as deployment of a new applicat
 
 ### Version 3 (beta)
 
-[API reference](https://app.swaggerhub.com/apis/wodby/api)
-
-SDK:
-* [PHP](https://github.com/wodby/wodby-sdk-php)
-* [Go](https://github.com/wodby/wodby-sdk-php)
+* [API reference](https://app.swaggerhub.com/apis/wodby/api)
+* PHP SDK: [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php)
+* Go SDK: [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php)
 
 ### Version 2 (deprecated)
 
 * [API reference](http://docs.wodbyapi.apiary.io)
-
-Coming soon
 
 ## Wodby CLI
 
