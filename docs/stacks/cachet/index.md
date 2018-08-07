@@ -38,8 +38,8 @@ By default we run the following cron command from [crond container](#crond) ever
 * Cachet image rebased to latest wodby/php image
 * Added Nginx 1.14, 1.15
 * PostgreSQL
-  * Version 10 added
-  * Version 9.6 updated to 9.6.9
+    * Version 10 added
+    * Version 9.6 updated to 9.6.9
 * PHP error reporting now exludes strict and deprecated errors
 
 ### 1.1.0
@@ -47,11 +47,11 @@ By default we run the following cron command from [crond container](#crond) ever
 * Nginx image `wodby/cachet-nginx` replaced with `wodby/php-nginx`
 * Now when your upgrade stack with a new version of Cachet, your source code will be updated
 * Default [memory request](../config.md#resources) set to:
-  * Cachet: 64m
-  * Crond: 4m
-  * PostgreSQL: 64m
-  * Redis: 4m
-  * OpenSMTPD: 64m
+    * Cachet: 64m
+    * Crond: 4m
+    * PostgreSQL: 64m
+    * Redis: 4m
+    * OpenSMTPD: 64m
 
 ### 1.0.1
 

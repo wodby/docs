@@ -5,36 +5,36 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 ## 5.1.0
 
 * Drupal
-  * Vanilla Drupal core updated to 8.5.4
-  * We now set `$settings['reverse_proxy_addresses']` and `$settings['reverse_proxy']` in `wodby.settings.php` file. You can also add additional proxy addresses via env var `DRUPAL_REVERSE_PROXY_ADDRESSES`
+    * Vanilla Drupal core updated to 8.5.4
+    * We now set `$settings['reverse_proxy_addresses']` and `$settings['reverse_proxy']` in `wodby.settings.php` file. You can also add additional proxy addresses via env var `DRUPAL_REVERSE_PROXY_ADDRESSES`
 * PHP
-  * ⭐️ Added new PHP 7.2
-  * Added php tidy extension
-  * Added tideways xhprof extension https://github.com/wodby/drupal-php#49 (disabled by default)
-  * `auto_prepend_file` and `auto_append_file` are now configurable
-  * Updated PHP extensions: GRPC 1.12.0, igbinary 2.0.6, mongodb 1.4.4
+    * ⭐️ Added new PHP 7.2
+    * Added php tidy extension
+    * Added tideways xhprof extension https://github.com/wodby/drupal-php#49 (disabled by default)
+    * `auto_prepend_file` and `auto_append_file` are now configurable
+    * Updated PHP extensions: GRPC 1.12.0, igbinary 2.0.6, mongodb 1.4.4
 * MariaDB:
-  * New version 10.3 added (10.3.7)
-  * MariaDB updates: 10.2.15, 10.1.34
-  * `optimizer_prune_level` and `optimizer_search_depth` are now configurable https://github.com/wodby/mariadb/issues/4
-  * ⭐️ Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage by MariaDB container. See [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
-  * Default `innodb_buffer_pool_instances` set to `1`
+    * New version 10.3 added (10.3.7)
+    * MariaDB updates: 10.2.15, 10.1.34
+    * `optimizer_prune_level` and `optimizer_search_depth` are now configurable https://github.com/wodby/mariadb/issues/4
+    * ⭐️ Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage by MariaDB container. See [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+    * Default `innodb_buffer_pool_instances` set to `1`
 * Nginx:
-  * Added new Nginx 1.15, dropped legacy Nginx 1.12
-  * ⭐️ Added [mog_pagespeed](https://www.modpagespeed.com/) module. Disabled by default, to enable add `NGINX_PAGESPEED=on` to nginx service
-  * Added new modules:
-```
-http_image_filter_module
-http_slice_module
-http_xslt_module
-stream_geoip_module
-stream_realip_module
-stream_ssl_preread_module
-```
+    * Added new Nginx 1.15, dropped legacy Nginx 1.12
+    * ⭐️ Added [mog_pagespeed](https://www.modpagespeed.com/) module. Disabled by default, to enable add `NGINX_PAGESPEED=on` to nginx service
+    * Added new modules:
+    ```
+    http_image_filter_module
+    http_slice_module
+    http_xslt_module
+    stream_geoip_module
+    stream_realip_module
+    stream_ssl_preread_module
+    ```
 * Varnish
-  * Environment variable `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add a predefined secondary storage. You can now add your custom secondary storage via `VARNISHD_SECONDARY_STORAGE` https://github.com/wodby/varnish/pull/4
-  * ❗Static files no longer cached unless you set `VARNISH_CACHE_STATIC_FILES` https://github.com/wodby/drupal-varnish/pull/4
-  * Added `VARNISH_SECONDARY_STORAGE_CONDITION` to specify the condition when to use secondary storage https://github.com/wodby/drupal-varnish/pull/3
+    * Environment variable `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add a predefined secondary storage. You can now add your custom secondary storage via `VARNISHD_SECONDARY_STORAGE` https://github.com/wodby/varnish/pull/4
+    * ❗Static files no longer cached unless you set `VARNISH_CACHE_STATIC_FILES` https://github.com/wodby/drupal-varnish/pull/4
+    * Added `VARNISH_SECONDARY_STORAGE_CONDITION` to specify the condition when to use secondary storage https://github.com/wodby/drupal-varnish/pull/3
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
 
 ## Upgrade instructions
@@ -44,16 +44,16 @@ stream_ssl_preread_module
 ## 5.0.7
 
 * PHP:
-  * **Security update**: 7.2.5, 7.1.17, 7.0.30
-  * New php extensions added: [GMP](http://php.net/manual/en/book.gmp.php) and [igbinary](https://github.com/igbinary/igbinary/)
-  * APCu extension updated to 5.0.11 for PHP 7.x
-  * APCu serialized is now configurable with `$PHP_APCU_SERIALIZER`
-  * Shell prompt in PHP containers now shows current user, application name and instance name
-  * Added new helper script [`files_chown`](https://github.com/wodby/php#users-and-permissions)
-  * Bugfix: iconv implementation missing [wodby/php#25](https://github.com/wodby/php/issues/25)
+    * **Security update**: 7.2.5, 7.1.17, 7.0.30
+    * New php extensions added: [GMP](http://php.net/manual/en/book.gmp.php) and [igbinary](https://github.com/igbinary/igbinary/)
+    * APCu extension updated to 5.0.11 for PHP 7.x
+    * APCu serialized is now configurable with `$PHP_APCU_SERIALIZER`
+    * Shell prompt in PHP containers now shows current user, application name and instance name
+    * Added new helper script [`files_chown`](https://github.com/wodby/php#users-and-permissions)
+    * Bugfix: iconv implementation missing [wodby/php#25](https://github.com/wodby/php/issues/25)
 * Vanilla Drupal:
-  * **Security update**: 8.5.3
-  * Bugfix: drush cache permission issues [wodby/drupal#261](https://github.com/wodby/docker4drupal/issues/261)
+    * **Security update**: 8.5.3
+    * Bugfix: drush cache permission issues [wodby/drupal#261](https://github.com/wodby/docker4drupal/issues/261)
 * Drupal node container rebased to [`wodby/node`](https://github.com/wodby/node) with freezed node version
 * Added Nginx 1.14, patch update for 1.13
 * Nginx's `underscores_in_headers` is now configurable via `$NGINX_UNDERSCORES_IN_HEADERS`
@@ -67,27 +67,27 @@ stream_ssl_preread_module
 ## 5.0.5
 
 * PHP:
-  * Updated to 7.2.4, 7.1.16, 7.0.35 (**security update**)
-  * Added [jpegoptim](https://github.com/tjko/jpegoptim)
+    * Updated to 7.2.4, 7.1.16, 7.0.35 (**security update**)
+    * Added [jpegoptim](https://github.com/tjko/jpegoptim)
 
 ## 5.0.4
 
 * Vanilla Drupal updated to 8.5.1 (**security update**)
 * Apache:
-  * Updated to 2.4.33 (**security update**)
-  * New environment variable `APACHE_LIMITED_ACCESS` to remove `Require all granted` when you need to limit access by IP
+    * Updated to 2.4.33 (**security update**)
+    * New environment variable `APACHE_LIMITED_ACCESS` to remove `Require all granted` when you need to limit access by IP
 
 ## 5.0.3
 
 * PHP:
-  * PHP extension grpc updated to 1.10.0
-  * Added environment variables for PHP session runtime configuration
-  * Improved error reporting and progress messages for public files directory init
-  * Bugfix: global drush used instead of drush launcher
+    * PHP extension grpc updated to 1.10.0
+    * Added environment variables for PHP session runtime configuration
+    * Improved error reporting and progress messages for public files directory init
+    * Bugfix: global drush used instead of drush launcher
 * Solr:
-  * New 7.2 version
-  * Patch update: 6.6.3
-  * Solr 7.x config sources updated to search_api_solr `8.x-2.0-alpha3`
+    * New 7.2 version
+    * Patch update: 6.6.3
+    * Solr 7.x config sources updated to search_api_solr `8.x-2.0-alpha3`
 * Nginx updated to 1.13.10
 * You can now override apache config with `APACHE_INCLUDE_CONF`
 
@@ -109,48 +109,48 @@ stream_ssl_preread_module
 
 * All containers now have [resources request](../config.md#resources) as listed [here in Resources column](https://wodby.com/stacks/drupal/docs/containers/), in addition, crond has CPU limit
 * PHP:
-  * Container default user has been changed to `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
-  * PHP updated to 7.1.14, 7.0.27, 5.6.33 (security updates)
-  * Rebased to Alpine Linux 3.7
-  * Now when your upgrade stack with a new version of vanilla Drupal, your source code will be updated
-  * You can [monitor PHP with NewRelic APM](https://wodby.com/stacks/drupal/docs/containers/php/#newrelic-apm-monitoring)
-  * `allow_url_fopen` and `default_socket_timeout` is now configurable
-  * New php extensions added: newrelic, grpc, ds
-  * Global drush updated to 9.x for PHP 7.x
-  * Drush launcher updated to 0.5.1
-  * Deprecated environment variables dropped (listed in [4.4.0 changes](#4-4-0))
-  * Added postgresql client bins (pg_dump, pg_restore, ...)
-  * Added redis-cli
-  * Updated php extensions: amqp 1.9.3, redis 3.1.6, mongodb 1.4.0, apcu 5.1.10
-  * Environment variable `WODBY_DIR_FILES` replaced to `FILES_DIR`
-  * Vanilla Drupal updated to 8.4.5
+    * Container default user has been changed to `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
+    * PHP updated to 7.1.14, 7.0.27, 5.6.33 (security updates)
+    * Rebased to Alpine Linux 3.7
+    * Now when your upgrade stack with a new version of vanilla Drupal, your source code will be updated
+    * You can [monitor PHP with NewRelic APM](https://wodby.com/stacks/drupal/docs/containers/php/#newrelic-apm-monitoring)
+    * `allow_url_fopen` and `default_socket_timeout` is now configurable
+    * New php extensions added: newrelic, grpc, ds
+    * Global drush updated to 9.x for PHP 7.x
+    * Drush launcher updated to 0.5.1
+    * Deprecated environment variables dropped (listed in [4.4.0 changes](#4-4-0))
+    * Added postgresql client bins (pg_dump, pg_restore, ...)
+    * Added redis-cli
+    * Updated php extensions: amqp 1.9.3, redis 3.1.6, mongodb 1.4.0, apcu 5.1.10
+    * Environment variable `WODBY_DIR_FILES` replaced to `FILES_DIR`
+    * Vanilla Drupal updated to 8.4.5
 * MariaDB:
-  * Updated to 10.1.31, 10.2.12
-  * Rebased to Alpine Linux 3.7
+    * Updated to 10.1.31, 10.2.12
+    * Rebased to Alpine Linux 3.7
 * Nginx:
-  * Updated to 1.13.9
-  * Rebased to Alpine Linux 3.7
+    * Updated to 1.13.9
+    * Rebased to Alpine Linux 3.7
 * Redis:
-  * Updated to 4.0.8
-  * Bugfix: redis 4 init could not disable THP on some servers
+    * Updated to 4.0.8
+    * Bugfix: redis 4 init could not disable THP on some servers
 * OpenSMTPD:
-  * Improved health check now runs smtp command
-  * Messages queue is now persistent
+    * Improved health check now runs smtp command
+    * Messages queue is now persistent
 * Varnish:
-  * The following environment variables changed names (old version no longer supported), DEPRECATED > NEW:
-  ```
-  VARNISHD_THREAD_POOLS > VARNISHD_PARAM_THREAD_POOLS
-  VARNISHD_THREAD_POOL_ADD_DELAY > VARNISHD_PARAM_THREAD_POOL_ADD_DELAY
-  VARNISHD_THREAD_POOL_MIN > VARNISHD_PARAM_THREAD_POOL_MIN
-  VARNISHD_THREAD_POOL_MAX > VARNISHD_PARAM_THREAD_POOL_MAX
-  ```
-  * Changed default values:
-  ```
-  VARNISHD_PARAM_THREAD_POOL_ADD_DELAY from 2 to 0.000
-  VARNISHD_PARAM_THREAD_POOLS from 1 to 2
-  VARNISHD_PARAM_THREAD_POOL_MAX from 1000 to 5000
-  ```
-  * Added additional env vars that control varnishd params (https://github.com/wodby/varnish/issues/1)
+    * The following environment variables changed names (old version no longer supported), DEPRECATED > NEW:
+    ```
+    VARNISHD_THREAD_POOLS > VARNISHD_PARAM_THREAD_POOLS
+    VARNISHD_THREAD_POOL_ADD_DELAY > VARNISHD_PARAM_THREAD_POOL_ADD_DELAY
+    VARNISHD_THREAD_POOL_MIN > VARNISHD_PARAM_THREAD_POOL_MIN
+    VARNISHD_THREAD_POOL_MAX > VARNISHD_PARAM_THREAD_POOL_MAX
+    ```
+    * Changed default values:
+    ```
+    VARNISHD_PARAM_THREAD_POOL_ADD_DELAY from 2 to 0.000
+    VARNISHD_PARAM_THREAD_POOLS from 1 to 2
+    VARNISHD_PARAM_THREAD_POOL_MAX from 1000 to 5000
+    ```
+    * Added additional env vars that control varnishd params (https://github.com/wodby/varnish/issues/1)
 * Bugfix: auth issue in Apache (https://github.com/wodby/php-apache/issues/1)
 
 ### Upgrade instructions
@@ -170,11 +170,11 @@ stream_ssl_preread_module
 ### Changes since 4.3.0
 
 * PHP:
-  * PHP updated to 7.1.12, 7.0.26
-  * PHP extensions updated: memcached 3.0.4, ast 0.1.6
-  * Added packages: tig, nano, tmux, less, libjpeg-turbo-utils
-  * PHPunit deleted from image to avoid composer conflicts
-  * Env vars naming fixes (old names still supported), old > new:
+    * PHP updated to 7.1.12, 7.0.26
+    * PHP extensions updated: memcached 3.0.4, ast 0.1.6
+    * Added packages: tig, nano, tmux, less, libjpeg-turbo-utils
+    * PHPunit deleted from image to avoid composer conflicts
+    * Env vars naming fixes (old names still supported), old > new:
     ```
     PHP_APCU_ENABLE > PHP_APCU_ENABLED
     PHP_FPM_SLOWLOG_TIMEOUT > PHP_FPM_REQUEST_SLOWLOG_TIMEOUT
@@ -185,42 +185,42 @@ stream_ssl_preread_module
     PHP_FPM_MAX_REQUESTS > PHP_FPM_PM_MAX_REQUESTS
     PHP_FPM_STATUS_PATH > PHP_FPM_PM_STATUS_PATH
     ```
-  * New `-dev` image tags (replacing `-debug`) for CI/CD (TBA)
-  * Env var `WODBY_HOST_PRIMARY` value now contains host (instead of URL) as it should, `WODBY_URL_PRIMARY` has been added for the URL value. See environment variables section
-  * Drush launcher added
-  * Improved validation and error reporting for drush import
-  * Git email and name now can be configured via environment variables
+    * New `-dev` image tags (replacing `-debug`) for CI/CD (TBA)
+    * Env var `WODBY_HOST_PRIMARY` value now contains host (instead of URL) as it should, `WODBY_URL_PRIMARY` has been added for the URL value. See environment variables section
+    * Drush launcher added
+    * Improved validation and error reporting for drush import
+    * Git email and name now can be configured via environment variables
 * Nginx:
-  * Nginx updated to 1.13.7, 1.12.2
-  * Fixed broken health check
-  * New env var `NGINX_NO_DEFAULT_HEADERS` to hide default headers
-  * We now show request real IP in access logs
-  * New env var `NGINX_DRUPAL_FILE_PROXY_URL` to set up static files proxy
+    * Nginx updated to 1.13.7, 1.12.2
+    * Fixed broken health check
+    * New env var `NGINX_NO_DEFAULT_HEADERS` to hide default headers
+    * We now show request real IP in access logs
+    * New env var `NGINX_DRUPAL_FILE_PROXY_URL` to set up static files proxy
 * MariaDB:
-  * New MariaDB 10.2.11
-  * MariaDB updated to 10.1.29
-  * Shutdown grace period increased to 5 minutes
-  * Deployment strategy no longer can be changed
-  * Optimized default config (my.cnf) values
-  * New environment variables to configure recovery options
-  * Default user/group in a container now `mysql`
-  * Backup action now runs with `nice` and `ionice` to prioritize CPU and I/O time for this process
-  * Improved error reporting during import
+    * New MariaDB 10.2.11
+    * MariaDB updated to 10.1.29
+    * Shutdown grace period increased to 5 minutes
+    * Deployment strategy no longer can be changed
+    * Optimized default config (my.cnf) values
+    * New environment variables to configure recovery options
+    * Default user/group in a container now `mysql`
+    * Backup action now runs with `nice` and `ionice` to prioritize CPU and I/O time for this process
+    * Improved error reporting during import
 * Solr:
-  * New Solr versions 7.0.1 and 7.1.0 have been added
-  * Solr versions updated and freezed: 6.6.2, 6.5.1, 6.4.2, 6.3.0, 5.5.5, 5.4.1
-  * Config set source search_api_solr updated to 8.x-1.2
-  * We now create a default solr core named `default` automatically if no cores found
+    * New Solr versions 7.0.1 and 7.1.0 have been added
+    * Solr versions updated and freezed: 6.6.2, 6.5.1, 6.4.2, 6.3.0, 5.5.5, 5.4.1
+    * Config set source search_api_solr updated to 8.x-1.2
+    * We now create a default solr core named `default` automatically if no cores found
 * Redis:
-  * Redis updated to 3.2.11, 4.0.2
-  * Fixed init failure when there's no `/sys/kernel/mm/transparent_hugepage/enabled`
+    * Redis updated to 3.2.11, 4.0.2
+    * Fixed init failure when there's no `/sys/kernel/mm/transparent_hugepage/enabled`
 * Varnish:
-  * Varnish updated to 4.1.9
-  * Cache hash id now respects protocol (http/https)
+    * Varnish updated to 4.1.9
+    * Cache hash id now respects protocol (http/https)
 * Global environment variables changes:
-  * `$WODBY_APP_NAME` no longer contains instance machine name, only application machine name
-  * `$WODBY_ENVIRONMENT_` variables have been deprecated and replaced with `$WODBY_INSTANCE_`
-  * New variables `$WODBY_INSTANCE_UUID` and `$WODBY_APP_UUID`
+    * `$WODBY_APP_NAME` no longer contains instance machine name, only application machine name
+    * `$WODBY_ENVIRONMENT_` variables have been deprecated and replaced with `$WODBY_INSTANCE_`
+    * New variables `$WODBY_INSTANCE_UUID` and `$WODBY_APP_UUID`
 * Apache updated to 2.4.29
 * Vanilla Drupal updated to 8.4.2
 * Health checks timeout increased to 30 seconds for all services
@@ -239,31 +239,31 @@ stream_ssl_preread_module
 
 * User `www-data` is now default in php, nginx and apache containers
 * PHP:
-  * PHP updated to 7.0.24, 7.1.10
-  * Default vanilla Drupal updated to 8.4.0
-  * Core extension pcntl is now enabled in PHP 7.x
-  * Libressl added
-  * Extensions update: redis 3.1.4, mongodb 1.3.0
-  * New extension geoip
-  * Default `post_max_size`, `upload_max_filesize` set to 32m
-  * Optimized default opcache settings
-  * New env var `PHP_MAX_FILE_UPLOADS` to control `max_file_uploads`
-  * Bugfix: apcu (PHP 7.x) could cause segfaults in some cases
-  * Bugfix: path to CA certificates specified in ldap config
-  * Bugfix: files backup could fail when files changed during the process
-  * Bugfix: missing quotes in `wodby.sites.php`
+    * PHP updated to 7.0.24, 7.1.10
+    * Default vanilla Drupal updated to 8.4.0
+    * Core extension pcntl is now enabled in PHP 7.x
+    * Libressl added
+    * Extensions update: redis 3.1.4, mongodb 1.3.0
+    * New extension geoip
+    * Default `post_max_size`, `upload_max_filesize` set to 32m
+    * Optimized default opcache settings
+    * New env var `PHP_MAX_FILE_UPLOADS` to control `max_file_uploads`
+    * Bugfix: apcu (PHP 7.x) could cause segfaults in some cases
+    * Bugfix: path to CA certificates specified in ldap config
+    * Bugfix: files backup could fail when files changed during the process
+    * Bugfix: missing quotes in `wodby.sites.php`
 * Nginx:
-  * Nginx updated to 1.13.5
-  * Nginx config revamped: upstream name changed from `backend` to `php` and moved from `nginx.conf` to `drupal.conf`
-  * Default `client_max_body_size` set to 32m
-  * Bugfix: broken static files on Drupal's 8 update.php page
+    * Nginx updated to 1.13.5
+    * Nginx config revamped: upstream name changed from `backend` to `php` and moved from `nginx.conf` to `drupal.conf`
+    * Default `client_max_body_size` set to 32m
+    * Bugfix: broken static files on Drupal's 8 update.php page
 * Apache:
-  * Apache updated to 2.4.28
-  * Image has been replaced to generic [`wodby/php-apache`](https://github.com/wodby/php-apache)
+    * Apache updated to 2.4.28
+    * Image has been replaced to generic [`wodby/php-apache`](https://github.com/wodby/php-apache)
 * Varnish
-  * Env vars for daemon launch params now have prefix `VARNISHD_` to avoid collisions
-  * New env vars `VARNISH_EXCLUDE_URLS` and `VARNISH_STATIC_FILES` for customization
-  * Default exclude URLs now consider language prefixes
+    * Env vars for daemon launch params now have prefix `VARNISHD_` to avoid collisions
+    * New env vars `VARNISH_EXCLUDE_URLS` and `VARNISH_STATIC_FILES` for customization
+    * Default exclude URLs now consider language prefixes
 * OpenSMTPD bugfix: health probes caused warning in logs
 
 ### Update instructions from 4.2.1

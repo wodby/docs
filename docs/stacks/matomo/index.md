@@ -76,9 +76,9 @@ By default we run the following cron command from [crond container](#crond) ever
 * Matomo updated to 3.5.1
 * Added Nginx 1.14, 1.15
 * MariaBD:
-  * Added new version 10.3
-  * Version 10.2 updated to 10.2.15
-  * Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage
+    * Added new version 10.3
+    * Version 10.2 updated to 10.2.15
+    * Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage
 * PHP error reporting now exludes strict and deprecated errors
 
 ### 0.3.0
