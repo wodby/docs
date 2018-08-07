@@ -15,7 +15,7 @@ extra:
     - type: github-alt
       link: https://github.com/wodby
     - type: twitter
-      link: https://twitter.com/WodbyHQ
+      link: https://twitter.com/wodbycloud
 
 theme:
   name: material
