@@ -4,6 +4,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 5.1.0
 
+### Changes
+
 * Drupal
     * Vanilla Drupal core updated to 8.5.4
     * We now set `$settings['reverse_proxy_addresses']` and `$settings['reverse_proxy']` in `wodby.settings.php` file. You can also add additional proxy addresses via env var `DRUPAL_REVERSE_PROXY_ADDRESSES`
@@ -37,7 +39,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     * Added `VARNISH_SECONDARY_STORAGE_CONDITION` to specify the condition when to use secondary storage https://github.com/wodby/drupal-varnish/pull/3
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
 
-## Upgrade instructions
+### Upgrade instructions
 
 * ❗Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
@@ -167,7 +169,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 4.4.0
 
-### Changes since 4.3.0
+### Changes
 
 * PHP:
     * PHP updated to 7.1.12, 7.0.26
@@ -227,7 +229,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 * OpenSMTPD now supports relay auth without password
 * Files backup and mirroring actions now run with `nice` and `ionice` to prioritize CPU and I/O time for this process
 
-### Update instructions from 4.3.0
+### Upgrade instructions
 
 * If you used `$WODBY_APP_NAME` update your code accordingly to the new value (machine name of the app)
 * If you used `$WODBY_HOST_PRIMARY` (now contains host instead of URL) before you should replace it to `$WODBY_URL_PRIMARY`
@@ -235,7 +237,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 4.3.0
 
-### Changes since 4.2.1
+### Changes
 
 * User `www-data` is now default in php, nginx and apache containers
 * PHP:
@@ -274,13 +276,9 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 4.2.1
 
-### Changes since 4.2.0
-
 * Improved backward compatibility, the following environment variables are now available from PHP-FPM
 
 ## 4.2.0
-
-### Changes since 4.1.9
 
 * PHP updated to 7.1.9, 7.0.23
 * PHPUnit updated to 6.3
@@ -289,22 +287,12 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 * OpenSMTPD now supports relay without auth
 * Bugfix: PHP-FPM health probes sometimes could fail
 
-### Upgrade notes
-
-Downtime < 5 minutes
-
 ## 4.1.9
-
-### Changes since 4.1.8
 
 * Vanilla Drupal updated to 8.3.7
 * MariaDB and its client updated to 10.1.26
 * Athenapdf versions freeze to 2.10.0
 * Bugfix: PHP-FPM health probes sometimes could fail
-
-### Upgrade notes
-
-Downtime 5-10 minutes
 
 ## 4.1.8
 

@@ -4,6 +4,8 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 5.1.0
 
+### Changes
+
 * Vanilla WordPress core updated to 4.9.6
 * PHP
     * Added php tidy extension
@@ -33,7 +35,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     * Unrestricted purge is now allowed in internal network (from containers within the same instance)
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
 
-## Upgrade instructions
+### Upgrade instructions
 
 * ❗Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
@@ -170,7 +172,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 4.1.0
 
-### Changes since 4.0.0
+### Changes
 
 * PHP:
     * New PHP 7.2
@@ -222,7 +224,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 * OpenSMTPD now supports relay auth without password
 * Files backup and mirroring actions now run with `nice` and `ionice` to prioritize CPU and I/O time for this process
 
-### Update instructions from 4.0.0
+### Upgrade instructions
 
 * If you used `$WODBY_APP_NAME` update your code accordingly to the new value (machine name of the app)
 * If you used `$WODBY_HOST_PRIMARY` (now contains host instead of URL) before you should replace it to `$WODBY_URL_PRIMARY`
