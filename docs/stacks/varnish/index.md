@@ -46,6 +46,11 @@ A few reasons why you may get 503:
 * Broken backend headers that prevent from parsing backend response's body, e.g. gzip encoding header when the body in fact is not gzipped (you should not gzip pages on your backend, we already do that on Nginx)  
 * Timeouts on varnish are too low (unlikely, the defaults are high enough for 95% cases), you can increase them via environment variables 
 
+## Further reading (official documentation)
+
+* [Varnish book: 4.0 basics and workflow schema](https://book.varnish-software.com/4.0/chapters/VCL_Basics.html)
+* [Built in subroutines](https://varnish-cache.org/docs/trunk/users-guide/vcl-built-in-subs.html)
+
 ## Changelog
 
 ### 1.2.0
