@@ -2,14 +2,6 @@
 
 Varnish can be configured with the following [environment variables](https://github.com/wodby/varnish#environment-variables)
 
-## Headers
-
-* `X-Varnish-Cache`: HIT or MISS, corresponds to when the cache was found or not
-* `Age: 34`: age of the cache in seconds
-* `X-Varnish: 65658 65623` - the first number is the ID of a request, the second is the ID of cache inside of Varnish. When operating normally the first number changes with every request of the same page and the second stays the same.
-
-Set header `Cache-Control:no-cache` on backend to tell Varnish to not cache this page.
-
 ## CLI
 
 Grouped list with the most usual entries from different logs:
