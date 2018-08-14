@@ -1,5 +1,11 @@
 # CLI commands
 
+## Restarting wodby agent
+
+```shell
+docker rm -f $(docker ps  | grep wodbycloud/agent | awk '{ print $1 }')
+```
+
 ## Restart docker and kube services
 
 ```shell

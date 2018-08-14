@@ -70,6 +70,8 @@ $ sudo swapon -s
 ```
 If not, follow [this guide](https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04") to add swap (Ubuntu).
 
+Also, the N/A status may be caused by a hanged wodby agent container, see [how you can restart it](infrastructure/cli.md#restarting-wodby-agent).
+
 If you still have the problem please contact Wodby support team.
 
 ## Cannot connect server
