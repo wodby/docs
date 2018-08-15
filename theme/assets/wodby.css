@@ -25,17 +25,6 @@
     line-height: 10px;
 }
 
-.md-typeset .admonition,
-.md-typeset details,
-.md-typeset table:not([class]) {
-    font-size: 1.5rem;
-}
-
-.md-tabs__link,
-.md-nav {
-    font-size: 1.6rem;
-}
-
 .md-header, .md-tabs {
     background-color: #333333 !important;
 }
