@@ -10,7 +10,7 @@ We provide API to perform most common tasks such as deployment of a new applicat
 
 ### Version 3 (beta)
 
-* [API reference](https://app.swaggerhub.com/apis/wodby/api)
+* [API reference](https://schema.api.wodby.com)
 * PHP SDK: [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php)
 * Go SDK: [wodby/wodby-sdk-go](https://github.com/wodby/wodby-sdk-go)
 
@@ -22,4 +22,3 @@ We provide API to perform most common tasks such as deployment of a new applicat
 
 * GitHub project: [wodby/wodby-cli](https://github.com/wodby/wodby-cli) 
 * Docker image: [wodby/wodby-cli](https://hub.docker.com/r/wodby/wodby-cli/)
- 
