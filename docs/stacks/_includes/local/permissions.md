@@ -23,4 +23,4 @@ Since you [can't change owner of mounted volumes](https://github.com/docker/for-
 
 ### Different uid/gid?
 
-You can rebuild the base image [wodby/php](https://github.com/wodby/php) with custom user/group ids by using docker build arguments `WODBY_USER_ID`, `WODBY_USER_ID` (both `1000` by default)
+You can rebuild the base image [wodby/php](https://github.com/wodby/php) with custom user/group ids by using docker build arguments `WODBY_USER_ID`, `WODBY_GROUP_ID` (both `1000` by default)
