@@ -15,21 +15,21 @@ Restarting nginx as default user:
 sudo nginx -s reload
 ```
 
-## Ruby
-
-Ruby can be configured with the following [environment variables](https://github.com/wodby/ruby#environment-variables)
-
 ### Mod pagespeed
 
 Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disabled by default. To enable it add `NGINX_PAGESPEED=on` environment variable to Nginx service.
 
-## Mailhog
+## Ruby
 
-{!stacks/_includes/containers/mailhog.md!}
+Ruby can be configured with the following [environment variables](https://github.com/wodby/ruby#environment-variables). By default the container starts Puma HTTP server.
 
-## OpenSMTPD
+## Sidekiq
 
-See [OpenSMTPD stack documentation](../opensmtpd/index.md).
+A duplicate of the main Ruby container runs with Sidekiq (instead of HTTP server). 
+
+## PostgreSQL
+
+See [PostgreSQL stack documentation](../postgres/index.md).
 
 ## MariaDB
 
@@ -38,3 +38,11 @@ See [MariaDB stack documentation](../mariadb/index.md).
 ## Node.js
 
 {!stacks/_includes/containers/node.md!}
+
+## Mailhog
+
+{!stacks/_includes/containers/mailhog.md!}
+
+## OpenSMTPD
+
+See [OpenSMTPD stack documentation](../opensmtpd/index.md).

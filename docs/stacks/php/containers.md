@@ -44,6 +44,14 @@ Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disable
 
 {!stacks/_includes/containers/php-sshd.md!}
 
+## PostgreSQL
+
+See [PostgreSQL stack documentation](../postgres/index.md).
+
+## MariaDB
+
+See [MariaDB stack documentation](../mariadb/index.md).
+
 ## Mailhog
 
 {!stacks/_includes/containers/mailhog.md!}
@@ -51,10 +59,6 @@ Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disable
 ## OpenSMTPD
 
 See [OpenSMTPD stack documentation](../opensmtpd/index.md).
-
-## MariaDB
-
-See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Node.js
 
