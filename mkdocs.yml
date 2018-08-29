@@ -111,9 +111,6 @@ pages:
       - Overview: stacks/ruby/index.md
       - Containers: stacks/ruby/containers.md
       - Local environment: stacks/ruby/local.md
-    - GitLab:
-      - Overview: stacks/gitlab/index.md
-      - Changelog: stacks/gitlab/changelog.md
     - HTML: stacks/html/index.md
     - Matomo: stacks/matomo/index.md
     - Cachet: stacks/cachet/index.md
@@ -126,7 +123,6 @@ pages:
     - AthenaPDF: stacks/athenapdf/index.md
     - Redis: stacks/redis/index.md
     - Varnish: stacks/varnish/index.md
-    - Jenkins: stacks/jenkins/index.md
     - Docker registry: stacks/docker-registry/index.md
     - Slackin: stacks/slackin/index.md
 
