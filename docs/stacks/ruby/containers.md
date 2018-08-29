@@ -39,6 +39,14 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 {!stacks/_includes/containers/node.md!}
 
+## Solr 
+
+See [Solr stack documentation](../solr/index.md).
+
+## Elasticsearch and Kibana 
+
+See [Elasticsearch stack documentation](../elasticsearch/index.md).
+
 ## Mailhog
 
 {!stacks/_includes/containers/mailhog.md!}

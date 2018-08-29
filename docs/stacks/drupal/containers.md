@@ -124,6 +124,10 @@ Usage:
 
 See [Solr for Drupal stack documentation](../solr-drupal/index.md).
 
+## Elasticsearch and Kibana 
+
+See [Elasticsearch stack documentation](../elasticsearch/index.md).
+
 ## Memcached
 
 {!stacks/_includes/containers/memcached.md!}

@@ -60,6 +60,14 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 See [OpenSMTPD stack documentation](../opensmtpd/index.md).
 
+## Solr 
+
+See [Solr stack documentation](../solr/index.md).
+
+## Elasticsearch and Kibana 
+
+See [Elasticsearch stack documentation](../elasticsearch/index.md).
+
 ## Node.js
 
 {!stacks/_includes/containers/node.md!}
