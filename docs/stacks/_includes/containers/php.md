@@ -1,4 +1,4 @@
-* PHP can be configured with the following [environment variables](https://github.com/wodby/drupal-php#environment-variables)
+* PHP can be configured with the following [environment variables](https://github.com/wodby/php#environment-variables)
 * Available [php extensions](https://github.com/wodby/php#php-extensions)
 * Composer pre-installed with a default global package `hirak/prestissimo:^0.3` to download dependencies in parallel 
 

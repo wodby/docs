@@ -107,6 +107,10 @@ pages:
       - Overview: stacks/php/index.md
       - Containers: stacks/php/containers.md
       - Local environment: stacks/php/local.md
+    - Ruby:
+      - Overview: stacks/ruby/index.md
+      - Containers: stacks/ruby/containers.md
+      - Local environment: stacks/ruby/local.md
     - GitLab:
       - Overview: stacks/gitlab/index.md
       - Changelog: stacks/gitlab/changelog.md
