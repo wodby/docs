@@ -23,6 +23,8 @@ The following services are CI services that will be built by default:
 
 ## Changelog
 
+This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
+
 ### 0.1.0
 
 Initial release

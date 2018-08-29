@@ -15,6 +15,8 @@ You can create new cores via Solr admin UI or create it manually from CLI with a
 
 ## Changelog
 
+This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
+
 ### 1.2.1
 
 * New 7.2 version added

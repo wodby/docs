@@ -33,6 +33,8 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 ## Changelog
 
+This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
+
 ### 1.2.1
 
 * New 7.2 version added

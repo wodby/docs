@@ -15,7 +15,7 @@ Docker4Ruby is an open-source project ([GitHub page](https://github.com/wodby/do
 2. Ensure database credentials match in your database config and `.env` files, see example for Ruby on Rails below
 3. [Configure domains](#domains) 
 4. Optional: [import existing database](#database-import-and-export) 
-5. Optional: uncomment lines in the compose file to change DBMS (PostgreSQL by default) or run redis, elasticsearch, kibana, etc
+5. Optional: uncomment lines in the compose file to change DBMS (PostgreSQL by default) or run Sidekiq, Redis, Elasticsearch, etc
 6. Optional: macOS users please read [this](#docker-for-mac)
 7. Optional: Windows users please read [this](#permissions-issues)
 8. By default ruby container will start Puma HTTP server, if you want to change it modify `Dockerfile`

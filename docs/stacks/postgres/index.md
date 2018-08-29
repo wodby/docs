@@ -8,6 +8,8 @@ if you want to import your database, uncomment the line for `postgres-init` volu
 
 ## Changelog
 
+This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
+
 ### 1.2.1
 
 PostgreSQL updated to 10.4, 9.6.9, 9.5.13, 9.4.18, 9.3.23

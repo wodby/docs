@@ -1,11 +1,18 @@
 # Elasticsearch stack documentation
 
+You can enable Elasticsearch plugins by listing them via the environment variable `$ES_PLUGINS_INSTALL` separated by comma.
+
+!!! info "Open source version"
+    Since version 6.3 we install OSS version of Elasticsearch and Kibana. In older version we disable x-pack plugin by default.
+
 Elasticsearch and Kibana can be configured via environment variables:
 
 * https://github.com/wodby/elasticsearch#environment-variables
 * https://github.com/wodby/kibana#environment-variables
 
 ## Changelog
+
+This changelog is for Elasticsearch stack on Wodby, to see images changes see tags description on repository page: [elasticsearch](https://github.com/wodby/elasticsearch/releases) and [kibana](https://github.com/wodby/kibana/releases).   
 
 ### 2.0.1
 
