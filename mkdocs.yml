@@ -81,6 +81,7 @@ pages:
     - Connecting server: infrastructure/connecting-server.md
     - Containers: infrastructure/containers.md
     - Monitoring: infrastructure/monitoring.md
+    - Mail delivery: infrastructure/mail-delivery.md
     - Environment variables: infrastructure/env-vars.md
     - Disk: infrastructure/disk.md
     - Maintenance: infrastructure/maintenance.md

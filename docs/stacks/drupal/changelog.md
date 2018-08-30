@@ -19,7 +19,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     * New version 10.3 added (10.3.7)
     * MariaDB updates: 10.2.15, 10.1.34
     * `optimizer_prune_level` and `optimizer_search_depth` are now configurable https://github.com/wodby/mariadb/issues/4
-    * ⭐️ Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage by MariaDB container. See [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+    * ⭐️ Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage by MariaDB container. See [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
     * Default `innodb_buffer_pool_instances` set to `1`
 * Nginx:
     * Added new Nginx 1.15, dropped legacy Nginx 1.12
@@ -41,7 +41,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ### Upgrade instructions
 
-* ❗Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/overview) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+* ❗Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
 ## 5.0.7
 
@@ -296,7 +296,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 4.1.8
 
-* Updated service: [Redis (1.0.3)](https://cloud.wodby.com/stackhub/7548eb5a-c61b-4480-9f36-2501917692b3/changelog)
+* Updated service: Redis (1.0.3)
 * PHP containers now have health checks and can be upgraded without downtime
 * We no longer support `sites/*/files` directories under version control
 * Drush modules added: registry rebuild and patchfile
@@ -324,7 +324,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 ## 4.1.5
 
 * New fast health-check endpoints for Nginx and Apache2 hidden from access logs by default
-* Updated services: [Redis (1.0.2)](https://cloud.wodby.com/stackhub/7548eb5a-c61b-4480-9f36-2501917692b3/changelog), [MariaDB (1.0.3)](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6/changelog), [AthenaPDF (1.0.1)](https://cloud.wodby.com/stackhub/249c859b-9368-41cc-b6a6-6148e6a77337/changelog)
+* Updated services: Redis (1.0.2), MariaDB (1.0.3), AthenaPDF (1.0.1)
 * PHP extension redis updated to 3.1.3
 * Number of default PHP-FPM workers set to 8
 
@@ -353,7 +353,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 4.1.2
 
-* Updated [MariaDB](https://cloud.wodby.com/stackhub/3aa42a7c-db8b-40e9-aa3c-06218724fae6) with bug fixes
+* Updated MariaDB with bug fixes
 * PHP extension APCu is now configurable
 * All PHP extensions are now frozen
 * Runtime Alpine Linux libraries used by PHP extension are now frozen

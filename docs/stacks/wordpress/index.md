@@ -1,6 +1,6 @@
 # WordPress stack documentation
 
-* [WordPress stack](https://cloud.wodby.com/stackhub/a54a0f59-f4fd-49af-ad16-8d9ff776c50e/overview)
+* [WordPress stack](https://cloud.wodby.com/stacks/wordpress)
 * [docker4wordpress](https://github.com/wodby/docker4wordpress)
 
 ## Deployment 

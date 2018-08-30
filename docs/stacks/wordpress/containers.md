@@ -107,7 +107,7 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Redis
 
-You can configure Redis via environment variables that listed at https://github.com/wodby/redis. See [Redis stack](https://cloud.wodby.com/stackhub/7548eb5a-c61b-4480-9f36-2501917692b3) for more details.
+You can configure Redis via environment variables that listed at https://github.com/wodby/redis. See [Redis stack](../redis/index.md) for more details.
 
 Integration:
 

@@ -2,9 +2,9 @@
 
 Stack pages:
 
-* [Drupal 8](https://cloud.wodby.com/stackhub/ada51e9b-2204-45ee-8e49-a4151912a168/overview)
-* [Drupal 7](https://cloud.wodby.com/stackhub/35e3e058-936b-4695-9871-08c855aae898/overview)
-* [Drupal 6](https://cloud.wodby.com/stackhub/0ade1c32-7b75-41ad-b796-4de97fb7dc4e/overview)
+* [Drupal 8](https://cloud.wodby.com/stacks/drupal8)
+* [Drupal 7](https://cloud.wodby.com/stacks/drupal7)
+* [Drupal 6](https://cloud.wodby.com/stacks/drupal6)
 * [Docker4Drupal (local environment)](https://github.com/wodby/docker4drupal)
 
 ## Deployment

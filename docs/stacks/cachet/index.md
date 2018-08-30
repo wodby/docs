@@ -57,7 +57,7 @@ This changelog is for Cachet stack on Wodby, to see image changes see tags descr
 
 ### 1.0.1
 
-* Updated [Redis (1.0.2)](https://cloud.wodby.com/stackhub/7548eb5a-c61b-4480-9f36-2501917692b3/changelog) and [Postgres (1.0.1)](https://cloud.wodby.com/stackhub/68172333-6d47-46e0-afd9-08c2170a73b0/changelog) services
+* Updated [Redis (1.0.2)](https://wodby.com/docs/stacks/redis#changelog) and [Postgres (1.0.1)](https://wodby.com/docs/postgres#changelog) services
 
 ### 1.0.0
 
