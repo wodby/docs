@@ -74,7 +74,7 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 
 ## Permissions issues
 
-{!stacks/_includes/local/permissions.md!}
+{!stacks/_includes/local/php-permissions.md!}
 
 ## Running multiple Projects
 

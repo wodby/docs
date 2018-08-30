@@ -77,7 +77,7 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 
 ## Permissions issues
 
-{!stacks/_includes/local/permissions.md!}
+{!stacks/_includes/local/ruby-permissions.md!}
 
 ## Running multiple Projects
 

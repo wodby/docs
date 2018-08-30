@@ -100,7 +100,7 @@ make drush [command] Execute drush command (runs with -r /var/www/html/web, you 
 
 ## Permissions issues
 
-{!stacks/_includes/local/permissions.md!}
+{!stacks/_includes/local/php-permissions.md!}
 
 ## Running multiple Projects
 
