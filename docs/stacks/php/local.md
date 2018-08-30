@@ -58,7 +58,7 @@ Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers li
 
 ## Make commands
 
-{!stacks/_includes/local/make-commands.md!}
+{!stacks/_includes/local/php-make-commands.md!}
 
 ## Docker for mac
 
@@ -70,4 +70,4 @@ Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers li
 
 ## Running multiple Projects
 
-{!stacks/_includes/local/multiple-projects.md!}
+{!stacks/_includes/local/php-multiple-projects.md!}

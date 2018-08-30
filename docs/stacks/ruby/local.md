@@ -69,7 +69,7 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 
 ## Make commands
 
-{!stacks/_includes/local/make-commands.md!}
+{!stacks/_includes/local/ruby-make-commands.md!}
 
 ## Docker for mac
 
@@ -81,4 +81,4 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 
 ## Running multiple Projects
 
-{!stacks/_includes/local/multiple-projects.md!}
+{!stacks/_includes/local/ruby-multiple-projects.md!}

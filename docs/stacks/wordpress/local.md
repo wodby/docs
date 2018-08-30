@@ -66,7 +66,7 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 
 ## Make commands
 
-{!stacks/_includes/local/make-commands.md!}
+{!stacks/_includes/local/php-make-commands.md!}
 
 ## Docker for mac
 
@@ -78,4 +78,4 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 
 ## Running multiple Projects
 
-{!stacks/_includes/local/multiple-projects.md!}
+{!stacks/_includes/local/php-multiple-projects.md!}

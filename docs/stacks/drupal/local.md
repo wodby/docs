@@ -86,7 +86,7 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 
 Basic:
 
-{!stacks/_includes/local/make-commands.md!}
+{!stacks/_includes/local/php-make-commands.md!}
 
 Drupal-specific:
 
@@ -104,4 +104,4 @@ make drush [command] Execute drush command (runs with -r /var/www/html/web, you 
 
 ## Running multiple Projects
 
-{!stacks/_includes/local/multiple-projects.md!}
+{!stacks/_includes/local/php-multiple-projects.md!}
