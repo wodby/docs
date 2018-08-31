@@ -3,15 +3,60 @@
 !!! info "Default core" 
     Since 1.1.0 we automatically create a default solr core named `default` when no cores found.
 
-All environment variables available for Solr configuration can be found at https://github.com/wodby/solr
+Solr can be configured via environment variables available listed at https://github.com/wodby/solr
 
 ## Creating solr core
 
 You can create new cores via Solr admin UI or create it manually from CLI with additional parameters:
 
+### Wodby environment
+
 * Go to `Instance > Stack > Search Engine` page
 * Copy and execute `Access container` on your host server to access the container with Solr
-* Copy `Create Solr core` command (edit to change core name), execute it inside of the container. Response `200` means that the core has been successfully created.
+* Copy `Create Solr core` command (edit to change core name), execute it inside of the container
+
+### Local environment
+
+1. [Access a running Solr container](../../infrastructure/containers.md#accessing-containers)
+2. Create a core
+```shell
+make create core=[core name] -f /usr/local/bin/actions.mk
+```
+
+## Reloading solr core
+
+You can reload the core from the Solr admin dashboard or by executing the following orchestration action from the container with running Solr:
+```shell
+make reload core=[core name] -f /usr/local/bin/actions.mk
+```  
+
+## Customizing solr core
+
+By default we create cores with a reference to a config set, this means that a core does not have its own config but instead uses config files of pre-existing configuration. Available config sets listed under `configsets/*` in the default working directory. To learn which config set used in your core navigate to your core directory, it's a directory in the default working dir (`/opt/solr/server/solr`) that matches your core name. In this directory you'll find `core.properties` file that contains `configSet=` line where a currently used config set specified.
+
+Now there two ways how you can customize your core config:
+
+### 1. By creating new config set
+
+Use this approach when you'll need to use your customized config for multiple cores. 
+
+1. Access the container with running Solr
+2. Use existing config set as your boilerplate by copying a directory under `configsets/*`
+3. The name of directory under `configsets/*` will be the name of your config set
+4. Once the config set is ready update `configSet=` line in `core.properties` file inside your core directory
+5. [Reload core](#reloading-solr-core)
+
+!!! warning "Do not modify predefined config set"
+    Do not modify config sets that come with the image because all changes will be lost after a container restart.
+
+### 2. By moving configuration to core
+
+Use this approach when you'll need a unique configuration per core. 
+
+1. Access the container with running Solr
+2. Use existing config set as your boilerplate by copying `configsets/[CONFIG SET]/conf` to `[CORE NAME]/conf`
+3. Once the config set is ready delete `configSet=` line in `core.properties` file inside your core directory
+4. [Reload core](#reloading-solr-core)
 
 ## Changelog
 

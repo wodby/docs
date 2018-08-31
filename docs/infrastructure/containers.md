@@ -38,3 +38,12 @@ Containers persistent data can be accessed from the host server under `/srv/wodb
 
 !!! warning "This may cause unexpected issues"
     Be careful while modifying containers' files as root – it could cause unexpected permissions issues because containers have a default user different from root
+
+### Accessing container from local environment
+
+```shell
+# Get container id 
+docker ps -a
+# Access container via shell
+docker exec -ti [container id] sh
+```

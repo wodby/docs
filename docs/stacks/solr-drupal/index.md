@@ -1,9 +1,11 @@
 # Solr for Drupal stack documentation
 
-The only difference from [Solr stack](../solr/index.md) is that core created with a config set from [Search API Solr module](https://www.drupal.org/project/search_api_solr) by default, for more details on the version see https://github.com/wodby/drupal-solr.
+The only difference from the generic Solr stack is that core created with a config set from [Search API Solr module](https://www.drupal.org/project/search_api_solr) by default.
 
 !!! info "Default core"
     We automatically create a default solr core named `default` when no cores found.
+
+See generic [Solr stack](../solr/index.md) documentation to learn how to create and customize cores.
 
 ### Drupal 8
 
