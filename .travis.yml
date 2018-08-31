@@ -17,3 +17,7 @@ script:
   - wodby ci build --from ./site --to /var/www/html/docs
   - wodby ci release
   - wodby ci deploy
+
+  - >
+    docker run --rm -it -e VARNISH_SECRET="${VARNISH_SECRET}" -v "${PWD}"/purge-cache.sh:/opt/purge-cache.sh \
+      wodby/drupal-varnish:4.1-2.5.0 bash /opt/purge-cache.sh
