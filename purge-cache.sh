@@ -6,4 +6,4 @@ if [[ "${DEBUG}" ]]; then
     set -x
 fi
 
-varnishadm -T "${VARNISH_PORT}" -S /etc/varnish/secret  'ban req.url ~ .*'
+varnishadm -T ${VARNISH_PORT} -S /etc/varnish/secret  'ban req.url ~ .*'
