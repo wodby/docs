@@ -26,18 +26,22 @@
             {% else %}
               <span class="md-header-nav__topic">
                 {{ config.site_name }}
-
-                <span class="stack-page-link-wrapper">
-                  <a href="https://wodby.com/stacks" class="stack-page-link" target="_blank">
-                    Browse stacks
-                  </a>
-                </span>
               </span>
               <span class="md-header-nav__topic">
                 {{ page.title }}
               </span>
             {% endif %}
           {% endblock %}
+        </div>
+      </div>
+
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <div>
+          <a href="https://wodby.com/stacks" title="Browse stacks" class="md-source" target="_blank">
+            <div class="md-source__repository">
+              Browse stacks
+            </div>
+          </a>
         </div>
       </div>
 
