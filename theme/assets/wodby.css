@@ -36,3 +36,15 @@
 .md-source__facts {
     display: none;
 }
+
+.md-tabs__item {
+    float: left;
+}
+
+.md-tabs__item.api-reference {
+    float: right;
+}
+
+.api-reference i {
+    font-size: 12px;
+}
