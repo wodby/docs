@@ -19,3 +19,4 @@ Open-source projects for local development:
 * [Docker4Drupal](stacks/drupal/local.md)
 * [Docker4WordPress](stacks/wordpress/local.md)
 * [Docker4PHP](stacks/php/local.md)
+* [Docker4Ruby](stacks/ruby/local.md)
