@@ -134,33 +134,56 @@ See [Elasticsearch stack documentation](../elasticsearch/index.md).
 
 ## Redis
 
-### Drupal 8
+You can use Redis as a cache storage for your Drupal application. Redis in-memory storage works much faster compared to the default Drupal's cache storage – database.
 
-Install [redis module](https://www.drupal.org/project/redis) and enable redis integration under `[Instance] > Cache > Settings` page of Wodby dashboard to use it as an internal cache storage for Drupal. All required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings).
+### Wodby environment
 
-### Drupal 7
+1. Download and install [redis module](https://www.drupal.org/project/redis)
+2. Make sure redis service enabled in your stack
+3. Additionally for Drupal 8: enable redis integration under `[Instance] > Cache > Settings` page 
+4. That's it, all required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings)
 
-Install [redis module](https://www.drupal.org/project/redis) to use it as an internal cache storage for Drupal. All required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings).
+### Local environment (docker4drupal)
 
-[Redis stack documentation](../redis/index.md)
+1. Download and install redis module
+2. Add the following lines to your `settings.php` file (make sure the path to redis module is correct):
+
+For Drupal 8:
+
+```php
+$settings['redis.connection']['host'] = 'redis';
+$settings['redis.connection']['port'] = '6379';
+//$settings['redis.connection']['password'] = '';
+$settings['redis.connection']['base'] = 0;
+$settings['redis.connection']['interface'] = 'PhpRedis';
+$settings['cache']['default'] = 'cache.backend.redis';
+$settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';
+$settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
+$settings['cache']['bins']['config'] = 'cache.backend.chainedfast';
+$settings['container_yamls'][] = "modules/contrib/redis/example.services.yml";
+```
+
+For Drupal 7:
+
+```php
+$conf['redis_client_host'] = 'redis';
+$conf['redis_client_port'] = '6379';
+//$conf['redis_client_password'] = ';
+$conf['redis_client_base'] = 0;
+$conf['redis_client_interface'] = 'PhpRedis';
+$conf['cache_backends'][] = "sites/all/modules/contrib/redis/redis.autoload.inc";
+$conf['cache_default_class'] = 'Redis_Cache';
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+
+$conf['lock_inc'] = "sites/all/modules/contrib/redis/redis.lock.inc";
+$conf['path_inc'] = "sites/all/modules/contrib/redis/redis.path.inc";
+```
+
+For more information see [Redis stack documentation](../redis/index.md).
 
 ## Varnish
 
-Varnish ignores the following GET parameters for cache id generation:
-
-```
-utm_source
-utm_medium
-utm_campaign
-utm_content
-gclid
-cx
-ie
-cof
-siteurl
-```
-
-For more details see [Varnish stack documentation](../varnish/index.md)
+You can use Varnish to cache dynamic pages and show pages to your visitors without any calls to Drupal (cache stored in memory).  
 
 ### Drupal 8
 
@@ -175,6 +198,9 @@ Read [this article](https://wunderkraut.se/blogg/purge-cachetags-varnish) to lea
 Check Aggregate and compress CSS files.
 Check Aggregate JavaScript files.
 Also, we recommend to install expire module to configure auto purge of pages when some content has been updated. After installation go to `Home » Administration » Configuration » System` and select External expiration at the "Module status" tab.
+
+
+For more details see [Varnish stack documentation](../varnish/index.md)
 
 ## Rsyslog
 

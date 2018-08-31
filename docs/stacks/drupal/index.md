@@ -82,7 +82,7 @@ Import Drupal via separate archives for database and files. We support `.zip`, `
 
 In case your import data is huge it makes sense to import it manually from the server. Follow these steps:
 
-1. Deploy your Drupal website from a git repository without importing data
+1. Deploy your Drupal application without importing data
 2. Once the app is deployed, go to `Stack > SSH` and copy SSH command
 3. Connect to the container by SSH
 4. Copy your database archive here via `wget` or `scp`, make sure it's gzipped
