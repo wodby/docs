@@ -43,8 +43,6 @@
         </div>
       </div>
 
-      {% include "partials/wodby/browse-stacks.html" %}
-
       <!-- Button to open search dialogue -->
       <div class="md-flex__cell md-flex__cell--shrink">
         {% block search_box %}
@@ -58,14 +56,7 @@
         {% endblock %}
       </div>
 
-      <!-- Repository containing source -->
-      {% if config.repo_url %}
-        <div class="md-flex__cell md-flex__cell--shrink">
-          <div class="md-header-nav__source">
-            {% include "partials/source.html" %}
-          </div>
-        </div>
-      {% endif %}
+      {% include "partials/wodby/browse-stacks.html" %}
     </div>
   </nav>
 </header>
