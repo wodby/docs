@@ -2,6 +2,10 @@
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
+## 5.2.1
+
+Do not add trailing slashes for non-directory requests
+
 ## 5.2.0
 
 ### Upgrade instructions (from 5.1.0)
