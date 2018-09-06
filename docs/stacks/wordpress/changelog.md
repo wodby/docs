@@ -4,6 +4,12 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 5.2.0
 
+### Upgrade instructions (from 5.1.0)
+
+* If you overridden `nginx.conf` (via `$NGINX_CONF_INCLUDE`) you'll have to fetch the new original `nginx.conf` and apply your changes again
+
+### Changes since 5.1.0
+
 * Vanilla WordPress core updated to 4.9.8
 * PHP:
     * Patch updates: 7.2.9, 7.1.21, 7.0.31, 5.6.37
