@@ -26,7 +26,7 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Nginx
 
-!!! important "New nginx image" 
+!!! important "New Nginx image" 
     Since WordPress stacks 5.2.0+ nginx image `wodby/wordpress-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with `$NGINX_VHOST_PRESET=wordpress`
     
 {!stacks/_includes/containers/nginx.md!}
@@ -125,7 +125,7 @@ Integration:
 
 ## Varnish 
 
-!!! important "New varnish image"
+!!! important "New Varnish image"
     Since WordPress stacks 5.2.0+ Varnish image `wodby/wordpress-varnish` has been replaced with [`wodby/varnish`](https://github.com/wodby/varnish) and `$VARNISH_CONFIG_PRESET=wordpress`
 
 Integration:

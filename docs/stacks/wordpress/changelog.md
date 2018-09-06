@@ -6,7 +6,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ### Upgrade instructions (from 5.1.0)
 
-* If you overridden `nginx.conf` (via `$NGINX_CONF_INCLUDE`) you'll have to fetch the new original `nginx.conf` and apply your changes again
+* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
 
 ### Changes since 5.1.0
 

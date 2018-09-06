@@ -6,8 +6,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ### Upgrade instructions (from 5.1.0)
 
-* If you overridden `nginx.conf` (via `$NGINX_CONF_INCLUDE`) you'll have to fetch the new original `nginx.conf` and apply your changes again
-* Update uses of the Varnish header `X-Varnish-Cache` to `X-VC-Cache`
+* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
+* If you used somewhere Varnish's header `X-Varnish-Cache`, update it to `X-VC-Cache`
 
 ### Changes since 5.1.0
 

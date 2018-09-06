@@ -35,7 +35,7 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Nginx
 
-!!! important "New nginx image" 
+!!! important "New Nginx image" 
     Since Drupal stacks 5.2.0+ nginx image `wodby/drupal-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with `$NGINX_VHOST_PRESET=drupalX`
     
 {!stacks/_includes/containers/nginx.md!}
@@ -188,7 +188,7 @@ Read [Logging in Drupal 8](https://www.wellnet.it/en/blog/logging-drupal-8) to l
 
 ## Solr 
 
-!!! important "New varnish image"
+!!! important "New Solr image"
     Since Drupal stacks 5.2.0+ Varnish image `wodby/drupal-solr` has been replaced with `wodby/solr` and `$SOLR_DEFAULT_CONFIG_SET`, see [versions matrix](https://github.com/wodby/solr#drupal-search-api-solr)
 
 See [Solr for Drupal stack documentation](../solr-drupal/index.md).
@@ -199,7 +199,7 @@ See [Solr for Drupal stack documentation](../solr-drupal/index.md).
 
 ## Varnish
 
-!!! important "New varnish image"
+!!! important "New Varnish image"
     Since Drupal stacks 5.2.0+ Varnish image `wodby/drupal-varnish` has been replaced with [`wodby/varnish`](https://github.com/wodby/varnish) and `$VARNISH_CONFIG_PRESET=drupal`
 
 You can use Varnish to cache dynamic pages and show pages to your visitors without any calls to Drupal (cache stored in memory).  
