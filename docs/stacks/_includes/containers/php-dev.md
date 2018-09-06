@@ -1,3 +1,11 @@
+### NewRelic
+
+You can add NewRelic APM monitoring for PHP by adding environment variables `PHP_NEWRELIC_ENABLED=1` and `PHP_NEWRELIC_LICENSE` with your license number to PHP-FPM container. Application name will be automatically set to `[Wodby Application Name] - [Wodby Instance Name]`, if you want to change it, use `PHP_NEWRELIC_APPNAME`. 
+
+### Profiling
+
+You can profile your PHP application either via Xdebug traces (+[Webgrind](#webgrind)) or Tideways XHProf extensions.
+
 ### Xdebug (remote)
 
 Follow these steps to debug your application instance remotely with [xdebug](http://xdebug.org/docs/install):
@@ -91,11 +99,3 @@ You must additionally configure your IDE to debug CLI requests.
     * Check `Use path mappings`, select path to your project and enter `/var/www/html` in the right column (Absolute path on the server) 
 3. Choose newly created server in "Server" for PHP Web Page
 4. Save settings
-
-### NewRelic
-
-You can add NewRelic APM monitoring for PHP by adding environment variables `PHP_NEWRELIC_ENABLED=1` and `PHP_NEWRELIC_LICENSE` with your license number to PHP-FPM container. Application name will be automatically set to `[Wodby Application Name] - [Wodby Instance Name]`, if you want to change it, use `PHP_NEWRELIC_APPNAME`. 
-
-### Profiling
-
-You can profile your PHP application either via Xdebug traces (+[Webgrind](#webgrind)) or Tideways XHProf extensions.

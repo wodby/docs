@@ -10,9 +10,13 @@ if you want to import your database, uncomment the line for `postgres-init` volu
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 1.2.2
+
+PostgreSQL patch updates: 10.5, 9.6.10, 9.5.14, 9.4.19, 9.3.24
+
 ### 1.2.1
 
-PostgreSQL updated to 10.4, 9.6.9, 9.5.13, 9.4.18, 9.3.23
+PostgreSQL patch updates: 10.4, 9.6.9, 9.5.13, 9.4.18, 9.3.23
 
 ### 1.2.0
 

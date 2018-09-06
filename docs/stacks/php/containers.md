@@ -1,5 +1,25 @@
 # PHP stack containers
 
+## Apache
+
+{!stacks/_includes/containers/php-apache.md!}
+
+## Blackfire
+
+{!stacks/_includes/containers/blackfire.md!}
+
+## Crond
+
+{!stacks/_includes/containers/php-crond.md!}
+
+## Mailhog
+
+{!stacks/_includes/containers/mailhog.md!}
+
+## MariaDB
+
+See [MariaDB stack documentation](../mariadb/index.md).
+
 ## Nginx
 
 * Nginx can be configured with the following [environment variables](https://github.com/wodby/php-nginx#environment-variables)
@@ -27,58 +47,34 @@ If the default config and available environment variables are not enough for you
 
 Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disabled by default. To enable it add `NGINX_PAGESPEED=on` environment variable to Nginx service.
 
-## Apache
+## Node.js
 
-{!stacks/_includes/containers/php-apache.md!}
+{!stacks/_includes/containers/node.md!}
+
+## OpenSMTPD
+
+See [OpenSMTPD stack documentation](../opensmtpd/index.md).
 
 ## PHP
 
 {!stacks/_includes/containers/php.md!}
 {!stacks/_includes/containers/php-dev.md!}
 
-## Crond
-
-{!stacks/_includes/containers/php-crond.md!}
-
-## SSHd
-
-{!stacks/_includes/containers/php-sshd.md!}
-
 ## PostgreSQL
 
 See [PostgreSQL stack documentation](../postgres/index.md).
-
-## MariaDB
-
-See [MariaDB stack documentation](../mariadb/index.md).
-
-## Mailhog
-
-{!stacks/_includes/containers/mailhog.md!}
-
-## OpenSMTPD
-
-See [OpenSMTPD stack documentation](../opensmtpd/index.md).
-
-## Solr 
-
-See [Solr stack documentation](../solr/index.md).
-
-## Elasticsearch and Kibana 
-
-See [Elasticsearch stack documentation](../elasticsearch/index.md).
-
-## Node.js
-
-{!stacks/_includes/containers/node.md!}
 
 ## Rsyslog
 
 {!stacks/_includes/containers/php-rsyslog.md!}
 
-## Blackfire
+## Solr 
 
-{!stacks/_includes/containers/blackfire.md!}
+See [Solr stack documentation](../solr/index.md).
+
+## SSHd
+
+{!stacks/_includes/containers/php-sshd.md!}
 
 ## Webgrind
 

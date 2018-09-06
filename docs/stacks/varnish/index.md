@@ -47,6 +47,26 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 1.3.0
+
+* Default config without a preset now also caches (see [default behavior](https://github.com/wodby/varnish#default-behaviour))
+* External purge now always restricted by purge key
+* Unrestricted purge from the internal network can be optionally enabled (enabled by default)
+* Cache for mobile devices can now be separated or disabled entirely
+* Big files (by default >10M) won't be cached by default
+* Static files cache disabled by default for all presets
+* All varnish-related headers now start with X-VC-, e.g. X-Varnish-Cache is now X-VC-Cache
+* Secondary storage can now be defined for all presets
+* List of static files extensions expanded
+* Analytics/marketing cookies and query params stripped, configurable
+* New env vars to optionally preserve all cookies and query params
+* Query params can be ignored to cache URLs as a single object
+* Purge method now can be changed to regex and exact (respects query params)
+* Hashes and trailing ? stripped from URL before passing to a backend
+* All AJAX requests not cached
+* Error pages 404 and >500 not cached with a configurable grace period
+* Friendly varnish error message by default
+
 ### 1.2.0
 
 Environment variable `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add a predefined secondary storage. You can now add your custom secondary storage via `VARNISHD_SECONDARY_STORAGE` https://github.com/wodby/varnish/pull/4

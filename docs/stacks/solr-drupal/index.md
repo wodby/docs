@@ -37,6 +37,15 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 1.3.0
+
+* Image `wodby/drupal-solr` now replaced with `wodby/solr` and `$SOLR_DEFAULT_CONFIG_SET`, see [versions matrix](https://github.com/wodby/solr#drupal-search-api-solr) 
+* New Solr versions added: 7.4, 7.3 
+* Dropped versions 6.3, 6.5, 7.0 
+* Config sets and `solr.xml` now symlinked to volume, existing cores won't be affected
+* Core directory get deleted when you delete a core via orchestration actions
+* Bugfix: duplicated `configsets/configsets` directory
+
 ### 1.2.1
 
 * New 7.2 version added

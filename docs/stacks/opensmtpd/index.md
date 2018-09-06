@@ -32,6 +32,10 @@ OpenSMTPD can be configured with the following [environment variables](https://g
 
 This changelog is for OpenSMTPD stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/opensmtpd/releases).
 
+### 1.1.1
+
+OpenSMTPD patch update to 6.0.3
+
 ### 1.1.0
 
 * Improved health check now runs smtp command

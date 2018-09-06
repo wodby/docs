@@ -2,16 +2,6 @@
 * Available [php extensions](https://github.com/wodby/php#php-extensions)
 * Composer pre-installed with a default global package `hirak/prestissimo:^0.3` to download dependencies in parallel 
 
-### Files directory permissions
-
-Public files directory (symlink to `/mnt/files/public`) that used for uploads owned by `www-data` user (PHP-FPM user) by default and the default container user (`wodby`) has no writing permissions. So if you run a command that creates files in a public directory you will get insufficient permissions error. You can fix this problem by giving writing permissions for files directory to the owner's group (user `wodby` is a member of `www-data` group) by using one of the [helper scripts](https://github.com/wodby/php#helper-scripts):
-
-```bash
-sudo files_chmod /mnt/files/public
-```
-
-For mode details about users and permissions in PHP container see https://github.com/wodby/php#users-and-permissions
-
 ### Environment variables
 
 !!! info "Variables availability" 
@@ -37,3 +27,13 @@ Deprecated variables:
 | `$WODBY_APP_DOCROOT` | `$HTTP_ROOT`   |
 | `$WODBY_CONF`        | `$CONF_DIR`    |
 | `$WODBY_DIR_CONF`    | `$CONF_DIR`    |
+
+### Files directory permissions
+
+Public files directory (symlink to `/mnt/files/public`) that used for uploads owned by `www-data` user (PHP-FPM user) by default and the default container user (`wodby`) has no writing permissions. So if you run a command that creates files in a public directory you will get insufficient permissions error. You can fix this problem by giving writing permissions for files directory to the owner's group (user `wodby` is a member of `www-data` group) by using one of the [helper scripts](https://github.com/wodby/php#helper-scripts):
+
+```bash
+sudo files_chmod /mnt/files/public
+```
+
+For mode details about users and permissions in PHP container see https://github.com/wodby/php#users-and-permissions

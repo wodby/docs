@@ -1,9 +1,6 @@
-* Apache can be configured with the following [environment variables](https://github.com/wodby/php-apache#environment-variables)
-* Default Apache [virtual host config](https://github.com/wodby/php-apache/blob/master/templates/vhost.conf.tpl)
-* Installed [apache modules](https://github.com/wodby/apache/blob/master/test/apache_modules) 
+!!! important "New apache image"
+    Since Drupal stacks 5.2.0+ Apache image `wodby/php-apache` has been replaced with [`wodby/apache`](https://github.com/wodby/apache) with `$APACHE_VHOST_PRESET=php`
+    
+{!stacks/_includes/containers/apache.md!}
 
-Restarting apache as default user:
-
-```shell
-sudo httpd -k restart
-```
+See [details](https://github.com/wodby/apache#php-fastcgi) about virtual host preset.

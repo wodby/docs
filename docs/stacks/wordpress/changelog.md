@@ -2,6 +2,71 @@
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
+## 5.2.0
+
+* Vanilla WordPress core updated to 4.9.8
+* PHP:
+    * Patch updates: 7.2.9, 7.1.21, 7.0.31, 5.6.37
+    * `/var/www/html/vendor/bin` added to `$PATH`    
+    * WP CLI upgraded to 2.0.0 and now freezed
+    * Added bash completion for WP CLI
+    * Added [rdkafka](https://pecl.php.net/package/rdkafka) extension
+    * Added `~/.bash_profile` for `wodby` user    
+    * PostgreSQL lib updated to 10.5
+    * Bugfix: PHP 5.6 missed GMP library
+    * Bugfix: incorrect owner on wodby's `~/.shrc`, `~/.bashrc`
+    * Bugfix: entrypoint fails when command executed with `--[flag]`
+    * Libraries and extensions versions moved out from env vars
+* Nginx:
+    * Image `wodby/wordpress-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with [`$NGINX_VHOST_PRESET=wordpress`](https://github.com/wodby/nginx/#virtual-hosts-presets)
+    * Nginx updated to 1.15.3
+    * Rebased to Alpine Linux 3.8
+    * Use of `$NGINX_LOG_FORMAT_OVERRIDE` now prevails use of `$NGINX_LOG_FORMAT_SHOW_REAL_IP`
+    * New env vars `$NGINX_ERROR_PAGE_` to customize 403/404 pages location
+    * Extended list of static files extensions
+    * New env vars `NGINX_STATIC_` to control settings for handling static content
+    * New env var `NGINX_ALLOW_ACCESS_HIDDEN_FILES` to control access to files starting with a dot
+    * Added pseudo-streaming server-side for `.flv`, `.mp4`, `.mov`, `.m4a` files
+    * Env vars `$NGINX_STATIC_MP4_` for mp4 streaming configuration
+    * Updated default values for `open_file_cache` settings
+    * Default expires for static content set to `7d` by default
+    * Bugfix: overriding log format via `$NGINX_LOG_FORMAT_OVERRIDE` produced an error
+* Apache:
+    * Image `wodby/php-apache` has been replaced with `wodby/apache` with `$APACHE_VHOST_PRESET=php`
+    * Env var `$APACHE_SERVER_ROOT` renamed to `$APACHE_DOCUMENT_ROOT` (old name still supported)
+    * MPM modules are now shared and can be changed (event is still the default)    
+* MariaDB: 
+    * MariaDB patch updates: 10.3.9, 10.2.17, 10.1.35
+    * Image rebased to Alpine Linux 3.8
+    * Backup action performance improvement: no intermediate file created
+    * `ionice` no longer used in orchestration actions 
+    * Bugfix: triggers duplicated during db dump
+    * Bugfix: no privileges before import could cause failure
+* Varnish:
+    * Image `wodby/wordpress-varnish` now replaced with `wodby/varnish` and `$VARNISH_CONFIG_PRESET=wordpress`
+    * External purge now always restricted by purge key
+    * Unrestricted purge from the internal network can be optionally enabled (enabled by default)
+    * Cache for mobile devices can now be separated or disabled entirely
+    * Big files (by default >10M) won't be cached by default
+    * Static files cache disabled by default for all presets
+    * All varnish-related headers now start with `X-VC-`, e.g. `X-Varnish-Cache` is now `X-VC-Cache`
+    * Secondary storage can now be defined for all presets
+    * List of static files extensions expanded
+    * Analytics/marketing cookies and query params stripped, configurable
+    * New env vars to optionally preserve all cookies and query params
+    * Query params can be ignored to cache URLs as a single object
+    * Purge method now can be changed to regex and exact (respects query params)
+    * Hashes and trailing ? stripped from URL before passing to a backend
+    * All AJAX requests not cached
+    * Error pages 404 and >500 not cached with a configurable grace period
+    * Env vars changed for presets (old => new), old variant still supported:
+     ```
+      VARNISH_ADMIN_SUBDOMAIN => VARNISH_WP_ADMIN_SUBDOMAIN"
+      ```
+    * Friendly varnish error message by default
+* Memcached returned as cache storage service option
+* OpenSMTPD patch update: 6.0.3
+
 ## 5.1.0
 
 ### Changes

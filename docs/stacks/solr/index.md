@@ -62,6 +62,14 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.0.0
+
+* New Solr versions added: 7.4, 7.3 
+* Dropped versions 6.3, 6.5, 7.0 
+* Config sets and `solr.xml` now symlinked to volume, existing cores won't be affected
+* Core directory get deleted when you delete a core via orchestration actions
+* Bugfix: duplicated `configsets/configsets` directory
+
 ### 1.2.1
 
 * New 7.2 version added

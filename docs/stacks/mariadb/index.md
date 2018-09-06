@@ -58,6 +58,15 @@ docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+### 2.3.0
+
+* MariaDB patch updates: 10.3.9, 10.2.17, 10.1.35
+* Image rebased to Alpine Linux 3.8
+* Backup action performance improvement: no intermediate file created
+* Bugfix: triggers duplicated during db dump
+* Bugfix: no privileges before import could cause failure
+* ionice no longer used in orchestration actions 
+
 ### 2.2.0
 
 * New version 10.3 added (10.3.7)

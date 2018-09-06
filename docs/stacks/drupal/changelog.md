@@ -2,7 +2,95 @@
 
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
 
+## 5.2.0
+
+### Changes since 5.1.0
+
+* Vanilla Drupal core updated to 8.5.6
+* PHP:
+    * Patch updates: 7.2.9, 7.1.21, 7.0.31, 5.6.37
+    * `/var/www/html/vendor/bin` added to `$PATH`
+    * Added [rdkafka](https://pecl.php.net/package/rdkafka) extension
+    * Added `~/.bash_profile` for `wodby` user
+    * SSH key and crontab can now be added via bind mounts
+    * PostgreSQL lib updated to 10.5
+    * Bugfix: Nice shell prompt is missing when connecting via `drush ssh`
+    * Bugfix: PHP 5.6 missed GMP library
+    * Bugfix: drush could not be found when connection via `drush ssh`  
+    * Bugfix: incorrect owner on wodby's `~/.shrc`, `~/.bashrc`
+    * Libraries and extensions versions moved out from env vars
+* Nginx:
+    * Image `wodby/drupal-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with [`$NGINX_VHOST_PRESET=drupal`](https://github.com/wodby/nginx/#virtual-hosts-presets)
+    * Nginx updated to 1.15.3
+    * Nginx image rebased to Alpine Linux 3.8
+    * Use of `$NGINX_LOG_FORMAT_OVERRIDE` now prevails use of `$NGINX_LOG_FORMAT_SHOW_REAL_IP`
+    * Drupal's preset env vars renamed (old names still supported):
+        ```
+        NGINX_STATIC_CONTENT_* => NGINX_STATIC_*
+        NGINX_ALLOW_XML_ENDPOINTS => NGINX_DRUPAL_ALLOW_XML_ENDPOINTS
+        NGINX_XMLRPC_SERVER_NAME => NGINX_DRUPAL_XMLRPC_SERVER_NAME
+        NGINX_DRUPAL_TRACK_UPLOADS => NGINX_TRACK_UPLOADS
+        ```
+    * New env vars `$NGINX_ERROR_PAGE_` to customize 403/404 pages location
+    * Extended list of static files extensions
+    * New env vars `$NGINX_STATIC_` to control settings for handling static content
+    * New env var `$NGINX_ALLOW_ACCESS_HIDDEN_FILES` to control access to files starting with a dot
+    * Added pseudo-streaming server-side for `.flv`, `.mp4`, `.mov`, `.m4a` files
+    * Env vars `$NGINX_STATIC_MP4_` for mp4 streaming configuration
+    * Updated default values for `open_file_cache` settings
+    * Default expires for static content set to `7d` by default
+    * Bugfix: overriding log format via `$NGINX_LOG_FORMAT_OVERRIDE` produced an error
+* Apache:
+    * Image `wodby/php-apache` has been replaced with [`wodby/apache`](https://github.com/wodby/apache) with `$APACHE_VHOST_PRESET=php`
+    * Env var `$APACHE_SERVER_ROOT` renamed to `$APACHE_DOCUMENT_ROOT` (old name still supported)
+    * MPM modules are now shared and can be changed (event is still the default)
+* MariaDB:
+    * MariaDB patch updates: 10.3.9, 10.2.17, 10.1.35
+    * Image rebased to Alpine Linux 3.8
+    * Backup action performance improvement: no intermediate file created
+    * `ionice` no longer used in orchestration actions 
+    * Bugfix: triggers duplicated during db dump
+    * Bugfix: no privileges before import could cause failure
+* Solr:
+    * Image `wodby/drupal-solr` now replaced with `wodby/solr` and `$SOLR_DEFAULT_CONFIG_SET`, see [versions matrix](https://github.com/wodby/solr#drupal-search-api-solr) 
+    * New Solr versions added: 7.4, 7.3 
+    * Dropped versions 6.3, 6.5, 7.0 
+    * Config sets and `solr.xml` now symlinked to volume, existing cores won't be affected
+    * Core directory get deleted when you delete a core via orchestration actions
+    * Bugfix: duplicated `configsets/configsets` directory
+* Varnish:
+    * Image `wodby/drupal-varnish` now replaced with `wodby/varnish` and `$VARNISH_CONFIG_PRESET=drupal`
+    * External purge now always restricted by purge key
+    * Unrestricted purge from the internal network can be optionally enabled (enabled by default)
+    * Cache for mobile devices can now be separated or disabled entirely
+    * Big files (by default >10M) won't be cached by default
+    * Static files cache disabled by default for all presets
+    * All varnish-related headers now start with `X-VC-`, e.g. `X-Varnish-Cache` is now `X-VC-Cache`
+    * Secondary storage can now be defined for all presets
+    * List of static files extensions expanded
+    * Analytics/marketing cookies and query params stripped, configurable
+    * New env vars to optionally preserve all cookies and query params
+    * Query params can be ignored to cache URLs as a single object
+    * Purge method now can be changed to regex and exact (respects query params)
+    * Hashes and trailing ? stripped from URL before passing to a backend
+    * All AJAX requests not cached
+    * Error pages 404 and >500 not cached with a configurable grace period
+    * Env vars changed for presets (old => new), old variant still supported:
+      ```
+       VARNISH_EXCLUDE_URLS => VARNISH_DRUPAL_EXCLUDE_URLS
+       VARNISH_PRESERVED_COOKIES => VARNISH_DRUPAL_PRESERVED_COOKIES
+       ```
+    * Friendly varnish error message by default
+* Memcached:
+    * Memcached returned as cache storage service option for Drupal 8/7
+    * Memcached patch update: 1.5.10
+* OpenSMTPD patch update: 6.0.3
+
 ## 5.1.0
+
+### Upgrade instructions (from 5.0.7)
+
+* Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
 ### Changes
 
@@ -38,10 +126,6 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     * ❗Static files no longer cached unless you set `VARNISH_CACHE_STATIC_FILES` https://github.com/wodby/drupal-varnish/pull/4
     * Added `VARNISH_SECONDARY_STORAGE_CONDITION` to specify the condition when to use secondary storage https://github.com/wodby/drupal-varnish/pull/3
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
-
-### Upgrade instructions
-
-* ❗Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
 ## 5.0.7
 

@@ -1,16 +1,37 @@
 # WordPress stack containers
 
+## Apache
+
+{!stacks/_includes/containers/php-apache.md!}
+
+## Blackfire
+
+{!stacks/_includes/containers/blackfire.md!}
+
+## Crond
+
+{!stacks/_includes/containers/php-crond.md!}
+
+## Mailhog
+
+{!stacks/_includes/containers/mailhog.md!}
+
+## MariaDB
+
+See [MariaDB stack documentation](../mariadb/index.md).
+
+## Memcached
+
+{!stacks/_includes/containers/memcached.md!}
+
 ## Nginx
 
-* Nginx can be configured with the following [environment variables](https://github.com/wodby/wordpress-nginx#environment-variables)
-* Default Nginx [virtual host config](https://github.com/wodby/wordpress-nginx/blob/master/templates/vhost.conf.tpl)
-* Installed [nginx modules](https://github.com/wodby/nginx/blob/master/test/nginx_modules)
+!!! important "New nginx image" 
+    Since WordPress stacks 5.2.0+ nginx image `wodby/wordpress-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with `$NGINX_VHOST_PRESET=wordpress`
+    
+{!stacks/_includes/containers/nginx.md!}
 
-Restarting nginx as default user:
-
-```shell
-sudo nginx -s reload
-```
+Default virtual host preset: [`wordpress`](https://github.com/wodby/nginx/blob/master/templates/presets/wordpress.conf.tmpl)    
 
 !!! warning "Do not gzip pages in WordPress"
     We already gzip content on Nginx side and it works faster. Having double gzip may cause issues.
@@ -35,9 +56,13 @@ If the default wordpress config and available environment variables are not enou
 
 Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disabled by default. To enable it add `NGINX_PAGESPEED=on` environment variable to Nginx service.
 
-## Apache
+## Node.js
 
-{!stacks/_includes/containers/php-apache.md!}
+{!stacks/_includes/containers/node.md!}
+
+## OpenSMTPD
+
+See [OpenSMTPD stack documentation](../opensmtpd/index.md).
 
 ## PHP
 
@@ -81,30 +106,6 @@ if (isset($_SERVER['WODBY_ENVIRONMENT_TYPE']) && $_SERVER['WODBY_ENVIRONMENT_TYP
 }
 ```
 
-## Crond
-
-{!stacks/_includes/containers/php-crond.md!}
-
-## SSHd
-
-{!stacks/_includes/containers/php-sshd.md!}
-
-## Mailhog
-
-{!stacks/_includes/containers/mailhog.md!}
-
-## OpenSMTPD
-
-See [OpenSMTPD stack documentation](../opensmtpd/index.md).
-
-## MariaDB
-
-See [MariaDB stack documentation](../mariadb/index.md).
-
-## Node.js
-
-{!stacks/_includes/containers/node.md!}
-
 ## Redis
 
 You can configure Redis via environment variables that listed at https://github.com/wodby/redis. See [Redis stack](../redis/index.md) for more details.
@@ -114,7 +115,18 @@ Integration:
 1. Install and activate [redis plugin](https://wordpress.org/plugins/redis-cache)
 2. Go to redis plugin settings page and click "enable object cache" button
 
+## Rsyslog
+
+{!stacks/_includes/containers/php-rsyslog.md!}
+
+## SSHd
+
+{!stacks/_includes/containers/php-sshd.md!}
+
 ## Varnish 
+
+!!! important "New varnish image"
+    Since WordPress stacks 5.2.0+ Varnish image `wodby/wordpress-varnish` has been replaced with [`wodby/varnish`](https://github.com/wodby/varnish) and `$VARNISH_CONFIG_PRESET=wordpress`
 
 Integration:
 
@@ -126,14 +138,6 @@ Integration:
 5. Save all plugin settings changes
 
 For more details see [Varnish stack documentation](../varnish/index.md)
-
-## Rsyslog
-
-{!stacks/_includes/containers/php-rsyslog.md!}
-
-## Blackfire
-
-{!stacks/_includes/containers/blackfire.md!}
 
 ## Webgrind
 
