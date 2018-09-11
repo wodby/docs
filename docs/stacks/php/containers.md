@@ -4,6 +4,10 @@
 
 {!stacks/_includes/containers/php-apache.md!}
 
+## AthenaPDF
+
+See [AthenaPDF stack documentation](../athenapdf/index.md).
+
 ## Blackfire
 
 {!stacks/_includes/containers/blackfire.md!}
@@ -12,6 +16,10 @@
 
 {!stacks/_includes/containers/php-crond.md!}
 
+## Elasticsearch
+
+See [Elasticsearch stack documentation](../elasticsearch/index.md).
+
 ## Mailhog
 
 {!stacks/_includes/containers/mailhog.md!}
@@ -19,6 +27,10 @@
 ## MariaDB
 
 See [MariaDB stack documentation](../mariadb/index.md).
+
+## Memcached
+
+{!stacks/_includes/containers/memcached.md!}
 
 ## Nginx
 
@@ -63,6 +75,10 @@ See [OpenSMTPD stack documentation](../opensmtpd/index.md).
 ## PostgreSQL
 
 See [PostgreSQL stack documentation](../postgres/index.md).
+
+## Redis
+
+See [Redis stack documentation](../redis/index.md).
 
 ## Rsyslog
 

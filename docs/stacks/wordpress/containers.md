@@ -4,6 +4,10 @@
 
 {!stacks/_includes/containers/php-apache.md!}
 
+## AthenaPDF
+
+See [AthenaPDF stack documentation](../athenapdf/index.md).
+
 ## Blackfire
 
 {!stacks/_includes/containers/blackfire.md!}
@@ -11,6 +15,10 @@
 ## Crond
 
 {!stacks/_includes/containers/php-crond.md!}
+
+## Elasticsearch
+
+See [Elasticsearch stack documentation](../elasticsearch/index.md).
 
 ## Mailhog
 
@@ -105,6 +113,10 @@ if (isset($_SERVER['WODBY_ENVIRONMENT_TYPE']) && $_SERVER['WODBY_ENVIRONMENT_TYP
     }
 }
 ```
+
+## PostgreSQL
+
+See [PostgreSQL stack documentation](../postgres/index.md).
 
 ## Redis
 

@@ -4,6 +4,10 @@
 
 {!stacks/_includes/containers/php-apache.md!}
 
+## AthenaPDF
+
+See [AthenaPDF stack documentation](../athenapdf/index.md).
+
 ## Blackfire
 
 {!stacks/_includes/containers/blackfire.md!}
@@ -20,6 +24,10 @@ Usage:
 
 1. Install [Node.js Integration Drupal module](https://www.drupal.org/project/nodejs) on your site
 2. Visit the Node.js configuration page under the Configuration menu, and enter the connection information for your Node.js server application. Set host to `node` (or `drupal-node` for local environment) and service key can be found on `[Instance] > Stack > Node.js`
+
+## Elasticsearch
+
+See [Elasticsearch stack documentation](../elasticsearch/index.md).
 
 ## Mailhog
 
@@ -117,6 +125,10 @@ PHP container comes with pre-installed drush and drush launcher. Drush launcher 
 ### Drupal Console
 
 PHP container comes with installed drupal console launcher (not the same as drupal console), the launcher used to be able run drupal console without specified the full path to it. Please note that starting Drupal Console ~1.0 you have to install it manually (via composer) per project.
+
+## PostgreSQL
+
+See [PostgreSQL stack documentation](../postgres/index.md).
 
 ## Redis
 
