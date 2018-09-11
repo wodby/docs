@@ -16,10 +16,6 @@ See [AthenaPDF stack documentation](../athenapdf/index.md).
 
 {!stacks/_includes/containers/php-crond.md!}
 
-## Elasticsearch
-
-See [Elasticsearch stack documentation](../elasticsearch/index.md).
-
 ## Mailhog
 
 {!stacks/_includes/containers/mailhog.md!}

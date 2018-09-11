@@ -16,10 +16,6 @@ See [AthenaPDF stack documentation](../athenapdf/index.md).
 
 {!stacks/_includes/containers/php-crond.md!}
 
-## Elasticsearch
-
-See [Elasticsearch stack documentation](../elasticsearch/index.md).
-
 ## Mailhog
 
 {!stacks/_includes/containers/mailhog.md!}
@@ -84,13 +80,13 @@ See [Redis stack documentation](../redis/index.md).
 
 {!stacks/_includes/containers/php-rsyslog.md!}
 
-## Solr 
-
-See [Solr stack documentation](../solr/index.md).
-
 ## SSHd
 
 {!stacks/_includes/containers/php-sshd.md!}
+
+## Varnish
+
+See [Varnish stack documentation](../varnish/index.md).
 
 ## Webgrind
 
