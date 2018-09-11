@@ -130,7 +130,11 @@ When you deploy a new Drupal application you can optionally specify `Site direct
 
 ### settings.php
 
-Wodby automatically adds the include of `wodby.settings.php` to [default site's](#default-site) `settings.php`. The `wodby.settings.php` file contains configuration settings for integration with Wodby services such as Database, Cache storage and Reverse Caching Proxy. You can override settings from this file in your `sites/*/settings.php` file after the include of `wodby.settings.php`. If your `settings.php` file already has the line with `wodby.settings.php` include the include will not be added again. Do not edit `wodby.settings.php`, all changes to this file will be reset with the next deployment.
+`wodby.settings.php` file contains configuration settings for integration with Wodby services such as Database connection, Cache storage and Reverse Caching Proxy settings. You can override settings from this file in your `sites/*/settings.php` file after the include of `wodby.settings.php`.  
+
+Wodby automatically adds the include of `wodby.settings.php` to [default site's](#default-site) `settings.php` with every deployment if there's no occurrences of `wodby.settings.php` in your settings file, otherwise we assume you've already added the include manually. 
+
+Do not edit `wodby.settings.php`, all changes to this file will be reset with the next deployment.
 
 ### sites.php
 

@@ -90,11 +90,13 @@ chmod 664 -R YOUR_DIR
 
 ### wp-config.php
 
-Wodby automatically adds include of `wodby.wp-config.php` to `wp-config.php` file in WP root. If the file does not exist Wodby will create it automatically.
+The `wodby.wp-config.php` file contains configuration settings for integration with Wodby services such as Database connection, Cache storage and Reverse Caching Proxy settings. You can override settings specified in `wodby.wp-config.php` in your `wp-config.php` file after the include.
+
+Wodby automatically adds include of `wodby.wp-config.php` to `wp-config.php` file in WP root with every deployment if there's no occurrences of `wodby.wp-config.php` in your config file, otherwise we assume you've already added the include manually. If `wp-config.php` file does not exist Wodby will create it automatically.
 
 Do not edit `wodby.wp-config.php`, all changes to this file will be reset.
 
-The `wodby.wp-config.php` file contains configuration settings for integration with Wodby services such as Database, Cache storage and Reverse Caching Proxy. You can override settings specified in `wodby.wp-config.php` in your `wp-config.php` file after the include.
+Use environment variable `$WP_TABLE_PREFIX` to override your table prefix (`$table_prefix`).
 
 ### Files
 
