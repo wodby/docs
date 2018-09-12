@@ -2,6 +2,10 @@
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
+### 5.2.3
+
+Nginx: `$NGINX_ERROR_PAGE_40x` replaced to `$NGINX_ERROR_40x_URI`
+
 ## 5.2.2
 
 * PHP extension XHProf (tideways) updated to 5.0-beta2

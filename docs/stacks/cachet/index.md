@@ -34,6 +34,10 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 1.1.4
+
+Minor Nginx fixes
+
 ### 1.1.3
 
 * Rebased Cachet to the latest PHP version

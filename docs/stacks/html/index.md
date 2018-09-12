@@ -27,6 +27,10 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.3
+
+Nginx: `$NGINX_ERROR_PAGE_40x` replaced to `$NGINX_ERROR_40x_URI`
+
 ### 0.2.2
 
 * Nginx no longer hides 50x errors by default, can be enabled via `$NGINX_HIDE_50x_ERRORS`

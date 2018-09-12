@@ -2,6 +2,10 @@
 
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
 
+### 5.2.3
+
+Nginx: `$NGINX_ERROR_PAGE_40x` replaced to `$NGINX_ERROR_40x_URI`
+
 ## 5.2.2
 
 * Vanilla Drupal updated to 8.6.1
