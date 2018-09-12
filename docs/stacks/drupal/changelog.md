@@ -4,7 +4,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ### 5.2.3
 
-Nginx: `$NGINX_ERROR_PAGE_40x` replaced to `$NGINX_ERROR_40x_URI`
+Minor Nginx fixes
 
 ## 5.2.2
 
@@ -12,7 +12,6 @@ Nginx: `$NGINX_ERROR_PAGE_40x` replaced to `$NGINX_ERROR_40x_URI`
 * PHP extension XHProf (tideways) updated to 5.0-beta2
 * Nginx:
     * Nginx no longer hides 50x errors by default on non-prod instances
-    * Bugfix: env vars `$NGINX_ERROR_PAGE_*` had no effect
     * Setting `$NGINX_VHOST_PRESET` to empty value now disables usage of any presets
     * New `$NGINX_VHOST_NO_DEFAULTS` to disable default rules for virtual host
     * New default 50x error page, new `$NGINX_ERROR_MESSAGE_50x` to add a message on this page
