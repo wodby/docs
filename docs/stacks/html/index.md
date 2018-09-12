@@ -27,6 +27,14 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.2
+
+* Nginx no longer hides 50x errors by default, can be enabled via `$NGINX_HIDE_50x_ERRORS`
+* Bugfix: env vars `$NGINX_ERROR_PAGE_*` had no effect
+* Setting `$NGINX_VHOST_PRESET` to empty value now disables usage of any presets
+* New `$NGINX_VHOST_NO_DEFAULTS` to disable default rules for virtual host
+* New default 50x error page, new `$NGINX_ERROR_MESSAGE_50x` to add a message on this page
+
 ### 0.2.1
 
 Do not add trailing slashes for non-directory requests

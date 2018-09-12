@@ -40,7 +40,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
-### 1.3.0
+### 2.0.1
+
+Solr patch update: 6.6.5
+
+### 2.0.0
 
 * Image `wodby/drupal-solr` now replaced with `wodby/solr` and `$SOLR_DEFAULT_CONFIG_SET`, see [versions matrix](https://github.com/wodby/solr#drupal-search-api-solr) 
 * New Solr versions added: 7.4, 7.3 

@@ -47,6 +47,10 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 1.3.1
+
+Bugfix: flush action from dashboard failed
+
 ### 1.3.0
 
 * Default config without a preset now also caches (see [default behavior](https://github.com/wodby/varnish#default-behaviour))

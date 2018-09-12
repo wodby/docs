@@ -70,6 +70,10 @@ docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+### 2.3.1
+
+MariaDB patch update: 10.1.36
+
 ### 2.3.0
 
 * MariaDB patch updates: 10.3.9, 10.2.17, 10.1.35

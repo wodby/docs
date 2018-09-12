@@ -2,6 +2,21 @@
 
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
 
+## 5.2.2
+
+* Vanilla Drupal updated to 8.6.1
+* PHP extension XHProf (tideways) updated to 5.0-beta2
+* Nginx:
+    * Nginx no longer hides 50x errors by default on non-prod instances
+    * Bugfix: env vars `$NGINX_ERROR_PAGE_*` had no effect
+    * Setting `$NGINX_VHOST_PRESET` to empty value now disables usage of any presets
+    * New `$NGINX_VHOST_NO_DEFAULTS` to disable default rules for virtual host
+    * New default 50x error page, new `$NGINX_ERROR_MESSAGE_50x` to add a message on this page
+* MariaDB patch update: 10.1.36
+* Solr patch update: 6.6.5
+* Varnish bugfix: flush action from dashboard failed
+* Adminer and Webgrind rebased to the latest stable php image
+
 ## 5.2.1
 
 Do not add trailing slashes for non-directory requests
