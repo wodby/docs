@@ -6,6 +6,31 @@ PostgreSQL can be configured with the following [environment variables](https://
 
 if you want to import your database, uncomment the line for `postgres-init` volume in your compose file. Create the volume directory `./postgres-init` in the same directory as the compose file and put there your `.sql .sql.gz .sh` file(s). All SQL files will be automatically imported once Postgres container has started.
 
+## External access
+
+### Publish port
+
+You can publish PostgreSQL's port (5432) from [stack configuration page](../../stacks/config.md#ports) and connect as:
+
+```shell
+$ psql -h [IP] -p [PORT] -U [USER] -W [PASSWORD] [DATABASE]
+```
+
+For `[IP]` use the IP of the server where PostgreSQL stack deployed or use a technical host `node-[SERVER UUID].wod.by`.
+
+### Set up tunnel
+
+If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD container, you can set up a secure tunnel:
+
+1. Set up an SSH tunnel on port `55432` (you can change it). You can find `[SSH Port]` on `Instance > Stack > SSH` page. For MariaDB (port `5432` by default) use the following command:    
+    ```shell
+    $ ssh -L 55432:mariadb:5432 -p [SSH Port] wodby@[Server IP] -N
+    ```
+2. Connect to the database via the tunnel on port `5432` (replace `[tokens]`):
+    ```shell
+    $ psql -p 53306 -U [USER] -W [PASSWORD] [DATABASE]
+    ```
+
 ## Changelog
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).

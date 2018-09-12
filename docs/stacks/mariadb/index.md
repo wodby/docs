@@ -25,7 +25,19 @@ Source: by RolandoMySQLDBA from the [answer on dba stackexchange](https://dba.st
 
 ## External access
 
-If you want to access the database outside of the Wodby infrastructure you will have to use SSH tunnel via the main container:
+### Publish port
+
+You can publish MariaDB's port (3306) from [stack configuration page](../../stacks/config.md#ports) and connect as:
+
+```shell
+$ mysql -h=[IP] -P[PORT] -u[USER] -p[PASSWORD] [DATABASE]
+```
+
+For `[IP]` use the IP of the server where PostgreSQL stack deployed or use a technical host `node-[SERVER UUID].wod.by`.
+
+### Set up tunnel
+
+If you deploy MariaDB as a service inside of a stack that comes with an SSHD container, you can set up a secure tunnel:
 
 1. Set up SSH tunnel on port `53306` (you can change it). You can find `[SSH Port]` on `Instance > Stack > SSH` page. For MariaDB (port `3306` by default) use the following command:    
     ```shell
