@@ -37,7 +37,7 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Node.js
 
-{!stacks/_includes/containers/node.md!}
+{!containers/node.md!}
 
 ## Solr 
 
@@ -49,7 +49,7 @@ See [Elasticsearch stack documentation](../elasticsearch/index.md).
 
 ## Mailhog
 
-{!stacks/_includes/containers/mailhog.md!}
+{!containers/mailhog.md!}
 
 ## OpenSMTPD
 

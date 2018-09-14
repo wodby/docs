@@ -9,7 +9,7 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 
 ## Usage
 
-{!stacks/_includes/local/db-data-persistence.md!}
+{!local/db-data-persistence.md!}
 
 1. Download `docker4php.tar.gz` from the [latest stable release](https://github.com/wodby/docker4php/releases) and unpack to your PHP project root
 2. Make sure `NGINX_SERVER_ROOT` (or `APACHE_SERVER_ROOT`) is set to your project public directory with `index.php` (by default `/var/www/html/public`)  
@@ -54,20 +54,20 @@ Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers li
 
 ## Database import and export
 
-{!stacks/_includes/local/db-import-export.md!}
+{!local/db-import-export.md!}
 
 ## Make commands
 
-{!stacks/_includes/local/php-make-commands.md!}
+{!local/php-make-commands.md!}
 
 ## Docker for mac
 
-{!stacks/_includes/local/docker-for-mac.md!}
+{!local/docker-for-mac.md!}
 
 ## Permissions issues
 
-{!stacks/_includes/local/php-permissions.md!}
+{!local/php-permissions.md!}
 
 ## Running multiple Projects
 
-{!stacks/_includes/local/php-multiple-projects.md!}
+{!local/php-multiple-projects.md!}

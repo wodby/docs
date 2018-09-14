@@ -9,7 +9,7 @@ Docker4Drupal is an open-source project ([GitHub page](https://github.com/wodby/
 
 ## Usage
 
-{!stacks/_includes/local/db-data-persistence.md!}
+{!local/db-data-persistence.md!}
 
 There are 2 options how to use docker4drupal – you can either run [vanilla](https://en.wikipedia.org/wiki/Vanilla_software) Drupal from the image or mount your own Drupal codebase:
 
@@ -80,13 +80,13 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 
 ## Database import and export
 
-{!stacks/_includes/local/db-import-export.md!}
+{!local/db-import-export.md!}
 
 ## Make commands
 
 Basic:
 
-{!stacks/_includes/local/php-make-commands.md!}
+{!local/php-make-commands.md!}
 
 Drupal-specific:
 
@@ -96,12 +96,12 @@ make drush [command] Execute drush command (runs with -r /var/www/html/web, you 
 
 ## Docker for mac
 
-{!stacks/_includes/local/docker-for-mac.md!}
+{!local/docker-for-mac.md!}
 
 ## Permissions issues
 
-{!stacks/_includes/local/php-permissions.md!}
+{!local/php-permissions.md!}
 
 ## Running multiple Projects
 
-{!stacks/_includes/local/php-multiple-projects.md!}
+{!local/php-multiple-projects.md!}

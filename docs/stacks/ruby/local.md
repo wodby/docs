@@ -9,7 +9,7 @@ Docker4Ruby is an open-source project ([GitHub page](https://github.com/wodby/do
 
 ## Usage
 
-{!stacks/_includes/local/db-data-persistence.md!}
+{!local/db-data-persistence.md!}
 
 1. Download `docker4ruby.tar.gz` from the [latest stable release](https://github.com/wodby/docker4ruby/releases) and unpack to your Ruby project root
 2. Ensure database credentials match in your database config and `.env` files, see example for Ruby on Rails below
@@ -65,20 +65,20 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 
 ## Database import and export
 
-{!stacks/_includes/local/db-import-export.md!}
+{!local/db-import-export.md!}
 
 ## Make commands
 
-{!stacks/_includes/local/ruby-make-commands.md!}
+{!local/ruby-make-commands.md!}
 
 ## Docker for mac
 
-{!stacks/_includes/local/docker-for-mac.md!}
+{!local/docker-for-mac.md!}
 
 ## Permissions issues
 
-{!stacks/_includes/local/ruby-permissions.md!}
+{!local/ruby-permissions.md!}
 
 ## Running multiple Projects
 
-{!stacks/_includes/local/ruby-multiple-projects.md!}
+{!local/ruby-multiple-projects.md!}

@@ -2,7 +2,7 @@
 
 ## Apache
 
-{!stacks/_includes/containers/php-apache.md!}
+{!containers/php-apache.md!}
 
 ## AthenaPDF
 
@@ -10,15 +10,15 @@ See [AthenaPDF stack documentation](../athenapdf/index.md).
 
 ## Blackfire
 
-{!stacks/_includes/containers/blackfire.md!}
+{!containers/blackfire.md!}
 
 ## Crond
 
-{!stacks/_includes/containers/php-crond.md!}
+{!containers/php-crond.md!}
 
 ## Mailhog
 
-{!stacks/_includes/containers/mailhog.md!}
+{!containers/mailhog.md!}
 
 ## MariaDB
 
@@ -26,7 +26,7 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Memcached
 
-{!stacks/_includes/containers/memcached.md!}
+{!containers/memcached.md!}
 
 ## Nginx
 
@@ -57,7 +57,7 @@ Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disable
 
 ## Node.js
 
-{!stacks/_includes/containers/node.md!}
+{!containers/node.md!}
 
 ## OpenSMTPD
 
@@ -65,8 +65,8 @@ See [OpenSMTPD stack documentation](../opensmtpd/index.md).
 
 ## PHP
 
-{!stacks/_includes/containers/php.md!}
-{!stacks/_includes/containers/php-dev.md!}
+{!containers/php.md!}
+{!containers/php-dev.md!}
 
 ## PostgreSQL
 
@@ -78,11 +78,11 @@ See [Redis stack documentation](../redis/index.md).
 
 ## Rsyslog
 
-{!stacks/_includes/containers/php-rsyslog.md!}
+{!containers/php-rsyslog.md!}
 
 ## SSHd
 
-{!stacks/_includes/containers/php-sshd.md!}
+{!containers/php-sshd.md!}
 
 ## Varnish
 
@@ -90,4 +90,4 @@ See [Varnish stack documentation](../varnish/index.md).
 
 ## Webgrind
 
-{!stacks/_includes/containers/webgrind.md!}
+{!containers/webgrind.md!}

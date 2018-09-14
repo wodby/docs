@@ -34,7 +34,7 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
 
 ### CI/CD
 
-{!stacks/_includes/php-cicd.md!}
+{!php-cicd.md!}
 
 ## Drush
 
@@ -158,7 +158,7 @@ The domain marked with primary flag will be used as a `$base_url` in [`settings.
 
 ## Mail delivery
 
-{!stacks/_includes/email-delivery.md!}
+{!email-delivery.md!}
 
 ## Cron
 

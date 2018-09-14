@@ -2,7 +2,7 @@
 
 ## Apache
 
-{!stacks/_includes/containers/php-apache.md!}
+{!containers/php-apache.md!}
 
 ## AthenaPDF
 
@@ -10,15 +10,15 @@ See [AthenaPDF stack documentation](../athenapdf/index.md).
 
 ## Blackfire
 
-{!stacks/_includes/containers/blackfire.md!}
+{!containers/blackfire.md!}
 
 ## Crond
 
-{!stacks/_includes/containers/php-crond.md!}
+{!containers/php-crond.md!}
 
 ## Mailhog
 
-{!stacks/_includes/containers/mailhog.md!}
+{!containers/mailhog.md!}
 
 ## MariaDB
 
@@ -26,14 +26,14 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Memcached
 
-{!stacks/_includes/containers/memcached.md!}
+{!containers/memcached.md!}
 
 ## Nginx
 
 !!! important "New Nginx image" 
     Since WordPress stacks 5.2.0+ nginx image `wodby/wordpress-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with `$NGINX_VHOST_PRESET=wordpress`
     
-{!stacks/_includes/containers/nginx.md!}
+{!containers/nginx.md!}
 
 Default virtual host preset: [`wordpress`](https://github.com/wodby/nginx/blob/master/templates/presets/wordpress.conf.tmpl)    
 
@@ -62,7 +62,7 @@ Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disable
 
 ## Node.js
 
-{!stacks/_includes/containers/node.md!}
+{!containers/node.md!}
 
 ## OpenSMTPD
 
@@ -70,8 +70,8 @@ See [OpenSMTPD stack documentation](../opensmtpd/index.md).
 
 ## PHP
 
-{!stacks/_includes/containers/php.md!}
-{!stacks/_includes/containers/php-dev.md!}
+{!containers/php.md!}
+{!containers/php-dev.md!}
 
 ### WP CLI
 
@@ -125,11 +125,11 @@ Integration:
 
 ## Rsyslog
 
-{!stacks/_includes/containers/php-rsyslog.md!}
+{!containers/php-rsyslog.md!}
 
 ## SSHd
 
-{!stacks/_includes/containers/php-sshd.md!}
+{!containers/php-sshd.md!}
 
 ## Varnish 
 
@@ -149,4 +149,4 @@ For more details see [Varnish stack documentation](../varnish/index.md)
 
 ## Webgrind
 
-{!stacks/_includes/containers/webgrind.md!}
+{!containers/webgrind.md!}

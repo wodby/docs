@@ -15,11 +15,11 @@ The following services are CI services that will be built by default:
 
 ### Nginx
 
-{!stacks/_includes/containers/nginx.md!}
+{!containers/nginx.md!}
 
 ### Apache
 
-{!stacks/_includes/containers/apache.md!}
+{!containers/apache.md!}
 
 See [details](https://github.com/wodby/apache#html) about virtual host preset.
 

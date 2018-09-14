@@ -2,7 +2,7 @@
 
 ## Apache
 
-{!stacks/_includes/containers/php-apache.md!}
+{!containers/php-apache.md!}
 
 ## AthenaPDF
 
@@ -10,11 +10,11 @@ See [AthenaPDF stack documentation](../athenapdf/index.md).
 
 ## Blackfire
 
-{!stacks/_includes/containers/blackfire.md!}
+{!containers/blackfire.md!}
 
 ## Crond
 
-{!stacks/_includes/containers/php-crond.md!}
+{!containers/php-crond.md!}
 
 ## Drupal Node.js
 
@@ -27,7 +27,7 @@ Usage:
 
 ## Mailhog
 
-{!stacks/_includes/containers/mailhog.md!}
+{!containers/mailhog.md!}
 
 ## MariaDB
 
@@ -35,14 +35,14 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Memcached
 
-{!stacks/_includes/containers/memcached.md!}
+{!containers/memcached.md!}
 
 ## Nginx
 
 !!! important "New Nginx image" 
     Since Drupal stacks 5.2.0+ nginx image `wodby/drupal-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with `$NGINX_VHOST_PRESET=drupalX`
     
-{!stacks/_includes/containers/nginx.md!}
+{!containers/nginx.md!}
 
 See [details](https://github.com/wodby/nginx#drupal) about virtual host preset.
 
@@ -86,7 +86,7 @@ Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disable
 
 ## Node.js
 
-{!stacks/_includes/containers/node.md!}
+{!containers/node.md!}
 
 ## OpenSMTPD
 
@@ -94,7 +94,7 @@ See [OpenSMTPD stack documentation](../opensmtpd/index.md).
 
 ## PHP
 
-{!stacks/_includes/containers/php.md!}
+{!containers/php.md!}
 
 !!! info "SSH and Cron containers"
     For Wodby environments we additionally spin up copies of PHP services with overridden commands to run cron and ssh daemons. All environment variables added to PHP-FPM service will be automatically passed to [SSHd](#sshd) and [Crond](#crond) services.
@@ -106,7 +106,7 @@ Additionally, variable `$DRUPAL_SITE` (previous deprecated name `$WODBY_APP_SUBS
 !!! warning "WARNING" 
     Some environment variables used by PHP may be overridden in [`wodby.settings.php`](index.md#drupal-settings) file
     
-{!stacks/_includes/containers/php-dev.md!}
+{!containers/php-dev.md!}
 
 ### PHPUnit
 
@@ -203,7 +203,7 @@ See [Solr for Drupal stack documentation](../solr-drupal/index.md).
 
 ## SSHd
 
-{!stacks/_includes/containers/php-sshd.md!}
+{!containers/php-sshd.md!}
 
 ## Varnish
 
@@ -231,4 +231,4 @@ For more details see [Varnish stack documentation](../varnish/index.md)
 
 ## Webgrind
 
-{!stacks/_includes/containers/webgrind.md!}
+{!containers/webgrind.md!}

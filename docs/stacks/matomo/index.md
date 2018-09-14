@@ -37,7 +37,7 @@ database = 14
 
 Go to `Settings > System > General settings > Email server settings` in your Matomo instance. Specify `opensmtpd` as server address and `25` as port. For more details how to configure guaranteed email delivery see [OpenSMTPD stack documentation](../opensmtpd/index.md)
 
-{!stacks/_includes/email-delivery-warning.md!}
+{!email-delivery-warning.md!}
 
 ## Cron
 
@@ -51,17 +51,17 @@ By default we run the following cron command from [crond container](#crond) ever
 
 ### PHP
 
-{!stacks/_includes/containers/php.md!}
+{!containers/php.md!}
 
 ### Crond
 
-{!stacks/_includes/containers/php-crond.md!}
+{!containers/php-crond.md!}
 
 `$WODBY_HOST_PRIMARY` is a domain marked as primary. 
 
 ### SSHd
 
-{!stacks/_includes/containers/php-sshd.md!}
+{!containers/php-sshd.md!}
 
 ### [OpenSMTPD](../opensmtpd/index.md)
 

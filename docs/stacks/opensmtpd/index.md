@@ -1,6 +1,6 @@
 # OpenSMTPD stack documentation
 
-{!stacks/_includes/email-delivery-warning.md!}
+{!email-delivery-warning.md!}
 
 OpenSMTPD can be configured with the following [environment variables](https://github.com/wodby/opensmtpd#environment-variables)
 

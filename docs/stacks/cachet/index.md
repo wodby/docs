@@ -4,7 +4,7 @@ Cachet can be configured with the following [environment variables](https://gith
 
 ## Mail delivery
 
-{!stacks/_includes/email-delivery-warning.md!}
+{!email-delivery-warning.md!}
 
 ## Cron
 
@@ -18,11 +18,11 @@ By default we run the following cron command from [crond container](#crond) ever
 
 ### PHP
 
-{!stacks/_includes/containers/php.md!}
+{!containers/php.md!}
 
 ### Crond
 
-{!stacks/_includes/containers/php-crond.md!}
+{!containers/php-crond.md!}
 
 ### [OpenSMTPD](../opensmtpd/index.md)
 

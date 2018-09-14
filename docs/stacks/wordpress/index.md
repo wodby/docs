@@ -28,7 +28,7 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
 
 ### CI/CD
 
-{!stacks/_includes/php-cicd.md!}
+{!php-cicd.md!}
 
 ## Import
 
@@ -108,7 +108,7 @@ The domain marked with primary flag will be used as a `WP_HOME` and `WP_SITEURL`
 
 ## Mail delivery
 
-{!stacks/_includes/email-delivery.md!}
+{!email-delivery.md!}
 
 ## Cron
 
