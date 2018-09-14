@@ -15,7 +15,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 ### 5.2.3
 
 * Nginx:
-    * New 50x error, you can now use `$NGINX_ERROR_MESSAGE_50x` to add a custom message on 50x error page
+    * New 50x error page, use `$NGINX_ERROR_MESSAGE_50x` to add a custom message
     * Env vars `$NGINX_ERROR_PAGE_40x` replaced to `$NGINX_ERROR_40x_URI`
 
 ## 5.2.2
