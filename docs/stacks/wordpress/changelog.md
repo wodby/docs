@@ -2,6 +2,15 @@
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
+### 5.2.4
+
+* PHP security updates: 7.2.10, 7.1.22, 7.0.32, 5.6.38
+* Added `$PHP_PHAR_` env vars for Phar runtime configuration
+* Updated PHP extensions:
+    * patch: apcu 5.1.12, ds 1.2.6, igbinary 2.0.7, xdebug 2.6.0
+    * minor: mongodb 1.5.2, grpc 1.15.0
+    * major: redis 4.1.1
+
 ### 5.2.3
 
 Minor Nginx fixes
