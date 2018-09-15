@@ -11,7 +11,7 @@ Use the following credentials during the initial setup on the Database Setup ste
 
 ## Redis integration
 
-You can use redis to store Matomo cachet (by default stored in the local filesystem):
+You can use redis to store Matomo cache (by default stored in the local filesystem):
 
 * Enable redis service in your application stack from `[Instance] > Stack` page
 * Copy your instance UUID from `[Instance] > Settings` page
@@ -72,6 +72,10 @@ By default we run the following cron command from [crond container](#crond) ever
 ## Changelog
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
+
+### 0.4.5
+
+Matomo rebased to the latest stable PHP version 
 
 ### 0.4.4
 

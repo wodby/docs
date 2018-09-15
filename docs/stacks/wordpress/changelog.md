@@ -2,6 +2,13 @@
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
+### 5.2.5
+
+* PHP:
+    * Libraries update: ImageMagick 7.0.8.11, FreeType 2.9.1
+    * OpenMP disabled in ImageMagick due to stability issues
+    * Xhprof (tideways) extension could not be enabled 
+
 ### 5.2.4
 
 * PHP 
