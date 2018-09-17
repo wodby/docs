@@ -1,5 +1,25 @@
 # Ruby stack containers
 
+## AthenaPDF
+
+See [AthenaPDF stack documentation](../athenapdf/index.md).
+
+## Mailhog
+
+{!containers/mailhog.md!}
+
+## MariaDB
+
+See [MariaDB stack documentation](../mariadb/index.md).
+
+## Memcached
+
+{!containers/memcached.md!}
+
+## Node.js
+
+{!containers/node.md!}
+
 ## Nginx
 
 * Nginx can be configured with the following [environment variables](https://github.com/wodby/nginx#environment-variables)
@@ -19,6 +39,22 @@ sudo nginx -s reload
 
 Nginx comes with [mod_pagespeed](https://www.modpagespeed.com/) which is disabled by default. To enable it add `NGINX_PAGESPEED=on` environment variable to Nginx service.
 
+## OpenSMTPD
+
+See [OpenSMTPD stack documentation](../opensmtpd/index.md).
+
+## PostgreSQL
+
+See [PostgreSQL stack documentation](../postgres/index.md).
+
+## Redis
+
+See [Redis stack documentation](../redis/index.md).
+
+## Rsyslog
+
+Rsyslog can be used to stream your applications logs. It's similar to using syslog, however there's no syslog in Ruby container (one process per container). Rsyslog will stream all incoming logs to a container output.
+
 ## Ruby
 
 Ruby can be configured with the following [environment variables](https://github.com/wodby/ruby#environment-variables). By default the container starts Puma HTTP server.
@@ -27,30 +63,6 @@ Ruby can be configured with the following [environment variables](https://github
 
 A duplicate of the main Ruby container runs with Sidekiq (instead of HTTP server). 
 
-## PostgreSQL
+## Varnish
 
-See [PostgreSQL stack documentation](../postgres/index.md).
-
-## MariaDB
-
-See [MariaDB stack documentation](../mariadb/index.md).
-
-## Node.js
-
-{!containers/node.md!}
-
-## Solr 
-
-See [Solr stack documentation](../solr/index.md).
-
-## Elasticsearch and Kibana 
-
-See [Elasticsearch stack documentation](../elasticsearch/index.md).
-
-## Mailhog
-
-{!containers/mailhog.md!}
-
-## OpenSMTPD
-
-See [OpenSMTPD stack documentation](../opensmtpd/index.md).
+See [Varnish stack documentation](../varnish/index.md).
