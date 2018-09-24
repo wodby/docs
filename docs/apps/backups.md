@@ -2,6 +2,9 @@
 
 Some stacks provide backups orchestration for services such as database. You can run backups manually for applications based on such stacks from the dashboard. Backups of an application instance will be stored on the same server where the instance is deployed.
 
+!!! question "How running backups affect my apps performance?"
+    We limit all backup and mirroring tasks by CPU and RAM to minimize the impact on your applications performance. Auto-backups run successively within a server. 
+
 ## Auto backups
 
 You can enable auto backups for your applications by specifying backup depth (backups older than this # of days will be cleaned up automatically) and time in UTC when to start the backup process.
