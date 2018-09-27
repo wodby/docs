@@ -2,13 +2,10 @@
 
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
 
-Upgrade instructions and changes are relative to the previous version.
+!!! caution "Changes between your version and the latest"
+    Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.
 
 ## 5.3.0
-
-### Upgrade instructions 
-
-* Switch your application's PHP service implementation from 7.0 to 7.1
 
 ### Changes 
 
@@ -35,6 +32,10 @@ Upgrade instructions and changes are relative to the previous version.
     * Default response headers max length doubled to `16k`
 * Nginx patch update: 1.15.4
 * Webgrind image updated to the latest stable PHP image
+
+### Upgrade instructions 
+
+* Switch your application's PHP service implementation from 7.0 to 7.1
 
 ## 5.2.5
 
@@ -78,11 +79,6 @@ Upgrade instructions and changes are relative to the previous version.
 Do not add trailing slashes for non-directory requests
 
 ## 5.2.0
-
-### Upgrade instructions
-
-* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
-* If you used somewhere Varnish's header `X-Varnish-Cache`, update it to `X-VC-Cache`
 
 ### Changes 
 
@@ -166,11 +162,12 @@ Do not add trailing slashes for non-directory requests
     * Memcached patch update: 1.5.10
 * OpenSMTPD patch update: 6.0.3
 
-## 5.1.0
-
 ### Upgrade instructions
 
-* Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
+* If you used somewhere Varnish's header `X-Varnish-Cache`, update it to `X-VC-Cache`
+
+## 5.1.0
 
 ### Changes
 
@@ -206,6 +203,10 @@ Do not add trailing slashes for non-directory requests
     * ❗Static files no longer cached unless you set `VARNISH_CACHE_STATIC_FILES` https://github.com/wodby/drupal-varnish/pull/4
     * Added `VARNISH_SECONDARY_STORAGE_CONDITION` to specify the condition when to use secondary storage https://github.com/wodby/drupal-varnish/pull/3
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
+
+### Upgrade instructions
+
+* Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
 ## 5.0.7
 
@@ -271,7 +272,7 @@ Do not add trailing slashes for non-directory requests
 
 ## 5.0.0
 
-### Changes since 4.4.1
+### Changes
 
 * All containers now have [resources request](../config.md#resources) as listed [here in Resources column](https://wodby.com/stacks/drupal/docs/containers/), in addition, crond has CPU limit
 * PHP:
