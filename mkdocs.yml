@@ -63,12 +63,13 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Billing: billing.md
-  - Development: dev.md
   - FAQ: faq.md
   - Status: status.md
   - Support: support.md
   - Troubleshooting: troubleshooting.md
   - User roles: roles.md
+  - Development: dev.md
+  - Docker4X: docker4x.md
   - Apps:
     - New app: apps/new.md
     - Instances: apps/instances.md

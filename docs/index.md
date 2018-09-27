@@ -13,10 +13,3 @@ How to:
 * [Deploy your first app](apps/deploy.md)
 * [Connect your server](infrastructure/connecting-server.md)
 * [Deploy code and CI/CD setup](apps/deploy.md)
-
-Open-source projects for local development:
-
-* [Docker4Drupal](stacks/drupal/local.md)
-* [Docker4WordPress](stacks/wordpress/local.md)
-* [Docker4PHP](stacks/php/local.md)
-* [Docker4Ruby](stacks/ruby/local.md)
