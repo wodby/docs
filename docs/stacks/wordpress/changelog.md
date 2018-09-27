@@ -7,10 +7,6 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 5.3.0
 
-### Upgrade instructions
-
-* Switch your application's PHP service implementation from 7.0 to 7.1
-
 ### Changes
 
 * PHP:
@@ -35,9 +31,9 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 * Varnish: `has_js` cookie no longer stripped
 * Webgrind image updated to the latest stable PHP image
 
-## Update instructions
+### Upgrade instructions
 
-Update your `.env` and `docker-compose.yml` files
+* Switch your application's PHP service implementation from 7.0 to 7.1
 
 ## 5.2.5
 
@@ -80,10 +76,6 @@ Update your `.env` and `docker-compose.yml` files
 Do not add trailing slashes for non-directory requests
 
 ## 5.2.0
-
-### Upgrade instructions
-
-* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
 
 ### Changes
 
@@ -149,6 +141,10 @@ Do not add trailing slashes for non-directory requests
     * Friendly varnish error message by default
 * Memcached returned as cache storage service option
 * OpenSMTPD patch update: 6.0.3
+
+### Upgrade instructions
+
+* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
 
 ## 5.1.0
 
