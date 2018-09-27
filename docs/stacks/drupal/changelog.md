@@ -286,7 +286,7 @@ Do not add trailing slashes for non-directory requests
     * New php extensions added: newrelic, grpc, ds
     * Global drush updated to 9.x for PHP 7.x
     * Drush launcher updated to 0.5.1
-    * Deprecated environment variables dropped (listed in [4.4.0 changes](#4-4-0))
+    * Deprecated environment variables dropped (listed in [4.4.0 changes](#440))
     * Added postgresql client bins (pg_dump, pg_restore, ...)
     * Added redis-cli
     * Updated php extensions: amqp 1.9.3, redis 3.1.6, mongodb 1.4.0, apcu 5.1.10
@@ -323,7 +323,7 @@ Do not add trailing slashes for non-directory requests
 
 ### Upgrade instructions
 
-* Make sure you don't use any of deprecated environment variables in PHP (listed in [4.4.0 changes](#4-4-0)) and Varnish (listed above) otherwise update their names
+* Make sure you don't use any of deprecated environment variables in PHP (listed in [4.4.0 changes](#440)) and Varnish (listed above) otherwise update their names
 * If you used `WODBY_DIR_FILES` in your code replace it with `FILES_DIR`
 * Make sure the default cron container 512M RAM limit is enough for your cron jobs, otherwise increase it manually from service configuration page
 
@@ -448,7 +448,7 @@ Do not add trailing slashes for non-directory requests
 
 * PHP updated to 7.1.9, 7.0.23
 * PHPUnit updated to 6.3
-* New service Blackfire agent for profiling via blackfire.io, see [usage instructions](#blackfire)
+* New service Blackfire agent for profiling via blackfire.io, see [usage instructions](containers.md#blackfire)
 * Environment varibles now cleared in PHP-FPM by default except for `WODBY_APP_NAME`, `WODBY_ENVIRONMENT_TYPE`, `WODBY_ENVIRONMENT_NAME`. You can disable it by adding environment variable `PHP_FPM_CLEAR_ENV` with `no` value to Drupal (PHP) container
 * OpenSMTPD now supports relay without auth
 * Bugfix: PHP-FPM health probes sometimes could fail
@@ -544,14 +544,14 @@ Do not add trailing slashes for non-directory requests
 * Bug fix: varnish cache flush action failed
 * Bug fix: some environment variables missed in SSH container
 * MariaDB: No longer lock table during backups (--single-transaction)
-* MariaDB: Excludes cache tables data from backups. See [backups section](#backups) for more details
+* MariaDB: Excludes cache tables data from backups. See [backups section](../../apps/backups.md) for more details
 * Nginx: New version: 1.13.0 > 1.13.1
 * PHP: All images rebased to Alpine Linux 3.6 and now use LibreSSL instead of OpenSSL
 * PHP: Fixed segfault caused by imagick extension
 * PHP: MongoDB extension downgraded to 1.1.10
-* New [AthenaPDF](#athenapdf) container – drop-in replacement for wkhtmltopdf
-* New [Rsyslog](#rsyslog) container
-* New [Node.js](#nodejs) container
+* New [AthenaPDF](containers.md#athenapdf) container – drop-in replacement for wkhtmltopdf
+* New [Rsyslog](containers.md#rsyslog) container
+* New [Node.js](containers.md#nodejs) container
 
 ## 4.0.1
 

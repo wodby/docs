@@ -270,7 +270,7 @@ Do not add trailing slashes for non-directory requests
     * You can [monitor PHP with NewRelic APM](https://wodby.com/stacks/wordpress/docs/containers/php/#newrelic-apm-monitoring)
     * `allow_url_fopen` and `default_socket_timeout` is now configurable
     * New php extensions added: newrelic, grpc, ds
-    * Deprecated environment variables dropped (listed in [4.4.0 changes](#440))
+    * Deprecated environment variables dropped (listed in [4.1.0 changes](#410))
     * Added postgresql client bins (pg_dump, pg_restore, ...)
     * Added redis-cli
     * Updated php extensions: amqp 1.9.3, redis 3.1.6, mongodb 1.4.0, apcu 5.1.10
@@ -307,7 +307,7 @@ Do not add trailing slashes for non-directory requests
 
 ### Upgrade instructions
 
-* Make sure you don't use any of deprecated environment variables in PHP (listed in [4.4.0 changes](#440)) and Varnish (listed above) otherwise update their names
+* Make sure you don't use any of deprecated environment variables in PHP (listed in [4.1.0 changes](#410)) and Varnish (listed above) otherwise update their names
 * If you used `WODBY_DIR_FILES` in your code replace it with `FILES_DIR`
 * Make sure the default cron container 512M RAM limit is enough for your cron jobs, otherwise increase it manually from service configuration page
 
