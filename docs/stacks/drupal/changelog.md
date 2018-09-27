@@ -4,15 +4,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 5.3.0
 
-### Upgrade instructions (from 5.2.5)
+### Upgrade instructions 
 
-* Switch your application's PHP version from 7.0 to 7.1
+* Switch your application's PHP service implementation from 7.0 to 7.1
 
-### Changes since 5.2.5
+### Changes 
 
 * PHP:
     * Rebased to Alpine 3.8 with updated runtime libraries
-    * ❗️PHP 7.0 will no longer be maintained, switch your PHP service to 7.1 implementation ([see why?](https://github.com/wodby/php/issues/40))
+    * ❗️PHP 7.0 will no longer be maintained ([see why?](https://github.com/wodby/php/issues/40))
     * Argon2 password hash supported added to PHP 7.2
     * MongoDB extension updated to 1.5.3
     * Bugfix: segfault in PHP's `mail` function when sent to multiple recipients ([busybox bug](http://lists.busybox.net/pipermail/busybox/2017-August/085798.html))
@@ -33,10 +33,6 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     * Default response headers max length doubled to `16k`
 * Nginx patch update: 1.15.4
 * Webgrind image updated to the latest stable PHP image
-
-## Update instructions
-
-Update your `.env` and `docker-compose.yml` files
 
 ## 5.2.5
 
@@ -81,12 +77,12 @@ Do not add trailing slashes for non-directory requests
 
 ## 5.2.0
 
-### Upgrade instructions (from 5.1.0)
+### Upgrade instructions
 
 * Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
 * If you used somewhere Varnish's header `X-Varnish-Cache`, update it to `X-VC-Cache`
 
-### Changes since 5.1.0
+### Changes 
 
 * Vanilla Drupal core updated to 8.5.6
 * PHP:
@@ -170,7 +166,7 @@ Do not add trailing slashes for non-directory requests
 
 ## 5.1.0
 
-### Upgrade instructions (from 5.0.7)
+### Upgrade instructions
 
 * Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
 
@@ -434,7 +430,7 @@ Do not add trailing slashes for non-directory requests
     * Default exclude URLs now consider language prefixes
 * OpenSMTPD bugfix: health probes caused warning in logs
 
-### Update instructions from 4.2.1
+### Update instructions
 
 * !!! If you forked `drupal.conf`, you must get the latest version from the source (`/etc/nginx/conf.d/drupal.conf`) and re-apply your changes. If you used `NGINX_SERVER_EXTRA_CONF_FILEPATH`, update usage of `backend` upstream to `php`
 * Make sure that the new default value (32m) of php's `post_max_size`, `upload_max_filesize` and nginx's `client_max_body_size` is enough for you
@@ -561,7 +557,7 @@ Do not add trailing slashes for non-directory requests
 
 ## 4.0.0
 
-### Changes since 3.x
+### Changes
 
 * All-new revamped docker container images consistent with docker4drupal
 * Improved performance of containers

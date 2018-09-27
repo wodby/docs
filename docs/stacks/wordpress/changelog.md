@@ -4,15 +4,15 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 5.3.0
 
-### Upgrade instructions (from 5.2.5)
+### Upgrade instructions
 
-* Switch your application's PHP version from 7.0 to 7.1
+* Switch your application's PHP service implementation from 7.0 to 7.1
 
-### Changes since 5.2.5
+### Changes
 
 * PHP:
     * Rebased to Alpine 3.8 with updated runtime libraries
-    * ❗️PHP 7.0 will no longer be maintained, switch your PHP service to 7.1 implementation ([see why?](https://github.com/wodby/php/issues/40))
+    * ❗️PHP 7.0 will no longer be maintained ([see why?](https://github.com/wodby/php/issues/40))
     * Argon2 password hash supported added to PHP 7.2
     * MongoDB extension updated to 1.5.3
     * WP CLI updated to 2.0.1  
@@ -78,11 +78,11 @@ Do not add trailing slashes for non-directory requests
 
 ## 5.2.0
 
-### Upgrade instructions (from 5.1.0)
+### Upgrade instructions
 
 * Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
 
-### Changes since 5.1.0
+### Changes
 
 * Vanilla WordPress core updated to 4.9.8
 * PHP:
@@ -259,7 +259,7 @@ Do not add trailing slashes for non-directory requests
 
 ## 5.0.0
 
-### Changes since 4.4.1
+### Changes
 
 * All containers now have [resources request](../config.md#resources) as listed [here in Resources column](https://wodby.com/stacks/wordpress/docs/containers/), in addition, crond has CPU limit
 * PHP:
@@ -377,7 +377,7 @@ Do not add trailing slashes for non-directory requests
 
 ## 4.0.0
 
-### Changes since 3.x
+### Changes
 
 * All-new revamped containers consistent with [docker4wordpress](http://github.com/wodby/docker4wordpress/)
 * Improved performance of containers (especially I/O)
