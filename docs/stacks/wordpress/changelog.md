@@ -2,14 +2,48 @@
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
-### 5.2.5
+## 5.3.0
+
+### Upgrade instructions (from 5.2.5)
+
+* Switch your application's PHP version from 7.0 to 7.1
+
+### Changes since 5.2.5
+
+* PHP:
+    * Rebased to Alpine 3.8 with updated runtime libraries
+    * ❗️PHP 7.0 will no longer be maintained, switch your PHP service to 7.1 implementation ([see why?](https://github.com/wodby/php/issues/40))
+    * Argon2 password hash supported added to PHP 7.2
+    * MongoDB extension updated to 1.5.3
+    * WP CLI updated to 2.0.1  
+    * Bugfix: segfault in PHP's `mail` function when sent to multiple recipients ([busybox bug](http://lists.busybox.net/pipermail/busybox/2017-August/085798.html))
+    * Bugfix: xhprof tideways extension enabled twice
+* MariaDB:
+    * Patch update: 10.2.18
+    * Improved performance for backup orchestration action
+* Apache:
+    * Patch update: 2.4.35
+    * Option `Indexes` now disabled by default, can be enabled via `$APACHE_INDEXES_ENABLED`
+* Adminer:
+    * Added the default list of plugins, enabled via `$ADMINER_PLUGINS`
+    * You can now change Adminer design via `$ADMINER_DESIGN` z   
+    * Updated to the latest stable PHP image
+* Nginx patch update: 1.15.4
+* Varnish: `has_js` cookie no longer stripped
+* Webgrind image updated to the latest stable PHP image
+
+## Update instructions
+
+Update your `.env` and `docker-compose.yml` files
+
+## 5.2.5
 
 * PHP:
     * Libraries update: ImageMagick 7.0.8.11, FreeType 2.9.1
     * OpenMP disabled in ImageMagick due to stability issues
     * Bugfix: xhprof (tideways) extension could not be enabled
 
-### 5.2.4
+## 5.2.4
 
 * PHP 
     * ❗️Security updates: 7.2.10, 7.1.22, 7.0.32, 5.6.38
@@ -19,7 +53,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
         * minor: mongodb 1.5.2, grpc 1.15.0
         * major: redis 4.1.1
 
-### 5.2.3
+## 5.2.3
 
 * Nginx:
     * New 50x error page, use `$NGINX_ERROR_MESSAGE_50x` to add a custom message

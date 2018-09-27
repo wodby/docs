@@ -36,7 +36,8 @@ A few reasons why you may get 503:
 * A problem on backend, see backend container's logs
 * Varnish may cache non-broken page from backend when backend gives 5xx, in this cases you will sometimes get 503 (fetch from backend) and sometimes 200 OK (from cache)
 * Broken backend headers that prevent from parsing backend response's body, e.g. gzip encoding header when the body in fact is not gzipped (you should not gzip pages on your backend, we already do that on Nginx)  
-* Timeouts on varnish are too low (unlikely, the defaults are high enough for 95% cases), you can increase them via environment variables 
+* Timeouts on varnish are too low (unlikely, the defaults are high enough for 95% cases), you can increase them via environment variables
+* Too big request or response headers 
 
 ## Further reading (official documentation)
 
@@ -47,11 +48,15 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
-### 1.3.1
+### 2.0.2
+
+* `has_js` cookie no longer stripped
+
+### 2.0.1
 
 Bugfix: flush action from dashboard failed
 
-### 1.3.0
+### 2.0.0
 
 * Default config without a preset now also caches (see [default behavior](https://github.com/wodby/varnish#default-behaviour))
 * External purge now always restricted by purge key

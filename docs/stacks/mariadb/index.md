@@ -70,6 +70,16 @@ docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+### 2.3.2
+
+* MariaDB 
+    * Patch update: 10.2.18
+    * Improved performance for backup orchestration action
+* Adminer:
+    * Added the default list of plugins, enabled via `$ADMINER_PLUGINS`
+    * You can now change Adminer design via `$ADMINER_DESIGN` z   
+    * Updated to the latest stable PHP image
+
 ### 2.3.1
 
 MariaDB patch update: 10.1.36

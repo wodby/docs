@@ -27,6 +27,13 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.4
+
+* Apache:
+    * Patch update: 2.4.35
+    * Option `Indexes` now disabled by default, can be enabled via `$APACHE_INDEXES_ENABLED`
+* Nginx patch update: 1.15.4
+
 ### 0.2.3
 
 Nginx: `$NGINX_ERROR_PAGE_40x` replaced to `$NGINX_ERROR_40x_URI`
