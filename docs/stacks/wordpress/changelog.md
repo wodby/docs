@@ -2,6 +2,8 @@
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
+Upgrade instructions and changes are relative to the previous version.
+
 ## 5.3.0
 
 ### Upgrade instructions

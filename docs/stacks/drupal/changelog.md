@@ -2,6 +2,8 @@
 
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
 
+Upgrade instructions and changes are relative to the previous version.
+
 ## 5.3.0
 
 ### Upgrade instructions 
