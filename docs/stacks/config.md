@@ -2,7 +2,7 @@
 
 You can customize stacks for specific application instance by configuring stack services via environment variables. Go to `Instance > Stack`, find a service you'd like to customize and click on a cogwheel icon. 
 
-![](../assets/service-config.png)
+![](../assets/stack-service-config.png)
 
 In a modal window you can:
 
