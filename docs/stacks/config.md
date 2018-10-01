@@ -4,9 +4,16 @@ You can customize stacks for specific application instance by configuring stack 
 
 ![](../assets/service-config.png)
 
-In a modal window you can edit environment variables for this service, disable it (available only for optional services) and manage # of replicas.
+In a modal window you can:
 
-![](../assets/service-config-popup.png)
+* Edit environment variables for this service (often used for stack customization)
+* Change implementation, e.g. switch from Apache to Nginx or change PHP version
+* Enable or disable stack service (available only for optional services)
+* Change number of container replicas
+* Change [deployment strategy](template.md#deployment): rolling update or recreate
+* Change docker image tag (available for custom stacks only) 
+
+![](../assets/stack-service-config-popup.png)
 
 To apply changes you must redeploy your stack.
 
