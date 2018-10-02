@@ -8,7 +8,7 @@ We automatically generate an API key when you register, it can be found under `A
 
 We provide API to perform most common tasks such as deployment of a new applications and instances, code deployments, etc. To use API you would need an access token you can find on your profile page in the dashboard.
 
-### Version 3 (beta)
+### Version 3
 
 * [API reference](https://wodby.com/docs/api)
 * PHP SDK: [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php)
