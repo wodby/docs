@@ -1,23 +1,27 @@
 # Stack configuration 
 
-You can customize stacks for specific application instance by configuring stack services via environment variables. Go to `Instance > Stack`, find a service you'd like to customize and click on a cogwheel icon. 
+## Service configuration
+
+You can customize stacks for specific application instance by customizing its services. Go to `Instance > Stack`, find a service you'd like to customize and click on a cogwheel icon. 
 
 ![](../assets/stack-service-config.png)
 
-In a modal window you can:
+In the modal window you can:
 
 * Edit environment variables for this service (often used for stack customization)
-* Change implementation, e.g. switch from Apache to Nginx or change PHP version
+* Change implementation, e.g. switch HTTP server from Apache to Nginx or change PHP version
 * Enable or disable stack service (available only for optional services)
-* Change number of container replicas
+* Scale up or down replicas
+* Configure container [resources limitations](#resources)
+* Configure public [ports](#ports) 
 * Change [deployment strategy](template.md#deployment): rolling update or recreate
 * Change docker image tag (available for custom stacks only) 
 
 ![](../assets/stack-service-config-popup.png)
 
-To apply changes you must redeploy your stack.
+To apply changes you must redeploy your stack. Customized services will be marked with a purple color indicator.
 
-## Resources 
+### Resources 
 
 You can configure resources (Memory and CPU) requests and limits per container.
 
@@ -31,11 +35,11 @@ CPU limit is the total amount of CPU time that a container can use every 100ms. 
 
 If you specify a limit without specifying a request, the request will be set equal to the limit.  
 
-## Ports
+### Ports
 
 You can publish container ports via two methods: via edge (controlled under Domains tab) and set a dynamic high port (generated port can be found on a service page). 
 
-## Custom Docker Image
+## Fork stack and use custom image
 
 If changes you need to make can't be done via environment variables there's always an option to use a custom docker image:
   
