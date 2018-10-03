@@ -17,10 +17,7 @@ Wodby provides backup mirroring to different storages. You can either use your o
 
 ### Wodby Storage
 
-The simplest way to setup backup mirroring is to use simply select Wodby Storage as a provider. The default location is US east region if not specified differently. Backups older than a year (365 days) since the moment of upload will be deleted automatically.
-
-!!! warning "Backups limit size in Wodby storage"
-    The maximum size of free mirrored backups in Wodby storage will be limited in the near future. So if you have heavy backups we recommend using your own S3 bucket.
+The simplest way to setup backup mirroring is to use simply select Wodby Storage as a provider. The default location is US east region if not specified differently. Backups older than two weeks since the moment of upload will be deleted automatically.
 
 ### AWS S3
 
