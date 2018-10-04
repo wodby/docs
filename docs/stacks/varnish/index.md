@@ -5,29 +5,29 @@ Varnish can be configured with the following [environment variables](https://git
 ## CLI
 
 Grouped list with the most usual entries from different logs:
-```bash
+```shell
 varnishtop
 ```
 
 A histogram that shows the time taken for the requests processing:
-```bash
+```shell
 varnishhist
 ```
 
 Varnish stats, shows how many contents on cache hits, resource consumption, etc..:
-```bash
+```shell
 varnishstat
 ```
 
 Log showing requests made to the web backend server:
-```bash
+```shell
 varnishlog
 ```
 
 ## Troubleshooting 503 (guru meditation) errors
 
 You can get more details on 503 responses by filtering the logs:
-```bash
+```shell
 varnishlog -q 'RespStatus == 503' -g request
 ```
 

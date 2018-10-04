@@ -30,7 +30,7 @@ Source: by RolandoMySQLDBA from the [answer on dba stackexchange](https://dba.st
 You can publish MariaDB's port (3306) from [stack configuration page](../../stacks/config.md#ports) and connect as:
 
 ```shell
-$ mysql -h=[IP] -P[PORT] -u[USER] -p[PASSWORD] [DATABASE]
+mysql -h=[IP] -P[PORT] -u[USER] -p[PASSWORD] [DATABASE]
 ```
 
 For `[IP]` use the IP of the server where PostgreSQL stack deployed or use a technical host `node-[SERVER UUID].wod.by`.
@@ -41,11 +41,11 @@ If you deploy MariaDB as a service inside of a stack that comes with an SSHD con
 
 1. Set up SSH tunnel on port `53306` (you can change it). You can find `[SSH Port]` on `Instance > Stack > SSH` page. For MariaDB (port `3306` by default) use the following command:    
     ```shell
-    $ ssh -L 53306:mariadb:3306 -p [SSH Port] wodby@[Server IP] -N
+    ssh -L 53306:mariadb:3306 -p [SSH Port] wodby@[Server IP] -N
     ```
 2. Connect to the database via the tunnel on port `53306` (replace `[tokens]`):
     ```shell
-    $ mysql --protocol=TCP -P53306 -u[USER] -p[PASSWORD] [DATABASE]
+    mysql --protocol=TCP -P53306 -u[USER] -p[PASSWORD] [DATABASE]
     ```
 
 ## Local environment
@@ -57,12 +57,12 @@ if you want to import your database, uncomment the line for `mariadb-init` volum
 ### Export
 
 Exporting all databases:
-```bash
+```shell
 docker-compose exec mariadb sh -c 'exec mysqldump --all-databases -uroot -p"root-password"' > databases.sql
 ```
 
 Exporting a specific database:
-```bash
+```shell
 docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db' > my-db.sql
 ```
 

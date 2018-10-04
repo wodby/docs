@@ -10,16 +10,16 @@ DEFAULT_FORWARD_POLICY="ACCEPT"
 ```
 
 2. Add the following rules:
-```bash
-$ ufw allow ssh
-$ ufw allow http
-$ ufw allow https
-$ ufw allow 31222:32222/tcp
-$ ufw allow 4001/tcp
-$ ufw allow 6443/tcp
+```shell
+ufw allow ssh
+ufw allow http
+ufw allow https
+ufw allow 31222:32222/tcp
+ufw allow 4001/tcp
+ufw allow 6443/tcp
 ```
 
 3. Enable UFW:
-```bash
-$ ufw enable
+```shell
+ufw enable
 ```

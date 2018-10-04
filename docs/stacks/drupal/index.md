@@ -40,8 +40,8 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
 
 You can execute drush commands remotely via drush aliases. Download drush aliases from `Profile > Misc > Drush aliases` page and place them to `~/.drush`. Execute commands (replace `[tokens]` with the real values) like this:
 
-```bash
-$  drush @[organization].[application].[instance] [drush command]
+```shell
+ drush @[organization].[application].[instance] [drush command]
 ```
 
 The domain marked as primary will be used as `-l` for drush aliases.
@@ -54,20 +54,20 @@ This option is available on the 3rd step of a new application deployment form.
 
 First, make sure you have [Drush installed](http://www.drush.org/en/master/install/), go to your Drupal root directory and execute a command:
 
-```bash
-$ drush archive-dump
+```shell
+drush archive-dump
 ```
 
 or
 
-```bash
-$ drush ard
+```shell
+drush ard
 ```
 
 You should see output like:
 
-```bash
-$ drush ard
+```shell
+drush ard
 Archive saved to /Users/johndoe/drush-backups/archive-dump/20150604001227/drupalapp.20150604_001228.tar.gz
 /Users/johndoe/drush-backups/archive-dump/20150604001227/drupalapp.20150604_001228.tar.gz
 ```

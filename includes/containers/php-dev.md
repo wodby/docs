@@ -50,7 +50,7 @@ Follow these steps to debug your application instance remotely with [xdebug](htt
 1. Uncomment `PHP_XDEBUG_REMOTE_HOST: 10.254.254.254` for PHP service (just a random IP that very likely won't be used by anything else).
 2. Restart containers (`make`)
 3. You also need to have loopback alias with IP from above. You need this only once and that settings stays active until logout or restart:
-    ```bash
+    ```shell
     sudo ifconfig lo0 alias 10.254.254.254
     ```
 4. To add the loopback alias after a reboot, add the following contents to `/Library/LaunchDaemons/docker4drupal.loopback.plist`:

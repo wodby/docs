@@ -20,8 +20,8 @@ Replace _codebase_ volume definition of _php_ and _nginx_/_apache_ services with
 
 The core idea of this project is to use an external volume that will sync your files with a file synchronizer tool.
 
-```bash
-$ gem install docker-sync
+```shell
+gem install docker-sync
 ```
 
 1. Download `docker-sync.yml` file (inside of `docker4x.tar.gz` archive) from the latest stable release

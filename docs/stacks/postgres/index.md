@@ -13,7 +13,7 @@ if you want to import your database, uncomment the line for `postgres-init` volu
 You can publish PostgreSQL's port (5432) from [stack configuration page](../../stacks/config.md#ports) and connect as:
 
 ```shell
-$ psql -h [IP] -p [PORT] -U [USER] -W [PASSWORD] [DATABASE]
+psql -h [IP] -p [PORT] -U [USER] -W [PASSWORD] [DATABASE]
 ```
 
 For `[IP]` use the IP of the server where PostgreSQL stack deployed or use a technical host `node-[SERVER UUID].wod.by`.
@@ -24,11 +24,11 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 1. Set up an SSH tunnel on port `55432` (you can change it). You can find `[SSH Port]` on `Instance > Stack > SSH` page. For MariaDB (port `5432` by default) use the following command:    
     ```shell
-    $ ssh -L 55432:mariadb:5432 -p [SSH Port] wodby@[Server IP] -N
+    ssh -L 55432:mariadb:5432 -p [SSH Port] wodby@[Server IP] -N
     ```
 2. Connect to the database via the tunnel on port `5432` (replace `[tokens]`):
     ```shell
-    $ psql -p 53306 -U [USER] -W [PASSWORD] [DATABASE]
+    psql -p 53306 -U [USER] -W [PASSWORD] [DATABASE]
     ```
 
 ## Changelog

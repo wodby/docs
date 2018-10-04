@@ -27,7 +27,7 @@ Currently, we don't have a native integration with Azure. But you still can conn
 9. Click create. Azure will spin up your new virtual machine
 
 10. Optional but recommended: attach data disk as described [here](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/classic/attach-disk). Prepare directories to use the data disk:
-    ```bash
+    ```shell
     # If your data disk mounted to /mnt/data1
     mkdir -p /mnt/data1/wodby 
     mkdir -p /mnt/data1/docker

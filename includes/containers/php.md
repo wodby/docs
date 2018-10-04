@@ -32,7 +32,7 @@ Deprecated variables:
 
 Public files directory (symlink to `/mnt/files/public`) that used for uploads owned by `www-data` user (PHP-FPM user) by default and the default container user (`wodby`) has no writing permissions. So if you run a command that creates files in a public directory you will get insufficient permissions error. You can fix this problem by giving writing permissions for files directory to the owner's group (user `wodby` is a member of `www-data` group) by using one of the [helper scripts](https://github.com/wodby/php#helper-scripts):
 
-```bash
+```shell
 sudo files_chmod /mnt/files/public
 ```
 

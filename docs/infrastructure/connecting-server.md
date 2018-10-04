@@ -38,6 +38,6 @@ s
 
 To uninstall Wodby's infrastructure (5.x) from your server simply execute following command as root:
 
-```bash
-$ wodby uninstall
+```shell
+wodby uninstall
 ```
