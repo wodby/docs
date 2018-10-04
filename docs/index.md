@@ -10,6 +10,6 @@ Key concepts:
 
 How to:
 
-* [Deploy your first app](apps/deploy.md)
+* [Deploy your first app](apps/new.md)
 * [Connect your server](infrastructure/connecting-server.md)
 * [Deploy code and CI/CD setup](apps/deploy.md)
