@@ -19,28 +19,30 @@ See your cloud provider documentation
  
 * Access your server and execute `sudo fdisk -l`. Find a device name (`/dev/NAME`) of your volume
 * Create `ext4` file system on the new volume:
-```bash
-$ mkfs -t ext4 /dev/NAME
+```shell
+mkfs -t ext4 /dev/NAME
 ``` 
 * Create a directory where you want to mount your volume:
-```bash
-$ mkdir /mnt/my-volume
+```shell
+mkdir /mnt/my-volume
 ```
 * Mount your volume:
-```bash
-$ mount /dev/NAME /mnt/my-volume
+```shell
+mount /dev/NAME /mnt/my-volume
 ``` 
 * To mount this EBS volume on every system reboot, add an entry for the device to the `/etc/fstab` file:    
-```bash
+```shell
 /dev/NAME /mnt/my-volume ext4 defaults,noatime 0 2
 ```
 
 ### 3. Moving docker and wodby's data to new volume
 
-! THIS WILL CAUSE DOWNTIME OF ALL APPLICATIONS ON THE SERVER
+!!! danger "Downtime" 
+    This action will cause downtime of all applications on the server
 
-* Stop docker and kubernetes services (systemd):
-```bash
+1\. Stop docker and kubernetes services (systemd):
+
+```shell
 systemctl stop kube-apiserver
 systemctl stop kube-controller
 systemctl stop kube-kubelet
@@ -48,15 +50,26 @@ systemctl stop kube-proxy
 systemctl stop kube-scheduler
 systemctl stop docker
 ```
-* Move docker's and Wodby's directories to your volume and symlink them back:
-```bash
+
+!!! warning "Some containers don't react to SIGTERM" 
+    Some processes (e.g. crond, node) might ignore `SIGTERM` signal received when you stop docker daemon and still running, that might prevent you from moving directories in the next step because some containers mounts are still in use (device busy errors). You might need to `kill` those processes manually and unmount containers directories:
+    ```shell
+    umount /var/lib/docker/overlay2/*/merged
+    umount /var/lib/docker/containers/*/shm
+    ```  
+
+2\. Move docker's and Wodby's directories to your volume and symlink them back:
+
+```shell
 mv /var/lib/docker /mnt/my-volume
 mv /srv/wodby /mnt/my-volume
 ln -s /mnt/my-volume/docker /var/lib/docker
 ln -s /mnt/my-volume/wodby /srv/wodby
 ```
-* Start services
-```bash
+
+3\. Start services
+
+```shell
 systemctl start docker
 systemctl start kube-apiserver
 systemctl start kube-controller
@@ -76,20 +89,20 @@ We recommend connecting servers with at least 20-40G of disk space and using a s
 You can check if you have enough disk space on your server by running:
 
 ```shell
-$ df -h
+df -h
 ```
 
 If you want to learn what exactly on your server takes disk space, you can run:
 
 ```shell
-$ du -sh /path/to/directory/*
+du -sh /path/to/directory/*
 ```
 
 Or using a tool called ncdu 
 
 ```shell
-$ apt-get install ncdu
-$ ncdu /path/to/dir
+apt-get install ncdu
+ncdu /path/to/dir
 ```
 
 ### What can I clean up?
@@ -102,7 +115,7 @@ The most heavy directories are usually:
 #### Clean up docker's unused volumes and images
 
 ```shell
-$ docker system prune --volumes
+docker system prune --volumes
 ```
 
 #### Backups
@@ -121,9 +134,9 @@ When you delete an instance Wodby does not delete containers' persistent files (
 
 1. Move outdated files to a separate directory
 ```shell
-$ docker run --rm -it -v /srv/wodby:/srv/wodby wodby/cleanup 'API Token'
+docker run --rm -it -v /srv/wodby:/srv/wodby wodby/cleanup 'API Token'
 ```
 2. Make sure your applications still operate correctly. Delete outdated files
 ```shell
-$ rm -rf /srv/wodby/_deleted
+rm -rf /srv/wodby/_deleted
 ```
