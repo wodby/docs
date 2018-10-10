@@ -8,27 +8,29 @@ if you want to import your database, uncomment the line for `postgres-init` volu
 
 ## External access
 
+There are two ways to connect to a PostgreSQL server externally: publish port or set up an SSH tunnel.
+
 ### Publish port
 
-You can publish PostgreSQL's port (5432) from [stack configuration page](../../stacks/config.md#ports) and connect as:
+Publish PostgreSQL's port (5432) from [stack configuration page](../../stacks/config.md#ports) to a dynamic node port and connect as:
 
 ```shell
 psql -h [IP] -p [PORT] -U [USER] -W [PASSWORD] [DATABASE]
 ```
 
-For `[IP]` use the IP of the server where PostgreSQL stack deployed or use a technical host `node-[SERVER UUID].wod.by`.
+Where `[PORT]` is the generated node port (you can find it on a service page `App Instance > Stack > PostgreSQL`) and `[IP]` is the IP of the server where your app instance deployed (or use the server hostname `node-[SERVER UUID].wod.by`).
 
 ### Set up tunnel
 
 If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD container, you can set up a secure tunnel:
 
-1. Set up an SSH tunnel on port `55432` (you can change it). You can find `[SSH Port]` on `Instance > Stack > SSH` page. For MariaDB (port `5432` by default) use the following command:    
+1. Set up an SSH tunnel on port `55432` (you can change it). You can find `[SSH Port]` on `Instance > Stack > SSH` page. For PostgreSQL (port `5432` by default) use the following command:    
     ```shell
-    ssh -L 55432:mariadb:5432 -p [SSH Port] wodby@[Server IP] -N
+    ssh -L 55432:postgres:5432 -p [SSH Port] wodby@[Server IP] -N
     ```
 2. Connect to the database via the tunnel on port `5432` (replace `[tokens]`):
     ```shell
-    psql -p 53306 -U [USER] -W [PASSWORD] [DATABASE]
+    psql -p 55432 -U [USER] -W [PASSWORD] [DATABASE]
     ```
 
 ## Changelog

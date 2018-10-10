@@ -25,15 +25,17 @@ Source: by RolandoMySQLDBA from the [answer on dba stackexchange](https://dba.st
 
 ## External access
 
+There are two ways to connect to a MariaDB server externally: publish port or set up an SSH tunnel.  
+
 ### Publish port
 
-You can publish MariaDB's port (3306) from [stack configuration page](../../stacks/config.md#ports) and connect as:
+Publish MariaDB's port (3306) from [stack configuration page](../../stacks/config.md#ports) to a dynamic node port and connect as:
 
 ```shell
 mysql -h=[IP] -P[PORT] -u[USER] -p[PASSWORD] [DATABASE]
 ```
 
-For `[IP]` use the IP of the server where PostgreSQL stack deployed or use a technical host `node-[SERVER UUID].wod.by`.
+Where `[PORT]` is the generated node port (you can find it on a service page `App Instance > Stack > MariaDB`) and `[IP]` is the IP of the server where app instance deployed (or use the server hostname `node-[SERVER UUID].wod.by`).
 
 ### Set up tunnel
 
