@@ -37,7 +37,10 @@ If you specify a limit without specifying a request, the request will be set equ
 
 ### Ports
 
-You can publish container ports via two methods: via edge (controlled under Domains tab) and set a dynamic high port (generated port can be found on a service page). 
+You can publish container ports via two methods: 
+
+1. For HTTP traffic expose the port via Edge (it's a reverse proxy [we install](../infrastructure/index.md#schema) per server). You'll find a technical domain generated for your service under Domains tab 
+2. For TCP traffic expose via a high port on a node. The port will be generated once and won't change, you can find the generated port on a service page. If you have a firewall make sure this port is open for the inbound traffic
 
 ## Fork stack and use custom image
 
