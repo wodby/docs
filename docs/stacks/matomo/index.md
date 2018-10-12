@@ -73,6 +73,14 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.4.7
+
+* Matomo rebased to the latest stable PHP image
+* Adminer: 
+    * Bugfix: some `$PHP_` env vars were ignored
+    * Default memory limit set to 512M
+    * Adminer and Webgrind rebased to the latest php image
+
 ### 0.4.6
 
 * Matomo rebased to the latest stable PHP version

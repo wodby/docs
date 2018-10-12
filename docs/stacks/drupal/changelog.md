@@ -4,6 +4,26 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.
+    
+## 5.3.1
+
+* PHP:
+    * Patch updates: 7.1.23, 7.2.11
+    * uuid pecl extension added https://github.com/wodby/php/issues/43
+    * oauth extension patch update: 2.0.3
+    * PHP env vars moved from FPM config to the general PHP config
+    * Bugfix: invalid Drupal 8 sync directory permissions
+* Nginx:
+    * Patch update 1.15.5
+    * real_ip params are now configurable https://github.com/wodby/nginx/issues/9
+* Node:
+    * Minor updates: 10.12, 8.12
+    * Directory `/usr/src/app/node_modules/.bin` added to `$PATH`
+* MariaDB patch update 10.3.10
+* Adminer:
+    * Bugfix: some `$PHP_` env vars were ignored
+    * Default memory limit set to 512M
+* Adminer and Webgrind rebased to the latest php image
 
 ## 5.3.0
 

@@ -27,6 +27,12 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.5
+
+* Nginx:
+    * Patch update 1.15.5
+    * real_ip params are now configurable https://github.com/wodby/nginx/issues/9
+
 ### 0.2.4
 
 * Apache:

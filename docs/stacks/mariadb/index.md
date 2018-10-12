@@ -72,6 +72,14 @@ docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+### 2.3.3
+
+* MariaDB patch update 10.3.10
+* Adminer: 
+    * Bugfix: some `$PHP_` env vars were ignored
+    * Default memory limit set to 512M
+    * Adminer and Webgrind rebased to the latest php image
+
 ### 2.3.2
 
 * MariaDB 
