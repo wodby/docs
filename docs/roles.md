@@ -4,7 +4,7 @@ Wodby provides a set of default roles with following permissions:
 
 | Action                 | Owner | Administrator | Team leader | Developer | Unprivileged |
 | ---------------------- | ----- | ------------- | ----------- | --------- | ------------ |
-| View apps              | ✓     | ✓             | ✓           | ✓         | ✓            |
+| View apps              | ✓     | ✓             | ✓           | ✓         |              |
 | View servers           | ✓     | ✓             | ✓           | ✓         |              |
 | Manage dev instances   | ✓     | ✓             | ✓           | ✓         |              |
 | View actions history   | ✓     | ✓             | ✓           |           |              |
