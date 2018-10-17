@@ -48,7 +48,65 @@ The domain marked as primary will be used as `-l` for drush aliases.
 
 ## Import
 
+!!! important "No top level directory"
+    While importing files from a tarball or an archive make sure there's no top level directory. The contents of the archive/tarball will be unpacked inside files directory
+    
+There are different ways to import files and database for Drupal website.
+
+### From separate archives
+
+Import Drupal via separate archives for database and files. We support `.zip`, `.gz`, `.tar.gz`, `.tgz` and `.tar` archives. This option is available on the 3rd step of a new application deployment form and also on `App instance > Import` page of existing instance.
+
+### Manual import
+
+In case your import data is huge it makes sense to import it manually from the server. Follow these steps:
+
+1. Deploy your Drupal application without importing data
+2. Gzip your SQL dump 
+    ```shell
+    gzip db-dump.sql
+    ```
+3. Create a tarball for your files:
+    ```shell
+    tar cvf files.tar -C /path/to/sites/default/files .
+    ```
+4. Download your archives: 
+    * If your archive/tarball available by URL you can connect to the PHP container via SSH (the SSH connection command can be found under `App Instance > Stack > SSH server`) and download the archive via `wget [URL]`
+    * You can copy an archive/tarball from your local computer (or any other machine) to the PHP container via `scp`, you can find the example SCP command from `App Instance > Stack > SSH server`
+5. Unpack your SQL dump archive `gunzip db-dump.sql.gz`     
+6. Import unpacked database dump:
+    * Connect to database via `drush sqlc`
+    * Drop database for wipe existing tables: 
+    ```sql
+    DROP DATABASE drupal;
+    CREATE DATABASE drupal;
+    ```
+    * Run import `drush sqlc < db-dump.sql`
+7. Now let's import your files:
+    * If you have only public files (`sites/*/files` is a symlink to `/mnt/files/public`):
+    ```shell
+    tar xvf files.tar -C /mnt/files/public
+    ```
+    * If you have both `private/` and `public/` files directories (backups created by Wodby contains both)
+    ```shell
+    tar xvf files.tar -C /mnt/files/
+    ```
+8. If you get permissions error during the previous step you should give your user (`wodby`) writing permissions:
+    ```shell
+    sudo files_chmod /mnt/files/public
+    sudo files_chmod /mnt/files/private
+    ```    
+9. Fix permissions for files directory so PHP (`www-data` user) have access to it:
+    ```shell
+    sudo files_chown /mnt/files/public
+    sudo files_chown /mnt/files/private
+    ``` 
+10. That's it! Clear Drupal cache and remove import artifacts
+
 ### From drush archive
+
+!!! warning "Outdated"
+    This method is outdated. The latest versions of drush no longer have archive-dump command
 
 This option is available on the 3rd step of a new application deployment form.
 
@@ -73,23 +131,6 @@ Archive saved to /Users/johndoe/drush-backups/archive-dump/20150604001227/drupal
 ```
 
 Now navigate to `Apps > Deploy` and choose drush archive on the 3rd step
-
-### From separate archives
-
-Import Drupal via separate archives for database and files. We support `.zip`, `.gz`, `.tar.gz`, `.tgz` and `.tar` archives. This option is available on the 3rd step of a new application deployment form and also on `[Instance] > Import` page of existing instance.
-
-### Manual import
-
-In case your import data is huge it makes sense to import it manually from the server. Follow these steps:
-
-1. Deploy your Drupal application without importing data
-2. Once the app is deployed, go to `Stack > SSH` and copy SSH command
-3. Connect to the container by SSH
-4. Copy your database archive here via `wget` or `scp`, make sure it's gzipped
-5. Import unpacked database dump using `drush sql-cli < my-db-dump.sql`
-6. Now let's import your files, cd to `/mnt/files`, use public and private subdirectories according to your needs
-7. Copy your files archive here via `wget` or `scp` and unpack the archive
-8. That's it! Clear Drupal cache and remove import artifacts
 
 ### Import between instances
 
@@ -126,7 +167,7 @@ watchdog
 
 ### Default site
 
-When you deploy a new Drupal application you can optionally specify `Site directory` on the 3rd step, if not specified we use `default`. If directory does not exist Wodby will create it automatically. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate [`settings.php`](#settings-php) file and for building [`sites.php`](#sites-php) mapping. The default [cron job](#cron) and orchestrations performed from Wodby dashboard such Drupal cache flush will be applied for this site.
+When you deploy a new Drupal application you can optionally specify `Site directory` on the 3rd step, if not specified we use `default`. If directory does not exist Wodby will create it automatically. For example if you have a directory `sites/my-drupal-site/*` you should specify `my-drupal-site`. This directory will be used to locate [`settings.php`](#settingsphp) file and for building [`sites.php`](#sitesphp) mapping. The default [cron job](#cron) and orchestrations performed from Wodby dashboard such Drupal cache flush will be applied for this site.
 
 ### settings.php
 
@@ -154,7 +195,7 @@ Files for Drupal located in `/mnt/files` and symlinked to `sites/[SITE NAME]/fil
 
 ### Base URL
 
-The domain marked with primary flag will be used as a `$base_url` in [`settings.php`](#settings-php) file and as an `-l` parameter for the [default cron job](#cron). 
+The domain marked with primary flag will be used as a `$base_url` in [`settings.php`](#settingsphp) file and as an `-l` parameter for the [default cron job](#cron). 
 
 ## Mail delivery
 
@@ -223,7 +264,7 @@ Perform the following modifications in your code:
     // After the include specify db prefix for every site.
     // $databases['default']['default']['prefix'] = 'site_prefix_';
     ```
-2. In your [`sites.php`](#sites-php) file the following lines with include and your domains to directories mapping:
+2. In your [`sites.php`](#sitesphp) file the following lines with include and your domains to directories mapping:
     ```php
     include '/var/www/conf/wodby.sites.php';
 

@@ -32,7 +32,10 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
 
 ## Import
 
-There are different way to import existing WordPress website.
+!!! important "No top level directory"
+    While importing files from a tarball or an archive make sure there's no top level directory. The contents of the archive/tarball will be unpacked inside the `uploads/` directory
+
+There are different ways to import files and database for WordPress website.
 
 ### From duplicator archive
 
@@ -49,13 +52,39 @@ Import WordPress via separate archives for database and files. We support `.zip`
 In case your import data is huge it makes sense to import it manually from the server. Follow these steps:
 
 1. Deploy your WordPress application without importing data
-2. Once the app is deployed, go to `Stack > SSH` and copy SSH command
-3. Connect to the container by SSH
-4. Copy your database archive here via `wget` or `scp`, make sure it's gzipped
-5. Import unpacked database dump using `wp db import my-db-dump.sql`
-6. Now let's import your files, cd to `/mnt/files/public`
-7. Copy your files archive here via `wget` or `scp` and unpack the archive
-8. That's it! Clear WordPress cache and remove import artifacts
+2. Gzip your SQL dump 
+    ```shell
+    gzip db-dump.sql
+    ```
+3. Create a tarball for your files:
+    ```shell
+    tar cvf files.tar -C /path/to/wp-content/uploads .
+    ```
+4. Download your archives: 
+    * If your archive/tarball available by URL you can connect to the PHP container via SSH (the SSH connection command can be found under `App Instance > Stack > SSH server`) and download the archive via `wget [URL]`
+    * You can copy an archive/tarball from your local computer (or any other machine) to the PHP container via `scp`, you can find the example SCP command from `App Instance > Stack > SSH server`
+5. Unpack your SQL dump archive `gunzip db-dump.sql.gz`     
+6. Import unpacked database dump:
+    * Connect to database via `wp db cli`
+    * Drop database for wipe existing tables: 
+    ```sql
+    DROP DATABASE wordpress;
+    CREATE DATABASE wordpress;
+    ```
+    * Run import `wp db import db-dump.sql`
+7. Now let's import your files (`wp-content/uploads` is a symlink to `/mnt/files/public`):
+    ```shell 
+    tar xvf files.tar -C /mnt/files/public
+    ```
+8. If you get permissions error during the previous step you should give your user (`wodby`) writing permissions:
+    ```shell
+    sudo files_chmod /mnt/files/public
+    ```    
+9. Fix permissions for files directory so PHP (`www-data` user) have access to it:
+    ```shell
+    sudo files_chown /mnt/files/public
+    ``` 
+10. That's it! Clear WP cache and remove import artifacts
 
 ### Import between instances
 
