@@ -28,3 +28,6 @@ Currently, we do not have a native integration with GCP. But you still can conne
 ![](../assets/gcp-rule-ports.png)
 
 9. Now it's all set on GCP side. Now connect the server (`Servers > Connect > GCP`) and follow the instructions
+
+!!! info "Root access"
+    To gain root access you just need to run `sudo su` from your user
