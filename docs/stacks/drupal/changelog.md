@@ -4,6 +4,11 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.
+
+## 5.3.2
+
+*❗️Vanilla Drupal core security update: 8.6.2, 7.60
+* Memcached patch update: 1.5.11    
     
 ## 5.3.1
 
