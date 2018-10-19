@@ -7,7 +7,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 5.3.2
 
-*❗️Vanilla Drupal core security update: 8.6.2, 7.60
+* ❗️Vanilla Drupal core security update: 8.6.2, 7.60
 * Memcached patch update: 1.5.11    
     
 ## 5.3.1
