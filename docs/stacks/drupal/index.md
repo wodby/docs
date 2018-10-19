@@ -95,13 +95,17 @@ In case your import data is huge it makes sense to import it manually from the s
     ```shell
     sudo files_chmod /mnt/files/public
     sudo files_chmod /mnt/files/private
-    ```    
-9. Fix permissions for files directory so PHP (`www-data` user) have access to it:
+    ```
+9. Make sure that the public files can be read by others (non-owner user/group) so the HTTP server can serve them:
+    ```shell
+    chmod -R o=rX /mnt/files/public/
+    ```
+10. Fix permissions for files directory so PHP (`www-data` user) have access to it:
     ```shell
     sudo files_chown /mnt/files/public
     sudo files_chown /mnt/files/private
     ``` 
-10. That's it! Clear Drupal cache and remove import artifacts
+11. That's it! Clear Drupal cache and remove import artifacts
 
 ### From drush archive
 

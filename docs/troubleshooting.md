@@ -132,3 +132,10 @@ See [this article](stacks/wordpress/index.md#upgrading-wordpress)
 
 !!! info "Infrastructure 6.x"
     All the known issues will be resolved in Infrastructure 6.x
+    
+## Permissions denied error on static files
+
+This usually happens when public files owned by a user with UID/GID different from an HTTP server user and have no reading permissions for others, e.g. `-rwxr-x---` or `750`. To give the writing permissions for others you'll have to executing the following commands from the host server as root (most likely you won't be able to do it from a different user):
+```
+chmod -R o=rX /srv/wodby/instances/[APP INSTANCE UUID]/files/public/
+```  
