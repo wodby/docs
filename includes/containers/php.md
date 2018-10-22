@@ -37,3 +37,12 @@ sudo files_chmod /mnt/files/public
 ```
 
 For mode details about users and permissions in PHP container see https://github.com/wodby/php#users-and-permissions
+
+### Codebase directory permissions
+
+The codebase owned by the default `wodby` (uid/gid `1000`) user. If you need to give writing permissions to PHP-FPM (`www-data` user with uid/gid `82`) to a directory outside on public files directory you can either access a container as root user or change it from the host server (single-server infrastructure): 
+
+```shell
+chown -R 1000:82 /srv/wodby/instances/[INSTANCE_UUID]/app/path-to-directory
+chmod -R 775 /srv/wodby/instances/[INSTANCE_UUID]/app/path-to-directory
+```
