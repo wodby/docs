@@ -9,5 +9,6 @@ PHP_XDEBUG_PROFILER_ENABLE_TRIGGER_VALUE: 1
 
 Add `XDEBUG_PROFILE=1` param to GET or POST request (or set a cookie) you want to profile. Xdebug will generate profile files in `/mnt/files/xdebug/profiler`. Click Update in Webgrind to access the new information. See https://xdebug.org/docs/profiler to learn more about xdebug profiling.
 
-!!! warning "IMPORTANT" 
-    Xdebug profiling significantly decreases performance and increases resources usage. DO NOT USE it on Production servers.
+!!! warning "Must know before using Profiler" 
+    * Xdebug profiling significantly decreases performance and increases resources usage. DO NOT USE it on Production servers
+    * Xdebug traces files may take a lot of disk space

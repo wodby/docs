@@ -150,3 +150,7 @@ For more details see [Varnish stack documentation](../varnish/index.md)
 ## Webgrind
 
 {!containers/webgrind.md!}
+
+## XHProf viewer
+
+{!containers/xhprof.md!}
