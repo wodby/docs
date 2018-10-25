@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.5.7
+
+* Edge: DH key length increased to 2048 and now persistent
+
 ### 5.5.6
 
 * Security fix: server's metrics could be publicly accessible
