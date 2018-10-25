@@ -1,4 +1,8 @@
-XHProf viewer allows you view and analyze XHProf traces output and generate call graphs for visualisation. To use XHProf first enable Tideways XHProf profiler by adding environment variable `$PHP_XHPROF=1`
+!!! warning "Must know before using XHProf" 
+    * XHProf decreases performance and increases resources usage. Be careful while using in production
+    * XHProf traces files may take a lot of disk space
+
+XHProf viewer allows you view and analyze XHProf traces output and generate call graphs for visualisation. To use XHProf first enable XHProf extension (by Tideways) by adding the environment variable `$PHP_XHPROF=1` to your PHP container.
 
 Use the following example snippet to profile your code:
 
@@ -22,7 +26,3 @@ if (extension_loaded('tideways_xhprof')) {
     file_put_contents(sprintf('%s/%s.%s.xhprof', $xhprof_out, uniqid(), 'web'), serialize(tideways_xhprof_disable()));
 }
 ```
-
-!!! warning "Must know before using XHProf" 
-    * XHProf decreases performance and increases resources usage. Be careful while using in production
-    * XHProf traces files may take a lot of disk space
