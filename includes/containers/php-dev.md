@@ -4,7 +4,7 @@ You can add NewRelic APM monitoring for PHP by adding environment variables `PHP
 
 ### Profiling
 
-You can profile your PHP application either via Xdebug traces (+[Webgrind](#webgrind)) or Tideways XHProf extensions (+[XHProf viewer](#xhprof-viewer)).
+You can profile your PHP application either via Xdebug traces (+[Webgrind](#webgrind)) or Tideways XHProf extensions (+[XHProf viewer](#xhprof)).
 
 ### Xdebug (remote)
 
