@@ -53,13 +53,13 @@ See [details](https://github.com/wodby/nginx#drupal) about virtual host preset.
 
 For security reasons, default nginx config allows executing limited php endpoints. This is how you can add additional php endpoints:
 
-1. Add `*.conf` file to your codebase with locations definition, example:
+1. Add `locations.conf` file to your codebase with locations definition, example:
 ```
 location = /custom-php-endpoint.php {
     fastcgi_pass php;
 }
 ```
-2. In nginx service configuration set new environment variable `NGINX_SERVER_EXTRA_CONF_FILEPATH` to your *.conf file (e.g. `/var/www/html/drupal.conf`). It will be included at the end of `/etc/nginx/conf.d/drupal.conf`
+2. In nginx service configuration set new environment variable `NGINX_SERVER_EXTRA_CONF_FILEPATH=/var/www/html/locations.conf`. It will be included at the end of `/etc/nginx/defaults.conf`
 3. Restart the service
 
 Alternatively, you can replace your HTTP server to [Apache](#apache) (not recommended) that has less strict rules.
