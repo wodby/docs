@@ -36,7 +36,7 @@ Public files directory (symlink to `/mnt/files/public`) that used for uploads ow
 sudo files_chmod /mnt/files/public
 ```
 
-When you [manually import files](../index.md#manual-import) under `wodby` user you should change files ownership to `www-data` user to let PHP-FPM create new files in directories, run the following command to change the ownership:
+When you [manually import files](index.md#manual-import) under `wodby` user you should change files ownership to `www-data` user to let PHP-FPM create new files in directories, run the following command to change the ownership:
 
 ```shell
 sudo files_chmod /mnt/files/public
