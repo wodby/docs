@@ -78,7 +78,9 @@ If the default drupal config and available environment variables are not enough 
 
 ### Files proxy
 
-You can proxy all requests to files to (similar to what drupal module stage_file_proxy does) by adding the environment variable `NGINX_DRUPAL_FILE_PROXY_URL` to URL of your Drupal instance with files, e.g. `http://example.com`
+When using [stage_file_proxy](https://www.drupal.org/project/stage_file_proxy) set `$NGINX_STATIC_404_TRY_INDEX=1` to redirect 404 static files requests to Drupal.
+
+Alternatively, you can proxy all requests to files without bootstrapping Drupal to another URL (e.g. another Drupal instance with files) by adding the environment variable `NGINX_DRUPAL_FILE_PROXY_URL=http://example.com`.
 
 ### Mod pagespeed
 
