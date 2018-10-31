@@ -42,8 +42,9 @@ When you [manually import files](index.md#manual-import) under `wodby` user you 
 sudo files_chmod /mnt/files/public
 ```
 
-Note: these helper script are the only `sudo` commands available to `wodby` user and can be applied only to directories under `/mnt/files` 
-
+!!! info "Helper scripts scope" 
+    `files_chmod` and `files_chown` are the only `sudo` commands available to `wodby` user and can be applied **only to directories** under `/mnt/files` .  
+        
 For mode details about users and permissions in PHP container see https://github.com/wodby/php#users-and-permissions
 
 ### Codebase directory permissions
