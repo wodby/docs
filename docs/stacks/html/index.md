@@ -27,6 +27,13 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.6
+
+* Nginx:
+    * Always try index file for / location before 404
+    * Remove outdated `*.htm` from the default index file
+    * Bugfix: txt was missing from the default list of static extensions
+
 ### 0.2.5
 
 * Nginx:
