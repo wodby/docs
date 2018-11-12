@@ -24,9 +24,11 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 
 ### Mount my codebase
 
-1. Download `docker4drupal.tar.gz` from the [latest stable release](https://github.com/wodby/docker4drupal/releases) and unpack to your Drupal project root. If you choose to clone [the repository](https://github.com/wodby/docker4drupal) delete `docker-compose.override.yml` as it's used to deploy vanilla Drupal
-2. Ensure `NGINX_SERVER_ROOT` (or `APACHE_SERVER_ROOT`) is correct, by default set to `/var/www/html/web` for composer-based projects where Drupal is in `web` subdirectory
-3. Ensure database access settings in your `settings.php` corresponds to values in `.env` file, e.g.:
+1. If you're starting a new project we recommend you to fork [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project) project
+2. Download and unpack `docker4drupal.tar.gz` from the [latest stable release](https://github.com/wodby/docker4drupal/releases) to your project root
+3. Delete `docker-compose.override.yml` as it's used to deploy vanilla Drupal
+4. Ensure `NGINX_SERVER_ROOT` (or `APACHE_SERVER_ROOT`) is correct, by default set to `/var/www/html/web` for composer-based projects where Drupal is in `web` subdirectory
+5. Ensure database access settings in your `settings.php` corresponds to values in `.env` file, e.g.:
     ```php
     $databases['default']['default'] = array (
       'database' => 'drupal', // same as $DB_NAME
@@ -39,15 +41,15 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
       'prefix' => '',
     );
     ```     
-4. [Configure domains](#domains)
-5. Optional: for Drupal 7 or 6 comment out corresponding `PHP_TAG` and `NGINX_TAG` in your `.env` file
-6. Optional: [import existing database](#database-import-and-export)
-7. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
-8. Optional: macOS users please read [this](#docker-for-mac)
-9. Optional: Windows users please read [this](#windows)
-10. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
-11. Your drupal website should be up and running at http://drupal.docker.localhost:8000
-12. You can see status of your containers and their logs via portainer: http://portainer.drupal.docker.localhost:8000
+6. [Configure domains](#domains)
+7. Optional: for Drupal 7 or 6 comment out corresponding `PHP_TAG` and `NGINX_TAG` in your `.env` file
+8. Optional: [import existing database](#database-import-and-export)
+9. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
+10. Optional: macOS users please read [this](#docker-for-mac)
+11. Optional: Windows users please read [this](#windows)
+12. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+13. Your drupal website should be up and running at http://drupal.docker.localhost:8000
+14. You can see status of your containers and their logs via portainer: http://portainer.drupal.docker.localhost:8000
 
 You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
 
