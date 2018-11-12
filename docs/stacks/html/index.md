@@ -27,6 +27,12 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.7
+
+* Nginx:
+    * Patch updates: 1.15.6, 1.14.1
+    * Nginx now uses real IP set from Edge
+
 ### 0.2.6
 
 * Nginx:

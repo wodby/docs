@@ -11,6 +11,10 @@ You can acquire auto-generated redis password from `App > Stack > Redis` page.
 
 ## Changelog
 
+### 0.1.2
+
+Added Redis 5
+
 ### 0.1.1
 
 * Default [memory request](../config.md#resources) set to 8m

@@ -5,6 +5,29 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.
 
+## 5.3.3
+
+* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/drupal/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/drupal/containers/#xhprof)
+* Added Redis 5
+* Vanilla Drupal patch updates: 8.6.3, 7.61
+* PHP:
+    * Patch updates: 7.2.12, 7.1.24
+    * Added [event](https://pecl.php.net/package/event) extension
+    * You can now disable extensions via `$PHP_EXTENSIONS_DISABLE` (separated by comma)
+    * Extensions updates: igbinary 2.0.8, ast 1.0.0, grpc 1.16.0
+    * ImageMagick downgraded to 7.0.7.32 with enabled openmp 
+    * Bugfix: tideways xhprof extension could not be enabled
+* Nginx:
+    * Patch updates: 1.15.6, 1.14.1
+    * Nginx now uses real IP set from Edge
+    * Default security headers duplicated https://github.com/wodby/docker4drupal/issues/336
+    * Added `$NGINX_STATIC_404_TRY_INDEX`, when set Nginx redirects 404 static files request to index file (required for stage_file_proxy module) https://github.com/wodby/docker4drupal/issues/270
+* Memcached patch update 1.5.12    
+* MariaDB 10.0 `innodb_default_row_format` now set to `dynamic` by default
+* Webgrind and Adminer rebased to the latest PHP image
+* ~~Apache patch update~~ https://github.com/wodby/apache/issues/5
+* ~~MariaDB 10.0 patch update~~ https://github.com/wodby/mariadb/issues/10
+
 ## 5.3.2
 
 * ❗️Vanilla Drupal core security update: 8.6.2, 7.60

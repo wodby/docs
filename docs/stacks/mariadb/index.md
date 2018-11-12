@@ -72,6 +72,10 @@ docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+### 2.3.4
+
+MariaDB 10.0 `innodb_default_row_format` now set to `dynamic` by default
+
 ### 2.3.3
 
 * MariaDB patch update 10.3.10

@@ -73,6 +73,15 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.4.9
+
+* Matomo rebased on the latest PHP image
+* Added Redis 5
+* Nginx:
+    * Patch updates: 1.15.6, 1.14.1
+    * Nginx now uses real IP set from Edge
+    * Bugfix: `txt` was missing from the default list of static extensions
+
 ### 0.4.8
 
 Matomo patch update: 3.6.1

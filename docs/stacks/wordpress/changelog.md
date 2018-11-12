@@ -4,6 +4,30 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.    
+    
+## 5.3.2
+
+* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/drupal/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/drupal/containers/#xhprof)
+* Added Redis 5
+* PHP:
+    * ❗️imagick extension has been temporary disabled due to stability issues with ImageMagick library https://github.com/wodby/wordpress/issues/1
+    * Patch updates: 7.2.12, 7.1.24
+    * Added [event](https://pecl.php.net/package/event) extension
+    * You can now disable extensions via `$PHP_EXTENSIONS_DISABLE` (separated by comma)
+    * Extensions updates: igbinary 2.0.8, ast 1.0.0, grpc 1.16.0
+    * `session.save_path` now set to `/mnt/files/sessions` by default for persistent sessions
+    * ImageMagick downgraded to 7.0.7.32 with enabled openmp 
+    * Bugfix: tideways xhprof extension could not be enabled
+* Nginx:
+    * Patch updates: 1.15.6, 1.14.1
+    * Nginx now uses real IP set from Edge
+    * Bugfix: it was not possible to access `*.txt` files from uploads directory
+    * Bugfix: default security headers were missing
+* Memcached patch update 1.5.12    
+* MariaDB 10.0 `innodb_default_row_format` now set to `dynamic` by default
+* Webgrind and Adminer rebased to the latest PHP image
+* ~~Apache patch update 2.4.37~~ https://github.com/wodby/apache/issues/5
+* ~~MariaDB patch update 10.1.17~~ https://github.com/wodby/mariadb/issues/10
 
 ## 5.3.1
 
