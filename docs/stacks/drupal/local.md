@@ -42,9 +42,9 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
     );
     ```     
 6. [Configure domains](#domains)
-7. Optional: for Drupal 7 or 6 comment out corresponding `PHP_TAG` and `NGINX_TAG` in your `.env` file
-8. Optional: [import existing database](#database-import-and-export)
-9. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
+7. Optional: for Drupal 7 or 6 update `NGINX_VHOST_PRESET` correspondingly in your `.env` file
+8. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
+9. Optional: [import existing database](#database-import-and-export)
 10. Optional: macOS users please read [this](#docker-for-mac)
 11. Optional: Windows users please read [this](#windows)
 12. Run containers: [`make up`](#make-commands) or `docker-compose up -d`

@@ -28,8 +28,8 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 3. Delete `docker-compose.override.yml` as it's used to deploy vanilla WordPress
 4. Ensure database credentials match in your `wp-config.php` and `.env` files 
 5. [Configure domains](#domains)
-6. Optional: [import existing database](#database-import-and-export)
-7. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
+6. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
+7. Optional: [import existing database](#database-import-and-export)
 8. Optional: macOS users please read [this](#docker-for-mac)
 9. Optional: Windows users please read [this](#windows)
 10. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
