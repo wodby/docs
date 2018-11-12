@@ -99,6 +99,12 @@ You can import database and files from one instance to another regardless of whe
 !!! tldr "Use composer"
     We recommend managing WordPress core and plugins dependencies with composer, you can find a boilerplate at https://github.com/wodby/wordpress-composer
 
+Add the following lines to your `wp-config.php` to disable all automatic updates:
+
+```php
+define( 'WP_AUTO_UPDATE_CORE', false );
+```
+
 ### Upgrading core
 
 Upgrading WordPress core requires a full writing permissions on the entire codebase, we do not provide such wide permissions for security reasons. So you'll have to upgrade your core either manually via your git or by upgrading your stack if you deployed a vanilla WordPress. 
