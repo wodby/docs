@@ -23,11 +23,13 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 
 ### Mount my codebase
 
-1. Download `docker4wordpress.tar.gz` from the [latest stable release](https://github.com/wodby/docker4wordpress/releases) and unpack to your WordPress project root. If you choose to clone [the repository](https://github.com/wodby/docker4wordpress) delete `docker-compose.override.yml` as it's used to deploy vanilla WordPress
-2. Ensure database credentials match in your `wp-config.php` and `.env` files 
-3. [Configure domains](#domains)
-4. Optional: [import existing database](#database-import-and-export)
-5. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
+1. If you're starting a new project we recommend you to fork [wodby/wordpress-composer](https://github.com/wodby/wordpress-composer) project
+2. Download and unpack `docker4wordpress.tar.gz` from the [latest stable release](https://github.com/wodby/docker4wordpress/releases) to your project root
+3. Delete `docker-compose.override.yml` as it's used to deploy vanilla WordPress
+4. Ensure database credentials match in your `wp-config.php` and `.env` files 
+5. [Configure domains](#domains)
+6. Optional: [import existing database](#database-import-and-export)
+7. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
 8. Optional: macOS users please read [this](#docker-for-mac)
 9. Optional: Windows users please read [this](#windows)
 10. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
