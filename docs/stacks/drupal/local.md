@@ -82,7 +82,13 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 
 ## Database import and export
 
-{!local/db-import-export.md!}
+### MariaDB
+
+{!local/mariadb.md!}
+
+### PostgreSQL
+
+{!local/postgres.md!}
 
 ## Make commands
 

@@ -2,10 +2,6 @@
 
 PostgreSQL can be configured with the following [environment variables](https://github.com/wodby/postgres#environment-variables)
 
-## Local environment
-
-if you want to import your database, uncomment the line for `postgres-init` volume in your compose file. Create the volume directory `./postgres-init` in the same directory as the compose file and put there your `.sql .sql.gz .sh` file(s). All SQL files will be automatically imported once Postgres container has started.
-
 ## External access
 
 There are two ways to connect to a PostgreSQL server externally: publish port or set up an SSH tunnel.
