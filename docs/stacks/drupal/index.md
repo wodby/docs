@@ -5,7 +5,9 @@ Stack pages:
 * [Drupal 8](https://cloud.wodby.com/stacks/drupal8)
 * [Drupal 7](https://cloud.wodby.com/stacks/drupal7)
 * [Drupal 6](https://cloud.wodby.com/stacks/drupal6)
-* [Docker4Drupal (local environment)](https://github.com/wodby/docker4drupal)
+
+!!! info "Docker4Drupal"
+    This is the overview for Drupal stack deployed via Wodby. For local environment (Docker4Drupal) documentation see [this article](local.md)
 
 ## Deployment
 
