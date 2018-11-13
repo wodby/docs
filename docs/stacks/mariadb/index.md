@@ -54,6 +54,9 @@ If you deploy MariaDB as a service inside of a stack that comes with an SSHD con
 
 ### Import existing database
 
+!!! danger "Known issues with Drupal 7 indexes"
+    There's a known issue with indexes rebuild when importing db dumps for Drupal 7, for more details see https://github.com/wodby/docker4drupal/issues/341 
+
 if you want to import your database, uncomment the line for `mariadb-init` volume in your compose file. Create the volume directory `./mariadb-init` in the same directory as the compose file and put there your `.sql .sql.gz .sh` file(s). All SQL files will be automatically imported once MariaDB container has started.
 
 ### Export
