@@ -7,7 +7,7 @@ Image: Multi-domain set-up example
 
 There are two ways how you can run multiple projects:
 
-## Single port
+### Single port
 
 In this case you will run a stand-alone traefik that will be connected to docker networks of your projects:
 
@@ -22,7 +22,7 @@ In this case you will run a stand-alone traefik that will be connected to docker
 !!! warning "For macOS users with docker-sync"
     Make sure names of `syncs` in `docker-sync.yml` are unique per project. The recommended way is to run a stand-alone docker-sync with syncs definition for all projects. Do not forget to update `src` paths for projects 
 
-## Different ports 
+### Different ports 
 
 Alternatively, you can run multiple traefik containers for your projects on different ports. Just a few things to make sure:
 
