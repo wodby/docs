@@ -86,4 +86,4 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 
 ## Running multiple Projects
 
-{!local/php-multiple-projects.md!}
+{!local/multiple-projects.md!}
