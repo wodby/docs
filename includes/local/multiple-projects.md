@@ -24,7 +24,7 @@ In this case you will run a stand-alone traefik that will be connected to docker
 
 ### Different ports 
 
-Alternatively, you can run multiple traefik containers for your projects on different ports. Just a few things to make sure:
+Alternatively, instead of running a stand-alone traefik, you can just run default traefik containers on different ports. Just a few things to make sure:
 
 * Ports of `traefik` service in your `docker-compose.yml` files differ 
 * `traefik.backend=` labels have `${PROJECT_NAME}_` prefix
