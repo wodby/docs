@@ -2,27 +2,6 @@
 
 MariaDB can be configured with the following [environment variables](https://github.com/wodby/mariadb#environment-variables)
 
-## Calculating the optimal size of `innodb_buffer_pool_size`
-
-Run the following query to get the recommend innodb buffer pool size:
-
-```sql
-SELECT CONCAT(CEILING(RIBPS/POWER(1024,pw)),SUBSTR(' KMGT',pw+1,1))
-Recommended_InnoDB_Buffer_Pool_Size FROM
-(
-    SELECT RIBPS,FLOOR(LOG(RIBPS)/LOG(1024)) pw
-    FROM
-    (
-        SELECT SUM(data_length+index_length)*1.1*growth RIBPS
-        FROM information_schema.tables AAA,
-        (SELECT 1.25 growth) BBB
-        WHERE ENGINE='InnoDB'
-    ) AA
-) A;
-```
-
-Source: by RolandoMySQLDBA from the [answer on dba stackexchange](https://dba.stackexchange.com/a/27472/134547).
-
 ## External access
 
 There are two ways to connect to a MariaDB server externally: publish port or set up an SSH tunnel.  
