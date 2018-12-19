@@ -34,6 +34,10 @@ This changelog is for HTML stack on Wodby, to see images changes see tags descri
     * ⭐️  Added [ModSecurity with OWASP CRS](https://github.com/wodby/nginx#modsecurity) (disabled by default) https://github.com/wodby/nginx/pull/13, https://github.com/wodby/nginx/pull/14
     * PageSpeed is now dynamic module, [disabled by default](https://github.com/wodby/nginx#pagespeed)
 
+Update instructions:
+
+* If you used Nginx pagespeed module, add `$NGINX_PAGESPEED_ENABLED=1`, if you had `$NGINX_PAGESPEED=on` you can delete it since it's `on` by default   
+
 ### 0.2.7
 
 * Nginx:

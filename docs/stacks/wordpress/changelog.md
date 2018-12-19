@@ -49,10 +49,14 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 * ~~Apache patch update: 2.4.37~~ https://github.com/wodby/apache/issues/5
 * ~~MariaDB patch update: 10.1.37~~ https://github.com/wodby/mariadb/issues/10
 
-## Update instructions
+### Update instructions
 
 * If you used [deprecated environment variables](#520) in Varnish updated them to the new version 
 * If you used Nginx pagespeed module, add `$NGINX_PAGESPEED_ENABLED=1`, if you had `$NGINX_PAGESPEED=on` you can delete it since it's `on` by default
+
+## 5.3.3
+
+* Bugfix: Nginx did not convert deprecated environment variables to new
     
 ## 5.3.2
 
