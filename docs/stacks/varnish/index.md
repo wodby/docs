@@ -54,6 +54,7 @@ This changelog is for Varnish stack on Wodby, to see image changes see tags desc
 * We now compile varnish from sources, Alpine Linux updated to 3.8
 * Patch updates: 4.1.10
 * GeoIP module added and imported by default
+* Added [9 additional modules](https://github.com/wodby/varnish#installed-modules), not imported by default
 * ⭐️ We now [detect country code](https://github.com/wodby/varnish#geoip) and [currency (USD, EUR)](https://github.com/wodby/varnish#currency) and pass it to backend in headers, you can optionally uniquify cache per country or currency
 * ⭐️ You can now personify cache additionally by setting cookies starting with [`VCKEY-`](https://github.com/wodby/varnish#cache-personification)
 * `fbclid` added to stripped query params
