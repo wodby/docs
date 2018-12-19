@@ -4,10 +4,58 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.    
+
+## 5.4.0
+
+### Changes since 5.3.4
+
+* Vanilla WordPress updated to 5.0
+* PHP:
+    * ⭐️Added PHP 7.3 ([some extensions not yet supported](https://github.com/wodby/php/issues?q=is%3Aissue+is%3Aopen+label%3A%22PHP+7.3%22))
+    * Patch updates: 7.2.13, 7.1.25, 5.6.39
+    * Update extensions: yaml 2.0.4, redis 4.2.0, apcu 5.1.14
+    * ImageMagick library now comes with disabled openmp
+    * Imagick extension enabled back
+    * Bugfix: `/home/www-data` owned by wodby https://github.com/wodby/drupal-php/issues/62
+* Varnish:
+    * ⭐️ Varnish 6.0 added
+    * We now compile varnish from sources, Alpine Linux updated to 3.8
+    * Patch updates: 4.1.10
+    * GeoIP module added and imported by default
+    * ⭐️ We now [detect country code](https://github.com/wodby/varnish#geoip) and [currency (USD, EUR)](https://github.com/wodby/varnish#currency) and pass it to backend in headers, you can optionally uniquify cache per country or currency
+    * ⭐️ You can now personify cache additionally by setting cookies starting with [`VCKEY-`](https://github.com/wodby/varnish#cache-personification)
+    * `fbclid` added to stripped query params
+    * Adjusted order of included files https://github.com/wodby/varnish/pull/7
+    * Bugfix: duplications in `X-Forwarded-For`
+    * Deprecated environment variables (listed in [5.2.0](#520)) no longer supported
+* Nginx:
+    * Patch updates: 1.15.7, 1.14.2
+    * ⭐️ Added [ModSecurity with OWASP CRS](https://github.com/wodby/nginx#modsecurity) (disabled by default) https://github.com/wodby/nginx/pull/13, https://github.com/wodby/nginx/pull/14
+    * PageSpeed is now dynamic module, [disabled by default](https://github.com/wodby/nginx#pagespeed)
+    * `$NGINX_FASTCGI_INDEX` added to separate from index file https://github.com/wodby/nginx/pull/11
+    * `index.html` added to index file for PHP-based presets https://github.com/wodby/nginx/pull/11
+* MariaDB:    
+    * Patch updates: 10.3.11, 10.2.19
+    * We now run `mysql_upgrade` automatically on stack upgrades      
+    * Import action now allows `*.mysql` files      
+* Patch updates: 
+    * Redis: 5.0.3, 4.0.12
+    * Memcached: 1.5.12
+    * Node: 10.14.2, 8.14.0, 6.15.1
+    * Elasticsearch/Kibana: 5.6.14
+* Adminer updated to 4.7.0  
+* Webgrind, adminer and xhprof rebased to the latest PHP image
+* ~~Apache patch update: 2.4.37~~ https://github.com/wodby/apache/issues/5
+* ~~MariaDB patch update: 10.1.37~~ https://github.com/wodby/mariadb/issues/10
+
+## Update instructions
+
+* If you used [deprecated environment variables](#520) in Varnish updated them to the new version 
+* If you used Nginx pagespeed module, add `$NGINX_PAGESPEED_ENABLED=1`, if you had `$NGINX_PAGESPEED=on` you can delete it since it's `on` by default
     
 ## 5.3.2
 
-* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/drupal/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/drupal/containers/#xhprof)
+* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/wordpress/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/wordpress/containers/#xhprof)
 * Added Redis 5
 * PHP:
     * ❗️imagick extension has been temporary disabled due to stability issues with ImageMagick library https://github.com/wodby/wordpress/issues/1

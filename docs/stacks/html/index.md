@@ -27,6 +27,13 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.8
+
+* Nginx:
+    * Patch updates: 1.15.7, 1.14.2
+    * ⭐️  Added [ModSecurity with OWASP CRS](https://github.com/wodby/nginx#modsecurity) (disabled by default) https://github.com/wodby/nginx/pull/13, https://github.com/wodby/nginx/pull/14
+    * PageSpeed is now dynamic module, [disabled by default](https://github.com/wodby/nginx#pagespeed)
+
 ### 0.2.7
 
 * Nginx:

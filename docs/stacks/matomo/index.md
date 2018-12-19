@@ -73,6 +73,17 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.5.0
+
+* Matomo updated to 3.7.0 and rebased on the latest PHP image
+* MariaDB:    
+    * Patch updates: 10.3.11, 10.2.19
+    * We now run `mysql_upgrade` automatically on stack upgrades      
+    * Import action now allows `*.mysql` files      
+* Redis patch updates: 5.0.3, 4.0.12
+* Nginx patch updates: 1.15.7, 1.14.2
+* Adminer updated to 4.7.0 and rebased on the latest PHP image 
+
 ### 0.4.9
 
 * Matomo rebased on the latest PHP image
