@@ -18,7 +18,7 @@ Docker4Python is an open-source project ([GitHub page](https://github.com/wodby/
 5. Optional: uncomment lines in the compose file to change DBMS (PostgreSQL by default) or run Redis, Elasticsearch, etc
 6. Optional: macOS users please read [this](#docker-for-mac)
 7. Optional: Windows users please read [this](#permissions-issues)
-8. By default python container will start Gunicorn HTTP server, if you want to change it modify `Dockerfile`
+8. By default python container will start Gunicorn HTTP server, update `$GUNICORN_APP` in `Dockerfile` for your application name. If you have your application in a subdirectory specify it in `$GUNICORN_PYTHONPATH`   
 9. Build your python image by running `make build` or `docker-compose build`. This will create a new image with installed packages from your `requirements.txt`. If you're using `pipenv` uncomment the corresponding lines in Dockerfile to copy `Pipfile`, `Pipfile.lock` and run `pipenv install` instead of `pip`. If compilation of native extension for some of your packages fail you probably need to install additional dev packages, see example in `Dockerfile`  
 10. Run containers: [`make`](#make-commands) or `docker-compose up -d`. Your codebase from `./` will be mounted to the python image with installed packages 
 11. Your python application should be up and running at http://python.docker.localhost:8000
