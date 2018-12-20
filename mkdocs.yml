@@ -114,6 +114,10 @@ nav:
       - Overview: stacks/ruby/index.md
       - Containers: stacks/ruby/containers.md
       - Local environment: stacks/ruby/local.md
+    - Python:
+      - Overview: stacks/python/index.md
+      - Containers: stacks/python/containers.md
+      - Local environment: stacks/python/local.md
     - HTML: stacks/html/index.md
     - Matomo: stacks/matomo/index.md
     - Cachet: stacks/cachet/index.md
