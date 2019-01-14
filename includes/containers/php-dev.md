@@ -145,3 +145,10 @@ You must additionally configure your IDE to debug CLI requests.
     * Check `Use path mappings`, select path to your project and enter `/var/www/html` in the right column (Absolute path on the server) 
 3. Choose newly created server in "Server" for PHP Web Page
 4. Save settings
+
+### Xdebug troubleshooting
+
+You may configure Xdebug logging to shoot possible issues:
+```
+PHP_XDEBUG_REMOTE_LOG: /tmp/php-xdebug.log # Log file inside of php container.
+```
