@@ -149,6 +149,7 @@ You must additionally configure your IDE to debug CLI requests.
 ### Xdebug troubleshooting
 
 You may configure Xdebug logging to shoot possible issues:
+
 ```
 PHP_XDEBUG_REMOTE_LOG: /tmp/php-xdebug.log # Log file inside of php container.
 ```
