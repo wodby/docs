@@ -179,7 +179,7 @@ monolog.handler.rsyslog:
 4. Use `rsyslog` handler for your channels
 5. Find your logs in [rsyslog container output](../../apps/logs.md)
 
-Read [Logging in Drupal 8](https://www.wellnet.it/en/blog/logging-drupal-8) to learn more.
+Read [Logging in Drupal 8](https://www.wellnet.it/blog/logging-drupal-8) to learn more.
 
 ## Solr 
 
