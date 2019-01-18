@@ -52,6 +52,10 @@ Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers li
 | `portainer`    | `http://portainer.php.docker.localhost:8000` |
 | `webgrind`     | `http://webgrind.php.docker.localhost:8000`  |
 
+## Xdebug
+
+{!local/xdebug.md!}
+
 ## Database import and export
 
 ### MariaDB

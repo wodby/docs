@@ -62,6 +62,10 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 | `portainer`    | `http://portainer.wp.docker.localhost:8000` |
 | `webgrind`     | `http://webgrind.wp.docker.localhost:8000`  |
 
+## Xdebug
+
+{!local/xdebug.md!}
+
 ## Database import and export
 
 ### MariaDB

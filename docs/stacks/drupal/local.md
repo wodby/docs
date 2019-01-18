@@ -80,6 +80,10 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 | `portainer`    | `http://portainer.drupal.docker.localhost:8000` |
 | `webgrind`     | `http://webgrind.drupal.docker.localhost:8000`  |
 
+## Xdebug
+
+{!local/xdebug.md!}
+
 ## Database import and export
 
 ### MariaDB
