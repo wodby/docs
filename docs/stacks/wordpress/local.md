@@ -76,6 +76,12 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 
 {!local/php-make-commands.md!}
 
+WordPress-specific:
+
+```
+make wp [command] Execute wp cli command (runs with --path /var/www/html, you can override it via WP_ROOT=PATH)
+```
+
 ## Docker for mac
 
 {!local/docker-for-mac.md!}
