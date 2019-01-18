@@ -75,7 +75,21 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 
 ## Make commands
 
-{!local/ruby-make-commands.md!}
+We provide `Makefile` that contains commands to simplify the work with your local environment. You can run `make [COMMAND]` to execute the following commands:
+
+```
+Usage: make COMMAND
+
+Commands:
+    up              Start up all container from the current docker-compose.yml 
+    build           Build ruby image with gems from your Gemfile.lock 
+    stop            Stop all containers for the current docker-compose.yml (docker-compose stop) 
+    down            Same as stop
+    prune           Stop and remove containers, networks, images, and volumes (docker-compose down)
+    ps              List container for the current project (docker ps with filter by name)
+    shell           Access Ruby container via shell as a default user  (docker exec -ti $CID sh)
+    logs [service]  Show containers logs, use [service] to show logs of specific service
+```
 
 ## Docker for mac
 
@@ -83,7 +97,26 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 
 ## Permissions issues
 
-{!local/ruby-permissions.md!}
+You might have permissions issues caused by non-matching uid/gid on your host machine and the default user in php container.
+
+### Linux
+
+### macOS
+
+[Use `-dev-macos` version](#macos-permissions-issues) of ruby image where default `wodby` user has `501:20` uid/gid that matches default macOS user.
+
+### Windows
+
+Since you [can't change owner of mounted volumes](https://github.com/docker/for-win/issues/39) in Docker for Win, the only solution is to run everything as root, add the following options to `ruby` service in your docker-compose file:
+
+```yml
+  ruby:
+    user: root
+```
+
+### Different uid/gid?
+
+You can rebuild the base image [wodby/ruby](https://github.com/wodby/ruby) with custom user/group ids by using docker build arguments `WODBY_USER_ID`, `WODBY_GROUP_ID` (both `1000` by default)
 
 ## Running multiple Projects
 
