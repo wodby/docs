@@ -29,44 +29,16 @@
 
 #### macOS, Docker
 
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: 10.254.254.254` for PHP service (just a random IP that very likely won't be used by anything else).
+1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service (Docker 18.03+)
 2. Restart containers (`make`)
-3. You also need to have loopback alias with IP from above. You need this only once and that settings stays active until logout or restart:
-    ```shell
-    sudo ifconfig lo0 alias 10.254.254.254
-    ```
-4. To add the loopback alias after a reboot, add the following contents to `/Library/LaunchDaemons/docker4drupal.loopback.plist`:
-    ```xml
-    <plist version="1.0">
-      <dict>
-        <key>Label</key>
-        <string>Default Loopback alias</string>
-        <key>ProgramArguments</key>
-        <array>
-          <string>/sbin/ifconfig</string>
-          <string>lo0</string>
-          <string>alias</string>
-          <string>10.254.254.254</string>
-          <string>netmask</string>
-          <string>255.255.255.0</string>
-        </array>
-        <key>RunAtLoad</key>
-        <true/>
-      </dict>
-    </plist>
-    ```
 
 #### Windows
 
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: 10.0.75.1` for PHP service (default IP of Docker NAT).
+1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service (Docker 18.03+)
 2. Restart containers (`make`)
 3. Allow listen connection for your IDE in `Windows Firewall > Allow an app ..`
 
-Also, you might need to add the following lines to your hosts file (see related [github issue](https://github.com/wodby/docker4drupal/issues/193)):
-```
-0.0.0.0			localhost
-10.0.75.1		localhost
-```
+Also, you might need to [update your hosts](https://github.com/wodby/docker4drupal/issues/193) file.
 
 ### IDE configuration
 
