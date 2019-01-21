@@ -24,7 +24,7 @@
 
 #### Linux, Docker
 
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: 172.17.0.1` for PHP service (if you have docker 18.03+ you can specify `host.docker.internal` instead of the IP address)
+1. Uncomment `PHP_XDEBUG_REMOTE_HOST: 172.17.0.1` for PHP service
 2. Restart containers (`make`)
 
 #### macOS, Docker
