@@ -55,7 +55,7 @@ Once traces files generated you can view and analyze your traces via [Webgrind](
 ### Xdebug
 
 !!! info "Debugging locally"
-    For using xdebug locally see [documentation for local environment](local.md)
+    For using xdebug locally see [documentation for local environment](local.md#xdebug)
 
 Follow these steps to debug your application instance remotely with [xdebug](http://xdebug.org/docs/install):
 
