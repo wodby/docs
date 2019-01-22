@@ -207,12 +207,11 @@ In Drupal 8 we recommend using [Cache-Tags](https://www.drupal.org/docs/8/api/ca
 2. Enable the following modules: Varnish Purger Tags, Core tags queuer, Cron processor
 3. Go to `/admin/config/development/performance/purge` and create a new purger with type `Varnish Purger`
 4. On a new purger edit page: 
-    * make sure the selected Type is `Tag`
-    * On Request tab `Tag` (default), specify hostname `varnish`, port `6081`
-    * On Headers tab add a new header with name `Cache-tags` and value `[invalidation:expression]`
-5. Save purger
-6. Now with every cron run Varnish Purger will flush caches of pages with updated Cache Tags
-7. You can additionally enable Purge Drush and add a new cron job to purge cache with a custom period (`drush p-queue-work`)
+    - Make sure the selected Type is `Tag` (default)
+    - On Request tab specify hostname `varnish`, port `6081`
+    - On Headers tab add a new header with name `Cache-tags` and value `[invalidation:expression]`
+5. Save purger. Now with every cron run Varnish Purger will flush cache of pages with updated Cache Tags
+6. You can additionally enable Purge Drush module and add a cron job with a custom period that will flush cache (`drush p-queue-work`) 
 
 ### Drupal 7
 
