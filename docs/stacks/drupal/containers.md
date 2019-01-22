@@ -201,7 +201,7 @@ You can use Varnish to cache dynamic pages and show pages to your visitors witho
 
 ### Drupal 8
 
-Read [this article](https://wunderkraut.se/blogg/purge-cachetags-varnish) to learn how to use Varnish with Drupal 8.
+In Drupal 8 you can purge varnish cache via modules purge, varnish purger and core tags queuer. Please read [this article](https://digitalist.se/blogg/purge-cachetags-varnish) for detailed instructions.
 
 ### Drupal 7
 
