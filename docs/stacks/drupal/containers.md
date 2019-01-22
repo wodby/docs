@@ -201,7 +201,18 @@ You can use Varnish to cache dynamic pages and show pages to your visitors witho
 
 ### Drupal 8
 
-In Drupal 8 you can purge varnish cache via modules purge, varnish purger and core tags queuer. Please read [this article](https://digitalist.se/blogg/purge-cachetags-varnish) for detailed instructions.
+In Drupal 8 we recommend using [Cache-Tags](https://www.drupal.org/docs/8/api/cache-api/cache-tags-varnish) to clear caches:
+
+1. Download modules [purge](https://www.drupal.org/project/purge) and [varnish purger](https://www.drupal.org/project/varnish_purge)
+2. Enable the following modules: Varnish Purger Tags, Core tags queuer, Cron processor
+3. Go to `/admin/config/development/performance/purge` and create a new purger with type `Varnish Purger`
+4. On a new purger edit page: 
+    * make sure the selected Type is `Tag`
+    * On Request tab `Tag` (default), specify hostname `varnish`, port `6081`
+    * On Headers tab add a new header with name `Cache-tags` and value `[invalidation:expression]`
+5. Save purger
+6. Now with every cron run Varnish Purger will flush caches of pages with updated Cache Tags
+7. You can additionally enable Purge Drush and add a new cron job to purge cache with a custom period (`drush p-queue-work`)
 
 ### Drupal 7
 
