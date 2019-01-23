@@ -7,7 +7,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     
 ## 5.4.2
 
-Bugfix: varnish cached logged-in users
+Bugfix: varnish stripped known cookie preventing user login
     
 ## 5.4.1
 
