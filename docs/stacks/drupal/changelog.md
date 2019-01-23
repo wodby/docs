@@ -18,17 +18,17 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - `/var/www/html/bin` added to `$PATH` https://github.com/wodby/php/issues/60
     - Bugfix: event extension could be not be disabled
 - Apache:
-  - ❕Security update 2.4.38
-  - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5    
+    - ❕Security update 2.4.38
+    - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5    
 - Nginx:
-  - Patch update: 1.15.8
-  - GeoIP module deleted https://github.com/wodby/php/issues/59
-  - PageSpeed module now respects `X-Forwarded-Proto` by default
-  - Bugfix: dynamic modules image filter and xslt could not be enabled
-  - Bugfix: `.well-known/*.txt` were not accessible https://github.com/wodby/nginx/issues/17
+    - Patch update: 1.15.8
+    - GeoIP module deleted https://github.com/wodby/php/issues/59
+    - PageSpeed module now respects `X-Forwarded-Proto` by default
+    - Bugfix: dynamic modules image filter and xslt could not be enabled
+    - Bugfix: `.well-known/*.txt` were not accessible https://github.com/wodby/nginx/issues/17
 - Varnish:
-  - We no longer set `X-Real-IP` header in Varnish
-  - Bugfix: unrestricted cache purge from internal network did not work https://github.com/wodby/varnish/issues/14
+    - We no longer set `X-Real-IP` header in Varnish
+    - Bugfix: unrestricted cache purge from internal network did not work https://github.com/wodby/varnish/issues/14
 - MariaDB updates: 10.2.21, 10.3.12, ~~10.1.37~~ https://github.com/wodby/mariadb/issues/10
 - Webgrind, XHProf, Adminer rebased to the latest PHP image    
 
