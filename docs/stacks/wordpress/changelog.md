@@ -5,6 +5,10 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.    
     
+## 5.4.2
+
+Bugfix: varnish cached logged-in users
+    
 ## 5.4.1
 
 - Alpine Linux for the services listed below updated to 3.8.2

@@ -24,6 +24,15 @@ Log showing requests made to the web backend server:
 varnishlog
 ```
 
+## Reload varnish config without restart
+
+```shell
+varnishadmin
+vcl.load newconfig01 /opt/local/etc/varnish.vcl
+vcl.use newconfig01
+quit
+```
+
 ## Troubleshooting 503 (guru meditation) errors
 
 You can get more details on 503 responses by filtering the logs:
@@ -47,6 +56,10 @@ A few reasons why you may get 503:
 ## Changelog
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
+
+### 3.0.2
+
+WordPress preset bugfix: varnish cached logged-in users
 
 ### 3.0.1
 
