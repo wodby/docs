@@ -13,6 +13,10 @@ Use the following credentials during the initial setup on the Database Setup ste
 
 Since version [0.6.0](#060) Matomo comes with GeoIP 2 databases. On Matomo settings page go to `Geolocation` under `System`, choose option `GeoIP 2 (Php)` and click save.
 
+## Customization
+
+You can customize matomo settings by editing `config/config.ini.php` file from the SSH container. After the initial release you may not have permissions to do so, to fix that, you just need to redeploy your stack from `[Instance] > Stack > Operations` page.
+
 ## Redis integration
 
 You can use redis to store Matomo cache (by default stored in the local filesystem):
