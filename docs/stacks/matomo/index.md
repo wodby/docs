@@ -9,6 +9,10 @@ Use the following credentials during the initial setup on the Database Setup ste
 * Password: Copy the value of `MYSQL_PASSWORD` from `[Instance] > Stack > Database` page
 * Database Name: `matomo`
 
+## Geolocation
+
+Since version [0.6.0](#060) Matomo comes with GeoIP 2 databases. On Matomo settings page go to `Geolocation` under `System`, choose option `GeoIP 2 (Php)` and click save.
+
 ## Redis integration
 
 You can use redis to store Matomo cache (by default stored in the local filesystem):
@@ -72,6 +76,12 @@ By default we run the following cron command from [crond container](#crond) ever
 ## Changelog
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
+
+### 0.6.0
+
+- Matomo updated to 3.8.0 and rebased to the latest PHP image
+- We now fix permissions for `config/config.ini.php` so you can customize settings from SSH container 
+- GeoIP 2 database now included, see [how enable geolocation](#geolocation)
 
 ### 0.5.0
 

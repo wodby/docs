@@ -27,6 +27,17 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.9
+
+- Nginx:
+  - Patch update: 1.15.8
+  - GeoIP module deleted https://github.com/wodby/php/issues/59
+  - PageSpeed module now respects `X-Forwarded-Proto` by default
+  - Bugfix: dynamic modules image filter and xslt could not be enabled
+- Apache:
+  - ❕Security update 2.4.38
+  - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5
+
 ### 0.2.8
 
 * Nginx:

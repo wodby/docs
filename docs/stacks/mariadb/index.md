@@ -33,6 +33,10 @@ If you deploy MariaDB as a service inside of a stack that comes with an SSHD con
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+### 2.4.1
+
+MariaDB updates: 10.2.21, 10.3.12, ~~10.1.37~~ https://github.com/wodby/mariadb/issues/10
+
 ### 2.4.0
 
 * Patch updates: 10.3.11, 10.2.19

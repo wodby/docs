@@ -48,6 +48,15 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.0.1
+
+- We no longer set `X-Real-IP` header on Varnish
+- Bugfix: cache purge sometimes did not work
+- Bugfix: unrestricted cache purge from internal network did not work https://github.com/wodby/varnish/issues/14
+- WordPress preset: 
+    - Now all WP cookies except [`$VARNISH_WP_PRESERVED_COOKIES`](https://github.com/wodby/varnish#varnish_wp_preserved_cookies) stripped
+    - Added support for woocommerce cookies https://github.com/wodby/varnish/issues/11
+
 ### 3.0.0
 
 * ⭐️ Varnish 6.0 added

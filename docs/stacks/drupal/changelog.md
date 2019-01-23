@@ -4,6 +4,33 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.
+    
+## 5.4.1
+
+- Alpine Linux for the services listed below updated to 3.8.2
+- ❕Vanilla Drupal security updates: 8.6.7, 7.63
+- PHP:
+    - ❕️Security updates: 7.3.1, 7.2.14, 7.1.26, 5.6.40
+    - GeoIP extension removed https://github.com/wodby/php/issues/59
+    - Updated libraries: ImageMagic (7.0.7.39), libjpeg-turbo, MariaDB client (10.2.19)
+    - Updated php extensions: AMQP 1.9.4, APCu 5.1.16, Memcached 3.1.3, GRPC 1.17.0, event 2.4.3 
+    - The following extensions now added to PHP 7.3: NewRelic, Blackfire, AMQP, Memcached
+    - `/var/www/html/bin` added to `$PATH` https://github.com/wodby/php/issues/60
+    - Bugfix: event extension could be not be disabled
+- Apache:
+  - ❕Security update 2.4.38
+  - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5    
+- Nginx:
+  - Patch update: 1.15.8
+  - GeoIP module deleted https://github.com/wodby/php/issues/59
+  - PageSpeed module now respects `X-Forwarded-Proto` by default
+  - Bugfix: dynamic modules image filter and xslt could not be enabled
+  - Bugfix: `.well-known/*.txt` were not accessible https://github.com/wodby/nginx/issues/17
+- Varnish:
+  - We no longer set `X-Real-IP` header in Varnish
+  - Bugfix: unrestricted cache purge from internal network did not work https://github.com/wodby/varnish/issues/14
+- MariaDB updates: 10.2.21, 10.3.12, ~~10.1.37~~ https://github.com/wodby/mariadb/issues/10
+- Webgrind, XHProf, Adminer rebased to the latest PHP image    
 
 ## 5.4.0
 
