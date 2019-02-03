@@ -3,7 +3,7 @@
 [WordPress stack](https://cloud.wodby.com/stacks/wordpress)
 
 !!! info "Docker4WordPress"
-    This is the overview for Drupal stack deployed via Wodby. For local environment (Docker4WordPress) documentation see [this article](local.md)
+    This is the overview for Wordpress stack deployed via Wodby. For local environment (Docker4WordPress) documentation see [this article](local.md)
 
 ## Deployment 
 
