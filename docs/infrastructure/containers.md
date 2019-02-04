@@ -1,6 +1,6 @@
 # Containers
 
-Most of the container images provided in our managed stacks based on a light-weight Linux distribution [Alpine Linux](https://alpinelinux.org/) (based on musl libc). All images are public and available on [Docker Hub](https://hub.docker.com/r/wodby/), their sources can be found on [GitHub](https://github.com/wodby/).
+Most of the container images provided in our managed stacks are based on the light-weight Linux distribution [Alpine Linux](https://alpinelinux.org/) (based on musl libc). All images are public and available on [Docker Hub](https://hub.docker.com/r/wodby/), their sources can be found on [GitHub](https://github.com/wodby/).
 
 ## Accessing containers
 
