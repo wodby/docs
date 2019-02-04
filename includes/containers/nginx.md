@@ -23,7 +23,7 @@ Nginx comes with [ModSecurity](https://modsecurity.org) which is disabled by def
     
 ### Custom config
 
-If a config preset and available environment variables are not enough for your customizations you can use you own virtual host config: 
+If a config preset and available environment variables are not enough for your customizations you can use your own virtual host config: 
 
 1. Copy `/etc/nginx/conf.d/vhost.conf` to your codebase, adjust to your needs
 2. Deploy code with your config file
