@@ -31,7 +31,7 @@ Bugfix: varnish stripped known cookie preventing user login
     - Bugfix: dynamic modules image filter and xslt could not be enabled
     - Bugfix: `.well-known/*.txt` were not accessible https://github.com/wodby/nginx/issues/17
 - Varnish:
-    - ❗New caching behaviour: if we find cookies not listed in [`$VARNISH_WP_PRESERVED_COOKIES`](https://github.com/wodby/varnish#varnish_wp_preserved_cookies) the page will not be cached
+    - ❗New caching behaviour: if we find a cookie listed in [`$VARNISH_WP_PRESERVED_COOKIES`](https://github.com/wodby/varnish#varnish_wp_preserved_cookies) the page will not be cached
     - Added support for WooCommerce cookies https://github.com/wodby/varnish/issues/11
     - We no longer set `X-Real-IP` header on Varnish
     - Bugfix: cache purge sometimes did not work
