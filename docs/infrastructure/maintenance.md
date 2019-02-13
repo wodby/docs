@@ -12,29 +12,33 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.5.8
+
+Added HTTP2 support
+
 ### 5.5.7
 
-* Edge: DH key length increased to 2048 and now persistent
+Edge: DH key length increased to 2048 and now persistent
 
 ### 5.5.6
 
-* Security fix: server's metrics could be publicly accessible
+Security fix: server's metrics could be publicly accessible
 
 ### 5.5.5
 
-* Bugfix (5.5.4): installer did not report changes to IP address
+Bugfix (5.5.4): installer did not report changes to IP address
 
 ### 5.5.4
 
-* Updates to installer, you don't need to update from the previous version
+Updates to installer, you don't need to update from the previous version
 
 ### 5.5.3
 
-* [HSTS](hsts.md) can now be configured per domain
+[HSTS](hsts.md) can now be configured per domain
 
 ### 5.5.2
 
-* Security vulnerability fix for dnsmasq [CVE-2017-14491](https://security.googleblog.com/2017/10/behind-masq-yet-more-dns-and-dhcp.html)
+Security vulnerability fix for dnsmasq [CVE-2017-14491](https://security.googleblog.com/2017/10/behind-masq-yet-more-dns-and-dhcp.html)
 
 ### 5.5.1
 
