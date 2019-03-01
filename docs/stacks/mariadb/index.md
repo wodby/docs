@@ -33,6 +33,15 @@ If you deploy MariaDB as a service inside of a stack that comes with an SSHD con
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+### 2.5.0
+
+- MariaDB:
+  - Patch updates: 10.3.13, 10.2.22, 10.1.38
+  - MariaDB 10.2, 10.3 rebased to Alpine 3.9 and OpenSSL 1.1
+  - `innodb_force_recovery` and `innodb_purge_threads` are now configurable via env vars
+  - Added `mysql-check` orchestration action and now run with every MariaDB deployment to detect potential issues
+- Adminer updated to 4.7.1 and rebased to the latest PHP image
+
 ### 2.4.1
 
 MariaDB updates: 10.2.21, 10.3.12, ~~10.1.37~~ https://github.com/wodby/mariadb/issues/10

@@ -81,6 +81,10 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.6.1
+
+Matomo updated to 3.8.1 and rebased to the latest PHP image 
+
 ### 0.6.0
 
 - Matomo updated to 3.8.0 and rebased to the latest PHP image

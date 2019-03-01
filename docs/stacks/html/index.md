@@ -27,6 +27,14 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.10
+
+- Nginx:
+  - Patch update: 1.15.9
+  - `.map` added to the list of default static files extensions (`$NGINX_STATIC_EXT_REGEX`)
+  - Bugfix: `$NGINX_LOG_FORMAT_OVERRIDE` had no effect
+- `mod_include` added to Apache https://github.com/wodby/apache/issues/6
+
 ### 0.2.9
 
 - Nginx:

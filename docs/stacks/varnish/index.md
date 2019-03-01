@@ -57,6 +57,11 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.0.3
+
+- Patch updates: 4.1.11, 6.0.3
+- Bugfix: cookie always stripped for static files requests
+
 ### 3.0.2
 
 WordPress preset bugfix: varnish cached logged-in users

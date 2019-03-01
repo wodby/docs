@@ -33,6 +33,13 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+## 1.3.2
+
+- PostgreSQL:
+  - Version 9.3 has reached EOL and will no longer receive updates
+  - Patch updates: 11.2, 10.7, 9.6.12, 9.5.16, 9.4.21
+- Adminer updated to 4.7.1 and rebased to the latest PHP image
+
 ## 1.3.1
 
 * Adminer updated to 4.7.0 and rebased to the latest PHP image

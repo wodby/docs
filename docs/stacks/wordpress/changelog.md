@@ -5,6 +5,36 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.    
     
+## 5.4.3
+
+- Vanilla WordPress updated to 5.1
+- WP CLI updated to 2.1.0
+- PHP:
+  - Rebased to Alpine 3.9: runtime packages updated, switched from LibreSSL to OpenSSL 1.1
+  - PHP updates: 7.3.2, 7.2.15
+  - Introduced additional env vars for NewRelic runtime configuration: `$PHP_NEWRELIC_BROWSER_MONITORING_AUTO_INSTRUMENT`, `$PHP_NEWRELIC_GUZZLE_ENABLED`
+  - WebP support added to gd (PHP 7.x only) https://github.com/wodby/php/issues/68
+  - MariaDB client updated to 10.3.13/10.2.22
+  - Extensions update: igbinary 3.0.0,  apcu 5.1.17
+  - Bugfix: `$PATH` was missing in SSH environment variables
+  - `$SSHD_PERMIT_USER_ENV` default values changed to `yes`
+- Nginx:
+  - Patch update: 1.15.9
+  - `.map` added to the list of default static files extensions (`$NGINX_STATIC_EXT_REGEX`)
+  - Bugfix: `$NGINX_LOG_FORMAT_OVERRIDE` had no effect
+- Varnish:
+  - Patch updates: 4.1.11, 6.0.3
+  - Bugfix: cookie always stripped for static files requests
+- MariaDB:
+  - Patch updates: 10.3.13, 10.2.22, 10.1.38
+  - MariaDB 10.2, 10.3 rebased to Alpine 3.9 and OpenSSL 1.1
+  - `innodb_force_recovery` and `innodb_purge_threads` are now configurable via env vars
+  - Added `mysql-check` orchestration action and now run with every MariaDB deployment to detect potential issues
+- `mod_include` added to Apache https://github.com/wodby/apache/issues/6
+- Adminer updated to 4.7.1
+- Redis updated to 4.0.13
+- XHProf, Webgrind, Adminer rebased to the latest PHP image
+
 ## 5.4.2
 
 Bugfix: varnish stripped known cookie preventing user login
