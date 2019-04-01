@@ -12,6 +12,13 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.6.0
+
+- Nginx updated to 1.15.10
+- Docker log size limited to 100M
+- Docker systemd unit max tasks set to unlimited
+- Bugfix: low files upload speed with HTTP2   
+
 ### 5.5.8
 
 Added HTTP2 support
