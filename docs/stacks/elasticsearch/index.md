@@ -14,6 +14,21 @@ Elasticsearch and Kibana can be configured via environment variables:
 
 This changelog is for Elasticsearch stack on Wodby, to see images changes see tags description on repository page: [elasticsearch](https://github.com/wodby/elasticsearch/releases) and [kibana](https://github.com/wodby/kibana/releases).   
 
+### 2.2.0
+
+- Elasticsearch
+    - Updated to 5.6.16
+    - Added new version 6.7
+    - Dropped all versions except latest 6.x and 5.x
+    - Base image changed from `wodby/openjdk` to `wodby/alpine` 
+- Kibana:
+    - Updated to 5.6.16
+    - Added new version 6.7
+    - Dropped all versions except latest 6.x and 5.x
+    - Base image changed from `wodby/openjdk` to `node`
+    - We now use a specific node version requested by Kibana
+    - Bugfix: Kibana 5.6 failed to start https://github.com/wodby/kibana/issues/1
+
 ### 2.1.4
 
 Elasticsearch updated to 5.6.15

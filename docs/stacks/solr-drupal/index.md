@@ -40,6 +40,13 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.2.0
+
+- Versions 5.4, 6.4, 7.1-7.4 no longer supported (marked as EOL)
+- Versions 7.6, 7.7 added (and 5.5 for Drupal 7)
+- Added new search_api_solr config sets (Drupal 8 default config set updated to `8.x-2.7`)    
+- Bugfix: attachments indexation did not work in Drupal 7 https://github.com/wodby/solr/issues/5
+
 ### 2.1.0
 
 * Added version 7.5

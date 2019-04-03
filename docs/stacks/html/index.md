@@ -27,6 +27,13 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.11
+
+- Nginx:
+    - Updated to 1.15.10
+    - Make extra config be able to work without defaults https://github.com/wodby/nginx/pull/27
+- Apache base image changed from `wodby/httpd` to `httpd`
+
 ### 0.2.10
 
 - Nginx:

@@ -33,6 +33,14 @@ If you deploy MariaDB as a service inside of a stack that comes with an SSHD con
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
 
+!!! caution "MariaDB updates"
+    - We strongly recommend to backup your database before upgrading your application stack 
+    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
+
+### 2.5.1
+
+MariaDB updated to 10.2.23
+
 ### 2.5.0
 
 - MariaDB:
@@ -40,7 +48,7 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
   - MariaDB 10.2, 10.3 rebased to Alpine 3.9 and OpenSSL 1.1
   - `innodb_force_recovery` and `innodb_purge_threads` are now configurable via env vars
   - Added `mysql-check` orchestration action and now run with every MariaDB deployment to detect potential issues
-- Adminer updated to 4.7.1 and rebased to the latest PHP image
+- Adminer updated to 4.7.1 and rebuilt against the latest PHP image
 
 ### 2.4.1
 
@@ -61,7 +69,7 @@ MariaDB 10.0 `innodb_default_row_format` now set to `dynamic` by default
 * Adminer: 
     * Bugfix: some `$PHP_` env vars were ignored
     * Default memory limit set to 512M
-    * Adminer and Webgrind rebased to the latest php image
+    * Adminer and Webgrind rebuilt against the latest PHP image
 
 ### 2.3.2
 

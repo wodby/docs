@@ -81,13 +81,17 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.7.0
+
+Matomo updated to 3.9.1 and rebuilt against the latest PHP image 
+
 ### 0.6.1
 
-Matomo updated to 3.8.1 and rebased to the latest PHP image 
+Matomo updated to 3.8.1 and rebuilt against the latest PHP image 
 
 ### 0.6.0
 
-- Matomo updated to 3.8.0 and rebased to the latest PHP image
+- Matomo updated to 3.8.0 and rebuilt against the latest PHP image
 - We now fix permissions for `config/config.ini.php` so you can customize settings from SSH container 
 - GeoIP 2 database now included, see [how enable geolocation](#geolocation)
 
@@ -121,7 +125,7 @@ Matomo patch update: 3.6.1
 * Adminer: 
     * Bugfix: some `$PHP_` env vars were ignored
     * Default memory limit set to 512M
-    * Adminer and Webgrind rebased to the latest php image
+    * Adminer and Webgrind rebuilt against the latest PHP image
 
 ### 0.4.6
 

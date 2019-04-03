@@ -34,13 +34,17 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.0.4
+
+Cachet rebuilt against the latest PHP image
+
 ### 3.0.3
 
-Cachet rebased to the latest PHP image
+Cachet rebuilt against the latest PHP image
 
 ### 3.0.2
 
-Cachet rebased to the latest PHP image
+Cachet rebuilt against the latest PHP image
 
 ### 3.0.1
 
@@ -73,7 +77,7 @@ Bugfix: environment variable for redis connection were missing
 * Adminer: 
     * Bugfix: some `$PHP_` env vars were ignored
     * Default memory limit set to 512M
-    * Adminer and Webgrind rebased to the latest php image
+    * Adminer and Webgrind rebuilt against the latest PHP image
 
 ### 1.1.8
 

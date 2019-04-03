@@ -5,6 +5,32 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "Changes between your version and the latest"
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.
 
+!!! caution "MariaDB updates"
+    - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
+    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
+
+## 5.4.3
+
+- Vanilla Drupal updates: 8.6.13, 7.65
+- PHP:
+    - ❗️Security updates: 7.3.3, 7.2.16, 7.1.27
+    - Xdebug updated to 2.7.0 (now PHP 7.3 supported)
+    - Global composer package `hirak/prestissimo` removed https://github.com/wodby/docker4drupal/issues/365
+- Nginx:
+    - Updated to 1.15.10
+    - Make extra config be able to work without defaults https://github.com/wodby/nginx/pull/27
+- Solr: 
+    - Versions 5.4, 6.4, 7.1-7.4 no longer supported (marked as EOL)
+    - Versions 7.6, 7.7 added (and 5.5 for Drupal 7)
+    - Added new search_api_solr config sets (Drupal 8 default config set updated to `8.x-2.7`)    
+    - Bugfix: attachments indexation did not work in Drupal 7 https://github.com/wodby/solr/issues/5
+- MariaDB updated to 10.2.23
+- Redis updates: 5.0.4, 4.0.14
+- Varnish bugfix: GeoIP did not work (now uses `X-Real-IP` header instead of `X-Forwarded-For`) https://github.com/wodby/varnish/pull/18
+- XHProf, Webgrind, Adminer rebuilt against the latest PHP image
+- Apache base image changed from `wodby/httpd` to `httpd`
+- Alpine upgraded to 3.9.2 for all alpine-based updated images
+
 ## 5.4.2
 
 - Vanilla Drupal updates: 8.6.10, 7.64
@@ -32,7 +58,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - `mod_include` added to Apache https://github.com/wodby/apache/issues/6
 - Adminer updated to 4.7.1
 - Redis updated to 4.0.13
-- XHProf, Webgrind, Adminer rebased to the latest PHP image
+- XHProf, Webgrind, Adminer rebuilt against the latest PHP image
 
 ## 5.4.1
 
@@ -59,7 +85,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We no longer set `X-Real-IP` header in Varnish
     - Bugfix: unrestricted cache purge from internal network did not work https://github.com/wodby/varnish/issues/14
 - MariaDB updates: 10.2.21, 10.3.12, ~~10.1.37~~ https://github.com/wodby/mariadb/issues/10
-- Webgrind, XHProf, Adminer rebased to the latest PHP image    
+- Webgrind, XHProf, Adminer rebuilt against the latest PHP image    
 
 ## 5.4.0
 
@@ -108,7 +134,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     * Node: 10.14.2, 8.14.0, 6.15.1
     * Elasticsearch/Kibana: 5.6.14
 * Adminer updated to 4.7.0  
-* Webgrind, adminer and xhprof rebased to the latest PHP image
+* Webgrind, adminer and xhprof rebuilt against the latest PHP image
 * ~~Apache patch update: 2.4.37~~ https://github.com/wodby/apache/issues/5
 * ~~MariaDB patch update: 10.1.37~~ https://github.com/wodby/mariadb/issues/10
 
@@ -141,7 +167,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     * Added `$NGINX_STATIC_404_TRY_INDEX`, when set Nginx redirects 404 static files request to index file (required for stage_file_proxy module) https://github.com/wodby/docker4drupal/issues/270
 * Memcached patch update 1.5.12    
 * MariaDB 10.0 `innodb_default_row_format` now set to `dynamic` by default
-* Webgrind and Adminer rebased to the latest PHP image
+* Webgrind and Adminer rebuilt against the latest PHP image
 * ~~Apache patch update~~ https://github.com/wodby/apache/issues/5
 * ~~MariaDB 10.0 patch update~~ https://github.com/wodby/mariadb/issues/10
 
@@ -168,7 +194,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 * Adminer:
     * Bugfix: some `$PHP_` env vars were ignored
     * Default memory limit set to 512M
-* Adminer and Webgrind rebased to the latest php image
+* Adminer and Webgrind rebuilt against the latest PHP image
 
 ## 5.3.0
 

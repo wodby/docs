@@ -38,11 +38,11 @@ This changelog is for PostgreSQL stack on Wodby, to see image changes see tags d
 - PostgreSQL:
   - Version 9.3 has reached EOL and will no longer receive updates
   - Patch updates: 11.2, 10.7, 9.6.12, 9.5.16, 9.4.21
-- Adminer updated to 4.7.1 and rebased to the latest PHP image
+- Adminer updated to 4.7.1 and rebuilt against the latest PHP image
 
 ## 1.3.1
 
-* Adminer updated to 4.7.0 and rebased to the latest PHP image
+* Adminer updated to 4.7.0 and rebuilt against the latest PHP image
 
 ## 1.3.0
 
@@ -54,7 +54,7 @@ This changelog is for PostgreSQL stack on Wodby, to see image changes see tags d
 * Adminer: 
     * Bugfix: some `$PHP_` env vars were ignored
     * Default memory limit set to 512M
-    * Adminer and Webgrind rebased to the latest php image
+    * Adminer and Webgrind rebuilt against the latest PHP image
 
 ### 1.2.3
 
