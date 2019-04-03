@@ -40,7 +40,9 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
 
 ## Drush
 
-You can execute drush commands remotely via drush aliases. Download drush aliases from `Profile > Misc > Drush aliases` page and place them to `~/.drush`. Execute commands (replace `[tokens]` with the real values) like this:
+### Drush 8 and older
+
+You can execute drush commands remotely via drush aliases. Download drush aliases (Drush 8 and older versions) from `Profile > Misc > Drush aliases` page and place them to `~/.drush`. Execute commands (replace `[tokens]` with the real values) like this:
 
 ```shell
  drush @[organization].[application].[instance] [drush command]
@@ -48,15 +50,20 @@ You can execute drush commands remotely via drush aliases. Download drush aliase
 
 The domain marked as primary will be used as `-l` for drush aliases.
 
-### Drush 9 aliases
+### Drush 9
 
-Drupal 8 application with the stack version starting [5.4.2](changelog.md#542) support Drush 9 aliases. You can download the file with aliases from `App instance > settings` page and put the downloaded file as `PROJECTROOT/drush/sites/self.site.yml` or `PROJECTROOT/DRUPALROOT/drush/sites/self.site.yml` and run drush command from the project directory as:
+Drupal 8 application with the stack version starting [5.4.2](changelog.md#542) support Drush 9 aliases: 
 
-```
+- Make sure you've added your public SSH key to your Wodby profile
+- Download the file with aliases from `App instance > Settings > Info` page
+- Place the file to your project directory as `PROJECTROOT/drush/sites/self.site.yml` (or `PROJECTROOT/DRUPALROOT/drush/sites/self.site.yml`) 
+- Run drush command from the project directory as:
+```shell
 drush @dev status
-``` 
+```  
+where `@dev` is your instance name
 
-Make sure you've added your public SSH key to your Wodby profile.
+Note, having it named as `self.site.yml` allows you to skip site name in the alias, e.g. `@prod` vs `@my-site-name.prod`. For more details on Drush 9 aliases see https://drupalize.me/tutorial/drush-site-aliases.
 
 ## Import
 
