@@ -48,6 +48,16 @@ You can execute drush commands remotely via drush aliases. Download drush aliase
 
 The domain marked as primary will be used as `-l` for drush aliases.
 
+### Drush 9 aliases
+
+Drupal 8 application with the stack version starting [5.4.2](changelog.md#542) support Drush 9 aliases. You can download the file with aliases from `App instance > settings` page and put the downloaded file as `PROJECTROOT/drush/sites/self.site.yml` or `PROJECTROOT/DRUPALROOT/drush/sites/self.site.yml` and run drush command from the project directory as:
+
+```
+drush @dev status
+``` 
+
+Make sure you've added your public SSH key to your Wodby profile.
+
 ## Import
 
 !!! important "No top level directory"
