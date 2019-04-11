@@ -81,6 +81,14 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.7.1
+
+- Matomo and Adminer rebuilt against the latest PHP image
+- Nginx:
+  - Updated to 1.15.11
+  - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
+- Base OS Alpine Linux updated to 3.9.3 for Matomo, Adminer, MariaDB, Redis, OpenSMTPD
+
 ### 0.7.0
 
 Matomo updated to 3.9.1 and rebuilt against the latest PHP image 

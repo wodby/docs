@@ -40,6 +40,10 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.2.1
+
+Base OS Alpine Linux updated to 3.9.3
+
 ### 2.2.0
 
 - Versions 5.4, 6.4, 7.1-7.4 no longer supported (marked as EOL)
