@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.6.1
+
+Bugfix: in some cases Diffie-Hellman params failed to generate after the first server connection 
+
 ### 5.6.0
 
 - Nginx updated to 1.15.10
