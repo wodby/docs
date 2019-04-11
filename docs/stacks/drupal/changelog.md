@@ -9,6 +9,10 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.5
+
+Bugfix: composer install/update executed from post-deployment scripts may sometimes stuck.
+
 ## 5.4.4
 
 - Vanilla Drupal updates: 8.6.14
