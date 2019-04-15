@@ -14,6 +14,9 @@ See [AthenaPDF stack documentation](../athenapdf/index.md).
 
 ## Crond
 
+!!! important "Resources limitation"
+    By default we limit crond container memory to 512M (request 8Mb) for all environments and limit CPU to 1 core (request 0.1 core) on production environments. 
+
 {!containers/php-crond.md!}
 
 ## Mailhog
