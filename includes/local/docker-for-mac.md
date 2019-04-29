@@ -16,7 +16,7 @@ Replace _codebase_ volume definition of _php_ and _nginx_/_apache_ services with
 
 #### Docker-sync
 
-[Performance tests 2017 Docker-sync vs Native](https://github.com/EugenMayer/docker-sync/wiki/Performance-Tests-2017).
+[Performance tests 2017 Docker-sync vs Native](https://docker-sync.readthedocs.io/en/latest/miscellaneous/performance.html#performance-tests-2017).
 
 The core idea of this project is to use an external volume that will sync your files with a file synchronizer tool.
 
