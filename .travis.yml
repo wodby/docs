@@ -20,8 +20,11 @@ script:
   - wodby ci deploy
 
   - >
-    docker run --rm -it -e VARNISH_PORT -e VARNISH_SECRET -v "${PWD}"/purge-cache.sh:/opt/purge-cache.sh \
-      wodby/drupal-varnish:4.1-2.5.0 bash /opt/purge-cache.sh
+    curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+    -H "X-Auth-Email: ${CF_EMAIL}" \
+    -H "X-Auth-Key: ${CF_KEY}" \
+    -H "Content-Type:application/json" \
+    --data '{"purge_everything":true}'
 
 notifications:
   email:
