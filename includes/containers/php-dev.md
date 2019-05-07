@@ -60,7 +60,7 @@ Once traces files generated you can view and analyze your traces via [Webgrind](
 Follow these steps to debug your application instance remotely with [xdebug](http://xdebug.org/docs/install):
 
 1. Enable xdebug for your instance from `[Instance] > Stack > Settings`
-2. Set up forwarding for xdebug: copy _Xdebug SSH tunnel_ command from `[Instance] > Stack > PHP` and run on your local machine
+2. Set up forwarding for xdebug: copy _Xdebug SSH tunnel_ command from `[Instance] > Stack > SSH server (PHP)` and run on your local machine
 3. Make sure you have your IDE xdebug listener running on port 9000
 4. Start debugging in IDE
 5. Start your browser debug helper plugin ([Chrome](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?hl=en) or [Firefox](https://addons.mozilla.org/en-us/firefox/addon/the-easiest-xdebug)) and open the page you want to debug
