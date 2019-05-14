@@ -32,6 +32,10 @@ OpenSMTPD can be configured with the following [environment variables](https://g
 
 This changelog is for OpenSMTPD stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/opensmtpd/releases).
 
+### 1.1.3
+
+Base OS Alpine Linux updated to 3.9.4
+
 ### 1.1.2
 
 Base OS Alpine Linux updated to 3.9.3

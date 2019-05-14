@@ -9,6 +9,22 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.7
+
+- Vanilla WordPress updated to 5.2
+- PHP:
+    - ❗️Security updates: 7.3.5, 7.2.18, 7.1.29
+    - Packages updates: imagemagick 7.0.8.44 (PHP 7.x only), libpng 1.6.37, libxslt 1.1.33
+    - Extensions update: event 2.5.0, xdebug 2.7.2, imagick 3.4.4, rdkafka 3.1.0
+- Nginx:
+    - Added new latest version 1.16
+    - Updated to 1.15.12
+    - Pagespeed version no longer shown in headers https://github.com/wodby/nginx/issues/32
+- Varnish: added strict rule to avoid infinite loop in some cases https://github.com/wodby/varnish/pull/20    
+- MariaDB updates: 10.2.24, 10.1.40
+- Memcached updated to 1.5.14
+- Alpine Linux updated to 3.9.4 (only for images based on 3.9)
+
 ## 5.4.6
 
 Bugfix: composer install/update executed from post-deployment scripts may sometimes stuck.
