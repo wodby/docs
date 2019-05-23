@@ -29,6 +29,17 @@ If you deploy MariaDB as a service inside of a stack that comes with an SSHD con
     mysql --protocol=TCP -P53306 -u[USER] -p[PASSWORD] [DATABASE]
     ```
 
+### Enable UTF8mb4 support in MariaDB
+
+Add the following environment variables:
+
+```
+MYSQL_CLIENT_DEFAULT_CHARACTER_SET=utf8mb4
+MYSQL_CHARACTER_SET_SERVER=utf8mb4
+MYSQL_COLLATION_SERVER=utf8mb4_unicode_ci
+MYSQL_INIT_CONNECT="SET NAMES utf8mb4"
+```
+
 ## Changelog
 
 This changelog is for MariaDB stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/mariadb/releases).
