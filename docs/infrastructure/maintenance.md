@@ -12,6 +12,11 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.0
+
+- Nginx updated to 1.16.0
+- TLS 1.0, 1.1 disabled. Added TLS 1.3 support 
+
 ### 5.6.1
 
 Bugfix: in some cases Diffie-Hellman params failed to generate after the first server connection 
