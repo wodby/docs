@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.1
+
+Bugfix: edge regenerates dh params after restart 
+
 ### 5.7.0
 
 - Nginx updated to 1.16.0
