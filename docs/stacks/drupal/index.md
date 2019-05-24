@@ -299,6 +299,19 @@ Also, you'll have to update [cron](#cron) jobs to run it for every site, not onl
 
 In this scheme every site will use the database by default.  
 
+## Multi-byte UTF-8 support for Drupal 7 (utf8mb4)
+
+If you're running this on the existing site, we strongly recommend to back up your database first.
+
+To enable multi-byte support for Drupal 7 you should add the following lines in your `settings.php` file (we do not add it automatically):
+
+```php
+$databases['default']['default']['charset'] = 'utf8mb4';
+$databases['default']['default']['collation'] = 'utf8mb4_general_ci';
+```
+
+If you're doing it for existing website, you should also convert your tables into utf8mb4 format. See https://www.drupal.org/node/2754539 for more details. 
+
 ## Cache control
 
 You can clear caches and control cache settings from `[Instance] > Cache` page. The following actions are available:
