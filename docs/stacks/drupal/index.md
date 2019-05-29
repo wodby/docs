@@ -194,11 +194,23 @@ When you deploy a new Drupal application you can optionally specify `Site direct
 
 ### settings.php
 
-`wodby.settings.php` file contains configuration settings for integration with Wodby services such as Database connection, Cache storage and Reverse Caching Proxy settings. You can override settings from this file in your `sites/*/settings.php` file after the include of `wodby.settings.php`.  
+`wodby.settings.php` file contains configuration settings for integration with Wodby services such as Database connection, Cache storage and Reverse Caching Proxy settings. Do not edit `wodby.settings.php`, all changes to this file will be reset with the next deployment.
 
-Wodby automatically adds the include of `wodby.settings.php` to [default site's](#default-site) `settings.php` with every deployment if there's no occurrences of `wodby.settings.php` in your settings file, otherwise we assume you've already added the include manually. 
+Wodby automatically adds the include of `wodby.settings.php` to [default site's](#default-site) `settings.php` with every deployment. 
 
-Do not edit `wodby.settings.php`, all changes to this file will be reset with the next deployment.
+### Overriding settings from `wodby.settings.php`
+
+Although some existing settings defined in your `settings.php` will still be applied (e.g. we will merge existing `$databases`) some settings (such as the location of the [sync directory](#sync-directory)) can only be overridden after the include of `wodby.settings.php`. In this case you should add the include of `wodby.settings.php` manually to your `settings.php` file (assuming it's under version control) and add your overrides after the include, e.g.:
+
+```php
+// Only in Wodby environment.
+if (isset($_SERVER['WODBY_APP_NAME'])) {
+    // The include won't be added automatically if it's already there.
+    include '/var/www/conf/wodby.settings.php`;
+    // Override settings.
+    $config_directories['sync'] = '/var/www/html/sync_directory';
+}
+``` 
 
 ### sites.php
 
