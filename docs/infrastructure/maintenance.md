@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.2
+
+Globally disable TLS 1.0, 1.1 for all hosts 
+
 ### 5.7.1
 
 Bugfix: edge regenerates dh params after restart 
