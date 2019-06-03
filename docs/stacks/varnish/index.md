@@ -57,6 +57,10 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.0.7
+
+Varnish now supports modpagespeed downstream caching https://github.com/wodby/varnish
+
 ### 3.0.6
 
 - WordPress preset: added strict rule to avoid infinite loop in some cases https://github.com/wodby/varnish/pull/20 

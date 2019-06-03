@@ -81,6 +81,11 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.7.3
+
+- Matomo and Adminer rebuilt against the latest PHP image
+- Added new Nginx versions 1.17, 1.16
+
 ### 0.7.2
 
 - Matomo and Adminer rebuilt against the latest PHP image

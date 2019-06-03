@@ -9,6 +9,28 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.7
+
+- Vanilla Drupal updated to 8.7.2
+- PHP:
+    - ❗️Security updates: 7.3.6, 7.2.19, 7.1.30
+    - Updated extensions: 
+        - ast 1.0.1
+        - ds 1.2.9
+        - event 2.5.1
+        - grpc 1.20.0
+        - igbinary 3.0.1
+        - redis 4.3.0
+        - tideways xhprof 5.0-beta3
+- Nginx: added new version 1.17
+- MariaDB:
+  - Updated to 10.3.15
+  - `log_warnings` now configurable, set to `2` by default for all versions
+- Varnish now supports modpagespeed downstream caching https://github.com/wodby/varnish
+- Memcached updated to 1.5.16
+- Redis updated to 5.0.5
+- Adminer, Webgrind, Xhprof viewer rebuilt against updated base image
+
 ## 5.4.6
 
 - Vanilla Drupal updated to 8.7.1, 7.67

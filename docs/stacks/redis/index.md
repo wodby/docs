@@ -6,6 +6,10 @@ Redis can be configured with the following [environment variables](https://githu
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 1.2.5
+
+Redis updated to 5.0.5
+
 ### 1.2.4
 
 Base OS Alpine Linux updated to 3.9.3

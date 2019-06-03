@@ -37,6 +37,13 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
     - We strongly recommend to backup your database before upgrading your application stack 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+### 2.5.4
+
+- MariaDB:
+    - Updated to 10.3.15
+    - `log_warnings` now configurable, set to `2` by default for all versions
+- Adminer rebuilt against latest base image
+
 ### 2.5.3
 
 - MariaDB updates: 10.2.24, 10.1.40
