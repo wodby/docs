@@ -20,7 +20,7 @@ Wodby provides a set of default roles with following permissions:
 | Manage team            | ✓     | ✓             |             |           |              |
 | Manage organization    | ✓     | ✓             |             |           |              |
 | Delete stage instance  | ✓     | ✓             |             |           |              |
-| Delete prod instance   | ✓     |               |             |           |              |
+| Delete prod instance   | ✓     | ✓             |             |           |              |
 
 You can assign roles both inside of an organization and apps. 
 
