@@ -18,7 +18,7 @@ Install [Search API Solr module](https://www.drupal.org/project/search_api_solr)
 HTTP protocol: http
 Solr host: solr
 Solr port: 8983
-Solr path: /solr
+Solr path: /solr (LEAVE IT BLANK FOR search_api_solr 8.x-3.0 and newer)
 Solr core: [NAME OF YOUR CORE]
 ```
 
