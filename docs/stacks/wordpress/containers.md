@@ -33,9 +33,6 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Nginx
 
-!!! important "New Nginx image" 
-    Since WordPress stacks 5.2.0+ nginx image `wodby/wordpress-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with `$NGINX_VHOST_PRESET=wordpress`
-    
 {!containers/nginx.md!}
 
 Default virtual host preset: [`wordpress`](https://github.com/wodby/nginx/blob/master/templates/presets/wordpress.conf.tmpl)    

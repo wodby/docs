@@ -62,6 +62,13 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.3.0
+
+- Solr updated to 7.7.2
+- Added new Solr 8.1 
+- Bugfix: `$SOLR_HEAP` did not have any effect
+- Images rebased to wodby/base-solr (see README at https://github.com/wodby/base-solr)
+
 ### 2.2.2
 
 - Solr updated to 6.6.6

@@ -57,6 +57,14 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.0.8
+
+- `webp` added to the list of default static file extensions
+- PageSpeed downstream caching:
+    - PS-CapabilityList now set to "fully general optimizations only" only if static files cache enabled
+    - Bugfix: caching for text/html was disabled
+- Base OS Alpine Linux updated to 3.10.1
+
 ### 3.0.7
 
 Varnish now supports modpagespeed downstream caching https://github.com/wodby/varnish

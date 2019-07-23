@@ -9,6 +9,36 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.8
+
+- Vanilla Drupal updated to 8.7.5
+- PHP:
+    - Bugfix updates to 7.3.7, 7.2.20
+    - Event extension updated to 2.5.3
+    - Drupal console launcher updated to 1.9.0
+- MariaDB:
+    - Updated to 10.3.16, 10.2.25
+    - Added new major version 10.4
+    - You can now add plugins via `$MARIADB_PLUGIN_LOAD` https://github.com/wodby/mariadb/issues/15
+    - Added linux-pam library for PAM auth 
+    - Added `$MYSQL_CONNECT_TIMEOUT` https://github.com/wodby/mariadb/issues/17
+- Varnish:
+    - `webp` added to the list of default static file extensions
+    - PageSpeed downstream caching:
+        - PS-CapabilityList now set to "fully general optimizations only" only if static files cache enabled
+        - Bugfix: caching for `text/html` was disabled
+- Solr:
+    - Solr updated to 7.7.2
+    - Added new Solr 8.1 variant with search_api_solr 8.x-3.x configset https://github.com/wodby/solr/issues/8 
+    - Bugfix: `$SOLR_HEAP` did not have any effect
+    - Images rebased to wodby/base-solr (see README at https://github.com/wodby/base-solr)        
+- Drupal-node service had a `$NODE_PORT` environment variable with a wrong value that could break its startup
+- Nginx updated to 1.17.1
+- Webgrind updated to 1.6.1
+- Adminer updated to 4.7.2
+- Adminer, Webgrind, Xhprof viewer rebuilt against the updated base image
+- Alpine Linux (base OS) updated to 3.10.1 for most of the images
+
 ## 5.4.7
 
 - Vanilla Drupal updated to 8.7.2

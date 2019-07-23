@@ -37,6 +37,17 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
     - We strongly recommend to backup your database before upgrading your application stack 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+### 2.6.0
+
+- MariaDB:
+    - Updated to 10.3.16, 10.2.25
+    - Added new major version 10.4
+    - You can now add plugins via `$MARIADB_PLUGIN_LOAD` https://github.com/wodby/mariadb/issues/15
+    - Added linux-pam library for PAM auth 
+    - Added `$MYSQL_CONNECT_TIMEOUT` https://github.com/wodby/mariadb/issues/17
+- Adminer updated to 4.7.2
+- Base OS Alpine Linux updated to 3.10.1 for MariaDB (except 10.1) and Adminer
+
 ### 2.5.4
 
 - MariaDB:

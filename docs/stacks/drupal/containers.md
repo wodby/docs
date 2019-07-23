@@ -42,9 +42,6 @@ See [MariaDB stack documentation](../mariadb/index.md).
 
 ## Nginx
 
-!!! important "New Nginx image" 
-    Since Drupal stacks 5.2.0+ nginx image `wodby/drupal-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with `$NGINX_VHOST_PRESET=drupalX`
-    
 {!containers/nginx.md!}
 
 See [details](https://github.com/wodby/nginx#drupal) about virtual host preset.

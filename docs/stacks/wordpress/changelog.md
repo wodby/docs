@@ -9,6 +9,31 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.9
+
+- Vanilla WordPress updated to 5.2.2
+- PHP:
+    - Bugfix updates to 7.3.7, 7.2.20
+    - Event extension updated to 2.5.3
+- MariaDB:
+    - Updated to 10.3.16, 10.2.25
+    - Added new major version 10.4
+    - You can now add plugins via `$MARIADB_PLUGIN_LOAD` https://github.com/wodby/mariadb/issues/15
+    - Added linux-pam library for PAM auth 
+    - Added `$MYSQL_CONNECT_TIMEOUT` https://github.com/wodby/mariadb/issues/17
+- Varnish:
+    - `webp` added to the list of default static file extensions
+    - PageSpeed downstream caching:
+        - PS-CapabilityList now set to "fully general optimizations only" only if static files cache enabled
+        - Bugfix: caching for `text/html` was disabled
+- Nginx:
+    - Updated to 1.17.1
+    - We now provide two ways of adding `sitemap.xml` locations depending on the plugin (see https://github.com/wodby/nginx#wordpress)
+- Webgrind updated to 1.6.1
+- Adminer updated to 4.7.2
+- Adminer, Webgrind, Xhprof viewer rebuilt against the updated base image
+- Alpine Linux (base OS) updated to 3.10.1 for most of the images
+
 ## 5.4.8
 
 - Vanilla WordPress updated to 5.2.1
