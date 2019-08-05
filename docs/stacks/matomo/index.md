@@ -81,6 +81,10 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.8.1
+
+Bugfix: default Nginx service version had an incorrect preset that caused 403 Forbidden error.
+
 ### 0.8.0
 
 - Matomo updated to 3.10.0
