@@ -34,6 +34,10 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.0.11
+
+Bugfix: duplicated Nginx services (missing version 1.16)
+
 ### 3.0.10
 
 Bugfix: default Nginx service version had an incorrect preset that caused 403 Forbidden error.
