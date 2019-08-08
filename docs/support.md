@@ -4,10 +4,9 @@ We provide best effort support (with exception of premium support customers), th
 
 You can contact us in one of these ways:
 
-* Contact us using a live chat (widget in the right bottom corner) 
-* Send us an email to support [at] wodby.com
+* Get community support on [Spectrum](https://spectrum.chat/wodby)
+* Contact us using a live chat (widget in the right bottom corner) or send us an email to support [at] wodby.com
 * For non-technical questions send us an email to hello [at] wodby.com
-* Get community support on [Slack](https://slack.wodby.com/)
 * Submit an issue on [GitHub](https://github.com/wodby) in a relevant repository
 
 !!! failure "Cannot see live chat widget?"
