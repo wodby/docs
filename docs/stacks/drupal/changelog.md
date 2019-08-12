@@ -9,6 +9,31 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.9
+
+- Vanilla Drupal updated to 8.7.6
+- PHP:
+    - ❗️Security updates: 7.3.8, 7.2.21, 7.1.31
+    - Updated PECL extensions: rdkafka 3.1.2, mongo 1.5.5
+    - NewRelic extension: 
+        - Added additional options https://github.com/wodby/php/issues/85
+        - Default logging destination changed to `stderr`
+        - The extension no longer loaded unless `$PHP_NEWRELIC_ENABLED` specified 
+    - Drupal console launcher updated to 1.9.1
+    - Bugfix: crond service missed preloaded iconv library
+- MariaDB:
+    - ❗️Security updates: 10.4.7, 10.3.17, 10.2.26, 10.1.41
+    - Version 10.4 temporary has no PAM https://github.com/wodby/mariadb/issues/20
+    - `open_files_limit` is now configurable https://github.com/wodby/mariadb/issues/18
+- Nginx:
+    - Updated to 1.17.2
+    - Added default location `humans.txt` https://github.com/wodby/nginx/pull/35
+- Solr:
+    - Updated to 8.2.0
+    - We now run upgrade action that removes `default` core if it has a broken config set (so it can be automatically recreated). NOT applicable to EOL versions (6.4, 7.1, 7.2, 7.3, 7.4)
+- Adminer, Webgrind, Xhprof viewer rebuilt against the updated base image
+- Alpine Linux updated to 3.10 for Varnish, OpenSMTPD and MariaDB (except 10.1)
+
 ## 5.4.8
 
 - Vanilla Drupal updated to 8.7.5

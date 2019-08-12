@@ -62,6 +62,11 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.3.1
+
+- Solr updated to 8.2.0
+- We now run upgrade action that removes `default` core if it has a broken config set (so it can be automatically recreated). NOT applicable to EOL versions (6.4, 7.1, 7.2, 7.3, 7.4)
+
 ### 2.3.0
 
 - Solr updated to 7.7.2

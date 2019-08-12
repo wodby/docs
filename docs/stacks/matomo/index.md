@@ -81,6 +81,11 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.9.0
+
+- Matomo updated to 3.11.0
+- Bugfix: crond service missed preloaded icon library
+
 ### 0.8.2
 
 Bugfix: duplicated Nginx services (missing version 1.16)

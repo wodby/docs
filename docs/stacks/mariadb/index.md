@@ -37,6 +37,12 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
     - We strongly recommend to backup your database before upgrading your application stack 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+### 2.6.1
+
+- ❗️Security updates: 10.4.7, 10.3.17, 10.2.26, 10.1.41
+- Version 10.4 temporary has no PAM https://github.com/wodby/mariadb/issues/20
+- `open_files_limit` is now configurable https://github.com/wodby/mariadb/issues/18
+
 ### 2.6.0
 
 - MariaDB:

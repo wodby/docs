@@ -14,6 +14,10 @@ Elasticsearch and Kibana can be configured via environment variables:
 
 This changelog is for Elasticsearch stack on Wodby, to see images changes see tags description on repository page: [elasticsearch](https://github.com/wodby/elasticsearch/releases) and [kibana](https://github.com/wodby/kibana/releases).   
 
+### 2.4.2
+
+Elasticsearch and Kibana updated to 7.3.0, 6.8.2
+
 ### 2.4.1
 
 Bugfix: mixed up elasticsearch and kibana images
