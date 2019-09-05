@@ -8,7 +8,7 @@ This changelog is for Redis stack on Wodby, to see image changes see tags descri
 
 ### 1.2.6
 
-Base OS Alpine Linux updated to 3.10.1
+Alpine Linux updated to 3.10.1
 
 ### 1.2.5
 
@@ -16,7 +16,7 @@ Redis updated to 5.0.5
 
 ### 1.2.4
 
-Base OS Alpine Linux updated to 3.9.3
+Alpine Linux updated to 3.9.3
 
 ### 1.2.3
 

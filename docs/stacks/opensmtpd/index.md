@@ -34,15 +34,15 @@ This changelog is for OpenSMTPD stack on Wodby, to see image changes see tags de
 
 ### 1.1.5
 
-Base OS Alpine Linux updated to 3.10.1
+Alpine Linux updated to 3.10.1
 
 ### 1.1.3
 
-Base OS Alpine Linux updated to 3.9.4
+Alpine Linux updated to 3.9.4
 
 ### 1.1.2
 
-Base OS Alpine Linux updated to 3.9.3
+Alpine Linux updated to 3.9.3
 
 ### 1.1.1
 

@@ -68,7 +68,7 @@ Cachet updated to 2.3.18
     - Added new latest version 1.16
     - Updated to 1.15.12
     - Pagespeed version no longer shown in headers https://github.com/wodby/nginx/issues/32
-- Base OS Alpine Linux updated to 3.9.4
+- Alpine Linux updated to 3.9.4
 
 ### 3.0.5
 
@@ -76,7 +76,7 @@ Cachet updated to 2.3.18
 - Nginx:
   - Updated to 1.15.11
   - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
-- Base OS Alpine Linux updated to 3.9.3 for Cachet, PostgreSQL, Redis, OpenSMTPD
+- Alpine Linux updated to 3.9.3 for Cachet, PostgreSQL, Redis, OpenSMTPD
 
 ### 3.0.4
 

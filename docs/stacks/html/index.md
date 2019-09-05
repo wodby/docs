@@ -27,6 +27,11 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.17
+
+- Nginx 1.17.3, 1.16.1
+- Apache 2.4.41
+
 ### 0.2.16
 
 - Updated to 1.17.2
@@ -46,7 +51,7 @@ Added new Nginx version 1.17
     - Added new latest version 1.16
     - Updated to 1.15.12
     - Pagespeed version no longer shown in headers https://github.com/wodby/nginx/issues/32
-- Base OS Alpine Linux updated to 3.9.4 for Nginx and Apache 
+- Alpine Linux updated to 3.9.4 for Nginx and Apache 
 
 ### 0.2.12
 
@@ -54,7 +59,7 @@ Added new Nginx version 1.17
     - Updated to 1.15.11
     - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
 - ❗️Apache security update: 2.4.39
-- Base OS Alpine Linux updated to 3.9.3 for Nginx and Apache 
+- Alpine Linux updated to 3.9.3 for Nginx and Apache 
 
 ### 0.2.11
 

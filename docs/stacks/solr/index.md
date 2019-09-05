@@ -77,11 +77,11 @@ This changelog is for Solr stack on Wodby, to see image changes see tags descrip
 ### 2.2.2
 
 - Solr updated to 6.6.6
-- Base OS Alpine Linux updated to 3.9.4
+- Alpine Linux updated to 3.9.4
 
 ### 2.2.1
 
-Base OS Alpine Linux updated to 3.9.3
+Alpine Linux updated to 3.9.3
 
 ### 2.2.0
 

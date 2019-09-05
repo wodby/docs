@@ -52,7 +52,7 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
     - Added linux-pam library for PAM auth 
     - Added `$MYSQL_CONNECT_TIMEOUT` https://github.com/wodby/mariadb/issues/17
 - Adminer updated to 4.7.2
-- Base OS Alpine Linux updated to 3.10.1 for MariaDB (except 10.1) and Adminer
+- Alpine Linux updated to 3.10.1 for MariaDB (except 10.1) and Adminer
 
 ### 2.5.4
 
@@ -65,13 +65,13 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 
 - MariaDB updates: 10.2.24, 10.1.40
 - Adminer rebuilt against latest base image 
-- Base OS Alpine Linux updated to 3.9.3 for MariaDB (except 10.1) and Adminer
+- Alpine Linux updated to 3.9.3 for MariaDB (except 10.1) and Adminer
 
 ### 2.5.2
 
 - MariaDB updated to 10.3.14
 - Adminer rebuilt against latest base image 
-- Base OS Alpine Linux updated to 3.9.3 for MariaDB (except 10.1) and Adminer
+- Alpine Linux updated to 3.9.3 for MariaDB (except 10.1) and Adminer
 
 ### 2.5.1
 

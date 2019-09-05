@@ -98,7 +98,7 @@ Bugfix: default Nginx service version had an incorrect preset that caused 403 Fo
 
 - Matomo updated to 3.10.0
 - Adminer updated to 4.7.2 
-- Base OS Alpine Linux updated to 3.10.1
+- Alpine Linux updated to 3.10.1
 
 ### 0.7.3
 
@@ -112,7 +112,7 @@ Bugfix: default Nginx service version had an incorrect preset that caused 403 Fo
     - Added new latest version 1.16
     - Updated to 1.15.12
     - Pagespeed version no longer shown in headers https://github.com/wodby/nginx/issues/32
-- Base OS Alpine Linux updated to 3.9.4
+- Alpine Linux updated to 3.9.4
 
 ### 0.7.1
 
@@ -120,7 +120,7 @@ Bugfix: default Nginx service version had an incorrect preset that caused 403 Fo
 - Nginx:
     - Updated to 1.15.11
     - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
-- Base OS Alpine Linux updated to 3.9.3 for Matomo, Adminer, MariaDB, Redis, OpenSMTPD
+- Alpine Linux updated to 3.9.3 for Matomo, Adminer, MariaDB, Redis, OpenSMTPD
 
 ### 0.7.0
 

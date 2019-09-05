@@ -9,6 +9,18 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.11
+
+- Vanilla WordPress updated to 5.2.3
+- PHP:
+    - Security updates: 7.3.9, 7.2.22, 7.1.32
+    - New Relic extension log level set to `warning` by default
+- Varnish security update 6.0.4
+- Nginx 1.17.3, 1.16.1
+- Apache 2.4.41
+- Memcached 1.5.17
+- Adminer 4.7.3
+
 ## 5.4.10
 
 - PHP:
@@ -110,7 +122,7 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
   - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
 - MariaDB updated to 10.3.14
 - ❗️Apache security update: 2.4.39
-- Base OS Alpine Linux updated to 3.9.3 for PHP (except 5.x), Varnish, MariaDB (except 10.1), Redis, Memcached, OpenSMTPD
+- Alpine Linux updated to 3.9.3 for PHP (except 5.x), Varnish, MariaDB (except 10.1), Redis, Memcached, OpenSMTPD
 - Webgrind, Xhprof viewer and admirer rebuilt against updated PHP image
 
 ## 5.4.4

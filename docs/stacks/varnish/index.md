@@ -57,9 +57,13 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.0.10
+
+Security update 6.0.4
+
 ### 3.0.9
 
-Base OS Alpine Linux updated to 3.10
+Alpine Linux updated to 3.10
 
 ### 3.0.8
 
@@ -75,11 +79,11 @@ Varnish now supports modpagespeed downstream caching https://github.com/wodby/va
 ### 3.0.6
 
 - WordPress preset: added strict rule to avoid infinite loop in some cases https://github.com/wodby/varnish/pull/20 
-- Base OS Alpine Linux updated to 3.9.4
+- Alpine Linux updated to 3.9.4
 
 ### 3.0.5
 
-Base OS Alpine Linux updated to 3.9.3
+Alpine Linux updated to 3.9.3
 
 ### 3.0.4
 

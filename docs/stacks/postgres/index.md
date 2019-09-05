@@ -41,16 +41,16 @@ PostgreSQL updates: 11.5, 10.10, 9.6.15, 9.5.19, 9.4.24
 
 - PostgreSQL updates: 11.4, 10.9, 9.6.14, 9.5.18, 9.4.23
 - Adminer updated to 4.7.2
-- Base OS Alpine Linux updated to 3.10.1
+- Alpine Linux updated to 3.10.1
 
 ## 1.3.4
 
 - PostgreSQL updates: 11.3, 10.8, 9.6.13, 9.5.17, 9.4.22
-- Base OS Alpine Linux updated to 3.9.4
+- Alpine Linux updated to 3.9.4
 
 ## 1.3.3
 
-- Base OS Alpine Linux updated to 3.9.3
+- Alpine Linux updated to 3.9.3
 - Adminer rebuilt against latest base image
 
 ## 1.3.2
