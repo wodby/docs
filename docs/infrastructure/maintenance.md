@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.4
+
+Edge: increased value of `http2_max_field_size` parameter
+
 ### 5.7.3
 
 Edge security update for HTTP/2 (CVE-2019-9511, CVE-2019-9513, CVE-2019-9516)
