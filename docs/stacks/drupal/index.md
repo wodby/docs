@@ -226,7 +226,7 @@ Wodby automatically creates sync directory with a salt and specify it inside of 
 
 ### Files
 
-Files for Drupal located in `/mnt/files` and symlinked to `sites/[SITE NAME]/files`.
+Public files for Drupal located in `/mnt/files/public` and will be symlinked to `sites/[SITE NAME]/files` with every deployment. You shouldn't have `files` directory under the version control. Private files located under `/mnt/files/private`. 
 
 ### Base URL
 
