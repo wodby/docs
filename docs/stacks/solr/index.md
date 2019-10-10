@@ -62,6 +62,10 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.3.2
+
+Alpine Linux updated to 3.10.2 for Solr images
+
 ### 2.3.1
 
 - Solr updated to 8.2.0

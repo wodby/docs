@@ -9,6 +9,19 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.11
+
+- Vanilla Drupal 8.7.8
+- PHP:
+  - Updated to 7.3.10, 7.2.23
+  - Drupal console launcher 1.9.3
+- Nginx 1.17.4
+- MariaDB 10.4.8, 10.3.18, 10.2.27
+- Memcached 1.5.19
+- Redis 3.1.3
+- Alpine updated to 3.10.2 for Solr images
+- Webgrind, adminer and xhprof viewer rebuilt against latest PHP image
+
 ## 5.4.10
 
 - Vanilla Drupal updated to 8.7.7
