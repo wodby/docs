@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.5
+
+Edge: upgraded Let’s Encrypt client 
+
 ### 5.7.4
 
 Edge: increased value of `http2_max_field_size` parameter
