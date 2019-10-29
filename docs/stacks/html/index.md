@@ -27,6 +27,13 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.19
+
+- Nginx:
+  - Updated to 1.17.5
+  - Added brotli compression extension (enabled by default in addition to gzip) https://github.com/wodby/nginx/issues/37
+- Alpine Linux updated to 3.10.3 for Nginx and Apache
+
 ### 0.2.18
 
 Nginx 1.17.4

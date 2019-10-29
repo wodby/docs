@@ -57,6 +57,13 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.0.11
+
+- Varnish updated to 6.0.5
+- Varnish modules now installed from branch 6.0 https://github.com/varnish/varnish-modules/issues/144
+- Drupal preset bugfix: private files access restricted with enabled static files cache https://github.com/wodby/varnish/issues/24
+- Alpine Linux updated to 3.10.3
+
 ### 3.0.10
 
 Security update 6.0.4

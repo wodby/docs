@@ -9,6 +9,22 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
 
+## 5.4.13
+
+- Vanilla WordPress 5.2.4
+- PHP:
+  - ❗️Security updates: 7.1.33, 7.2.24, 7.3.11
+  - Updated PECL extensions: mongodb 1.6.0, grpc 1.23.1, apcu 5.1.18, memcached 3.1.4
+- Nginx:
+  - Updated to 1.17.5
+  - Added brotli compression extension (enabled by default in addition to gzip) https://github.com/wodby/nginx/issues/37
+- Varnish:
+  - Varnish updated to 6.0.5
+  - Varnish modules now installed from branch 6.0 https://github.com/varnish/varnish-modules/issues/144
+- Adminer 4.7.4
+- Alpine Linux updated to 3.10.3 for most images
+- XHProf viewer, adminer, webgrind rebuilt against latest PHP image
+
 ## 5.4.12
 
 - PHP:
