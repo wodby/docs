@@ -15,8 +15,8 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - WP CLI 2.4.0
 - PHP 7.3.12, 7.2.25
 - Nginx:
-  - Updated to 1.17.6
-  - Brotli compression level set to 1 https://github.com/wodby/nginx/issues/40
+    - Updated to 1.17.6
+    - Brotli compression level set to 1 https://github.com/wodby/nginx/issues/40
 - MariaDB 10.4.10, 10.3.20, 10.2.29, 10.1.43
 - Added liveness checks for Varnish, Nginx and Apache
 - Improved performance for Apache and Nginx readiness checks
