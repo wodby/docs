@@ -35,7 +35,11 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 
 !!! caution "MariaDB updates"
     - We strongly recommend to backup your database before upgrading your application stack 
-    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
+    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
+
+### 2.6.3
+
+MariaDB updates: 10.4.10, 10.3.20, 10.2.29, 10.1.43
 
 ### 2.6.2
 

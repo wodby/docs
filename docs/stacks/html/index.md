@@ -27,6 +27,14 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.20
+
+- Nginx:
+  - Updated to 1.17.6
+  - Brotli compression level set to 1 https://github.com/wodby/nginx/issues/40
+- Added liveness checks for Nginx and Apache
+- Improved performance for Apache and Nginx readiness checks
+
 ### 0.2.19
 
 - Nginx:

@@ -8,6 +8,22 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "MariaDB updates"
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
+## 5.4.13
+
+- Vanilla Drupal 8.7.10
+- Drupal launcher 1.9.4
+- PHP 7.3.12, 7.2.25
+- Nginx:
+  - Updated to 1.17.6
+  - Brotli compression level set to 1 https://github.com/wodby/nginx/issues/40
+- MariaDB 10.4.10, 10.3.20, 10.2.29, 10.1.43
+- Added liveness checks for Varnish, Nginx and Apache
+- Improved performance for Apache and Nginx readiness checks
+- Solr 8.3.0
+- Memcached 1.5.20
+- Adminer 4.7.5
+- Redis 5.0.7
+- Adminer, xhprof, webgrind rebased to PHP 7.2
 
 ## 5.4.12
 

@@ -33,6 +33,11 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+## 1.3.7
+
+- PostgreSQL updates: 11.6, 10.11, 9.6.16, 9.5.20, 9.4.25
+- Adminer 4.7.5
+
 ## 1.3.6
 
 PostgreSQL updates: 11.5, 10.10, 9.6.15, 9.5.19, 9.4.24
