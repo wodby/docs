@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.6
+
+Edge: fixed renewing Let’s Encrypt SSL certificates via ACME v2
+
 ### 5.7.5
 
 Edge: upgraded Let’s Encrypt client 
