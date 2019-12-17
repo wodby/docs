@@ -7,7 +7,28 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 !!! caution "MariaDB updates"
     - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
-    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases       
+    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
+
+!!! caution "MariaDB 10.1"
+    If your app has MariaDB 10.1 and you've created your apps (or upgraded the stack) since June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details)  
+
+## 5.4.14
+
+- Vanilla Drupal 8.8.0, 7.68
+- PHP:
+  - Added PHP 7.4 (with the [exception](https://github.com/wodby/drupal-php/issues/71) for vanilla Drupal 7)
+  - Updated extension: ast 1.0.5, xdebug 2.8.0, mcrypt 1.0.3, oauth 2.0.4
+  - Added Kerberos and SSL support for IMAP extension https://github.com/wodby/drupal-php/issues/70
+- MariaDB 10.4.11, 10.3.21, 10.2.30
+- Solr 8.3.1
+- Nginx:
+  - `/.well-known` URIs excluded from denied hidden files location instead of explicitly allowed
+  - Locations `wodby.yml` and `Makefile` are now forbidden
+- Apache hidden files, directories, `wodby.yml`, `Makefile` and certain extension are now forbidden 
+- XHProf viewer updated to 2.1.3 (updated PECL extension) https://github.com/wodby/xhprof/issues/1
+- Bugfix: broken webgrind image tag
+- Adminer, webgrind and xhprof rebuilt against updated PHP image    
+           
 ## 5.4.13
 
 - Vanilla Drupal 8.7.10
