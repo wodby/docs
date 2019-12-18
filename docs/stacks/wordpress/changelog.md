@@ -10,7 +10,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
 !!! caution "MariaDB 10.1"
-    If your app has MariaDB 10.1 and you've created your apps (or upgraded the stack) since June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details)  
+    If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
 ## 5.4.15
 
