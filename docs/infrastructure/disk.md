@@ -112,10 +112,10 @@ The most heavy directories are usually:
 * `​/srv/wodby` – contains persistent files of your applications and backups. Read below how to clean it up
 * `​/var/lib/docker` – docker's volumes, containers, images data. Do not clean it up
 
-#### Clean up docker's unused volumes and images
+#### Clean up docker's unused images form previous builds
 
 ```shell
-docker system prune --volumes
+docker system prune -a
 ```
 
 #### Backups
