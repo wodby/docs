@@ -4,6 +4,9 @@
 
 If you're using SSL with CloudFlare there're 2 ways how it integrate it with Wodby.
 
+!!! warning "Allow HTTP requests on CloudFlare"
+    Let's Encrypt agent performs plain HTTP requests to validate the domain ownership before issuing the certificate. You should disable "Always Use HTTPS" option on CloudFlare (in SSL/TLS settings) to allow these HTTP requests. You can still force HTTP to HTTPS redirects on Wodby (configurable in domain settings).
+
 ### Simple way (less secure)
 
 * Open your CloudFlare dashboard and navigate to the Crypto tab of your domain
