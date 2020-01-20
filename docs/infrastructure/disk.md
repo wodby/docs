@@ -118,6 +118,11 @@ The most heavy directories are usually:
 docker system prune -a
 ```
 
+You can add this command to your server cron to execute automatically. Run `crontab -e` on your server and add the following line (run every night at 2:30am):
+```shell
+30 2 * * * /usr/bin/docker system prune -af
+```
+
 #### Backups
 
 You can delete old backups of your applications by using the following path:
