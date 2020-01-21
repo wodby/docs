@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.7
+
+Docker images clean up added to cron (run every night at 2:30) 
+
 ### 5.7.6
 
 Edge: fixed renewing Let’s Encrypt SSL certificates via ACME v2

@@ -118,6 +118,9 @@ The most heavy directories are usually:
 docker system prune -a
 ```
 
+!!! info "Crontab already configured"
+    Since infrastructure version [5.7.7](maintenance.md) the following crontab line already included.
+
 You can add this command to your server cron to execute automatically. Run `crontab -e` on your server and add the following line (run every night at 2:30am):
 ```shell
 30 2 * * * /usr/bin/docker system prune -af
