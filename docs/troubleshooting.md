@@ -139,3 +139,11 @@ This usually happens when public files owned by a user with UID/GID different fr
 ```
 chmod -R o=rX /srv/wodby/instances/[APP INSTANCE UUID]/files/public/
 ```  
+
+## My backups are failing
+
+On of the following issues could cause backups failure:  
+
+* [Lack of free disk space](infrastructure/disk/#freeing-disk-space). The amount of free space has to be no less than expected backup size, e.g. database + files backups size     
+* Low free memory (RAM). Backing up requires at least 256MB of free RAM. Lower value could slower backing up significantly or cause  backing up process cancelation by timeout of 3 hours 
+* Overutilized CPU. We recommend setting auto backups start time to a night period when your application has the lowest traffic
