@@ -27,7 +27,7 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
   pipeline:
     - name: Install dependencies
       type: command
-      command: composer install --prefer-dist -n --no-dev
+      command: composer install -n
       directory: $APP_ROOT
   ```
 3. On the 3rd step of new application deployment form:
