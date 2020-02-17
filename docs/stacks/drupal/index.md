@@ -21,8 +21,8 @@ For demo purposes and simple Drupal installations you can use Vanilla Drupal dep
 
 We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](../../apps/post-deployment-scripts.md):
 
-1. Fork [our boilerplate](https://github.com/wodby/drupal-composer) or use the original [composer template for Drupal](https://github.com/drupal-composer/drupal-project)
-2. Create `wodby.yml` in repository root (our boilerplate already has it) with the following content:
+1. Fork [drupal/recommended-project](https://github.com/drupal/recommended-project) (for Drupal 8) or [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project) for Drupal 7
+2. Add `wodby.yml` in repository root with the following content:
   ```yml
   pipeline:
     - name: Install dependencies
