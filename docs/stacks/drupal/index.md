@@ -334,3 +334,10 @@ You can clear caches and control cache settings from `[Instance] > Cache` page. 
 * Clear all caches
 * Enable/disable opcache
 * Enable/disable redis integration
+
+## Misc
+
+You can ignore the following warning in Drupal status report if you're using Nginx (default) as your HTTP server in your Drupal stack:
+```
+Public files directory Not fully protected. See http://drupal.org/SA-CORE-2013-003 for information about the recommended .htaccess file which should be added to the sites/default/files directory to help protect against arbitrary code execution."
+```
