@@ -98,7 +98,7 @@ cache:
     - /home/travis/.composer/cache
 
 script:
-  - wodby ci run -v $HOME/.composer:$HOME/.composer -s php -- composer install
+  - wodby ci run -v $HOME/.composer/cache:/home/wodby/.composer/cache -s php -- composer install
 ```
 
 Once the codebase is ready you can run the build via `wodby ci build` which is a wrapper of `docker build`. By default the build command builds a new image based on the image of a service you specified, and copies codebase (contents of the current directory, same as `--from \.`) to service's image default working directory:

@@ -23,7 +23,7 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
     pipeline:
     - name: Install dependencies
       type: command
-      command: composer install --prefer-dist -n --no-dev
+      command: composer install -n
       directory: $APP_ROOT
   ```
 3. Enter `web` (it's a directory name with WordPress root in our boilerplate) in `Codebase dir` input on the 3rd step of new application deployment form
