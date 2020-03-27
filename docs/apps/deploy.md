@@ -80,14 +80,14 @@ During the build stage you can prepare your codebase for the build by running `w
 You can either specify a docker image that runs a command:
 
 ```shell
-wodby ci run -i wodby/node:8 -- yarn install
-wodby ci run -i wodby/node:9 -p path/to/frontend -- yarn install
+wodby ci run -i wodby/node -- yarn install
+wodby ci run -i wodby/node -p path/to/frontend -- yarn install
 ```
 
 Or specify a service name from your stack, the image of your current stack version will be used:
 
 ```shell
-wodby ci run -s backend -- composer install --prefer-dist -n -o --no-dev
+wodby ci run -s backend -- composer install -n
 ```
 
 You can use bind mounts on libraries cache directories to utilize caching capabilities of your CI tool (`.travis.yml` example):
@@ -95,10 +95,28 @@ You can use bind mounts on libraries cache directories to utilize caching capabi
 ```yml
 cache:
   directories:
-    - /home/travis/.composer/cache
+    - /home/travis/.composer
 
 script:
-  - wodby ci run -v $HOME/.composer/cache:/home/wodby/.composer/cache -s php -- composer install
+  - wodby ci run -v $HOME/.composer:/home/wodby/.composer -s php -- composer install -n
+```
+
+In some environments like CircleCI (where uid is different from `1000`) you also need to fix your cache directory permissions before mounting them in `wodby ci run` command:
+
+```shell
+- run: wodby ci run -v $HOME/.composer:/home/wodby/.composer --user root -- chown -R 1000:1000 /home/wodby/.composer
+```
+
+If you need to access private repositories you should add a checkout ssh key to your environment (please refer to your CI provider documentation), then mount the key and `.known_hosts` file (to avoid interactive dialogues), example for CircleCI:
+
+```yml
+- run: 
+    name: Install composer dependencies with private packages
+    command: wodby ci run \
+        -v /home/circleci/.ssh/known_hosts:/home/wodby/.ssh/known_hosts \
+        -v /home/circleci/.ssh/id_rsa_[your-checkout-key-fingerprint]:/home/wodby/.ssh/id_rsa \
+        -v $HOME/.composer/cache:/home/wodby/.composer/cache \
+        -s php -- composer install -n
 ```
 
 Once the codebase is ready you can run the build via `wodby ci build` which is a wrapper of `docker build`. By default the build command builds a new image based on the image of a service you specified, and copies codebase (contents of the current directory, same as `--from \.`) to service's image default working directory:
