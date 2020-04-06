@@ -40,6 +40,12 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 2.6.5
+
+- MariaDB 10.4.12, 10.3.22, 10.2.31, 10.1.44
+- `mysql_upgrade` now runs with `--upgrade-system-tables` and `--verbose` flags (run during stack upgrades)
+- `mysqlcheck` now runs with `--verbose` flag (run with every deployment)
+
 ### 2.6.4
 
 MariaDB 10.4.11, 10.3.21, 10.2.30

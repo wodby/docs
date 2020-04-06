@@ -12,6 +12,39 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.15
+
+- Vanilla Drupal 8.8.6, 7.69
+- PHP:
+    - Updated to 7.4.4, 7.3.16, 7.2.29
+    - Updated extension: xdebug 2.9.4, rdkafka 4.0.3
+    - Blackfire added to PHP 7.4
+    - mcrypt PECL extension added to PHP 7.3, 7.4
+    - Added libxml2
+    - Added yarn to `-dev` versions of image https://github.com/wodby/php/pull/99
+- Nginx:
+    - Updated to 1.17.9
+    - Added `/ads.txt` location support https://github.com/wodby/nginx/pull/44
+    - Added `/core/rebuild.php` endpoint support https://github.com/wodby/nginx/pull/47
+    - Bugfix: 403 on `/.well-known` locations
+- Apache HTTPd:
+    - Updated to 2.4.43
+    - Added `proxy_http_module` https://github.com/wodby/apache/issues/6
+- Solr:
+    - Updated to 8.5.0
+    - Added `search_api_solr` 3.9 config sets
+- MariaDB:
+    - Updated to 10.4.12, 10.3.22, 10.2.31, 10.1.44
+    - `mysql_upgrade` now runs with `--upgrade-system-tables` and `--verbose` flags (run during stack upgrades)
+    - `mysqlcheck` now runs with `--verbose` flag (run with every deployment)
+- Varnish 6.0.6
+- Webgrind 1.7.0
+- Adminer 4.7.6
+- Memcached 1.6.3
+- Redis 5.0.8
+- Adminer, webgrind, xhprof viewer rebuilt against updated base PHP image
+- Images' base OS (Alpine Linux) updated to 3.11
+
 ## 5.4.14
 
 - Vanilla Drupal 8.8.0, 7.68

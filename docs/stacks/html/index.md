@@ -27,6 +27,16 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.22
+
+- Nginx:
+    - Updated to 1.17.9
+    - Added `/ads.txt` location support https://github.com/wodby/nginx/pull/44
+    - Bugfix: 403 on `/.well-known` locations
+- Apache HTTPd:
+    - Updated to 2.4.43
+    - Added `proxy_http_module` https://github.com/wodby/apache/issues/6
+
 ### 0.2.21
 
 - Nginx:
