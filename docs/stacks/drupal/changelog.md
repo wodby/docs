@@ -14,7 +14,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 5.4.15
 
-- Vanilla Drupal 8.8.6, 7.69
+- Vanilla Drupal 8.8.5, 7.69
 - PHP:
     - Updated to 7.4.4, 7.3.16, 7.2.29
     - Updated extension: xdebug 2.9.4, rdkafka 4.0.3
