@@ -12,6 +12,10 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.16
+
+Added support for a changed sync directory setting in Drupal 8 https://www.drupal.org/docs/8/configuration-management/changing-the-storage-location-of-the-sync-directory#s-syntax-changes-in-drupal-880  
+
 ## 5.4.15
 
 - Vanilla Drupal 8.8.5, 7.69
