@@ -21,13 +21,13 @@ For demo purposes and simple Drupal installations you can use Vanilla Drupal dep
 
 We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](../../apps/post-deployment-scripts.md):
 
-1. Fork [our boilerplate](https://github.com/wodby/drupal-composer) or use the original [composer template for Drupal](https://github.com/drupal-composer/drupal-project)
-2. Create `wodby.yml` in repository root (our boilerplate already has it) with the following content:
+1. Fork [drupal/recommended-project](https://github.com/drupal/recommended-project) (for Drupal 8) or [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project) for Drupal 7
+2. Add `wodby.yml` in repository root with the following content:
   ```yml
   pipeline:
     - name: Install dependencies
       type: command
-      command: composer install --prefer-dist -n --no-dev
+      command: composer install -n
       directory: $APP_ROOT
   ```
 3. On the 3rd step of new application deployment form:
@@ -334,3 +334,10 @@ You can clear caches and control cache settings from `[Instance] > Cache` page. 
 * Clear all caches
 * Enable/disable opcache
 * Enable/disable redis integration
+
+## Misc
+
+You can ignore the following warning in Drupal status report if you're using Nginx (default) as your HTTP server in your Drupal stack:
+```
+Public files directory Not fully protected. See http://drupal.org/SA-CORE-2013-003 for information about the recommended .htaccess file which should be added to the sites/default/files directory to help protect against arbitrary code execution."
+```
