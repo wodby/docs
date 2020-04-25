@@ -1,5 +1,3 @@
-# trigger CI
-
 language: bash
 services: docker
 
