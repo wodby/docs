@@ -6,17 +6,9 @@ To avoid any permissions issues caused by different user id (uid), group id (gid
 
 ### Bind mounts performance
 
-Out of the box Docker for mac bind mounts (volumes from host) have poor performance on sync. There are 2 ways how it can  be improved.
-
-#### User-guided caching
-
-Since Docker for Mac 17.06 there's a new native `:cached` option available for bind mounts. You can find more information about this in [docker blog](https://blog.docker.com/2017/05/user-guided-caching-in-docker-for-mac).
-
-Replace _codebase_ volume definition of _php_ and _nginx_/_apache_ services with the option below marked as "User-guided caching". 
+By default, we use `:cached` option on bind mounts to improve performance on macOS (on Linux it behaves similarly to `consistent`). You can find more information about this in [docker blog](https://blog.docker.com/2017/05/user-guided-caching-in-docker-for-mac). However, there's a [faster alternative](https://docker-sync.readthedocs.io/en/latest/miscellaneous/performance.html#performance-tests-2017) Docker-sync.
 
 #### Docker-sync
-
-[Performance tests 2017 Docker-sync vs Native](https://docker-sync.readthedocs.io/en/latest/miscellaneous/performance.html#performance-tests-2017).
 
 The core idea of this project is to use an external volume that will sync your files with a file synchronizer tool.
 
