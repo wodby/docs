@@ -12,6 +12,20 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.17
+
+- PHP security updates: 7.4.5, 7.3.17, 7.2.30
+- Nginx 1.17.10
+- Redis:
+    - Added redis 6
+    - Updated to 5.0.9
+    - Redis 4 now marked as EOL
+- Solr 8.5.1, 7.7.3
+- Memcached 1.6.5
+- XHProf viewer 2.2.0
+- Base OS Alpine Linux updated to 3.11.6
+- Adminer, webgrind rebuilt against updated PHP image
+
 ## 5.4.16
 
 Added support for a changed sync directory setting in Drupal 8 https://www.drupal.org/docs/8/configuration-management/changing-the-storage-location-of-the-sync-directory#s-syntax-changes-in-drupal-880  

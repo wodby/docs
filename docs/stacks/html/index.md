@@ -27,6 +27,13 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.23
+
+- Nginx:
+    - Updated to 1.17.10
+    - Access to `/wp-content/uploads/woocommerce_uploads` is now forbidden
+- Base OS Alpine Linux updated to 3.11.6
+
 ### 0.2.22
 
 - Nginx:

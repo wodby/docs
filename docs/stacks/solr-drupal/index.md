@@ -40,6 +40,10 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.3.6
+
+Solr 8.5.1, 7.7.3
+
 ### 2.3.5
 
 - Solr 8.5.0
