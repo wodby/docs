@@ -84,6 +84,14 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 
 {!local/xdebug.md!}
 
+## Crond
+
+Crond enabled by default and runs every hour. The default command is:
+```
+drush -r /var/www/html/web cron
+```
+You might need to change if your HTTP root is different. Runs from `www-data` user.
+
 ## Database import and export
 
 ### MariaDB
