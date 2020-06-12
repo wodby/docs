@@ -2,6 +2,7 @@
 
 Stack pages:
 
+* [Drupal 9](https://cloud.wodby.com/stacks/drupal9)
 * [Drupal 8](https://cloud.wodby.com/stacks/drupal8)
 * [Drupal 7](https://cloud.wodby.com/stacks/drupal7)
 * [Drupal 6](https://cloud.wodby.com/stacks/drupal6)
