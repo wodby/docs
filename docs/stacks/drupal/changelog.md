@@ -12,6 +12,27 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.18
+
+- Added Drupal 9
+- Added PHP 7.4 variant for Drupal 7
+- Vanilla Drupal 8.9.0, 7.71
+- PHP updates: 7.4.7, 7.3.19, 7.2.31
+- Nginx:
+    - New versions added: 1.19 and 1.18
+    - Bugfix: Drupal presets - invalid advagg locations https://github.com/wodby/nginx/issues/51
+    - Added Drupal 9 preset
+- MariaDB 10.1.45, 10.2.32, 10.3.23, 10.4.13
+- Apache: access to all hidden files except `.well-known` is now forbidden
+- Solr:
+    - Updated to 8.5.2
+    - Added new config set `search_api_solr_4.0`
+- Adminer 4.7.7
+- Memcached 1.6.6
+- Redis 6.0.5
+- Base OS Alpine Linux updated to 3.12.0 for most of the images
+- Adminer, webgrind rebuilt against updated PHP image
+
 ## 5.4.17
 
 - PHP security updates: 7.4.5, 7.3.17, 7.2.30

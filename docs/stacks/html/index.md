@@ -27,6 +27,11 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.24
+
+- Nginx: new versions added: 1.19 and 1.18
+- Apache: access to all hidden files except `.well-known` is now forbidden
+
 ### 0.2.23
 
 - Nginx:
