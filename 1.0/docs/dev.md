@@ -10,7 +10,7 @@ We provide API to perform most common tasks such as deployment of a new applicat
 
 ### Version 3
 
-* [API reference](https://wodby.com/docs/api)
+* [API reference](https://wodby.com/docs/1.0/api)
 * PHP SDK: [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php)
 * Go SDK: [wodby/wodby-sdk-go](https://github.com/wodby/wodby-sdk-go)
 * Python SDK: [wodby/wodby-sdk-python](https://github.com/wodby/wodby-sdk-python)
