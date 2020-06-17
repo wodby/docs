@@ -8,7 +8,7 @@ There are two ways to connect to a MariaDB server externally: publish port or se
 
 ### Publish port
 
-Publish MariaDB's port (3306) from [stack configuration page](../../stacks/config.md#ports) to a dynamic node port and connect as:
+Publish MariaDB's port (3306) from [stack configuration page](../config.md#ports) to a dynamic node port and connect as:
 
 ```shell
 mysql -h=[IP] -P[PORT] -u[USER] -p[PASSWORD] [DATABASE]

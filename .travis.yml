@@ -12,10 +12,10 @@ script:
 
   # Upgrade partials when upgrading material theme.
   - >
-    wodby ci run -v $HOME/.cache/pip:/home/wodby/.cache/pip -i wodby/python:3.6 -- \
+    wodby ci run -p 1.0 -v $HOME/.cache/pip:/home/wodby/.cache/pip -i wodby/python:3.6 -- \
       sh -c "pip install mkdocs==1.0.3 mkdocs-material==3.0.3 markdown-include pygments && mkdocs build"
 
-  - wodby ci build --from ./site --to /var/www/html/docs
+  - wodby ci build --from ./1.0/site --to /var/www/html/docs/1.0
   - wodby ci release
   - wodby ci deploy
 

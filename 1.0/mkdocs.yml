@@ -1,7 +1,7 @@
-site_name: Wodby documentation
-site_description: Wodby documentation
+site_name: Wodby 1.0 documentation
+site_description: Wodby 1.0 documentation
 site_author: Wodby, Inc.
-site_url: https://wodby.com/docs
+site_url: https://wodby.com/docs/1.0
 
 repo_name: wodby/docs
 repo_url: https://github.com/wodby/docs

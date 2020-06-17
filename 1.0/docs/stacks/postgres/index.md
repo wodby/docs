@@ -8,7 +8,7 @@ There are two ways to connect to a PostgreSQL server externally: publish port or
 
 ### Publish port
 
-Publish PostgreSQL's port (5432) from [stack configuration page](../../stacks/config.md#ports) to a dynamic node port and connect as:
+Publish PostgreSQL's port (5432) from [stack configuration page](../config.md#ports) to a dynamic node port and connect as:
 
 ```shell
 psql -h [IP] -p [PORT] -U [USER] -W [PASSWORD] [DATABASE]

@@ -4,5 +4,4 @@
 
 See https://wodby.com/docs
 
-Docs are built using [mkdocs](http://www.mkdocs.org) with [material theme](https://github.com/squidfunk/mkdocs-material)
-
+Docs built using [mkdocs](http://www.mkdocs.org) with [material theme](https://github.com/squidfunk/mkdocs-material)
