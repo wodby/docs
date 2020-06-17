@@ -26,8 +26,7 @@
 
       <!-- Header title -->
       <div class="md-flex__cell md-flex__cell--stretch">
-        <div class="md-flex__ellipsis md-header-nav__title"
-            data-md-component="title">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           {% block site_name %}
             {% if config.site_name == page.title %}
               {{ config.site_name }}
@@ -41,6 +40,11 @@
             {% endif %}
           {% endblock %}
         </div>
+      </div>
+
+      <!-- Button to open search dialogue -->
+      <div class="md-flex__cell md-flex__cell--shrink">
+          {% include "partials/wodby/version.html" %}
       </div>
 
       <!-- Button to open search dialogue -->
