@@ -13,7 +13,7 @@ script:
   # Upgrade partials when upgrading material theme.
   - >
     wodby ci run -v $HOME/.cache/pip:/home/wodby/.cache/pip -i wodby/python:3.6 -- \
-      sh -c "pip install mkdocs==1.0.3 mkdocs-material==3.0.3 markdown-include pygments &&
+      sh -c "pip install mkdocs mkdocs-material markdown-include pygments &&
              mkdir sites && cd 1.0 && mkdocs build -d ../sites/1.0 && cd ../2.0 && mkdocs build -d ../sites/2.0"
 
   - wodby ci build --from ./sites --to /var/www/html/docs/

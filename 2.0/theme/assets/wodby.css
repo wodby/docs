@@ -67,11 +67,11 @@
         padding: 0 5px;
         background-color: rgba(0, 0, 0, .26);
         color: inherit;
-        font-size: .8rem;
+        font-size: 16px;
     }
 
     .md-version label {
-        font-size: .7rem;
+        font-size: 16px;
         opacity: .7;
         padding-right: 5px;
     }
