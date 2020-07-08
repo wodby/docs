@@ -10,71 +10,72 @@ copyright: Wodby, Inc.
 
 extra:
   social:
-    - type: globe
-      link: https://wodby.com
-    - type: github-alt
-      link: https://github.com/wodby
-    - type: twitter
-      link: https://twitter.com/wodbycloud
-
-google_analytics:
-  - 'UA-61873765-1'
-  - 'auto'
+  - icon: fontawesome/solid/globe
+    link: https://wodby.com
+  - icon: fontawesome/brands/github
+    link: https://github.com/wodby
+  - icon: fontawesome/brands/twitter
+    link: https://twitter.com/wodbycloud
 
 theme:
   name: material
-  feature:
-    tabs: true
+  features:
+  - tabs
+  - instant
   palette:
-    primary: 'indigo'
     accent: 'indigo'
+    primary: 'indigo'
   custom_dir: 'theme'
 
 extra_css: ["assets/wodby.css"]
 extra_javascript: ["assets/jquery-3.3.1.min.js", "assets/intercom.js", "assets/wodby.js"]
 
 markdown_extensions:
-  - codehilite
-  - markdown.extensions.admonition
-  - markdown.extensions.codehilite:
-      guess_lang: false
-  - markdown.extensions.def_list
-  - markdown.extensions.footnotes
-  - markdown.extensions.meta
-  - markdown.extensions.toc:
-      permalink: true
-  - pymdownx.arithmatex
-  - pymdownx.betterem:
-      smart_enable: all
-  - pymdownx.caret
-  - pymdownx.critic
-  - pymdownx.details
-  - pymdownx.inlinehilite
-  - pymdownx.magiclink
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.superfences
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
-  - markdown_include.include:
-      base_path: includes
+- codehilite
+- markdown.extensions.admonition
+- markdown.extensions.codehilite:
+    guess_lang: false
+- markdown.extensions.def_list
+- markdown.extensions.footnotes
+- markdown.extensions.meta
+- markdown.extensions.toc:
+    permalink: true
+- pymdownx.arithmatex
+- pymdownx.betterem:
+    smart_enable: all
+- pymdownx.caret
+- pymdownx.critic
+- pymdownx.details
+- pymdownx.inlinehilite
+- pymdownx.magiclink
+- pymdownx.mark
+- pymdownx.smartsymbols
+- pymdownx.superfences
+- pymdownx.tasklist:
+    custom_checkbox: true
+- pymdownx.tilde
+- markdown_include.include:
+    base_path: includes
+- pymdownx.emoji:
+    emoji_index: !!python/name:materialx.emoji.twemoji
+    emoji_generator: !!python/name:materialx.emoji.to_svg
 
 nav:
-  - Home: index.md
-  - Open Source: oss.md
-  - Status: status.md
-  - Support: support.md
-  - Apps:
-    - New app: apps/new.md
-    - Instances: apps/instances.md
-  - Clusters:
-    - Overview: clusters/index.md
-    - New cluster: clusters/new.md
-  - Stacks:
-    - Overview: stacks/index.md
-  - Services:
-    - Overview: services/index.md
-  - Integrations:
-    - Overview: integrations/index.md
-    - GCP: integrations/gcp.md
+- Home: index.md
+- Open Source: oss.md
+- Status: status.md
+- Support: support.md
+- Apps:
+  - New app: apps/new.md
+  - Instances: apps/instances.md
+- Clusters:
+  - Overview: clusters/index.md
+  - New cluster: clusters/new.md
+- Stacks:
+  - Overview: stacks/index.md
+- Services:
+  - Overview: services/index.md
+  - Template: services/template.md
+- Integrations:
+  - Overview: integrations/index.md
+  - GCP: integrations/gcp.md

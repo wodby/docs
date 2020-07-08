@@ -29,10 +29,6 @@
     background-color: #333333 !important;
 }
 
-.md-footer-meta, .md-footer-nav {
-    background-color: #0000008a !important;
-}
-
 .md-source__facts {
     display: none;
 }
@@ -45,8 +41,11 @@
     float: right;
 }
 
-.api-reference i {
-    font-size: 12px;
+.api-reference .md-icon svg {
+    margin: 0;
+    display: inline;
+    width: 0.5rem;
+    height: 0.6rem;
 }
 
 @media only screen and (min-width: 60em) {
@@ -67,11 +66,11 @@
         padding: 0 5px;
         background-color: rgba(0, 0, 0, .26);
         color: inherit;
-        font-size: 16px;
+        font-size: .8rem;
     }
 
     .md-version label {
-        font-size: 16px;
+        font-size: .7rem;
         opacity: .7;
         padding-right: 5px;
     }
