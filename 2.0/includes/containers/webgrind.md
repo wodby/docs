@@ -1,0 +1,1 @@
+Webgrind allows you view and analyze [Xdebug profiler](#xdebug-profiler) output and generate call graphs for visualisation. 
