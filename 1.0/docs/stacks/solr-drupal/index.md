@@ -40,6 +40,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.3.8
+
+- Bugfix: invalid Solr image for Drupal 9 Solr 8
+- Added Solr 8 variant with `search_api_solr_4.0` default config set
+
 ### 2.3.7
 
 - Updated to 8.5.2

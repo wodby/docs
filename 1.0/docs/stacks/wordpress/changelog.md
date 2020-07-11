@@ -12,6 +12,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.19
+
+- PHP 
+    - Security updates: 7.4.8, 7.3.20, 7.2.32
+    - Updated extensions: amqp 1.10.2, event 2.5.6, memcached 3.1.5, xdebug 2.9.6, yaml 2.1.0
+    - Added pcov extension https://github.com/wodby/php/issues/113
+    - `short_open_tag` is now configurable https://github.com/wodby/php/issues/117
+    - `opcache.preload` is now configurable https://github.com/wodby/php/issues/116
+    - blackfire CLI added to `-dev` version of images https://github.com/wodby/php/issues/115
+- Nginx:
+    - Updated to 1.19.1
+    - Added support for dynamic `/robots.txt`
+- Adminer, webgrind and xhprof viewer rebuilt against updated PHP image
+
 ## 5.4.18
 
 - Vanilla WordPress 5.4.2
