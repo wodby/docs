@@ -27,6 +27,11 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.26
+
+- Apache 2.4.46
+- Nginx 1.19.2
+
 ### 0.2.25
 
 Nginx 1.19.1

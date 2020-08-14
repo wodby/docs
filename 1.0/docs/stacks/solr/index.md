@@ -62,6 +62,10 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.3.8
+
+Solr 8.6.0
+
 ## 2.3.7
 
 Solr 8.5.2
