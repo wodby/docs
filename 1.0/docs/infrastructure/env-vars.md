@@ -16,4 +16,4 @@ The following variables exists in all containers:
 
 ## Stack-specific
 
-See [stacks documentation](../stacks) to see stack-specific environment variables
+See [stacks documentation](../stacks/index.md) to see stack-specific environment variables
