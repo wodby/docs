@@ -11,6 +11,7 @@ Commands:
     down            Same as stop
     prune [service] Stop and remove containers, networks, images, and volumes (docker-compose down)
     ps              List container for the current project (docker ps with filter by name)
-    shell           Access PHP container via shell as a default user  (docker exec -ti $CID sh)
+    shell [service] Access a container via shell as a default user (by default [service] is php)
     logs [service]  Show containers logs, use [service] to show logs of specific service
+    mutagen         Start mutagen container and runs mutagen project
 ```

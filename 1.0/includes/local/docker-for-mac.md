@@ -17,10 +17,10 @@ brew install mutagen-io/mutagen/mutagen
 ```
 
 1. Uncomment _Mutagen_ volume and service definitions in your compose file
-2. Replace _volumes_ definition of _php_ and _nginx_/_apache_ services with the option below marked as "Mutagen".
+2. Replace codebase _volumes_ definitions of services with the option below marked as "Mutagen"
 3. Start the mutagen container `docker-compose up -d mutagen`
-4. Start Mutagen: `mutagen project start`
-5. In a new shell run after you started Mutagen `docker-compose up -d`
+4. Start Mutagen: `mutagen project start -f mutagen/config.yml` (or just run `make mutagen` instead of steps 3 and 4)
+5. Start other containers `docker-compose up -d` (or `make`)
 
 Now when you change your code on the host machine Mutagen will sync your data to php and nginx/apache containers.
 

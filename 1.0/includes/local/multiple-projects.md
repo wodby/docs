@@ -19,9 +19,6 @@ In this case you will run a stand-alone traefik that will be connected to docker
 6. Run stand-alone traefik: `docker-compose -f traefik.yml up -d` 
 7. Now when you visit URL from `$PROJECT_BASE_URL`, traefik will route traffic to the corresponding docker networks 
 
-!!! warning "For macOS users with docker-sync"
-    Make sure names of `syncs` in `docker-sync.yml` are unique per project. The recommended way is to run a stand-alone docker-sync with syncs definition for all projects. Do not forget to update `src` paths for projects 
-
 ### Different ports 
 
 Alternatively, instead of running a stand-alone traefik, you can just run default traefik containers on different ports. Just a few things to make sure:
