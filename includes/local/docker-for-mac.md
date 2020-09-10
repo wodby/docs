@@ -16,8 +16,8 @@ The core idea of this project is to use an external volume that will sync your f
 brew install mutagen-io/mutagen/mutagen
 ```
 
-2. Uncomment _Mutagen_ volume and service definitions in your compose file
-3. Replace _volumes_ definition of _php_ and _nginx_/_apache_ services with the option below marked as "Mutagen".
+1. Uncomment _Mutagen_ volume and service definitions in your compose file
+2. Replace _volumes_ definition of _php_ and _nginx_/_apache_ services with the option below marked as "Mutagen".
 3. Start the mutagen container `docker-compose up -d mutagen`
 4. Start Mutagen: `mutagen project start`
 5. In a new shell run after you started Mutagen `docker-compose up -d`
