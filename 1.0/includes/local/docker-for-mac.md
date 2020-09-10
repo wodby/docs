@@ -6,22 +6,22 @@ To avoid any permissions issues caused by different user id (uid), group id (gid
 
 ### Bind mounts performance
 
-By default, we use `:cached` option on bind mounts to improve performance on macOS (on Linux it behaves similarly to `consistent`). You can find more information about this in [docker blog](https://blog.docker.com/2017/05/user-guided-caching-in-docker-for-mac). However, there's a [faster alternative](https://docker-sync.readthedocs.io/en/latest/miscellaneous/performance.html#performance-tests-2017) Docker-sync.
+By default, we use `:cached` option on bind mounts to improve performance on macOS (on Linux it behaves similarly to `consistent`). You can find more information about this in [docker blog](https://blog.docker.com/2017/05/user-guided-caching-in-docker-for-mac). However, there's the [synchronisation with Mutagen](https://mutagen.io/documentation/orchestration/projects) which is a [faster alternative](https://medium.com/netresearch/improving-performance-for-docker-on-mac-computers-when-using-named-volumes-55580efcbf68#bf1b).
 
-#### Docker-sync
+#### Mutagen
 
 The core idea of this project is to use an external volume that will sync your files with a file synchronizer tool.
 
 ```shell
-gem install docker-sync
+brew install mutagen-io/mutagen/mutagen
 ```
 
-1. Download `docker-sync.yml` file (inside of `docker4x.tar.gz` archive) from the latest stable release
-2. Uncomment _docker-sync_ volume definition in your compose file
-3. Replace _volumes_ definition of _php_ and _nginx_/_apache_ services with the option below marked as "Docker-sync".
-4. Start docker-sync: `docker-sync start`
-5. In a new shell run after you started docker-sync `docker-compose up -d`
+1. Uncomment _Mutagen_ volume and service definitions in your compose file
+2. Replace _volumes_ definition of _php_ and _nginx_/_apache_ services with the option below marked as "Mutagen".
+3. Start the mutagen container `docker-compose up -d mutagen`
+4. Start Mutagen: `mutagen project start`
+5. In a new shell run after you started Mutagen `docker-compose up -d`
 
-Now when you change your code on the host machine docker-sync will sync your data to php and nginx/apache containers.
+Now when you change your code on the host machine Mutagen will sync your data to php and nginx/apache containers.
 
-For more information visit [docker-sync project page](https://github.com/EugenMayer/docker-sync).
+For more information visit [Mutagen project page](https://mutagen.io/).
