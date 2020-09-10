@@ -21,6 +21,7 @@ brew install mutagen-io/mutagen/mutagen
 3. Start the mutagen container `docker-compose up -d mutagen`
 4. Start Mutagen: `mutagen project start -f mutagen/config.yml` (or just run `make mutagen` instead of steps 3 and 4)
 5. Start other containers `docker-compose up -d` (or `make`)
+6. When you no longer need mutagen run `mutagen project terminate` 
 
 Now when you change your code on the host machine Mutagen will sync your data to php and nginx/apache containers.
 
