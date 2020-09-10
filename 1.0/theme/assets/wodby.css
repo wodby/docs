@@ -1,0 +1,77 @@
+.md-header-nav__button.md-logo img {
+    width: 125px;
+}
+
+.stack-page-link-wrapper {
+    float: right;
+    margin-right: 20px;
+    font-size: 1.4rem;
+}
+
+.stack-page-link-wrapper a {
+    opacity: .7;
+}
+
+/*.md-content [href^="http://"]:not(.md-icon)::after,*/
+/*.md-content [href^="https://"]:not(.md-icon)::after,*/
+/*.external-icon [href^="http://"]:not(.md-icon)::after,*/
+/*.external-icon [href^="https://"]:not(.md-icon)::after {*/
+/*content: "\f08e";*/
+/*font-family: FontAwesome;*/
+/*font-size: 12px;*/
+/*font-style: normal;*/
+/*font-weight: normal;*/
+/*padding-left: 5px;*/
+/*line-height: 10px;*/
+/*}*/
+
+.md-header, .md-tabs {
+    background-color: #333333 !important;
+}
+
+.md-source__facts {
+    display: none;
+}
+
+.md-tabs__item {
+    float: left;
+}
+
+.md-tabs__item.api-reference {
+    float: right;
+}
+
+.api-reference .md-icon svg {
+    margin: 0;
+    display: inline;
+    width: 0.5rem;
+    height: 0.6rem;
+}
+
+@media only screen and (min-width: 60em) {
+    .md-version {
+        padding-top: .5rem
+    }
+
+    .md-version__inner {
+        position: relative;
+        width: 6rem;
+        margin-right: .8rem;
+        padding: .1rem 0;
+        float: right;
+        transition: width .25s cubic-bezier(.1, .7, .1, 1);
+    }
+
+    .md-version__inner select {
+        padding: 0 5px;
+        background-color: rgba(0, 0, 0, .26);
+        color: inherit;
+        font-size: .8rem;
+    }
+
+    .md-version label {
+        font-size: .7rem;
+        opacity: .7;
+        padding-right: 5px;
+    }
+}

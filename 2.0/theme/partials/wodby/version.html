@@ -1,0 +1,17 @@
+<script>
+    function changeVersion(e) {
+        const version = e.value
+        window.location.href = window.location.origin + '/docs/' + version
+    }
+</script>
+<div class="md-version">
+    <div class="md-version__inner">
+        <form class="md-version__form">
+            <label>Version</label>
+            <select onchange="changeVersion(this)">
+                <option value="2.0">2.0</option>
+                <option value="1.0">1.0</option>
+            </select>
+        </form>
+    </div>
+</div>
