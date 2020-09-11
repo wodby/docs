@@ -12,6 +12,19 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.21
+
+- Vanilla Drupal 9.0.5, 8.9.5
+- PHP: 
+    - Updates: 7.4.10, 7.3.22
+    - MS SQL driver extension added https://github.com/wodby/php/pull/119
+    - Base image changed from wodby/base-php to php
+- MariaDB 10.5
+- Solr 8.6.2
+- Redis 6.0.8
+- Memcached 1.6.7
+- Adminer, xhprof, webgrind rebuilt against updated PHP image
+
 ## 5.4.20
 
 - Vanilla Drupal 9.0.3, 8.9.3
