@@ -12,6 +12,13 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.22
+
+- PHP 7.4.11, 7.3.23, 7.2.34
+- MariaDB 10.5.6, 10.4.15, 10.3.25, 10.2.34
+- Nginx 1.19.3
+- Adminer, webgrind and xhprof viewer rebuilt against updated PHP image
+
 ## 5.4.21
 
 - Vanilla WordPress 5.5.1
