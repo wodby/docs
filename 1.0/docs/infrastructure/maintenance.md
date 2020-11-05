@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.8
+
+Edge: improved and actualized SSL security settings
+
 ### 5.7.7
 
 Docker images clean up added to cron (run every night at 2:30) 
