@@ -1,6 +1,6 @@
 # Wodby platform and stacks documentation
 
-[![Build Status](https://travis-ci.org/wodby/docs.svg?branch=master)](https://travis-ci.org/wodby/docs)
+[![Build Status](https://github.com/wodby/docs/workflows/Build%20docs/badge.svg)](https://github.com/wodby/docs/actions)
 
 See https://wodby.com/docs
 
