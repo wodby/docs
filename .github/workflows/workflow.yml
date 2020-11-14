@@ -8,11 +8,18 @@ on:
   pull_request:
 
 jobs:
-  php74:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: |
+    - name: Build docs
+      env:
+        WODBY_API_KEY: ${{ secrets.WODBY_API_KEY }}
+        WODBY_INSTANCE_UUID: ${{ secrets.WODBY_INSTANCE_UUID }}
+        CF_KEY: ${{ secrets.CF_KEY }}
+        CF_EMAIL: ${{ secrets.CF_EMAIL }}
+        CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+      run: |
         set -e
         wget -qO- https://api.wodby.com/api/v1/get/cli | sh
         wodby ci init "${WODBY_INSTANCE_UUID}"
