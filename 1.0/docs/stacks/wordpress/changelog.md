@@ -16,14 +16,14 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 - ⬆️&nbsp; Vanilla WordPress 5.5.3
 - PHP:
-  - ⬆️&nbsp; Updated to 7.4.12, 7.3.24
-  - ⭐️&nbsp; Composer 2.0. Also, now you have permissions reinstall or update composer
-  - 😱&nbsp; Redis extension major update from 4.3.0 to 5.3.2
-  - 🐞&nbsp; Bugfix: pcov extension was enabled by default, now disabled, this caused recent issues with NewRelic monitoring
-  - 🐞&nbsp; Bugfix: missing `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
-  - ⬆️&nbsp; Xdebug 2.9.8
-  - 🦴&nbsp; Added env vars for sqlsrv extension runtime configuration https://github.com/wodby/php/issues/124
-  - 📦&nbsp; Added [mariadb-connector-c](https://pkgs.alpinelinux.org/contents?branch=v3.12&name=mariadb-connector-c&arch=x86_64&repo=main) package https://github.com/wodby/php/issues/122
+    - ⬆️&nbsp; Updated to 7.4.12, 7.3.24
+    - ⭐️&nbsp; Composer 2.0. Also, now you have permissions reinstall or update composer
+    - 😱&nbsp; Redis extension major update from 4.3.0 to 5.3.2
+    - 🐞&nbsp; Bugfix: pcov extension was enabled by default, now disabled, this caused recent issues with NewRelic monitoring
+    - 🐞&nbsp; Bugfix: missing `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
+    - ⬆️&nbsp; Xdebug 2.9.8
+    - 🦴&nbsp; Added env vars for sqlsrv extension runtime configuration https://github.com/wodby/php/issues/124
+    - 📦&nbsp; Added [mariadb-connector-c](https://pkgs.alpinelinux.org/contents?branch=v3.12&name=mariadb-connector-c&arch=x86_64&repo=main) package https://github.com/wodby/php/issues/122
 - ⬆️&nbsp; Nginx 1.19.4
 - ⬆️&nbsp; MariaDB 10.5.8, 10.4.17, 10.3.27, 10.2.36
 - ⬆️&nbsp; Varnish 6.0.7
