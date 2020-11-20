@@ -31,6 +31,10 @@ curl http://athenapdf:8080/convert\?auth\=wodby-athenapdf\&url\=http://google.co
 
 ## Changelog
 
+### 1.0.4
+
+AthenaPDF 2.16.0
+
 ### 1.0.3
 
 * Default [memory request](../config.md#resources) set to 16m
