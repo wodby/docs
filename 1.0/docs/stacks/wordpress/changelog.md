@@ -12,6 +12,26 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 5.4.23
+
+- ⬆️&nbsp; Vanilla WordPress 5.5.3
+- PHP:
+    - ⬆️&nbsp; Updated to 7.4.12, 7.3.24
+    - ⭐️&nbsp; Composer 2.0. Also, now you have permissions reinstall or update composer
+    - 😱&nbsp; Redis extension major update from 4.3.0 to 5.3.2
+    - 🐞&nbsp; Bugfix: pcov extension was enabled by default, now disabled, this caused recent issues with NewRelic monitoring
+    - 🐞&nbsp; Bugfix: missing `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
+    - ⬆️&nbsp; Xdebug 2.9.8
+    - 🦴&nbsp; Added env vars for sqlsrv extension runtime configuration https://github.com/wodby/php/issues/124
+    - 📦&nbsp; Added [mariadb-connector-c](https://pkgs.alpinelinux.org/contents?branch=v3.12&name=mariadb-connector-c&arch=x86_64&repo=main) package https://github.com/wodby/php/issues/122
+- ⬆️&nbsp; Nginx 1.19.4
+- ⬆️&nbsp; MariaDB 10.5.8, 10.4.17, 10.3.27, 10.2.36
+- ⬆️&nbsp; Varnish 6.0.7
+- ⬆️&nbsp; Memcached 1.6.8
+- ⬆️&nbsp; AthenaPDF 2.16.0
+- 🔃&nbsp; Adminer, webgrind, xhprof viewer rebuilt against updated PHP image
+- ⬆️&nbsp; Base image Alpine Linux updated to 3.12.1
+
 ## 5.4.22
 
 - PHP 7.4.11, 7.3.23, 7.2.34

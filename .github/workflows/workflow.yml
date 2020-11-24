@@ -1,0 +1,38 @@
+name: Build docs
+
+on:
+  push:
+    branches:
+    - master
+
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build docs
+      env:
+        WODBY_API_KEY: ${{ secrets.WODBY_API_KEY }}
+        WODBY_INSTANCE_UUID: ${{ secrets.WODBY_INSTANCE_UUID }}
+        CF_KEY: ${{ secrets.CF_KEY }}
+        CF_EMAIL: ${{ secrets.CF_EMAIL }}
+        CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+      run: |
+        set -e
+        wget -qO- https://api.wodby.com/api/v1/get/cli | sh
+        wodby ci init "${WODBY_INSTANCE_UUID}"
+
+        wodby ci run -i wodby/mkdocs -- \
+          sh -c "mkdir sites && cd 1.0 && mkdocs build -d ../sites/1.0 && cd ../2.0 && mkdocs build -d ../sites/2.0"
+
+        wodby ci build --from ./sites --to /var/www/html/docs/
+        wodby ci release
+        wodby ci deploy
+
+        curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+          -H "X-Auth-Email: ${CF_EMAIL}" \
+          -H "X-Auth-Key: ${CF_KEY}" \
+          -H "Content-Type:application/json" \
+          --data '{"purge_everything":true}'
