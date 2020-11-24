@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.9
+
+Edge: improved security settings of default Nginx virtual host 
+
 ### 5.7.8
 
 Edge: improved and actualized SSL security settings
