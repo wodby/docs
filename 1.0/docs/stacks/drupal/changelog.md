@@ -20,7 +20,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - PHP:
     - ⬆️&nbsp; Updated to 7.4.12, 7.3.24
     - ⭐️&nbsp; Composer 2.0. Also, now you have permissions reinstall or update composer
-    - 😱&nbsp; Redis extension major update from 4.3.0 to 5.3.2. ❗️You might need to update your redis modules for Drupal 8+ or [patch](https://www.drupal.org/project/redis/issues/3074189#comment-13368773) your Drupal 7 module. Alternatively, you can switch from `PhpRedis` extension to `Predis` library, see https://www.drupal.org/project/redis for more details  
+    - 🚨🚨🚨&nbsp; Redis extension major update from 4.3.0 to 5.3.2. ️You might need to update your redis modules for Drupal 8+ or [patch](https://www.drupal.org/project/redis/issues/3074189#comment-13368773) your Drupal 7 module. Alternatively, you can switch from `PhpRedis` extension to `Predis` library, see https://www.drupal.org/project/redis for more details  
     - 🐞&nbsp; Bugfix: pcov extension was enabled by default, now disabled, this caused recent issues with NewRelic monitoring
     - 🐞&nbsp; Bugfix: missing `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
     - ⬆️&nbsp; Xdebug 2.9.8
