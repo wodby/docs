@@ -14,6 +14,7 @@ This section contains a list of all configuration options supported by a service
 | Name | Description | Mandatory | Schema | 
 | ---- | ----------- | -------- | ------ |
 | image | The image the container is running. | ✓ | string |
+| image_pull | *Always* - always pull the image; *IfNotPresent* - only pull the image if it does not already exist on the server.  | | string |
 | entrypoint | Entrypoint string or array. The docker image’s ENTRYPOINT is used if this is not provided. |  | string, string array |
 | command | Arguments to the entrypoint. The docker image’s CMD is used if this is not provided. |  | string, string array |
 | working_dir | Container’s working directory. If not specified, the container runtime’s default will be used, which might be configured in the container image. |  | string |
