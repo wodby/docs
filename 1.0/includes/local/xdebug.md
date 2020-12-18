@@ -2,10 +2,10 @@
 
 ### Debugging web requests
 
-1. Uncomment these lines for PHP service in your docker-compose file
+1. Uncomment these lines for PHP service in your docker-compose file (environment variables changed since xdebug 3.x)
     ```yml
     PHP_XDEBUG: 1                 
-    PHP_XDEBUG_DEFAULT_ENABLE: 1
+    PHP_XDEBUG_MODE: debug
     ```
 2. Restart containers (`make`)    
 3. Start debugging in IDE
@@ -16,7 +16,6 @@
 1. Enable Xdebug as described in the previous section
 2. Uncomment the following environment variables for PHP service in your composer file
     ```yml
-    PHP_XDEBUG_REMOTE_CONNECT_BACK: 0    
     PHP_IDE_CONFIG: serverName=my-ide
     ```
 3. [Configure your IDE](#ide-configuration-to-debug-cli-requests)
@@ -29,12 +28,12 @@
 
 #### macOS, Docker
 
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service (Docker 18.03+)
+1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service
 2. Restart containers (`make`)
 
 #### Windows
 
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service (Docker 18.03+)
+1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service
 2. Restart containers (`make`)
 3. Allow listen connection for your IDE in `Windows Firewall > Allow an app ..`
 
