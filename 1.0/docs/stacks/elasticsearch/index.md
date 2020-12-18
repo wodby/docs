@@ -14,6 +14,12 @@ Elasticsearch and Kibana can be configured via environment variables:
 
 This changelog is for Elasticsearch stack on Wodby, to see images changes see tags description on repository page: [elasticsearch](https://github.com/wodby/elasticsearch/releases) and [kibana](https://github.com/wodby/kibana/releases).   
 
+### 2.5.8
+
+- ⬆️&nbsp; Elasticsearch, Kibana 7.10.1
+- ⬆️&nbsp; Base image Alpine Linux updated to 3.12.3
+- 🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
+
 ### 2.5.7
 
 Elasticsearch, Kibana 7.10.0, 6.8.13

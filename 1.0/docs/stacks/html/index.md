@@ -27,6 +27,14 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.29
+
+- Nginx:
+    - ⬆️&nbsp; Updated to 1.19.6
+    - 🐞&nbsp; Custom preset checked incorrectly https://github.com/wodby/nginx/issues/53
+- ⬆️&nbsp; Base image Alpine Linux updated to 3.12.3
+- 🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
+
 ### 0.2.28
 
 Nginx 1.19.4

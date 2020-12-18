@@ -39,16 +39,16 @@ Once traces files generated you can view and analyze your traces via [XHProf vie
 
 #### Xdebug profiler
 
-Enable XDebug profiling by adding the following environment variables to your PHP container:
+Enable XDebug profiling by adding the following environment variables to your PHP container (! xdebug env vars have changed since version 3.x):
 
 ```
 PHP_XDEBUG: 1
-PHP_XDEBUG_PROFILER_ENABLE: 1
-PHP_XDEBUG_PROFILER_ENABLE_TRIGGER: 1
-PHP_XDEBUG_PROFILER_ENABLE_TRIGGER_VALUE: 1
+PHP_XDEBUG_MODE: profile
+PHP_XDEBUG_START_WITH_REQUEST: trigger
+PHP_XDEBUG_TRIGGER_VALUE: 1
 ```
 
-Add `XDEBUG_PROFILE=1` param to GET or POST request (or set a cookie) you want to profile. Xdebug will generate profile files in `/mnt/files/xdebug/profiler`. Click Update in Webgrind to access the new information. See https://xdebug.org/docs/profiler to learn more about xdebug profiling.
+Add `XDEBUG_PROFILE=1` param to GET or POST request (or set a cookie) you want to profile. Xdebug will generate profile files in `/mnt/files/xdebug`. Click Update in Webgrind to access the new information. See https://xdebug.org/docs/profiler to learn more about xdebug profiling.
 
 Once traces files generated you can view and analyze your traces via [Webgrind](#webgrind)
 

@@ -11,6 +11,10 @@ You can acquire auto-generated redis password from `App > Stack > Redis` page.
 
 ## Changelog
 
+### 0.1.3
+
+🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
+
 ### 0.1.2
 
 Added Redis 5

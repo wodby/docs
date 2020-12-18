@@ -40,6 +40,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.3.13
+
+- ⬆️&nbsp; Base image Alpine Linux updated to 3.12.3
+- 🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
+
 ### 2.3.12
 
 Solr 8.7.0

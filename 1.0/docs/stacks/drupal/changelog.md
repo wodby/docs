@@ -6,11 +6,44 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     Changes and upgrade instructions are relative to a preceding version, e.g. if you're upgrading from version 5.2.0 to 5.2.2 you should also look up version 5.2.1 changes.
 
 !!! caution "MariaDB updates"
-    - We strongly recommend to backup your database before upgrading your application stack if the new version contains MariaDB updates 
+    - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
-!!! caution "MariaDB 10.1"
-    If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
+## 5.4.24
+
+- Vanilla Drupal:
+    - ⬆️&nbsp; Updated: 9.1.0, 8.9.11, 7.77
+    - ↩️&nbsp; Drupal console returned to Drupal 8 image
+- PHP:
+    - ⭐️&nbsp; PHP 8 (not all pecl extensions supported, see https://github.com/wodby/php/issues/129 for more details)
+    - 🗑&nbsp; PHP 7.2 has reached End of Life
+    - ⬆️&nbsp; Updates 7.4.13, 7.3.25
+    - ⬆️&nbsp; Drupal console launcher updated to 1.9.7
+    - ⬆️&nbsp; Updated pecl extensions:
+        - ast 1.0.10
+        - ds 1.3.0
+        - event 3.0.2
+        - grpc 1.34.0
+        - igbinary 3.1.5
+        - mcrypt 1.0.4
+        - mongodb 1.9.0
+        - oauth 2.0.7
+        - rdkafka 4.1.1
+        - tideways xhprof 5.0.2
+        - uploadprogress 1.1.3
+        - uuid 1.1.0
+        - 😱&nbsp; xdebug 3.0.1 (new major version, env vars have changed)
+        - yaml 2.2.0
+- Nginx:
+    - ⬆️&nbsp; Updated to 1.19.6
+    - 🐞&nbsp; Custom preset checked incorrectly https://github.com/wodby/nginx/issues/53
+- 🐞&nbsp; MariaDB: sometimes backup errors weren't reported
+- ⬆️&nbsp; Adminer 4.7.8
+- ⬆️&nbsp; Memcached 1.6.9
+- ⬆️&nbsp; Xhprof viewer 2.2.3
+- 🔃&nbsp; Webgrind rebuilt against updated PHP image
+- ⬆️&nbsp; Base image Alpine Linux updated to 3.12.3
+- 🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
 
 ## 5.4.23
 

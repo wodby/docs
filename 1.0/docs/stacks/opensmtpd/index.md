@@ -32,6 +32,10 @@ OpenSMTPD can be configured with the following [environment variables](https://g
 
 This changelog is for OpenSMTPD stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/opensmtpd/releases).
 
+### 1.1.7
+
+- 🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
+
 ### 1.1.6
 
 Alpine Linux updated to 3.11
