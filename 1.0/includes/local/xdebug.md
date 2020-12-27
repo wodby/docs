@@ -7,9 +7,9 @@
     PHP_XDEBUG: 1                 
     PHP_XDEBUG_MODE: debug
     ```
-2. Restart containers (`make`)    
+2. Restart containers (`make`)
 3. Start debugging in IDE
-4. Start your browser debug helper plugin ([Chrome](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?hl=en) or [Firefox](https://addons.mozilla.org/en-us/firefox/addon/the-easiest-xdebug)) and open the page you want to debug. Alternatively, enable auto start by adding `PHP_XDEBUG_REMOTE_AUTOSTART=1`
+4. Start your browser debug helper plugin ([Chrome](https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc?hl=en) or [Firefox](https://addons.mozilla.org/en-us/firefox/addon/the-easiest-xdebug)) and open the page you want to debug. Alternatively, enable auto start by adding `PHP_XDEBUG_START_WITH_REQUEST: "yes"`
 
 ### Debugging CLI requests 
 
