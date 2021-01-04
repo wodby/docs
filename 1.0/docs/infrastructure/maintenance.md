@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.7.10
+
+Edge: fixed renewing of SSL certificates for domains with a redirect from www to non-www version (and vice versa) enabled
+
 ### 5.7.9
 
 Edge: improved security settings of default Nginx virtual host 
