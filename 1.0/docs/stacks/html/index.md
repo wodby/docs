@@ -30,8 +30,8 @@ This changelog is for HTML stack on Wodby, to see images changes see tags descri
 ### 0.2.30
 
 - Apache:
-    - 🦴&nbsp; Allow override is now configurable https://github.com/wodby/apache/pull/10
-    - 🦴&nbsp; Allow override is not set to `All` by default for html preset https://github.com/wodby/apache/pull/10      
+    - 🦴&nbsp; `AllowOverride` is now configurable https://github.com/wodby/apache/pull/10
+    - 🦴&nbsp; `AllowOverride` is now set to `All` by default for html preset https://github.com/wodby/apache/pull/10      
     - 🦴&nbsp; Apache port is now configurable https://github.com/wodby/apache/issues/8
 
 ### 0.2.29
