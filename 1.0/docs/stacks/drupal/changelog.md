@@ -9,6 +9,21 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.25
+
+- ⬆️&nbsp; Vanilla Drupal 9.1.2, 8.9.12
+- PHP:
+    - ⬆️&nbsp; Updated to 8.0.1, 7.4.14, 7.3.26
+    - ⬆️&nbsp; Updated pecl modules: tideways 5.0.4, xdebug 3.0.2, rdkafka 5.0.0
+    - ⭐️&nbsp; Following pecl modules now enabled in PHP 8: tideways, rdkafka, blackfire https://github.com/wodby/php/issues/129
+    - 🦴&nbsp; Added env vars for xdebug log configuration https://github.com/wodby/php/issues/134
+- Apache:
+    - 🦴&nbsp; `AllowOverride` is now configurable https://github.com/wodby/apache/pull/10
+    - 🦴&nbsp; Apache port is now configurable https://github.com/wodby/apache/issues/8
+- ⬆️&nbsp; Redis 6.0.10
+- ⬆️&nbsp; Webgrind 1.8.0
+- 🔃&nbsp; Adminer, xhprof viewer rebuilt against updated PHP image
+
 ## 5.4.24
 
 - Vanilla Drupal:
