@@ -9,6 +9,25 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.26
+
+- ⬆️&nbsp; Vanilla Drupal 9.1.4, 8.9.13, 7.78
+- PHP:
+    - ⬆️&nbsp; Updates: 8.0.2, 7.4.15, 7.3.27
+    - 🦴&nbsp; Drush launcher updated to 0.9.0 and now added to PHP 8
+    - ⬆️&nbsp; sqlsrv, pdo_sqlsrv updated to 5.9.0
+    - ⭐️&nbsp; sqlsrv, pdo_sqlsrv, imagick added for PHP 8
+    - 🐞&nbsp; Bugfix: invalid temporary path setting in `wodby.settings.php` for Drupal 8/9
+- Nginx:
+    - ⬆️&nbsp; Updated to 1.19.7
+    - 🚨&nbsp; Pagespeed module dropped due to continued lack of OpenSSL 1.1 support https://github.com/apache/incubator-pagespeed-mod/issues/1856
+    - ⬆️&nbsp; Alpine Linux updated from 3.8 to 3.13
+    - 📜&nbsp; Added status endpoint https://github.com/wodby/nginx/pull/55
+- ⬆️&nbsp; Solr 8.8.0
+- ⬆️&nbsp; Adminer 4.8.0
+- ⬆️&nbsp; Base image Alpine Linux updated to 3.13.2 for most of the images
+- 🔃&nbsp; Webgrind, xhprof viewer rebuilt against updated PHP image
+
 ## 5.4.25
 
 - ⬆️&nbsp; Vanilla Drupal 9.1.2, 8.9.12

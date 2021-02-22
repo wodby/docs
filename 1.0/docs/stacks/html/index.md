@@ -27,6 +27,14 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.31
+
+- Nginx:
+    - ⬆️&nbsp; Updated to 1.19.7
+    - 🚨&nbsp; Pagespeed module dropped due to continued lack of OpenSSL 1.1 support https://github.com/apache/incubator-pagespeed-mod/issues/1856
+    - ⬆️&nbsp; Alpine Linux updated from 3.8 to 3.13
+    - 📜&nbsp; Added status endpoint https://github.com/wodby/nginx/pull/55
+
 ### 0.2.30
 
 - Apache:

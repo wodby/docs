@@ -81,6 +81,10 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.12.0
+
+Added Matomo v4
+
 ### 0.11.2
 
 - ⬆️&nbsp; Base image Alpine Linux updated to 3.12.3
