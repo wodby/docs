@@ -9,6 +9,14 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.27
+
+- Vanilla WordPress 5.6.2
+- MariaDB:
+    - ⬆️&nbsp; Updates: 10.5.9, 10.4.18, 10.3.28, 10.2.37
+    - 🚨&nbsp; RocksDB plugin no longer compiled in
+- ⬆️&nbsp; Redis 6.2.0, 5.0.11
+
 ## 5.4.26
 
 - ⬆️&nbsp; Vanilla WordPress 5.6.1

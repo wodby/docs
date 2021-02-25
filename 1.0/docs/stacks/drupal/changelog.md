@@ -9,6 +9,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.27
+
+- 🐞&nbsp; Nginx's mod security config didn't apply rule set for Drupal presets
+- MariaDB:
+    - ⬆️&nbsp; Updates: 10.5.9, 10.4.18, 10.3.28, 10.2.37
+    - 🚨&nbsp; RocksDB plugin no longer compiled in
+- ⬆️&nbsp; Solr 8.8.1
+- ⬆️&nbsp; Redis 6.2.0, 5.0.11
+
 ## 5.4.26
 
 - ⬆️&nbsp; Vanilla Drupal 9.1.4, 8.9.13, 7.78
