@@ -11,9 +11,13 @@ You can acquire auto-generated redis password from `App > Stack > Redis` page.
 
 ## Changelog
 
-### 0.1.3
+### 0.2.1
 
 🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
+
+### 0.2.0
+
+Docker registry updated to 2.7.0 
 
 ### 0.1.2
 
