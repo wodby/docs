@@ -9,6 +9,13 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.28
+
+- ⬆️&nbsp; Vanilla WordPress 5.7
+- ⬆️&nbsp; PHP 8.0.3, 7.4.16
+- ⬆️&nbsp; Nginx 1.19.8
+- ⬆️&nbsp; Redis 6.2.1, 5.0.12
+
 ## 5.4.27
 
 - Vanilla WordPress 5.6.2
