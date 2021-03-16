@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.8.0
+
+Edge: improved security by generating Let's Encrypt SSL certificate for default virtual host
+
 ### 5.7.10
 
 Edge: fixed renewing of SSL certificates for domains with a redirect from www to non-www version (and vice versa) enabled
