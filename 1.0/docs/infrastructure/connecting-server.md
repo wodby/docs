@@ -6,7 +6,6 @@ Before connecting your server to Wodby please make sure it satisfies [requiremen
 
 * [Amazon Web Services](../integrations/aws.md)
 * [DigitalOcean](../integrations/digitalocean.md)
-* [Linode](../integrations/linode.md)
 * [Azure](../integrations/azure.md)
 * [Google Cloud Platform](../integrations/gcp.md)
 * [_Custom Cloud Provider_](../integrations/custom.md)
