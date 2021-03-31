@@ -12,6 +12,16 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.8.1
+
+- Edge: Nginx 1.19.8
+- Edge: OpenSSL 1.1.1k (major security update)
+- Kubernetes: fixed known issue with a sporadic container logs absence
+
+### 5.8.0
+
+Edge: improved security by generating Let's Encrypt SSL certificate for default virtual host
+
 ### 5.7.10
 
 Edge: fixed renewing of SSL certificates for domains with a redirect from www to non-www version (and vice versa) enabled
