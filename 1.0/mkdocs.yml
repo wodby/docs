@@ -142,7 +142,6 @@ nav:
   - GCP: integrations/gcp.md
   - GitHub: integrations/github.md
   - GitLab: integrations/gitlab.md
-  - Linode: integrations/linode.md
   - SendGrid: integrations/sendgrid.md
   - Custom provider: integrations/custom.md
 - Cluster:

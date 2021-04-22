@@ -6,7 +6,6 @@ Before connecting your server to Wodby please make sure it satisfies [requiremen
 
 * [Amazon Web Services](../integrations/aws.md)
 * [DigitalOcean](../integrations/digitalocean.md)
-* [Linode](../integrations/linode.md)
 * [Azure](../integrations/azure.md)
 * [Google Cloud Platform](../integrations/gcp.md)
 * [_Custom Cloud Provider_](../integrations/custom.md)
@@ -28,9 +27,8 @@ Before connecting your server to Wodby please make sure it satisfies [requiremen
 Wodby supports the following Linux distributions (x64 only):
 
 * Debian 9 stretch (recommended)
-* Ubuntu 18.04 LTS
+* Ubuntu 20.04 LTS
 * Debian 10 buster
-* Ubuntu 16.04 LTS
 
 [Learn how](http://unix.stackexchange.com/questions/35183/how-do-i-identify-which-linux-distro-is-running) to detect your distributive and the versions
 

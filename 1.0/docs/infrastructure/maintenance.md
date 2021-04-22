@@ -12,9 +12,13 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.8.3
+
+Edge: fixed error_log level to avoid significant error log growth in some cases
+
 ### 5.8.2
 
-- Edge: fixed error_log level to avoid significant error log growth in some cases
+Kubernetes: fixed issue when servers from some cloud providers like Linode failed to start up containers
 
 ### 5.8.1
 
