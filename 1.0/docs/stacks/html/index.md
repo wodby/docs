@@ -27,6 +27,14 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.2.33
+
+- Nginx:
+    - ⭐️&nbsp; New major version 1.20 (now latest)
+    - ⬆️&nbsp; Updated to 1.19.10
+    - 🪦&nbsp; 1.18 dropped (EOL)
+- 📦&nbsp; Base OS Alpine Linux updated to 3.13.5    
+
 ### 0.2.32
 
 ⬆️&nbsp; Nginx 1.19.8

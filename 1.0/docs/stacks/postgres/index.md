@@ -33,76 +33,80 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
-## 1.3.13
+### 1.3.14
+
+📦&nbsp; Base OS Alpine Linux updated to 3.13.5
+
+### 1.3.13
 
 - ⬆️&nbsp; Updates: 13.2, 12.6, 11.11, 10.16, 9.6.21
 - 🚨&nbsp; Versions 9.4, 9.5 have reached EOL
 
-## 1.3.12
+### 1.3.12
 
 - ⬆️&nbsp; Base image Alpine Linux updated to 3.12.3
 - 🦴&nbsp; `ImagePullPolicy` changed to `IfNotPresent`
 
-## 1.3.11
+### 1.3.11
 
 PostgreSQL 12.5, 11.10, 10.15, 9.6.20, 9.5.24
 
-## 1.3.10
+### 1.3.10
 
 PostgreSQL 12.4, 11.9, 10.14, 9.6.19, 9.5.23
 
-## 1.3.9
+### 1.3.9
 
 - PostgreSQL 12.3, 11.8, 10.13, 9.6.18, 9.5.22
 - Adminer 4.7.7
 
-## 1.3.8
+### 1.3.8
 
 - PostgreSQL 12.2, 11.7, 10.12, 9.6.17, 9.5.21, 9.4.26
 - Adminer 4.7.6
 
-## 1.3.7
+### 1.3.7
 
 - PostgreSQL updates: 11.6, 10.11, 9.6.16, 9.5.20, 9.4.25
 - Adminer 4.7.5
 
-## 1.3.6
+### 1.3.6
 
 PostgreSQL updates: 11.5, 10.10, 9.6.15, 9.5.19, 9.4.24
 
-## 1.3.5
+### 1.3.5
 
 - PostgreSQL updates: 11.4, 10.9, 9.6.14, 9.5.18, 9.4.23
 - Adminer updated to 4.7.2
 - Alpine Linux updated to 3.10.1
 
-## 1.3.4
+### 1.3.4
 
 - PostgreSQL updates: 11.3, 10.8, 9.6.13, 9.5.17, 9.4.22
 - Alpine Linux updated to 3.9.4
 
-## 1.3.3
+### 1.3.3
 
 - Alpine Linux updated to 3.9.3
 - Adminer rebuilt against latest base image
 
-## 1.3.2
+### 1.3.2
 
 - PostgreSQL:
   - Version 9.3 has reached EOL and will no longer receive updates
   - Patch updates: 11.2, 10.7, 9.6.12, 9.5.16, 9.4.21
 - Adminer updated to 4.7.1 and rebuilt against latest base image
 
-## 1.3.1
+### 1.3.1
 
 * Adminer updated to 4.7.0 and rebuilt against latest base image
 
-## 1.3.0
+### 1.3.0
 
 * PostgreSQL 11 added
 * PostgreSQL patch updates: 10.6, 9.6.11, 9.5.15, 9.4.20, 9.3.25
 
-## 1.2.4
+### 1.2.4
 
 * Adminer: 
     * Bugfix: some `$PHP_` env vars were ignored

@@ -9,6 +9,24 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.29
+
+- ⬆️&nbsp; Vanilla WordPress 5.7.1
+- PHP:
+    - ⭐️&nbsp; NewRelic extension now supported in PHP 8
+    - ⬆️&nbsp; PECL extensions updates: event 3.0.4, igbinary 3.2.2, mongodb 1.9.1, redis 5.3.4, xdebug 3.0.4, yaml 2.2.1
+    - 🐞&nbsp; Bugfix: quotes for `$PHP_XDEBUG_CLIENT_DISCOVERY_HEADER` https://github.com/wodby/php/issues/140
+    - 🐞&nbsp; Bugfix: missing gnu-libiconv package https://github.com/wodby/php/issues/142
+- Nginx:
+    - ⭐️&nbsp; New major version 1.20
+    - ⬆️&nbsp; Updated to 1.19.10
+- ⬆️&nbsp; Redis 6.2.2
+- ⬆️&nbsp; Solr 8.8.2
+- XHProf viewer:
+    - ⬆️&nbsp; Updated to 2.3.0
+    - 🚨&nbsp; Env var for output directory renamed from `PHP_XHPROF_OUTPUT_DIR` to `XHPROF_OUTPUT_DIR`
+- 📦&nbsp; Base OS Alpine Linux updated to 3.13.5
+
 ## 5.4.28
 
 - ⬆️&nbsp; Vanilla WordPress 5.7
