@@ -9,6 +9,14 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.30
+
+- PHP:
+    -❗️Security updates: 8.0.5, 7.4.18, 7.3.28
+    -❗️Composer security update 2.0.13
+- ⬆️&nbsp; Elasticsearch, Kibana 7.12.1
+- ⬆️&nbsp; XHProf viewer 2.3.1
+
 ## 5.4.29
 
 - ⬆️&nbsp; Vanilla WordPress 5.7.1
