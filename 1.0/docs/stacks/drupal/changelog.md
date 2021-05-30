@@ -9,6 +9,14 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.32
+
+- ❗&nbsp; Vanilla Drupal security updates 9.1.9, 8.9.16
+- ⬆️&nbsp; Added sqlite binaries to PHP https://github.com/wodby/php/pull/144
+- ⬆️&nbsp; Apache 2.4.48
+- ⬆️&nbsp; Nginx 1.20.1
+- ⬆️&nbsp; Adminer 4.8.1
+
 ## 5.4.31
 
 - ⬆️&nbsp; Vanilla Drupal 9.1.8, 8.9.15
