@@ -9,6 +9,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.33
+
+- Vanilla Drupal:
+    - ⬆️&nbsp; Updated to 9.1.10, 7.81
+    - 🐞 Installing modules reinstalls drupal core package https://github.com/cweagans/composer-patches/issues/363
+- PHP:
+    -  ⬆️&nbsp; Updated to 8.0.7, 7.4.20
+    - 📜&nbsp; PHP now loads default `php.ini` based on `php.ini-production` https://github.com/wodby/php/issues/145
+
 ## 5.4.32
 
 - ❗&nbsp; Vanilla Drupal security updates 9.1.9, 8.9.16
