@@ -79,3 +79,4 @@ nav:
 - Integrations:
   - Overview: integrations/index.md
   - GCP: integrations/gcp.md
+  - AWS: integrations/aws.md
