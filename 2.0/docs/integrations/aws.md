@@ -2,6 +2,8 @@
 
 ## Required IAM policies
 
+IAM key for AWS integration requires the following policies:
+
 AmazonEC2FullAccess (AWS Managed Policy)
 
 ```json
@@ -118,23 +120,6 @@ RDS full access:
       "Effect": "Allow",
       "Action": "rds:*",
       "Resource": "*"
-    }
-  ]
-}
-```
-
-Service role permissions:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Effect": "Allow",
     }
   ]
 }
