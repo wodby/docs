@@ -12,6 +12,11 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.8.4
+
+- Edge: Nginx 1.19.10
+- `keepalive_requests` increased to `1000` https://github.com/wodby/edge-alpine/pull/1 
+
 ### 5.8.3
 
 Edge: fixed error_log level to avoid significant error log growth in some cases
