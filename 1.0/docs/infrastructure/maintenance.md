@@ -12,6 +12,10 @@ You will be notified each time a new version of the infrastructure is released.
 
 ## Changelog
 
+### 5.8.5
+
+Bugfix: `keepalive_requests` wasn't increased to `1000`  
+
 ### 5.8.4
 
 - Edge: Nginx 1.19.10
