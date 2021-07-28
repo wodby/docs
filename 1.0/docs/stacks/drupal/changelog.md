@@ -9,6 +9,19 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.34
+
+- ⬆️&nbsp; Vanilla Drupal 9.2.2, 8.9.17, 7.82
+- PHP:
+    - ⬆️&nbsp; Updated to 8.0.8, 7.4.21, 7.3.29
+    - 🐞&nbsp; Avoid empty opcache.preload https://github.com/wodby/php/issues/146
+    - ⬆️&nbsp; Update imagick extension to 3.5.0
+- ⬆️&nbsp; MariaDB 10.5.11, 10.4.20, 10.3.30, 10.2.39
+- ⬆️&nbsp; Varnish 6.0.8
+- ⬆️&nbsp; Solr rebuilt for new config sets
+- ⬆️&nbsp; XHProf viewer 2.3.3
+- 🚨&nbsp; Due to https://github.com/alpinelinux/docker-alpine/issues/182 some images (redis, memcached) are now frozen (wodby actions can be performed on Alpine Linux 3.13 only starting docker 20.10.0+). Starting this release versions in Wodby stacks may slightly differ from ones in docker4x releases. 
+
 ## 5.4.33
 
 - Vanilla Drupal:

@@ -6,6 +6,10 @@ Redis can be configured with the following [environment variables](https://githu
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 1.3.12
+
+⬆️&nbsp; Alpine Linux freeze to 3.13
+
 ### 1.3.11
 
 ⬆️&nbsp; Redis 6.2.3

@@ -40,6 +40,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.3.17
+
+- ⬆️&nbsp; Solr rebuilt for new config sets
+- ⬆️&nbsp; Base image Alpine Linux updated to 3.13.5
+
 ### 2.3.16
 
 ⬆️&nbsp; Solr 8.8.2
