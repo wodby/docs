@@ -9,6 +9,16 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.35
+
+- ⬆️&nbsp; Vanilla Drupal 9.2.4, 8.9.18
+- PHP:
+    - ⬆️&nbsp; Updated to 8.0.9, 7.4.22
+    - ⬆️&nbsp; PECL extensions updates: imagick 3.5.1, apcu 5.1.20
+- ⬆️&nbsp; MariaDB 10.4.21, 10.3.31
+- ⬆️&nbsp; Elasticsearch, Kibana 7.14.0, 6.8.18
+- ⬆️&nbsp; XHProf viewer 2.3.4
+
 ## 5.4.34
 
 - ⬆️&nbsp; Vanilla Drupal 9.2.2, 8.9.17, 7.82
