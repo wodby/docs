@@ -54,3 +54,9 @@ ncdu /
 ```shell
 vmstat -Sm 1
 ```
+
+## Clean up orphaned tasks pods
+
+```shell
+kubectl get po -a --all-namespaces | grep task- | grep Error | awk '{ print $1 " " $2 }' | xargs -l sh -c 'kubectl -n $0 delete po $1'
+```
