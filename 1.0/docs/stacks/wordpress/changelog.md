@@ -9,6 +9,12 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.36
+
+- PHP:
+    - ⬆️&nbsp; Updated to 8.0.10, 7.4.23, 7.3.30
+    - ⬆️&nbsp; ioncube loader extension added (disabled by default)
+
 ## 5.4.35
 
 - PHP:
