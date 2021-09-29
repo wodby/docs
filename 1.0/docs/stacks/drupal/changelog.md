@@ -17,6 +17,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - PHP:
     - 🚨&nbsp; GRPC extension temporarily disabled https://github.com/wodby/php/issues/155
     - ⬆️&nbsp; Updated to 8.0.11, 7.4.24, 7.3.31
+    - `$PHP_XDEBUG_CLIENT_PORT` set to `9000` by default
 - ➕&nbsp; Added Nginx 1.21    
 - ⬆️&nbsp; Solr 8.10.0
 - ⬆️&nbsp; Webgrind 1.9.0

@@ -15,6 +15,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - PHP:
     - 🚨&nbsp; GRPC extension temporarily disabled https://github.com/wodby/php/issues/155
     - ⬆️&nbsp; Updated to 8.0.11, 7.4.24, 7.3.31
+    - `$PHP_XDEBUG_CLIENT_PORT` set to `9000` by default
 - ➕&nbsp; Added Nginx 1.21
 - ⬆️&nbsp; Webgrind 1.9.0
 - ⬆️&nbsp; XHProf 2.3.5
