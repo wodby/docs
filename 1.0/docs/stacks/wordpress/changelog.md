@@ -9,6 +9,16 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.37
+
+- ⬆️&nbsp; Vanilla WordPress 5.8.1
+- PHP:
+    - 🚨&nbsp; GRPC extension temporarily disabled https://github.com/wodby/php/issues/155
+    - ⬆️&nbsp; Updated to 8.0.11, 7.4.24, 7.3.31
+- ➕&nbsp; Added Nginx 1.21
+- ⬆️&nbsp; Webgrind 1.9.0
+- ⬆️&nbsp; XHProf 2.3.5
+
 ## 5.4.36
 
 - PHP:

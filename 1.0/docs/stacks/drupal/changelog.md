@@ -9,6 +9,19 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.37
+
+- Vanilla Drupal:
+    - ⭐️&nbsp; Added PHP 8.0 variant for Drupal 7 (now default)
+    - ⬆️&nbsp; Updated to 9.2.6, 8.9.19
+- PHP:
+    - 🚨&nbsp; GRPC extension temporarily disabled https://github.com/wodby/php/issues/155
+    - ⬆️&nbsp; Updated to 8.0.11, 7.4.24, 7.3.31
+- ➕&nbsp; Added Nginx 1.21    
+- ⬆️&nbsp; Solr 8.10.0
+- ⬆️&nbsp; Webgrind 1.9.0
+- ⬆️&nbsp; XHProf 2.3.5
+
 ## 5.4.36
 
 - PHP:
