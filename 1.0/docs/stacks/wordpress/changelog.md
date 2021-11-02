@@ -9,6 +9,18 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.38
+
+- PHP:
+    - ⬆️ Updates 8.0.12, 7.4.25, 7.3.32
+    - ⭐️ Added brotli extension https://github.com/wodby/php/issues/154
+    - ⭐️ amqp extension (1.11.0beta) added to PHP 8
+    - ⭐️ tideways xhprof extension replaced with xhprof (PECL version) https://github.com/wodby/php/issues/96
+    - 🦴 Allow to use custom uid/gid higher than 256000 https://github.com/wodby/php/pull/157
+    - 🐞 Bugfix: invalid pcov.exclude default value https://github.com/wodby/php/pull/153
+    - 🔼 Updated PECL extensions: uploadprogress 2.0.2, apcu 5.1.21, xdebug 3.1.0, mongodb 1.10.0, igbinary 3.2.6, event 3.0.6
+- 📜 Varnish: Query params no longer stripped from static files https://github.com/wodby/varnish/issues/34
+
 ## 5.4.37
 
 - ⬆️&nbsp; Vanilla WordPress 5.8.1
