@@ -26,9 +26,9 @@ Before connecting your server to Wodby please make sure it satisfies [requiremen
 
 Wodby supports the following Linux distributions (x64 only):
 
-* Debian 9 stretch (recommended)
+* Debian 10 buster (recommended)
+* Debian 9 stretch
 * Ubuntu 20.04 LTS
-* Debian 10 buster
 
 [Learn how](http://unix.stackexchange.com/questions/35183/how-do-i-identify-which-linux-distro-is-running) to detect your distributive and the versions
 
