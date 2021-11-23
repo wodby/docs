@@ -9,6 +9,18 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.39
+
+- ⬆️ Vanilla WordPress 5.8.2
+- PHP:
+    - ⬆️ Updates 8.0.13, 7.4.26, 7.3.33
+    - 🐞 Bugfix: incorrect permissions on xdebug directory https://github.com/wodby/docker4drupal/issues/500
+- MariaDB:
+    - ⭐️ Added new MariaDB 10.6
+    - ⬆️ Updates: 10.5.13, 10.4.22, 10.3.32, 10.2.41
+- ⬆️ Nginx 1.21.4, 1.20.2
+- ⭐️ Adminer rebased to PHP 7.4 and now has linux/arm64 variant
+
 ## 5.4.38
 
 - PHP:

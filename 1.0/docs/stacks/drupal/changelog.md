@@ -9,6 +9,19 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.39
+
+- ⬆️ Vanilla Drupal 9.2.9, 8.9.20
+- PHP:
+    - ⬆️ Updates 8.0.13, 7.4.26, 7.3.33
+    - 🐞 Bugfix: incorrect permissions on xdebug directory https://github.com/wodby/docker4drupal/issues/500
+- MariaDB:
+    - ⭐️ Added new MariaDB 10.6
+    - ⬆️ Updates: 10.5.13, 10.4.22, 10.3.32, 10.2.41
+- ⭐️ Adminer rebased to PHP 7.4 and now has linux/arm64 variant
+- ⬆️ Nginx 1.21.4, 1.20.2
+- ⬆️ Solr 8.11.0
+
 ## 5.4.38
 
 - ⬆️ Vanilla Drupal 9.2.7
