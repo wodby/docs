@@ -62,6 +62,11 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.3.19
+
+- 🚨 Fix for [CVE-2021-44228 ](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q)
+- 🥶 Base image ([wodby/base-solr](https://github.com/wodby/base-solr)) rebased to [wodby/openjdk](https://github.com/wodby/openjdk) with frozen Alpine 3.13
+
 ### 2.3.18
 
 ⬆️ Solr 8.11.0

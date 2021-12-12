@@ -14,6 +14,12 @@ Elasticsearch and Kibana can be configured via environment variables:
 
 This changelog is for Elasticsearch stack on Wodby, to see images changes see tags description on repository page: [elasticsearch](https://github.com/wodby/elasticsearch/releases) and [kibana](https://github.com/wodby/kibana/releases).   
 
+### 2.5.20
+
+- 🚨 Fix for [CVE-2021-44228 ](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q)
+- ⬆️ Updated to 7.16.0
+- 🥶 Rebased to [wodby/openjdk](https://github.com/wodby/openjdk) with frozen Alpine 3.13
+    
 ### 2.5.19
 
 ⬆️ Elasticsearch, Kibana 7.15.2

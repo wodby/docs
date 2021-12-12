@@ -27,6 +27,16 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.3.0
+
+- Nginx:
+    - ⭐️ VTS module added, see `$NGINX_METRICS_` and `$NGINX_STATUS_` env vars for usage https://github.com/wodby/nginx/pull/61
+    - 📜 `$NGINX_SET_REAL_IPS_FROM` was added to support multiple IP address for `set_real_ip_from` https://github.com/wodby/nginx/pull/62
+    - 🥶 brotli and vts modules versions are now frozen https://github.com/wodby/nginx/pull/63
+- Apache:
+    - ⬆️ Updated to 2.4.51
+    - 🥶 Rebased to [wodby/httpd](https://github.com/wodby/httpd) with frozen Alpine 3.13
+
 ### 0.2.37
 
 ⬆️ Nginx 1.21.4, 1.20.2

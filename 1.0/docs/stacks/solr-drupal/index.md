@@ -40,6 +40,12 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.3.21
+
+- 🚨 Fix for [CVE-2021-44228 ](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q)
+- 🥶 Base image ([wodby/base-solr](https://github.com/wodby/base-solr)) rebased to [wodby/openjdk](https://github.com/wodby/openjdk) with frozen Alpine 3.13
+- 📜 Default config set for Solr 8 has been updated to `search_api_solr_4.2.3` (from 4.1.6), please note you have to recreate your solr cores to update their config set
+
 ### 2.3.20
 
 ⬆️ Solr 8.11.0

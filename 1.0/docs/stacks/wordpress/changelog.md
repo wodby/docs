@@ -9,6 +9,29 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.40
+
+- PHP:
+    - ⬆️ uuid extension updated to 1.2.0
+    - 🥶 Rebased to [wodby/base-php](https://github.com/wodby/base-php) with frozen Alpine 3.13
+- Nginx:
+    - ⭐️ VTS module added, see `$NGINX_METRICS_` and `$NGINX_STATUS_` env vars for usage https://github.com/wodby/nginx/pull/61
+    - 📜 `$NGINX_SET_REAL_IPS_FROM` was added to support multiple IP address for `set_real_ip_from` https://github.com/wodby/nginx/pull/62
+    - 🥶 brotli and vts modules versions are now frozen https://github.com/wodby/nginx/pull/63
+- Adminer:
+    - ⭐️ Added linux/arm64 support
+    - ⬆️ Base PHP image updated to 7.4
+- Apache:
+    - ⬆️ Updated to 2.4.51
+    - 🥶 Rebased to [wodby/httpd](https://github.com/wodby/httpd) with frozen Alpine 3.13
+- Redis:
+    - ⬆️ Updated to 6.2.6, 5.0.14
+    - 🥶 Rebased to [wodby/base-redis](https://github.com/wodby/base-redis) with frozen Alpine 3.13
+- Memcached:
+    - ⬆️ Updated to 1.6.12
+    - 🥶 Memcached rebased to [wodby/base-memcached](https://github.com/wodby/base-memcached) with frozen Alpine 3.13
+- ⬆️ Varnish 6.0.9
+
 ## 5.4.39
 
 - ⬆️ Vanilla WordPress 5.8.2
