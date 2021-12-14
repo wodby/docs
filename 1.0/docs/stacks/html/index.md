@@ -27,6 +27,12 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.3.1
+
+- Nginx
+    - ⭐️ Version 1.21 added
+    - 🐞 Bugfix: default headers do not apply with disabled caching
+
 ### 0.3.0
 
 - Nginx:
