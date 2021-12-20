@@ -9,6 +9,16 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.41
+
+- ⬆️ Vanilla Drupal 7.84
+- ⬆️ PHP 8.1.1, 8.0.14, 7.4.27
+- Nginx:
+    - 🐞 Bugfix: default headers do not apply with disabled caching
+    - 📜 Added default `Content-Security-Policy` header (`frame-ancestors 'none'`)
+- ⬆️ Solr 8.11.1
+- 🔃 Adminer rebuilt against updated base PHP image
+
 ## 5.4.40
 
 - ⬆️ Vanilla Drupal 9.3.0, 7.83
