@@ -39,7 +39,7 @@ development:
 ```
 
 !!! info "Optional files"
-    If you don't need to [run multiple projects](#running-multiple-projects) and don't use [mutagen to improve bind mounts performance on macOS](#docker-for-mac) feel free to delete `traefik.yml` and `mutagen` that come within `docker4ruby.tar.gz`
+    If you don't need to [run multiple projects](#running-multiple-projects) feel free to delete `traefik.yml` that comes within `docker4ruby.tar.gz`
 
 !!! success "Get updates"
     We release updates to images from time to time, you can find detailed changelog and update instructions on GitHub under [releases page](https://github.com/wodby/docker4ruby/releases)  
@@ -91,7 +91,7 @@ Commands:
     ps              List container for the current project (docker ps with filter by name)
     shell [service] Access a container via shell as a default user (by default [service] is ruby)
     logs [service]  Show containers logs, use [service] to show logs of specific service
-    mutagen         Start mutagen container and runs mutagen project
+    mutagen         Starts mutagen-compose
 ```
 
 ## Docker for mac
