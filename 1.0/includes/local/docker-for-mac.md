@@ -40,6 +40,6 @@ brew install mutagen-io/mutagen/mutagen-compose-beta
 3. Make sure ids of `defaultOwner` and `defaultGroup` under `x-mutagen:` match ids of the image you're using, e.g. uid `501` and gid `20` for `-dev-macos` image by default
 4. Start mutagen via `mutagen-compose up`
 
-Now when you change your code on the host machine Mutagen will sync your data to php and nginx/apache containers.
+Now when you change your code on the host machine Mutagen will sync your data to containers that use the synced volumed.
 
 For more information visit [Mutagen project page](https://mutagen.io/).
