@@ -9,6 +9,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.42
+
+- ⭐️ Added PHP 8.1, vanilla Drupal 9 now uses PHP 8.1 by default
+- ⬆️ Drush launcher updated to 0.9.3
+- ⬆️ Nginx:
+    - 📜 Default header `Content-Security-Policy` can now be changed with `$NGINX_HEADERS_CONTENT_SECURITY_POLICY ` https://github.com/wodby/nginx/pull/69
+    - 📜 `webp` added to the default list of static file extensions
+- ⬆️ Apache 2.4.52
+
 ## 5.4.41
 
 - ⬆️ Vanilla Drupal 7.84

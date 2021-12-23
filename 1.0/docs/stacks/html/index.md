@@ -27,6 +27,13 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 0.3.3
+
+- ⬆️ Nginx:
+    - 📜 Default header `Content-Security-Policy` can now be changed with `$NGINX_HEADERS_CONTENT_SECURITY_POLICY ` https://github.com/wodby/nginx/pull/69
+    - 📜 `webp` added to the default list of static file extensions
+- ⬆️ Apache 2.4.52
+
 ### 0.3.2
 
 📜 Nginx: added default `Content-Security-Policy` header (`frame-ancestors 'none'`)
