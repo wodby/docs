@@ -12,16 +12,33 @@ By default, we use `:cached` option on bind mounts to improve performance on mac
 
 The core idea of this project is to use an external volume that will sync your files with a file synchronizer tool.
 
+First, we must install `mutagen` and `mutagen-compose`. Mutagen Compose requires Mutagen v0.13.0-beta2 or later. On the time of writing this it's still in beta.
+
+Install latest mutagen beta:
+
 ```shell
-brew install mutagen-io/mutagen/mutagen
+brew install mutagen-io/mutagen/mutagen-beta
 ```
 
-1. Uncomment _Mutagen_ volume and service definitions in your compose file
-2. Replace codebase _volumes_ definitions of services with the option below marked as "Mutagen"
-3. Start the mutagen container `docker-compose up -d mutagen`
-4. Start Mutagen: `mutagen project start -f mutagen/config.yml` (or just run `make mutagen` instead of steps 3 and 4)
-5. Start other containers `docker-compose up -d` (or `make`)
-6. When you no longer need mutagen run `mutagen project terminate` 
+If you already had mutagen installed you might need to run:
+```shell
+brew unlink mutagen
+```
+and also stop the old mutagen daemon:
+```shell
+mutagen daemon stop
+```
+
+Now install mutagen-compose beta:
+```shell
+brew install mutagen-io/mutagen/mutagen-compose-beta
+```
+
+1. Uncomment _x-mutagen:_ extension fields in your `docker-compose.yml`
+2. Uncomment _drupal_ volume and service definitions in your compose file
+3. Replace codebase _volumes_ definitions of services with the option below marked as "Mutagen"
+4. Make sure your PHP image uses `-dev-macos` tags in `.env`
+5. Start mutagen via `mutagen-compose up`
 
 Now when you change your code on the host machine Mutagen will sync your data to php and nginx/apache containers.
 
