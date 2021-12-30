@@ -1,8 +1,5 @@
 # Solr stack documentation
 
-!!! info "Default core" 
-    Since 1.1.0 we automatically create a default solr core named `default` when no cores found.
-
 Solr can be configured via environment variables available listed at https://github.com/wodby/solr
 
 ## Creating solr core

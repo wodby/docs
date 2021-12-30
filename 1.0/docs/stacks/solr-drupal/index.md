@@ -9,6 +9,8 @@ See generic [Solr stack](../solr/index.md) documentation to learn how to create 
 
 ### Drupal 8/9
 
+Make sure Solr you've deployed has a compatible default config set version (e.g.  `search_api_solr 4` or `search_api_solr-8.x-3.9`), if not – change the implementation to the appropriate (implementation differs in a Solr version and a default config set). Please note, if you change the implementation you'll have to [recreate cores](../solr#creating-solr-core) to change their config set because the existing cores will still use the same config set. You can find the list of supported config sets in [here](https://github.com/wodby/solr#config-sets).
+
 Install [Search API Solr module](https://www.drupal.org/project/search_api_solr). Go to `Home » Administration » Configuration » Search and metadata » Search API`, create a new core or edit the default one. In expanded `CONFIGURE SOLR BACKEND` field set specify:
 
 ```
