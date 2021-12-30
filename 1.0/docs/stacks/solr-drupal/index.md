@@ -5,12 +5,9 @@ The only difference from the generic Solr stack is that core created with a conf
 !!! info "Default core"
     We automatically create a default solr core named `default` when no cores found.
 
-!!! important "New Solr image"
-    Since 1.3.0 Solr image `wodby/solr` has been replaced with `wodby/solr` and `$SOLR_DEFAULT_CONFIG_SET`, see [versions matrix](https://github.com/wodby/solr#drupal-search-api-solr)
-
 See generic [Solr stack](../solr/index.md) documentation to learn how to create and customize cores.
 
-### Drupal 8
+### Drupal 8/9
 
 Install [Search API Solr module](https://www.drupal.org/project/search_api_solr). Go to `Home » Administration » Configuration » Search and metadata » Search API`, create a new core or edit the default one. In expanded `CONFIGURE SOLR BACKEND` field set specify:
 
