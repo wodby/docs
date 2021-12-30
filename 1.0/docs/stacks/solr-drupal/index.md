@@ -17,9 +17,13 @@ Install [Search API Solr module](https://www.drupal.org/project/search_api_solr)
 HTTP protocol: http
 Solr host: solr
 Solr port: 8983
-Solr path: /solr (LEAVE IT BLANK FOR search_api_solr 8.x-3.0 and newer)
-Solr core: [NAME OF YOUR CORE]
+Solr path: [LEAVE IT BLANK]
+Solr core: [NAME OF YOUR CORE (usually "default")]
 ```
+
+If your Solr config set version is older than `search_api_solr 8.x-3.0` you should specify `/solr` as a solr path.
+
+If you're connecting externally to the solr server you can use a technical domain as your host and port `80` (exposed via edge). If you're connecting from the same server but a different application you can use `Internal hostname` that can be found on `App instance > Stack > [Solr Service]` page.
 
 ### Drupal 7
 
