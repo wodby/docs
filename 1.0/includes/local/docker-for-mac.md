@@ -12,26 +12,11 @@ By default, we use `:cached` option on bind mounts to improve performance on mac
 
 The core idea of this project is to use an external volume that will sync your files with a file synchronizer tool.
 
-First, we must install `mutagen` and `mutagen-compose`. Mutagen Compose requires Mutagen v0.13.0-beta2 or later. On the time of writing this it's still in beta.
-
-Install latest mutagen beta:
+First, we must install `mutagen` and `mutagen-compose`. Mutagen Compose requires Mutagen v0.13.0+. 
 
 ```shell
-brew install mutagen-io/mutagen/mutagen-beta
-```
-
-If you already had mutagen installed you might need to run:
-```shell
-brew unlink mutagen
-```
-and also stop the old mutagen daemon:
-```shell
-mutagen daemon stop
-```
-
-Now install mutagen-compose beta:
-```shell
-brew install mutagen-io/mutagen/mutagen-compose-beta
+brew install mutagen-io/mutagen
+brew install mutagen-io/mutagen/mutagen-compose
 ```
 
 1. Modify your `docker-compose.yml` as following:
