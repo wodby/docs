@@ -9,6 +9,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.43
+
+- ⬆️ Vanilla WordPress 5.9
+- PHP:
+    - ⭐️️ Added PHP 8.1 
+    - ⬆️ Updated to 8.1.2, 8.0.5
+    - ⬆️ PECL extensions updates: ds 1.4.0, rdkafka 6.0.0, xdebug 3.1.2 (ds and rdkafka now added to PHP 8.1)
+    - ⬆️ WP CLI 2.6.0
+    - 🪦 PHP 7.3 dropped (reached end of life)
+- ⬆️ Nginx 1.21.6
+- ⬆️ Memcached 1.6.13
+- ⬆️ Varnish 6.0.10
+- 🐞 Adminer bugfix: prefill server and database from env vars not working anymore https://github.com/wodby/adminer/issues/5
+
 ## 5.4.42
 
 - ⬆️ Nginx:

@@ -57,6 +57,10 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.0.23
+
+⬆️ Varnish 6.0.10
+
 ### 3.0.22
 
 ⬆️ Varnish 6.0.9
