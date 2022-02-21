@@ -9,6 +9,37 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.44
+
+- ⬆️ Vanilla Drupal 9.3.6, 7.88
+- PHP:
+    - ⬆️ Updated to 8.1.3, 8.0.16, 7.4.28
+    - ⬆️ PECL extensions updates:
+        - amqp 1.11.0
+        - ast 1.0.1
+        - igbinary 3.2.7
+        - imagick 3.7.0
+        - mongodb 1.12.0
+        - pdo_sqlsrv 5.10.0
+        - rdkafka 6.0.1
+        - redis 5.3.7
+        - xdebug 3.1.3
+- 📜 Nginx default header `Content-Security-Policy` now set to `frame-ancestors 'self'` by default
+- MariaDB:
+    - ⭐️ Added new MariaDB 10.7
+    - ⏎ Returned MariaDB 10.2 (dropped by mistake)
+    - ⬆️ Updated to 10.6.7, 10.5.15, 10.4.24, 10.3.34, 10.2.43
+    - 🚨 Reworked `my.cnf` configuration https://github.com/wodby/mariadb/issues/45:
+        - `lower_case_table_names`, `join_buffer_size`, `innodb_open_files` no longer set by default unless specified
+        - `query_cache_size` default value changed to `1M`
+        - `query_cache_type` now `OFF` by default
+        - `flush_log_at_trx_commit` default value changed to `1`
+        - Added new env vars `$MYSQL_JOIN_BUFFER_SPACE_LIMIT`, `$MYSQL_OPTIMIZER_SWITCH` (no default values)
+        - ⚠️ Name of `$MYSQL_LOWER_CASE_TABLE_NAME` changed to `$MYSQL_LOWER_CASE_TABLE_NAMES`
+- ⭐️ Webgrind and XHProf images now have arm64 variant https://github.com/wodby/docker4drupal/issues/511
+- ⬆️ Webgrind and XHProf rebased to the latest PHP 7.4
+- ⬆️ Memcached 1.6.14
+
 ## 5.4.43
 
 - ⬆️ Vanilla WordPress 5.9

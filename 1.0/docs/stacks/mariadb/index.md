@@ -40,6 +40,19 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+### 2.9.0
+
+- ⭐️ Added new MariaDB 10.7
+- ⏎ Returned MariaDB 10.2 (dropped by mistake)
+- ⬆️ Updated to 10.6.7, 10.5.15, 10.4.24, 10.3.34, 10.2.43
+- 🚨 Reworked `my.cnf` configuration https://github.com/wodby/mariadb/issues/45:
+    - `lower_case_table_names`, `join_buffer_size`, `innodb_open_files` no longer set by default unless specified
+    - `query_cache_size` default value changed to `1M`
+    - `query_cache_type` now `OFF` by default
+    - `flush_log_at_trx_commit` default value changed to `1`
+    - Added new env vars `$MYSQL_JOIN_BUFFER_SPACE_LIMIT`, `$MYSQL_OPTIMIZER_SWITCH` (no default values)
+    - ⚠️ Name of `$MYSQL_LOWER_CASE_TABLE_NAME` changed to `$MYSQL_LOWER_CASE_TABLE_NAMES`
+
 ### 2.8.0
 
 - ⭐️ Added new MariaDB 10.6
