@@ -81,6 +81,12 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.14.1
+
+- Bugfix: access to html files under plugins directory forbidden
+- Bugfix: unexpected text files
+- Bugfix: matomo.js is not writable by the web server
+
 ### 0.14.0
 
 - ⬆️ Matomo 4.7.1
