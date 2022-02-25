@@ -40,7 +40,6 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
         - `flush_log_at_trx_commit` default value changed to `1`
         - Added new env vars `$MYSQL_JOIN_BUFFER_SPACE_LIMIT`, `$MYSQL_OPTIMIZER_SWITCH` (no default values)
         - ⚠️ Name of `$MYSQL_LOWER_CASE_TABLE_NAME` changed to `$MYSQL_LOWER_CASE_TABLE_NAMES`
-- ⭐️ Webgrind and XHProf images now have arm64 variant https://github.com/wodby/docker4drupal/issues/511
 - ⬆️ Webgrind and XHProf rebased to the latest PHP 7.4
 - ⬆️ Memcached 1.6.14
 
