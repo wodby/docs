@@ -9,6 +9,17 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.4.45
+
+- ⬆️ Vanilla WordPress 5.9.2
+- PHP
+      - ⬆️ Updated to 8.1.4, 8.0.17
+      - ⭐️ NewRelic extension added to PHP 8.1
+- 📜 Nginx now has `$NGINX_WP_NOT_FOUND_REGEX` to override (updated) default not found regex https://github.com/wodby/nginx/pull/73
+- ⬆️ Apache HTTPd 2.4.53
+- 🏔 Patch updates for base OS Alpine Linux
+- 🐞 Bugfix: import action failed for archives with unicode filenames
+
 ## 5.4.44
 
 - PHP:

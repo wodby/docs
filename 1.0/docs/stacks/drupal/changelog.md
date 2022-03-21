@@ -9,6 +9,17 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.4.45
+
+- ⭐️ PHP 8.0, 8.1 added to Drupal 8 stack (so you wouldn't need to migrate your Drupal 9 app from D8)
+- ⬆️ Vanilla Drupal 9.3.8, 7.89
+- PHP
+      - ⬆️ Updated to 8.1.4, 8.0.17
+      - ⭐️ NewRelic extension added to PHP 8.1
+- ⬆️ Apache HTTPd 2.4.53
+- 🏔 Patch updates for base OS Alpine Linux
+- 🐞 Bugfix: import action failed for archives with unicode filenames
+
 ## 5.4.44
 
 - ⬆️ Vanilla Drupal 9.3.6, 7.88
