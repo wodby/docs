@@ -67,7 +67,7 @@ By default `BASE_URL` set to `drupal.docker.localhost`, you can change it in `.e
 Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:
 
 | Service        | Domain                                          |
-| ------------   | ----------------------------------------------- |
+|----------------|-------------------------------------------------|
 | `nginx/apache` | `http://drupal.docker.localhost:8000`           |
 | `pma`          | `http://pma.drupal.docker.localhost:8000`       |
 | `adminer`      | `http://adminer.drupal.docker.localhost:8000`   |
@@ -90,6 +90,27 @@ Crond enabled by default and runs every hour. The default command is:
 drush -r /var/www/html/web cron
 ```
 You might need to change if your HTTP root is different. Runs from `www-data` user.
+
+## Solr (Search API)
+
+- Make sure your Drupal site already installed
+- Uncomment `solr` and `zookeeper` services in your `docker-compose.yml`, start it (`make`) and wait until both services fully started
+- Access Solr container via `make shell solr` and run `make init -f /usr/local/bin/actions.mk`. This will enable authentication for Solr Cloud mode and create a collection named `default` that will use `_default` config set
+- Access PHP container and install Search API Solr module: `composer require drupal/search_api_solr`, enable it `drush en -y search_api_solr_admin`
+- Go to `Home » Administration » Configuration » Search and metadata » Search API` and create a new server of type `Solr Cloud with Basic Auth` with the following settings:
+```
+HTTP protocol: http
+Solr host: solr
+Solr port: 8983
+Default Solr collection: default
+---
+HTTP BASIC AUTHENTICATION
+Username: solr
+Password: SolrRocks 
+```
+- After the server creation you should see the error message `You are using an incompatible Solr schema.`
+- Now click `+ Upload confiset`, check the checkbox on the page and submit
+- The Solr server is now ready to use!
 
 ## Database import and export
 

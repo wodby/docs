@@ -121,7 +121,7 @@ You can use Redis as a cache storage for your Drupal application. Redis in-memor
 
 1. Download and install [redis module](https://www.drupal.org/project/redis)
 2. Make sure redis service enabled in your stack
-3. Additionally for Drupal 8: enable redis integration under `[Instance] > Cache > Settings` page 
+3. Additionally, for Drupal 8: enable redis integration under `[Instance] > Cache > Settings` page 
 4. That's it, all required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings)
 
 ### Local environment
@@ -199,9 +199,9 @@ See [Solr for Drupal stack documentation](../solr-drupal/index.md).
 
 You can use Varnish to cache dynamic pages and show pages to your visitors without any calls to Drupal (cache stored in memory).  
 
-### Drupal 8
+### Drupal 8/9
 
-In Drupal 8 we recommend using [Cache-Tags](https://www.drupal.org/docs/8/api/cache-api/cache-tags-varnish) to clear caches:
+In Drupal 8/9 we recommend using [Cache-Tags](https://www.drupal.org/docs/8/api/cache-api/cache-tags-varnish) to clear caches:
 
 1. Download modules [purge](https://www.drupal.org/project/purge) and [varnish purger](https://www.drupal.org/project/varnish_purge)
 2. Enable the following modules: Varnish Purger Tags, Core tags queuer, Cron processor
