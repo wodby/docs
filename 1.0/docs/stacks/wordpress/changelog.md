@@ -9,6 +9,17 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.5.0
+
+- PHP
+    - 📦 Added sSMTP package and `$SSMTP_` env vars for configuration
+    - 🛠 Removed libiconv preload https://github.com/docker-library/php/pull/1264
+    - 🐞 Bugfix: mail delivery fails due to non-compliant RFC 2822 error
+    - 🐞 Bugfix: mail delivery fails invalid sender address
+- ⬆️ OpenSMTPD 1.11.0
+- ⬆️ Memcached 1.6.15
+- 🏔 Security updates for base OS Alpine Linux
+
 ## 5.4.45
 
 - ⬆️ Vanilla WordPress 5.9.2

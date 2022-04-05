@@ -96,7 +96,8 @@ You might need to change if your HTTP root is different. Runs from `www-data` us
 - Make sure your Drupal site already installed
 - Uncomment `solr` and `zookeeper` services in your `docker-compose.yml`, start it (`make`) and wait until both services fully started
 - Access Solr container via `make shell solr` and run `make init -f /usr/local/bin/actions.mk`. This will enable authentication for Solr Cloud mode and create a collection named `default` that will use `_default` config set
-- Access PHP container and install Search API Solr module: `composer require drupal/search_api_solr`, enable it `drush en -y search_api_solr_admin`
+- Now access PHP container via `make shell` and install Search API Solr module `composer require drupal/search_api_solr`
+- Enable Search API Solr Admin module `drush en -y search_api_solr_admin`
 - Go to `Home » Administration » Configuration » Search and metadata » Search API` and create a new server of type `Solr Cloud with Basic Auth` with the following settings:
 ```
 HTTP protocol: http
@@ -109,7 +110,7 @@ Username: solr
 Password: SolrRocks 
 ```
 - After the server creation you should see the error message `You are using an incompatible Solr schema.`
-- Now click `+ Upload confiset`, check the checkbox on the page and submit
+- Click `+ Upload confiset`, check the checkbox on the page and submit to override the configset
 - The Solr server is now ready to use!
 
 ## Database import and export

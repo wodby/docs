@@ -9,6 +9,21 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.5.0
+
+- ⬆️ Vanilla Drupal 9.3.9
+- Drupal 8 stack now deploys Drupal 9 for Vanilla option instead of Drupal 8 that has reached EOL
+- PHP
+    - 📦 Added sSMTP package and `$SSMTP_` env vars for configuration
+    - 🛠 Removed preload of libiconv https://github.com/docker-library/php/pull/1264
+    - 🐞 Bugfix: mail delivery fails due to non-compliant RFC 2822 error
+    - 🐞 Bugfix: mail delivery fails invalid sender address
+- ⭐️ Added Zookeeper service, you can now upload Search API Solr config sets via admin UI, see [instructions](https://wodby.com/docs/1.0/stacks/solr-drupal#solr-cloud-with-zookeeper-recommended)
+- ⭐️ Added Solr Cloud support for Solr
+- ⬆️ OpenSMTPD 1.11.0
+- ⬆️ Memcached 1.6.15
+- 🏔 Security updates for base OS Alpine Linux
+
 ## 5.4.45
 
 - ⭐️ PHP 8.0, 8.1 added to Drupal 8 stack (so you wouldn't need to migrate your Drupal 9 app from D8)

@@ -2,10 +2,36 @@
 
 The only difference from the generic Solr stack is that core created with a config set from [Search API Solr module](https://www.drupal.org/project/search_api_solr) by default.
 
-!!! info "Default core"
-    We automatically create a default solr core named `default` when no cores found.
-
 See generic [Solr stack](../solr/index.md) documentation to learn how to create and customize cores.
+
+## Solr Cloud with Zookeeper (recommended)
+
+!!! important
+    If you want to switch to Solr Cloud in an existing application you must first delete your Search API servers via Drupal UI and unload Solr cores via Solr Admin UI before enabling zookeeper. 
+
+This approach allows uploading actual Search Api Solr config sets directly from Drupal Admin UI to zookeeper. With this approach you use collections instead of cores. We automatically pre-create a collection named `default` that uses a built-in `_default` config set that you will override. You can also manually create collections via Solr Admin UI.
+
+- Make sure both `solr` and `zookeeper` services enabled
+- Make sure your Drupal site already installed
+- Download Search API Solr: `composer require drupal/search_api_solr` 
+- Enable Search API Solr Admin module: `drush en search_api_solr_admin` 
+- Go to `Home » Administration » Configuration » Search and metadata » Search API` and create a new server of type `Solr Cloud with Basic Auth` with the following settings:
+```
+HTTP protocol: http
+Solr host: solr
+Solr port: 8983
+Solr path: /
+Default Solr collection: default [or the one you manually created] 
+---
+HTTP BASIC AUTHENTICATION
+Username: solr
+Password: SolrRocks 
+```
+- After the server creation you should see the error message `You are using an incompatible Solr schema.`
+- Now click `+ Upload confiset`, check the checkbox on the page and submit
+- The Solr server is now ready to use!
+
+## Old approach
 
 ### Drupal 8/9
 
@@ -42,6 +68,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 ## Changelog
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
+
+### 2.4.0
+
+- ⭐️ Added Zookeeper service, you can now upload Search API Solr config sets via admin UI, see [instructions](#solr-cloud-with-zookeeper-recommended)
+- ⭐️ Added Solr Cloud support for Solr
 
 ### 2.3.22
 

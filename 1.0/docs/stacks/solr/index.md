@@ -59,6 +59,11 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.4.0
+
+- ⭐️ Added Zookeeper service
+- ⭐️ Added Solr Cloud support for Solr
+
 ### 2.3.20
 
 ⬆️ Solr 8.11.1
