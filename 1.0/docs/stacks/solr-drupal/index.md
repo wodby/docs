@@ -69,6 +69,12 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.5.0
+
+- 🚨 This update requires server infrastructure at least 5.9.0
+- 🪦 Solr 7.5, 7.6 will no longer get updates (update to 7.7)
+- 🏔 Alpine Linux updated to 3.15
+
 ### 2.4.0
 
 - ⭐️ Added Zookeeper service, you can now upload Search API Solr config sets via admin UI, see [instructions](#solr-cloud-with-zookeeper-recommended)

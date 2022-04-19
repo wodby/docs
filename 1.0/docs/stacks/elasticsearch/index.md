@@ -14,6 +14,11 @@ Elasticsearch and Kibana can be configured via environment variables:
 
 This changelog is for Elasticsearch stack on Wodby, to see images changes see tags description on repository page: [elasticsearch](https://github.com/wodby/elasticsearch/releases) and [kibana](https://github.com/wodby/kibana/releases).   
 
+### 2.6.0
+
+- 🚨 This update requires server infrastructure at least 5.9.0
+- 🏔 Alpine Linux updated to 3.15
+
 ### 2.5.26
 
 ⬆️ Elasticsearch, Kibana 7.17.2

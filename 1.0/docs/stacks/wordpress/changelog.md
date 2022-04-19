@@ -9,6 +9,14 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.6.0
+
+- 🚨 This update requires server infrastructure at least 5.9.0
+- ⬆️ Vanilla WordPress 5.9.3
+- ⬆️ PHP 8.1.5, 8.0.18, 7.4.29
+- ⬆️ OpenSMTPD 6.8.0
+- 🏔 Alpine Linux updated to 3.15
+
 ## 5.5.0
 
 - PHP

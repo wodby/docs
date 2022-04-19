@@ -10,7 +10,19 @@ You will be notified each time a new version of the infrastructure is released.
 !!! tldr "Stacks and infrastructure maintained separately"
     For stacks maintenance see [this article](../stacks/maintenance.md) 
 
+## Manual update to OS with cgroup2 enabled
+
+Some OS like Debian 11 have `cgroup2` enabled that not currently supported by the docker version we use, so if you upgrade to Debian 11, you should disable `cgroup2`:
+- Edit `/etc/default/grub` and add `systemd.unified_cgroup_hierarchy=0` to `GRUB_CMDLINE_LINUX_DEFAULT` (or `GRUB_CMDLINE_LINUX` if it's not present)
+- Run `update-grub`
+- Reboot the server
+
 ## Changelog
+
+### 5.9.0
+
+- Added support for Debian 11 and other OSs with cgroup2 enabled by default
+- Add a custom seccomp profile for Docker as a workaround for faccessat2 [issue](https://github.com/alpinelinux/docker-alpine/issues/182) in Alpine Linux 3.14+ 
 
 ### 5.8.6
 

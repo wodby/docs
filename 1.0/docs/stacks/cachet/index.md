@@ -34,6 +34,11 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.1.0
+
+- 🚨 This update requires server infrastructure at least 5.9.0
+- 🏔 Alpine Linux updated to 3.15
+
 ### 3.0.16
 
 - ⬆️&nbsp; Base image Alpine Linux updated to 3.12.3

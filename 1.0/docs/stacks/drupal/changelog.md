@@ -9,6 +9,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.6.0
+
+- 🚨 This update requires server infrastructure at least 5.9.0
+- ⬆️ Vanilla Drupal 9.3.11
+- ⬆️ PHP 8.1.5, 8.0.18, 7.4.29
+- ⬆️ OpenSMTPD 6.8.0
+- 🪦 Solr 7.5, 7.6 will no longer get updates (update to 7.7)
+- 🏔 Alpine Linux updated to 3.15
+
 ## 5.5.0
 
 - ⬆️ Vanilla Drupal 9.3.9
