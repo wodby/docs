@@ -35,7 +35,7 @@ This changelog is for PostgreSQL stack on Wodby, to see image changes see tags d
 
 ### 1.6.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - 🏔 Alpine Linux updated to 3.15
 
 ### 1.5.1

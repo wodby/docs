@@ -36,7 +36,7 @@ This changelog is for Cachet stack on Wodby, to see image changes see tags descr
 
 ### 3.1.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - 🏔 Alpine Linux updated to 3.15
 
 ### 3.0.16

@@ -29,7 +29,7 @@ This changelog is for HTML stack on Wodby, to see images changes see tags descri
 
 ### 0.4.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - 🏔 Alpine Linux updated to 3.15
 
 ### 0.3.6

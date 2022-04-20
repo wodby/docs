@@ -61,7 +61,7 @@ This changelog is for Solr stack on Wodby, to see image changes see tags descrip
 
 ### 2.5.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - 🪦 Solr 7.5, 7.6 will no longer get updates (update to 7.7)
 - 🏔 Alpine Linux updated to 3.15
 

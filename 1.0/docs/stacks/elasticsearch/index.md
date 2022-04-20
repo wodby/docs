@@ -16,7 +16,7 @@ This changelog is for Elasticsearch stack on Wodby, to see images changes see ta
 
 ### 2.6.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - 🏔 Alpine Linux updated to 3.15
 
 ### 2.5.26

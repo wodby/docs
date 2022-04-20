@@ -83,7 +83,7 @@ This changelog is for Matomo stack on Wodby, to see image changes see tags descr
 
 ### 0.15.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - ⬆️ Matomo 4.9.0
 - 🏔 Alpine Linux updated to 3.15
 

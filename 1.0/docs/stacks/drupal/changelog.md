@@ -11,7 +11,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 5.6.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - ⬆️ Vanilla Drupal 9.3.11
 - ⬆️ PHP 8.1.5, 8.0.18, 7.4.29
 - ⬆️ OpenSMTPD 6.8.0

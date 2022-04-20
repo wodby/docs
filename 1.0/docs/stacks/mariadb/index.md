@@ -42,7 +42,7 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 
 ### 2.10.0
 
-- 🚨 This update requires server infrastructure at least 5.9.0
+- ℹ️ This update requires server infrastructure at least 5.9.0
 - 🏔 Alpine Linux updated to 3.15
 
 ### 2.9.2

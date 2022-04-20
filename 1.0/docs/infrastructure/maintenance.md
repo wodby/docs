@@ -22,7 +22,8 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 ### 5.9.0
 
 - Added support for Debian 11 and other OSs with cgroup2 enabled by default
-- Add a custom seccomp profile for Docker as a workaround for faccessat2 [issue](https://github.com/alpinelinux/docker-alpine/issues/182) in Alpine Linux 3.14+ 
+- Add a custom seccomp profile for Docker as a workaround for faccessat2 [issue](https://github.com/alpinelinux/docker-alpine/issues/182) in Alpine Linux 3.14+
+- ⚠️ This upgrade will cause docker daemon restart, all containers on your server will be restarted
 
 ### 5.8.6
 
