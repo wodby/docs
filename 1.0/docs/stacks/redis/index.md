@@ -6,6 +6,10 @@ Redis can be configured with the following [environment variables](https://githu
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 1.4.1
+
+⬆️ Redis 6.2.7
+
 ### 1.4.0
 
 - ⬆️ Updated to 6.2.6, 5.0.14

@@ -2,6 +2,15 @@
 
 Solr can be configured via environment variables available listed at https://github.com/wodby/solr
 
+## Authentication
+
+- Solr (except when run in Solr Cloud mode) does not have authentication by default but you can add [basic auth](../../apps/domains.md#basic-auth) for the solr admin UI domain
+- ⚠️ Solr in Solr Cloud already provides authentication which conflicts with the domains basic auth, you should **not** enable basic auth for Solr domain if you're running the Solr Cloud mode. The default auth username is `solr` and the default randomly generated password can be found on the "App instance > Stack > Solr" page, you can override it by adding a custom `$SOLR_CLOUD_PASSWORD` environment variable to the Solr service
+
+## Creating solr collections
+
+You can create new cores via Solr admin UI
+
 ## Creating solr core
 
 You can create new cores via Solr admin UI or create it manually from CLI with additional parameters:
@@ -58,6 +67,11 @@ Use this approach when you'll need a unique configuration per core.
 ## Changelog
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
+
+### 2.6.0
+
+- 🚨 Solr in Solr Cloud mode now generates a random password, you should update it. You can find password on "Instance > Stack > Solr" page, read more in [authentication](#authentication) section.
+- 🔒 Solr running in Solr Cloud mode now forbids unauthorized access to all pages in admin UI
 
 ### 2.5.0
 

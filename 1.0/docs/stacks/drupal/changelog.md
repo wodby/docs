@@ -9,6 +9,19 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.6.1
+
+- 🚨 Solr in Solr Cloud mode now generates a random password, you should update it. [Read more](../solr/index.md#authentication)
+- ⬆️ Vanilla Drupal 9.3.13
+- PHP:
+    - ⬆️ Updated to 8.1.6, 8.0.19
+    - ⭐ NewRelic agent now works on ARM64
+    - ⬆️ Extensions updates: xdebug 3.1.4, mongo 1.13.0, memcached 3.2.0
+- ⬆️ Redis 6.2.7
+- 📜 MariaDB config: removed deprecated `innodb_log_files_in_group` and `innodb_buffer_pool_instances` from 10.5+
+- 🔒 Solr running in Solr Cloud mode now forbids unauthorized access to all pages in admin UI
+- 🔃 Webgrind, adminer and xhprof images rebuilt against updated base PHP image
+
 ## 5.6.0
 
 - ℹ️ This update requires server infrastructure at least 5.9.0

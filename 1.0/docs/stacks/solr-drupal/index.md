@@ -4,6 +4,10 @@ The only difference from the generic Solr stack is that core created with a conf
 
 See generic [Solr stack](../solr/index.md) documentation to learn how to create and customize cores.
 
+## Authentication
+
+Read generic [Solr authentication](../solr/index.md#authentication)
+
 ## Solr Cloud with Zookeeper (recommended)
 
 !!! important
@@ -25,7 +29,7 @@ Default Solr collection: default [or the one you manually created]
 ---
 HTTP BASIC AUTHENTICATION
 Username: solr
-Password: SolrRocks 
+Password: [you can find randomly generated password on the "App instance > Stack > Solr" page] 
 ```
 - After the server creation you should see the error message `You are using an incompatible Solr schema.`
 - Now click `+ Upload confiset`, check the checkbox on the page and submit
@@ -68,6 +72,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 ## Changelog
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
+
+### 2.6.0
+
+- 🚨 Solr in Solr Cloud mode now generates a random password, you should update it. You can find password on "Instance > Stack > Solr" page. Read more about authentication [here](../solr/index.md#authentication)
+- 🔒 Solr running in Solr Cloud mode now forbids unauthorized access to all pages in admin UI
 
 ### 2.5.0
 

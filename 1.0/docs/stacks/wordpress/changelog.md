@@ -9,6 +9,16 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.6.1
+
+- PHP:
+    - ⬆️ Updated to 8.1.6, 8.0.19
+    - ⭐ NewRelic agent now works on ARM64
+    - ⬆️ Extensions updates: xdebug 3.1.4, mongo 1.13.0, memcached 3.2.0
+- ⬆️ Redis 6.2.7
+- 📜 MariaDB config: removed deprecated `innodb_log_files_in_group` and `innodb_buffer_pool_instances` from 10.5+
+- 🔃 Webgrind, adminer and xhprof images rebuilt against updated base PHP image
+
 ## 5.6.0
 
 - ℹ️ This update requires server infrastructure at least 5.9.0

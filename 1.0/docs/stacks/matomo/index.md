@@ -81,6 +81,10 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 0.15.1
+
+⬆️ Matomo 4.10.0
+
 ### 0.15.0
 
 - ℹ️ This update requires server infrastructure at least 5.9.0
