@@ -29,10 +29,11 @@ Default Solr collection: default [or the one you manually created]
 ---
 HTTP BASIC AUTHENTICATION
 Username: solr
-Password: [you can find randomly generated password on the "App instance > Stack > Solr" page] 
+Password: [see below] 
 ```
+- HTTP basic auth password for Solr Cloud generated randomly and can be found in "App instance > Stack > Solr". If you're deploying Solr as a part of Drupal stack and your Search API server named `solr` the password will be set automatically (via [`wodby.settings.php`](../drupal/index.md#settingsphp)), so you can leave it blank. Or specify it manually in the UI
 - After the server creation you should see the error message `You are using an incompatible Solr schema.`
-- Now click `+ Upload confiset`, check the checkbox on the page and submit
+- Now click `+ Upload confiset`, check the checkbox on the page, set # of shards to 1, and submit
 - The Solr server is now ready to use!
 
 ## Old approach

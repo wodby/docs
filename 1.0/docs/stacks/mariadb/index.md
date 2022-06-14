@@ -40,6 +40,12 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+### 2.10.2
+
+- ⭐️ Added MariaDB 10.8
+- ⬆️ Updated to 10.7.4, 10.6.8, 10.5.16, 10.4.25, 10.3.35
+- 🪦 MariaDB 10.2 has reached EOL
+
 ### 2.10.1
 
 📜 MariaDB config: removed deprecated `innodb_log_files_in_group` and `innodb_buffer_pool_instances` from 10.5+

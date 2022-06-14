@@ -9,6 +9,27 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.6.2
+
+- ⬆️ Vanilla Drupal 9.3.16, 7.90
+- 🔒 Solr Cloud password now will be [set automatically](../solr-drupal/index.md#solr-cloud-with-zookeeper-recommended) for the Search API server named `solr` (via `wodby.settings.php`)
+- PHP:
+    - ⬆️ Updated to 8.1.7, 8.0.20, 7.4.30
+    - ⭐️ Added [smbclient](https://pecl.php.net/package/smbclient) extension
+    - ⬆️ Updated sqlsrv extension to 5.10.1
+- Nginx:
+    - 📜 Introduced `$NGINX_DRUPAL_FILES_STATIC_EXT_REGEX` to override files extensions (`txt` by default) allowed in files directory
+    - 📜 Added `.yaml` to the default value of `$NGINX_DRUPAL_NOT_FOUND_REGEX` (additionally added `.yml` for Drupal7)
+- MariaDB:
+    - ⭐️ Added MariaDB 10.8
+    - ⬆️ Updated to 10.7.4, 10.6.8, 10.5.16, 10.4.25, 10.3.35
+    - 🪦 MariaDB 10.2 has reached EOL
+- ⭐ Redis 7
+- ⬆️ Apache 2.4.54
+- ⬆️ Webgrind 1.9.2
+- 🔃 Adminer and xhprof images rebuilt against updated base PHP image
+- 🏔 Alpine Linux updated to 3.16.0 for some of the images
+
 ## 5.6.1
 
 - 🚨 Solr in Solr Cloud mode now generates a random password, you should update it. [Read more](../solr/index.md#authentication)
