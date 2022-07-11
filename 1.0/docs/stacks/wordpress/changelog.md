@@ -9,6 +9,17 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.6.3
+
+- PHP:
+    - ⬆️ Updated to 8.1.8, 8.0.21
+    - 🐞 Blackfire extensions and CLI didn't work on arm64 https://github.com/wodby/php/issues/167
+    - ⬆️ Updated xdebug extension to 3.1.5
+- ⭐️ Added Nginx 1.23, 1.22
+- ⬆️ Redis 7.0.2
+- 🔃 Adminer and xhprof images rebuilt against updated base PHP image
+- 🏔 Alpine Linux updated to 3.16.0 for some of the images
+
 ## 5.6.2
 
 - ⭐ Vanilla WordPress 6.0

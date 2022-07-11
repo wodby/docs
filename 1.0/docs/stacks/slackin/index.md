@@ -7,15 +7,7 @@ After deployment add the following environment variables:
 
 ## Changelog
 
-### 2.0.3
-
-Bug fixes
-
-### 2.0.2
-
-Bug fixes
-
-### 2.0.1
+### 2.0.5
 
 Bug fixes
 

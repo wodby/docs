@@ -33,6 +33,10 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 1.6.1
+
+⬆️ Postgres 14.4
+
 ### 1.6.0
 
 - ℹ️ This update requires server infrastructure at least 5.9.0

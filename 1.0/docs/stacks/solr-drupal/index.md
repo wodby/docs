@@ -74,6 +74,10 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.6.1
+
+⬆️ Solr 8.11.2
+
 ### 2.6.0
 
 - 🚨 Solr in Solr Cloud mode now generates a random password, you should update it. You can find password on "Instance > Stack > Solr" page. Read more about authentication [here](../solr/index.md#authentication)
