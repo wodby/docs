@@ -9,6 +9,12 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.6.5
+
+- ⬆️ MariaDB 10.7.5, 10.6.9, 10.5.17, 10.4.26, 10.3.36
+- 🐞 Missing 7zip package in PHP image that is required in actions
+- 🏔 Alpine Linux updated to 3.16.2 for some of the images
+
 ## 5.6.4
 
 - ⬆️ WordPress 6.0.1
