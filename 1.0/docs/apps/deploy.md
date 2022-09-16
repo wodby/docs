@@ -29,11 +29,6 @@ Sometimes direct git integration may not be enough for a few reasons:
 * With CI/CD you have build artifacts like docker images that you can download locally
 * With CI/CD you can rollback build (feature TBA)
 
-### Wodby CI
-
-!!! tip "Coming soon"
-    We plan to replace direct git integration with our built-in CI system
-
 ### Via third-party CI
 
 You can set up CI/CD workflow for your application by integrating Wodby with third-party CI tools. Build can be performed on any CI tools with Wodby CLI. 
