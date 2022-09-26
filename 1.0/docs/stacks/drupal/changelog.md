@@ -9,6 +9,14 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.6.7
+
+- ⬆️ Vanilla Drupal 9.4.6, 7.92
+- ⬆️ XHProf 2.3.7
+- ⬆️ MariaDB 10.7.6, 10.6.10
+- 🐞️ Bugfix: invalid db variables set in Drupal 8's `wodby.settings.php` 
+- 🐞️ Bugfix: email sending with opensmtpd does not work in EOL PHP images 
+
 ## 5.6.6
 
 - ⬆️ PHP 8.1.10, 8.0.23

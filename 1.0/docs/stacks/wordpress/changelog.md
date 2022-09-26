@@ -9,6 +9,13 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+
+## 5.6.7
+
+- ⬆️ XHProf 2.3.7
+- ⬆️ MariaDB 10.7.6, 10.6.10
+- 🐞️ Bugfix: email sending with opensmtpd does not work in EOL PHP images
+
 ## 5.6.6
 
 - ⬆️ Vanilla WordPress 6.0.2
