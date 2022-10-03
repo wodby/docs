@@ -9,6 +9,11 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.6.8
+
+- ⬆️ PHP 8.1.10, 8.0.23, 7.4.32
+- ⬆️ Redis 7.0.5
+- 🔁 Adminer, webgrind, xhprof rebuilt against updated PHP image
 
 ## 5.6.7
 
