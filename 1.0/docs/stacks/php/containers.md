@@ -8,10 +8,6 @@
 
 See [AthenaPDF stack documentation](../athenapdf/index.md).
 
-## Blackfire
-
-{!containers/blackfire.md!}
-
 ## Crond
 
 {!containers/php-crond.md!}

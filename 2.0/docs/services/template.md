@@ -163,19 +163,6 @@ links:
   - type: proxy
     labels:
     - varnish
-- name: blackfire
-  title: Blackfire
-  selectors:
-  - type: monitoring
-    labels:
-    - blackfire
-  env:
-  - name: PHP_BLACKFIRE
-    value: '1'
-  - name: PHP_BLACKFIRE_AGENT_HOST
-    value: '{{link.host}}'
-  - name: PHP_BLACKFIRE_AGENT_PORT
-    value: '8707'
 
 volumes:
 - name: files
