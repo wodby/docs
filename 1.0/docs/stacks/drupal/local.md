@@ -23,7 +23,7 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 
 ### Mount my codebase
 
-1. If you're starting a new project we recommend you to fork [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project) project
+1. If you're starting a new project we recommend you to use [drupal/recommended-project](https://www.drupal.org/docs/develop/using-composer/starting-a-site-using-drupal-composer-project-templates)
 2. Download and unpack `docker4drupal.tar.gz` from the [latest stable release](https://github.com/wodby/docker4drupal/releases) to your project root
 3. Delete `docker-compose.override.yml` as it's used to deploy vanilla Drupal
 4. Ensure `NGINX_SERVER_ROOT` (or `APACHE_DOCUMENT_ROOT`) is correct, by default set to `/var/www/html/web` for composer-based projects where Drupal is in `web` subdirectory
