@@ -1,10 +1,10 @@
 # Domains
 
-## Technical .wod.by domain name
+## Technical .wodby.cloud domain name
 
-Wodby provides a short *.wod.by domain name to every application, it depends on the name of the application and the name of the organization. It looks like this: 
+Wodby provides a technical *.wodby.cloud domain name to every application, it depends on the name of the application and the name of the organization. It looks like this: 
 ```
-[instance].[app name].[organization name].wod.by
+[instance].[app name].[organization name].wodby.cloud
 ```
 you can find your technical domain from `Instance > Domains page`.
 
@@ -34,15 +34,15 @@ You can enable basic auth from Instance > Domains > Basic auth. Only single basi
 
 ## Indexation by Search Robots
 
-All technical `*.wod.by` domains are not indexed by search engines (header X-Robots-Tag). Additionally, you can optionally prevent indexation for your custom domains on domain edit/add pages.
+All technical `*.wodby.cloud` domains not indexed by search engines (header X-Robots-Tag). Additionally, you can optionally prevent indexation for your custom domains on domain edit/add pages.
 
 ## HTTPs
 
 ### Let's Encrypt Certificates
 
-You can enable HTTPS for your custom domains by requesting a free SSL certificate from [Let's Encrypt](https://letsencrypt.org/). Navigate to `Domains` tab of your instance page and click on `Get certificate` in the list of domains (currently not available for *.wod.by domains). Choose a provider "Let's encrypt" and submit the form. Before requesting the certificate make sure that your domain already attached to the server where the instance is currently deployed.
+You can enable HTTPS for your custom domains by requesting a free SSL certificate from [Let's Encrypt](https://letsencrypt.org/). Navigate to `Domains` tab of your instance page and click on `Get certificate` in the list of domains (currently not available for *.wodby.cloud domains). Choose a provider "Let's encrypt" and submit the form. Before requesting the certificate make sure that your domain already attached to the server where the instance is currently deployed.
 
-Additionally you can enable redirect for all HTTP requests to HTTPS from a domain edit page.
+Additionally, you can enable redirect for all HTTP requests to HTTPS from a domain edit page.
 
 !!! tip "Let's Encrypt certificates renewal"
     We automatically renew all certificates acquired via Let's Encrypt.

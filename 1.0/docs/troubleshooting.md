@@ -40,16 +40,16 @@ SHA256:XXXXXXXXXXXXX/XXXX.
 Please contact your system administrator. 
 Add correct host key in /Users/xxx/.ssh/known_hosts to get rid of this message. 
 Offending RSA key in /Users/xxx/.ssh/known_hosts:xx 
-RSA host key for [node-xxxxx.wod.by]:xxxx has changed and you have requested strict checking. 
+RSA host key for [node-xxxxx.wodby.cloud]:xxxx has changed and you have requested strict checking. 
 Host key verification failed.
 ```
 
-This means that the container you're trying connect to was recreated and RSA key has changed.
+This means that the container you're trying to connect to was recreated and RSA key has changed.
 
-To avoid this kind of errors you can disable strict host key checking for *.wod.by host by adding the following lines to `~/.ssh/config` file: 
+To avoid this kind of errors you can disable strict host key checking for *.wodby.cloud host by adding the following lines to `~/.ssh/config` file: 
 
 ```
-Host *.wod.by
+Host *.wodby.cloud
     StrictHostKeyChecking no
     UserKnownHostsFile=/dev/null
 ```

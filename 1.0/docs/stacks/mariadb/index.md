@@ -14,7 +14,7 @@ Publish MariaDB's port (3306) from [stack configuration page](../config.md#ports
 mysql -h=[IP] -P[PORT] -u[USER] -p[PASSWORD] [DATABASE]
 ```
 
-Where `[PORT]` is the generated node port (you can find it on a service page `App Instance > Stack > MariaDB`) and `[IP]` is the IP of the server where app instance deployed (or use the server hostname `node-[SERVER UUID].wod.by`).
+Where `[PORT]` is the generated node port (you can find it on a service page `App Instance > Stack > MariaDB`) and `[IP]` is the IP of the server where app instance deployed (or use the server hostname `node-[SERVER UUID].wodby.cloud`).
 
 ### Set up tunnel
 

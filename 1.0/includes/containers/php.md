@@ -8,15 +8,15 @@
 
 In addition to [global environment variables](/infrastructure/env-vars.md), we provide the following variables in PHP container that you can use in your [post-deployment scripts](/apps/post-deployment-scripts.md) or settings files:
 
-| Variable              | Description                                   |
-| --------------------- | --------------------------------------------  |
-| `$APP_ROOT`           | `/var/www/html` by default                    |
-| `$HTTP_ROOT`          | e.g. `/var/www/html/web`                      |
-| `$CONF_DIR`           | `/var/www/conf` by default                    |
-| `$WODBY_APP_NAME`     | My app                                        |
-| `$WODBY_HOST_PRIMARY` | example.com                                   |
-| `$WODBY_URL_PRIMARY`  | http://example.com                            |
-| `$WODBY_HOSTS`        | `[ "example.com", "dev.example.org.wod.by" ]` |
+| Variable              | Description                                        |
+|-----------------------|----------------------------------------------------|
+| `$APP_ROOT`           | `/var/www/html` by default                         |
+| `$HTTP_ROOT`          | e.g. `/var/www/html/web`                           |
+| `$CONF_DIR`           | `/var/www/conf` by default                         |
+| `$WODBY_APP_NAME`     | My app                                             |
+| `$WODBY_HOST_PRIMARY` | example.com                                        |
+| `$WODBY_URL_PRIMARY`  | http://example.com                                 |
+| `$WODBY_HOSTS`        | `[ "example.com", "dev.example.org.wodby.cloud" ]` |
 
 Deprecated variables:
 

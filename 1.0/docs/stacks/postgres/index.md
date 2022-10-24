@@ -14,7 +14,7 @@ Publish PostgreSQL's port (5432) from [stack configuration page](../config.md#po
 psql -h [IP] -p [PORT] -U [USER] -W [PASSWORD] [DATABASE]
 ```
 
-Where `[PORT]` is the generated node port (you can find it on a service page `App Instance > Stack > PostgreSQL`) and `[IP]` is the IP of the server where your app instance deployed (or use the server hostname `node-[SERVER UUID].wod.by`).
+Where `[PORT]` is the generated node port (you can find it on a service page `App Instance > Stack > PostgreSQL`) and `[IP]` is the IP of the server where your app instance deployed (or use the server hostname `node-[SERVER UUID].wodby.cloud`).
 
 ### Set up tunnel
 

@@ -17,7 +17,7 @@ Some [stacks](../stacks/index.md) may provide optional services (e.g. redis as c
 ​
 ![](../assets/new-app-2.png)​
 ​
-Enter the name of your application and select the [instance type](instances.md) (Dev by default). Your application hostname will be automatically generated based on the name, you can optionally adjust it. You can change all these settings later after initial deployment. We will generate [technical *.wod.by domains](domains.md#technical-wodby-domain-name) based on this.  
+Enter the name of your application and select the [instance type](instances.md) (Dev by default). Your application hostname will be automatically generated based on the name, you can optionally adjust it. You can change all these settings later after initial deployment. We will generate [technical *.wodby.cloud domains](domains.md#technical-wodby-domain-name) based on this.  
 
 ## Step 3 – stack configuration (optional)
 

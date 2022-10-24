@@ -77,7 +77,7 @@ services:
 "auto::8080"
 ```
 
-* Map 8080 to a public port 80, `edge` is a reverse proxy handling 80 and 443 ports. A short technical domain `*.wod.by` will be generated for the first public port exposed via edge. 
+* Map 8080 to a public port 80, `edge` is a reverse proxy handling 80 and 443 ports. A technical domain `*.wodby.cloud` will be generated for the first public port exposed via edge.
 ```
 "edge::8080"
 ```
