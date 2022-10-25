@@ -19,6 +19,10 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 
 ## Changelog
 
+### 5.9.1
+
+Node domain changed from `wod.by` to `wodby.cloud`
+
 ### 5.9.0
 
 - Added support for Debian 11 and other OSs with cgroup2 enabled by default
