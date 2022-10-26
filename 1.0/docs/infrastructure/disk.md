@@ -109,8 +109,8 @@ ncdu /path/to/dir
 
 The most heavy directories are usually:
 
-* `​/srv/wodby` – contains persistent files of your applications and backups. Read below how to clean it up
-* `​/var/lib/docker` – docker's volumes, containers, images data. Do not clean it up
+* `/srv/wodby` – contains persistent files of your applications and backups. Read below how to clean it up
+* `/var/lib/docker` – docker's volumes, containers, images data. Do not clean it up
 
 #### Clean up docker's unused images form previous builds
 
@@ -137,7 +137,7 @@ You can delete old backups of your applications by using the following path:
 
 !!! warning "Infrastructure 5.x"
     The following applies only for single-server infrastructure version 5.x
-​
+
 When you delete an instance Wodby does not delete containers' persistent files (database, codebase, etc) on your server to ensure no valuable data will be lost. Please follow the instructions below to clean up your server from these outdated files:
 
 1. Move outdated files to a separate directory

@@ -7,10 +7,10 @@ There 2 ways to get your applications logs:
 ## Log streaming from dashboard
 
 Go to `Instance > Logs`, choose a service (container) and click Stream. Last N log messages will be fetched, plus all new messages will be shown in real-time.
-​
 
-![](../assets/logs-streaming.png)​
-​
+
+![](../assets/logs-streaming.png)
+
 ## CLI with kubectl
 
 Go to `Instance > Stack > Service` and copy `Show logs command`. Connect to the host server as root and run the command. Adjust the value of tail param to specify how many messages to fetch. For more params see [kubectl logs reference](https://kubernetes.io/docs/user-guide/kubectl/v1.7/#logs).

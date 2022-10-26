@@ -34,7 +34,7 @@ If you need root permissions inside a container and container's default user is 
 
 ### Accessing containers data from host
 
-Containers persistent data can be accessed from the host server under `/srv/wodby/instances/[INSTANCE_UUID]​`
+Containers persistent data can be accessed from the host server under `/srv/wodby/instances/[INSTANCE_UUID]`
 
 !!! warning "This may cause unexpected issues"
     Be careful while modifying containers' files as root – it could cause unexpected permissions issues because containers have a default user different from root

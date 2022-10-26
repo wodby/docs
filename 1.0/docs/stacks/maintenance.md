@@ -6,9 +6,9 @@ We regularly update stacks by releasing new versions, such updates can include s
     For infrastructure maintenance see [this article](../infrastructure/maintenance.md) 
 
 The stack has a requirement for the minimal version of infrastructure of the server where this stack is deployed. You can find a stack's version of your application on the list of your apps or under Stack tab of your instance. If a stack is outdated you will see an appropriate indicator.
-​
-![](../assets/stack-upgrade.png)​
-​
+
+![](../assets/stack-upgrade.png)
+
 ## Updating organization stack
 
 When a new version of a stack has been released your stack will be marked as outdated. You can update a stack to the latest version from a stack page in your organization. This update will not affect your applications, it only updates the version of a stack inside of your organization.

@@ -18,4 +18,4 @@ The infrastructure we provide is based strictly on containers and powered by Doc
 
 Edge is a reverse proxy container (nginx) that proxies requests to instances, perform redirects (http > https, www > non-www) and terminates SSL 
 
-![](../assets/schema.png)​
+![](../assets/schema.png)
