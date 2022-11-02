@@ -9,6 +9,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.6.9
+
+- ⬆️ Vanilla Drupal 9.4.8
+- PHP:
+    - ⬆️ Updated to 8.1.12, 8.0.25
+    - 🪦 Blackfire extension dropped
+- ⬆️ Nginx 1.23.2, 1.22.1
+- 🔁 Adminer, webgrind, xhprof rebuilt against updated PHP image
+
 ## 5.6.8
 
 - ⬆️ Vanilla Drupal 9.4.7
