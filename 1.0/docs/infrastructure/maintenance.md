@@ -19,6 +19,10 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 
 ## Changelog
 
+### 5.9.2
+
+Wodby agent now supports `HTTP_PROXY`
+
 ### 5.9.1
 
 Node domain changed from `wod.by` to `wodby.cloud`
