@@ -34,9 +34,9 @@ Wodby supports the following Linux distributions (x64 only):
 
 ## Proxy support
 
-Since version 5.9.2 the installer and Wodby agent support proxy. For installer all is needed is to have `$HTTP_PROXY` environment variable on the host machine. After the installation (and optionally a reboot), you will need to patch the wodby agent to pass through the `HTTP_PROXY` environment variable from the host machine:
+Since version 5.9.2 the installer and Wodby agent support proxy. For installer all is needed is to have `$HTTP_PROXY` environment variable on the host machine. After the installation (and optionally a reboot), you will need to patch the wodby agent to pass through the `HTTP_PROXY` (as `WODBY_HTTP_PROXY`) environment variable from the host machine:
 ```
-kubectl patch deployment agent -n wodby -p '{"spec":{"template":{"spec":{"containers":[{"env":[{"name":"HTTP_PROXY","value":"'$(echo $HTTP_PROXY)'"}],"name":"agent"}]}}}}'
+kubectl patch deployment agent -n wodby -p '{"spec":{"template":{"spec":{"containers":[{"env":[{"name":"WODBY_HTTP_PROXY","value":"'$(echo $HTTP_PROXY)'"}],"name":"agent"}]}}}}'
 ```
 
 ## Uninstall

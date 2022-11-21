@@ -21,7 +21,7 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 
 ### 5.9.2
 
-Wodby agent now supports `HTTP_PROXY`
+Wodby agent now supports connection via http proxy
 
 ### 5.9.1
 
