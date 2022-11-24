@@ -2,6 +2,20 @@
 
 Redis can be configured with the following [environment variables](https://github.com/wodby/redis#environment-variables)
 
+## Connecting to redis
+
+If you want to access redis from the same server you can access it as:
+
+```
+redis://default:[redis-pass]@[app-instance-uuid].redis:6379
+```
+
+If you're accessing redis externally you should expose redis port dynamically via node and connect as following:
+
+```
+redis://default:[redis-pass]@[node-ip]:[dynamic-node-redis-port]
+```
+
 ## Changelog
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
