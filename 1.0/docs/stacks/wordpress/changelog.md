@@ -9,6 +9,13 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 5.6.11
+
+- PHP:
+    - ⬆️ Updated to 8.1.13, 8.0.26
+    - ⬆️ PECL extension xdebug updated to 3.1.6
+    - ⚙️ `HTTP_PROXY` support for direct git integration
+
 ## 5.6.10
 
 - ⬆️ Vanilla WordPress 6.1.1

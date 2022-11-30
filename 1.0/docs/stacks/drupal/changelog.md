@@ -9,6 +9,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 5.6.11
+
+- PHP:
+    - ⬆️ Updated to 8.1.13, 8.0.26
+    - ⬆️ PECL extension xdebug updated to 3.1.6
+    - ⚙️ `HTTP_PROXY` support for direct git integration
+    - 📜️ Passwordless redis support in `wodby.settings.php` https://github.com/wodby/drupal-php/pull/93
+- ⭐ Added PHP 8.1 for Drupal 7 stack
+
 ## 5.6.10
 
 - ⬆️ PHP 7.4.33
