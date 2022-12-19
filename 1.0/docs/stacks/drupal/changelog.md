@@ -9,6 +9,24 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## Changes since 5.7.0
+
+- Vanilla Drupal:
+    - ⭐️ Added Vanilla Drupal 10
+    - ⬆️ Updated to 9.5.0, 7.94
+- PHP:
+    - ⭐️ Added PHP 8.2
+    - 🪦 PHP 7 has reached EOL and will no longer receive updates
+    - ⬆️ PECL extensions updates: apcu 5.1.22, event 3.0.8, igbinary 3.2.12, mongodb 1.15.0, rdkafka 6.0.3, xdebug 3.2.0, xhprof 2.3.8
+    - ⬆️ Global drush updated to v10
+    - 🪦 Drush patchfile extension no longer installed
+- Nginx:
+    - ⬆️ Updated to 1.23.3
+    - 🐞 Bugfix: `web.config` endpoint was accessible
+- ⬆️ Redis 7.0.7, 6.2.8
+- ⬆️ XHProf 2.3.9
+- ⚙️️ Zookeeper's snapshots are now persistent
+
 ## 5.6.11
 
 - PHP:

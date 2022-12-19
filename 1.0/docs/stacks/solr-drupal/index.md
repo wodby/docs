@@ -74,6 +74,10 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.6.2
+
+⚙️️ Zookeeper's snapshots are now persistent
+
 ### 2.6.1
 
 ⬆️ Solr 8.11.2
