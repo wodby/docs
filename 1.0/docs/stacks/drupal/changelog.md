@@ -11,6 +11,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## Changes since 5.7.0
 
+- 🚨️️ Zookeeper's snapshots are now persistent. If you're using Solr Cloud this means that with this upgrade zookeeper will reboot and lose all its data (collections will be lost). After this stack upgrade you should add any env var to Solr service to force its reboot to reinitialize connection to zookeeper. After this stack upgrade, zookeeper will no longer lose data after container/server reboots 
 - Vanilla Drupal:
     - ⭐️ Added Vanilla Drupal 10
     - ⬆️ Updated to 9.5.0, 7.94
@@ -22,10 +23,9 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - 🪦 Drush patchfile extension no longer installed
 - Nginx:
     - ⬆️ Updated to 1.23.3
-    - 🐞 Bugfix: `web.config` endpoint was accessible
+    - 🐞 Bugfix: `web.config` endpoint was accessible 
 - ⬆️ Redis 7.0.7, 6.2.8
 - ⬆️ XHProf 2.3.9
-- ⚙️️ Zookeeper's snapshots are now persistent
 
 ## 5.6.11
 

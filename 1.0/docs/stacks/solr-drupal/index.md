@@ -76,7 +76,7 @@ This changelog is for Solr for Drupal stack on Wodby, to see image changes see t
 
 ### 2.6.2
 
-⚙️️ Zookeeper's snapshots are now persistent
+🚨️️ Zookeeper's snapshots are now persistent. If you're using Solr Cloud this means that with this upgrade zookeeper will reboot and lose all its data (collections will be lost). After this stack upgrade you should add any env var to Solr service to force its reboot to reinitialize connection to zookeeper. After this stack upgrade, zookeeper will no longer lose data after container/server reboots
 
 ### 2.6.1
 
