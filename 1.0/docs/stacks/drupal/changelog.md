@@ -9,7 +9,22 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
-## Changes since 5.7.0
+## 5.7.1
+
+- ⬆️ Vanilla Drupal 10.0.1, 9.5.1
+- ⬇️ Global drush downgraded to v8 (for Drupal 7 compatibility)
+- ⭐ PHP 8.2 variant added to Drupal 9 and Drupal 8/9 stacks (for Drupal 10 upgrades)
+- PHP:
+    - ⬆️ Updated to 8.2.1, 8.1.14, 8.0.27
+    - ⬆️ ODBC driver and mstools updated 18.1.2.1
+    - 🐞 Bugfix: opcache preload configuration didn't apply
+    - 🐞 Bugfix: locale-related methods not working in PHP 8.2, 8.1 https://github.com/wodby/php/issues/177
+    - 🐞 Bugfix: deprecated syntax in `wodby.settings.php` https://github.com/wodby/drupal-php/issues/95
+    - ⭐️Added support for athenapdf module in `wodby.settings.php`  
+- ⬆️ Memcached 1.6.18
+- 🏔 Alpine updated to 3.17.1 and 3.16.3
+
+## 5.7.0
 
 - 🚨️️ Zookeeper's snapshots are now persistent. If you're using Solr Cloud this means that with this upgrade zookeeper will reboot and lose all its data (collections will be lost). After this stack upgrade you should add any env var to Solr service to force its reboot to reinitialize connection to zookeeper. After this stack upgrade, zookeeper will no longer lose data after container/server reboots 
 - Vanilla Drupal:

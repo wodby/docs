@@ -9,7 +9,17 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
-## Changes since 5.7.0
+## 5.7.1
+
+- PHP:
+    - ⬆️ Updated to 8.2.1, 8.1.14, 8.0.27
+    - ⬆️ ODBC driver and mstools updated 18.1.2.1
+    - 🐞 Bugfix: opcache preload configuration didn't apply
+    - 🐞 Bugfix: locale-related methods not working in PHP 8.2, 8.1 https://github.com/wodby/php/issues/177
+- ⬆️ Memcached 1.6.18
+- 🏔 Alpine updated to 3.17.1 and 3.16.3
+
+## 5.7.0
 
 - PHP:
     - ⭐️ Added PHP 8.2
