@@ -6,6 +6,12 @@
 docker rm -f $(docker ps  | grep wodbycloud/agent | awk '{ print $1 }')
 ```
 
+## Restarting edge container
+
+```shell
+docker rm -f $(docker ps  | grep wodby/edge-alpine | awk '{ print $1 }')
+```
+
 ## Restart docker and kube services
 
 ```shell
