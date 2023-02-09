@@ -3,7 +3,7 @@
 We constantly improve the infrastructure we deploy to our customers' servers. You can see the version of the infrastructure deployed to your server in the Dashboard on the servers list page. It's not always possible to update the infrastructure automatically so if you want update your infrastructure please [contact our support team](../support.md) to schedule the upgrade. 
 
 !!! success "Supported version"
-    Currently supported infrastructure version is [5.5.0+](#550)
+    Currently supported infrastructure version is [6.0.0+](#600)
 
 You will be notified each time a new version of the infrastructure is released.
 
@@ -18,6 +18,10 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 - Reboot the server
 
 ## Changelog
+
+### 6.0.0
+
+Upgraded Docker version
 
 ### 5.9.2
 

@@ -9,6 +9,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.0
+
+- ⚠️ This version of stack requires server infrastructure 6.0.0+
+- PHP:
+    - ⬆️ Updated to 8.2.2, 8.1.15
+    - 📜 Introduced `PHP_XDEBUG_USE_COMPRESSION` to control `xdebug.use_compression`
+- Webgrind:
+    - 🐞 Call graph generation fails https://github.com/wodby/webgrind/issues/4
+    - ⭐️ Added support for code explorer in Webgrind https://github.com/wodby/webgrind/issues/5
+- ⬆️ MariaDB 10.9.5, 10.8.7, 10.7.8, 10.6.12, 10.5.19, 10.4.28, 10.3.38
+- ⬆️ Apache 2.4.55
+- ⬆️ Redis 7.0.8, 6.2.10
+- 🏔 Alpine updated to 3.17 for MariaDB (10.5-10.9), OpenSMTPD and Nginx
+
 ## 5.7.1
 
 - PHP:

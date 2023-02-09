@@ -40,6 +40,12 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 3.0.0
+
+- ⚠️ This version of stack requires server infrastructure 6.0.0+
+- ⬆️ MariaDB 10.9.5, 10.8.7, 10.7.8, 10.6.12, 10.5.19, 10.4.28, 10.3.38
+- 🏔 Alpine updated to 3.17 for MariaDB (10.5-10.9)
+
 ## 2.11.0
 
 - ⭐️ Added new MariaDB 10.9
