@@ -9,6 +9,13 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.1
+
+- PHP:
+    - ⬆️ Updated 8.2.3, 8.1.16, 8.0.28
+    - 📜 Introduced `$PHP_MAIL_MIXED_LF_AND_CRLF` to return line separator non LF for mail sending https://github.com/php/php-
+- 🏔 Alpine updated to 3.17.2
+
 ## 6.0.0
 
 - ⚠️ This version of stack requires server infrastructure 6.0.0+
