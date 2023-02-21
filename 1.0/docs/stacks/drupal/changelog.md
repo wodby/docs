@@ -13,7 +13,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 - PHP:
     - ⬆️ Updated 8.2.3, 8.1.16, 8.0.28
-    - 📜 Introduced `$PHP_MAIL_MIXED_LF_AND_CRLF` to return line separator non LF for mail sending https://github.com/php/php-
+    - 📜 Introduced `$PHP_MAIL_MIXED_LF_AND_CRLF` to return line separator non LF for mail sending https://github.com/php/php-src/issues/8086
 - 🏔 Alpine updated to 3.17.2
 
 ## 6.0.0
