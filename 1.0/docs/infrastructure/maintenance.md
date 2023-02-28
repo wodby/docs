@@ -19,6 +19,10 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 
 ## Changelog
 
+### 6.0.1
+
+Bugfix: wodby agent couldn't process certain message
+
 ### 6.0.0
 
 Upgraded Docker version
