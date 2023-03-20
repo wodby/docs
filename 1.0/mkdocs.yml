@@ -110,6 +110,10 @@ nav:
     - Overview: stacks/php/index.md
     - Containers: stacks/php/containers.md
     - Local environment: stacks/php/local.md
+  - Laravel:
+    - Overview: stacks/laravel/index.md
+    - Containers: stacks/laravel/containers.md
+    - Local environment: stacks/laravel/local.md
   - Ruby:
     - Overview: stacks/ruby/index.md
     - Containers: stacks/ruby/containers.md
