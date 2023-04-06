@@ -20,6 +20,11 @@ redis://default:[redis-pass]@[node-ip]:[dynamic-node-redis-port]
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 3.0.0
+
+- ⬆️ Updated to 7.0.10
+- 🐞 Bugfix: redis saved to disk even when `REDIS_SAVE_TO_DISK` was not set
+
 ### 2.0.0
 
 - ⚠️ This version of stack requires server infrastructure 6.0.0+

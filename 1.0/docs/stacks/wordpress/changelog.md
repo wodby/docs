@@ -9,6 +9,21 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.3
+
+- ⬆️ Vanilla WordPress 6.2
+- PHP:
+    - ⬆️ Updated to 8.2.4, 8.1.17
+    - ⬆️ Updated PECL extensions ast 1.1.0, igbinary 3.2.14, mongodb 1.15.1, sqlsrv 5.11.0, xhprof 2.3.9, yaml 2.2.3
+    - ⬆️ ODBC libraries updated to 18.2.1.1
+    - 🛠 MS tools binaries now linked to `/usr/bin` 
+- Redis:
+    - ⬆️ Updated to 7.0.10
+    - 🐞 Bugfix: redis saved to disk even when `REDIS_SAVE_TO_DISK` was not set
+- ⬆️ Apache HTTPD 2.4.56
+- ⬆️ Nginx 1.23.4
+- 🏔 Alpine Linux upgraded to 3.17.3, 3.16.5
+
 ## 6.0.2
 
 🐞 Incorrect architecture in Alpine Linux https://github.com/alpinelinux/docker-alpine/issues/303#issuecomment-1448126235
