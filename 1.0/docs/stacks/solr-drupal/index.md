@@ -74,6 +74,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.6.3
+
+- 🐞 Solr bugfix: default collection creation in init action failed in Solr cloud mode during https://github.com/wodby/solr/issues/20
+- 🏔 Alpine Linux upgraded to 3.17.3, 3.16.5
+
 ### 2.6.2
 
 🚨️️ Zookeeper's snapshots are now persistent. If you're using Solr Cloud this means that with this upgrade zookeeper will reboot and lose all its data (collections will be lost). After this stack upgrade you should add any env var to Solr service to force its reboot to reinitialize connection to zookeeper. After this stack upgrade, zookeeper will no longer lose data after container/server reboots
