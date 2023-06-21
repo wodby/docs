@@ -9,6 +9,22 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.6
+
+- ⬆️ Vanilla Drupal 7.98
+- PHP:
+    - ⬆️ Updated to 8.2.7, 8.1.20, 8.0.29
+    - ⭐️ NewRelic extension and agent added to arm64 variants
+- Nginx:
+    - ⬆️ Updated to 1.25.1
+    - 📜 Added support for Drupal 10.1 css/js aggregation https://github.com/wodby/nginx/pull/84
+    - 📜 Updated paths for advagg v5 https://github.com/wodby/nginx/issues/82
+- MariaDB
+    - ⭐️ Added new version 10.11
+    - 🪦 Versions 10.3, 10.7, 10.8 have reached end of life and will no longer receive updates
+    - ⬆️ Updated to 10.9.7, 10.6.14, 10.5.21, 10.4.30
+- ⬆️ Memcached 1.6.21
+
 ## 6.0.5
 
 - ⬆️ Vanilla Drupal 10.0.9, 9.5.9

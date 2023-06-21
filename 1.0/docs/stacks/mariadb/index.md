@@ -40,6 +40,13 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+## 3.1.0
+
+- MariaDB
+- ⭐️ Added new version 10.11
+- 🪦 Versions 10.3, 10.7, 10.8 have reached end of life and will no longer receive updates
+- ⬆️ Updated to 10.9.7, 10.6.14, 10.5.21, 10.4.30
+
 ## 3.0.4
 
 ⬆️ MariaDB 10.9.6, 10.8.8, 10.6.13, 10.5.20, 10.4.29, 10.3.39

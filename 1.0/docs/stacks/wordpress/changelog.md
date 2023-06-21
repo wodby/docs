@@ -9,6 +9,18 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.6
+
+- ⬆️ WP CLI 2.8.1
+- PHP:
+    - ⬆️ Updated to 8.2.7, 8.1.20, 8.0.29
+    - ⭐️ NewRelic extension and agent added to arm64 variants
+- ⬆️ Nginx 1.25.1
+- MariaDB
+    - ⭐️ Added new version 10.11
+    - 🪦 Versions 10.3, 10.7, 10.8 have reached end of life and will no longer receive updates
+    - ⬆️ Updated to 10.9.7, 10.6.14, 10.5.21, 10.4.30
+
 ## 6.0.5
 
 - ⬆️ Vanilla WordPress 6.2.2
