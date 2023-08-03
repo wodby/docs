@@ -42,6 +42,9 @@ Big picture:
 5. Push ([release](#release)) images to a private docker registry we provide you (or any other registry)
 6. [Deploy](#deploy) the build (a set of images) to your app instance
 
+!!! caution "Do not store your Wodby API key in git repository"
+    Do not share your personal Wodby API key. Do not store it in git repository, instead add it as a secret environment variable in your CI settings.
+
 #### Wodby CLI
 
 !!! tldr "VM-based builds over docker-in-docker"
