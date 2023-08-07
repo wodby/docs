@@ -10,6 +10,17 @@ You will be notified each time a new version of the infrastructure is released.
 !!! tldr "Stacks and infrastructure maintained separately"
     For stacks maintenance see [this article](../stacks/maintenance.md) 
 
+## OS upgrade tips
+
+When you're upgrading your OS to a new major version make sure to:
+
+1. [Stop kube and docker services at first](cli.md#restart-docker-and-kube-services)
+2. Perform the upgrade
+3. Reboot
+4. Make sure Docker was not installed from packages (we require a specific version that we manuall install during server connection)
+5. Check iptables version via `iptables --version`. If it's `1.8.2` or newer switch it to legacy mode: `update-alternatives --set iptables /usr/sbin/iptables-legacy`
+6. Make sure [cgroup2 disabled](#manual-update-to-os-with-cgroup2-enabled)
+
 ## Manual update to OS with cgroup2 enabled
 
 Some OS like Debian 11 have `cgroup2` enabled that not currently supported by the docker version we use, so if you upgrade to Debian 11, you should disable `cgroup2`:
