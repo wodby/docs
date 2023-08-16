@@ -57,6 +57,10 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.1.5
+
+🏔 Alpine Linux updated to 3.18.3, 3.16.7
+
 ### 3.1.4
 
 🏔 Alpine Linux upgraded to 3.17.3, 3.16.5

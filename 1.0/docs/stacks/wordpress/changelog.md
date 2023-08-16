@@ -9,6 +9,23 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.7
+
+- ⭐️ WordPress 6.3
+- 🐞 WP CLI autocompletion didn't work https://github.com/wodby/docker4wordpress/issues/80
+- PHP:
+    - ⬆️ Updated to 8.2.8, 8.1.22, 8.0.30
+    - ⬆️ Xdebug 3.2.2
+    - ⭐️ Added AVIF support for gd https://github.com/wodby/php/issues/183
+    - ⬆️ Updated gd library https://github.com/wodby/php/pull/182
+- Nginx:
+    - ⬆️ Updated to 1.25.2
+    - 📜 `.md` files now hidden
+- ⬆️ MariaDB 11.0.3, 10.11.5, 10.10.6, 10.9.8, 10.6.15, 10.5.22, 10.4.31
+- ⬆️ Redis 7.0.12, 6.2.13
+- 🏔 Alpine Linux updated to 3.18.3, 3.16.7
+
+
 ## 6.0.6
 
 - ⬆️ WP CLI 2.8.1

@@ -9,6 +9,25 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.7
+
+- ⬆️ Vanilla Drupal 10.1.2, 9.5.10
+- PHP:
+    - ⬆️ Updated to 8.2.8, 8.1.22, 8.0.30
+    - ⬆️ Xdebug 3.2.2
+    - ⭐️ Added AVIF support for gd https://github.com/wodby/php/issues/183
+    - ⬆️ Updated gd library https://github.com/wodby/php/pull/182
+    - ⬆️ ODBC library and ms tools updated to 18.3.1.1
+    - ⭐️ ODBC library and ms tools now compatible with arm64 variant
+- Nginx:
+    - ⬆️ Updated to 1.25.2
+    - 📜 `.md` and `web.config` files now hidden https://github.com/wodby/nginx/pull/86
+    - 📜 composer and node files now hidden regardless of depth https://github.com/wodby/nginx/pull/86
+    - 🐞 `NGINX_HEADERS_CONTENT_SECURITY_POLICY` default value override didn't apply to Drupal 10 preset
+- ⬆️ MariaDB 11.0.3, 10.11.5, 10.10.6, 10.9.8, 10.6.15, 10.5.22, 10.4.31
+- ⬆️ Redis 7.0.12, 6.2.13
+- 🏔 Alpine Linux updated to 3.18.3, 3.16.7
+
 ## 6.0.6
 
 - ⬆️ Vanilla Drupal 7.98
