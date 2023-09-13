@@ -16,7 +16,7 @@ You will be notified each time a new version of the infrastructure is released.
     Before performing the upgrade regardless of the method we strongly recommend creating a snapshot of your server if it's a VM.    
 
 !!! tip "Upgrade by replacing the boot image"
-    The best way to upgrade is to not upgrade and instead just replace the boot disk (if your cloud provider allows it) to the one with a newer image. But in order to not lose your persistent data you should first move persistent data from `/srv/wodby` to a persistent mounted disk (create symlink). After replacing the boot disk you will need to connect the server to Wodby as new server, then symlink `/srv/wodby` to the data from the mounted disk and contact us to replace old server reference for all the app instances to the new server.
+    The best way to upgrade is to not upgrade and instead just replace the boot disk (if your cloud provider allows it) to the one with a newer image. But in order to not lose your persistent data you should first move persistent data from `/srv/wodby` to a persistent mounted disk (create symlink). After replacing the boot disk you will need to connect the server to Wodby as a new server, then symlink `/srv/wodby` to the data from the mounted disk and contact us to replace old server references for all the app instances to the new server.
 
 !!! warning "Test your upgrades with the dev server first"
     Make sure your prod and dev server are from the same cloud provider and have the same OS distribution/version. After successfully upgrading the dev server and testing all the hosted apps you should continue to upgrading your production server.
