@@ -15,7 +15,11 @@ extra:
   - icon: fontawesome/brands/github
     link: https://github.com/wodby
   - icon: fontawesome/brands/twitter
-    link: https://twitter.com/wodbycloud
+    link: https://x.com/wodbycloud
+  - icon: fontawesome/brands/slack
+    link: https://slack.wodby.com
+  - icon: fontawesome/brands/discord
+    link: https://discord.wodby.com/wodbycloud
 
 theme:
   name: material
