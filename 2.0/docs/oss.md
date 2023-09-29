@@ -9,3 +9,4 @@ Docker4x are open-source projects for spinning up a local Docker-based environme
 * [Docker4PHP](https://github.com/wodby/docker4php)
 * [Docker4Ruby](https://github.com/wodby/docker4ruby)
 * [Docker4Python](https://github.com/wodby/docker4python) 
+* [Docker4Laravel](https://github.com/wodby/docker4laravel) 
