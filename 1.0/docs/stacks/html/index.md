@@ -27,6 +27,10 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 1.0.8
+
+🏔 Alpine Linux 3.18.4
+
 ### 1.0.7
 
 🏔 Alpine Linux updated to 3.18.3, 3.16.7

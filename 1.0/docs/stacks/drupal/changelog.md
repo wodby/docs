@@ -9,6 +9,18 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.8
+
+- ⬆️ Vanilla Drupal 10.1.4, 9.5.11
+- PHP:
+    - 📧 PHP 8.2+ now uses `sendmail` again instead of `ssmtp` for email sending (with `PHP_MAIL_MIXED_LF_AND_CRLF=On` https://github.com/php/php-src/issues/8086)
+    - ⬆️ Updated to 8.2.11, 8.1.24
+    - ⬆️ Extensions sqlsrv, pdo_sqlsrv updated to 5.11.1
+    - 📜 Default xdebug log level set to `3` (warnings) https://github.com/wodby/php/pull/184
+- ⬆️ Redis 7.2.1
+- 🪦 Varnish 4 has reach end of life
+- 🏔 Alpine Linux 3.18.4
+
 ## 6.0.7
 
 - ⬆️ Vanilla Drupal 10.1.2, 9.5.10
