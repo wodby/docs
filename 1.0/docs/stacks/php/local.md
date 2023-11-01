@@ -14,14 +14,15 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 1. Download `docker4php.tar.gz` from the [latest stable release](https://github.com/wodby/docker4php/releases) and unpack to your PHP project root
 2. Make sure `NGINX_SERVER_ROOT` (or `APACHE_DOCUMENT_ROOT`) is set to your project public directory with `index.php` (by default `/var/www/html/public`)  
 3. Ensure database credentials match in your database config and `.env` files
-4. [Configure domains](#domains) 
-5. Optional: [import existing database](#database-import-and-export) 
-6. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
-7. Optional: macOS users please read [this](#docker-for-mac)
-8. Optional: Windows users please read [this](#permissions-issues)
-9. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
-10. Your php application should be up and running at http://php.docker.localhost:8000
-11. You can see status of your containers and their logs via portainer: http://portainer.php.docker.localhost:8000
+4. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending)) 
+5. [Configure domains](#domains) 
+6. Optional: [import existing database](#database-import-and-export) 
+7. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
+8. Optional: macOS users please read [this](#docker-for-mac)
+9. Optional: Windows users please read [this](#permissions-issues)
+10. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+11. Your php application should be up and running at http://php.docker.localhost:8000
+12. You can see status of your containers and their logs via portainer: http://portainer.php.docker.localhost:8000
 
 You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
 
@@ -40,7 +41,7 @@ By default `BASE_URL` set to `php.docker.localhost`, you can change it in `.env`
 Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
 | Service        | Domain                                       |
-| ------------   | ------------------------------------------   |
+|----------------|----------------------------------------------|
 | `nginx/apache` | `http://php.docker.localhost:8000`           |
 | `pma`          | `http://pma.php.docker.localhost:8000`       |
 | `adminer`      | `http://adminer.php.docker.localhost:8000`   |
@@ -51,6 +52,10 @@ Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers li
 | `varnish`      | `http://varnish.php.docker.localhost:8000`   |
 | `portainer`    | `http://portainer.php.docker.localhost:8000` |
 | `webgrind`     | `http://webgrind.php.docker.localhost:8000`  |
+
+## Mail sending
+
+{!local/php-mail.md!}
 
 ## Xdebug
 

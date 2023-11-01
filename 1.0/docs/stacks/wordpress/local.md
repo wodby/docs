@@ -16,25 +16,27 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 ### Vanilla WordPress
 
 1. Clone [docker4wordpress repository](https://github.com/wodby/docker4wordpress) and switch to the [latest stable tag](https://github.com/wodby/docker4wordpress/releases) or download/unpack the source code from the [latest release](https://github.com/wodby/docker4wordpress/releases)
-2. [Configure domains](#domains)
-3. From project root directory run `docker-compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
-4. That's it! Proceed with WordPress installation at http://wp.docker.localhost:8000. Default database user, password and database name are all `wordpress`, database host is `mariadb`
-5. You can see status of your containers and their logs via portainer: http://portainer.wp.docker.localhost:8000
+2. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
+3. [Configure domains](#domains)
+4. From project root directory run `docker-compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
+5. That's it! Proceed with WordPress installation at http://wp.docker.localhost:8000. Default database user, password and database name are all `wordpress`, database host is `mariadb`
+6. You can see status of your containers and their logs via portainer: http://portainer.wp.docker.localhost:8000
 
 ### Mount my codebase
 
 1. If you're starting a new project we recommend you to fork [wodby/wordpress-composer](https://github.com/wodby/wordpress-composer) project
 2. Download and unpack `docker4wordpress.tar.gz` from the [latest stable release](https://github.com/wodby/docker4wordpress/releases) to your project root
 3. Delete `docker-compose.override.yml` as it's used to deploy vanilla WordPress
-4. Ensure database credentials match in your `wp-config.php` and `.env` files 
-5. [Configure domains](#domains)
-6. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
-7. Optional: [import existing database](#database-import-and-export)
-8. Optional: macOS users please read [this](#docker-for-mac)
-9. Optional: Windows users please read [this](#windows)
-10. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
-11. Your WordPress website should be up and running at http://wp.docker.localhost:8000
-12. You can see status of your containers and their logs via portainer: http://portainer.wp.docker.localhost:8000
+4. Ensure database credentials match in your `wp-config.php` and `.env` files
+5. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
+6. [Configure domains](#domains)
+7. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
+8. Optional: [import existing database](#database-import-and-export)
+9. Optional: macOS users please read [this](#docker-for-mac)
+10. Optional: Windows users please read [this](#windows)
+11. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+12. Your WordPress website should be up and running at http://wp.docker.localhost:8000
+13. You can see status of your containers and their logs via portainer: http://portainer.wp.docker.localhost:8000
 
 You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
 
@@ -53,7 +55,7 @@ By default `BASE_URL` set to `wp.docker.localhost`, you can change it in `.env` 
 Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
 | Service        | Domain                                      |
-| ------------   | -----------------------------------------   |
+|----------------|---------------------------------------------|
 | `nginx/apache` | `http://wp.docker.localhost:8000`           |
 | `pma`          | `http://pma.wp.docker.localhost:8000`       |
 | `adminer`      | `http://adminer.wp.docker.localhost:8000`   |
@@ -61,6 +63,10 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 | `varnish`      | `http://varnish.wp.docker.localhost:8000`   |
 | `portainer`    | `http://portainer.wp.docker.localhost:8000` |
 | `webgrind`     | `http://webgrind.wp.docker.localhost:8000`  |
+
+## Mail sending
+
+{!local/php-mail.md!}
 
 ## Xdebug
 

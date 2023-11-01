@@ -17,9 +17,10 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 
 1. Clone [docker4drupal repository](https://github.com/wodby/docker4drupal) and switch to the [latest stable tag](https://github.com/wodby/docker4drupal/releases) or download/unpack the source code from the [latest release](https://github.com/wodby/docker4drupal/releases)
 2. Optional: for Drupal 8 or 7 comment out corresponding `DRUPAL_TAG` and `NGINX_VHOST_PRESET` in `.env` file
+3. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
 4. [Configure domains](#domains)
-3. From project root directory run `docker-compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
-5. That's it! Proceed with Drupal installation at http://drupal.docker.localhost:8000. Default database user, password and database name are all `drupal`, database host is `mariadb`
+5. From project root directory run `docker-compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
+6. That's it! Proceed with Drupal installation at http://drupal.docker.localhost:8000. Default database user, password and database name are all `drupal`, database host is `mariadb`
 
 ### Mount my codebase
 
@@ -40,15 +41,16 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
       'prefix' => '',
     );
     ```     
-6. [Configure domains](#domains)
-7. Optional: for Drupal 8 or 7 update `NGINX_VHOST_PRESET` correspondingly in your `.env` file
-8. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
-9. Optional: [import existing database](#database-import-and-export)
-10. Optional: macOS users please read [this](#docker-for-mac)
-11. Optional: Windows users please read [this](#windows)
-12. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
-13. Your drupal website should be up and running at http://drupal.docker.localhost:8000
-14. You can see status of your containers and their logs via portainer: http://portainer.drupal.docker.localhost:8000
+6. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))   
+7. [Configure domains](#domains)
+8. Optional: for Drupal 8 or 7 update `NGINX_VHOST_PRESET` correspondingly in your `.env` file
+9. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
+10. Optional: [import existing database](#database-import-and-export)
+11. Optional: macOS users please read [this](#docker-for-mac)
+12. Optional: Windows users please read [this](#windows)
+13. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+14. Your drupal website should be up and running at http://drupal.docker.localhost:8000
+15. You can see status of your containers and their logs via portainer: http://portainer.drupal.docker.localhost:8000
 
 You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
 
@@ -78,6 +80,10 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 | `varnish`      | `http://varnish.drupal.docker.localhost:8000`   |
 | `portainer`    | `http://portainer.drupal.docker.localhost:8000` |
 | `webgrind`     | `http://webgrind.drupal.docker.localhost:8000`  |
+
+## Mail sending
+
+{!local/php-mail.md!}
 
 ## Xdebug
 
