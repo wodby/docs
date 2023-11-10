@@ -9,7 +9,6 @@ We provide authentication via OAuth2. After creating the integration and passing
 Wodby provides integration with OVH Managed Kubernetes service. 
 
 - OVH does not support highly available multi-AZ clusters
-- We always enable anti affinity fo the cluster
 - We always enable autoscale for the cluster
 - We disable `AlwaysPullImages` plugin
 - We use the metrics server that comes by default for the basic Wodby kubernetes monitoring
