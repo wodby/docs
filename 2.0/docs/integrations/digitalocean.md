@@ -19,3 +19,17 @@ Wodby provides a native integration with DigitalOcean Kubernetes Service.
 ### Storage
 
 Persistent storage is provided by DigitalOcean Block Storage via the default storage class. We create a new block storage volume for each persistent volume claim. 
+
+## Managed Database
+
+Wodby provides a native integration with DigitalOcean Managed Database.
+
+- We support MySQL and PostgreSQL
+- Storage size is not configurable upon creation
+- Database server is higly available
+- There's no storage autoscaling support
+- You can manage your DBs and users form Wodby dashboard
+
+## Spaces
+
+Integration with DigitalOcean Spaces is coming soon...

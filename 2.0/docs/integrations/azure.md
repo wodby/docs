@@ -58,4 +58,13 @@ Persistent storage is provided by Azure Managed Disk via the default storage cla
 
 ## Databases
 
-Wodby provides a native integration with Azure Databases: MySQL (with flexible option), MariaDB and PostgreSQL (flexible option). When creating a managed database you can optionally choose a Kubernetes cluster from AKS in Wodby dashboard created under the same integration, in this case we will create the database server in the same network as your Kubernetes cluster.    
+Wodby provides a native integration with Azure Databases
+
+- We support MySQL (with flexible option), MariaDB and PostgreSQL (flexible option)
+- Databases can be resided with a EKS cluster created under the same integration
+- Storage size can be configured upon creation and storage autoscaling can be enabled
+- You can manage your DBs and users form Wodby dashboard
+
+## Blob storage
+
+Integration with Azure Blob Storage is coming soon...

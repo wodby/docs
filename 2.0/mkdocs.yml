@@ -80,11 +80,22 @@ nav:
 - Services:
   - Overview: services/index.md
   - Template: services/template.md
+- CI/CD:
+  - Overview: cicd/index.md
+  - Wodby CI: cicd/wodby-ci.md
+  - Wodby Registry: cicd/wodby-registry.md
 - Integrations:
   - Overview: integrations/index.md
+  - Variable integration: integrations/variable.md
   - Google Cloud Platform: integrations/gcp.md
   - Amazon Web Service: integrations/aws.md
   - Azure: integrations/azure.md
   - DigitalOcean: integrations/digitalocean.md
   - OVH: integrations/ovh.md
   - Linode: integrations/linode.md
+  - CircleCI: integrations/circleci.md
+  - GitHub: integrations/github.md
+  - Docker: integrations/docker.md
+  - NewRelic: integrations/newrelic.md
+  - Datadog: integrations/datadog.md
+  - Sentry: integrations/sentry.md

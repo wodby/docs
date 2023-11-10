@@ -158,3 +158,8 @@ Wodby provides native integration with Relational Database Service.
 - Database server can either be highly available (regional) or not (zonal)
 - We use `standard` storage type
 - Storage size can be configured upon creation and storage autoscaling can be enabled
+- You can manage your DBs and users form Wodby dashboard
+
+## S3
+
+Wodby provides native integration with Simple Storage Service. You can use S3 for storing your applications' backups.

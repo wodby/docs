@@ -63,3 +63,8 @@ Wodby provides native integration with Google Cloud SQL.
 - Auto resize can be optionally enabled (with the limit of twice the size)
 - Database server can either be highly available (regional) or not (zonal)
 - We use backend type `SECOND_GEN`
+- You can manage your DBs and users form Wodby dashboard
+
+## Cloud Storage
+
+Integration with GCP Cloud Storage is coming soon...

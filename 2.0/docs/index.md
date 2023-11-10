@@ -1,6 +1,7 @@
 # Getting started
 
 Wodby was designed to help developers deploy and manage scalable web application in the most simple fashion. To deploy your first application you would need a kubernetes cluster, Wodby does not provide Kubernetes cluster out of the box (we're not a hosting provider) with an exception to the Demo cluster for testing purposes, so it is required for you to connect an account from your preferred cloud provider that provides managed Kubernetes service, such as:
+
 - [Google Cloud Platform GKE](integrations/gcp.md#gke)
 - [Amazone Web Service EKS](integrations/aws.md#eks)
 - [Azure AKZ](integrations/azure.md#aks)
