@@ -82,5 +82,9 @@ nav:
   - Template: services/template.md
 - Integrations:
   - Overview: integrations/index.md
-  - GCP: integrations/gcp.md
-  - AWS: integrations/aws.md
+  - Google Cloud Platform: integrations/gcp.md
+  - Amazon Web Service: integrations/aws.md
+  - Azure: integrations/azure.md
+  - DigitalOcean: integrations/digitalocean.md
+  - OVH: integrations/ovh.md
+  - Linode: integrations/linode.md
