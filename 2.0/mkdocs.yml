@@ -1,5 +1,5 @@
-site_name: Wodby 2.0 documentation (alpha)
-site_description: Wodby 2.0 documentation (alpha)
+site_name: Wodby Docs
+site_description: Wodby 2.0 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/2.0
 
@@ -9,6 +9,7 @@ repo_url: https://github.com/wodby/docs
 copyright: Wodby, Inc.
 
 extra:
+  generator: false
   social:
   - icon: fontawesome/solid/globe
     link: https://wodby.com
@@ -22,17 +23,28 @@ extra:
     link: https://discord.wodby.com/wodbycloud
 
 theme:
+  logo: assets/images/logo.png
+  favicon: assets/images/favicon.png
   name: material
   features:
-  - tabs
-  - instant
+  - navigation.tabs
+  - navigation.instant
+  - navigation.footer
+  - content.code.annotate
+  - content.code.copy
+  - navigation.top
+  - navigation.tracking
+  - search.highlight
+  - search.share
+  - search.suggest
+  - toc.follow
   palette:
     accent: 'indigo'
     primary: 'indigo'
   custom_dir: 'theme'
 
 extra_css: ["assets/wodby.css"]
-extra_javascript: ["assets/jquery-3.3.1.min.js", "assets/intercom.js", "assets/wodby.js"]
+extra_javascript: ["assets/intercom.js"]
 
 markdown_extensions:
 - codehilite
@@ -60,30 +72,29 @@ markdown_extensions:
 - pymdownx.tilde
 - markdown_include.include:
     base_path: includes
-- pymdownx.emoji:
-    emoji_index: !!python/name:materialx.emoji.twemoji
-    emoji_generator: !!python/name:materialx.emoji.to_svg
 
 nav:
-- Home: index.md
-- Open Source: oss.md
-- Status: status.md
-- Support: support.md
+- Home:
+  - Getting started: index.md
+  - Open Source: oss.md
+  - Status: status.md
+  - Support: support.md
 - Apps:
-  - New app: apps/new.md
+  - Overview: apps/index.md
   - Instances: apps/instances.md
+- CI/CD:
+  - Overview: cicd/index.md
+  - Wodby CI: cicd/wodby-ci.md
+  - Wodby Registry: cicd/wodby-registry.md
 - Clusters:
   - Overview: clusters/index.md
   - New cluster: clusters/new.md
 - Stacks:
   - Overview: stacks/index.md
+  - Template: stacks/template.md
 - Services:
   - Overview: services/index.md
   - Template: services/template.md
-- CI/CD:
-  - Overview: cicd/index.md
-  - Wodby CI: cicd/wodby-ci.md
-  - Wodby Registry: cicd/wodby-registry.md
 - Integrations:
   - Overview: integrations/index.md
   - Variable integration: integrations/variable.md

@@ -235,7 +235,7 @@ The domain marked with primary flag will be used as a `$base_url` in [`settings.
 
 ## Mail delivery
 
-{!email-delivery.md!}
+See [OpenSMTPD container](containers.md#opensmtpd)
 
 ## Cron
 

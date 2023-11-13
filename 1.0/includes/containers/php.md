@@ -6,7 +6,7 @@
 !!! warning "Variables availability"
     Environment variables (except ones provided by Wodby) won't be available in PHP-FPM because we set `PHP_FPM_CLEAR_ENV=yes` by default for security reasons. You can set it to `yes` to make all environment variables available in your code. 
 
-In addition to [global environment variables](/infrastructure/env-vars.md), we provide the following variables in PHP container that you can use in your [post-deployment scripts](/apps/post-deployment-scripts.md) or settings files:
+In addition to global environment variables, we provide the following variables in PHP container that you can use in your post-deployment scripts or settings files:
 
 | Variable              | Description                                        |
 |-----------------------|----------------------------------------------------|

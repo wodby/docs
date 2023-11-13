@@ -45,8 +45,6 @@ database = 14
 
 Go to `Settings > System > General settings > Email server settings` in your Matomo instance. Specify `opensmtpd` as server address and `25` as port. For more details how to configure guaranteed email delivery see [OpenSMTPD stack documentation](../opensmtpd/index.md)
 
-{!email-delivery-warning.md!}
-
 ## Cron
 
 By default we run the following cron command from [crond container](#crond) every hour:

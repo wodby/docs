@@ -2,13 +2,9 @@
 
 Cachet can be configured with the following [environment variables](https://github.com/wodby/cachet#environment-variables)
 
-## Mail delivery
-
-{!email-delivery-warning.md!}
-
 ## Cron
 
-By default we run the following cron command from [crond container](#crond) every hour:
+By default, we run the following cron command from [crond container](#crond) every hour:
 
 ```
 /usr/local/bin/php -q ./artisan schedule:run

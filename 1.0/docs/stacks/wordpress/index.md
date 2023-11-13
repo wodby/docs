@@ -149,11 +149,11 @@ The domain marked with primary flag will be used as a `WP_HOME` and `WP_SITEURL`
 
 ## Mail delivery
 
-{!email-delivery.md!}
+See [OpenSMTPD container](containers.md#opensmtpd)
 
 ## Cron
 
-By default we run the following cron command from [crond container](containers.md#crond) every hour:
+By default, we run the following cron command from [crond container](containers.md#crond) every hour:
 
 ```
 wp cron event run --due-now --path="${HTTP_ROOT}" --url="${BASE_URL}"

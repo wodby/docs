@@ -71,7 +71,7 @@ This command will gather build information about your instance such as services 
 #### Build
 
 !!! tldr "Services available during the build"
-    If you're building a managed stack, the list of services eligible for the build is hardcoded and you can find it in [a stack documentation](../stacks). If you're building a custom stack, all services that have [`deployment.type=ci`](../stacks/template.md#deployment) will be available
+    If you're building a managed stack, the list of services eligible for the build is hardcoded and you can find it in [a stack documentation](../stacks/index.md). If you're building a custom stack, all services that have [`deployment.type=ci`](../stacks/template.md#deployment) will be available
     
 During the build stage you can prepare your codebase for the build by running `wodby ci run` which is basically a wrapper of `docker run`. 
 

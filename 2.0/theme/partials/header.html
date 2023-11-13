@@ -1,45 +1,132 @@
-{#-
-This file was automatically generated - do not edit
--#}
-<header class="md-header" data-md-component="header">
-    <nav class="md-header-nav md-grid" aria-label="{{ lang.t('header.title') }}">
-        <a href="{{ config.site_url | default(nav.homepage.url, true) | url }}" title="{{ config.site_name }}" class="md-header-nav__button md-logo" aria-label="{{ config.site_name }}">
+<!--
+  Copyright (c) 2016-2023 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Determine classes -->
+{% set class = "md-header" %}
+{% if "navigation.tabs.sticky" in features %}
+{% set class = class ~ " md-header--shadow md-header--lifted" %}
+{% elif "navigation.tabs" not in features %}
+{% set class = class ~ " md-header--shadow" %}
+{% endif %}
+
+<!-- Header -->
+<header class="{{ class }}" data-md-component="header">
+    <nav
+            class="md-header__inner md-grid"
+            aria-label="{{ lang.t('header') }}"
+    >
+
+        <!-- Link to home -->
+        <a
+                href="{{ config.extra.homepage | d(nav.homepage.url, true) | url }}"
+                title="{{ config.site_name | e }}"
+                class="md-header__button md-logo"
+                aria-label="{{ config.site_name }}"
+                data-md-component="logo"
+        >
             {% include "partials/logo.html" %}
         </a>
-        <label class="md-header-nav__button md-icon" for="__drawer">
-            {% include ".icons/material/menu" ~ ".svg" %}
+
+        <!-- Button to open drawer -->
+        <label class="md-header__button md-icon" for="__drawer">
+            {% set icon = config.theme.icon.menu or "material/menu" %}
+            {% include ".icons/" ~ icon ~ ".svg" %}
         </label>
-        <div class="md-header-nav__title" data-md-component="header-title">
-            {% if config.site_name == page.title %}
-            <div class="md-header-nav__ellipsis md-ellipsis">
-                {{ config.site_name }}
+
+        <!-- Header title -->
+        <div class="md-header__title" data-md-component="header-title">
+            <div class="md-header__ellipsis">
+                <div class="md-header__topic">
+                    <span class="md-ellipsis">
+                        {{ config.site_name }}
+                    </span>
+                    <div class="md-version">
+                        <button
+                                class="md-version__current"
+                                aria-label="2.0"
+                        >
+                            2.0
+                        </button>
+                        <ul class="md-version__list">
+                            <li class="md-version__item">
+                                <a href="https://wodby.com/docs/2.0" class="md-version__link">
+                                    2.0
+                                </a>
+                            </li>
+                            <li class="md-version__item">
+                                <a href="https://wodby.com/docs/1.0" class="md-version__link">
+                                    1.0
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="md-header__topic" data-md-component="header-topic">
+                  <span class="md-ellipsis">
+                    {% if page.meta and page.meta.title %}
+                      {{ page.meta.title }}
+                    {% else %}
+                      {{ page.title }}
+                    {% endif %}
+                  </span>
+                </div>
             </div>
-            {% else %}
-            <div class="md-header-nav__ellipsis">
-          <span class="md-header-nav__topic md-ellipsis">
-            {{ config.site_name }}
-          </span>
-                <span class="md-header-nav__topic md-ellipsis">
-            {% if page and page.meta and page.meta.title %}
-              {{ page.meta.title }}
-            {% else %}
-              {{ page.title }}
-            {% endif %}
-          </span>
-            </div>
-            {% endif %}
         </div>
-        {% if "search" in config["plugins"] %}
-        <label class="md-header-nav__button md-icon" for="__search">
-            {% include ".icons/material/magnify.svg" %}
+
+        <!-- Color palette toggle -->
+        {% if config.theme.palette %}
+        {% if not config.theme.palette is mapping %}
+        {% include "partials/palette.html" %}
+        {% endif %}
+        {% endif %}
+
+        <!-- Site language selector -->
+        {% if config.extra.alternate %}
+        {% include "partials/alternate.html" %}
+        {% endif %}
+
+        <!-- Button to open search modal -->
+        {% if "material/search" in config.plugins %}
+        <label class="md-header__button md-icon" for="__search">
+            {% set icon = config.theme.icon.search or "material/magnify" %}
+            {% include ".icons/" ~ icon ~ ".svg" %}
         </label>
-        {% include "partials/wodby/version.html" %}
+
+        <!-- Search interface -->
         {% include "partials/search.html" %}
         {% endif %}
+
+        <!-- Repository information -->
         {% if config.repo_url %}
-        <div class="md-header-nav__source">
+        <div class="md-header__source">
             {% include "partials/source.html" %}
         </div>
         {% endif %}
     </nav>
+
+    <!-- Navigation tabs (sticky) -->
+    {% if "navigation.tabs.sticky" in features %}
+    {% if "navigation.tabs" in features %}
+    {% include "partials/tabs.html" %}
+    {% endif %}
+    {% endif %}
 </header>

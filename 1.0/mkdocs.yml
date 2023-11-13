@@ -1,5 +1,5 @@
-site_name: Wodby 1.0 documentation
-site_description: Wodby 1.0 documentation
+site_name: Wodby Docs
+site_description: Wodby 1.0 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/1.0
 
@@ -9,6 +9,7 @@ repo_url: https://github.com/wodby/docs
 copyright: Wodby, Inc.
 
 extra:
+  generator: false
   social:
   - icon: fontawesome/solid/globe
     link: https://wodby.com
@@ -22,17 +23,28 @@ extra:
     link: https://discord.wodby.com/wodbycloud
 
 theme:
+  logo: assets/images/wodby1-logo.png
+  favicon: assets/images/favicon.png
   name: material
   features:
-  - tabs
-  - instant
+  - navigation.tabs
+  - navigation.instant
+  - navigation.footer
+  - content.code.annotate
+  - content.code.copy
+  - navigation.top
+  - navigation.tracking
+  - search.highlight
+  - search.share
+  - search.suggest
+  - toc.follow
   palette:
     accent: 'indigo'
     primary: 'indigo'
   custom_dir: 'theme'
 
 extra_css: ["assets/wodby.css"]
-extra_javascript: ["assets/jquery-3.6.0.min.js", "assets/intercom.js", "assets/wodby.js"]
+extra_javascript: ["assets/intercom.js"]
 
 markdown_extensions:
 - codehilite
@@ -60,20 +72,18 @@ markdown_extensions:
 - pymdownx.tilde
 - markdown_include.include:
     base_path: includes
-- pymdownx.emoji:
-    emoji_index: !!python/name:materialx.emoji.twemoji
-    emoji_generator: !!python/name:materialx.emoji.to_svg
 
 nav:
-- Home: index.md
-- Billing: billing.md
-- Development: dev.md
-- Docker4X: docker4x.md
-- FAQ: faq.md
-- Status: status.md
-- Support: support.md
-- Troubleshooting: troubleshooting.md
-- User roles: roles.md
+- Home:
+  - Getting started: index.md
+  - Billing: billing.md
+  - Development: dev.md
+  - Docker4X: docker4x.md
+  - FAQ: faq.md
+  - Status: status.md
+  - Support: support.md
+  - Troubleshooting: troubleshooting.md
+  - User roles: roles.md
 - Apps:
   - New app: apps/new.md
   - Instances: apps/instances.md
