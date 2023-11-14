@@ -12,9 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.12'
     - name: Build docs
       env:
         WODBY_API_KEY: ${{ secrets.WODBY_API_KEY }}
@@ -24,18 +21,11 @@ jobs:
         CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
       run: |
         set -e
-
-        mkdir -p sites        
         wget -qO- https://api.wodby.com/api/v1/get/cli | sh
         wodby ci init "${WODBY_INSTANCE_UUID}"
 
-        pip install mkdocs==1.* mkdocs-material==9.* markdown-include pygments
-
-        cd 1.0
-        mkdocs build -d ../sites/1.0
-        
-        cd ../2.0
-        mkdocs build -d ../sites/2.0
+        wodby ci run -i wodby/mkdocs -- \
+          sh -c "mkdir sites && cd 1.0 && mkdocs build -d ../sites/1.0 && cd ../2.0 && mkdocs build -d ../sites/2.0"
 
         wodby ci build --from ./sites --to /var/www/html/docs/
         wodby ci release
