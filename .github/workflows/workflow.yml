@@ -24,12 +24,13 @@ jobs:
         CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
       run: |
         set -e
+
+        mkdir -p sites        
         wget -qO- https://api.wodby.com/api/v1/get/cli | sh
         wodby ci init "${WODBY_INSTANCE_UUID}"
 
         pip install mkdocs==1.* mkdocs-material==9.* markdown-include pygments
 
-        mkdir sites
         cd 1.0
         mkdocs build -d ../sites/1.0
         
