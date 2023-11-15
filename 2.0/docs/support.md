@@ -20,7 +20,7 @@ You can contact us in one of these ways:
 * For non-technical questions email us at hello [at] wodby.com
 
 !!! failure "Cannot see live chat widget?"
-You may not see live chat support widget if you have tracking protection enabled in your browser
+    You may not see live chat support widget if you have tracking protection enabled in your browser
 
 ## 3. Premium support
 

@@ -1,7 +1,18 @@
 # Instances
 
-## What is application instance?
-​
-Application instance is a single isolated copy of your application, that copy can have different environment type: production, staging, development. Every app can have an unlimited number of instances but at least one. You can deploy as many instances as you want. You can also deploy instances of the same applications across different clusters.
+Application instance is a single isolated copy of your application that deployed to a [kubernetes cluster](../kubernetes/index.md) and has:
 
-You can remove or add a new instance from the `Instances` page. To get there navigate to the instance page and click on a cogwheel in the header.
+- [environment](env.md) (like production, staging)
+- [stack](stack.md) with a specific revision 
+- [routes](routes.md) to configure domains and public ports
+- [builds](builds.md) (if stack contains buildable services) and [deploys](deploys.md)
+- [backups](backups.md) and [imports](imports.md) (if stack contains services that provide such)
+- [app services](services.md) per each service that used to override stack configuration for this specific instance
+- live [logs streaming](logs.md) 
+- [cron](cron.md) schedules and jobs 
+- [tasks](tasks.md) history 
+
+![](./images/instance.svg)
+
+You can remove or add a new instance from the _"[App] > Instances"_ page.
+

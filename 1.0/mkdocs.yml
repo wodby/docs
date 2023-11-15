@@ -39,8 +39,15 @@ theme:
   - search.suggest
   - toc.follow
   palette:
-    accent: 'indigo'
-    primary: 'indigo'
+  - media: "(prefers-color-scheme: light)"
+    toggle:
+      icon: material/weather-night
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to light mode
   custom_dir: 'theme'
 
 extra_css: ["assets/wodby.css"]

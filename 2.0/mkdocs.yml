@@ -1,5 +1,5 @@
-site_name: Wodby Docs
-site_description: Wodby 2.0 Documentation
+site_name: Wodby Docs (alpha)
+site_description: Wodby 2.0 Documentation (alpha version)
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/2.0
 
@@ -39,8 +39,16 @@ theme:
   - search.suggest
   - toc.follow
   palette:
-    accent: 'indigo'
-    primary: 'indigo'
+  - media: "(prefers-color-scheme: light)"
+    toggle:
+      icon: material/weather-night
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    toggle:
+      icon: material/weather-sunny
+      name: Switch to light mode
+
   custom_dir: 'theme'
 
 extra_css: ["assets/wodby.css"]
@@ -76,21 +84,39 @@ markdown_extensions:
 nav:
 - Home:
   - Getting started: index.md
+  - Organization: org.md
+  - Projects: projects.md
+  - Teams: teams.md
   - Open Source: oss.md
   - Status: status.md
   - Support: support.md
 - Apps:
   - Overview: apps/index.md
   - Instances: apps/instances.md
+  - Stack: apps/stack.md
+  - App services: apps/services.md
+  - Routes & Domains: apps/routes.md
+  - Builds: apps/builds.md
+  - Deploys: apps/deploys.md
+  - Backups: apps/backups.md
+  - Imports: apps/imports.md
+  - Environment: apps/env.md
+  - Log streaming: apps/logs.md
+  - Tasks: apps/tasks.md
+  - Cron: apps/cron.md
 - CI/CD:
   - Overview: cicd/index.md
   - Wodby CI: cicd/wodby-ci.md
   - Wodby Registry: cicd/wodby-registry.md
-- Clusters:
-  - Overview: clusters/index.md
-  - New cluster: clusters/new.md
+- Kubernetes:
+  - Overview: kubernetes/index.md
+  - Demo Cluster: kubernetes/demo.md
+  - Infrastructure: kubernetes/infrastructure.md
+- Databases:
+  - Overview: databases/index.md
 - Stacks:
   - Overview: stacks/index.md
+  - Stack services: stacks/services.md
   - Template: stacks/template.md
 - Services:
   - Overview: services/index.md
