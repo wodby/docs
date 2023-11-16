@@ -16,6 +16,7 @@ Wodby provides a native integration with Azure Kubernetes Service. We use deploy
 - We disable native Azure monitoring when creating a cluster
 
 We support the following regions:
+
 - south africa north
 - east asia
 - south east asia

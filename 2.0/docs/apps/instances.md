@@ -15,4 +15,3 @@ Application instance is a single isolated copy of your application that deployed
 ![](./images/instance.svg)
 
 You can remove or add a new instance from the _"[App] > Instances"_ page.
-

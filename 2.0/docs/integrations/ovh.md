@@ -16,6 +16,19 @@ Wodby provides integration with OVH Managed Kubernetes service.
 - We create a single load balancer per cluster and deploy an Ingress Nginx controller to manage SSL certificates  
 - You can choose a [billing option: hourly or monthly](#billing) 
 
+#### Supported regions
+
+We support the following OVH regions:
+
+- BHS
+- DE
+- GRA
+- SBG5
+- SGP
+- SYD
+- UK
+- WAW
+
 ### Billing
 
 There are two billing options for OVH Kubernetes: hourly and monthly.

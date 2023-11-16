@@ -40,18 +40,6 @@ Wodby provides native integration with Google Kubernetes Engine.
 
 Persistent storage is provided by GCP Compute Engine Persistent Disks via the default storage class. We create a new block storage volume for each persistent volume claim.
 
-### Supported regions
-
-We support the following OVH regions:
-- BHS
-- DE
-- GRA
-- SBG5
-- SGP
-- SYD
-- UK
-- WAW
-
 ## Cloud SQL
 
 Wodby provides native integration with Google Cloud SQL.
