@@ -14,6 +14,14 @@ Stack pages:
 
 See [main code deployment article](../../apps/deploy.md) to learn about code deployment options on Wodby. 
 
+### Upgrading Drupal 9 to 10
+
+During the upgrade from Drupal 9 to 10 with _Drupal 9_ stack you should add the following environment variable to your nginx service, otherwise you might notice issues with aggregated css/js:
+
+```
+NGINX_VHOST_PRESET=drupal10
+```
+
 ### Vanilla Drupal
 
 For demo purposes and simple Drupal installations you can use Vanilla Drupal deployment option. In this case Drupal code that comes with the Docker image will be used. In case of changes all data made to your codebase will persist but there will be no versions control.
