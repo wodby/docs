@@ -28,11 +28,15 @@ OpenSMTPD can be configured with the following [environment variables](https://g
     RELAY_USER
     RELAY_PASSWORD
     ```
-    By default it utilizes TLS schema with port `587` that can be changed via `RELAY_PORT`.
+    By default, it utilizes TLS schema with port `587` that can be changed via `RELAY_PORT`.
 
 ## Changelog
 
 This changelog is for OpenSMTPD stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/opensmtpd/releases).
+
+### 2.0.4
+
+📜 OpenSMTPD now has `$RELAY_PROTO` to change relay protocol https://github.com/wodby/opensmtpd/pull/2
 
 ### 2.0.3
 

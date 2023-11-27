@@ -6,6 +6,27 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.9
+
+- Vanilla Drupal:
+    - ⬆️ Updated to 10.1.6
+    - 🪦 Version 9 has reached end of life
+- Redis:
+    - ⬆️ Updated to 7.2.3, 6.2.14
+    - 🪦 Version 5 has reached end of life
+- MariaDB:
+    - ⬆️ Updated to 10.11.6, 10.6.16, 10.5.23, 10.4.32
+    - 🪦 Version 10.9 has reached end of life
+    - 🐞 Bugfix: `MYSQL_TRANSACTION_ISOLATION` had no effect in 10.x
+- ⬆️ Nginx 1.25.3
+- ⬆️ PHP 8.2.12, 8.1.25
+- ⬆️ Varnish 6.0.12
+- ⬆️ Apache HTTPd 2.4.58
+- ⬆️ Webgrind 1.9.3
+- ⬆️ Memcached 1.6.22
+- 📜 OpenSMTPD now has `$RELAY_PROTO` to change relay protocol https://github.com/wodby/opensmtpd/pull/2
+- 🏔 Alpine Linux 3.18.4
+
 ## 6.0.8
 
 - ⬆️ Vanilla Drupal 10.1.4, 9.5.11
