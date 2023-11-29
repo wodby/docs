@@ -31,7 +31,7 @@ Sometimes direct git integration may not be enough for a few reasons:
 ### Via third-party CI
 
 !!! warning "Not fully supported by forked stacks"
-    Since the CI deployment type was added later only certain version of managed stacks support it and that's
+    Since the CI deployment was added later only certain version of managed stacks support it and that's
     why it's not officially supported by forked stacks (we cannot tell if images are compatible).
     This deployment method however supported by custom stacks (that do not have `metadata.type` specified in the stack manifest).
     You technically still can run CI deployments via API but the _"App > Deployment"_ tab won't reflect any of that in addition to other limitations.
