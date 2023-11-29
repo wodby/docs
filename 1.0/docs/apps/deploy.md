@@ -28,13 +28,13 @@ Sometimes direct git integration may not be enough for a few reasons:
 * Direct git deployment cannot be used for custom stacks and cluster deployments
 * With CI/CD you have build artifacts like docker images that you can download locally
 
-!!! warning "Not officially supported by forked stacks"
-    Since the CI deployment type was added later only certain version of managed stacks support it and that's
-    why it's not officially supported by forked stacks (we cannot tell if images are compatible). 
-    The method supported by custom stacks (must not have `metadata.type` specified in the stack manifest). 
-    You would still be technically able to run deployments from CI via API but the _<App> > Deployment_ tab won't reflect any of that in addition to other limitations.
-
 ### Via third-party CI
+
+!!! warning "Not fully supported by forked stacks"
+    Since the CI deployment type was added later only certain version of managed stacks support it and that's
+    why it's not officially supported by forked stacks (we cannot tell if images are compatible).
+    The method supported by custom stacks (must not have `metadata.type` specified in the stack manifest).
+    You would still be technically able to run deployments from CI via API but the _App > Deployment_ tab won't reflect any of that in addition to other limitations.
 
 You can set up CI/CD workflow for your application by integrating Wodby with third-party CI tools. Build can be performed on any CI tools with Wodby CLI. 
 
