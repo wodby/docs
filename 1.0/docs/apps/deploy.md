@@ -23,11 +23,17 @@ For details instructions how to connect a repository and configure hooks see the
 
 Sometimes direct git integration may not be enough for a few reasons:
 
-* Build stage is a must have for repositories with dependencies (e.g. npm, composer)
+* Build stage is a must-have for repositories with dependencies (e.g. npm, composer)
 * You need to run tests
 * Direct git deployment cannot be used for custom stacks and cluster deployments
 * With CI/CD you have build artifacts like docker images that you can download locally
-* With CI/CD you can rollback build (feature TBA)
+* With CI/CD you can roll back build (feature TBA)
+
+!!! warning "Not officially supported by forked stacks"
+    Since the CI deployment type was added later only certain version of managed stacks support it and that's
+    why it's not officially supported by forked stacks (we cannot tell if images are compatible). 
+    The method supported by custom stacks (must not have `metadata.type` specified in the stack manifest). 
+    You would still be technically able to run deployments from CI via API but the _<App> > Deployment_ tab won't reflect any of that in addition to other limitations.
 
 ### Via third-party CI
 
