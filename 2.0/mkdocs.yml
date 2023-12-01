@@ -136,3 +136,5 @@ nav:
   - NewRelic: integrations/newrelic.md
   - Datadog: integrations/datadog.md
   - Sentry: integrations/sentry.md
+- Development:
+  - API key: dev/api-keys.md
