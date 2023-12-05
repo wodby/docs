@@ -12,6 +12,7 @@ The following example:
 4. Runs deployment of the build for the associated app instance
 
 Make sure you've:
+
 - Added `WODBY_API_TOKEN` environment variable in CircleCI project settings with [your Wodby API Key](../development/api-keys.md) value
 - Replaced `WODBY_GIT_REPO_ID` with the git repo ID of the PHP service or added the env var `WODBY_GIT_REPO_ID` with the value
 
