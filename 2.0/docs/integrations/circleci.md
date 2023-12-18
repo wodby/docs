@@ -33,7 +33,7 @@ jobs:
         - composer-v1-{{ checksum "composer.lock" }}
         - composer-v1-
 
-    - run: curl https://api.wodby.com/v1/get/cli | sh
+    - run: wget -qO- https://api.wodby.com/v1/get/cli | sh
     - run: wodby ci init $WODBY_GIT_REPO_ID
     - run:
         name: Fix .composer permissions
