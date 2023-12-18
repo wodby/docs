@@ -36,6 +36,11 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 
 ## Changelog
 
+### 6.0.3
+
+- `large_client_header_buffers` set to `4 32k`
+- Removed obsolete `http2_max_field_size`
+
 ### 6.0.2
 
 Edge's nginx updated to 1.24
