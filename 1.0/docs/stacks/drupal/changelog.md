@@ -6,6 +6,28 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.10
+
+- ⬆️ Vanilla Drupal 10.2.1, 7.99
+- PHP:
+    - ⭐️ Added PHP 8.3 (no imagick)
+    - ⭐️ Added opentelemetry extension
+    - ⭐️ GRPC extension returned
+    - ⬆️ Updated to 8.3.1, 8.2.14, 8.1.27
+    - ⬆️ Updated extensions:
+        - xdebug 3.3.1
+        - ds 1.5.0
+        - apcu 1.5.23
+        - mongodb 1.17.1
+        - brotli 0.14.2
+        - amqp 2.1.1 (from 1.x)
+        - ast 1.1.1
+        - igbinary 3.2.15
+        - smbclient 1.1.1
+    - 🛠 PHP extensions libraries now stripped out of debug symbols
+    - 🪦 PHP 8.0 has reach end of life
+- 🏔 Alpine Linux updated to 3.19 for most of the images
+
 ## 6.0.9
 
 - Vanilla Drupal:
