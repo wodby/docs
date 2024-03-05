@@ -1,6 +1,6 @@
 # Local environment with Docker4Ruby
 
-Docker4Ruby is an open-source project ([GitHub page](https://github.com/wodby/docker4ruby)) that provides pre-configured `docker-compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
+Docker4Ruby is an open-source project ([GitHub page](https://github.com/wodby/docker4ruby)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
 
 ## Requirements
 
@@ -19,12 +19,12 @@ Docker4Ruby is an open-source project ([GitHub page](https://github.com/wodby/do
 6. Optional: macOS users please read [this](#docker-for-mac)
 7. Optional: Windows users please read [this](#permissions-issues)
 8. By default ruby container will start Puma HTTP server, if you want to change it modify `Dockerfile`
-9. Build your ruby image by running `make build` or `docker-compose build`. This will create a new image with installed gems from your `Gemfile.lock`. If compilation of native extension for some of your gems fail you probably need to install additional dev packages, see example in `Dockerfile`  
-10. Run containers: [`make`](#make-commands) or `docker-compose up -d`. Your codebase from `./` will be mounted to the ruby image with installed gems 
+9. Build your ruby image by running `make build` or `docker compose build`. This will create a new image with installed gems from your `Gemfile.lock`. If compilation of native extension for some of your gems fail you probably need to install additional dev packages, see example in `Dockerfile`  
+10. Run containers: [`make`](#make-commands) or `docker compose up -d`. Your codebase from `./` will be mounted to the ruby image with installed gems 
 11. Your ruby application should be up and running at http://ruby.docker.localhost:8000
 12. You can see status of your containers and their logs via portainer: http://portainer.ruby.docker.localhost:8000
 
-You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
+You can stop containers by executing [`make stop`](#make-commands) or `docker compose stop`.
 
 Examples for Ruby on Rails database setup, `config/database.yml`:
 ```yaml
@@ -82,12 +82,12 @@ Usage: make COMMAND
 
 Commands:
     help            List available commands and their description
-    up              Start up all container from the current docker-compose.yml
+    up              Start up all container from the current compose.yml
     start           Start stopped containers      
     build           Build ruby image with gems from your Gemfile.lock 
-    stop            Stop all containers for the current docker-compose.yml (docker-compose stop) 
+    stop            Stop all containers for the current compose.yml (docker compose stop) 
     down            Same as stop
-    prune [service] Stop and remove containers, networks, images, and volumes (docker-compose down)
+    prune [service] Stop and remove containers, networks, images, and volumes (docker compose down)
     ps              List container for the current project (docker ps with filter by name)
     shell [service] Access a container via shell as a default user (by default [service] is ruby)
     logs [service]  Show containers logs, use [service] to show logs of specific service
@@ -110,7 +110,7 @@ You might have permissions issues caused by non-matching uid/gid on your host ma
 
 ### Windows
 
-Since you [can't change owner of mounted volumes](https://github.com/docker/for-win/issues/39) in Docker for Win, the only solution is to run everything as root, add the following options to `ruby` service in your docker-compose file:
+Since you [can't change owner of mounted volumes](https://github.com/docker/for-win/issues/39) in Docker for Win, the only solution is to run everything as root, add the following options to `ruby` service in your `compose.yml` file:
 
 ```yml
   ruby:

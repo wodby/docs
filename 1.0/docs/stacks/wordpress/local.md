@@ -1,6 +1,6 @@
 # Local environment with Docker4WordPress
 
-Docker4WordPress is an open-source project ([GitHub page](https://github.com/wodby/docker4wordpress)) that provides pre-configured `docker-compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
+Docker4WordPress is an open-source project ([GitHub page](https://github.com/wodby/docker4wordpress)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
 
 ## Requirements
 
@@ -18,7 +18,7 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 1. Clone [docker4wordpress repository](https://github.com/wodby/docker4wordpress) and switch to the [latest stable tag](https://github.com/wodby/docker4wordpress/releases) or download/unpack the source code from the [latest release](https://github.com/wodby/docker4wordpress/releases)
 2. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
 3. [Configure domains](#domains)
-4. From project root directory run `docker-compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
+4. From project root directory run `docker compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
 5. That's it! Proceed with WordPress installation at http://wp.docker.localhost:8000. Default database user, password and database name are all `wordpress`, database host is `mariadb`
 6. You can see status of your containers and their logs via portainer: http://portainer.wp.docker.localhost:8000
 
@@ -26,7 +26,7 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 
 1. If you're starting a new project we recommend you to fork [wodby/wordpress-composer](https://github.com/wodby/wordpress-composer) project
 2. Download and unpack `docker4wordpress.tar.gz` from the [latest stable release](https://github.com/wodby/docker4wordpress/releases) to your project root
-3. Delete `docker-compose.override.yml` as it's used to deploy vanilla WordPress
+3. Delete `compose.override.yml` as it's used to deploy vanilla WordPress
 4. Ensure database credentials match in your `wp-config.php` and `.env` files
 5. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
 6. [Configure domains](#domains)
@@ -34,11 +34,11 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 8. Optional: [import existing database](#database-import-and-export)
 9. Optional: macOS users please read [this](#docker-for-mac)
 10. Optional: Windows users please read [this](#windows)
-11. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+11. Run containers: [`make up`](#make-commands) or `docker compose up -d`
 12. Your WordPress website should be up and running at http://wp.docker.localhost:8000
 13. You can see status of your containers and their logs via portainer: http://portainer.wp.docker.localhost:8000
 
-You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
+You can stop containers by executing [`make stop`](#make-commands) or `docker compose stop`.
 
 !!! info "Optional files"
     If you don't need to [run multiple projects](#running-multiple-projects) feel free to delete `traefik.yml` that comes within `docker4wordpress.tar.gz`

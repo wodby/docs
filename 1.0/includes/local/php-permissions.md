@@ -10,7 +10,7 @@ Since version 5.0 the default php container user `wodby` has uid/gid `1000` that
 
 ### Windows
 
-Since you [can't change owner of mounted volumes](https://github.com/docker/for-win/issues/39) in Docker for Win, the only solution is to run everything as root, add the following options to `php` service in your docker-compose file:
+Since you [can't change owner of mounted volumes](https://github.com/docker/for-win/issues/39) in Docker for Win, the only solution is to run everything as root, add the following options to `php` service in your `compose.yml` file:
 
 ```yml
   php:

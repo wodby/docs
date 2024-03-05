@@ -5,10 +5,10 @@ if you want to import your database, uncomment the line for `mariadb-init` bind 
 
 Exporting all databases:
 ```shell
-docker-compose exec mariadb sh -c 'exec mysqldump --all-databases -uroot -p"root-password"' > databases.sql
+docker compose exec mariadb sh -c 'exec mysqldump --all-databases -uroot -p"root-password"' > databases.sql
 ```
 
 Exporting a specific database:
 ```shell
-docker-compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db' > my-db.sql
+docker compose exec mariadb sh -c 'exec mysqldump -uroot -p"root-password" my-db' > my-db.sql
 ```

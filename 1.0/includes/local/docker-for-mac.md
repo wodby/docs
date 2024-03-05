@@ -19,7 +19,7 @@ brew install mutagen-io/mutagen
 brew install mutagen-io/mutagen/mutagen-compose
 ```
 
-1. Modify your `docker-compose.yml` as following:
+1. Modify your `compose.yml` as following:
     - at the end of the file uncomment `x-mutagen:` and `volumes:` fields 
     - replace volumes definitions under services that needs to be synced with the ones marked as "Mutagen"
 3. Make sure ids of `defaultOwner` and `defaultGroup` under `x-mutagen:` match ids of the image you're using, e.g. uid `501` and gid `20` for `-dev-macos` image by default

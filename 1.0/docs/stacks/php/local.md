@@ -1,6 +1,6 @@
 # Local environment with Docker4PHP
 
-Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/docker4php)) that provides pre-configured `docker-compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
+Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/docker4php)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
 
 ## Requirements
 
@@ -20,11 +20,11 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 7. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
 8. Optional: macOS users please read [this](#docker-for-mac)
 9. Optional: Windows users please read [this](#permissions-issues)
-10. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+10. Run containers: [`make up`](#make-commands) or `docker compose up -d`
 11. Your php application should be up and running at http://php.docker.localhost:8000
 12. You can see status of your containers and their logs via portainer: http://portainer.php.docker.localhost:8000
 
-You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
+You can stop containers by executing [`make stop`](#make-commands) or `docker compose stop`.
 
 !!! info "Optional files"
     If you don't need to [run multiple projects](#running-multiple-projects) feel free to delete `traefik.yml` that come within `docker4php.tar.gz`

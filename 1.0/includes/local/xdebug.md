@@ -2,7 +2,7 @@
 
 ### Debugging web requests
 
-1. Uncomment these lines for PHP service in your docker-compose file (environment variables changed since xdebug 3.x)
+1. Uncomment these lines for PHP service in your `compose.yml` file (environment variables changed since xdebug 3.x)
     ```yml
     PHP_XDEBUG: 1                 
     PHP_XDEBUG_MODE: debug

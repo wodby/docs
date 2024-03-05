@@ -1,6 +1,6 @@
 # Local environment with Docker4Python
 
-Docker4Python is an open-source project ([GitHub page](https://github.com/wodby/docker4python)) that provides pre-configured `docker-compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
+Docker4Python is an open-source project ([GitHub page](https://github.com/wodby/docker4python)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
 
 ## Requirements
 
@@ -19,12 +19,12 @@ Docker4Python is an open-source project ([GitHub page](https://github.com/wodby/
 6. Optional: macOS users please read [this](#docker-for-mac)
 7. Optional: Windows users please read [this](#permissions-issues)
 8. By default python container will start Gunicorn HTTP server, update `$GUNICORN_APP` in `Dockerfile` for your application name. If you have your application in a subdirectory specify it in `$GUNICORN_PYTHONPATH`   
-9. Build your python image by running `make build` or `docker-compose build`. This will create a new image with installed packages from your `requirements.txt`. If you're using `pipenv` uncomment the corresponding lines in Dockerfile to copy `Pipfile`, `Pipfile.lock` and run `pipenv install` instead of `pip`. If compilation of native extension for some of your packages fail you probably need to install additional dev packages, see example in `Dockerfile`  
-10. Run containers: [`make`](#make-commands) or `docker-compose up -d`. Your codebase from `./` will be mounted to the python image with installed packages 
+9. Build your python image by running `make build` or `docker compose build`. This will create a new image with installed packages from your `requirements.txt`. If you're using `pipenv` uncomment the corresponding lines in Dockerfile to copy `Pipfile`, `Pipfile.lock` and run `pipenv install` instead of `pip`. If compilation of native extension for some of your packages fail you probably need to install additional dev packages, see example in `Dockerfile`  
+10. Run containers: [`make`](#make-commands) or `docker compose up -d`. Your codebase from `./` will be mounted to the python image with installed packages 
 11. Your python application should be up and running at http://python.docker.localhost:8000
 12. You can see status of your containers and their logs via portainer: http://portainer.python.docker.localhost:8000
 
-You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
+You can stop containers by executing [`make stop`](#make-commands) or `docker compose stop`.
 
 !!! info "Static and media files on Django"
     If you're running Django make sure you have `STATIC_ROOT` specified in your settings file, if not, add `STATIC_ROOT = os.path.join(BASE_DIR, 'static')`. The default Nginx [virtual host preset](https://github.com/wodby/nginx#django) uses `/static` and `/media` locations and the same directories in your application root. You can adjust them via [`$NGINX_DJANGO_` environment variables](https://github.com/wodby/nginx#environment-variables) 
@@ -97,12 +97,12 @@ Usage: make COMMAND
 
 Commands:
     help            List available commands and their description
-    up              Start up all container from the current docker-compose.yml 
+    up              Start up all container from the current compose.yml 
     build           Build python image with packages from your requirements.txt or Pipfile 
-    stop            Stop all containers for the current docker-compose.yml (docker-compose stop)
+    stop            Stop all containers for the current compose.yml (docker compose stop)
     start           Start stopped containers       
     down            Same as stop
-    prune [service] Stop and remove containers, networks, images, and volumes (docker-compose down)
+    prune [service] Stop and remove containers, networks, images, and volumes (docker compose down)
     ps              List container for the current project (docker ps with filter by name)
     shell [service] Access a container via shell as a default user (by default [service] is python)
     logs [service]  Show containers logs, use [service] to show logs of specific service
@@ -125,7 +125,7 @@ You might have permissions issues caused by non-matching uid/gid on your host ma
 
 ### Windows
 
-Since you [can't change owner of mounted volumes](https://github.com/docker/for-win/issues/39) in Docker for Win, the only solution is to run everything as root, add the following options to `python` service in your docker-compose file:
+Since you [can't change owner of mounted volumes](https://github.com/docker/for-win/issues/39) in Docker for Win, the only solution is to run everything as root, add the following options to `python` service in your `compose.yml` file:
 
 ```yml
   python:

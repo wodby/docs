@@ -23,7 +23,7 @@ You can create new cores via Solr admin UI or create it manually from CLI with a
 
 ### Local environment
 
-1. Access a running Solr container via `make shell solr` or `docker-compose exec solr sh`
+1. Access a running Solr container via `make shell solr` or `docker compose exec solr sh`
 2. Create a core
 ```shell
 make create core=[core name] -f /usr/local/bin/actions.mk

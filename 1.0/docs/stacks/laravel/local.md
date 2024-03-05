@@ -1,6 +1,6 @@
 # Local environment with Docker4Laravel
 
-Docker4Laravel is an open-source project ([GitHub page](https://github.com/wodby/docker4laravel)) that provides pre-configured `docker-compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
+Docker4Laravel is an open-source project ([GitHub page](https://github.com/wodby/docker4laravel)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
 
 ## Requirements
 
@@ -19,11 +19,11 @@ Docker4Laravel is an open-source project ([GitHub page](https://github.com/wodby
 6. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
 7. Optional: macOS users please read [this](#docker-for-mac)
 8. Optional: Windows users please read [this](#permissions-issues)
-9. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+9. Run containers: [`make up`](#make-commands) or `docker compose up -d`
 10. Your laravel application should be up and running at http://laravel.docker.localhost:8000
 11. You can see status of your containers and their logs via portainer: http://portainer.laravel.docker.localhost:8000
 
-You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
+You can stop containers by executing [`make stop`](#make-commands) or `docker compose stop`.
 
 !!! info "Optional files"
     If you don't need to [run multiple projects](#running-multiple-projects) feel free to delete `traefik.yml` that come within `docker4laravel.tar.gz`

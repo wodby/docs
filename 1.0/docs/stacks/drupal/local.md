@@ -1,6 +1,6 @@
 # Local environment with Docker4Drupal
 
-Docker4Drupal is an open-source project ([GitHub page](https://github.com/wodby/docker4drupal)) that provides pre-configured `docker-compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
+Docker4Drupal is an open-source project ([GitHub page](https://github.com/wodby/docker4drupal)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 
 
 ## Requirements
 
@@ -19,14 +19,14 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 2. Optional: for Drupal 8 or 7 comment out corresponding `DRUPAL_TAG` and `NGINX_VHOST_PRESET` in `.env` file
 3. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
 4. [Configure domains](#domains)
-5. From project root directory run `docker-compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
+5. From project root directory run `docker compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
 6. That's it! Proceed with Drupal installation at http://drupal.docker.localhost:8000. Default database user, password and database name are all `drupal`, database host is `mariadb`
 
 ### Mount my codebase
 
 1. If you're starting a new project we recommend you to use [drupal/recommended-project](https://www.drupal.org/docs/develop/using-composer/starting-a-site-using-drupal-composer-project-templates)
 2. Download and unpack `docker4drupal.tar.gz` from the [latest stable release](https://github.com/wodby/docker4drupal/releases) to your project root
-3. Delete `docker-compose.override.yml` as it's used to deploy vanilla Drupal
+3. Delete `compose.override.yml` as it's used to deploy vanilla Drupal
 4. Ensure `NGINX_SERVER_ROOT` (or `APACHE_DOCUMENT_ROOT`) is correct, by default set to `/var/www/html/web` for composer-based projects where Drupal is in `web` subdirectory
 5. Ensure database access settings in your `settings.php` corresponds to values in `.env` file, e.g.:
     ```php
@@ -48,11 +48,11 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 10. Optional: [import existing database](#database-import-and-export)
 11. Optional: macOS users please read [this](#docker-for-mac)
 12. Optional: Windows users please read [this](#windows)
-13. Run containers: [`make up`](#make-commands) or `docker-compose up -d`
+13. Run containers: [`make up`](#make-commands) or `docker compose up -d`
 14. Your drupal website should be up and running at http://drupal.docker.localhost:8000
 15. You can see status of your containers and their logs via portainer: http://portainer.drupal.docker.localhost:8000
 
-You can stop containers by executing [`make stop`](#make-commands) or `docker-compose stop`.
+You can stop containers by executing [`make stop`](#make-commands) or `docker compose stop`.
 
 !!! info "Optional files"
     If you don't need to [run multiple projects](#running-multiple-projects) feel free to delete `traefik.yml` that comes within `docker4drupal.tar.gz`
@@ -100,7 +100,7 @@ You might need to change if your HTTP root is different. Runs from `www-data` us
 ## Solr (Search API)
 
 - Make sure your Drupal site already installed
-- Uncomment `solr` and `zookeeper` services in your `docker-compose.yml`, start it (`make`) and wait until both services fully started
+- Uncomment `solr` and `zookeeper` services in your `compose.yml`, start it (`make`) and wait until both services fully started
 - Access Solr container via `make shell solr` and run `make init -f /usr/local/bin/actions.mk`. This will enable authentication for Solr Cloud mode and create a collection named `default` that will use `_default` config set
 - Now access PHP container via `make shell` and install Search API Solr module `composer require drupal/search_api_solr`
 - Enable Search API Solr Admin module `drush en -y search_api_solr_admin`
