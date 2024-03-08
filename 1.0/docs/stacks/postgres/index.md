@@ -33,6 +33,10 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 2.0.6
+
+⬆️ PostgreSQL 16.2, 15.6, 14.11, 13.14, 12.18
+
 ### 2.0.5
 
 🏔 Alpine Linux upgraded to 3.19

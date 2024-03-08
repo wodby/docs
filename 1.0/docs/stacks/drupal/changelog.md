@@ -6,6 +6,24 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.11
+
+- ⬆️ Vanilla Drupal 10.2.4, 7.100
+- PHP:
+    - ⬆️ Updated to 8.3.3, 8.2.16
+    - ⭐️ Added imagick extension for PHP 8.3
+    - 📧 Mail delivery method changed to `msmtp` for all versions
+    - 🪦 Global drush and drush launcher removed https://github.com/wodby/drupal-php/issues/98
+    - 🪦 ftp module no longer enabled for PHP 8.3, 8.2
+    - 📜 Added `PHP_GRPC_` env vars for grpc extension configuration https://github.com/wodby/drupal-php/issues/102
+    - 📜 Changed GRPC ext defaults: enabled fork support, poll strategy set to `epoll1`, verbosity set to `error`
+- MariaDB:
+    - ⬆️ Updated to 10.11.7, 10.6.17, 10.5.24, 10.4.33
+    - 📜 Transaction isolation set to `READ-COMMITTED`
+- ⬆️ Nginx 1.25.4
+- ⬆️ Redis 7.2.4
+- ⬆️ Memcached 1.6.24
+
 ## 6.0.10
 
 - ⬆️ Vanilla Drupal 10.2.1, 7.99
