@@ -17,7 +17,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - 📜 Added `PHP_GRPC_` env vars for grpc extension configuration https://github.com/wodby/drupal-php/issues/102
     - 📜 Changed GRPC ext defaults: enabled fork support, poll strategy set to `epoll1`, verbosity set to `error`
 - ⬆️ Nginx 1.25.4
-- ⬆️ MariaDB 11.2.3, 11.1.4, 11.0.5, 10.11.7, 10.6.17, 10.5.24, 10.4.33
+- ⬆️ MariaDB 10.11.7, 10.6.17, 10.5.24, 10.4.33
 - ⬆️ Redis 7.2.4
 - ⬆️ Memcached 1.6.24
 
