@@ -10,28 +10,28 @@ You can add NewRelic APM monitoring for PHP by adding environment variables `PHP
 
 #### XHProf
 
-Enable XHProf extension (from Tideways) by overriding the environment variable `PHP_EXTENSIONS_DISABLE=""` to your PHP container (by default, it's set to `xdebug,xhprof`).
+Enable XHProf extension by overriding the environment variable `PHP_EXTENSIONS_DISABLE=""` to your PHP container (by default, it's set to `xdebug,xhprof`).
 
 Use the following example snippet to profile your code:
 
 ```php
 // Start profiling.
-if (extension_loaded('tideways_xhprof')) {
-    tideways_xhprof_enable(TIDEWAYS_XHPROF_FLAGS_MEMORY | TIDEWAYS_XHPROF_FLAGS_CPU);
+if (extension_loaded('xhprof')) {
+    xhprof_enable(XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU);
 }
 
 // Code which should be profiled.
 // ...
 
 // Store profile.
-if (extension_loaded('tideways_xhprof')) {
+if (extension_loaded('xhprof')) {
     $xhprof_out = '/mnt/files/private/xhprof';
     
     if (!file_exists($xhprof_out)) {
         mkdir($xhprof_out);
     }
 
-    file_put_contents(sprintf('%s/%s.%s.xhprof', $xhprof_out, uniqid(), 'web'), serialize(tideways_xhprof_disable()));
+    file_put_contents(sprintf('%s/%s.%s.xhprof', $xhprof_out, uniqid(), 'web'), serialize(xhprof_disable()));
 }
 ```    
 
