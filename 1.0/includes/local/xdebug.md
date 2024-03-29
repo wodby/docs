@@ -20,23 +20,7 @@ Make sure you have `PHP_EXTENSIONS_DISABLE` env var overridden in your compose f
     PHP_IDE_CONFIG: serverName=my-ide
     ```
 3. [Configure your IDE](#ide-configuration-to-debug-cli-requests)
-4. Perform configuration as described below depending on your OS and Docker version:
-
-#### Linux, Docker
-
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: 172.17.0.1` for PHP service
-2. Restart containers (`make`)
-
-#### macOS, Docker
-
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service
-2. Restart containers (`make`)
-
-#### Windows
-
-1. Uncomment `PHP_XDEBUG_REMOTE_HOST: host.docker.internal` for PHP service
-2. Restart containers (`make`)
-3. Allow listen connection for your IDE in `Windows Firewall > Allow an app ..`
+4. Restart containers (`make`)
 
 Also, you might need to [update your hosts](https://github.com/wodby/docker4drupal/issues/193) file.
 
