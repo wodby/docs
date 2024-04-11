@@ -36,6 +36,10 @@ Some OS like Debian 11 have `cgroup2` enabled that not currently supported by th
 
 ## Changelog
 
+### 6.0.4
+
+Containers' anonymous volumes now clean up by cron
+
 ### 6.0.3
 
 - `large_client_header_buffers` set to `4 32k`
