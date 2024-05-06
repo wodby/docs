@@ -51,6 +51,10 @@ See [PostgreSQL stack documentation](../postgres/index.md).
 
 See [Redis stack documentation](../redis/index.md).
 
+## Valkey
+
+See [Valkey stack documentation](../valkey/index.md).
+
 ## Rsyslog
 
 {!containers/php-rsyslog.md!}

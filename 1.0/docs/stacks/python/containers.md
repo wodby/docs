@@ -38,6 +38,10 @@ See [PostgreSQL stack documentation](../postgres/index.md).
 
 See [Redis stack documentation](../redis/index.md).
 
+## Valkey
+
+See [Valkey stack documentation](../valkey/index.md).
+
 ## Rsyslog
 
 Rsyslog can be used to stream your applications logs. It's similar to using syslog, however there's no syslog in Python container (one process per container). Rsyslog will stream all incoming logs to a container output.
