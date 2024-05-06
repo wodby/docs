@@ -96,6 +96,16 @@ Integration:
 1. Install and activate [redis plugin](https://wordpress.org/plugins/redis-cache)
 2. Go to redis plugin settings page and click "enable object cache" button
 
+## Valkey
+
+Valkey is a drop-in replacement for Redis.
+You can configure Valkey via environment variables that listed at https://github.com/wodby/valkey. 
+
+Integration:
+
+1. Install and activate [redis plugin](https://wordpress.org/plugins/redis-cache)
+2. Go to redis plugin settings page and click "enable object cache" button
+
 ## Rsyslog
 
 {!containers/php-rsyslog.md!}
