@@ -125,7 +125,7 @@ You can use Redis as a cache storage for your Drupal application. Redis in-memor
 1. Download and install redis module
 2. Add the following lines to your `settings.php` file (make sure the path to redis module is correct):
 
-For Drupal 8:
+For Drupal 8+:
 
 ```php
 $settings['redis.connection']['host'] = 'redis';
@@ -157,6 +157,55 @@ $conf['path_inc'] = "sites/all/modules/contrib/redis/redis.path.inc";
 ```
 
 For more information see [Redis stack documentation](../redis/index.md).
+
+## Valkey
+
+You can use Valkey as a drop-in replacement to Redis.
+
+### Wodby environment
+
+1. Download and install [redis module](https://www.drupal.org/project/redis)
+2. Make sure valkey service enabled in your stack
+3. Additionally, for Drupal 8: enable valkey integration under `[Instance] > Cache > Settings` page
+4. That's it, all required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings)
+
+### Local environment
+
+1. Download and install redis module
+2. Add the following lines to your `settings.php` file (make sure the path to redis module is correct):
+
+For Drupal 8+:
+
+```php
+$settings['redis.connection']['host'] = 'valkey';
+$settings['redis.connection']['port'] = '6379';
+//$settings['redis.connection']['password'] = '';
+$settings['redis.connection']['base'] = 0;
+$settings['redis.connection']['interface'] = 'PhpRedis';
+$settings['cache']['default'] = 'cache.backend.redis';
+$settings['cache']['bins']['bootstrap'] = 'cache.backend.chainedfast';
+$settings['cache']['bins']['discovery'] = 'cache.backend.chainedfast';
+$settings['cache']['bins']['config'] = 'cache.backend.chainedfast';
+$settings['container_yamls'][] = "modules/contrib/redis/example.services.yml";
+```
+
+For Drupal 7:
+
+```php
+$conf['redis_client_host'] = 'valkey';
+$conf['redis_client_port'] = '6379';
+//$conf['redis_client_password'] = ';
+$conf['redis_client_base'] = 0;
+$conf['redis_client_interface'] = 'PhpRedis';
+$conf['cache_backends'][] = "sites/all/modules/contrib/redis/redis.autoload.inc";
+$conf['cache_default_class'] = 'Redis_Cache';
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+
+$conf['lock_inc'] = "sites/all/modules/contrib/redis/redis.lock.inc";
+$conf['path_inc'] = "sites/all/modules/contrib/redis/redis.path.inc";
+```
+
+For more information see [Valkey stack documentation](../valkey/index.md).
 
 ## Rsyslog
 
