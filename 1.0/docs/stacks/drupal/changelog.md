@@ -6,6 +6,34 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.12
+
+- ⬆️ Vanilla Drupal 10.2.6
+- PHP:
+    - ⬆️ Updated to 8.3.7, 8.2.19
+    - ⭐️ Added new profiler extension [SPX](https://github.com/NoiseByNorthwest/php-spx) (disabled by default) https://github.com/wodby/php/issues/189
+    - ⭐️ Added PHP 8.3 to Drupal 7, 8, 9 stacks https://github.com/wodby/php/issues/194
+    - 📦 SQLite updated to 3.45 https://github.com/wodby/php/issues/194
+    - ⬆️ PECL extensions updates:
+        - Xdebug 3.3.2
+        - Redis 6.0.2
+    - 📧 Default `PHP_SENDMAIL_PATH`  set to use `msmtp` with new extra flag `-i` (with dos2unix workaround for PHP 8.1)
+    - 📜 Added env vars to configure `disabled_classes` and `disable_functions` https://github.com/wodby/php/issues/195
+    - ⚠️ 📜 Removed `PHP_XDEBUG` and `PHP_XHPROF` env vars https://github.com/wodby/php/issues/176
+    - 📜 `PHP_EXTENSIONS_DISABLE` set to `xdebug,xhprof,spx` by default
+    - 📜 Default `xdebug.client_host` set to `host.docker.internal` by @imyaro https://github.com/wodby/php/pull/193
+    - 🐞 Bugfix: env vars with "=" truncated in SSH session by @andrew-drupal https://github.com/wodby/php/pull/191
+- Nginx:
+    - ⭐️ Added 1.26
+    - ⬆️ Updated to 1.25.5
+    - 🪦️ Nginx <= 1.24 has reached EOL
+    - 📜 Modsecurity config now included for Drupal 10+ https://github.com/wodby/nginx/pull/91
+- ⬆️ MariaDB 11.2.4, 11.1.5, 11.0.6, 10.11.8, 10.6.18, 10.5.25, 10.4.34
+- ⬆️ Varnish 6.0.13
+- ⬆️ Apache HTTPd 2.4.59
+- ⬆️ Memcached 1.6.27
+- ⬆️ Node.js 20.13.1, 18.20.2
+
 ## 6.0.11
 
 - ⬆️ Vanilla Drupal 10.2.4, 7.100

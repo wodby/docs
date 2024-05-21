@@ -16,7 +16,6 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 ### Vanilla WordPress
 
 1. Clone [docker4wordpress repository](https://github.com/wodby/docker4wordpress) and switch to the [latest stable tag](https://github.com/wodby/docker4wordpress/releases) or download/unpack the source code from the [latest release](https://github.com/wodby/docker4wordpress/releases)
-2. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
 3. [Configure domains](#domains)
 4. From project root directory run `docker compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
 5. That's it! Proceed with WordPress installation at http://wp.docker.localhost:8000. Default database user, password and database name are all `wordpress`, database host is `mariadb`
@@ -28,7 +27,6 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 2. Download and unpack `docker4wordpress.tar.gz` from the [latest stable release](https://github.com/wodby/docker4wordpress/releases) to your project root
 3. Delete `compose.override.yml` as it's used to deploy vanilla WordPress
 4. Ensure database credentials match in your `wp-config.php` and `.env` files
-5. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending))
 6. [Configure domains](#domains)
 7. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
 8. Optional: [import existing database](#database-import-and-export)

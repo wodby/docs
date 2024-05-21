@@ -14,7 +14,6 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 1. Download `docker4php.tar.gz` from the [latest stable release](https://github.com/wodby/docker4php/releases) and unpack to your PHP project root
 2. Make sure `NGINX_SERVER_ROOT` (or `APACHE_DOCUMENT_ROOT`) is set to your project public directory with `index.php` (by default `/var/www/html/public`)  
 3. Ensure database credentials match in your database config and `.env` files
-4. For PHP <8.2 switch mail sending to `ssmtp` (see [why](#mail-sending)) 
 5. [Configure domains](#domains) 
 6. Optional: [import existing database](#database-import-and-export) 
 7. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
