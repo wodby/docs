@@ -68,6 +68,10 @@ Use this approach when you'll need a unique configuration per core.
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
 
+### 2.6.3
+
+🐞 Bugfix: zookeeper data was not persistent
+
 ### 2.6.2
 
 - 🐞 Solr bugfix: default collection creation in init action failed in Solr cloud mode during https://github.com/wodby/solr/issues/20

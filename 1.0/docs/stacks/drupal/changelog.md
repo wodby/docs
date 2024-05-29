@@ -6,6 +6,10 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.13
+
+🐞 Bugfix: zookeeper data was not persistent 
+
 ## 6.0.12
 
 - ⬆️ Vanilla Drupal 10.2.6
