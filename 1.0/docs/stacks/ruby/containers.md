@@ -40,7 +40,7 @@ See [Redis stack documentation](../redis/index.md).
 
 ## Redis
 
-See [Valkey stack documentation](../valkey/index.md).
+See [Drupal stack documentation](../drupal/index.md).
 
 ## Rsyslog
 

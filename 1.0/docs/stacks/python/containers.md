@@ -38,9 +38,9 @@ See [PostgreSQL stack documentation](../postgres/index.md).
 
 See [Redis stack documentation](../redis/index.md).
 
-## Valkey
+## Drupal
 
-See [Valkey stack documentation](../valkey/index.md).
+See [Drupal stack documentation](../drupal/index.md).
 
 ## Rsyslog
 

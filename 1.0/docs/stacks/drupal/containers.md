@@ -158,15 +158,11 @@ $conf['path_inc'] = "sites/all/modules/contrib/redis/redis.path.inc";
 
 For more information see [Redis stack documentation](../redis/index.md).
 
-## Valkey
-
-You can use Valkey as a drop-in replacement to Redis.
-
 ### Wodby environment
 
 1. Download and install [redis module](https://www.drupal.org/project/redis)
-2. Make sure valkey service enabled in your stack
-3. Additionally, for Drupal 8: enable valkey integration under `[Instance] > Cache > Settings` page
+2. Make sure redis service enabled in your stack
+3. Additionally, for Drupal 8: enable redis integration under `[Instance] > Cache > Settings` page
 4. That's it, all required configuration already provided in [`wodby.settings.php` file](index.md#drupal-settings)
 
 ### Local environment
@@ -177,7 +173,7 @@ You can use Valkey as a drop-in replacement to Redis.
 For Drupal 8+:
 
 ```php
-$settings['redis.connection']['host'] = 'valkey';
+$settings['redis.connection']['host'] = 'redis';
 $settings['redis.connection']['port'] = '6379';
 //$settings['redis.connection']['password'] = '';
 $settings['redis.connection']['base'] = 0;
@@ -192,7 +188,7 @@ $settings['container_yamls'][] = "modules/contrib/redis/example.services.yml";
 For Drupal 7:
 
 ```php
-$conf['redis_client_host'] = 'valkey';
+$conf['redis_client_host'] = 'redis';
 $conf['redis_client_port'] = '6379';
 //$conf['redis_client_password'] = ';
 $conf['redis_client_base'] = 0;
@@ -205,7 +201,7 @@ $conf['lock_inc'] = "sites/all/modules/contrib/redis/redis.lock.inc";
 $conf['path_inc'] = "sites/all/modules/contrib/redis/redis.path.inc";
 ```
 
-For more information see [Valkey stack documentation](../valkey/index.md).
+For more information see [Redis stack documentation](../redis/index.md).
 
 ## Rsyslog
 
