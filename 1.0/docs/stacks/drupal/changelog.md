@@ -8,7 +8,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 6.0.15
 
-- ⬆️ Vanilla Drupal 10.3.0
+- ⬆️ Vanilla Drupal 10.3.1
 - ⬆️ PHP 8.3.8, 8.2.20, 8.1.29
 - Nginx:
     - ⭐️ Added 1.27
