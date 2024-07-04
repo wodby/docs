@@ -6,6 +6,20 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.15
+
+- ⬆️ Vanilla Drupal 10.3.0
+- ⬆️ PHP 8.3.8, 8.2.20, 8.1.29
+- Nginx:
+    - ⭐️ Added 1.27
+    - ⬆️ Updated to 1.26.1
+    - 🪦 1.25 has reached end of life
+    - ⬆️ Upload progress module updated to 0.9.3
+- ⬆️ OpenSMTPD 7
+- ⬆️ Apache HTTPd 2.4.61
+- ⬆️ Memcached 1.6.29
+- ⬆️ Redis 7.2.5
+
 ## 6.0.14
 
 🐞 Bugfix: broken sendmail path env var for PHP 8.1
