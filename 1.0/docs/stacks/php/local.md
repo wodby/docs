@@ -44,7 +44,7 @@ Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers li
 | `nginx/apache` | `http://php.docker.localhost:8000`           |
 | `pma`          | `http://pma.php.docker.localhost:8000`       |
 | `adminer`      | `http://adminer.php.docker.localhost:8000`   |
-| `mailhog`      | `http://mailhog.php.docker.localhost:8000`   |
+| `mailpit`      | `http://mailpit.php.docker.localhost:8000`   |
 | `solr`         | `http://solr.php.docker.localhost:8000`      |
 | `kibana`       | `http://kibana.php.docker.localhost:8000`    |
 | `node`         | `http://front.php.docker.localhost:8000`     |

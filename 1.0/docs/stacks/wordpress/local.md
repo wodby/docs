@@ -57,7 +57,7 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 | `nginx/apache` | `http://wp.docker.localhost:8000`           |
 | `pma`          | `http://pma.wp.docker.localhost:8000`       |
 | `adminer`      | `http://adminer.wp.docker.localhost:8000`   |
-| `mailhog`      | `http://mailhog.wp.docker.localhost:8000`   |
+| `mailpit`      | `http://mailpit.wp.docker.localhost:8000`   |
 | `varnish`      | `http://varnish.wp.docker.localhost:8000`   |
 | `portainer`    | `http://portainer.wp.docker.localhost:8000` |
 | `webgrind`     | `http://webgrind.wp.docker.localhost:8000`  |

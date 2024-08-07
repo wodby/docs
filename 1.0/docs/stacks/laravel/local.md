@@ -44,7 +44,7 @@ Add `127.0.0.1 laravel.docker.localhost` to your `/etc/hosts` file (some browser
 | `nginx/apache` | `http://laravel.docker.localhost:8000`           |
 | `pma`          | `http://pma.laravel.docker.localhost:8000`       |
 | `adminer`      | `http://adminer.laravel.docker.localhost:8000`   |
-| `mailhog`      | `http://mailhog.laravel.docker.localhost:8000`   |
+| `mailpit`      | `http://mailpit.laravel.docker.localhost:8000`   |
 | `solr`         | `http://solr.laravel.docker.localhost:8000`      |
 | `kibana`       | `http://kibana.laravel.docker.localhost:8000`    |
 | `node`         | `http://front.laravel.docker.localhost:8000`     |

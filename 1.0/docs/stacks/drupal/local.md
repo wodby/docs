@@ -71,7 +71,7 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 | `nginx/apache` | `http://drupal.docker.localhost:8000`           |
 | `pma`          | `http://pma.drupal.docker.localhost:8000`       |
 | `adminer`      | `http://adminer.drupal.docker.localhost:8000`   |
-| `mailhog`      | `http://mailhog.drupal.docker.localhost:8000`   |
+| `mailpit`      | `http://mailpit.drupal.docker.localhost:8000`   |
 | `solr`         | `http://solr.drupal.docker.localhost:8000`      |
 | `nodejs`       | `http://nodejs.drupal.docker.localhost:8000`    |
 | `node`         | `http://front.drupal.docker.localhost:8000`     |

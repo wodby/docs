@@ -71,7 +71,7 @@ Add `127.0.0.1 python.docker.localhost` to your `/etc/hosts` file (some browsers
 | ------------ | ------------------------------------------    |
 | `nginx`      | `http://python.docker.localhost:8000`           |
 | `adminer`    | `http://adminer.python.docker.localhost:8000`   |
-| `mailhog`    | `http://mailhog.python.docker.localhost:8000`   |
+| `mailpit`    | `http://mailpit.python.docker.localhost:8000`   |
 | `solr`       | `http://solr.python.docker.localhost:8000`      |
 | `kibana`     | `http://kibana.python.docker.localhost:8000`    |
 | `node`       | `http://front.python.docker.localhost:8000`     |

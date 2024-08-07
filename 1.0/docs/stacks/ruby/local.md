@@ -56,7 +56,7 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 | ------------ | ------------------------------------------    |
 | `nginx`      | `http://ruby.docker.localhost:8000`           |
 | `adminer`    | `http://adminer.ruby.docker.localhost:8000`   |
-| `mailhog`    | `http://mailhog.ruby.docker.localhost:8000`   |
+| `mailpit`    | `http://mailpit.ruby.docker.localhost:8000`   |
 | `solr`       | `http://solr.ruby.docker.localhost:8000`      |
 | `kibana`     | `http://kibana.ruby.docker.localhost:8000`    |
 | `node`       | `http://front.ruby.docker.localhost:8000`     |
