@@ -6,6 +6,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.16
+
+- ⬆️ Vanilla WordPress 6.6.1
+- ⬆️ WP CLI 2.11.0
+- PHP
+    - ⬆️ Updated to 8.3.10, 8.2.22
+    - 📜 Default `apc.shm_size` increased to `128M`
+    - 📜 Deprecated `assert.active` removed from PHP 8.3
+- ⬆️ Nginx 1.27.1, 1.26.2
+- ⬆️ MariaDB 10.11.9, 10.6.19, 10.5.26
+- ⬆️ Redis 7.4.0
+- ⬆️ Apache HTTPD 2.4.62
+- ⬆️ XHProf viewer 2.3.10
+
 ## 6.0.15
 
 - ⬆️ Vanilla WordPress 6.5.5

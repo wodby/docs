@@ -6,6 +6,22 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.16
+
+- ⭐️ Vanilla Drupal 11
+- ⬆️ Vanilla Drupal 10.3.2
+- PHP
+    - ⬆️ Updated to 8.3.10, 8.2.22
+    - 📜 Default `apc.shm_size` increased to `256M`
+    - 📜 Deprecated `assert.active` removed from PHP 8.3
+- Nginx:
+    - ⬆️ Updated to 1.27.1, 1.26.2
+    - 📜 Modsecurity config now applied for all Drupal versions
+- ⬆️ MariaDB 10.11.9, 10.6.19, 10.5.26
+- ⬆️ Redis 7.4.0
+- ⬆️ Apache HTTPD 2.4.62
+- ⬆️ XHProf viewer 2.3.10
+
 ## 6.0.15
 
 - ⬆️ Vanilla Drupal 10.3.1
