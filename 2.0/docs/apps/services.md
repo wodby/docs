@@ -8,10 +8,6 @@ When you create a new app, app services created with the default configuration o
 
 You can also change your stack configuration and then upgrade an app instance's stack with override settings, in this case configurations from stack services will be transferred to app services.
 
-### Replica
-
-App service replica (or **ASR**) is a number of replicas for a service.
-
 ## Configuration
 
 - Each app services can be enabled or disabled
@@ -54,6 +50,10 @@ Also, Wodby adds the following global variables to every container:
 Here you can configure resources for a service. You can specify CPU and memory requests and limits. CPU request and limits specified in _milicores_ where 1000 milicores equal to 1 CPU core. Memory requests and limits specified in _mebibytes_ where 1024 mebibytes equal to 1 GB.
 
 Please note that resources request affects the deployment of the app service. For example, if your kubernetes cluster does not have enough resources to deploy an app service's pod with a requested amount of CPU or memory, the pod will be in a pending state until the resources become available. If your cluster has horizontal autoscaling enabled, it will scale up number of nodes to meet the demand.
+
+### Replicas
+
+Serverless app services can be easily scaled with the number of replicas. Some stateful services support scalability with extra replicas. 
 
 ### Links
 
