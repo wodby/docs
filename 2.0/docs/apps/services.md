@@ -8,6 +8,10 @@ When you create a new app, app services created with the default configuration o
 
 You can also change your stack configuration and then upgrade an app instance's stack with override settings, in this case configurations from stack services will be transferred to app services.
 
+### Replica
+
+App service replica (or **ASR**) is a number of replicas for a service.
+
 ## Configuration
 
 - Each app services can be enabled or disabled
