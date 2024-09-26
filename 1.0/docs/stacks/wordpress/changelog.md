@@ -6,6 +6,17 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.17
+
+- ⬆️ Vanilla WordPress 6.6.2
+- ⬆️ PHP 8.3.11, 8.2.23
+- MariaDB:
+  - 🪦 10.4 has reached EOL
+  - 🏔️ Alpine Linux updated to 3.20
+- ⬆️ Webgrind, adminer and xhprof viewer rebased to PHP 8.1
+- ⬆️ Memcached 1.6.31
+- 🏔️ Alpine Linux security updates (3.20.3)
+
 ## 6.0.16
 
 - ⬆️ Vanilla WordPress 6.6.1
