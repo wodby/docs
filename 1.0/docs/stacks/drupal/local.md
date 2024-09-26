@@ -16,7 +16,7 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 ### Vanilla Drupal
 
 1. Clone [docker4drupal repository](https://github.com/wodby/docker4drupal) and switch to the [latest stable tag](https://github.com/wodby/docker4drupal/releases) or download/unpack the source code from the [latest release](https://github.com/wodby/docker4drupal/releases)
-2. Optional: for Drupal 8 or 7 comment out corresponding `DRUPAL_TAG` and `NGINX_VHOST_PRESET` in `.env` file
+2. Optional: for Drupal 10 or 7 comment out corresponding `DRUPAL_TAG` and `NGINX_VHOST_PRESET` in `.env` file
 4. [Configure domains](#domains)
 5. From project root directory run `docker compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
 6. That's it! Proceed with Drupal installation at http://drupal.docker.localhost:8000. Default database user, password and database name are all `drupal`, database host is `mariadb`
@@ -41,7 +41,7 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
     );
     ```     
 7. [Configure domains](#domains)
-8. Optional: for Drupal 8 or 7 update `NGINX_VHOST_PRESET` correspondingly in your `.env` file
+8. Optional: for Drupal 10 or 7 update `NGINX_VHOST_PRESET` correspondingly in your `.env` file
 9. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
 10. Optional: [import existing database](#database-import-and-export)
 11. Optional: macOS users please read [this](#docker-for-mac)
@@ -73,7 +73,6 @@ Add `127.0.0.1 drupal.docker.localhost` to your `/etc/hosts` file (some browsers
 | `adminer`      | `http://adminer.drupal.docker.localhost:8000`   |
 | `mailpit`      | `http://mailpit.drupal.docker.localhost:8000`   |
 | `solr`         | `http://solr.drupal.docker.localhost:8000`      |
-| `nodejs`       | `http://nodejs.drupal.docker.localhost:8000`    |
 | `node`         | `http://front.drupal.docker.localhost:8000`     |
 | `varnish`      | `http://varnish.drupal.docker.localhost:8000`   |
 | `portainer`    | `http://portainer.drupal.docker.localhost:8000` |
