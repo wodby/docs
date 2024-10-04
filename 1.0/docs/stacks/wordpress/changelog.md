@@ -6,6 +6,13 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.18
+
+- PHP:
+  - ⬆️ Updated to 8.3.12, 8.2.24, 8.1.30
+  - 🐞 Bugfix: gd extension used bundled in libgd instead of shared
+- ⬆️ Nginx 1.27.2
+
 ## 6.0.17
 
 - ⬆️ Vanilla WordPress 6.6.2

@@ -154,7 +154,6 @@ nav:
   - Elasticsearch: stacks/elasticsearch/index.md
   - AthenaPDF: stacks/athenapdf/index.md
   - Redis: stacks/redis/index.md
-  - Valkey: stacks/valkey/index.md
   - Varnish: stacks/varnish/index.md
   - Docker registry: stacks/docker-registry/index.md
   - Slackin: stacks/slackin/index.md
