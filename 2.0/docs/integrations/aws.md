@@ -190,3 +190,7 @@ Wodby provides native integration with Relational Database Service.
 ## S3
 
 Wodby provides native integration with Simple Storage Service. You can use S3 for storing your applications' backups.
+
+## SES
+
+Wodby provides native integration with Simple Email Service. You can connect SMTP services such as OpenSMTPD to use SES as a relay for outbound emails.
