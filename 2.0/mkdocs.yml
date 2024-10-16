@@ -130,8 +130,11 @@ nav:
   - DigitalOcean: integrations/digitalocean.md
   - OVH: integrations/ovh.md
   - Linode: integrations/linode.md
-  - CircleCI: integrations/circleci.md
   - GitHub: integrations/github.md
+  - GitLab: integrations/gitlab.md
+  - BitBucket: integrations/bitbucket.md
+  - CircleCI: integrations/circleci.md
+  - Brevo: integrations/brevo.md
   - Docker: integrations/docker.md
   - NewRelic: integrations/newrelic.md
   - Datadog: integrations/datadog.md
