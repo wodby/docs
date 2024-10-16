@@ -2,13 +2,13 @@
 
 ## Auth
 
-Currently, the only method we support is the IAM user key pair with a region specified during the integration creation. We plan to add a support of OIDC authentication in the future.
+Currently, the only authentication method we support is the IAM user key pair with a region specified during the integration creation. 
 
 ### Required IAM policies
 
 IAM key for AWS integration requires the following policies:
 
-AmazonEC2FullAccess (AWS Managed Policy)
+#### 1. AmazonEC2FullAccess (AWS Managed Policy)
 
 ```json
 {
@@ -55,7 +55,7 @@ AmazonEC2FullAccess (AWS Managed Policy)
 }
 ```
 
-AWSCloudFormationFullAccess (AWS Managed Policy)
+#### 2. AWSCloudFormationFullAccess (AWS Managed Policy)
 
 ```json
 {
@@ -72,7 +72,7 @@ AWSCloudFormationFullAccess (AWS Managed Policy)
 }
 ```
 
-IAMFullAccess (AWS Managed Policy)
+#### 3. IAMFullAccess (AWS Managed Policy)
 
 ```json
 {
@@ -99,7 +99,7 @@ IAMFullAccess (AWS Managed Policy)
 }
 ```
 
-EKS full access:
+#### 4. EKS full access (custom policy)
 
 ```json
 {
@@ -114,7 +114,9 @@ EKS full access:
 }
 ```
 
-RDS full access:
+#### 5. RDS full access:
+
+If you plan to use Managed databases
 
 ```json
 {
@@ -135,11 +137,8 @@ Wodby provides a native integration with Elastic Kubernetes Service.
 
 - EKS cluster we create always deployed with multi-az high availability in a chosen region
 - We create a CloudFormation stack to create a cluster's control plane, addons and node groups.
-- The following EC2 instance types are forbidden for EKS cluster: `t3`,`t3a`,`g5g`,`mac`,`g3`,`g4`,`inf`,`p`
-- Burstable EC2 instance type are forbidden
-- EC2 instance types must have the minimum size of 2 CPUs and at least 4GB of RAM to avoid performance issues
 - Micro and nano instance types forbidden due to the very low pod limit
-- We create a single load balancer per cluster and deploy an Ingress Nginx controller to manage SSL certificates
+- We create a single load balancer (NLB) per cluster and deploy an Ingress Nginx controller to manage SSL certificates
 - Node disk size can be configured upon creation
 - We deploy a metrics server for the basic Wodby Kubernetes monitoring
 
