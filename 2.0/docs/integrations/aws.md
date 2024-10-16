@@ -8,7 +8,9 @@ Currently, the only authentication method we support is the IAM user key pair wi
 
 IAM key for AWS integration requires the following policies:
 
-#### 1. AmazonEC2FullAccess (AWS Managed Policy)
+#### AmazonEC2FullAccess
+
+AWS Managed Policy
 
 ```json
 {
@@ -55,7 +57,9 @@ IAM key for AWS integration requires the following policies:
 }
 ```
 
-#### 2. AWSCloudFormationFullAccess (AWS Managed Policy)
+#### AWSCloudFormationFullAccess
+
+AWS Managed Policy
 
 ```json
 {
@@ -72,7 +76,9 @@ IAM key for AWS integration requires the following policies:
 }
 ```
 
-#### 3. IAMFullAccess (AWS Managed Policy)
+#### IAMFullAccess
+
+AWS Managed Policy
 
 ```json
 {
@@ -99,7 +105,9 @@ IAM key for AWS integration requires the following policies:
 }
 ```
 
-#### 4. EKS full access (custom policy)
+#### EKS Full Access
+
+Custom policy, must be manually created
 
 ```json
 {
@@ -114,9 +122,9 @@ IAM key for AWS integration requires the following policies:
 }
 ```
 
-#### 5. RDS full access:
+#### RDS Full Access
 
-If you plan to use Managed databases
+If you plan to use Managed databases. Custom policy, must be manually created
 
 ```json
 {
@@ -128,6 +136,26 @@ If you plan to use Managed databases
       "Resource": "*"
     }
   ]
+}
+```
+
+#### AmazonS3FullAccess
+
+If you plan to use S3 (backups storage)
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:*",
+                "s3-object-lambda:*"
+            ],
+            "Resource": "*"
+        }
+    ]
 }
 ```
 
