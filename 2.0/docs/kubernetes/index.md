@@ -1,4 +1,4 @@
-# Clusters
+# Kubernetes
 
 ## Overview
 
@@ -16,11 +16,3 @@ When you delete a cluster from Wodby we will also delete it from your cloud prov
 
 !!! warning "Do not modify your cluster from cloud provider panel"
     Clusters created from Wodby should not be modified directly from a cloud provider panel. This will lead to unexpected errors.
-
-## Single Server Kubernetes
-
-Unlike Wodby 1.0, Wodby 2.0 does not yet support single server Kubernetes clusters, but we have plans to introduce it to.
-
-## Connecting Existing Kubernetes Cluster
-
-Connecting existing Kubernetes clusters to Wodby is not currently supported, but we have plans to introduce it to.
