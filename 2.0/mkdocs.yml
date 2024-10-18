@@ -115,6 +115,10 @@ nav:
   - Infrastructure: kubernetes/infrastructure.md
 - Databases:
   - Overview: databases/index.md
+  - DBs: databases/dbs.md
+  - Users: databases/users.md
+  - Backups: databases/backups.md
+  - Imports: databases/imports.md
 - Stacks:
   - Overview: stacks/index.md
   - Configuration: stacks/configuration.md
