@@ -102,6 +102,7 @@ nav:
   - Imports: apps/imports.md
   - Environment: apps/env.md
   - Log streaming: apps/logs.md
+  - Tokens: apps/tokens.md
   - Tasks: apps/tasks.md
   - Cron: apps/cron.md
 - CI/CD:
@@ -122,6 +123,18 @@ nav:
 - Services:
   - Overview: services/index.md
   - Template: services/template.md
+  - Derivatives: services/derivatives.md
+  - Links: services/links.md
+  - Integrations: services/integrations.md
+  - Helm: services/helm.md
+  - Actions: services/actions.md
+  - Certificates: services/certs.md
+  - Configs: services/configs.md
+  - Settings: services/settings.md
+  - Backups: services/backups.md
+  - Imports: services/imports.md
+  - Database services: services/database.md
+  - Volumes: services/volumes.md
 - Integrations:
   - Overview: integrations/index.md
   - Variable integration: integrations/variable.md
