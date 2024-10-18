@@ -1,8 +1,10 @@
 # Service template
 
+Services can be created only via templates. You can connect your git integration and import a custom service from a template.
+
 ## Example
 
-```
+```yml
 name: drupal11-php
 type: service
 from: php
@@ -135,13 +137,13 @@ actions:
 
 ## Reference
 
-## `name`
+### `name`
 
 Machine name of a service, must be unique, cannot be changed. Only alphanumeric and dash symbols allowed.
 
 Mandatory.
 
-## `type`
+### `type`
 
 Service type, can be one of the following:
 
@@ -157,45 +159,45 @@ Can be used in selectors.
 
 Mandatory.
 
-## `icon`
+### `icon`
 
 Icon name in Wodby dashboard.
 
-## `from`
+### `from`
 
 Inherit specified service.
 
-## `title`
+### `title`
 
 Human-readable title of a service, can be changed.
 
 Mandatory.
 
-## `hostname`
+### `hostname`
 
 Hostname that will be used as the name of a kubernetes service. Mandatory for non-external services.
 
-## `scalable`
+### `scalable`
 
 Whether this service support scalability. Should be always `true` for stateless services. For stateful services depends on the implementation. 
 
-## `labels`
+### `labels`
 
 List of text labels for a service, to be used in selectors.
 
-## `options`
+### `options`
 
 Option represent version and variants of service. Mandatory to specify at least on option.
 
-## `containers`
+### `containers`
 
 Definition of containers of a service. Not allowed for external services. Mandatory for non-external services.
 
-## `build`
+### `build`
 
 Configuration for buildable services.
 
-## `derivatives`
+### `derivatives`
 
 Configuration of derivative services. 
 
@@ -232,43 +234,43 @@ derivatives:
       value: 22
 ```
 
-## `links`
+### `links`
 
 Configuration of [service links](links.md).
 
-## `volumes`
+### `volumes`
 
 Configuration of [service volumes](volumes.md)
 
-## `integrations`
+### `integrations`
 
 Configuration of [service integrations](integrations.md)
 
-## `settings`
+### `settings`
 
 Configuration of [service settings](settings.md)
 
-## `backups`
+### `backups`
 
 Configuration of [service backups](backups.md)
 
-## `imports`
+### `imports`
 
 Configuration of [service imports](imports.md)
 
-## `tokens`
+### `tokens`
 
 Configuration of [service tokens](tokens.md)
 
-## `actions`
+### `actions`
 
 Configuration of [service actions](actions.md)
 
-## `helm`
+### `helm`
 
 Configuration of [service helm integration](helm.md). Mandatory for non-external services.
 
-## `certs`
+### `certs`
 
 Configuration of [service certificates](certs.md).
 
@@ -290,10 +292,9 @@ certs:
     ca: webhookTLS.caCert
 ```
 
-## `configs`
+### `configs`
 
 Configuration of [service configs](configs.md).
-
 
 ### `database`
 
