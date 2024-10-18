@@ -95,7 +95,7 @@ nav:
   - Instances: apps/instances.md
   - Stack: apps/stack.md
   - App services: apps/services.md
-  - Routes & Domains: apps/routes.md
+  - Endpoints: apps/endpoints.md
   - Builds: apps/builds.md
   - Deploys: apps/deploys.md
   - Backups: apps/backups.md
@@ -116,6 +116,7 @@ nav:
   - Overview: databases/index.md
 - Stacks:
   - Overview: stacks/index.md
+  - Configuration: stacks/configuration.md
   - Stack services: stacks/services.md
   - Template: stacks/template.md
 - Services:

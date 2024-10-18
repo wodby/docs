@@ -2,43 +2,14 @@
 
 ## Overview
 
-Service (stack service) is a basic unit of managed infrastructure. Services have versions and manifests. Services can be added only by importing from a git repository. Most services have a template (Wodby template) and kubernetes manifests, however some types of services (like `config`) may not have kubernetes manifests. 
+Service is a basic unit of managed infrastructure. Services are versioned entities and have revisions. For each new update a service revision will be issued.  
 
-## Type
+Services can be added only by importing a template from a git repository. 
 
-Every service has a type. Type defines the behavior of a service and how it managed. There are several types of services:
+When a service added to a [stack](../stacks/index.md) we call it a _stack service,_ and it can be additionally [customized](../stacks/index.md#configuration) for a specific stack.
 
-### `service`
+## Template
 
-Stateless service, e.g. Nginx. Can be scaled up and down. Usually, services of this type have a template and kubernetes manifests
-
-### `db`
-
-Database servers, stateful services. Usually, services of this type have a template and kubernetes manifests
-
-### `infrastructure`
-
-Used in infrastructure applications, currently, can be added only by Wodby.
-
-### `storage`
-
-Used for distributed storage services, e.g. NFS, Rook or Longhorn. Usually, services of this type have a template and kubernetes manifests
-
-### `datastore`
-
-Memory storages like Redis and Memcached, stateful services. Usually, services of this type have a template and kubernetes manifests
-
-### `search`
-
-Stateful services, search engines like Elasticsearch and Solr Cloud.
-
-### `ssh`
-
-SSH server, usually used as derivative services
-
-### `proxy`
-
-Reverse proxy servers like Varnish and HAProxy
 
 ## Inheritance
 
@@ -46,11 +17,28 @@ Services can inherit from other services. Inheritance is a way to extend a servi
 
 ## Derivatives
 
-Derivatives are services that created from other services. For example, ssh server service added as a derivative to PHP-FPM. 
+Derivatives are services that created from other services. For example, ssh server service added as a derivative to PHP-FPM.
 
 ## Options
 
-Options usually used to represent service versions, e.g. Nginx has two options: `1.23` and `1.22`. A service can have multiple options, specify one of them as default and add to some of them End of Life (EOL) date. 
+Options usually used to represent service versions, e.g. Nginx has two options: `1.23` and `1.22`. A service can have multiple options, specify one of them as default and add to some of them End of Life (EOL) date.
 
 ## Settings
 
+### Reference
+
+#### Type
+
+Every service has a type. Type defines the behavior of a service and how it managed. There are several types of services:
+
+- `service` stateless (e.g. Nginx) or a stateful (e.g. OpenSMTPD) service. Can be scalable
+- `db` database servers, stateful services
+- `infrastructure` used in infrastructure applications, currently, can be added only by Wodby.
+- `storage` used for distributed storage services, e.g. NFS or Rook
+- `datastore` memory storages like Redis and Memcached, stateful services
+- `search` stateful services, search engines like Elasticsearch and Solr Cloud.
+- `ssh` SSH server, usually used as derivative services
+
+#### Options
+
+#### Endpoints
