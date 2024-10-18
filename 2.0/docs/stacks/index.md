@@ -50,6 +50,64 @@ If a service provides integrations in its manifest, you can link a specific inte
 
 Additionally, to all non-external services you can add [Variable](../integrations/variable.md) integrations.
 
+#### Environment Variables
+
+You can add service-specific environment variables from _"[Stack] > Configure > Stack services > [Service] > Env vars"_ page. Such environment variables will be added to the corresponding app service's kubernetes resources during deployment in app instances that use this stack revision.
+
+An environment variable can be optionally marked as secret, when "Secret" selected the environment variable value will be stored in a kubernetes secret and won't be shown in Wodby dashboard.
+
+You can optionally limit a variable to a certain environment type, when set env var will be added only to app instances that use the selected environment type.
+
+#### Resources
+
+For non-external services you can set up resources requests and limits from _"[Stack] > Configure > Stack services > [Service] > Resources"_ page. Resources requests and limits correspond to [kubernetes resources request and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#how-pods-with-resource-limits-are-run). 
+
+##### Request
+
+You may set up request for CPU and memory. Requests help your cluster to schedule and distribute workloads across the nodes. When resources request specified your deployments may fail if there are not enough resources on the cluster. CPU requests are mandatory for scalability. 
+
+##### Limit
+
+You may set up limits for CPU and memory. Resources limits are useful to limit burstable workloads and their effect on other resources on the same cluster.  
+
+#### Options
+
+Options represent different versions or variant of a service. Some stacks may limit which options are supported (enabled) to match with compatibility requirements or to exclude end of life (EOL) versions. You can change the default option and enabled options for a service in your stack from _"[Stack] > Configure > Stack services > [Service] > Options"_ page.
+
+#### Links
+
+A service may provide a _link_, it's a way to represent integration of a service with another service. The simplest example would be Nginx's service link to upstream/backend (e.g. PHP-FPM). Some links are mandatory, some are optional. If a link is mandatory, a stack must specify which service from the stack should be used for a specific links. For example, in Drupal stack the PHP service requires _Database_ link, you can set it to use container-based _MariaDB_ or an external _Cloud MySQL_. 
+
+You may change links in your stack from _"[Stack] > Configure > Stack services > [Service] > Links"_ page.
+
+#### Volumes
+
+You can change the size of volumes provided by a service for your stack from _"[Stack] > Configure > Stack services > [Service] > Volumes"_ page.
+
+#### Settings
+
+You can override settings provided by a service for your stack from _"[Stack] > Configure > Stack services > [Service] > Setting"_ page. Settings that source value from links cannot be edited.
+
+#### Cron
+
+You can create cron schedules for a service in your stack from _"[Stack] > Configure > Stack services > [Service] > Cron"_ page. Cron schedule must have a name, command and schedule. Schedule supports full crontab format (e.g. `0 0 * * *` for every day on midnight) and `@hourly`, `@daily` formats. A container with a specified command will be run according to the schedule. 
+
+You can optionally limit a cron schedule to a certain environment type, when set the cron will run only on app instances that use the selected environment type.
+
+### Tokens
+
+You can add service-specific tokens for your stack from "[Stack] > Configure > Stack services > [Service] > Tokens" page. Such tokens will be added to a corresponding app service in app instances that use this stack revision.
+
+Tokens can either have a plain value or a regular expression that will be used to generate a random secret value when an app services created/updated. You can use tokens in environment variables' value.
+
+You can optionally limit a token to a certain environment type, when set tokens will be added only to app instances that use the selected environment type.
+
+### Annotations
+
+You can add service-specific annotations from "[Stack] > Configure > Stack services > [Service] > Annotations" page. Such annotations will be added to the corresponding app service's kubernetes resources during deployment in app instances that use this stack revision.
+
+You can optionally limit an annotation to a certain environment type, when set annotations will be added only to app instances that use the selected environment type.
+
 ## Updates
 
 When a service in a stack gets a new revision, your stack marked as outdated and can be updated. When you update a stack, the stack in your application will not be automatically updated, you can then upgrade your application stack for each instance individually. 
