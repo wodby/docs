@@ -14,13 +14,12 @@ Application in Wodby consists of multiple instances that represent different env
 
 ## Creating New Application
 
-There are 4 steps of creating a new application:
+There are 5 steps of creating a new application:
 
 ### Step 1
 
 - Select a [project](../projects.md) where you want to place your new application
 - Select a stack
-- Select a kubernetes cluster where you'd like to deploy the first instance of your application
 - Optionally, if the stack has buildable services:
   - choose your [CI system](../cicd/index.md) ([Wodby CI](../cicd/wodby-ci.md) by default)
   - choose your [container registry](../cicd/index.md) ([Wodby registry](../cicd/wodby-registry.md) by default) 
@@ -32,11 +31,18 @@ There are 4 steps of creating a new application:
 
 ### Step 2
 
+Select a kubernetes cluster where you'd like to deploy the first instance of your application. You can either:
+
+1. Choose one of your existing clusters created from Wodby dashboard using [integration](../integrations/index.md) with a managed Kubernetes cloud provider 
+2. Use one of the clusters provided by Wodby. For now, we only offer temporary demo clusters that will be destroyed automatically after 12 hours
+
+### Step 3
+
 - Enter the name of your application and your instance. Application and instance names are used to generate machine names. Machine names are permanent and cannot be changed
 - Select the [environment](env.md) (_Development_ by default)   
 - Optionally, edit the root domain. By default, it's `*.[instance-name].[app-name].[org-name].wodby.app`. Root domain used to generate [technical domains](index.md) for services that provide http ports
 
-### Step 3
+### Step 4
 
 #### Build sources
 
@@ -62,6 +68,6 @@ For _Database_ services you can optionally select an existing database server. B
 
 Specify imports. For services that provide import function (e.g. Database service), you can upload an archive or specify a public URL to import from
 
-### Step 4
+### Step 5
 
 Review your application configuration and click _Create new app_.
