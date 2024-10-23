@@ -1,3 +1,27 @@
 # Service actions
 
-Service can define an action that will execute an operation in an app. Such actions are accessible to run from Wodby Dashboard. Usually, it will be a kubernetes job that will run a copy of a main container with overridden `args` and/or `command` params.
+Service can define an action that will execute an operation in an app. When an action executed it will run a kubernetes job with the provided overridden args/commands and optionally privileged permissions. A task containing the logs of the execution will be created.
+
+Service with multiple actions will run all actions simultaneously unless there are action with dependency order specified.
+
+## Type
+
+Action's type defines how and when the action will be executed.
+
+### `button`
+
+Action's of this type will be shown as a button in Wodby dashboard. 
+
+### `post_deploy`
+
+Post-deployment action that will run after every service deployment. If deploy contains more than one service, the action will run only when all deployments succeeded. Can be limited to run only when a specific build source templates selected. 
+
+### `post_deploy_once`
+
+Same as `post_deploy` but run only during first deployment. Can be limited to run only when a specific build source templates selected.
+
+### `post_upgrade`
+
+Post-upgrade action
+
+

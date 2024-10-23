@@ -2,7 +2,12 @@
 
 Service can define data imports. There are two types of how imports performed:
 
-1. Simple files import from an archive
-2. A mount of an archive to a path known to a container, a container will perform the import on a start-up. Normally used for databases  
+## 1. Simple files import
 
-In #1 we run import directly in the running volume. In #2 we switch replace persistent volume to a new volume with new data only if the import via start-uip was successful.
+In this case we run import directly in the running volume by unpacking a provided tarball to a specified path. It's not transactional.
+
+## 2. Through init volume
+
+In this case we mount the import archive to the init volume provided by the service, a container will perform the import from the init volume during a start-up. Normally used for databases.
+
+This import is transactional. We spin up a copy of the app service with a new persistent volume, if the import successful we perform a service redeploy during which a new persistent volume with the imported files mounted.

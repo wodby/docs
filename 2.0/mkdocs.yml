@@ -127,8 +127,10 @@ nav:
 - Services:
   - Overview: services/index.md
   - Template: services/template.md
-  - Derivatives: services/derivatives.md
+  - Types: services/types.md
+  - Endpoints: services/endpoints.md
   - Links: services/links.md
+  - Derivatives: services/derivatives.md
   - Integrations: services/integrations.md
   - Helm: services/helm.md
   - Actions: services/actions.md
@@ -137,10 +139,15 @@ nav:
   - Settings: services/settings.md
   - Backups: services/backups.md
   - Imports: services/imports.md
-  - Database services: services/database.md
   - Volumes: services/volumes.md
+  - Cron: services/cron.md
+  - Annotations: services/annotations.md
+  - Buildable services: services/build.md
+  - Database services: services/database.md
 - Integrations:
   - Overview: integrations/index.md
+  - Providers: integrations/providers.md
+  - Types: integrations/types.md
   - Variable integration: integrations/variable.md
   - Google Cloud Platform: integrations/gcp.md
   - Amazon Web Service: integrations/aws.md

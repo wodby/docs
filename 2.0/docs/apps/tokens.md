@@ -4,11 +4,11 @@ Tokens are text values that can have a plain value or a regular expression that 
 
 In an app tokens compiled and overridden from different levels:
 
-- Service defined tokens
-- Stack service define tokens
-- Stack-wide tokens
-- App instance tokens
-- App service tokens
+1. Service defined tokens
+2. Stack service define tokens
+3. Stack-wide tokens
+4. App instance tokens
+5. App service tokens
 
 In addition to custom user-defined Wodby provides the following tokens available depending on the context:
 

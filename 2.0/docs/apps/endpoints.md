@@ -8,9 +8,9 @@ Endpoints represent accessible endpoints to your app services. Endpoints consist
 
 By default, Wodby will generate technical domains for services in your application that have enabled HTTP routes. The technical domains built in the following way – `<service-name>.<instance-name>.<app-name>.<org-name>.wodby.app`. We will also automatically issue Let's Encrypt certificates for technical domains. Additionally, the main service with http routes will have a technical domain without a service name – `<instance-name>.<app-name>.<org-name>.wodby.app`.
 
-### TLS Certificates
+### SSL Certificates
 
-Wodby provides a simple way to issue a TLS (SSL) certificate for a domain in your endpoint. Currently, we support only [Let's Encrypt](https://letsencrypt.org/) issuer. We will automatically renew Let's Encrypt certificates before they expire. You can also review all certificates that we issued from your organization settings page. 
+Wodby provides a simple way to issue a SSL (TLS) certificate for a domain in your endpoint. Currently, we support only [Let's Encrypt](https://letsencrypt.org/) issuer. We will automatically renew Let's Encrypt certificates before they expire. You can also review all certificates that we issued from your organization settings page. 
 
 Custom certificates not currently supported.
 
