@@ -5,6 +5,7 @@ Services that provide public ports can define endpoints. An endpoint is the coll
 An endpoint designed to represent a single kubernetes service. 
 
 There are three type of ports:
+
 1. `http` - such ports allow domains with TLS certificates to be attached
 2. `udp` - such ports can be publicly exposed
 3. `tcp` - such ports can be publicly exposed

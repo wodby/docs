@@ -22,7 +22,7 @@ If a service is buildable, app service will have configuration for build source.
 
 ### Integrations
 
-If a service provides certain integrations (e.g. backup storage for a database) you can attach [integrations](../integrations/index.md) of the appropriate [types](../integrations/index.md#types) to an app service.
+If a service provides certain integrations (e.g. backup storage for a database) you can attach [integrations](../integrations/index.md) of the appropriate [types](../integrations/types.md) to an app service.
 
 ### Environment variables
 
@@ -57,7 +57,7 @@ Serverless app services can be easily scaled with the number of replicas. Some s
 
 ### Links
 
-Here you can change [links](../services/index.md#links) between app services. Usually they are set up in a stack but can also be overridden per app instance.
+Here you can change [links](../services/links.md) between app services. Usually they are set up in a stack but can also be overridden per app instance.
 
 ### Volumes
 
@@ -65,12 +65,12 @@ Currently, volumes resize not supported and cannot be changed in an existing app
 
 ### Settings
 
-You can change values of [settings](../services/index.md#settings)
+You can change values of [settings](../services/settings.md)
 
 ### Configs
 
-You can view default [configs](../services/index.md#configs) and override them.
+You can view default [configs](../services/configs.md) and override them.
 
 ### Tokens
 
-You can add or remove [tokens](../services/index.md#tokens) that can be used in environment variables.
+You can add or remove [tokens](tokens.md) that can be used in environment variables.
