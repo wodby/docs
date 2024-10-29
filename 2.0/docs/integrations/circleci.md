@@ -1,5 +1,9 @@
 # CircleCI
 
+## New build
+
+The only way for us to run new builds on CircleCI from Wodby dashboard is to re-run the last workflow. However, if the last workflow build was more than 90 days, we won't be able to re-run the build.
+
 ## Build examples with Wodby CLI 2.0
 
 ### PHP-based
