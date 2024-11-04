@@ -26,8 +26,6 @@ We support the following regions:
 - brazil south
 - canada east
 - canada central
-- china east2
-- china north2
 - north europe
 - west europe
 - france central
@@ -61,10 +59,12 @@ Persistent storage is provided by Azure Managed Disk via the default storage cla
 
 Wodby provides a native integration with Azure Databases
 
-- We support MySQL (with flexible option), MariaDB and PostgreSQL (flexible option)
+- We support MySQL and PostgreSQL flexible versions
+- MariaDB and Single-server MySQL/PostgreSQL not support since they're announced to be on retirement path by Azure
 - Databases can be resided with a EKS cluster created under the same integration
 - Storage size can be configured upon creation and storage autoscaling can be enabled
 - You can manage your DBs and users form Wodby dashboard
+- Reside Azure database with AKS cluster is not yet supported
 
 ## Blob storage
 
