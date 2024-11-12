@@ -49,6 +49,10 @@ We recommend using [Composer](https://getcomposer.org/) to manage dependencies i
 
 ## Drush
 
+### Drush for Drupal 7
+
+In case your Drupal 7 project is not composer-based you can install drush globally via composer on container's startup by adding the environment variable `DRUPAL7_INSTALL_GLOBAL_DRUSH=1`
+
 ### Drush 8 and older
 
 You can execute drush commands remotely via drush aliases. Download drush aliases (Drush 8 and older versions) from `Profile > Misc > Drush aliases` page and place them to `~/.drush`. Execute commands (replace `[tokens]` with the real values) like this:

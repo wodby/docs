@@ -6,6 +6,29 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.19
+
+- ⬆️ Vanilla Drupal updated to 11.0.7, 10.3.8
+- 🪦 Drupal console launcher dropped
+- ⭐️For Drupal 7 you can now set env var `DRUPAL7_INSTALL_GLOBAL_DRUSH` to install drush globally on container's start up (for non-composer based projects)
+- PHP:
+  - ⬆️ Updated to 8.3.13, 8.2.25
+  - 📜 Added `$PHP_ZEND_` env vars for `zend.*` runtime configuration https://github.com/wodby/php/issues/205
+  - ⬆️ PECL extensions updates:
+    - apcu 5.1.24
+    - amqp 2.1.2
+    - ast 1.1.2
+    - igbinary 3.2.16
+    - mongodb 1.20.0
+    - opentelemetry 1.1.0
+    - redis 6.1.0
+    - yaml 2.2.4
+    - uuid 1.2.1
+    - xhprof 2.3.10
+    - event 3.1.4
+- ⬆️ MariaDB 11.4.4, 10.11.10, 10.6.20, 10.5.27
+- ⬆️ Memcached 1.6.32
+
 ## 6.0.18
 
 - PHP:
