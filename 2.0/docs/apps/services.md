@@ -53,7 +53,7 @@ Please note that resources request affects the deployment of the app service. Fo
 
 ### Replicas
 
-Serverless app services can be easily scaled with the number of replicas. Some stateful services support scalability with extra replicas. 
+App service replicas is the number of an app service's container instances. Serverless app services can be easily scaled with the number of replicas for high availability and redundancy. Also, can be increased automatically if autoscaling enabled. Some stateful services support scalability with extra replicas, e.g. database server's read replicas. 
 
 ### Links
 
