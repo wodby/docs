@@ -6,6 +6,27 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.20
+
+- ⬆️ Vanilla Drupal updated to 11.0.9, 10.3.10, 7.103
+- PHP:
+  - ⭐️ Added PHP 8.4 (no newrelic support)
+  - ⬆️ Updated to 8.3.14, 8.2.26, 8.1.31
+  - 📜 Global drush version for Drupal 7 installed via `DRUPAL7_INSTALL_GLOBAL_DRUSH` updated to 8.x 
+  - 📜 Added env var to configure `session.cookie_samesite` https://github.com/wodby/php/issues/208
+  - ⬆️ PECL extensions updates:
+    - grpc 1.68.0
+    - sqlsrv 5.12.0
+    - rdkafka 6.0.5
+    - brotli 0.15.2
+    - spx 0.4.17
+    - oauth 2.0.9
+    - imap 1.0.2 (for PHP 8.4+ installed from PECL since it was removed from core)
+    - pcov 1.0.12
+    - xdebug 3.4.0
+- ⬆️ Nginx 1.27.3
+- ⬆️ Memcached 1.6.33
+
 ## 6.0.19
 
 - ⬆️ Vanilla Drupal updated to 11.0.7, 10.3.8
