@@ -8,12 +8,13 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 6.0.20
 
-- ⬆️ Vanilla Drupal updated to 11.0.9, 10.3.10, 7.103
+- ⬆️ Vanilla Drupal updated to 11.1.0, 10.4.0, 7.103
 - PHP:
   - ⭐️ Added PHP 8.4 (no newrelic support)
   - ⬆️ Updated to 8.3.14, 8.2.26, 8.1.31
   - 📜 Global drush version for Drupal 7 installed via `DRUPAL7_INSTALL_GLOBAL_DRUSH` updated to 8.x 
   - 📜 Added env var to configure `session.cookie_samesite` https://github.com/wodby/php/issues/208
+  - 📜 MariaDB client now explicitly sets `disable-ssl-verify-server-cert` by default, can be changed with `$MARIADB_CLIENT_SSL_VERIFY_SERVER_CERT` 
   - ⬆️ PECL extensions updates:
     - grpc 1.68.0
     - sqlsrv 5.12.0

@@ -13,6 +13,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
   - ⭐️ Added PHP 8.4 (no newrelic support)
   - ⬆️ Updated to 8.3.14, 8.2.26, 8.1.31
   - 📜 Added env var to configure `session.cookie_samesite` https://github.com/wodby/php/issues/208
+  - 📜 MariaDB client now explicitly sets `disable-ssl-verify-server-cert` by default, can be changed with `$MARIADB_CLIENT_SSL_VERIFY_SERVER_CERT`
   - ⬆️ PECL extensions updates:
     - grpc 1.68.0
     - sqlsrv 5.12.0
