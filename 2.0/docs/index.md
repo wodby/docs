@@ -1,8 +1,8 @@
 # Getting started
 
-!!! warning "Alpha Version"
+!!! warning "Beta Version"
     
-    Wodby 2.0 is currently in Alpha, do not use it for production.<br>
+    Wodby 2.0 is currently in Beta, do not use it for production.<br>
     This documentation is not complete and actively updated. 
 
 Wodby was designed to help developers deploy and manage scalable web application in the most simple fashion. To deploy your first [application](apps/index.md) you would need a [kubernetes cluster](kubernetes/index.md), Wodby does not currently provide Kubernetes cluster out of the box with an exception to the [Demo cluster](kubernetes/demo.md) for testing purposes, so it is required for you to connect an account from your preferred cloud provider that provides managed Kubernetes service, such as:
