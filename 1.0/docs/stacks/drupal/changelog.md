@@ -8,6 +8,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 6.0.20
 
+- 🚨 This update includes updated mariadb client (11.4) in the PHP image that has enabled server's SSL cert by default, and although we explicitly disable it, drush doesn't pick up this setting that results in the error `TLS/SSL error: SSL is required, but the server does not support it` this can be fixed by passing the extra flag `--extra=--skip-ssl` to drush, see https://github.com/wodby/drupal-php/issues/104 for more details 
 - ⬆️ Vanilla Drupal updated to 11.1.0, 10.4.0, 7.103
 - PHP:
   - ⭐️ Added PHP 8.4 (no newrelic support)
