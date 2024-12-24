@@ -6,6 +6,12 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.0.21
+
+- PHP:
+  - ⬆️ Updated to 8.4.2, 8.3.15, 8.2.27
+  - 🐞 Bugfix: `$PATH` not preserved in crond environment
+
 ## 6.0.20
 
 - 🚨 This update includes updated mariadb client (11.4) in the PHP image that has enabled server's SSL cert by default, and although we explicitly disable it, drush doesn't pick up this setting that results in the error `TLS/SSL error: SSL is required, but the server does not support it` this can be fixed by passing the extra flag `--extra=--skip-ssl` to drush, see https://github.com/wodby/drupal-php/issues/104 for more details 

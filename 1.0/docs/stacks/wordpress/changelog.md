@@ -6,6 +6,12 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
     - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
 
+## 6.0.21
+
+- PHP:
+  - ⬆️ Updated to 8.4.2, 8.3.15, 8.2.27
+  - 🐞 Bugfix: `$PATH` not preserved in crond environment
+
 ## 6.0.20
 
 - ⬆️ Vanilla WordPress 6.7.1
