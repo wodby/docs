@@ -3,35 +3,39 @@
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
 
 !!! caution "MariaDB updates"
-    - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
-    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases
+- We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates
+- During MariaDB upgrade we run `mysql-check` and
+`mysql-upgrade`. This operation may take a few minutes for big databases
 
 ## 6.0.21
 
 - PHP:
-  - ⬆️ Updated to 8.4.2, 8.3.15, 8.2.27
-  - 🐞 Bugfix: `$PATH` not preserved in crond environment
+    - ⬆️ Updated to 8.4.2, 8.3.15, 8.2.27
+    - 🐞 Bugfix: `$PATH` not preserved in crond environment
 
 ## 6.0.20
 
-- 🚨 This update includes updated mariadb client (11.4) in the PHP image that has enabled server's SSL cert by default, and although we explicitly disable it, drush doesn't pick up this setting that results in the error `TLS/SSL error: SSL is required, but the server does not support it` this can be fixed by passing the extra flag `--extra=--skip-ssl` to drush, see https://github.com/wodby/drupal-php/issues/104 for more details 
+- 🚨 This update includes updated mariadb client (11.4) in the PHP image that has enabled server's SSL cert by default, and although we explicitly disable it, drush doesn't pick up this setting that results in the error
+  `TLS/SSL error: SSL is required, but the server does not support it` this can be fixed by passing the extra flag
+  `--extra=--skip-ssl` to drush, see https://github.com/wodby/drupal-php/issues/104 for more details
 - ⬆️ Vanilla Drupal updated to 11.1.0, 10.4.0, 7.103
 - PHP:
-  - ⭐️ Added PHP 8.4 (no newrelic support)
-  - ⬆️ Updated to 8.3.14, 8.2.26, 8.1.31
-  - 📜 Global drush version for Drupal 7 installed via `DRUPAL7_INSTALL_GLOBAL_DRUSH` updated to 8.x 
-  - 📜 Added env var to configure `session.cookie_samesite` https://github.com/wodby/php/issues/208
-  - 📜 MariaDB client now explicitly sets `disable-ssl-verify-server-cert` by default, can be changed with `$MARIADB_CLIENT_SSL_VERIFY_SERVER_CERT` 
-  - ⬆️ PECL extensions updates:
-    - grpc 1.68.0
-    - sqlsrv 5.12.0
-    - rdkafka 6.0.5
-    - brotli 0.15.2
-    - spx 0.4.17
-    - oauth 2.0.9
-    - imap 1.0.2 (for PHP 8.4+ installed from PECL since it was removed from core)
-    - pcov 1.0.12
-    - xdebug 3.4.0
+    - ⭐️ Added PHP 8.4 (no newrelic support)
+    - ⬆️ Updated to 8.3.14, 8.2.26, 8.1.31
+    - 📜 Global drush version for Drupal 7 installed via `DRUPAL7_INSTALL_GLOBAL_DRUSH` updated to 8.x
+    - 📜 Added env var to configure `session.cookie_samesite` https://github.com/wodby/php/issues/208
+    - 📜 MariaDB client now explicitly sets `disable-ssl-verify-server-cert` by default, can be changed with
+      `$MARIADB_CLIENT_SSL_VERIFY_SERVER_CERT`
+    - ⬆️ PECL extensions updates:
+        - grpc 1.68.0
+        - sqlsrv 5.12.0
+        - rdkafka 6.0.5
+        - brotli 0.15.2
+        - spx 0.4.17
+        - oauth 2.0.9
+        - imap 1.0.2 (for PHP 8.4+ installed from PECL since it was removed from core)
+        - pcov 1.0.12
+        - xdebug 3.4.0
 - ⬆️ Nginx 1.27.3
 - ⬆️ Memcached 1.6.33
 
@@ -39,30 +43,31 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 - ⬆️ Vanilla Drupal updated to 11.0.7, 10.3.8
 - 🪦 Drupal console launcher dropped
-- ⭐️For Drupal 7 you can now set env var `DRUPAL7_INSTALL_GLOBAL_DRUSH` to install drush globally on container's start up (for non-composer based projects)
+- ⭐️For Drupal 7 you can now set env var
+  `DRUPAL7_INSTALL_GLOBAL_DRUSH` to install drush globally on container's start up (for non-composer based projects)
 - PHP:
-  - ⬆️ Updated to 8.3.13, 8.2.25
-  - 📜 Added `$PHP_ZEND_` env vars for `zend.*` runtime configuration https://github.com/wodby/php/issues/205
-  - ⬆️ PECL extensions updates:
-    - apcu 5.1.24
-    - amqp 2.1.2
-    - ast 1.1.2
-    - igbinary 3.2.16
-    - mongodb 1.20.0
-    - opentelemetry 1.1.0
-    - redis 6.1.0
-    - yaml 2.2.4
-    - uuid 1.2.1
-    - xhprof 2.3.10
-    - event 3.1.4
+    - ⬆️ Updated to 8.3.13, 8.2.25
+    - 📜 Added `$PHP_ZEND_` env vars for `zend.*` runtime configuration https://github.com/wodby/php/issues/205
+    - ⬆️ PECL extensions updates:
+        - apcu 5.1.24
+        - amqp 2.1.2
+        - ast 1.1.2
+        - igbinary 3.2.16
+        - mongodb 1.20.0
+        - opentelemetry 1.1.0
+        - redis 6.1.0
+        - yaml 2.2.4
+        - uuid 1.2.1
+        - xhprof 2.3.10
+        - event 3.1.4
 - ⬆️ MariaDB 11.4.4, 10.11.10, 10.6.20, 10.5.27
 - ⬆️ Memcached 1.6.32
 
 ## 6.0.18
 
 - PHP:
-  - ⬆️ Updated to 8.3.12, 8.2.24, 8.1.30
-  - 🐞 Bugfix: gd extension used bundled in libgd instead of shared
+    - ⬆️ Updated to 8.3.12, 8.2.24, 8.1.30
+    - 🐞 Bugfix: gd extension used bundled in libgd instead of shared
 - ⬆️ Nginx 1.27.2
 
 ## 6.0.17
@@ -112,7 +117,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 6.0.13
 
-🐞 Bugfix: zookeeper data was not persistent 
+🐞 Bugfix: zookeeper data was not persistent
 
 ## 6.0.12
 
@@ -207,7 +212,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 - ⬆️ Vanilla Drupal 10.1.4, 9.5.11
 - PHP:
-    - 📧 PHP 8.2+ now uses `sendmail` again instead of `ssmtp` for email sending (with `PHP_MAIL_MIXED_LF_AND_CRLF=On` https://github.com/php/php-src/issues/8086)
+    - 📧 PHP 8.2+ now uses `sendmail` again instead of `ssmtp` for email sending (with
+      `PHP_MAIL_MIXED_LF_AND_CRLF=On` https://github.com/php/php-src/issues/8086)
     - ⬆️ Updated to 8.2.11, 8.1.24
     - ⬆️ Extensions sqlsrv, pdo_sqlsrv updated to 5.11.1
     - 📜 Default xdebug log level set to `3` (warnings) https://github.com/wodby/php/pull/184
@@ -292,7 +298,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 - PHP:
     - ⬆️ Updated 8.2.3, 8.1.16, 8.0.28
-    - 📜 Introduced `$PHP_MAIL_MIXED_LF_AND_CRLF` to return line separator non LF for mail sending https://github.com/php/php-src/issues/8086
+    - 📜 Introduced
+      `$PHP_MAIL_MIXED_LF_AND_CRLF` to return line separator non LF for mail sending https://github.com/php/php-src/issues/8086
 - 🏔 Alpine updated to 3.17.2
 
 ## 6.0.0
@@ -322,13 +329,13 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - 🐞 Bugfix: opcache preload configuration didn't apply
     - 🐞 Bugfix: locale-related methods not working in PHP 8.2, 8.1 https://github.com/wodby/php/issues/177
     - 🐞 Bugfix: deprecated syntax in `wodby.settings.php` https://github.com/wodby/drupal-php/issues/95
-    - ⭐️Added support for athenapdf module in `wodby.settings.php`  
+    - ⭐️Added support for athenapdf module in `wodby.settings.php`
 - ⬆️ Memcached 1.6.18
 - 🏔 Alpine updated to 3.17.1 and 3.16.3
 
 ## 5.7.0
 
-- 🚨️️ Zookeeper's snapshots are now persistent. If you're using Solr Cloud this means that with this upgrade zookeeper will reboot and lose all its data (collections will be lost). After this stack upgrade you should add any env var to Solr service to force its reboot to reinitialize connection to zookeeper. After this stack upgrade, zookeeper will no longer lose data after container/server reboots 
+- 🚨️️ Zookeeper's snapshots are now persistent. If you're using Solr Cloud this means that with this upgrade zookeeper will reboot and lose all its data (collections will be lost). After this stack upgrade you should add any env var to Solr service to force its reboot to reinitialize connection to zookeeper. After this stack upgrade, zookeeper will no longer lose data after container/server reboots
 - Vanilla Drupal:
     - ⭐️ Added Vanilla Drupal 10
     - ⬆️ Updated to 9.5.0, 7.94
@@ -340,7 +347,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - 🪦 Drush patchfile extension no longer installed
 - Nginx:
     - ⬆️ Updated to 1.23.3
-    - 🐞 Bugfix: `web.config` endpoint was accessible 
+    - 🐞 Bugfix: `web.config` endpoint was accessible
 - ⬆️ Redis 7.0.7, 6.2.8
 - ⬆️ XHProf 2.3.9
 
@@ -384,8 +391,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - ⬆️ Vanilla Drupal 9.4.6, 7.92
 - ⬆️ XHProf 2.3.7
 - ⬆️ MariaDB 10.7.6, 10.6.10
-- 🐞️ Bugfix: invalid db variables set in Drupal 8's `wodby.settings.php` 
-- 🐞️ Bugfix: email sending with opensmtpd does not work in EOL PHP images 
+- 🐞️ Bugfix: invalid db variables set in Drupal 8's `wodby.settings.php`
+- 🐞️ Bugfix: email sending with opensmtpd does not work in EOL PHP images
 
 ## 5.6.6
 
@@ -429,13 +436,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 ## 5.6.2
 
 - ⬆️ Vanilla Drupal 9.3.16, 7.90
-- 🔒 Solr Cloud password now will be [set automatically](../solr-drupal/index.md#solr-cloud-with-zookeeper-recommended) for the Search API server named `solr` (via `wodby.settings.php`)
+- 🔒 Solr Cloud password now will be [set automatically](../solr-drupal/index.md#solr-cloud-with-zookeeper-recommended) for the Search API server named
+  `solr` (via `wodby.settings.php`)
 - PHP:
     - ⬆️ Updated to 8.1.7, 8.0.20, 7.4.30
     - ⭐️ Added [smbclient](https://pecl.php.net/package/smbclient) extension
     - ⬆️ Updated sqlsrv extension to 5.10.1
 - Nginx:
-    - 📜 Introduced `$NGINX_DRUPAL_FILES_STATIC_EXT_REGEX` to override files extensions (`txt` by default) allowed in files directory
+    - 📜 Introduced `$NGINX_DRUPAL_FILES_STATIC_EXT_REGEX` to override files extensions (
+      `txt` by default) allowed in files directory
     - 📜 Added `.yaml` to the default value of `$NGINX_DRUPAL_NOT_FOUND_REGEX` (additionally added `.yml` for Drupal7)
 - MariaDB:
     - ⭐️ Added MariaDB 10.8
@@ -489,8 +498,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - ⭐️ PHP 8.0, 8.1 added to Drupal 8 stack (so you wouldn't need to migrate your Drupal 9 app from D8)
 - ⬆️ Vanilla Drupal 9.3.8, 7.89
 - PHP
-      - ⬆️ Updated to 8.1.4, 8.0.17
-      - ⭐️ NewRelic extension added to PHP 8.1
+  - ⬆️ Updated to 8.1.4, 8.0.17
+  - ⭐️ NewRelic extension added to PHP 8.1
 - ⬆️ Apache HTTPd 2.4.53
 - 🏔 Patch updates for base OS Alpine Linux
 - 🐞 Bugfix: import action failed for archives with unicode filenames
@@ -512,7 +521,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
         - redis 5.3.7
         - xdebug 3.1.3
 - Nginx:
-    - 📜 Not found regex default value now includes `*.txt`, `package.json`, `package-lock.json`, `yarn.lock` https://github.com/wodby/nginx/pull/72
+    - 📜 Not found regex default value now includes `*.txt`, `package.json`, `package-lock.json`,
+      `yarn.lock` https://github.com/wodby/nginx/pull/72
     - 📜 Default header `Content-Security-Policy` now set to `frame-ancestors 'self'` by default
     - 🐞 Bugfix: duplicated headers
 - MariaDB:
@@ -538,7 +548,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - 🪦 PHP 7.3 dropped (reached end of life)
 - Nginx:
     - ⬆️ Updated to 1.21.6
-    - 📜 Regex used to define Drupal paths that return 404 has been actualized and now can be overriden `$NGINX_DRUPAL_NOT_FOUND_REGEX` https://github.com/wodby/nginx/pull/71
+    - 📜 Regex used to define Drupal paths that return 404 has been actualized and now can be overriden
+      `$NGINX_DRUPAL_NOT_FOUND_REGEX` https://github.com/wodby/nginx/pull/71
 - ⬆️ Memcached 1.6.13
 - ⬆️ Varnish 6.0.10
 - 🐞 Adminer bugfix: prefill server and database from env vars not working anymore https://github.com/wodby/adminer/issues/5
@@ -548,7 +559,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - ⭐️ Added PHP 8.1, vanilla Drupal 9 now uses PHP 8.1 by default
 - ⬆️ Drush launcher updated to 0.9.3
 - ⬆️ Nginx:
-    - 📜 Default header `Content-Security-Policy` can now be changed with `$NGINX_HEADERS_CONTENT_SECURITY_POLICY ` https://github.com/wodby/nginx/pull/69
+    - 📜 Default header `Content-Security-Policy` can now be changed with
+      `$NGINX_HEADERS_CONTENT_SECURITY_POLICY ` https://github.com/wodby/nginx/pull/69
     - 📜 `webp` added to the default list of static file extensions
 - ⬆️ Apache 2.4.52
 
@@ -569,8 +581,10 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - ⬆️ uuid extension updated to 1.2.0
     - 🥶 Rebased to [wodby/base-php](https://github.com/wodby/base-php) with frozen Alpine 3.13
 - Nginx:
-    - ⭐️ VTS module added, see `$NGINX_METRICS_` and `$NGINX_STATUS_` env vars for usage https://github.com/wodby/nginx/pull/61
-    - 📜 `$NGINX_SET_REAL_IPS_FROM` was added to support multiple IP address for `set_real_ip_from` https://github.com/wodby/nginx/pull/62
+    - ⭐️ VTS module added, see `$NGINX_METRICS_` and
+      `$NGINX_STATUS_` env vars for usage https://github.com/wodby/nginx/pull/61
+    - 📜 `$NGINX_SET_REAL_IPS_FROM` was added to support multiple IP address for
+      `set_real_ip_from` https://github.com/wodby/nginx/pull/62
     - 🥶 brotli and vts modules versions are now frozen https://github.com/wodby/nginx/pull/63
 - Solr:
     - 🚨 Fix for [CVE-2021-44228 ](https://github.com/advisories/GHSA-jfh8-c2jp-5v3q)
@@ -582,7 +596,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - ⬆️ Updated to 2.4.51
     - 🥶 Rebased to [wodby/httpd](https://github.com/wodby/httpd) with frozen Alpine 3.13
 - Redis:
-    - ⬆️ Updated to 6.2.6, 5.0.14 
+    - ⬆️ Updated to 6.2.6, 5.0.14
     - 🥶 Rebased to [wodby/base-redis](https://github.com/wodby/base-redis) with frozen Alpine 3.13
 - Memcached:
     - ⬆️ Updated to 1.6.12
@@ -625,7 +639,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - 🚨&nbsp; GRPC extension temporarily disabled https://github.com/wodby/php/issues/155
     - ⬆️&nbsp; Updated to 8.0.11, 7.4.24, 7.3.31
     - `$PHP_XDEBUG_CLIENT_PORT` set to `9000` by default
-- ➕&nbsp; Added Nginx 1.21    
+- ➕&nbsp; Added Nginx 1.21
 - ⬆️&nbsp; Solr 8.10.0
 - ⬆️&nbsp; Webgrind 1.9.0
 - ⬆️&nbsp; XHProf 2.3.5
@@ -657,7 +671,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - ⬆️&nbsp; Varnish 6.0.8
 - ⬆️&nbsp; Solr rebuilt for new config sets
 - ⬆️&nbsp; XHProf viewer 2.3.3
-- 🚨&nbsp; Due to https://github.com/alpinelinux/docker-alpine/issues/182 some images (redis, memcached) are now frozen (wodby actions can be performed on Alpine Linux 3.13 only starting docker 20.10.0+). Starting this release versions in Wodby stacks may slightly differ from ones in docker4x releases. 
+- 🚨&nbsp; Due to https://github.com/alpinelinux/docker-alpine/issues/182 some images (redis, memcached) are now frozen (wodby actions can be performed on Alpine Linux 3.13 only starting docker 20.10.0+). Starting this release versions in Wodby stacks may slightly differ from ones in docker4x releases.
 
 ## 5.4.33
 
@@ -665,7 +679,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - ⬆️&nbsp; Updated to 9.1.10, 7.81
     - 🐞 Installing modules reinstalls drupal core package https://github.com/cweagans/composer-patches/issues/363
 - PHP:
-    -  ⬆️&nbsp; Updated to 8.0.7, 7.4.20
+    - ⬆️&nbsp; Updated to 8.0.7, 7.4.20
     - 📜&nbsp; PHP now loads default `php.ini` based on `php.ini-production` https://github.com/wodby/php/issues/145
 
 ## 5.4.32
@@ -688,8 +702,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 ## 5.4.30
 
 - PHP:
-    -❗️Security updates: 8.0.5, 7.4.18, 7.3.28
-    -❗️Composer security update 2.0.13
+  -❗️Security updates: 8.0.5, 7.4.18, 7.3.28
+  -❗️Composer security update 2.0.13
 - ⬆️&nbsp; Elasticsearch, Kibana 7.12.1
 - ⬆️&nbsp; XHProf viewer 2.3.1
 
@@ -806,9 +820,12 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - PHP:
     - ⬆️&nbsp; Updated to 7.4.12, 7.3.24
     - ⭐️&nbsp; Composer 2.0. Also, now you have permissions reinstall or update composer
-    - 🚨🚨🚨&nbsp; Redis extension major update from 4.3.0 to 5.3.2. If you're on Drupal 8+ make sure your redis module version is 1.2 or newer. For Drupal 7 please apply the following [patch](https://www.drupal.org/project/redis/issues/3074189#comment-13368773),  alternatively, you can switch your redis library from `PhpRedis` to `Predis`, see https://www.drupal.org/project/redis for more details. A quick temporary solution for Drupal 7 would be to disable Redis service in your application stack  
+    - 🚨🚨🚨&nbsp; Redis extension major update from 4.3.0 to 5.3.2. If you're on Drupal 8+ make sure your redis module version is 1.2 or newer. For Drupal 7 please apply the following [patch](https://www.drupal.org/project/redis/issues/3074189#comment-13368773), alternatively, you can switch your redis library from
+      `PhpRedis` to
+      `Predis`, see https://www.drupal.org/project/redis for more details. A quick temporary solution for Drupal 7 would be to disable Redis service in your application stack
     - 🐞&nbsp; Bugfix: pcov extension was enabled by default, now disabled, this caused recent issues with NewRelic monitoring
-    - 🐞&nbsp; Bugfix: missing `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
+    - 🐞&nbsp; Bugfix: missing
+      `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
     - ⬆️&nbsp; Xdebug 2.9.8
     - 🦴&nbsp; Added env vars for sqlsrv extension runtime configuration https://github.com/wodby/php/issues/124
     - 📦&nbsp; Added [mariadb-connector-c](https://pkgs.alpinelinux.org/contents?branch=v3.12&name=mariadb-connector-c&arch=x86_64&repo=main) package https://github.com/wodby/php/issues/122
@@ -833,7 +850,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 ## 5.4.21
 
 - Vanilla Drupal 9.0.5, 8.9.5
-- PHP: 
+- PHP:
     - Updates: 7.4.10, 7.3.22
     - MS SQL driver extension added https://github.com/wodby/php/pull/119
     - Base image changed from wodby/base-php to php
@@ -856,7 +873,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 5.4.19
 
-- PHP 
+- PHP
     - Security updates: 7.4.8, 7.3.20, 7.2.32
     - Updated extensions: amqp 1.10.2, event 2.5.6, memcached 3.1.5, xdebug 2.9.6, yaml 2.1.0
     - Added pcov extension https://github.com/wodby/php/issues/113
@@ -905,7 +922,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 5.4.16
 
-Added support for a changed sync directory setting in Drupal 8 https://www.drupal.org/docs/8/configuration-management/changing-the-storage-location-of-the-sync-directory#s-syntax-changes-in-drupal-880  
+Added support for a changed sync directory setting in Drupal 8 https://www.drupal.org/docs/8/configuration-management/changing-the-storage-location-of-the-sync-directory#s-syntax-changes-in-drupal-880
 
 ## 5.4.15
 
@@ -944,19 +961,19 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
 
 - Vanilla Drupal 8.8.0, 7.68
 - PHP:
-  - Added PHP 7.4 (with the [exception](https://github.com/wodby/drupal-php/issues/71) for vanilla Drupal 7)
-  - Updated extension: ast 1.0.5, xdebug 2.8.0, mcrypt 1.0.3, oauth 2.0.4
-  - Added Kerberos and SSL support for IMAP extension https://github.com/wodby/drupal-php/issues/70
+    - Added PHP 7.4 (with the [exception](https://github.com/wodby/drupal-php/issues/71) for vanilla Drupal 7)
+    - Updated extension: ast 1.0.5, xdebug 2.8.0, mcrypt 1.0.3, oauth 2.0.4
+    - Added Kerberos and SSL support for IMAP extension https://github.com/wodby/drupal-php/issues/70
 - MariaDB 10.4.11, 10.3.21, 10.2.30
 - Solr 8.3.1
 - Nginx:
-  - `/.well-known` URIs excluded from denied hidden files location instead of explicitly allowed
-  - Locations `wodby.yml` and `Makefile` are now forbidden
-- Apache hidden files, directories, `wodby.yml`, `Makefile` and certain extension are now forbidden 
+    - `/.well-known` URIs excluded from denied hidden files location instead of explicitly allowed
+    - Locations `wodby.yml` and `Makefile` are now forbidden
+- Apache hidden files, directories, `wodby.yml`, `Makefile` and certain extension are now forbidden
 - XHProf viewer updated to 2.1.3 (updated PECL extension) https://github.com/wodby/xhprof/issues/1
 - Bugfix: broken webgrind image tag
-- Adminer, webgrind and xhprof rebuilt against updated PHP image    
-           
+- Adminer, webgrind and xhprof rebuilt against updated PHP image
+
 ## 5.4.13
 
 - Vanilla Drupal 8.7.10
@@ -977,18 +994,18 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
 ## 5.4.12
 
 - PHP:
-  - ❗️Security updates: 7.1.33, 7.2.24, 7.3.11
-  - Updated PECL extensions: mongodb 1.6.0, grpc 1.23.1, apcu 5.1.18, memcached 3.1.4
-  - Bugfix: `$DRUPAL8_REVERSE_PROXY_ADDRESSES` had no effect https://github.com/wodby/drupal-php/issues/69
-  - `$DRUPAL8_REVERSE_PROXY_ADDRESSES` renamed to `$DRUPAL_REVERSE_PROXY_ADDRESSES`
-  - Reverse proxy setting support added to Drupal 7
+    - ❗️Security updates: 7.1.33, 7.2.24, 7.3.11
+    - Updated PECL extensions: mongodb 1.6.0, grpc 1.23.1, apcu 5.1.18, memcached 3.1.4
+    - Bugfix: `$DRUPAL8_REVERSE_PROXY_ADDRESSES` had no effect https://github.com/wodby/drupal-php/issues/69
+    - `$DRUPAL8_REVERSE_PROXY_ADDRESSES` renamed to `$DRUPAL_REVERSE_PROXY_ADDRESSES`
+    - Reverse proxy setting support added to Drupal 7
 - Nginx:
-  - Updated to 1.17.5
-  - Added brotli compression extension (enabled by default in addition to gzip) https://github.com/wodby/nginx/issues/37
+    - Updated to 1.17.5
+    - Added brotli compression extension (enabled by default in addition to gzip) https://github.com/wodby/nginx/issues/37
 - Varnish:
-  - Varnish updated to 6.0.5
-  - Varnish modules now installed from branch 6.0 https://github.com/varnish/varnish-modules/issues/144
-  - Bugfix: private files access restricted with enabled static files cache https://github.com/wodby/varnish/issues/24
+    - Varnish updated to 6.0.5
+    - Varnish modules now installed from branch 6.0 https://github.com/varnish/varnish-modules/issues/144
+    - Bugfix: private files access restricted with enabled static files cache https://github.com/wodby/varnish/issues/24
 - Adminer 4.7.4
 - Alpine Linux updated to 3.10.3 for most images
 - XHProf viewer, adminer, webgrind rebuilt against latest PHP image
@@ -997,8 +1014,8 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
 
 - Vanilla Drupal 8.7.8
 - PHP:
-  - Updated to 7.3.10, 7.2.23
-  - Drupal console launcher 1.9.3
+    - Updated to 7.3.10, 7.2.23
+    - Drupal console launcher 1.9.3
 - Nginx 1.17.4
 - MariaDB 10.4.8, 10.3.18, 10.2.27
 - Memcached 1.5.19
@@ -1025,10 +1042,10 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
 - PHP:
     - ❗️Security updates: 7.3.8, 7.2.21, 7.1.31
     - Updated PECL extensions: rdkafka 3.1.2, mongo 1.5.5
-    - NewRelic extension: 
+    - NewRelic extension:
         - Added additional options https://github.com/wodby/php/issues/85
         - Default logging destination changed to `stderr`
-        - The extension no longer loaded unless `$PHP_NEWRELIC_ENABLED` specified 
+        - The extension no longer loaded unless `$PHP_NEWRELIC_ENABLED` specified
     - Drupal console launcher updated to 1.9.1
     - Bugfix: crond service missed preloaded iconv library
 - MariaDB:
@@ -1040,7 +1057,8 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
     - Added default location `humans.txt` https://github.com/wodby/nginx/pull/35
 - Solr:
     - Updated to 8.2.0
-    - We now run upgrade action that removes `default` core if it has a broken config set (so it can be automatically recreated). NOT applicable to EOL versions (6.4, 7.1, 7.2, 7.3, 7.4)
+    - We now run upgrade action that removes
+      `default` core if it has a broken config set (so it can be automatically recreated). NOT applicable to EOL versions (6.4, 7.1, 7.2, 7.3, 7.4)
 - Adminer, Webgrind, Xhprof viewer rebuilt against the updated base image
 - Alpine Linux updated to 3.10 for Varnish, OpenSMTPD and MariaDB (except 10.1)
 
@@ -1055,7 +1073,7 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
     - Updated to 10.3.16, 10.2.25
     - Added new major version 10.4
     - You can now add plugins via `$MARIADB_PLUGIN_LOAD` https://github.com/wodby/mariadb/issues/15
-    - Added linux-pam library for PAM auth 
+    - Added linux-pam library for PAM auth
     - Added `$MYSQL_CONNECT_TIMEOUT` https://github.com/wodby/mariadb/issues/17
 - Varnish:
     - `webp` added to the list of default static file extensions
@@ -1064,9 +1082,9 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
         - Bugfix: caching for `text/html` was disabled
 - Solr:
     - Solr updated to 7.7.2
-    - Added new Solr 8.1 variant with search_api_solr 8.x-3.x configset https://github.com/wodby/solr/issues/8 
+    - Added new Solr 8.1 variant with search_api_solr 8.x-3.x configset https://github.com/wodby/solr/issues/8
     - Bugfix: `$SOLR_HEAP` did not have any effect
-    - Images rebased to wodby/base-solr (see README at https://github.com/wodby/base-solr)        
+    - Images rebased to wodby/base-solr (see README at https://github.com/wodby/base-solr)
 - Drupal-node service had a `$NODE_PORT` environment variable with a wrong value that could break its startup
 - Nginx updated to 1.17.1
 - Webgrind updated to 1.6.1
@@ -1079,7 +1097,7 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
 - Vanilla Drupal updated to 8.7.2
 - PHP:
     - ❗️Security updates: 7.3.6, 7.2.19, 7.1.30
-    - Updated extensions: 
+    - Updated extensions:
         - ast 1.0.1
         - ds 1.2.9
         - event 2.5.1
@@ -1089,8 +1107,8 @@ Added support for a changed sync directory setting in Drupal 8 https://www.drupa
         - tideways xhprof 5.0-beta3
 - Nginx: added new version 1.17
 - MariaDB:
-  - Updated to 10.3.15
-  - `log_warnings` now configurable, set to `2` by default for all versions
+    - Updated to 10.3.15
+    - `log_warnings` now configurable, set to `2` by default for all versions
 - Varnish now supports modpagespeed downstream caching https://github.com/wodby/varnish
 - Memcached updated to 1.5.16
 - Redis updated to 5.0.5
@@ -1120,11 +1138,11 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 
 - Vanilla Drupal updates: 8.6.14
 - PHP:
-  - ❗️Security updates: 7.3.4, 7.2.17, 7.1.28
-  - Xdebug extension updated to 2.7.1
+    - ❗️Security updates: 7.3.4, 7.2.17, 7.1.28
+    - Xdebug extension updated to 2.7.1
 - Nginx:
-  - Updated to 1.15.11
-  - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
+    - Updated to 1.15.11
+    - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
 - MariaDB updated to 10.3.14
 - ❗️Apache security update: 2.4.39
 - Alpine Linux updated to 3.9.3 for PHP (except 5.x), Varnish, MariaDB (except 10.1), Redis, Memcached, Solr, OpenSMTPD
@@ -1140,14 +1158,15 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 - Nginx:
     - Updated to 1.15.10
     - Make extra config be able to work without defaults https://github.com/wodby/nginx/pull/27
-- Solr: 
+- Solr:
     - Versions 5.4, 6.4, 7.1-7.4 no longer supported (marked as EOL)
     - Versions 7.6, 7.7 added (and 5.5 for Drupal 7)
-    - Added new search_api_solr config sets (Drupal 8 default config set updated to `8.x-2.7`)    
+    - Added new search_api_solr config sets (Drupal 8 default config set updated to `8.x-2.7`)
     - Bugfix: attachments indexation did not work in Drupal 7 https://github.com/wodby/solr/issues/5
 - MariaDB updated to 10.2.23
 - Redis updates: 5.0.4, 4.0.14
-- Varnish bugfix: GeoIP did not work (now uses `X-Real-IP` header instead of `X-Forwarded-For`) https://github.com/wodby/varnish/pull/18
+- Varnish bugfix: GeoIP did not work (now uses `X-Real-IP` header instead of
+  `X-Forwarded-For`) https://github.com/wodby/varnish/pull/18
 - XHProf, Webgrind, Adminer rebuilt against the latest PHP image
 - Apache base image changed from `wodby/httpd` to `httpd`
 - Alpine upgraded to 3.9.2 for all alpine-based updated images
@@ -1156,26 +1175,27 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 
 - Vanilla Drupal updates: 8.6.10, 7.64
 - PHP:
-  - Rebased to Alpine 3.9: runtime packages updated, switched from LibreSSL to OpenSSL 1.1
-  - PHP updates: 7.3.2, 7.2.15
-  - Introduced additional env vars for NewRelic runtime configuration: `$PHP_NEWRELIC_BROWSER_MONITORING_AUTO_INSTRUMENT`, `$PHP_NEWRELIC_GUZZLE_ENABLED`
-  - WebP support added to gd (PHP 7.x only) https://github.com/wodby/php/issues/68
-  - MariaDB client updated to 10.3.13/10.2.22
-  - Extensions update: igbinary 3.0.0,  apcu 5.1.17
-  - Bugfix: `$PATH` was missing in SSH environment variables
-  - `$SSHD_PERMIT_USER_ENV` default values changed to `yes`
+    - Rebased to Alpine 3.9: runtime packages updated, switched from LibreSSL to OpenSSL 1.1
+    - PHP updates: 7.3.2, 7.2.15
+    - Introduced additional env vars for NewRelic runtime configuration:
+      `$PHP_NEWRELIC_BROWSER_MONITORING_AUTO_INSTRUMENT`, `$PHP_NEWRELIC_GUZZLE_ENABLED`
+    - WebP support added to gd (PHP 7.x only) https://github.com/wodby/php/issues/68
+    - MariaDB client updated to 10.3.13/10.2.22
+    - Extensions update: igbinary 3.0.0, apcu 5.1.17
+    - Bugfix: `$PATH` was missing in SSH environment variables
+    - `$SSHD_PERMIT_USER_ENV` default values changed to `yes`
 - Nginx:
-  - Patch update: 1.15.9
-  - `.map` added to the list of default static files extensions (`$NGINX_STATIC_EXT_REGEX`)
-  - Bugfix: `$NGINX_LOG_FORMAT_OVERRIDE` had no effect
+    - Patch update: 1.15.9
+    - `.map` added to the list of default static files extensions (`$NGINX_STATIC_EXT_REGEX`)
+    - Bugfix: `$NGINX_LOG_FORMAT_OVERRIDE` had no effect
 - Varnish:
-  - Patch updates: 4.1.11, 6.0.3
-  - Bugfix: cookie always stripped for static files requests
+    - Patch updates: 4.1.11, 6.0.3
+    - Bugfix: cookie always stripped for static files requests
 - MariaDB:
-  - Patch updates: 10.3.13, 10.2.22, 10.1.38
-  - MariaDB 10.2, 10.3 rebased to Alpine 3.9 and OpenSSL 1.1
-  - `innodb_force_recovery` and `innodb_purge_threads` are now configurable via env vars
-  - Added `mysql-check` orchestration action and now run with every MariaDB deployment to detect potential issues
+    - Patch updates: 10.3.13, 10.2.22, 10.1.38
+    - MariaDB 10.2, 10.3 rebased to Alpine 3.9 and OpenSSL 1.1
+    - `innodb_force_recovery` and `innodb_purge_threads` are now configurable via env vars
+    - Added `mysql-check` orchestration action and now run with every MariaDB deployment to detect potential issues
 - `mod_include` added to Apache https://github.com/wodby/apache/issues/6
 - Adminer updated to 4.7.1
 - Redis updated to 4.0.13
@@ -1189,13 +1209,13 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
     - ❕️Security updates: 7.3.1, 7.2.14, 7.1.26, 5.6.40
     - GeoIP extension removed https://github.com/wodby/php/issues/59
     - Updated libraries: ImageMagic (7.0.7.39), libjpeg-turbo, MariaDB client (10.2.19)
-    - Updated php extensions: AMQP 1.9.4, APCu 5.1.16, Memcached 3.1.3, GRPC 1.17.0, event 2.4.3 
+    - Updated php extensions: AMQP 1.9.4, APCu 5.1.16, Memcached 3.1.3, GRPC 1.17.0, event 2.4.3
     - The following extensions now added to PHP 7.3: NewRelic, Blackfire, AMQP, Memcached
     - `/var/www/html/bin` added to `$PATH` https://github.com/wodby/php/issues/60
     - Bugfix: event extension could be not be disabled
 - Apache:
     - ❕Security update 2.4.38
-    - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5    
+    - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5
 - Nginx:
     - Patch update: 1.15.8
     - GeoIP module deleted https://github.com/wodby/php/issues/59
@@ -1206,7 +1226,7 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
     - We no longer set `X-Real-IP` header in Varnish
     - Bugfix: unrestricted cache purge from internal network did not work https://github.com/wodby/varnish/issues/14
 - MariaDB updates: 10.2.21, 10.3.12, ~~10.1.37~~ https://github.com/wodby/mariadb/issues/10
-- Webgrind, XHProf, Adminer rebuilt against the latest PHP image    
+- Webgrind, XHProf, Adminer rebuilt against the latest PHP image
 
 ## 5.4.0
 
@@ -1226,7 +1246,8 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
     * GeoIP module added and imported by default
     * Added [9 additional modules](https://github.com/wodby/varnish#installed-modules), not imported by default
     * ⭐️ We now [detect country code](https://github.com/wodby/varnish#geoip) and [currency (USD, EUR)](https://github.com/wodby/varnish#currency) and pass it to backend in headers, you can optionally uniquify cache per country or currency
-    * ⭐️ You can now personify cache additionally by setting cookies starting with [`VCKEY-`](https://github.com/wodby/varnish#cache-personification)
+    * ⭐️ You can now personify cache additionally by setting cookies starting with [
+      `VCKEY-`](https://github.com/wodby/varnish#cache-personification)
     * `fbclid` added to stripped query params
     * Adjusted order of included files https://github.com/wodby/varnish/pull/7
     * Bugfix: duplications in `X-Forwarded-For`
@@ -1234,36 +1255,37 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
     * Deprecated environment variables (listed in [5.2.0](#520)) no longer supported
 * Nginx:
     * Patch updates: 1.15.7, 1.14.2
-    * ⭐️  Added [ModSecurity with OWASP CRS](https://github.com/wodby/nginx#modsecurity) (disabled by default) https://github.com/wodby/nginx/pull/13, https://github.com/wodby/nginx/pull/14
+    * ⭐️ Added [ModSecurity with OWASP CRS](https://github.com/wodby/nginx#modsecurity) (disabled by default) https://github.com/wodby/nginx/pull/13, https://github.com/wodby/nginx/pull/14
     * PageSpeed is now dynamic module, [disabled by default](https://github.com/wodby/nginx#pagespeed)
     * `$NGINX_FASTCGI_INDEX` added to separate from index file https://github.com/wodby/nginx/pull/11
     * `index.html` added to index file for PHP-based presets https://github.com/wodby/nginx/pull/11
     * Bugfix: broken links for Drupal private files containing ampersand https://github.com/wodby/nginx/pull/15
 * Solr:
     * Added version 7.5
-    * Drupal 7 now supports Solr 6/7 
+    * Drupal 7 now supports Solr 6/7
     * search_api_solr version used for config sets now shown in titles and have been updated:
-        * Drupal 7: 7.x-1.14 
+        * Drupal 7: 7.x-1.14
         * Drupal 8: 8.x-1.2 for Solr 5, 8.x-2.1 for others
-* MariaDB:    
+* MariaDB:
     * Patch updates: 10.3.11, 10.2.19
-    * We now run `mysql_upgrade` automatically on stack upgrades      
-    * Import action now allows `*.mysql` files      
-* Patch updates: 
+    * We now run `mysql_upgrade` automatically on stack upgrades
+    * Import action now allows `*.mysql` files
+* Patch updates:
     * Redis: 5.0.3, 4.0.12
     * Memcached: 1.5.12
     * Node: 10.14.2, 8.14.0, 6.15.1
     * Elasticsearch/Kibana: 5.6.14
-* Adminer updated to 4.7.0  
+* Adminer updated to 4.7.0
 * Webgrind, adminer and xhprof rebuilt against the latest PHP image
 * ~~Apache patch update: 2.4.37~~ https://github.com/wodby/apache/issues/5
 * ~~MariaDB patch update: 10.1.37~~ https://github.com/wodby/mariadb/issues/10
 
 ### Update instructions
 
-* If you used [deprecated environment variables](#520) in Varnish updated them to the new version 
-* If you used Nginx pagespeed module, add `$NGINX_PAGESPEED_ENABLED=1`, if you had `$NGINX_PAGESPEED=on` you can delete it since it's `on` by default
-* If you use Solr you might need to update search_api_solr module since we fetch schema from the update version of the module   
+* If you used [deprecated environment variables](#520) in Varnish updated them to the new version
+* If you used Nginx pagespeed module, add `$NGINX_PAGESPEED_ENABLED=1`, if you had
+  `$NGINX_PAGESPEED=on` you can delete it since it's `on` by default
+* If you use Solr you might need to update search_api_solr module since we fetch schema from the update version of the module
 
 ## 5.3.4
 
@@ -1279,14 +1301,15 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
     * Added [event](https://pecl.php.net/package/event) extension
     * You can now disable extensions via `$PHP_EXTENSIONS_DISABLE` (separated by comma)
     * Extensions updates: igbinary 2.0.8, ast 1.0.0, grpc 1.16.0
-    * ImageMagick downgraded to 7.0.7.32 with enabled openmp 
+    * ImageMagick downgraded to 7.0.7.32 with enabled openmp
     * Bugfix: tideways xhprof extension could not be enabled
 * Nginx:
     * Patch updates: 1.15.6, 1.14.1
     * Nginx now uses real IP set from Edge
     * Default security headers duplicated https://github.com/wodby/docker4drupal/issues/336
-    * Added `$NGINX_STATIC_404_TRY_INDEX`, when set Nginx redirects 404 static files request to index file (required for stage_file_proxy module) https://github.com/wodby/docker4drupal/issues/270
-* Memcached patch update 1.5.12    
+    * Added
+      `$NGINX_STATIC_404_TRY_INDEX`, when set Nginx redirects 404 static files request to index file (required for stage_file_proxy module) https://github.com/wodby/docker4drupal/issues/270
+* Memcached patch update 1.5.12
 * MariaDB 10.0 `innodb_default_row_format` now set to `dynamic` by default
 * Webgrind and Adminer rebuilt against the latest PHP image
 * ~~Apache patch update~~ https://github.com/wodby/apache/issues/5
@@ -1295,8 +1318,8 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 ## 5.3.2
 
 * ❗️Vanilla Drupal core security update: 8.6.2, 7.60
-* Memcached patch update: 1.5.11    
-    
+* Memcached patch update: 1.5.11
+
 ## 5.3.1
 
 * PHP:
@@ -1319,14 +1342,15 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 
 ## 5.3.0
 
-### Changes 
+### Changes
 
 * PHP:
     * Rebased to Alpine 3.8 with updated runtime libraries
     * ❗️PHP 7.0 will no longer be maintained ([see why?](https://github.com/wodby/php/issues/40))
     * Argon2 password hash supported added to PHP 7.2
     * MongoDB extension updated to 1.5.3
-    * Bugfix: segfault in PHP's `mail` function when sent to multiple recipients ([busybox bug](http://lists.busybox.net/pipermail/busybox/2017-August/085798.html))
+    * Bugfix: segfault in PHP's
+      `mail` function when sent to multiple recipients ([busybox bug](http://lists.busybox.net/pipermail/busybox/2017-August/085798.html))
     * Bugfix: xhprof tideways extension enabled twice
 * MariaDB:
     * Patch update: 10.2.18
@@ -1336,7 +1360,7 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
     * Option `Indexes` now disabled by default, can be enabled via `$APACHE_INDEXES_ENABLED`
 * Adminer:
     * Added the default list of plugins, enabled via `$ADMINER_PLUGINS`
-    * You can now change Adminer design via `$ADMINER_DESIGN` z   
+    * You can now change Adminer design via `$ADMINER_DESIGN` z
     * Updated to the latest stable PHP image
 * Varnish:
     * Bugfix: batch pages did not work with Varnish
@@ -1345,7 +1369,7 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 * Nginx patch update: 1.15.4
 * Webgrind image updated to the latest stable PHP image
 
-### Upgrade instructions 
+### Upgrade instructions
 
 * Switch your application's PHP service implementation from 7.0 to 7.1
 
@@ -1354,11 +1378,11 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 * PHP:
     * Libraries update: ImageMagick 7.0.8.11, FreeType 2.9.1
     * OpenMP disabled in ImageMagick due to stability issues
-    * Bugfix: xhprof (tideways) extension could not be enabled  
+    * Bugfix: xhprof (tideways) extension could not be enabled
 
 ## 5.2.4
 
-* PHP 
+* PHP
     * ❗️Security updates: 7.2.10, 7.1.22, 7.0.32, 5.6.38
     * Added `$PHP_PHAR_` env vars for Phar runtime configuration
     * Updated PHP extensions:
@@ -1392,7 +1416,7 @@ Do not add trailing slashes for non-directory requests
 
 ## 5.2.0
 
-### Changes 
+### Changes
 
 * Vanilla Drupal core updated to 8.5.6
 * PHP:
@@ -1404,11 +1428,12 @@ Do not add trailing slashes for non-directory requests
     * PostgreSQL lib updated to 10.5
     * Bugfix: Nice shell prompt is missing when connecting via `drush ssh`
     * Bugfix: PHP 5.6 missed GMP library
-    * Bugfix: drush could not be found when connection via `drush ssh`  
+    * Bugfix: drush could not be found when connection via `drush ssh`
     * Bugfix: incorrect owner on wodby's `~/.shrc`, `~/.bashrc`
     * Libraries and extensions versions moved out from env vars
 * Nginx:
-    * Image `wodby/drupal-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with [`$NGINX_VHOST_PRESET=drupal`](https://github.com/wodby/nginx/#virtual-hosts-presets)
+    * Image `wodby/drupal-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with [
+      `$NGINX_VHOST_PRESET=drupal`](https://github.com/wodby/nginx/#virtual-hosts-presets)
     * Nginx updated to 1.15.3
     * Nginx image rebased to Alpine Linux 3.8
     * Use of `$NGINX_LOG_FORMAT_OVERRIDE` now prevails use of `$NGINX_LOG_FORMAT_SHOW_REAL_IP`
@@ -1429,20 +1454,22 @@ Do not add trailing slashes for non-directory requests
     * Default expires for static content set to `7d` by default
     * Bugfix: overriding log format via `$NGINX_LOG_FORMAT_OVERRIDE` produced an error
 * Apache:
-    * Image `wodby/php-apache` has been replaced with [`wodby/apache`](https://github.com/wodby/apache) with `$APACHE_VHOST_PRESET=php`
+    * Image `wodby/php-apache` has been replaced with [`wodby/apache`](https://github.com/wodby/apache) with
+      `$APACHE_VHOST_PRESET=php`
     * Env var `$APACHE_SERVER_ROOT` renamed to `$APACHE_DOCUMENT_ROOT` (old name still supported)
     * MPM modules are now shared and can be changed (event is still the default)
 * MariaDB:
     * MariaDB patch updates: 10.3.9, 10.2.17, 10.1.35
     * Image rebased to Alpine Linux 3.8
     * Backup action performance improvement: no intermediate file created
-    * `ionice` no longer used in orchestration actions 
+    * `ionice` no longer used in orchestration actions
     * Bugfix: triggers duplicated during db dump
     * Bugfix: no privileges before import could cause failure
 * Solr:
-    * Image `wodby/drupal-solr` now replaced with `wodby/solr` and `$SOLR_DEFAULT_CONFIG_SET`, see [versions matrix](https://github.com/wodby/solr#drupal-search-api-solr) 
-    * New Solr versions added: 7.4, 7.3 
-    * Dropped versions 6.3, 6.5, 7.0 
+    * Image `wodby/drupal-solr` now replaced with `wodby/solr` and
+      `$SOLR_DEFAULT_CONFIG_SET`, see [versions matrix](https://github.com/wodby/solr#drupal-search-api-solr)
+    * New Solr versions added: 7.4, 7.3
+    * Dropped versions 6.3, 6.5, 7.0
     * Config sets and `solr.xml` now symlinked to volume, existing cores won't be affected
     * Core directory get deleted when you delete a core via orchestration actions
     * Bugfix: duplicated `configsets/configsets` directory
@@ -1476,7 +1503,8 @@ Do not add trailing slashes for non-directory requests
 
 ### Upgrade instructions
 
-* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
+* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original
+  `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
 * If you used somewhere Varnish's header `X-Varnish-Cache`, update it to `X-VC-Cache`
 
 ## 5.1.0
@@ -1485,7 +1513,9 @@ Do not add trailing slashes for non-directory requests
 
 * Drupal
     * Vanilla Drupal core updated to 8.5.4
-    * We now set `$settings['reverse_proxy_addresses']` and `$settings['reverse_proxy']` in `wodby.settings.php` file. You can also add additional proxy addresses via env var `DRUPAL_REVERSE_PROXY_ADDRESSES`
+    * We now set `$settings['reverse_proxy_addresses']` and `$settings['reverse_proxy']` in
+      `wodby.settings.php` file. You can also add additional proxy addresses via env var
+      `DRUPAL_REVERSE_PROXY_ADDRESSES`
 * PHP
     * ⭐️ Added new PHP 7.2
     * Added php tidy extension
@@ -1495,12 +1525,16 @@ Do not add trailing slashes for non-directory requests
 * MariaDB:
     * New version 10.3 added (10.3.7)
     * MariaDB updates: 10.2.15, 10.1.34
-    * `optimizer_prune_level` and `optimizer_search_depth` are now configurable https://github.com/wodby/mariadb/issues/4
-    * ⭐️ Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage by MariaDB container. See [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+    * `optimizer_prune_level` and
+      `optimizer_search_depth` are now configurable https://github.com/wodby/mariadb/issues/4
+    * ⭐️ Default `innodb_buffer_pool_size` set to
+      `128M` that should significantly decrease memory usage by MariaDB container. See [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of
+      `innodb_buffer_pool_size` for your application
     * Default `innodb_buffer_pool_instances` set to `1`
 * Nginx:
     * Added new Nginx 1.15, dropped legacy Nginx 1.12
-    * ⭐️ Added [mog_pagespeed](https://www.modpagespeed.com/) module. Disabled by default, to enable add `NGINX_PAGESPEED=on` to nginx service
+    * ⭐️ Added [mog_pagespeed](https://www.modpagespeed.com/) module. Disabled by default, to enable add
+      `NGINX_PAGESPEED=on` to nginx service
     * Added new modules:
     ```
     http_image_filter_module
@@ -1511,14 +1545,20 @@ Do not add trailing slashes for non-directory requests
     stream_ssl_preread_module
     ```
 * Varnish
-    * Environment variable `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add a predefined secondary storage. You can now add your custom secondary storage via `VARNISHD_SECONDARY_STORAGE` https://github.com/wodby/varnish/pull/4
-    * ❗Static files no longer cached unless you set `VARNISH_CACHE_STATIC_FILES` https://github.com/wodby/drupal-varnish/pull/4
-    * Added `VARNISH_SECONDARY_STORAGE_CONDITION` to specify the condition when to use secondary storage https://github.com/wodby/drupal-varnish/pull/3
+    * Environment variable
+      `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add a predefined secondary storage. You can now add your custom secondary storage via
+      `VARNISHD_SECONDARY_STORAGE` https://github.com/wodby/varnish/pull/4
+    * ❗Static files no longer cached unless you set
+      `VARNISH_CACHE_STATIC_FILES` https://github.com/wodby/drupal-varnish/pull/4
+    * Added
+      `VARNISH_SECONDARY_STORAGE_CONDITION` to specify the condition when to use secondary storage https://github.com/wodby/drupal-varnish/pull/3
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
 
 ### Upgrade instructions
 
-* Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+* Make sure the new default size of
+  `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of
+  `innodb_buffer_pool_size` for your application
 
 ## 5.0.7
 
@@ -1554,7 +1594,8 @@ Do not add trailing slashes for non-directory requests
 * Vanilla Drupal updated to 8.5.1 (**security update**)
 * Apache:
     * Updated to 2.4.33 (**security update**)
-    * New environment variable `APACHE_LIMITED_ACCESS` to remove `Require all granted` when you need to limit access by IP
+    * New environment variable `APACHE_LIMITED_ACCESS` to remove
+      `Require all granted` when you need to limit access by IP
 
 ## 5.0.3
 
@@ -1575,7 +1616,8 @@ Do not add trailing slashes for non-directory requests
 * Cron now runs from `www-data` user instead of `wodby`
 * Vanilla Drupal updated to 8.5.0
 * Drupal console launcher updated to 1.7.0 and freezed
-* [`files_chmod`](https://github.com/wodby/php#users-and-permissions) script now sets permissions with execution allowed only for directories
+* [
+  `files_chmod`](https://github.com/wodby/php#users-and-permissions) script now sets permissions with execution allowed only for directories
 
 ## 5.0.1
 
@@ -1588,7 +1630,8 @@ Do not add trailing slashes for non-directory requests
 
 * All containers now have [resources request](../config.md#resources) as listed [here in Resources column](https://wodby.com/stacks/drupal/docs/containers/), in addition, crond has CPU limit
 * PHP:
-    * Container default user has been changed to `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
+    * Container default user has been changed to
+      `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
     * PHP updated to 7.1.14, 7.0.27, 5.6.33 (security updates)
     * Rebased to Alpine Linux 3.7
     * Now when your upgrade stack with a new version of vanilla Drupal, your source code will be updated
@@ -1665,7 +1708,8 @@ Do not add trailing slashes for non-directory requests
     PHP_FPM_STATUS_PATH > PHP_FPM_PM_STATUS_PATH
     ```
     * New `-dev` image tags (replacing `-debug`) for CI/CD (TBA)
-    * Env var `WODBY_HOST_PRIMARY` value now contains host (instead of URL) as it should, `WODBY_URL_PRIMARY` has been added for the URL value. See environment variables section
+    * Env var `WODBY_HOST_PRIMARY` value now contains host (instead of URL) as it should,
+      `WODBY_URL_PRIMARY` has been added for the URL value. See environment variables section
     * Drush launcher added
     * Improved validation and error reporting for drush import
     * Git email and name now can be configured via environment variables
@@ -1709,7 +1753,8 @@ Do not add trailing slashes for non-directory requests
 ### Upgrade instructions
 
 * If you used `$WODBY_APP_NAME` update your code accordingly to the new value (machine name of the app)
-* If you used `$WODBY_HOST_PRIMARY` (now contains host instead of URL) before you should replace it to `$WODBY_URL_PRIMARY`
+* If you used `$WODBY_HOST_PRIMARY` (now contains host instead of URL) before you should replace it to
+  `$WODBY_URL_PRIMARY`
 * Upgrade downtime ~5 minutes
 
 ## 4.3.0
@@ -1747,8 +1792,11 @@ Do not add trailing slashes for non-directory requests
 
 ### Update instructions
 
-* !!! If you forked `drupal.conf`, you must get the latest version from the source (`/etc/nginx/conf.d/drupal.conf`) and re-apply your changes. If you used `NGINX_SERVER_EXTRA_CONF_FILEPATH`, update usage of `backend` upstream to `php`
-* Make sure that the new default value (32m) of php's `post_max_size`, `upload_max_filesize` and nginx's `client_max_body_size` is enough for you
+* !!! If you forked `drupal.conf`, you must get the latest version from the source (
+  `/etc/nginx/conf.d/drupal.conf`) and re-apply your changes. If you used
+  `NGINX_SERVER_EXTRA_CONF_FILEPATH`, update usage of `backend` upstream to `php`
+* Make sure that the new default value (32m) of php's `post_max_size`, `upload_max_filesize` and nginx's
+  `client_max_body_size` is enough for you
 * If you customized varnish launch params, update corresponding env vars prefix to `VARNISHD_`
 
 ## 4.2.1
@@ -1760,7 +1808,9 @@ Do not add trailing slashes for non-directory requests
 * PHP updated to 7.1.9, 7.0.23
 * PHPUnit updated to 6.3
 * New service Blackfire agent for profiling via blackfire.io, see [usage instructions](containers.md#blackfire)
-* Environment varibles now cleared in PHP-FPM by default except for `WODBY_APP_NAME`, `WODBY_ENVIRONMENT_TYPE`, `WODBY_ENVIRONMENT_NAME`. You can disable it by adding environment variable `PHP_FPM_CLEAR_ENV` with `no` value to Drupal (PHP) container
+* Environment varibles now cleared in PHP-FPM by default except for `WODBY_APP_NAME`, `WODBY_ENVIRONMENT_TYPE`,
+  `WODBY_ENVIRONMENT_NAME`. You can disable it by adding environment variable `PHP_FPM_CLEAR_ENV` with
+  `no` value to Drupal (PHP) container
 * OpenSMTPD now supports relay without auth
 * Bugfix: PHP-FPM health probes sometimes could fail
 

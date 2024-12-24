@@ -3,61 +3,63 @@
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).
 
 !!! caution "MariaDB updates"
-    - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates 
-    - During MariaDB upgrade we run `mysql-check` and `mysql-upgrade`. This operation may take a few minutes for big databases  
+- We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates
+- During MariaDB upgrade we run `mysql-check` and
+`mysql-upgrade`. This operation may take a few minutes for big databases
 
 ## 6.0.21
 
 - PHP:
-  - ⬆️ Updated to 8.4.2, 8.3.15, 8.2.27
-  - 🐞 Bugfix: `$PATH` not preserved in crond environment
+    - ⬆️ Updated to 8.4.2, 8.3.15, 8.2.27
+    - 🐞 Bugfix: `$PATH` not preserved in crond environment
 
 ## 6.0.20
 
 - ⬆️ Vanilla WordPress 6.7.1
 - PHP:
-  - ⭐️ Added PHP 8.4 (no newrelic support)
-  - ⬆️ Updated to 8.3.14, 8.2.26, 8.1.31
-  - 📜 Added env var to configure `session.cookie_samesite` https://github.com/wodby/php/issues/208
-  - 📜 MariaDB client now explicitly sets `disable-ssl-verify-server-cert` by default, can be changed with `$MARIADB_CLIENT_SSL_VERIFY_SERVER_CERT`
-  - ⬆️ PECL extensions updates:
-    - grpc 1.68.0
-    - sqlsrv 5.12.0
-    - rdkafka 6.0.5
-    - brotli 0.15.2
-    - spx 0.4.17
-    - oauth 2.0.9
-    - imap 1.0.2 (for PHP 8.4+ installed from PECL since it was removed from core)
-    - pcov 1.0.12
-    - xdebug 3.4.0
+    - ⭐️ Added PHP 8.4 (no newrelic support)
+    - ⬆️ Updated to 8.3.14, 8.2.26, 8.1.31
+    - 📜 Added env var to configure `session.cookie_samesite` https://github.com/wodby/php/issues/208
+    - 📜 MariaDB client now explicitly sets `disable-ssl-verify-server-cert` by default, can be changed with
+      `$MARIADB_CLIENT_SSL_VERIFY_SERVER_CERT`
+    - ⬆️ PECL extensions updates:
+        - grpc 1.68.0
+        - sqlsrv 5.12.0
+        - rdkafka 6.0.5
+        - brotli 0.15.2
+        - spx 0.4.17
+        - oauth 2.0.9
+        - imap 1.0.2 (for PHP 8.4+ installed from PECL since it was removed from core)
+        - pcov 1.0.12
+        - xdebug 3.4.0
 - ⬆️ Nginx 1.27.3
 - ⬆️ Memcached 1.6.33
 
 ## 6.0.19
 
 - PHP:
-  - ⬆️ Updated to 8.3.13, 8.2.25
-  - 📜 Added `$PHP_ZEND_` env vars for `zend.*` runtime configuration https://github.com/wodby/php/issues/205
-  - ⬆️ PECL extensions updates:
-    - apcu 5.1.24
-    - amqp 2.1.2
-    - ast 1.1.2
-    - igbinary 3.2.16
-    - mongodb 1.20.0
-    - opentelemetry 1.1.0
-    - redis 6.1.0
-    - yaml 2.2.4
-    - uuid 1.2.1
-    - xhprof 2.3.10
-    - event 3.1.4
+    - ⬆️ Updated to 8.3.13, 8.2.25
+    - 📜 Added `$PHP_ZEND_` env vars for `zend.*` runtime configuration https://github.com/wodby/php/issues/205
+    - ⬆️ PECL extensions updates:
+        - apcu 5.1.24
+        - amqp 2.1.2
+        - ast 1.1.2
+        - igbinary 3.2.16
+        - mongodb 1.20.0
+        - opentelemetry 1.1.0
+        - redis 6.1.0
+        - yaml 2.2.4
+        - uuid 1.2.1
+        - xhprof 2.3.10
+        - event 3.1.4
 - ⬆️ MariaDB 11.4.4, 10.11.10, 10.6.20, 10.5.27
 - ⬆️ Memcached 1.6.32
 
 ## 6.0.18
 
 - PHP:
-  - ⬆️ Updated to 8.3.12, 8.2.24, 8.1.30
-  - 🐞 Bugfix: gd extension used bundled in libgd instead of shared
+    - ⬆️ Updated to 8.3.12, 8.2.24, 8.1.30
+    - 🐞 Bugfix: gd extension used bundled in libgd instead of shared
 - ⬆️ Nginx 1.27.2
 
 ## 6.0.17
@@ -65,8 +67,8 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - ⬆️ Vanilla WordPress 6.6.2
 - ⬆️ PHP 8.3.11, 8.2.23
 - MariaDB:
-  - 🪦 10.4 has reached EOL
-  - 🏔️ Alpine Linux updated to 3.20
+    - 🪦 10.4 has reached EOL
+    - 🏔️ Alpine Linux updated to 3.20
 - ⬆️ Webgrind, adminer and xhprof viewer rebased to PHP 8.1
 - ⬆️ Memcached 1.6.31
 - 🏔️ Alpine Linux security updates (3.20.3)
@@ -191,7 +193,8 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 - ⬆️ Vanilla WordPress 6.3.1
 - PHP:
-    - 📧 PHP 8.2+ now uses `sendmail` again instead of `ssmtp` for email sending (with `PHP_MAIL_MIXED_LF_AND_CRLF=On` https://github.com/php/php-src/issues/8086)
+    - 📧 PHP 8.2+ now uses `sendmail` again instead of `ssmtp` for email sending (with
+      `PHP_MAIL_MIXED_LF_AND_CRLF=On` https://github.com/php/php-src/issues/8086)
     - ⬆️ Updated to 8.2.11, 8.1.24
     - ⬆️ Extensions sqlsrv, pdo_sqlsrv updated to 5.11.1
     - 📜 Default xdebug log level set to `3` (warnings) https://github.com/wodby/php/pull/184
@@ -214,7 +217,6 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - ⬆️ MariaDB 11.0.3, 10.11.5, 10.10.6, 10.9.8, 10.6.15, 10.5.22, 10.4.31
 - ⬆️ Redis 7.0.12, 6.2.13
 - 🏔 Alpine Linux updated to 3.18.3, 3.16.7
-
 
 ## 6.0.6
 
@@ -251,7 +253,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - ⬆️ Updated to 8.2.4, 8.1.17
     - ⬆️ Updated PECL extensions ast 1.1.0, igbinary 3.2.14, mongodb 1.15.1, sqlsrv 5.11.0, xhprof 2.3.9, yaml 2.2.3
     - ⬆️ ODBC libraries updated to 18.2.1.1
-    - 🛠 MS tools binaries now linked to `/usr/bin` 
+    - 🛠 MS tools binaries now linked to `/usr/bin`
 - Redis:
     - ⬆️ Updated to 7.0.10
     - 🐞 Bugfix: redis saved to disk even when `REDIS_SAVE_TO_DISK` was not set
@@ -267,7 +269,8 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 - PHP:
     - ⬆️ Updated 8.2.3, 8.1.16, 8.0.28
-    - 📜 Introduced `$PHP_MAIL_MIXED_LF_AND_CRLF` to return line separator non LF for mail sending https://github.com/php/php-src/issues/8086
+    - 📜 Introduced
+      `$PHP_MAIL_MIXED_LF_AND_CRLF` to return line separator non LF for mail sending https://github.com/php/php-src/issues/8086
 - 🏔 Alpine updated to 3.17.2
 
 ## 6.0.0
@@ -436,9 +439,10 @@ Update your `.env` file
 
 - ⬆️ Vanilla WordPress 5.9.2
 - PHP
-      - ⬆️ Updated to 8.1.4, 8.0.17
-      - ⭐️ NewRelic extension added to PHP 8.1
-- 📜 Nginx now has `$NGINX_WP_NOT_FOUND_REGEX` to override (updated) default not found regex https://github.com/wodby/nginx/pull/73
+  - ⬆️ Updated to 8.1.4, 8.0.17
+  - ⭐️ NewRelic extension added to PHP 8.1
+- 📜 Nginx now has
+  `$NGINX_WP_NOT_FOUND_REGEX` to override (updated) default not found regex https://github.com/wodby/nginx/pull/73
 - ⬆️ Apache HTTPd 2.4.53
 - 🏔 Patch updates for base OS Alpine Linux
 - 🐞 Bugfix: import action failed for archives with unicode filenames
@@ -476,7 +480,7 @@ Update your `.env` file
 
 - ⬆️ Vanilla WordPress 5.9
 - PHP:
-    - ⭐️️ Added PHP 8.1 
+    - ⭐️️ Added PHP 8.1
     - ⬆️ Updated to 8.1.2, 8.0.5
     - ⬆️ PECL extensions updates: ds 1.4.0, rdkafka 6.0.0, xdebug 3.1.2 (ds and rdkafka now added to PHP 8.1)
     - ⬆️ WP CLI 2.6.0
@@ -489,7 +493,8 @@ Update your `.env` file
 ## 5.4.42
 
 - ⬆️ Nginx:
-    - 📜 Default header `Content-Security-Policy` can now be changed with `$NGINX_HEADERS_CONTENT_SECURITY_POLICY ` https://github.com/wodby/nginx/pull/69
+    - 📜 Default header `Content-Security-Policy` can now be changed with
+      `$NGINX_HEADERS_CONTENT_SECURITY_POLICY ` https://github.com/wodby/nginx/pull/69
     - 📜 `webp` added to the default list of static file extensions
 - ⬆️ Apache 2.4.52
 
@@ -507,8 +512,10 @@ Update your `.env` file
     - ⬆️ uuid extension updated to 1.2.0
     - 🥶 Rebased to [wodby/base-php](https://github.com/wodby/base-php) with frozen Alpine 3.13
 - Nginx:
-    - ⭐️ VTS module added, see `$NGINX_METRICS_` and `$NGINX_STATUS_` env vars for usage https://github.com/wodby/nginx/pull/61
-    - 📜 `$NGINX_SET_REAL_IPS_FROM` was added to support multiple IP address for `set_real_ip_from` https://github.com/wodby/nginx/pull/62
+    - ⭐️ VTS module added, see `$NGINX_METRICS_` and
+      `$NGINX_STATUS_` env vars for usage https://github.com/wodby/nginx/pull/61
+    - 📜 `$NGINX_SET_REAL_IPS_FROM` was added to support multiple IP address for
+      `set_real_ip_from` https://github.com/wodby/nginx/pull/62
     - 🥶 brotli and vts modules versions are now frozen https://github.com/wodby/nginx/pull/63
 - Adminer:
     - ⭐️ Added linux/arm64 support
@@ -589,7 +596,7 @@ Update your `.env` file
 ## 5.4.33
 
 - PHP:
-    -  ⬆️&nbsp; Updated to 8.0.7, 7.4.20
+    - ⬆️&nbsp; Updated to 8.0.7, 7.4.20
     - 📜&nbsp; PHP now loads default `php.ini` based on `php.ini-production` https://github.com/wodby/php/issues/145
 
 ## 5.4.32
@@ -611,8 +618,8 @@ Update your `.env` file
 ## 5.4.30
 
 - PHP:
-    -❗️Security updates: 8.0.5, 7.4.18, 7.3.28
-    -❗️Composer security update 2.0.13
+  -❗️Security updates: 8.0.5, 7.4.18, 7.3.28
+  -❗️Composer security update 2.0.13
 - ⬆️&nbsp; Elasticsearch, Kibana 7.12.1
 - ⬆️&nbsp; XHProf viewer 2.3.1
 
@@ -722,7 +729,8 @@ Update your `.env` file
     - ⭐️&nbsp; Composer 2.0. Also, now you have permissions reinstall or update composer
     - 😱&nbsp; Redis extension major update from 4.3.0 to 5.3.2
     - 🐞&nbsp; Bugfix: pcov extension was enabled by default, now disabled, this caused recent issues with NewRelic monitoring
-    - 🐞&nbsp; Bugfix: missing `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
+    - 🐞&nbsp; Bugfix: missing
+      `opcache.preload_user` prevented from using preloading in PHP 7.4 https://github.com/wodby/php/pull/120
     - ⬆️&nbsp; Xdebug 2.9.8
     - 🦴&nbsp; Added env vars for sqlsrv extension runtime configuration https://github.com/wodby/php/issues/124
     - 📦&nbsp; Added [mariadb-connector-c](https://pkgs.alpinelinux.org/contents?branch=v3.12&name=mariadb-connector-c&arch=x86_64&repo=main) package https://github.com/wodby/php/issues/122
@@ -745,7 +753,7 @@ Update your `.env` file
 
 - Vanilla WordPress 5.5.1
 - Nginx now supports `/wp-sitemap.xml` endpoint
-- PHP: 
+- PHP:
     - Updates: 7.4.10, 7.3.22
     - MS SQL driver extension added https://github.com/wodby/php/pull/119
     - Base image changed from wodby/base-php to php
@@ -766,7 +774,7 @@ Update your `.env` file
 
 ## 5.4.19
 
-- PHP 
+- PHP
     - Security updates: 7.4.8, 7.3.20, 7.2.32
     - Updated extensions: amqp 1.10.2, event 2.5.6, memcached 3.1.5, xdebug 2.9.6, yaml 2.1.0
     - Added pcov extension https://github.com/wodby/php/issues/113
@@ -831,7 +839,7 @@ Update your `.env` file
     - Updated to 10.4.12, 10.3.22, 10.2.31, 10.1.44
     - `mysql_upgrade` now runs with `--upgrade-system-tables` and `--verbose` flags (run during stack upgrades)
     - `mysqlcheck` now runs with `--verbose` flag (run with every deployment)
-- Solr 8.5.0    
+- Solr 8.5.0
 - Varnish 6.0.6
 - Webgrind 1.7.0
 - Adminer 4.7.6
@@ -844,13 +852,13 @@ Update your `.env` file
 
 - Vanilla WordPress 5.3.1
 - PHP:
-  - Added PHP 7.4
-  - Updated extension: ast 1.0.5, xdebug 2.8.0, mcrypt 1.0.3, oauth 2.0.4
-  - Added Kerberos and SSL support for IMAP extension https://github.com/wodby/drupal-php/issues/70
+    - Added PHP 7.4
+    - Updated extension: ast 1.0.5, xdebug 2.8.0, mcrypt 1.0.3, oauth 2.0.4
+    - Added Kerberos and SSL support for IMAP extension https://github.com/wodby/drupal-php/issues/70
 - MariaDB 10.4.11, 10.3.21, 10.2.30
 - Nginx:
-  - `/.well-known` URIs excluded from denied hidden files location instead of explicitly allowed
-  - Locations `wodby.yml` and `Makefile` are now forbidden
+    - `/.well-known` URIs excluded from denied hidden files location instead of explicitly allowed
+    - Locations `wodby.yml` and `Makefile` are now forbidden
 - Apache hidden files, directories, `wodby.yml`, `Makefile` and certain extension are now forbidden
 - XHProf viewer updated to 2.1.3 (updated PECL extension) https://github.com/wodby/xhprof/issues/1
 - Bugfix: broken webgrind image tag
@@ -870,20 +878,20 @@ Update your `.env` file
 - Memcached 1.5.20
 - Adminer 4.7.5
 - Redis 5.0.7
-- Adminer, xhprof, webgrind rebased to PHP 7.2     
+- Adminer, xhprof, webgrind rebased to PHP 7.2
 
 ## 5.4.13
 
 - Vanilla WordPress 5.2.4
 - PHP:
-  - ❗️Security updates: 7.1.33, 7.2.24, 7.3.11
-  - Updated PECL extensions: mongodb 1.6.0, grpc 1.23.1, apcu 5.1.18, memcached 3.1.4
+    - ❗️Security updates: 7.1.33, 7.2.24, 7.3.11
+    - Updated PECL extensions: mongodb 1.6.0, grpc 1.23.1, apcu 5.1.18, memcached 3.1.4
 - Nginx:
-  - Updated to 1.17.5
-  - Added brotli compression extension (enabled by default in addition to gzip) https://github.com/wodby/nginx/issues/37
+    - Updated to 1.17.5
+    - Added brotli compression extension (enabled by default in addition to gzip) https://github.com/wodby/nginx/issues/37
 - Varnish:
-  - Varnish updated to 6.0.5
-  - Varnish modules now installed from branch 6.0 https://github.com/varnish/varnish-modules/issues/144
+    - Varnish updated to 6.0.5
+    - Varnish modules now installed from branch 6.0 https://github.com/varnish/varnish-modules/issues/144
 - Adminer 4.7.4
 - Alpine Linux updated to 3.10.3 for most images
 - XHProf viewer, adminer, webgrind rebuilt against latest PHP image
@@ -891,8 +899,8 @@ Update your `.env` file
 ## 5.4.12
 
 - PHP:
-  - Updated to 7.3.10, 7.2.23
-  - WP CLI 2.3.0
+    - Updated to 7.3.10, 7.2.23
+    - WP CLI 2.3.0
 - Nginx 1.17.4
 - MariaDB 10.4.8, 10.3.18, 10.2.27
 - Memcached 1.5.19
@@ -916,10 +924,10 @@ Update your `.env` file
 - PHP:
     - ❗️Security updates: 7.3.8, 7.2.21, 7.1.31
     - Updated PECL extensions: rdkafka 3.1.2, mongo 1.5.5
-    - NewRelic extension: 
+    - NewRelic extension:
         - Added additional options https://github.com/wodby/php/issues/85
         - Default logging destination changed to `stderr`
-        - The extension no longer loaded unless `$PHP_NEWRELIC_ENABLED` specified 
+        - The extension no longer loaded unless `$PHP_NEWRELIC_ENABLED` specified
     - Bugfix: crond service missed preloaded iconv library
 - MariaDB:
     - ❗️Security updates: 10.4.7, 10.3.17, 10.2.26, 10.1.41
@@ -931,7 +939,8 @@ Update your `.env` file
     - Added static file proxy support https://github.com/wodby/nginx/issues/31
 - Solr:
     - Updated to 8.2.0
-    - We now run upgrade action that removes `default` core if it has a broken config set (so it can be automatically recreated). NOT applicable to EOL versions (6.4, 7.1, 7.2, 7.3, 7.4).
+    - We now run upgrade action that removes
+      `default` core if it has a broken config set (so it can be automatically recreated). NOT applicable to EOL versions (6.4, 7.1, 7.2, 7.3, 7.4).
 - Adminer, Webgrind, Xhprof viewer rebuilt against the updated base image
 - Alpine Linux updated to 3.10 for Varnish, OpenSMTPD and MariaDB (except 10.1)
 
@@ -945,7 +954,7 @@ Update your `.env` file
     - Updated to 10.3.16, 10.2.25
     - Added new major version 10.4
     - You can now add plugins via `$MARIADB_PLUGIN_LOAD` https://github.com/wodby/mariadb/issues/15
-    - Added linux-pam library for PAM auth 
+    - Added linux-pam library for PAM auth
     - Added `$MYSQL_CONNECT_TIMEOUT` https://github.com/wodby/mariadb/issues/17
 - Varnish:
     - `webp` added to the list of default static file extensions
@@ -954,7 +963,8 @@ Update your `.env` file
         - Bugfix: caching for `text/html` was disabled
 - Nginx:
     - Updated to 1.17.1
-    - We now provide two ways of adding `sitemap.xml` locations depending on the plugin (see https://github.com/wodby/nginx#wordpress)
+    - We now provide two ways of adding
+      `sitemap.xml` locations depending on the plugin (see https://github.com/wodby/nginx#wordpress)
 - Webgrind updated to 1.6.1
 - Adminer updated to 4.7.2
 - Adminer, Webgrind, Xhprof viewer rebuilt against the updated base image
@@ -965,7 +975,7 @@ Update your `.env` file
 - Vanilla WordPress updated to 5.2.1
 - PHP:
     - ❗️Security updates: 7.3.6, 7.2.19, 7.1.30
-    - Updated extensions: 
+    - Updated extensions:
         - ast 1.0.1
         - ds 1.2.9
         - event 2.5.1
@@ -975,8 +985,8 @@ Update your `.env` file
         - tideways xhprof 5.0-beta3
 - Nginx: added new version 1.17
 - MariaDB:
-  - Updated to 10.3.15
-  - `log_warnings` now configurable, set to `2` by default for all versions
+    - Updated to 10.3.15
+    - `log_warnings` now configurable, set to `2` by default for all versions
 - Varnish now supports modpagespeed downstream caching https://github.com/wodby/varnish
 - Memcached updated to 1.5.16
 - Redis updated to 5.0.5
@@ -993,7 +1003,7 @@ Update your `.env` file
     - Added new latest version 1.16
     - Updated to 1.15.12
     - Pagespeed version no longer shown in headers https://github.com/wodby/nginx/issues/32
-- Varnish: added strict rule to avoid infinite loop in some cases https://github.com/wodby/varnish/pull/20    
+- Varnish: added strict rule to avoid infinite loop in some cases https://github.com/wodby/varnish/pull/20
 - MariaDB updates: 10.2.24, 10.1.40
 - Memcached updated to 1.5.14
 - Alpine Linux updated to 3.9.4 (only for images based on 3.9)
@@ -1005,11 +1015,11 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 ## 5.4.5
 
 - PHP:
-  - ❗️Security updates: 7.3.4, 7.2.17, 7.1.28
-  - Xdebug extension updated to 2.7.1
+    - ❗️Security updates: 7.3.4, 7.2.17, 7.1.28
+    - Xdebug extension updated to 2.7.1
 - Nginx:
-  - Updated to 1.15.11
-  - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
+    - Updated to 1.15.11
+    - Default static files expiration increased to 1 year https://github.com/wodby/nginx/pull/30
 - MariaDB updated to 10.3.14
 - ❗️Apache security update: 2.4.39
 - Alpine Linux updated to 3.9.3 for PHP (except 5.x), Varnish, MariaDB (except 10.1), Redis, Memcached, OpenSMTPD
@@ -1027,36 +1037,38 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
     - Make extra config be able to work without defaults https://github.com/wodby/nginx/pull/27
 - MariaDB updated to 10.2.23
 - Redis updates: 5.0.4, 4.0.14
-- Varnish bugfix: GeoIP did not work (now uses `X-Real-IP` header instead of `X-Forwarded-For`) https://github.com/wodby/varnish/pull/18
+- Varnish bugfix: GeoIP did not work (now uses `X-Real-IP` header instead of
+  `X-Forwarded-For`) https://github.com/wodby/varnish/pull/18
 - XHProf, Webgrind, Adminer rebuilt against the latest PHP image
 - Apache base image changed from `wodby/httpd` to `httpd`
 - Alpine upgraded to 3.9.2 for all alpine-based updated images
-    
+
 ## 5.4.3
 
 - Vanilla WordPress updated to 5.1
 - WP CLI updated to 2.1.0
 - PHP:
-  - Rebased to Alpine 3.9: runtime packages updated, switched from LibreSSL to OpenSSL 1.1
-  - PHP updates: 7.3.2, 7.2.15
-  - Introduced additional env vars for NewRelic runtime configuration: `$PHP_NEWRELIC_BROWSER_MONITORING_AUTO_INSTRUMENT`, `$PHP_NEWRELIC_GUZZLE_ENABLED`
-  - WebP support added to gd (PHP 7.x only) https://github.com/wodby/php/issues/68
-  - MariaDB client updated to 10.3.13/10.2.22
-  - Extensions update: igbinary 3.0.0,  apcu 5.1.17
-  - Bugfix: `$PATH` was missing in SSH environment variables
-  - `$SSHD_PERMIT_USER_ENV` default values changed to `yes`
+    - Rebased to Alpine 3.9: runtime packages updated, switched from LibreSSL to OpenSSL 1.1
+    - PHP updates: 7.3.2, 7.2.15
+    - Introduced additional env vars for NewRelic runtime configuration:
+      `$PHP_NEWRELIC_BROWSER_MONITORING_AUTO_INSTRUMENT`, `$PHP_NEWRELIC_GUZZLE_ENABLED`
+    - WebP support added to gd (PHP 7.x only) https://github.com/wodby/php/issues/68
+    - MariaDB client updated to 10.3.13/10.2.22
+    - Extensions update: igbinary 3.0.0, apcu 5.1.17
+    - Bugfix: `$PATH` was missing in SSH environment variables
+    - `$SSHD_PERMIT_USER_ENV` default values changed to `yes`
 - Nginx:
-  - Patch update: 1.15.9
-  - `.map` added to the list of default static files extensions (`$NGINX_STATIC_EXT_REGEX`)
-  - Bugfix: `$NGINX_LOG_FORMAT_OVERRIDE` had no effect
+    - Patch update: 1.15.9
+    - `.map` added to the list of default static files extensions (`$NGINX_STATIC_EXT_REGEX`)
+    - Bugfix: `$NGINX_LOG_FORMAT_OVERRIDE` had no effect
 - Varnish:
-  - Patch updates: 4.1.11, 6.0.3
-  - Bugfix: cookie always stripped for static files requests
+    - Patch updates: 4.1.11, 6.0.3
+    - Bugfix: cookie always stripped for static files requests
 - MariaDB:
-  - Patch updates: 10.3.13, 10.2.22, 10.1.38
-  - MariaDB 10.2, 10.3 rebased to Alpine 3.9 and OpenSSL 1.1
-  - `innodb_force_recovery` and `innodb_purge_threads` are now configurable via env vars
-  - Added `mysql-check` orchestration action and now run with every MariaDB deployment to detect potential issues
+    - Patch updates: 10.3.13, 10.2.22, 10.1.38
+    - MariaDB 10.2, 10.3 rebased to Alpine 3.9 and OpenSSL 1.1
+    - `innodb_force_recovery` and `innodb_purge_threads` are now configurable via env vars
+    - Added `mysql-check` orchestration action and now run with every MariaDB deployment to detect potential issues
 - `mod_include` added to Apache https://github.com/wodby/apache/issues/6
 - Adminer updated to 4.7.1
 - Redis updated to 4.0.13
@@ -1065,7 +1077,7 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 ## 5.4.2
 
 Bugfix: varnish stripped known cookie preventing user login
-    
+
 ## 5.4.1
 
 - Alpine Linux for the services listed below updated to 3.8.2
@@ -1074,13 +1086,13 @@ Bugfix: varnish stripped known cookie preventing user login
     - ❕Patch updates: 7.3.1, 7.2.14, 7.1.26, 5.6.40
     - GeoIP extension removed https://github.com/wodby/php/issues/59
     - Updated libraries: ImageMagic (7.0.7.39), libjpeg-turbo, MariaDB client (10.2.19)
-    - Updated php extensions: AMQP 1.9.4, APCu 5.1.16, Memcached 3.1.3, GRPC 1.17.0, event 2.4.3 
+    - Updated php extensions: AMQP 1.9.4, APCu 5.1.16, Memcached 3.1.3, GRPC 1.17.0, event 2.4.3
     - The following extensions now added to PHP 7.3: NewRelic, Blackfire, AMQP, Memcached
     - `/var/www/html/bin` added to `$PATH` https://github.com/wodby/php/issues/60
     - Bugfix: event extension could be not be disabled
 - Apache:
-  - ❕Security update 2.4.38
-  - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5    
+    - ❕Security update 2.4.38
+    - SSL module temporary disabled due to build failures https://github.com/wodby/apache/issues/5
 - Nginx:
     - Patch update: 1.15.8
     - GeoIP module deleted https://github.com/wodby/php/issues/59
@@ -1088,7 +1100,8 @@ Bugfix: varnish stripped known cookie preventing user login
     - Bugfix: dynamic modules image filter and xslt could not be enabled
     - Bugfix: `.well-known/*.txt` were not accessible https://github.com/wodby/nginx/issues/17
 - Varnish:
-    - ❗New caching behaviour: if we find a cookie listed in [`$VARNISH_WP_PRESERVED_COOKIES`](https://github.com/wodby/varnish#varnish_wp_preserved_cookies) the page will not be cached
+    - ❗New caching behaviour: if we find a cookie listed in [
+      `$VARNISH_WP_PRESERVED_COOKIES`](https://github.com/wodby/varnish#varnish_wp_preserved_cookies) the page will not be cached
     - Added support for WooCommerce cookies https://github.com/wodby/varnish/issues/11
     - We no longer set `X-Real-IP` header on Varnish
     - Bugfix: cache purge sometimes did not work
@@ -1115,7 +1128,8 @@ Bugfix: varnish stripped known cookie preventing user login
     * GeoIP module added and imported by default
     * Added [9 additional modules](https://github.com/wodby/varnish#installed-modules), not imported by default
     * ⭐️ We now [detect country code](https://github.com/wodby/varnish#geoip) and [currency (USD, EUR)](https://github.com/wodby/varnish#currency) and pass it to backend in headers, you can optionally uniquify cache per country or currency
-    * ⭐️ You can now personify cache additionally by setting cookies starting with [`VCKEY-`](https://github.com/wodby/varnish#cache-personification)
+    * ⭐️ You can now personify cache additionally by setting cookies starting with [
+      `VCKEY-`](https://github.com/wodby/varnish#cache-personification)
     * `fbclid` added to stripped query params
     * Adjusted order of included files https://github.com/wodby/varnish/pull/7
     * Bugfix: duplications in `X-Forwarded-For`
@@ -1126,29 +1140,30 @@ Bugfix: varnish stripped known cookie preventing user login
     * PageSpeed is now dynamic module, [disabled by default](https://github.com/wodby/nginx#pagespeed)
     * `$NGINX_FASTCGI_INDEX` added to separate from index file https://github.com/wodby/nginx/pull/11
     * `index.html` added to index file for PHP-based presets https://github.com/wodby/nginx/pull/11
-* MariaDB:    
+* MariaDB:
     * Patch updates: 10.3.11, 10.2.19
-    * We now run `mysql_upgrade` automatically on stack upgrades      
-    * Import action now allows `*.mysql` files      
-* Patch updates: 
+    * We now run `mysql_upgrade` automatically on stack upgrades
+    * Import action now allows `*.mysql` files
+* Patch updates:
     * Redis: 5.0.3, 4.0.12
     * Memcached: 1.5.12
     * Node: 10.14.2, 8.14.0, 6.15.1
     * Elasticsearch/Kibana: 5.6.14
-* Adminer updated to 4.7.0  
+* Adminer updated to 4.7.0
 * Webgrind, adminer and xhprof rebuilt against the latest PHP image
 * ~~Apache patch update: 2.4.37~~ https://github.com/wodby/apache/issues/5
 * ~~MariaDB patch update: 10.1.37~~ https://github.com/wodby/mariadb/issues/10
 
 ### Update instructions
 
-* If you used [deprecated environment variables](#520) in Varnish updated them to the new version 
-* If you used Nginx pagespeed module, add `$NGINX_PAGESPEED_ENABLED=1`, if you had `$NGINX_PAGESPEED=on` you can delete it since it's `on` by default
+* If you used [deprecated environment variables](#520) in Varnish updated them to the new version
+* If you used Nginx pagespeed module, add `$NGINX_PAGESPEED_ENABLED=1`, if you had
+  `$NGINX_PAGESPEED=on` you can delete it since it's `on` by default
 
 ## 5.3.3
 
 * Bugfix: Nginx did not convert deprecated environment variables to new
-    
+
 ## 5.3.2
 
 * Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/wordpress/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/wordpress/containers/#xhprof)
@@ -1160,14 +1175,14 @@ Bugfix: varnish stripped known cookie preventing user login
     * You can now disable extensions via `$PHP_EXTENSIONS_DISABLE` (separated by comma)
     * Extensions updates: igbinary 2.0.8, ast 1.0.0, grpc 1.16.0
     * `session.save_path` now set to `/mnt/files/sessions` by default for persistent sessions
-    * ImageMagick downgraded to 7.0.7.32 with enabled openmp 
+    * ImageMagick downgraded to 7.0.7.32 with enabled openmp
     * Bugfix: tideways xhprof extension could not be enabled
 * Nginx:
     * Patch updates: 1.15.6, 1.14.1
     * Nginx now uses real IP set from Edge
     * Bugfix: it was not possible to access `*.txt` files from uploads directory
     * Bugfix: default security headers were missing
-* Memcached patch update 1.5.12    
+* Memcached patch update 1.5.12
 * MariaDB 10.0 `innodb_default_row_format` now set to `dynamic` by default
 * Webgrind and Adminer rebuilt against the latest PHP image
 * ~~Apache patch update 2.4.37~~ https://github.com/wodby/apache/issues/5
@@ -1202,8 +1217,9 @@ Bugfix: varnish stripped known cookie preventing user login
     * ❗️PHP 7.0 will no longer be maintained ([see why?](https://github.com/wodby/php/issues/40))
     * Argon2 password hash supported added to PHP 7.2
     * MongoDB extension updated to 1.5.3
-    * WP CLI updated to 2.0.1  
-    * Bugfix: segfault in PHP's `mail` function when sent to multiple recipients ([busybox bug](http://lists.busybox.net/pipermail/busybox/2017-August/085798.html))
+    * WP CLI updated to 2.0.1
+    * Bugfix: segfault in PHP's
+      `mail` function when sent to multiple recipients ([busybox bug](http://lists.busybox.net/pipermail/busybox/2017-August/085798.html))
     * Bugfix: xhprof tideways extension enabled twice
 * MariaDB:
     * Patch update: 10.2.18
@@ -1213,7 +1229,7 @@ Bugfix: varnish stripped known cookie preventing user login
     * Option `Indexes` now disabled by default, can be enabled via `$APACHE_INDEXES_ENABLED`
 * Adminer:
     * Added the default list of plugins, enabled via `$ADMINER_PLUGINS`
-    * You can now change Adminer design via `$ADMINER_DESIGN` z   
+    * You can now change Adminer design via `$ADMINER_DESIGN` z
     * Updated to the latest stable PHP image
 * Nginx patch update: 1.15.4
 * Varnish: `has_js` cookie no longer stripped
@@ -1232,7 +1248,7 @@ Bugfix: varnish stripped known cookie preventing user login
 
 ## 5.2.4
 
-* PHP 
+* PHP
     * ❗️Security updates: 7.2.10, 7.1.22, 7.0.32, 5.6.38
     * Added `$PHP_PHAR_` env vars for Phar runtime configuration
     * Updated PHP extensions:
@@ -1270,18 +1286,19 @@ Do not add trailing slashes for non-directory requests
 * Vanilla WordPress core updated to 4.9.8
 * PHP:
     * Patch updates: 7.2.9, 7.1.21, 7.0.31, 5.6.37
-    * `/var/www/html/vendor/bin` added to `$PATH`    
+    * `/var/www/html/vendor/bin` added to `$PATH`
     * WP CLI upgraded to 2.0.0 and now freezed
     * Added bash completion for WP CLI
     * Added [rdkafka](https://pecl.php.net/package/rdkafka) extension
-    * Added `~/.bash_profile` for `wodby` user    
+    * Added `~/.bash_profile` for `wodby` user
     * PostgreSQL lib updated to 10.5
     * Bugfix: PHP 5.6 missed GMP library
     * Bugfix: incorrect owner on wodby's `~/.shrc`, `~/.bashrc`
     * Bugfix: entrypoint fails when command executed with `--[flag]`
     * Libraries and extensions versions moved out from env vars
 * Nginx:
-    * Image `wodby/wordpress-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with [`$NGINX_VHOST_PRESET=wordpress`](https://github.com/wodby/nginx/#virtual-hosts-presets)
+    * Image `wodby/wordpress-nginx` has been replaced with [`wodby/nginx`](https://github.com/wodby/nginx) with [
+      `$NGINX_VHOST_PRESET=wordpress`](https://github.com/wodby/nginx/#virtual-hosts-presets)
     * Nginx updated to 1.15.3
     * Rebased to Alpine Linux 3.8
     * Use of `$NGINX_LOG_FORMAT_OVERRIDE` now prevails use of `$NGINX_LOG_FORMAT_SHOW_REAL_IP`
@@ -1297,12 +1314,12 @@ Do not add trailing slashes for non-directory requests
 * Apache:
     * Image `wodby/php-apache` has been replaced with `wodby/apache` with `$APACHE_VHOST_PRESET=php`
     * Env var `$APACHE_SERVER_ROOT` renamed to `$APACHE_DOCUMENT_ROOT` (old name still supported)
-    * MPM modules are now shared and can be changed (event is still the default)    
-* MariaDB: 
+    * MPM modules are now shared and can be changed (event is still the default)
+* MariaDB:
     * MariaDB patch updates: 10.3.9, 10.2.17, 10.1.35
     * Image rebased to Alpine Linux 3.8
     * Backup action performance improvement: no intermediate file created
-    * `ionice` no longer used in orchestration actions 
+    * `ionice` no longer used in orchestration actions
     * Bugfix: triggers duplicated during db dump
     * Bugfix: no privileges before import could cause failure
 * Varnish:
@@ -1332,7 +1349,8 @@ Do not add trailing slashes for non-directory requests
 
 ### Upgrade instructions
 
-* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
+* Nginx: if you overridden a virtual host config (via `$NGINX_CONF_INCLUDE`) you'll have to update it from the original
+  `/etc/nginx/conf.d/vhost.conf` and re-apply your changes again
 
 ## 5.1.0
 
@@ -1347,12 +1365,15 @@ Do not add trailing slashes for non-directory requests
 * MariaDB:
     * New version 10.3 added (10.3.7)
     * MariaDB updates: 10.2.15, 10.1.34
-    * `optimizer_prune_level` and `optimizer_search_depth` are now configurable https://github.com/wodby/mariadb/issues/4
-    * ⭐️ Default `innodb_buffer_pool_size` set to `128M` that should significantly decrease memory usage by MariaDB container
+    * `optimizer_prune_level` and
+      `optimizer_search_depth` are now configurable https://github.com/wodby/mariadb/issues/4
+    * ⭐️ Default `innodb_buffer_pool_size` set to
+      `128M` that should significantly decrease memory usage by MariaDB container
     * Default  `innodb_buffer_pool_instances` set to `1`
 * Nginx:
     * Added new Nginx 1.15
-    * ⭐️ Added [mog_pagespeed](https://www.modpagespeed.com/) module. Disabled by default, to enable add `NGINX_PAGESPEED=on` to nginx service
+    * ⭐️ Added [mog_pagespeed](https://www.modpagespeed.com/) module. Disabled by default, to enable add
+      `NGINX_PAGESPEED=on` to nginx service
     * Added new modules:
     ```
     http_image_filter_module
@@ -1363,13 +1384,17 @@ Do not add trailing slashes for non-directory requests
     stream_ssl_preread_module
     ```
 * Varnish
-    * Environment variable `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add a predefined secondary storage. You can now add your custom secondary storage via `VARNISHD_SECONDARY_STORAGE` https://github.com/wodby/varnish/pull/4
+    * Environment variable
+      `VARNISHD_STORAGE_SIZE` has been dropped, we no longer add a predefined secondary storage. You can now add your custom secondary storage via
+      `VARNISHD_SECONDARY_STORAGE` https://github.com/wodby/varnish/pull/4
     * Unrestricted purge is now allowed in internal network (from containers within the same instance)
 * Webgrind: error reporting now exludes strict and deprecated errors, rebased to latest PHP 7.1 image
 
 ### Upgrade instructions
 
-* ❗Make sure the new default size of `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of `innodb_buffer_pool_size` for your application
+* ❗Make sure the new default size of
+  `innodb_buffer_pool_instances` (128M) is enough for your project, see [MariaDB stack documentation](../mariadb/index.md) to learn how to calculate the optimal size of
+  `innodb_buffer_pool_size` for your application
 
 ## 5.0.11
 
@@ -1393,7 +1418,8 @@ Do not add trailing slashes for non-directory requests
 
 ## 5.0.9
 
-* Vanilla WordPress updated to [4.9.5](https://wordpress.org/news/2018/04/wordpress-4-9-5-security-and-maintenance-release/) (**security and maintenance release**)
+* Vanilla WordPress updated to [4.9.5](https://wordpress.org/news/2018/04/wordpress-4-9-5-security-and-maintenance-release/) (
+  **security and maintenance release**)
 
 ## 5.0.8
 
@@ -1410,7 +1436,8 @@ Do not add trailing slashes for non-directory requests
 
 * Apache:
     * Updated to 2.4.33 (**security update**)
-    * New environment variable `APACHE_LIMITED_ACCESS` to remove `Require all granted` when you need to limit access by IP
+    * New environment variable `APACHE_LIMITED_ACCESS` to remove
+      `Require all granted` when you need to limit access by IP
 
 ## 5.0.5
 
@@ -1432,7 +1459,8 @@ Do not add trailing slashes for non-directory requests
 ## 5.0.3
 
 * Cron now runs from `www-data` user instead of `wodby`
-* [`files_chmod`](https://github.com/wodby/php#users-and-permissions) script now sets permissions with execution allowed only for directories
+* [
+  `files_chmod`](https://github.com/wodby/php#users-and-permissions) script now sets permissions with execution allowed only for directories
 
 ## 5.0.2
 
@@ -1450,7 +1478,8 @@ Do not add trailing slashes for non-directory requests
 
 * All containers now have [resources request](../config.md#resources) as listed [here in Resources column](https://wodby.com/stacks/wordpress/docs/containers/), in addition, crond has CPU limit
 * PHP:
-    * Container default user has been changed to `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
+    * Container default user has been changed to
+      `wodby` (uid/gid 1000), see https://github.com/wodby/php#users-and-permissions for more details
     * PHP updated to 7.2.2, 7.1.14, 7.0.27 (security updates)
     * Rebased to Alpine Linux 3.7
     * Now when your upgrade stack with a new version of vanilla WordPress, your source code will be updated
@@ -1524,7 +1553,8 @@ Do not add trailing slashes for non-directory requests
     PHP_FPM_STATUS_PATH > PHP_FPM_PM_STATUS_PATH
     ```
     * New `-dev` image tags (replacing `-debug`) for CI/CD (TBA)
-    * Env var `WODBY_HOST_PRIMARY` value now contains host (instead of URL) as it should, `WODBY_URL_PRIMARY` has been added for the URL value. See environment variables section
+    * Env var `WODBY_HOST_PRIMARY` value now contains host (instead of URL) as it should,
+      `WODBY_URL_PRIMARY` has been added for the URL value. See environment variables section
     * Improved validation and error reporting for duplicator import
     * Git email and name now can be configured via environment variables
 * Nginx:
@@ -1559,7 +1589,8 @@ Do not add trailing slashes for non-directory requests
 ### Upgrade instructions
 
 * If you used `$WODBY_APP_NAME` update your code accordingly to the new value (machine name of the app)
-* If you used `$WODBY_HOST_PRIMARY` (now contains host instead of URL) before you should replace it to `$WODBY_URL_PRIMARY`
+* If you used `$WODBY_HOST_PRIMARY` (now contains host instead of URL) before you should replace it to
+  `$WODBY_URL_PRIMARY`
 * Upgrade downtime ~5 minutes
 
 ## 4.0.0
