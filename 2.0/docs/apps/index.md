@@ -2,15 +2,17 @@
 
 ## Overview
 
-Application in Wodby consists of multiple instances that represent different environments: production, staging, development. When you create a new application you always create the first instance of that application.
+![](./images/app.svg)
+
+An application in Wodby is built on a [stack](stack.md) and can contain multiple [instances](instances.md), each representing different [environments](env.md) such as production, staging, and development. Creating a new application automatically generates its first instance.
 
 - Every app can have an unlimited number of instances but at least one
 - You can deploy as many instances as you want
-- You can also deploy instances of the same applications across different clusters
+- You can also deploy instances of the same applications across different [kubernetes clusters](../kubernetes/index.md)
 - One stack per application
 - Different instances can have different revisions of the same stack
 
-![](./images/app.svg)
+![](./images/instance.svg)
 
 ## Creating New Application
 
