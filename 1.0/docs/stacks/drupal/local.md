@@ -16,16 +16,16 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
 ### Vanilla Drupal
 
 1. Clone [docker4drupal repository](https://github.com/wodby/docker4drupal) and switch to the [latest stable tag](https://github.com/wodby/docker4drupal/releases) or download/unpack the source code from the [latest release](https://github.com/wodby/docker4drupal/releases)
-2. Optional: for Drupal 10 or 7 comment out corresponding `DRUPAL_TAG` and `NGINX_VHOST_PRESET` in `.env` file
-4. [Configure domains](#domains)
-5. From project root directory run `docker compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
-6. That's it! Proceed with Drupal installation at http://drupal.docker.localhost:8000. Default database user, password and database name are all `drupal`, database host is `mariadb`
+2. [Configure domains](#domains)
+3. Optional: if you want to deploy Vanilla Drupal (by default Drupal CMS deployed), adjust php and crond images in `compose.override.yml` file. For vanilla Drupal 10 (11 by default) adjust `DRUPAL_TAG` and `NGINX_VHOST_PRESET` in `.env` file
+4. From project root directory run `docker compose up -d` or `make up` to start containers. Give it 10-20 seconds to initialize after the start
+5. That's it! Proceed with Drupal installation at http://drupal.docker.localhost:8000. Default database user, password and database name are all `drupal`, database host is `mariadb`
 
 ### Mount my codebase
 
 1. If you're starting a new project we recommend you to use [drupal/recommended-project](https://www.drupal.org/docs/develop/using-composer/starting-a-site-using-drupal-composer-project-templates)
 2. Download and unpack `docker4drupal.tar.gz` from the [latest stable release](https://github.com/wodby/docker4drupal/releases) to your project root
-3. Delete `compose.override.yml` as it's used to deploy vanilla Drupal
+3. Delete `compose.override.yml` as it's used to deploy Drupal CMS and vanilla Drupal
 4. Ensure `NGINX_SERVER_ROOT` (or `APACHE_DOCUMENT_ROOT`) is correct, by default set to `/var/www/html/web` for composer-based projects where Drupal is in `web` subdirectory
 5. Ensure database access settings in your `settings.php` corresponds to values in `.env` file, e.g.:
     ```php
@@ -41,7 +41,7 @@ There are 2 options how to use docker4drupal – you can either run [vanilla](ht
     );
     ```     
 7. [Configure domains](#domains)
-8. Optional: for Drupal 10 or 7 update `NGINX_VHOST_PRESET` correspondingly in your `.env` file
+8. Optional: for Drupal 10 (11 by default) update `NGINX_VHOST_PRESET` correspondingly in your `.env` file
 9. Optional: uncomment lines in the compose file to run redis, solr, varnish, etc
 10. Optional: [import existing database](#database-import-and-export)
 11. Optional: macOS users please read [this](#docker-for-mac)
