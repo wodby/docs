@@ -7,6 +7,23 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.0
+
+- PHP:
+    - ⬆️ Updated to 8.4.3, 8.3.16
+    - ⭐️ NewRelic extension added to PHP 8.4
+    - 🪦 ssmtp dropped https://github.com/wodby/docker4drupal/issues/577
+    - ⬆️ xdebug 3.4.1
+    - ⬆️ opentelemetry 1.1.2
+    - 📜 `secure_path` set to preserve `$PATH` for sudoers
+- XHProf:
+    - 📜 Default `PHP_XHPROF_OUTPUT_DIR` changed to `/mnt/files/xhprof` https://github.com/wodby/xhprof/issues/5
+    - 🐞 Bugfix: xhprof extension disabled https://github.com/wodby/xhprof/issues/5
+    - 🐞 Bugfix: incorrect permissions for font directory https://github.com/wodby/xhprof/pull/7 by @i3bepb
+    - 🐞 Bugfix: missing cache font information https://github.com/wodby/xhprof/pull/6 by @i3bepb
+- ⬆️ Apache 2.4.63
+- 📜 MariaDB: `mysqld` and `mysql_` binaries use in scripts to mariadb analogs
+
 ## 6.0.21
 
 - PHP:
