@@ -15,7 +15,7 @@ Docker4Python is an open-source project ([GitHub page](https://github.com/wodby/
 2. Ensure database credentials match in your database config and `.env` files, see example for Python on Django below
 3. [Configure domains](#domains) 
 4. Optional: [import existing database](#database-import-and-export) 
-5. Optional: uncomment lines in the compose file to change DBMS (PostgreSQL by default) or run Redis, Elasticsearch, etc
+5. Optional: uncomment lines in the compose file to change DBMS (PostgreSQL by default) or run Valkey (redis), OpenSearch, etc
 6. Optional: macOS users please read [this](#docker-for-mac)
 7. Optional: Windows users please read [this](#permissions-issues)
 8. By default python container will start Gunicorn HTTP server, update `$GUNICORN_APP` in `Dockerfile` for your application name. If you have your application in a subdirectory specify it in `$GUNICORN_PYTHONPATH`   
@@ -67,16 +67,16 @@ By default `BASE_URL` set to `python.docker.localhost`, you can change it in `.e
 
 Add `127.0.0.1 python.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
-| Service      | Domain                                        |
-| ------------ | ------------------------------------------    |
-| `nginx`      | `http://python.docker.localhost:8000`           |
-| `adminer`    | `http://adminer.python.docker.localhost:8000`   |
-| `mailpit`    | `http://mailpit.python.docker.localhost:8000`   |
-| `solr`       | `http://solr.python.docker.localhost:8000`      |
-| `kibana`     | `http://kibana.python.docker.localhost:8000`    |
-| `node`       | `http://front.python.docker.localhost:8000`     |
-| `varnish`    | `http://varnish.python.docker.localhost:8000`   |
-| `portainer`  | `http://portainer.python.docker.localhost:8000` |
+| Service      | Domain                                           |
+|--------------|--------------------------------------------------|
+| `nginx`      | `http://python.docker.localhost:8000`            |
+| `adminer`    | `http://adminer.python.docker.localhost:8000`    |
+| `mailpit`    | `http://mailpit.python.docker.localhost:8000`    |
+| `solr`       | `http://solr.python.docker.localhost:8000`       |
+| `node`       | `http://front.python.docker.localhost:8000`      |
+| `varnish`    | `http://varnish.python.docker.localhost:8000`    |
+| `portainer`  | `http://portainer.python.docker.localhost:8000`  |
+| `opensearch` | `http://opensearch.drupal.docker.localhost:8000` |
 
 ## Database import and export
 

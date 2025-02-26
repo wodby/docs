@@ -28,7 +28,7 @@ There are 2 options how to use docker4wordpress – you can either run [vanilla]
 3. Delete `compose.override.yml` as it's used to deploy vanilla WordPress
 4. Ensure database credentials match in your `wp-config.php` and `.env` files
 6. [Configure domains](#domains)
-7. Optional: uncomment lines in the compose file to run redis, varnish, phpmyadmin, etc
+7. Optional: uncomment lines in the compose file to run valkey (redis), varnish, phpmyadmin, etc
 8. Optional: [import existing database](#database-import-and-export)
 9. Optional: macOS users please read [this](#docker-for-mac)
 10. Optional: Windows users please read [this](#windows)
@@ -52,15 +52,16 @@ By default `BASE_URL` set to `wp.docker.localhost`, you can change it in `.env` 
 
 Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
-| Service        | Domain                                      |
-|----------------|---------------------------------------------|
-| `nginx/apache` | `http://wp.docker.localhost:8000`           |
-| `pma`          | `http://pma.wp.docker.localhost:8000`       |
-| `adminer`      | `http://adminer.wp.docker.localhost:8000`   |
-| `mailpit`      | `http://mailpit.wp.docker.localhost:8000`   |
-| `varnish`      | `http://varnish.wp.docker.localhost:8000`   |
-| `portainer`    | `http://portainer.wp.docker.localhost:8000` |
-| `webgrind`     | `http://webgrind.wp.docker.localhost:8000`  |
+| Service        | Domain                                           |
+|----------------|--------------------------------------------------|
+| `nginx/apache` | `http://wp.docker.localhost:8000`                |
+| `pma`          | `http://pma.wp.docker.localhost:8000`            |
+| `adminer`      | `http://adminer.wp.docker.localhost:8000`        |
+| `mailpit`      | `http://mailpit.wp.docker.localhost:8000`        |
+| `varnish`      | `http://varnish.wp.docker.localhost:8000`        |
+| `portainer`    | `http://portainer.wp.docker.localhost:8000`      |
+| `webgrind`     | `http://webgrind.wp.docker.localhost:8000`       |
+| `opensearch`   | `http://opensearch.drupal.docker.localhost:8000` |
 
 ## Mail sending
 

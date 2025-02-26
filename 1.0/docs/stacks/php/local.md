@@ -16,7 +16,7 @@ Docker4PHP is an open-source project ([GitHub page](https://github.com/wodby/doc
 3. Ensure database credentials match in your database config and `.env` files
 5. [Configure domains](#domains) 
 6. Optional: [import existing database](#database-import-and-export) 
-7. Optional: uncomment lines in the compose file to run redis, elasticsearch, kibana, etc
+7. Optional: uncomment lines in the compose file to run valkey (redis), opensearch, etc
 8. Optional: macOS users please read [this](#docker-for-mac)
 9. Optional: Windows users please read [this](#permissions-issues)
 10. Run containers: [`make up`](#make-commands) or `docker compose up -d`
@@ -39,18 +39,18 @@ By default `BASE_URL` set to `php.docker.localhost`, you can change it in `.env`
 
 Add `127.0.0.1 php.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
-| Service        | Domain                                       |
-|----------------|----------------------------------------------|
-| `nginx/apache` | `http://php.docker.localhost:8000`           |
-| `pma`          | `http://pma.php.docker.localhost:8000`       |
-| `adminer`      | `http://adminer.php.docker.localhost:8000`   |
-| `mailpit`      | `http://mailpit.php.docker.localhost:8000`   |
-| `solr`         | `http://solr.php.docker.localhost:8000`      |
-| `kibana`       | `http://kibana.php.docker.localhost:8000`    |
-| `node`         | `http://front.php.docker.localhost:8000`     |
-| `varnish`      | `http://varnish.php.docker.localhost:8000`   |
-| `portainer`    | `http://portainer.php.docker.localhost:8000` |
-| `webgrind`     | `http://webgrind.php.docker.localhost:8000`  |
+| Service        | Domain                                           |
+|----------------|--------------------------------------------------|
+| `nginx/apache` | `http://php.docker.localhost:8000`               |
+| `pma`          | `http://pma.php.docker.localhost:8000`           |
+| `adminer`      | `http://adminer.php.docker.localhost:8000`       |
+| `mailpit`      | `http://mailpit.php.docker.localhost:8000`       |
+| `solr`         | `http://solr.php.docker.localhost:8000`          |
+| `node`         | `http://front.php.docker.localhost:8000`         |
+| `varnish`      | `http://varnish.php.docker.localhost:8000`       |
+| `portainer`    | `http://portainer.php.docker.localhost:8000`     |
+| `webgrind`     | `http://webgrind.php.docker.localhost:8000`      |
+| `opensearch`   | `http://opensearch.drupal.docker.localhost:8000` |
 
 ## Mail sending
 

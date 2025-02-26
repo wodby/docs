@@ -15,10 +15,10 @@ Docker4Ruby is an open-source project ([GitHub page](https://github.com/wodby/do
 2. Ensure database credentials match in your database config and `.env` files, see example for Ruby on Rails below
 3. [Configure domains](#domains) 
 4. Optional: [import existing database](#database-import-and-export) 
-5. Optional: uncomment lines in the compose file to change DBMS (PostgreSQL by default) or run Sidekiq, Redis, Elasticsearch, etc
+5. Optional: uncomment lines in the compose file to change DBMS (PostgreSQL by default) or run Sidekiq, Valkey (redis), OpenSearch, etc
 6. Optional: macOS users please read [this](#docker-for-mac)
 7. Optional: Windows users please read [this](#permissions-issues)
-8. By default ruby container will start Puma HTTP server, if you want to change it modify `Dockerfile`
+8. By default, ruby container will start Puma HTTP server, if you want to change it modify `Dockerfile`
 9. Build your ruby image by running `make build` or `docker compose build`. This will create a new image with installed gems from your `Gemfile.lock`. If compilation of native extension for some of your gems fail you probably need to install additional dev packages, see example in `Dockerfile`  
 10. Run containers: [`make`](#make-commands) or `docker compose up -d`. Your codebase from `./` will be mounted to the ruby image with installed gems 
 11. Your ruby application should be up and running at http://ruby.docker.localhost:8000
@@ -52,16 +52,16 @@ By default `BASE_URL` set to `ruby.docker.localhost`, you can change it in `.env
 
 Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
-| Service      | Domain                                        |
-| ------------ | ------------------------------------------    |
-| `nginx`      | `http://ruby.docker.localhost:8000`           |
-| `adminer`    | `http://adminer.ruby.docker.localhost:8000`   |
-| `mailpit`    | `http://mailpit.ruby.docker.localhost:8000`   |
-| `solr`       | `http://solr.ruby.docker.localhost:8000`      |
-| `kibana`     | `http://kibana.ruby.docker.localhost:8000`    |
-| `node`       | `http://front.ruby.docker.localhost:8000`     |
-| `varnish`    | `http://varnish.ruby.docker.localhost:8000`   |
-| `portainer`  | `http://portainer.ruby.docker.localhost:8000` |
+| Service      | Domain                                           |
+|--------------|--------------------------------------------------|
+| `nginx`      | `http://ruby.docker.localhost:8000`              |
+| `adminer`    | `http://adminer.ruby.docker.localhost:8000`      |
+| `mailpit`    | `http://mailpit.ruby.docker.localhost:8000`      |
+| `solr`       | `http://solr.ruby.docker.localhost:8000`         |
+| `node`       | `http://front.ruby.docker.localhost:8000`        |
+| `varnish`    | `http://varnish.ruby.docker.localhost:8000`      |
+| `portainer`  | `http://portainer.ruby.docker.localhost:8000`    |
+| `opensearch` | `http://opensearch.drupal.docker.localhost:8000` |
 
 ## Database import and export
 
