@@ -42,7 +42,8 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 
 ### 3.2.1
 
-⬆️ MariaDB 11.4.5, 10.11.11, 10.6.21, 10.5.28
+- ⬆️ Updated to 11.4.5, 10.11.11, 10.6.21, 10.5.28
+- ⭐️ Added MariaDB 11.4
 
 ### 3.2.0
 
