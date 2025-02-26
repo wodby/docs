@@ -7,6 +7,22 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.1
+
+- ⬆️ Vanilla Drupal updated to 11.1.3, 10.4.3
+- PHP:
+    - ⬆️ Updated to 8.4.4, 8.3.17
+    - ⭐️ FTP extension added to PHP 8.2+
+- Solr:
+    - ⭐️ Added Solr 9
+    - 🪦 Solr 8 has reach end of life
+- ⬆️ Nginx 1.27.4, 1.26.3
+- 📜 Redis from now on will use hybrid data persistency method (AOF and RDB) when `$REDIS_SAVE_TO_DISK` set
+- ⬆️ MariaDB 11.4.5, 10.11.11, 10.6.21, 10.5.28
+- ⬆️ Memcached 1.6.37
+- ⬆️ Adminer 4.17.1
+- 🏔️ Patch updates for Alpine Linux
+
 ## 6.1.0
 
 - ⬆️ Vanilla Drupal updated to 11.1.1, 10.4.1

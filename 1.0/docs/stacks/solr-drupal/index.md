@@ -74,6 +74,11 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.7.0
+
+- ⭐️ Added Solr 9
+- 🪦 Solr 8 has reach end of life
+
 ### 2.6.4
 
 🐞 Bugfix: zookeeper data was not persistent

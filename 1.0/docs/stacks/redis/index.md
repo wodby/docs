@@ -20,6 +20,11 @@ redis://default:[redis-pass]@[node-ip]:[dynamic-node-redis-port]
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 3.1.0
+
+- 📜 Redis from now on will use hybrid data persistency method (AOF and RDB) when `$REDIS_SAVE_TO_DISK` set
+- 🪦 Redis 6 has reached end of life
+
 ### 3.0.9
 
 ⬆️ Redis 7.4.0
