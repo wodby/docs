@@ -1,18 +1,19 @@
 # Kubernetes
 
-## Overview
+## Creating Kubernetes cluster
 
-Wodby 2.0 allows to deploy your applications to Kubernetes clusters. You can connect your Kubernetes cluster from a cloud provider that offers managed Kubernetes services like:
+We support two different ways of connecting Kubernetes cluster:
 
-- [Google Kubernetes Engine (GKE)](../integrations/gcp.md#gke)
-- [AWS Elastic Kubernetes Service (EKS)](../integrations/aws.md#eks)
-- [Azure Kubernetes Service (AKS)](../integrations/azure.md#aks)
-- [DigitalOcean Kubernetes (DOKS)](../integrations/digitalocean.md#doks)
-- [OVH Kubernetes](../integrations/ovh.md#kubernetes) 
+### 1. [Managed Kubernetes](managed.md)
 
-To create a cluster you should first connect your account from appropriate cloud provider to Wodby by creating a new integration with _kubernetes_ type.
+Ready-to-run and scalable solutions from [integrations](../integrations/index.md) like GCP, AWS, Azure, DigitalOcean and OVH.
 
-When you delete a cluster from Wodby we will also delete it from your cloud provider. 
+If you plan to scale your cluster and need more flexibility, we recommend this approach.
 
-!!! warning "Do not modify your cluster from cloud provider panel"
-    Clusters created from Wodby should not be modified directly from a cloud provider panel. This will lead to unexpected errors.
+### 2. [Self-hosted Kubernetes with K3S](k3s.md)
+
+If you want to save money and have more control over your cluster, you can deploy a self-hosted Kubernetes cluster using K3S.
+
+## Demo
+
+Additionally, for testing purposes we provide an option to spin-up a [Demo Kubernetes cluster](demo.md). The cluster is temporary and will be destroyed in 12 hours with all applications.

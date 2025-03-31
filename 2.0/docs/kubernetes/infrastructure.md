@@ -4,4 +4,7 @@ We manage Kubernetes cluster capabilities by deploying special system applicatio
 
 - Ingress Nginx
 - Monitoring
-- (for AWS only) AWS Load Balancer controller
+- Web sockets proxy for secure connection to Kubernetes API
+- Additional controller applications (e.g. AWS Load Balancer controller for EKS cluster)
+
+Infrastructure apps are similar to usual apps in a way that they can be upgraded and configured (although not as extension as users' apps).   

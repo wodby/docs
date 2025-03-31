@@ -113,6 +113,8 @@ nav:
   - Wodby Registry: cicd/wodby-registry.md
 - Kubernetes:
   - Overview: kubernetes/index.md
+  - Managed: kubernetes/managed.md
+  - K3S: kubernetes/k3s.md
   - Demo Cluster: kubernetes/demo.md
   - Infrastructure: kubernetes/infrastructure.md
 - Databases:
