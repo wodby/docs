@@ -38,7 +38,7 @@ make reload core=[core name] -f /usr/local/bin/actions.mk
 
 ## Customizing solr core
 
-By default we create cores with a reference to a config set, this means that a core does not have its own config but instead uses config files of pre-existing configuration. Available config sets listed under `configsets/*` in the default working directory. To learn which config set used in your core navigate to your core directory, it's a directory in the default working dir (`/opt/solr/server/solr`) that matches your core name. In this directory you'll find `core.properties` file that contains `configSet=` line where a currently used config set specified.
+By default, we create cores with a reference to a config set, this means that a core does not have its own config but instead uses config files of pre-existing configuration. Available config sets listed under `configsets/*` in the default working directory. To learn which config set used in your core navigate to your core directory, it's a directory in the default working dir (`/opt/solr/server/solr`) that matches your core name. In this directory you'll find `core.properties` file that contains `configSet=` line where a currently used config set specified.
 
 Now there two ways how you can customize your core config:
 
@@ -67,6 +67,10 @@ Use this approach when you'll need a unique configuration per core.
 ## Changelog
 
 This changelog is for Solr stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases)
+
+### 2.7.1
+
+⬆️ Solr 9.8.1
 
 ### 2.7.0
 
