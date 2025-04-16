@@ -1,6 +1,6 @@
 # Open Source
 
-We at Wodby try to open-source most of our work. Our docker images are public and available at https://hub.docker.com/r/wodby, this documentation and docker4x projects for [local](local/index.md) development are available publicly on GitHub: https://github.com/wodby 
+We at Wodby try to open-source most of our work. Our docker images are public and available at https://hub.docker.com/r/wodby, this documentation and docker4x projects for local development are available publicly on GitHub: https://github.com/wodby 
 
 - [Documentation](https://github.com/wodby/docs)
 - [Wodby CLI](https://github.com/wodby/wodby-cli)

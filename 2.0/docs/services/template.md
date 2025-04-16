@@ -146,7 +146,7 @@ Required.
 
 Type: `enum`. Required.
 
-[Service type](types).
+[Service type](types.md).
 
 Following values allowed:
 
@@ -157,6 +157,7 @@ Following values allowed:
 - `datastore`
 - `search`
 - `ssh`
+- `smtp`
 
 Can be used in selectors.
 
@@ -832,7 +833,7 @@ Container's command to override of the main container for the kubernetes job whe
 
 Type: `enum`. Allowed values: `button`, `post_upgrade`, `post_deploy`, `post_deploy_once`
 
-[Action's type](actions.md#type). Defines how and when action will be executed.
+[Action's type](actions.md#types). Defines how and when action will be executed.
 
 #### `actions.[].template`
 

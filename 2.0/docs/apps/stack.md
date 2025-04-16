@@ -1,6 +1,28 @@
 # Application stack
 
-![](./images/instance.svg)
+```mermaid
+flowchart TD
+    subgraph App2["<div style='margin-top:10px; white-space: nowrap;'>Your app</div>"]
+        subgraph group[ ]
+            Dev["Dev instance"]
+            Staging["Staging instance"]
+            Prod["Production Instance"]
+        end
+        style group fill:none,stroke:none,stroke-width:0px
+    end   
+
+    subgraph Stack["<div style='margin-top:10px; margin-right: 60px; white-space: nowrap;'>App stack</div>"]
+        subgraph group3[ ]
+            Rev1["Revision #1"]
+            Rev2["Revision #2"]
+        end
+        style group3 fill:none,stroke:none,stroke-width:0px            
+    end
+    
+    Dev --> Rev1
+    Staging --> Rev2
+    Prod --> Rev2
+```
 
 Every application is built on a stack. Stack is like a blueprint from which application created. All [app instances](instances.md) of the same app have the same stack but may have different revisions. Our intended use case for a stack is to have a stack per every app unless you have many simple very similar apps in which case it might be reasonable to just have one stack. The idea is to store all configuration in a stack and when configuration changed and a new stack revisions issued (every time a stack changed we release a new revision), upgrade app instance's stacks instance by instance. This way, all of your instances can be in sync.
 

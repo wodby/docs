@@ -1,18 +1,20 @@
 # Databases
 
-Databases represent following database management instances:
+## Deployment types
 
-1. Container-based, deployed as a part of your applications deployment
-2. External managed databases instances
+Database server is a first-class citizen on Wodby, we support two different ways of deploying your database server:
 
-Databases provide a layer for managing access to your DBMS, databases, backups and imports. 
+### 1. Container-based
 
-For #2 we currently support the following managed database solutions: 
+Deployed as a part of your application stack and runs in a container with an attached persistent storage. Add one of the database [services](../services/index.md) to your stack and specify desired storage size in a stack configuration or when creating a new app.
 
-- [GCP Cloud SQL for MySQL and PostgreSQL](../integrations/gcp.md#cloud-sql)
-- [AWS RDS](../integrations/aws.md#rds)
-- [Azure Databases](../integrations/azure.md#databases)
-- [DigitalOcean Managed Databases](../integrations/digitalocean.md#managed-database)
+### 2. [Managed](managed.md)
+
+A database server will be deployed on a third-party cloud provider, requires a special external cloud service and cloud integration. 
+
+## Overview
+
+Databases provide a layer for managing access to your [DBs](dbs.md), [users](users.md), [backups](backups.md) and [imports](imports.md).
 
 A database is a sharable entity and can be shared to multiple projects.
 
@@ -23,7 +25,3 @@ Right now we support the following database kinds:
 - MySQL
 - MariaDB
 - PostgreSQL
-
-## Reside with Kubernetes
-
-When creating a new external managed database, you can choose a Kubernetes cluster to reside this database with. The Kubernetes cluster must be created from the same integration as the database. When selected it will use the same cloud network as the Kubernetes cluster for private connections.

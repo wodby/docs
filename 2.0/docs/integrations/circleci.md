@@ -17,7 +17,7 @@ The following example:
 
 Make sure you've:
 
-- Added `WODBY_API_TOKEN` environment variable in CircleCI project settings with [your Wodby API Key](../development/api-keys.md) value
+- Added `WODBY_API_TOKEN` environment variable in CircleCI project settings with [your Wodby API Key](../dev/api-keys.md) value
 - Replaced `WODBY_GIT_REPO_ID` with the git repo ID of the PHP service or added the env var `WODBY_GIT_REPO_ID` with the value
 
 ```yaml

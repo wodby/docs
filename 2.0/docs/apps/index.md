@@ -2,8 +2,6 @@
 
 ## Overview
 
-![](./images/app.svg)
-
 An application in Wodby is built on a [stack](stack.md) and can contain multiple [instances](instances.md), each representing different [environments](env.md) such as production, staging, and development. Creating a new application automatically generates its first instance.
 
 - Every app can have an unlimited number of instances but at least one
@@ -12,7 +10,29 @@ An application in Wodby is built on a [stack](stack.md) and can contain multiple
 - One stack per application
 - Different instances can have different revisions of the same stack
 
-![](./images/instance.svg)
+```mermaid
+flowchart TD
+    subgraph App2["<div style='margin-top:10px; white-space: nowrap;'>Your app</div>"]
+        subgraph group[ ]
+            Dev["Dev instance"]
+            Staging["Staging instance"]
+            Prod["Production Instance"]
+        end
+        style group fill:none,stroke:none,stroke-width:0px
+    end   
+
+    subgraph Stack["<div style='margin-top:10px; margin-right: 60px; white-space: nowrap;'>App stack</div>"]
+        subgraph group3[ ]
+            Rev1["Revision #1"]
+            Rev2["Revision #2"]
+        end
+        style group3 fill:none,stroke:none,stroke-width:0px            
+    end
+    
+    Dev --> Rev1
+    Staging --> Rev2
+    Prod --> Rev2
+```
 
 ## Creating New Application
 

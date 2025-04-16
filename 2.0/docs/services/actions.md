@@ -1,10 +1,12 @@
 # Service actions
 
+## Overview
+
 Service can define an action that will execute an operation in an app. When an action executed it will run a kubernetes job with the provided overridden args/commands and optionally privileged permissions. A task containing the logs of the execution will be created.
 
 Service with multiple actions will run all actions simultaneously unless there are action with dependency order specified.
 
-## Type
+## Types
 
 Action's type defines how and when the action will be executed.
 
@@ -24,4 +26,10 @@ Same as `post_deploy` but run only during first deployment. Can be limited to ru
 
 Post-upgrade action
 
+### `output`
 
+Action produces output that will be shown in Wodby dashboard. 
+
+## Template 
+
+Service actions defined under [`actions` section](template.md#annotations) in a service template.

@@ -1,4 +1,3 @@
-# SSH typed services
- 
-TBD
+# SSH services
 
+TBD

@@ -21,3 +21,5 @@ On top of that we expect the Helm chart to support the following values:
 - `args`
 
 If you're creating a custom Helm chart we recommend to fork one of existing [charts by Wodby](https://github.com/wodby/charts) or [by Bitnami](https://github.com/bitnami/charts)
+
+Helm chart information defined under [`helm` section](template.md#helm) in a service template.

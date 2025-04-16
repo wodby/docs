@@ -1,4 +1,4 @@
-site_name: Wodby documentation
+site_name: Wodby Documentation
 site_description: Wodby 2.0 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/2.0
@@ -11,162 +11,189 @@ copyright: Wodby, Inc.
 extra:
   generator: false
   social:
-  - icon: fontawesome/solid/globe
-    link: https://wodby.com
-  - icon: fontawesome/brands/github
-    link: https://github.com/wodby
-  - icon: fontawesome/brands/twitter
-    link: https://x.com/wodbycloud
-  - icon: fontawesome/brands/slack
-    link: https://slack.wodby.com
-  - icon: fontawesome/brands/discord
-    link: https://discord.wodby.com/wodbycloud
+    - icon: fontawesome/solid/globe
+      link: https://wodby.com
+    - icon: fontawesome/brands/github
+      link: https://github.com/wodby
+    - icon: fontawesome/brands/twitter
+      link: https://x.com/wodbycloud
+    - icon: fontawesome/brands/slack
+      link: https://slack.wodby.com
+    - icon: fontawesome/brands/discord
+      link: https://discord.wodby.com/wodbycloud
 
 theme:
   logo: assets/images/logo.svg
   favicon: assets/images/favicon.svg
   name: material
   features:
-  - navigation.tabs
-  - navigation.instant
-  - navigation.footer
-  - content.code.annotate
-  - content.code.copy
-  - navigation.top
-  - navigation.tracking
-  - search.highlight
-  - search.share
-  - search.suggest
-  - toc.follow
+    - navigation.tabs
+    - navigation.instant
+    - navigation.footer
+    - content.code.annotate
+    - content.code.copy
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
   palette:
-  - media: "(prefers-color-scheme: light)"
-    toggle:
-      icon: material/weather-night
-      name: Switch to dark mode
-  - media: "(prefers-color-scheme: dark)"
-    scheme: slate
-    toggle:
-      icon: material/weather-sunny
-      name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
 
   custom_dir: 'theme'
 
-extra_css: ["assets/wodby.css"]
-extra_javascript: ["assets/intercom.js"]
+extra_css: [ "assets/wodby.css" ]
+extra_javascript: [ "assets/intercom.js" ]
 
 markdown_extensions:
-- codehilite
-- markdown.extensions.admonition
-- markdown.extensions.codehilite:
-    guess_lang: false
-- markdown.extensions.def_list
-- markdown.extensions.footnotes
-- markdown.extensions.meta
-- markdown.extensions.toc:
-    permalink: true
-- pymdownx.arithmatex
-- pymdownx.betterem:
-    smart_enable: all
-- pymdownx.caret
-- pymdownx.critic
-- pymdownx.details
-- pymdownx.inlinehilite
-- pymdownx.magiclink
-- pymdownx.mark
-- pymdownx.smartsymbols
-- pymdownx.superfences
-- pymdownx.tasklist:
-    custom_checkbox: true
-- pymdownx.tilde
-- markdown_include.include:
-    base_path: includes
+  - codehilite
+  - markdown.extensions.admonition
+  - markdown.extensions.codehilite:
+      guess_lang: false
+  - markdown.extensions.def_list
+  - markdown.extensions.footnotes
+  - markdown.extensions.meta
+  - markdown.extensions.toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - markdown_include.include:
+      base_path: includes
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-- Home:
-  - Getting started: index.md
-  - Organization: org.md
-  - Projects: projects.md
-  - Teams: teams.md
-  - Tasks: tasks.md
-  - Pricing & Billing: pricing.md
-  - Open Source: oss.md
-  - Status: status.md
-  - Support: support.md
-- Apps:
-  - Overview: apps/index.md
-  - Instances: apps/instances.md
-  - Stack: apps/stack.md
-  - App services: apps/services.md
-  - Endpoints: apps/endpoints.md
-  - Builds: apps/builds.md
-  - Deploys: apps/deploys.md
-  - Backups: apps/backups.md
-  - Imports: apps/imports.md
-  - Environment: apps/env.md
-  - Log streaming: apps/logs.md
-  - Tokens: apps/tokens.md
-  - Tasks: apps/tasks.md
-  - Cron: apps/cron.md
-- CI/CD:
-  - Overview: cicd/index.md
-  - Wodby CI: cicd/wodby-ci.md
-  - Wodby Registry: cicd/wodby-registry.md
-- Kubernetes:
-  - Overview: kubernetes/index.md
-  - Managed: kubernetes/managed.md
-  - K3S: kubernetes/k3s.md
-  - Demo Cluster: kubernetes/demo.md
-  - Infrastructure: kubernetes/infrastructure.md
-- Databases:
-  - Overview: databases/index.md
-  - DBs: databases/dbs.md
-  - Users: databases/users.md
-  - Backups: databases/backups.md
-  - Imports: databases/imports.md
-- Stacks:
-  - Overview: stacks/index.md
-  - Configuration: stacks/configuration.md
-  - Stack services: stacks/services.md
-  - Template: stacks/template.md
-- Services:
-  - Overview: services/index.md
-  - Template: services/template.md
-  - Types: services/types.md
-  - Endpoints: services/endpoints.md
-  - Links: services/links.md
-  - Derivatives: services/derivatives.md
-  - Integrations: services/integrations.md
-  - Helm: services/helm.md
-  - Actions: services/actions.md
-  - Certificates: services/certs.md
-  - Configs: services/configs.md
-  - Settings: services/settings.md
-  - Backups: services/backups.md
-  - Imports: services/imports.md
-  - Volumes: services/volumes.md
-  - Cron: services/cron.md
-  - Annotations: services/annotations.md
-  - Buildable services: services/build.md
-  - Database services: services/database.md
-- Integrations:
-  - Overview: integrations/index.md
-  - Providers: integrations/providers.md
-  - Types: integrations/types.md
-  - Variable integration: integrations/variable.md
-  - Google Cloud Platform: integrations/gcp.md
-  - Amazon Web Service: integrations/aws.md
-  - Azure: integrations/azure.md
-  - DigitalOcean: integrations/digitalocean.md
-  - OVH: integrations/ovh.md
-  - Linode: integrations/linode.md
-  - GitHub: integrations/github.md
-  - GitLab: integrations/gitlab.md
-  - BitBucket: integrations/bitbucket.md
-  - CircleCI: integrations/circleci.md
-  - Brevo: integrations/brevo.md
-  - Docker: integrations/docker.md
-  - NewRelic: integrations/newrelic.md
-  - Datadog: integrations/datadog.md
-  - Sentry: integrations/sentry.md
-- Development:
-  - API key: dev/api-keys.md
+  - Home:
+      - Getting started: index.md
+      - Organization: org.md
+      - Projects: projects.md
+      - Teams: teams.md
+      - Tasks: tasks.md
+      - Pricing & Billing: pricing.md
+      - Open Source: oss.md
+      - Status: status.md
+      - Support: support.md
+  - Apps:
+      - Overview: apps/index.md
+      - Instances: apps/instances.md
+      - Stack: apps/stack.md
+      - App services: apps/services.md
+      - Endpoints: apps/endpoints.md
+      - Builds: apps/builds.md
+      - Deploys: apps/deploys.md
+      - Backups: apps/backups.md
+      - Imports: apps/imports.md
+      - Environment: apps/env.md
+      - High availability: apps/high-availability.md
+      - Scalability: apps/scalability.md
+      - Resources management: apps/resources.md
+      - Storage: apps/storage.md
+      - Monitoring: apps/monitoring.md
+      - Log streaming: apps/logs.md
+      - Tokens: apps/tokens.md
+      - Tasks: apps/tasks.md
+      - Cron: apps/cron.md
+  - CI/CD:
+      - Overview: cicd/index.md
+      - Git: cicd/git.md
+      - Build: cicd/build.md
+      - Deployment: cicd/deploy.md
+      - Docker Registry: cicd/docker-registry.md
+      - Third-party CI: cicd/third-party.md
+      - Wodby CI: cicd/wodby-ci.md
+      - Wodby Registry: cicd/wodby-registry.md
+  - Kubernetes:
+      - Overview: kubernetes/index.md
+      - Managed: kubernetes/managed.md
+      - K3S: kubernetes/k3s.md
+      - Demo Cluster: kubernetes/demo.md
+      - Infrastructure: kubernetes/infrastructure.md
+      - High availability: kubernetes/high-availability.md
+      - Scalability: kubernetes/scalability.md
+      - Monitoring: kubernetes/monitoring.md
+      - Updates: kubernetes/updates.md
+  - Databases:
+      - Overview: databases/index.md
+      - Managed: databases/managed.md
+      - DBs: databases/dbs.md
+      - Users: databases/users.md
+      - Backups: databases/backups.md
+      - Imports: databases/imports.md
+  - Stacks:
+      - Overview: stacks/index.md
+      - Configuration: stacks/configuration.md
+      - Stack services: stacks/services.md
+      - Template: stacks/template.md
+  - Services:
+      - Overview: services/index.md
+      - Template: services/template.md
+      - Types: services/types.md
+      - Endpoints: services/endpoints.md
+      - Links: services/links.md
+      - Derivatives: services/derivatives.md
+      - Integrations: services/integrations.md
+      - Helm: services/helm.md
+      - Actions: services/actions.md
+      - Certificates: services/certs.md
+      - Configs: services/configs.md
+      - Settings: services/settings.md
+      - Options: services/options.md
+      - Backups: services/backups.md
+      - Imports: services/imports.md
+      - Volumes: services/volumes.md
+      - Cron: services/cron.md
+      - Tokens: services/tokens.md
+      - Annotations: services/annotations.md
+      - Buildable services: services/build.md
+      - Database services: services/database.md
+      - Storage services: services/storage.md
+      - SMTP services: services/smtp.md
+      - SSH services: services/ssh.md
+  - Integrations:
+      - Overview: integrations/index.md
+      - Providers: integrations/providers.md
+      - Types: integrations/types.md
+      - Variable integration: integrations/variable.md
+      - Google Cloud Platform: integrations/gcp.md
+      - Amazon Web Service: integrations/aws.md
+      - Azure: integrations/azure.md
+      - DigitalOcean: integrations/digitalocean.md
+      - OVH: integrations/ovh.md
+      - GitHub: integrations/github.md
+      - GitLab: integrations/gitlab.md
+      - BitBucket: integrations/bitbucket.md
+      - CircleCI: integrations/circleci.md
+      - Brevo: integrations/brevo.md
+      - Docker: integrations/docker.md
+      - Distribution: integrations/distribution.md
+      - NewRelic: integrations/newrelic.md
+      - Datadog: integrations/datadog.md
+      - Sentry: integrations/sentry.md
+  - Development:
+      - API: dev/api.md
+      - API keys: dev/api-keys.md
+      - CLI: dev/cli.md

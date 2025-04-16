@@ -1,4 +1,4 @@
-# Application builds
+# Application Builds
 
 Some [services are buildable](../services/build.md), for such app services we expect a [CI system](../cicd/index.md) to build container images and trigger deployment via Wodby CLI. 
 

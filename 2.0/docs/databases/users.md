@@ -1,4 +1,4 @@
-# Databases users
+# Database users
 
 You can create and delete individual users of your database management system from _"Databases > [Database] > Users"_ page.
 

@@ -19,7 +19,6 @@ Machine name: `kubernetes`
 - [Azure AKS](azure.md#aks)
 - [DigitalOcean DOKS](digitalocean.md#doks)
 - [OVH Kubernetes](ovh.md#kubernetes)
-- [Linode](linode.md#lke)
 
 ## Databases
 

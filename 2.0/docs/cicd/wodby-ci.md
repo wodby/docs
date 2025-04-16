@@ -40,6 +40,8 @@ jobs:
     - run: wodby ci deploy
 ```
 
+You can find more examples at https://github.com/wodby/wodby-ci
+
 ### Reference
 
 #### Version

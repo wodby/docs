@@ -4,6 +4,13 @@ Deployments are selective and can be performed for specific services. During the
 
 A deployment always associated with a specific revision of app instance's stack's revision.
 
+Deployments usually triggered in the following ways:
+
+- First deployment after app instance creation
+- Deployment of builds [requested from CI](../cicd/deploy.md)
+- Automated partial deployments (e.g. TSL certificates renewed)
+- Manual deployment from UI
+
 ## Build deployment
 
 Deployments from CI system can be triggered with `wodby ci deploy` command. For build deployment request a new deployment created associated with the build. Associated build can have multiple app service builds associated. Deployment from CI can optionally disable run of post-deployment scripts for the built services.

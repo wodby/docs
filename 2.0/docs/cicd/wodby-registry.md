@@ -10,3 +10,7 @@ We create a new repository per each application instances, available as `[org-na
 
 !!! important
     Docker images that are not associated with existing application instances and builds will be automatically cleaned up.
+
+## Auth
+
+You can access registry images in your organization namespace using your Wodby account credentials via `docker login us-docker.wodby.com`. 

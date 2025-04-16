@@ -1,4 +1,4 @@
-# Stack template
+# Stack Template
 
 Example:
 
