@@ -2,73 +2,81 @@
 
 Example:
 
-```
-name: drupal9
-icon: drupal9
-title: Drupal 9
+```yaml
+name: php
+icon: php
+title: PHP
 
 services:
-- name: php
-  title: PHP
-  service: php-drupal9
-  required: true
-  options:
-  - version: '8.1'
-    default: true
-  - version: '8.0'
-  - version: '7.4'
-  containers:
   - name: php
-    env:
-    - name: PHP_MEMORY_LIMIT
-      value: 512M
-    resources:
-      request:
-        cpu: 100
-        memory: 16
-  volumes:
-  - name: files
-    size: 50
-  links:
-  - name: db
-    service: mariadb
-
-- name: nginx
-  title: Nginx
-  service: nginx-drupal9
-  required: true
-  links:
-  - name: backend
+    title: PHP
     service: php
+    required: true
+    links:
+      - name: db
+        service: mariadb
+      - name: sendmail
+        service: mailpit
 
-- name: mariadb
-  title: MariaDB
-  service: mariadb
-  volumes:
-  - name: data
-    size: 20
+  - name: nginx
+    title: Nginx
+    service: php-nginx
+    required: true
+    containers:
+      - name: nginx
+        env:
+          - name: NGINX_VHOST_PRESET
+            value: php
+    links:
+      - name: backend
+        service: php
 
-- name: mariadb-cloud
-  title: Cloud MariaDB
-  service: mariadb-cloud
-  disabled: true
-  options:
-  - version: '10.3'
+  - name: mariadb
+    title: MariaDB
+    service: mariadb
+    volumes:
+      - name: data
+        size: 20
 
-- name: mysql-cloud
-  title: Cloud MySQL
-  service: mysql-cloud
-  disabled: true
-  options:
-  - version: '5.7'
-  - version: '8'
+  - name: httpd
+    title: Apache HTTP server
+    service: php-httpd
+    disabled: true
+    containers:
+      - name: httpd
+        env:
+          - name: APACHE_VHOST_PRESET
+            value: php
+    links:
+      - name: backend
+        service: php
 
-tokens:
-- name: random_token
-  generate:
-    regex: '[0-9a-z]{5,10}'
-- name: db_backup_ignore_tables
-  value: 'cache_%;cache;ctools_object_cache;ctools_views_cache;flood;history;queue;search_index;semaphore;sequences;sessions;watchdog'
+  - name: postgres
+    title: PostgreSQL
+    service: postgres
+    disabled: true
+    volumes:
+      - name: data
+        size: 20
+
+  - name: valkey
+    title: Valkey
+    service: valkey
+    disabled: true
+
+  - name: mailpit
+    title: Mailpit
+    service: mailpit
+
+  - name: opensmtpd
+    disabled: true
+    title: OpenSMTPD
+    service: opensmtpd
+
+  - name: gotenberg
+    title: Gotenger
+    service: gotenberg
+    disabled: true  
 ```
 
 ## Reference
