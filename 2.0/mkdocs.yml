@@ -86,6 +86,13 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
 
+plugins:
+  - redirects:
+      redirect_maps:
+        'apps/monitoring.md': 'apps/observability.md'
+        'apps/logs.md': 'apps/observability.md'
+        'kubernetes/monitoring.md': 'kubernetes/observability.md'
+
 nav:
   - Home:
       - Getting started: index.md
@@ -112,8 +119,7 @@ nav:
       - Scalability: apps/scalability.md
       - Resources management: apps/resources.md
       - Storage: apps/storage.md
-      - Monitoring: apps/monitoring.md
-      - Log streaming: apps/logs.md
+      - Observability: apps/observability.md
       - Tokens: apps/tokens.md
       - Tasks: apps/tasks.md
       - Cron: apps/cron.md
@@ -134,7 +140,7 @@ nav:
       - Infrastructure: kubernetes/infrastructure.md
       - High availability: kubernetes/high-availability.md
       - Scalability: kubernetes/scalability.md
-      - Monitoring: kubernetes/monitoring.md
+      - Observability: kubernetes/observability.md
       - Updates: kubernetes/updates.md
   - Databases:
       - Overview: databases/index.md
