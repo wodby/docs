@@ -8,8 +8,8 @@ We track the following metrics:
 
 - CPU usage
 - Memory usage
-- CPU capacity (total amount of [requested CPU](../apps/resources.md))
-- Memory capacity (total amount of [requested memory](../apps/resources.md))
+- CPU capacity (total amount of [requested CPU](../apps/scalability.md#resources-management))
+- Memory capacity (total amount of [requested memory](../apps/scalability.md#resources-management))
 - Limit of pods per node
 - Node's disk usage
 - Node's inodes usage

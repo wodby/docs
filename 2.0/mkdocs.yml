@@ -91,6 +91,7 @@ plugins:
       redirect_maps:
         'apps/monitoring.md': 'apps/observability.md'
         'apps/logs.md': 'apps/observability.md'
+        'apps/resources.md': 'apps/scalability.md'
         'kubernetes/monitoring.md': 'kubernetes/observability.md'
 
 nav:
@@ -117,7 +118,6 @@ nav:
       - Environment: apps/env.md
       - High availability: apps/high-availability.md
       - Scalability: apps/scalability.md
-      - Resources management: apps/resources.md
       - Storage: apps/storage.md
       - Observability: apps/observability.md
       - Tokens: apps/tokens.md
