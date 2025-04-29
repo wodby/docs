@@ -7,6 +7,26 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.3
+
+- ⬆️ Vanilla WordPress 6.8
+- PHP:
+    - ⬆️ Updated to 8.4.6, 8.3.20
+    - ⭐️ Added protobuf extension https://github.com/wodby/php/issues/209
+- Nginx:
+    - ⭐️ Added Nginx 1.28
+    - ⬆️ Updated to 1.27.5
+    - 🪦 Version 1.26 has reached end of life
+    - 🏔️ Updated Alpine Linux to 3.21
+    - 📦 Dropped modsecurity extension
+- Adminer:
+    - ⬆️ Updated to 5.2.1
+    - 🐞 Bugfix: outdated scripts used for v5 version https://github.com/wodby/adminer/issues/8
+- OpenSMTPD:
+    - ⬆️ Updated to 7.6.0
+    - 🏔️ Updated Alpine Linux to 3.21
+- ⬆️ Redis 5.0.1
+
 ## 6.1.2
 
 - PHP:
