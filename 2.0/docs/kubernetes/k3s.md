@@ -2,6 +2,9 @@
 
 If you want to save money and have more control over your cluster, you can deploy a self-hosted Kubernetes cluster using K3S.
 
+!!! info "Why use K3S instead of Managed Kubernetes?"
+    Learn about <a href="https://wodby.com/blog/affordable-kubernetes-with-k3s" target="_blank">benefits of K3S</a> from our blog
+
 [K3S](https://k3s.io/) is a certified lightweight distribution of Kubernetes.
 
 ## Requirements
