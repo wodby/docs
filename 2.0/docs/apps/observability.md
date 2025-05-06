@@ -4,7 +4,7 @@
 
 ### Kubernetes resources monitoring
 
-Currently, we collect [Kubernetes metrics](../kubernetes/observability) per node level. More detailed metrics for app instances will be added later.
+Currently, we collect Kubernetes metrics per node level. More detailed metrics for app instances will be added later.
 
 ### Monitoring with third-party service
 

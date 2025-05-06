@@ -27,7 +27,7 @@ Application instance is a single isolated copy of your application that deployed
 - [Builds](builds.md) (if stack contains buildable services) and [deploys](deploys.md)
 - [Backups](backups.md) and [imports](imports.md) (if stack contains services that provide such)
 - [App Services](services.md) per each service that used to override stack configuration for this specific instance
-- Live [logs streaming](logs.md) 
+- Live [logs streaming](observability.md#live-logs) 
 - [Cron](cron.md) schedules and jobs 
 - [Tasks](tasks.md) history
 
