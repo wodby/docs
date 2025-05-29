@@ -7,6 +7,23 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.4
+
+- ⬆️ Vanilla WordPress 6.8.1
+- PHP:
+    - ⬆️ Updated to 8.4.7, 8.3.21
+    - ⬆️ WP CLI 2.12.0
+    - 📜 `WP_REDIS_DATABASE` and `WP_REDIS_PREFIX` for redis plugin are now configurable via `$REDIS_DATABASE` and `$REDIS_PREFIX`
+    - ⬆️ PECL extensions updates:
+        - mongodb 2.0.0
+        - opentelemetry 1.1.3
+        - redis 6.2.0
+        - xdebug 3.4.3
+        - imagick 3.8.0
+- ⬆️ MariaDB 11.4.7, 10.11.13, 10.6.22, 10.5.29
+- ⬆️ Varnish 6.0.14
+- ⬆️ Adminer 5.3.0
+
 ## 6.1.3
 
 - ⬆️ Vanilla WordPress 6.8

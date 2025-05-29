@@ -7,6 +7,21 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.4
+
+- ⬆️ Vanilla Drupal 11.1.7, 10.4.7
+- PHP:
+    - ⬆️ Updated to 8.4.7, 8.3.21
+    - ⬆️ PECL extensions updates:
+        - mongodb 2.0.0
+        - opentelemetry 1.1.3
+        - redis 6.2.0
+        - xdebug 3.4.3
+        - imagick 3.8.0
+- ⬆️ MariaDB 11.4.7, 10.11.13, 10.6.22, 10.5.29
+- ⬆️ Varnish 6.0.14
+- ⬆️ Adminer 5.3.0
+
 ## 6.1.3
 
 - PHP:
@@ -29,7 +44,6 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 ## 6.1.2
 
 - ⬆️ Vanilla Drupal 11.1.6, 10.4.6
-- ⬆️ Drupal CMS 1.1.0
 - PHP:
     - ⬆️ Updated to 8.4.5, 8.3.19, 8.2.28, 8.1.32
     - ⬆️ PECL extensions updates:
