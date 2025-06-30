@@ -7,6 +7,16 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.5
+
+- PHP:
+    - ⬆️ Updated to 8.4.8, 8.3.22
+    - ⬆️ xdebug 3.4.4
+- Nginx:
+    - ⭐️ Added Nginx 1.29
+    - 🪦 Nginx 1.27 has reached End Of Life
+- 🏔️ Alpine Linux updated to 3.22.0
+
 ## 6.1.4
 
 - ⬆️ Vanilla WordPress 6.8.1
