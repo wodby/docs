@@ -7,6 +7,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.7
+
+- ⬆️ Vanilla WordPress 6.8.2
+- PHP:
+    - ⬆️ Updated to 8.4.10, 8.3.23, 8.2.29, 8.1.33
+    - ⬆️ PECL extensions updates:
+        - mongodb 2.1.1
+        - opentelemetry 1.2.0
+        - uuid 1.3.0
+        - xdebug 3.4.5
+- ⬆️ Redis 7.4.5
+- ⬆️ Apache 2.4.64
+- 🏔️ Alpine security updates
+
 ## 6.1.6
 
 - ⬆️ PHP 8.4.10, 8.3.23, 8.2.29, 8.1.33 (CVE fixes)
