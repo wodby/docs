@@ -7,6 +7,22 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.8
+
+- ⬆️ Vanilla Drupal 11.2.3, 10.5.2
+- PHP:
+    - ⬆️ Updated to 8.4.11, 8.3.24
+    - 🗑️ Removed MS SQL PDO driver extension from PHP 8.4 (not supported)
+- Solr:
+    - ⬆️ Updated to 9.9.0
+    - 📜 Introduced `$SOLR_STANDALONE` to run Solr in standalone mode
+- ⬆️ Nginx 1.29.1
+- ⬆️ MariaDB 11.4.8, 10.11.14, 10.6.23
+- ⬆️ Apache 2.4.65
+- ⬆️ Memcached 1.6.39
+- ⬆️ Varnish 6.0.15
+- 🏔️ Alpine updates
+
 ## 6.1.7
 
 - ⬆️ Drupal CMS 1.2.3
