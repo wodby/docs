@@ -7,6 +7,29 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.1.10
+
+- ⬆️ Vanilla Drupal 11.2.5, 10.5.4
+- PHP:
+    - ⬆️ Updated to 8.4.14, 8.3.27
+    - ⬆️ PECL extensions updates:
+        - apcu 5.1.27
+        - memcached 3.4.0
+        - mongodb 2.1.4
+        - oauth 2.0.10
+        - opentelemetry 1.2.1
+        - xdebug 3.4.7
+        - yaml 2.2.5
+- Nginx:
+    - ⬆️ Updated to 1.29.2
+    - 📜 Nginx default port can now be changed via `NGINX_SERVER_PORT` https://github.com/wodby/nginx/issues/101
+    - 🐞 Bugfix: duplicated default headers for Drupal presets https://github.com/wodby/nginx/pull/103 by @rwunderer
+- Adminer:
+    - 🛠️ Adminer now runs on apache server instead of php dev server https://github.com/wodby/adminer/issues/9
+    - ⬆️ Updated to 5.4.1
+- ⬆️ Redis 7.4.6
+- 🏔️ Alpine Linux patch updates
+
 ## 6.1.9
 
 - ⬆️ Vanilla Drupal 11.2.4, 10.5.3

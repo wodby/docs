@@ -27,6 +27,11 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 1.1.6
+
+- ⬆️ Updated to 1.29.2
+- 📜 Nginx default port can now be changed via `NGINX_SERVER_PORT` https://github.com/wodby/nginx/issues/101
+
 ### 1.1.5
 
 - ⬆️ Nginx 1.29.1
