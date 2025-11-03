@@ -14,7 +14,7 @@ Free subscription. Designed to use for development purposes and trying out Wodby
 
 Designed for small teams and projects, more resources and features. Limits can be increased with addons. 
 
-Billing per [app service replica](apps/services.md#replicas). Pay-as-you-go, we charge you for the number of app services replicase hours you used during the billing period. 
+Billing per [app service](apps/services.md). Pay-as-you-go, we charge you for the number of app services hours you used during the billing period. 
 
 ### Enterprise
 
