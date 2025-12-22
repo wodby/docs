@@ -20,6 +20,12 @@ redis://default:[redis-pass]@[node-ip]:[dynamic-node-redis-port]
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 3.2.0
+
+- ⭐️ Added Redis 8.4
+- ️⬆️ Updated to 7.4.7
+- ️📜️ Added config env var `REDIS_IO_THREADS`
+
 ### 3.1.3
 
 ⬆️ Redis 7.4.6

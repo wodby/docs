@@ -7,6 +7,47 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.0
+
+- ⬆️ Vanilla Drupal 11.3.1, 10.6.1
+- PHP:
+    - ⭐️ Added PHP 8.5 _(amqp, grpc, newrelic extensions not yet supported)_
+    - ⬆️ Updated to 8.4.16, 8.3.29, 8.2.30, 8.1.34
+    - ⬆️ PECL extensions updates:
+        - xdebug 3.5.0
+        - igbinary 3.2.17RC1
+        - imagick 3.8.1
+        - ast 1.1.3
+        - brotli 0.18.2
+        - grpc 1.76.0
+        - redis 6.3.0
+        - spx 0.4.22
+    - 🛠️ Packages tig and tmux removed (only in `-dev` variants)
+- Nginx:
+    - ⬆️ Updated to 1.29.4
+    - ⬆️ Modules updates:
+        - uploadprogress 0.9.4
+        - vts 0.2.4
+        - brotli to latest version
+    - 📜 Introduced `NGINX_DRUPAL_REMOVE_INDEXPHP` to rewrite `/index.php/` from requests https://github.com/wodby/nginx/issues/90
+- MariaDB:
+    - ⭐️ Added MariaDB 11.8
+    - ⬆️ Updated to 11.4.9, 10.11.15, 10.6.24
+    - 🪦 MariaDB 10.5 has reached EOL
+- Varnish:
+    - 📜 Varnishd now runs as `varnish` user without jail
+    - 📜 Varnish user uid/gid changed to `1000`
+    - 🐞 Bugfix: missing xz library
+- Redis:
+    - ⭐️ Added Redis 8.4
+    - ️⬆️ Updated to 7.4.7
+    - ️📜️ Added config env var `REDIS_IO_THREADS`
+- ⬆️ Apache HTTPD 2.4.66
+- ⬆️ Webgrind 1.9.4
+- ⬆️ Memcached 1.6.40
+- ⬆️ Solr 9.10.0
+- 🏔️ Alpine Linux updated to 3.23 for most of the images
+
 ## 6.1.10
 
 - ⬆️ Vanilla Drupal 11.2.5, 10.5.4
