@@ -137,6 +137,7 @@ nav:
       - Managed: kubernetes/managed.md
       - K3S: kubernetes/k3s.md
       - Demo Cluster: kubernetes/demo.md
+      - Wodby Cloud: kubernetes/wodby-cloud.md
       - Infrastructure: kubernetes/infrastructure.md
       - High availability: kubernetes/high-availability.md
       - Scalability: kubernetes/scalability.md
