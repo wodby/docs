@@ -18,5 +18,4 @@ Wodby provides special "Cloud" external database services that integrate with th
 
 ## Reside with Kubernetes
 
-When creating a new external managed database, you can choose a [Kubernetes cluster](../kubernetes/index.md) to reside this database with. The Kubernetes cluster must be created from the same integration as the database. When selected, it will use the same cloud network as the Kubernetes cluster for private connections.
-
+When creating a new external managed database, you can choose a [Kubernetes cluster](../kubernetes/index.md) to reside this database with. The Kubernetes cluster must be created from the same integration as the database. When selected, it will use the same cloud network as the Kubernetes cluster for private connections and minimizing network latency.
