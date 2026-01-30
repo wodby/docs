@@ -7,6 +7,19 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.1
+
+- ⬆️ Vanilla Drupal 11.3.2, 10.6.2
+- ⭐️ Added Redis 8.4
+- PHP:
+    - ⬆️ Updated to 8.5.2, 8.4.17, 8.3.30
+    - ⬆️ NewRelic extension updated to latest added to PHP 8.5
+    - ⬆️ AMQP extension updated to 2.2.0 and added to PHP 8.5
+- Nginx:
+    - ⬆️ Updated to 1.28.1
+    - 📜 Added `/llms.txt` support
+- 🏔️ Alpine Linux patch updates
+
 ## 6.2.0
 
 - ⬆️ Vanilla WordPress 6.9

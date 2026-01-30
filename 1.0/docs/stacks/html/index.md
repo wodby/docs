@@ -27,6 +27,12 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 1.1.8
+
+- Nginx:
+    - ⬆️ Updated to 1.28.1
+    - 📜 Added `/llms.txt` support
+
 ### 1.1.7
 
 - Nginx:

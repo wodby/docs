@@ -10,7 +10,7 @@ If you want to access redis from the same server you can access it as:
 redis://default:[redis-pass]@[app-instance-uuid].redis:6379
 ```
 
-If you're accessing redis externally you should expose redis port dynamically via node and connect as following:
+If you're accessing redis externally, you should expose redis port dynamically via node and connect as following:
 
 ```
 redis://default:[redis-pass]@[node-ip]:[dynamic-node-redis-port]
@@ -20,9 +20,13 @@ redis://default:[redis-pass]@[node-ip]:[dynamic-node-redis-port]
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 3.3.0
+
+⭐️ Added Redis 8.4
+
 ### 3.2.0
 
-- ⭐️ Added Redis 8.4
+- ⭐️ Added Redis 8.2
 - ️⬆️ Updated to 7.4.7
 - ️📜️ Added config env var `REDIS_IO_THREADS`
 
