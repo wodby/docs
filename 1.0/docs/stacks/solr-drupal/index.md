@@ -38,6 +38,9 @@ Password: [see below]
 
 ## Old approach
 
+!!! info
+    Starting with stability tag `5.0.0` Solr uses Cloud mode by default, the support of the standalone mode was returned in `5.3.0` and requires specifying any non-empty value for `$SOLR_STANDALONE` env var.
+
 ### Drupal 8/9
 
 Make sure Solr you've deployed has a compatible default config set version (e.g.  `search_api_solr 4` or `search_api_solr-8.x-3.9`), if not – change the implementation to the appropriate (implementation differs in a Solr version and a default config set). Please note, if you change the implementation you'll have to [recreate cores](../solr/index.md#creating-solr-core) to change their config set because the existing cores will still use the same config set. You can find the list of supported config sets in [here](https://github.com/wodby/solr#config-sets).
