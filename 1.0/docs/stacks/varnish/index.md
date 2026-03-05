@@ -57,6 +57,10 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.4.1
+
+⬆️ Varnish digest modules updated to 1.0.3
+
 ### 3.4.0
 
 - 📜 Varnishd now runs as `varnish` user without jail

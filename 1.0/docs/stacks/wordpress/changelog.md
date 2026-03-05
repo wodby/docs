@@ -7,6 +7,28 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.2
+
+- ⬆️ Vanilla Drupal 11.3.3, 10.6.3
+- PHP:
+    - ⬆️ Updated to 8.5.3, 8.4.18
+    - PECL extensions updates:
+        - ⬆️ sqlsrv and pdo_sqlsrv 5.13.0 for PHP 8.3+
+        - 📜 sqlsrv and pdo_sqlsrv added to PHP 8.4/8.5
+        - ⬆️ mongodb 2.2.1
+    - 🪦 PHP 8.1 has reached end of life
+- Nginx:
+    - ⬆️ Updated to 1.29.5, 1.28.2
+    - 📜 `.md` locations removed from the default not found regex
+    - 📜 `INSTALL.md`, `README.md`, `FAQ.md`, `LICENSE.md` and `CHANGELOG.md` inside modules directories now return 404
+- ⬆️ Varnish digest modules updated to 1.0.3
+- ⬆️ Redis 8.4.2, 8.2.5, 7.4.8
+- ⬆️ MariaDB 11.8.6, 11.4.10, 10.11.16, 10.6.25
+- ⬆️ OpenSMTPD 7.8.0
+- ⬆️ Adminer 5.4.2
+- ⬆️ XHProf, Webgrind rebased to PHP 8.2
+- 🏔️ Alpine Linux patch updates
+
 ## 6.2.1
 
 - ⬆️ Vanilla Drupal 11.3.2, 10.6.2
