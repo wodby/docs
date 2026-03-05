@@ -19,7 +19,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - 🪦 PHP 8.1 has reached end of life
 - Nginx:
     - ⬆️ Updated to 1.29.5, 1.28.2
-    - 📜 `.md` locations removed from the default not found regex
+    - 📜 `.md` locations removed from the default not found regex https://github.com/wodby/nginx/issues/93
     - 📜 `INSTALL.md`, `README.md`, `FAQ.md`, `LICENSE.md` and `CHANGELOG.md` inside modules directories now return 404
 - ⬆️ Varnish digest modules updated to 1.0.3
 - ⬆️ Redis 8.4.2, 8.2.5, 7.4.8
