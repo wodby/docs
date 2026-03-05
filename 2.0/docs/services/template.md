@@ -1051,6 +1051,7 @@ configs:
     title: Main
     filepath: /etc/gotpl/config/nginx.conf.tmpl
     config: nginx.conf.tmpl
+    version: 1.29
   - name: vhost
     title: Virtual host
     filepath: /etc/gotpl/vhost.conf.tmpl
@@ -1080,6 +1081,12 @@ Filepath where to mount the config file in a container.
 Type: `string`.
 
 Filepath to the default config file in a service's repository.
+
+#### `configs.[].version`
+
+Type: `string`.
+
+Optional, specify to each version of the service to apply this config, must be one of the `options.[].version` values.
 
 ### `cron`
 
