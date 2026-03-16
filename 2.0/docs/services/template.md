@@ -903,11 +903,11 @@ Helm chart's version.
 
 Collection of Helm configurations. Required.
 
-##### `helm.configurations.[].name`
+##### `helm.configurations.[].container`
 
 Type: `string`. Required.
 
-Helm configuration's name. Must be the same as main container's name.
+Container to apply these configurations to. Must be one of the `containers.[].name` values.
 
 ##### `helm.configurations.[].annotations`
 
