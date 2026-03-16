@@ -21,6 +21,9 @@ extra:
     link: https://slack.wodby.com
   - icon: fontawesome/brands/discord
     link: https://discord.wodby.com/wodbycloud
+  analytics:
+    provider: google
+    property: G-SQ2VLFFRNC
 
 theme:
   logo: assets/images/wodby1-logo.png
