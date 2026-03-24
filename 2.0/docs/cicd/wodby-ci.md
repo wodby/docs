@@ -1,6 +1,17 @@
 # Wodby CI
 
-Wodby CI is the default CI that provides native integration with Wodby platform such as rerunning CI builds directly from the dashboard. Alternatively, you can use your own CI by creating CI-typed [integration](../integrations/index.md).   
+Wodby CI is the default CI that provides native integration with the Wodby platform such as rerunning CI builds directly from the dashboard. Alternatively, you can use your own CI by creating CI-typed [integration](../integrations/index.md).   
+
+Wodby CI jobs run on Debian 13 and contain the following tools:
+
+- python3
+- jq
+- yq
+- docker cli
+- docker compose
+- aws cli
+- zip
+- tar
 
 ## Pipeline
 
