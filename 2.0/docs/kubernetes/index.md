@@ -14,6 +14,10 @@ If you plan to scale your cluster and need more flexibility, we recommend this a
 
 If you want to save money and have more control over your cluster, you can deploy a self-hosted Kubernetes cluster using K3S.
 
+### 3. [Wodby Cloud](wodby-cloud.md)
+
+If you want to run Kubernetes on Wodby Cloud, follow the Wodby Cloud setup guide.
+
 ## Demo
 
 Additionally, for testing purposes we provide an option to spin-up a [Demo Kubernetes cluster](demo.md). The cluster is temporary and will be destroyed in 12 hours with all applications.
