@@ -185,7 +185,7 @@ Required.
 
 Type: `string`.
 
-Hostname that will be used as the name of a kubernetes service. Mandatory for non-external services.
+Useful when a service name in a stack doesn't match the kubernetes service name. Currently used only if a service name doesn't start with alphabetic character. Optional.  
 
 ### `scalable`
 
