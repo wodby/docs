@@ -919,7 +919,13 @@ Helm value's key for setting kubernetes resources.
 
 Type: `string`.
 
-Helm value's key for adding environment variables.
+Helm value's key for adding environment variables in an object format (name, value). Cannot be used together with `.envKV`.
+
+##### `helm.configurations.[].envKV`
+
+Type: `string`.
+
+Helm value's key for adding environment variables in a key/value format.  Cannot be used together with `.env`.
 
 ##### `helm.configurations.[].labels`
 
