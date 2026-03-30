@@ -181,12 +181,6 @@ Human-readable title of a service.
 
 Required.
 
-### `hostname`
-
-Type: `string`.
-
-Useful when a service name in a stack doesn't match the kubernetes service name. Currently used only if a service name doesn't start with alphabetic character. Optional.  
-
 ### `scalable`
 
 Type: `boolean`. Default: `false`
