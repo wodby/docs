@@ -7,6 +7,24 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.3
+
+- ⬆️ Vanilla WordPress 6.9.4
+- PHP:
+    - ⬆️ Updated to 8.5.4, 8.4.19
+    - ⬆️ PECL extensions updates:
+        - apcu 5.1.28
+        - brotli 0.18.3
+        - ds 1.6.0
+        - protobuf 5.34.1
+        - smbclient 1.1.2
+        - xdebug 3.5.1
+        - yaml 2.3.0
+- ⬆️ Nginx 1.29.7, 1.28.3
+- ⬆️ Redis 8.6.2
+- 🐞 Adminer bugfix: default db host and db name env vars ignored https://github.com/wodby/adminer/issues/10
+- ⬆️ Memcached 1.6.41
+
 ## 6.2.2
 
 - ⬆️ Vanilla Drupal 11.3.3, 10.6.3
