@@ -45,8 +45,7 @@ jobs:
         key: 'composer-{{ hash "composer.lock" }}-v1'
         path: ~/.composer
 
-    - run: wodby ci build php
-    - run: wodby ci build nginx --from web --to /var/www/html/web
+    - run: wodby ci build
     - run: wodby ci release
     - run: wodby ci deploy
 ```
@@ -124,3 +123,5 @@ jobs:
     steps:
     - run: drush status
 ```
+
+You can skip execution of post-deployment scripts by passing `--skip-post-deploy` in `wodby ci deploy` command.
