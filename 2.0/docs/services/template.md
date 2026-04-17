@@ -781,7 +781,7 @@ Configuration for how to randomly generate token's value.
 
 Type: `string`.
 
-Regular expression to use for generating a random token's value.
+Regular expression to use for generating a random token's value. Generated tokens are always secrets.
 
 ##### `tokens.[].secret`
 
@@ -1454,7 +1454,7 @@ derivatives:
           - name: sshd
             main: true
             number: 22
-            type: tcp
+            protocol: tcp
     env:
       - name: SSHD_GATEWAY_PORTS
         value: clientspecified
@@ -1556,6 +1556,12 @@ Type: `string`. Alphanumeric and dash symbols allowed. Required.
 
 Machine name of the endpoint.
 
+##### `derivatives.[].endpoints.[].service`
+
+Type: `string`. Optional. Specifies a kubernetes service name for ingress if it doesn't match the stack service name. 
+
+Supports token `{{service.helm.release}}`.
+
 ##### `derivatives.[].endpoints.[].ports`
 
 Collection of endpoint's ports.
@@ -1578,11 +1584,11 @@ Type: `integer`.
 
 Port's number.
 
-###### `derivatives.[].endpoints.[].ports.[].type`
+###### `derivatives.[].endpoints.[].ports.[].protocol`
 
 Type: `enum`. Allowed values are `tcp`, `udp` and `http`
 
-Port's type.
+Port's protocol.
 
 #### `derivatives.[].helm`
 
