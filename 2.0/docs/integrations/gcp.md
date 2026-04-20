@@ -55,4 +55,7 @@ Wodby provides native integration with Google Cloud SQL.
 
 ## Cloud Storage
 
-Integration with GCP Cloud Storage is coming soon...
+Wodby provides a native integration with Google Cloud Storage. You can use it to store your applications' backups.
+
+- Wodby can list available buckets in the connected project
+- Supported storage classes: `STANDARD`, `NEARLINE`, `COLDLINE`, `ARCHIVE`

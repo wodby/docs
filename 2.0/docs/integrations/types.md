@@ -45,6 +45,7 @@ Machine name: `ci`
 - [Wodby CI](../cicd/wodby-ci.md)
 - [CircleCI](circleci.md)
 - [GitHub Actions](github.md#actions)
+- [GitLab CI](gitlab.md#ci)
 
 ## Docker registry
 
