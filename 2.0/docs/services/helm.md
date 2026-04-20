@@ -1,6 +1,9 @@
 # Service Helm integration
 
-We use [Helm](https://helm.sh/) to deploy non-external services to Kubernetes. Such services must provide basic Helm configuration specifying repository source, chart name, chart version. Additionally, a service must provide Helm configuration that specifies yaml path to Helm values that will allow addition of Kubernetes configuration such as:
+We use [Helm](https://helm.sh/) to deploy non-external services to Kubernetes.
+
+A service's [`helm` section](template.md#helm) defines the chart source, chart name, version, and the value paths Wodby
+uses to inject Kubernetes-specific configuration such as:
 
 - annotations
 - labels
@@ -9,6 +12,9 @@ We use [Helm](https://helm.sh/) to deploy non-external services to Kubernetes. S
 - sidecars
 - volumes
 - bind mounts
+
+Services can also define default Helm values in the template. Those values become part of the deployed configuration
+and can be overridden later at stack or app level when needed.
 
 On top of that we expect the Helm chart to support the following values:
 
@@ -20,6 +26,8 @@ On top of that we expect the Helm chart to support the following values:
 - `command`
 - `args`
 
-If you're creating a custom Helm chart we recommend to fork one of existing [charts by Wodby](https://github.com/wodby/charts) or [by Bitnami](https://github.com/bitnami/charts)
+If you're creating a custom Helm chart, we recommend starting from one of the existing
+[charts by Wodby](https://github.com/wodby/charts) or [by Bitnami](https://github.com/bitnami/charts).
 
-Helm chart information defined under [`helm` section](template.md#helm) in a service template.
+Helm chart information and default Helm values are defined under the [`helm` section](template.md#helm) in a service
+template.

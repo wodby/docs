@@ -2,106 +2,117 @@
 
 ## Overview
 
-Service is a basic build block of your application's [stack](../stacks/index.md). Services represent a single running service in your application that runs in a container (except external services), e.g. Node.js or Nginx. Services are versioned entities and have revisions that normally correspond to a git tag or commit from a source repository. Services defined with a [template](#template) that imported from a git repository. For each new update a service revision will be issued.
+A service is the basic building block of your application's [stack](../stacks/index.md). It represents one part of
+your application, such as a web server, runtime, database, cache, or supporting component.
 
-Wodby provides a wide range of services, some of them a generic, some of them are designed to be used a specific stack. You can define your own services and import from a git repository.
+Services are versioned. Each change creates a new service revision, and stacks reference specific revisions. Custom
+services imported from git are defined by a [template](template.md).
 
-A service representation in a stack called a _stack
-service_, stack service always references a specific revision of a service and provides additional [configuration](../stacks/configuration.md).
+Inside a stack, a service becomes a [stack service](../stacks/services.md). Stack services let you enable, disable,
+and customize a service for that stack.
 
 ## Type
 
-Every service has a type. Type defines the behavior of a service and how it managed. There are several types of services:
+Every service has a type that defines how Wodby treats it and which template sections are available.
 
-- `service` stateless (e.g. Nginx) or a stateful (e.g. OpenSMTPD) service. Can be scalable
-- [`db`](database.md) database servers, stateful services
-- `infrastructure` used in infrastructure applications, currently, can be added only by Wodby.
-- [`storage`](storage.md) used for distributed storage services, e.g. NFS or Rook
-- `datastore` memory storages like Redis and Memcached, stateful services
-- `search` stateful services, search engines like Elasticsearch and Solr Cloud.
-- [`smtp`](smtp.md) services for mail delivery, integrate with external SMTP providers
-- [`ssh`](ssh.md) SSH server, usually used as derivative services
+- `service`: general-purpose application services, including runtimes, web servers, workers, and mail relays
+- [`db`](database.md): database services
+- `infrastructure`: infrastructure-level services used in infrastructure apps
+- [`storage`](storage.md): shared storage services
+- `datastore`: in-memory and key-value stores such as Redis or Memcached
+- `search`: search and indexing services
+- `operator`: services that manage other Kubernetes resources or workloads
+- [`ssh`](ssh.md): SSH access services, usually used as derivatives
+- `vpn`: VPN and private connectivity services
+
+See [service types](types.md) for details.
 
 ## [Template](template.md)
 
-Service can be created from a template that imported from a git repository. See [template reference](template.md).
+Custom services imported from git are defined by a template. See the [template reference](template.md).
 
 ## External
 
-External services are the services that do not deploy a container but instead integrate with a third-party service. For example a Cloud MySQL service is an external
-_db_ type service that requires a database integration (e.g. AWS RDS) to be connected to work.
+External services do not deploy their own containers in Wodby. Instead, they connect your app to services managed
+outside Wodby, such as a cloud database or another third-party system.
 
 ## [Derivatives](derivatives.md)
 
-Derivatives are services that created from other services. For example, ssh server service added as a derivative to PHP-FPM.
+Derivatives are additional services created from another service. A common example is an SSH service added as a
+derivative of an application runtime.
 
 ## [Endpoints](endpoints.md)
 
-Endpoints used to define available ports for a service.
+Endpoints define the ports a service exposes.
 
 ## [Options](options.md)
 
-Options usually used to represent service versions, e.g. Nginx has two options: `1.23` and
-`1.22`. A service can have multiple options, specify one of them as default and add to some of them End of Life (EOL) date.
+Options usually represent supported versions or variants of a service.
 
 ## [Build](build.md)
 
-Build section used for buildable service that build something from a git repository in [CI/CD](../cicd/index.md) process.
-
-Build can provide templates that are boilerplates for demo purposes with defined pipeline for Wodby CI.
+Only services of type `service` can define build instructions for [CI/CD](../cicd/index.md). A build can also provide
+starter templates for new projects.
 
 ## [Links](links.md)
 
-Links define service connectivity and integration with other services, e.g. PHP-FPM service can be linked to a database service. Links are used to define pass information between services (e.g. database connections details), announce requirements to a user (e.g. requires a database to work) and limit with which services it can be connected (e.g. supports MySQL but not PostgreSQL).
+Links define how services connect to each other, what dependencies they require, and which services are compatible.
 
 ## [Settings](settings.md)
 
-Settings are simple configuration options that a service represents and wants a user to configure from UI. When a user changes a setting value it usually means that an environment variable (know to a service's docker image) with this value will be added to the container deployment.
+Settings are simple configuration values exposed in the UI. They usually map to environment variables used by the
+service.
 
 ## [Configs](configs.md)
 
-Configs are more complicated templates that represent configuration files within a service. Think of Nginx's virtual host config file. Configs usually always have default values and can be overridden by a user in a stack or in an app instance.
+Configs represent configuration files that can be mounted into a service and overridden at stack or app level.
 
 ## [Helm](helm.md)
 
-All services (except external) must specify their helm chart information. Helm chart is where the service stores Kubernetes resources that will be deployed.
+Non-external services define Helm information and can provide default Helm values that tell Wodby how to deploy their
+Kubernetes resources.
+
+## [Kubernetes](kubernetes.md)
+
+Some services define additional Kubernetes-specific metadata, such as infrastructure selectors.
 
 ## [Tokens](tokens.md)
 
-Tokens used to generate random values or reuse a value.
+Tokens provide reusable fixed or generated values that services can reference.
 
 ## [Backups](backups.md)
 
-Services can define backup function that implemented in its container image, results in an archive file that will be uploaded to a cloud storage.
+Services can define backup functionality that creates archives for upload to connected storage.
 
 ## [Imports](imports.md)
 
-Services can define import function that implemented in its container image, works with a URL (specified by user, backup URL or uploaded via Wodby dashboard).
+Services can define import workflows for restoring files or data into a running service.
 
 ## [Database](database.md)
 
-Database services provide additional configuration on how to work [database](../databases/index.md).
+Database services define extra information for working with [databases](../databases/index.md).
 
 ## [Cron](cron.md)
 
-Services can define cron schedules to run automated tasks.
+Services can define cron schedules for recurring tasks.
 
 ## [Actions](actions.md)
 
-Services can define actions to execute commands during certain events: after deployment (one time or every time), after stack upgrade or when a user clicks a button in UI.
+Services can define actions that run commands automatically during lifecycle events or on demand from the UI.
 
 ## [Annotations](annotations.md)
 
-Services can define annotations for additional configuration of its Helm chart.
+Services can define annotations for additional Helm or Kubernetes configuration.
 
 ## [Certificates](certs.md)
 
-Services may require generation of self-signed TLS certificates that will be mounted to a running container.
+Services may require self-signed TLS certificates that are then mounted into deployed resources.
 
 ## [Integrations](integrations.md)
 
-Services can define which integrations (except `variable` that allowed for all) they allow or require to be connected. 
+Services can define which integrations they support or require. A common example is a [mail service](smtp.md) that
+connects to a third-party SMTP provider.
 
 ## [Volumes](volumes.md)
 
-Services can define volumes for data persistence. 
+Services can define volumes for persistent or shared data.

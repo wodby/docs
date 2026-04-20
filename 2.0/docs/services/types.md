@@ -1,35 +1,44 @@
-# Service type
+# Service types
 
-Every service has a type, depending on the type there will be 
+Every service has a `type`. The type controls how the service is deployed and which sections are valid in the service
+template.
 
 ## `service`
 
-These types of services are usually stateless (e.g. Nginx) or a stateful (if none other match) service. Can be scalable.
+General-purpose application services such as runtimes, web servers, workers, and mail relays. This is the only type
+that can define a [`build` section](build.md), and it is also the only type that can be marked as scalable.
+
+Mail relay services use the regular `service` type. See [Mail services](smtp.md).
 
 ## [`db`](database.md)
 
-Used for [Database services](database.md), stateful services.
+Database services. These services define a [`database` section](template.md#database) that describes the engine,
+default connection settings, and supported database or user management actions.
+
+## `infrastructure`
+
+Infrastructure-level services used in infrastructure apps or to provide shared platform capabilities.
 
 ## [`storage`](storage.md)
 
-Used for distributed storage services, e.g. NFS or Rook.
+Shared storage services, such as distributed or network-backed filesystems.
 
-## `datastore` 
+## `datastore`
 
-Memory storages like Redis and Memcached, stateful services
+In-memory or key-value data stores such as Redis and Memcached.
 
-## `search` 
+## `search`
 
-Stateful services, search engines like Elasticsearch and Solr Cloud.
+Search and indexing services such as Elasticsearch or Solr.
 
-## [`ssh` ](ssh.md)
+## `operator`
 
-SSH server, usually used as derivative services.
+Services that manage other Kubernetes resources or related workloads.
 
-## [`smtp`](smtp.md) 
+## [`ssh`](ssh.md)
 
-SMTP server that integrates with third-party SMTP services via [integrations](../integrations/index.md).
+SSH access services, usually defined as derivatives of another service.
 
-## `infrastructure` 
+## `vpn`
 
-Used in infrastructure applications, currently, can be added only by Wodby.
+VPN and private connectivity services.

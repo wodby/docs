@@ -1,3 +1,9 @@
-# SMTP services
+# Mail services
 
-SMTP-types services are the services for SMTP servers that can use (as a relay) with third-party SMTP services by connecting to integrations. 
+Wodby does not use a separate `smtp` service type.
+
+Services that send mail through an SMTP relay are modeled as regular services of type `service`. They typically define
+[integrations](integrations.md) so customers can connect third-party SMTP providers such as Brevo or AWS SES.
+
+If you are documenting a mail relay service template, use the regular service features described in
+[service types](types.md), [integrations](integrations.md), and the [service template reference](template.md).

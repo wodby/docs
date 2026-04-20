@@ -2,21 +2,25 @@
 
 ## Overview
 
-Non-external services can be buildable. Such services will expect to receive a related build info during app deployment. 
+Only services of type `service` can define a build section.
 
-There are two main types of buildable services:
+Use build settings when a service must be built in [CI/CD](../cicd/index.md) before deployment.
 
-1. Services that require a git repository connected
-2. Services that do not have a git repository but still expected to be built in [CI](../cicd/index.md) process
+There are two common cases:
+
+1. Services that require a connected git repository
+2. Services that are still built in [CI/CD](../cicd/index.md) but do not need a repository connection
 
 ### Build templates
 
-Services that require a git repository can also have build templates, those a public git repositories that contain a boilerplate and a pipeline. You can clone a build template repository under a selected [git integration](../integrations/types.md#git).
+Build templates are starter repositories that customers can clone when creating a new project. Each template points to
+a GitHub repository and selects either a branch or a tag. A template can also reference a custom pipeline file.
 
 ### Dockerfile
 
-Services may specify a custom Dockerfile located in the same repository. This Dockerfile will be used during `wodby ci build [service]` command when [Wodby CI](../cicd/wodby-ci.md) used.
+Services may specify a custom Dockerfile path in the same repository. Wodby CI uses it during
+`wodby ci build [service]`.
 
 ## Template
 
-Build information defined under [`build` section](template.md#build) in a service template.
+Build information is defined under the [`build` section](template.md#build) in a service template.

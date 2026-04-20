@@ -168,6 +168,7 @@ nav:
       - Derivatives: services/derivatives.md
       - Integrations: services/integrations.md
       - Helm: services/helm.md
+      - Kubernetes: services/kubernetes.md
       - Actions: services/actions.md
       - Certificates: services/certs.md
       - Configs: services/configs.md
@@ -179,10 +180,10 @@ nav:
       - Cron: services/cron.md
       - Tokens: services/tokens.md
       - Annotations: services/annotations.md
-      - Buildable services: services/build.md
+      - Build: services/build.md
       - Database services: services/database.md
       - Storage services: services/storage.md
-      - SMTP services: services/smtp.md
+      - Mail services: services/smtp.md
       - SSH services: services/ssh.md
   - Integrations:
       - Overview: integrations/index.md

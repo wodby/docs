@@ -1,7 +1,9 @@
 # Service configs
 
-Service can define configs that represent configuration files that can be mounted to a path and overridden by a user in on stack or app level.
+Services can define configs that represent configuration files mounted into a service and overridden at stack or app
+level.
 
-The difference from [settings](settings.md) is that configs usually used to drastically change configuration of a service, while settings are used to change one setting via environment variables. 
+Unlike [settings](settings.md), configs are intended for larger or file-based configuration changes rather than a
+single value exposed through an environment variable.
 
-Service configs defined under [`configs` section](template.md#configs) in a service template.
+Service configs are defined under the [`configs` section](template.md#configs) in a service template.

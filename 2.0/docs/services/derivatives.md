@@ -1,8 +1,9 @@
 # Derivative services
 
-Derivative service is a service that derives most of its configuration from the main service (it's difference from [inheritance](template.md#from)). For example
-`ssh` derivative service of
-`php` will have all the environment variables and versions configured for PHP but will override certain parameters such as
-`type`, `args`  and endpoints.
+A derivative service reuses most of a parent service's configuration. Unlike [inheritance](template.md#from),
+derivatives are additional services created from the parent, not reusable base templates.
 
-Derivative services defined under [`derivatives` section](template.md#derivatives) in a service template.
+For example, an `ssh` derivative of `php` can inherit the parent's environment variables and versions while overriding
+its type, command, or endpoints.
+
+Derivative services are defined under the [`derivatives` section](template.md#derivatives) in a service template.

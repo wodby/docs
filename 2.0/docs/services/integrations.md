@@ -1,5 +1,8 @@
 # Service integrations
 
-Service link is the representation of a service integration that will use [Wodby integration](../integrations/index.md). The simplest example would be OpenSMTP service that can use third-party SMTP servers as a relay for sending emails.
+Services can declare which [Wodby integrations](../integrations/index.md) they support or require.
 
-Service integrations defined under [`integrations` section](template.md#integrations) in a service template.
+A common example is a mail service that connects to a third-party SMTP provider. External services can also use
+integrations to connect to managed cloud services.
+
+Service integrations are defined under the [`integrations` section](template.md#integrations) in a service template.

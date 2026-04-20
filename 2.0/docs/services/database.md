@@ -1,6 +1,6 @@
 # Database services
 
-A service with type database will produce a [Database](../databases/index.md) instance when an app deployed.
+A service of type `db` creates a [Database](../databases/index.md) for the app.
 
-Database service must have a [
-`database` section](template.md#database) within a template to define database type, port, actions to create/drop database and users.
+Database services use the [`database` section](template.md#database) to define the engine, connection details, default
+database and user settings, and supported management actions.

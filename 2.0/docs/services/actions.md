@@ -2,34 +2,36 @@
 
 ## Overview
 
-Service can define an action that will execute an operation in an app. When an action executed it will run a kubernetes job with the provided overridden args/commands and optionally privileged permissions. A task containing the logs of the execution will be created.
+Services can define actions that run commands in an app. Actions can be shown as buttons in the UI or run
+automatically during deployment and upgrades. Each run creates a task with execution logs.
 
-Service with multiple actions will run all actions simultaneously unless there are action with dependency order specified.
+If a service defines multiple actions, they run simultaneously unless dependencies are set between them.
 
 ## Types
 
-Action's type defines how and when the action will be executed.
+An action type defines how and when the action runs.
 
 ### `button`
 
-Action's of this type will be shown as a button in Wodby dashboard. 
+Actions of this type are shown as buttons in the Wodby dashboard.
 
 ### `post_deploy`
 
-Post-deployment action that will run after every service deployment. If deploy contains more than one service, the action will run only when all deployments succeeded. Can be limited to run only when a specific build source templates selected. 
+Runs after every service deployment. If a deployment includes more than one service, the action runs only after all
+deployments succeed. It can be limited to a specific build template.
 
 ### `post_deploy_once`
 
-Same as `post_deploy` but run only during first deployment. Can be limited to run only when a specific build source templates selected.
+Same as `post_deploy`, but runs only during the first deployment. It can be limited to a specific build template.
 
 ### `post_upgrade`
 
-Post-upgrade action
+Runs after a stack upgrade.
 
 ### `output`
 
-Action produces output that will be shown in Wodby dashboard. 
+Produces output that is shown in the Wodby dashboard.
 
-## Template 
+## Template
 
-Service actions defined under [`actions` section](template.md#annotations) in a service template.
+Service actions are defined under the [`actions` section](template.md#actions) in a service template.

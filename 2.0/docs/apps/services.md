@@ -104,6 +104,15 @@ Also, Wodby adds the following global variables to every container:
 | `WODBY_PRIMARY_HOST`     | Hostname from the enabled main app service with an HTTP route                            |
 | `WODBY_PRIMARY_URL`      | URL (`https` if certificate attached) of the enabled main app service with an HTTP route |
 
+### Helm values
+
+Here you can add or override Helm values for an app service.
+
+Use this when a specific environment needs a chart-level override without changing the stack for every other
+environment.
+
+App-level Helm values override values coming from the service and stack. Helm values can also be stored as secrets.
+
 ### Resources
 
 Here you can configure resources for a service. You can specify CPU and memory requests and limits. CPU request and limits specified in

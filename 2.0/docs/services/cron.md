@@ -1,5 +1,8 @@
 # Cron schedules
 
-Service can define cron schedules to run. A schedule has a command/args to override for a kubernetes job to run and a schedule in crontab format. A schedule will run a cron job in accordance with the specified crontab. The cron job will have task associated that contains execution logs.
+Services can define cron schedules for recurring tasks. Each schedule includes a name, a command or argument override,
+and a cron expression. Every run creates a task with execution logs.
 
-Cron schedules can be defined using [`cron` section](template.md#cron) within a service template.
+Use standard five-field crontab syntax such as `0 * * * *`. Cron schedules cannot run more often than once per hour.
+
+Cron schedules are defined under the [`cron` section](template.md#cron) in a service template.

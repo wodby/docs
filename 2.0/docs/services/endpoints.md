@@ -2,23 +2,30 @@
 
 ## Overview
 
-Services that provide public ports can define endpoints. An endpoint is the collection of ports and domains. Services can define only ports in their manifests, domains can be added later after app creation.
+Services that expose network access can define endpoints. An endpoint groups together one or more ports that belong to
+the same exposed service. Domains are attached later at the app level.
 
-An endpoint designed to represent a single kubernetes service. 
+Supported port protocols are:
 
-There are three supported protocols for ports:
+1. `http` for web traffic and domains with TLS certificates
+2. `tcp` for generic TCP traffic
+3. `udp` for UDP traffic
 
-1. `http` - such ports allow domains with TLS certificates to be attached
-2. `udp` - such ports can be publicly exposed
-3. `tcp` - such ports can be publicly exposed
+Ports can also be marked as `private` to keep them internal-only.
 
-One port per endpoint can be marked as main. When `http` port marked as main in the main endpoint, a main technical domain will be attached to it during app creation.
+One port per endpoint can be marked as main. If no port is marked as main, the first port becomes main automatically.
+
+If a service defines a single endpoint, that endpoint becomes main automatically. If it defines multiple endpoints,
+mark one of them as main.
+
+When the main service in a stack has a main HTTP endpoint, Wodby attaches the app's main technical domain to the main
+port of that endpoint.
 
 ## Template
 
-Service endpoints defined under [`endpoints` section](template.md#endpoints) in a service template.
+Service endpoints are defined under the [`endpoints` section](template.md#endpoints) in a service template.
 
-```markdown
+```yaml
 endpoints:
 - name: http
   ports:
