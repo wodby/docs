@@ -1,27 +1,92 @@
 # Stack Template
 
-Example:
+Custom stacks imported from git are defined by `stack.yml`.
+
+If a repository contains multiple stacks, list their directories in `index.yml`:
+
+```yaml
+stacks:
+  - php
+  - node
+```
+
+Each listed directory must contain its own `stack.yml`. Paths used by `services[].configs[].config` are resolved
+relative to that stack directory.
+
+Only the fields documented on this page are supported. Unknown fields will be rejected during import.
+
+## Example
 
 ```yaml
 name: php
-icon: php
 title: PHP
+icon: php
+
+env:
+  - name: APP_TYPE
+    value: php
+
+tokens:
+  - name: app_secret
+    generate:
+      regex: '[0-9a-z]{32}'
+
+annotations:
+  - name: nginx.ingress.kubernetes.io/proxy-body-size
+    value: 64m
+
+helm:
+  - name: global.imagePullSecrets
+    value:
+      - registry-creds
 
 services:
   - name: php
     title: PHP
-    service: php
+    service: php:8.3
     required: true
-    links:
-      - name: db
-        service: mariadb
-      - name: sendmail
-        service: mailpit
+    options:
+      - version: '8.3'
+        default: true
+    env:
+      - name: PHP_FPM_PM_MAX_CHILDREN
+        value: "8"
+    tokens:
+      - name: xdebug_ide_key
+        value: phpstorm
+    containers:
+      - name: php
+        env:
+          - name: APP_ENV
+            value: prod
+        resources:
+          request:
+            cpu: 100
+            memory: 128
+          limit:
+            cpu: 500
+            memory: 512
+    cron:
+      - name: queue
+        title: Queue runner
+        command: php /var/www/html/artisan schedule:run
+        schedule: "0 * * * *"
+    configs:
+      - name: php_ini
+        config: configs/php.ini
+    derivatives:
+      - name: php-xhprof
+        service: xhprof
+        env:
+          - name: XHGUI_HOST
+            value: http://xhgui
 
   - name: nginx
     title: Nginx
     service: php-nginx
     required: true
+    depends:
+      - php
     containers:
       - name: nginx
         env:
@@ -33,132 +98,279 @@ services:
 
   - name: mariadb
     title: MariaDB
-    service: mariadb
-    volumes:
-      - name: data
-        size: 20
-
-  - name: httpd
-    title: Apache HTTP server
-    service: php-httpd
-    disabled: true
-    containers:
-      - name: httpd
-        env:
-          - name: APACHE_VHOST_PRESET
-            value: php
-    links:
-      - name: backend
-        service: php
-
-  - name: postgres
-    title: PostgreSQL
-    service: postgres
+    service: mariadb:11
     disabled: true
     volumes:
       - name: data
         size: 20
-
-  - name: valkey
-    title: Valkey
-    service: valkey
-    disabled: true
-
-  - name: mailpit
-    title: Mailpit
-    service: mailpit
-
-  - name: opensmtpd
-    disabled: true
-    title: OpenSMTPD
-    service: opensmtpd
-
-  - name: gotenberg
-    title: Gotenger
-    service: gotenberg
-    disabled: true  
 ```
 
-## Reference
+## Top-Level Fields
 
-### name
+### `name`
 
-Stack machine name, cannot be changed.
+Type: `string`. Required.
 
-### title
+Stack machine name. Use a lowercase slug with letters, numbers, and dashes.
 
-Stack human-readable title, can be changed.
+### `title`
 
-### icon
+Type: `string`. Required.
 
-Icon name of a stack in Wodby dashboard.
+Human-readable stack title.
 
-### env
+### `icon`
 
-Stack-wide environment variables.
+Type: `string`.
 
-### tokens
+Icon name shown in the Wodby dashboard.
 
-Stack-wide tokens. Tokens can either have a plain value or a regular expression that will be used to generate a random secret value when an app services created/updated. You can use tokens in environment variables' values.
+### `services`
 
-### services
+Type: `array`. Required. Must contain at least one item.
 
-Under `services` you can define list of [services](../services/index.md) your stack consist of.
+List of [stack services](services.md). Each item references an existing [service](../services/index.md) and can apply
+stack-level overrides to it.
 
-#### service.name 
+### `env`
 
-Machine name of a [stack service](services.md), must be unique, cannot be changed.
+Type: `array`.
 
-#### service.title
+Stack-wide environment variables. They are applied to app services created from this stack.
 
-Human-readable title of a service in your stack, can be changed.
+### `tokens`
 
-#### service.service 
+Type: `array`.
 
-Machine name of an existing public [service](../services/index.md).
+Stack-wide tokens. Tokens can either store a fixed value or generate one from a regular expression.
 
-#### service.options 
+### `annotations`
 
-Limitations of service options that can be used in a stack, also defines the default option. 
+Type: `array`.
 
-#### service.derivatives 
+Stack-wide annotations applied to deployed app services.
 
-Configuration of specific service derivatives.  
+### `helm`
 
-#### service.env 
+Type: `array`.
 
-Service-specific environment variables. 
+Stack-wide Helm values. Use this to override values required by the service Helm integration.
 
-#### service.disabled 
+## Shared Value Objects
 
-When set the service will be disabled by default 
+### `env[]`
 
-#### service.required
+Used by top-level `env`, `services[].env`, and `services[].containers[].env`.
 
-When set service is mandatory to include when a new app created. All services linked in a mandatory service will also be mandatory.
+- `name`: required environment variable name.
+- `value`: required string value. Use quoted strings in YAML.
+- `secret`: optional boolean. When `true`, the value is stored as a secret.
+- `envType`: optional environment type filter. Allowed values: `prod`, `dev`, `staging`, `test`, `feature`.
 
-#### service.volumes
+### `tokens[]`
 
-Overrides a default size of a service volume
+Used by top-level `tokens` and `services[].tokens`.
 
-#### service.links
+- `name`: required token name.
+- `value`: fixed token value.
+- `generate.regex`: regex used to generate the token value.
+- `secret`: optional boolean for fixed-value tokens.
+- `envType`: optional environment type filter.
 
-Set up links with existing stack services for service-defined links.
+Exactly one of `value` or `generate.regex` must be specified.
 
-```
-links:
-- name: name-of-existing-service-defined-link
-  service: stack-service-to-link-that-satisfies-link-selectors
-```
+### `annotations[]`
 
-#### service.containers
+Used by top-level `annotations`.
 
-Configuration of container-specific resources and environment variables.
+- `name`: required annotation name.
+- `value`: required annotation value.
+- `envType`: optional environment type filter.
 
-#### service.container.env
+### `helm[]`
 
-Container-specific environment variables.  
+Used by top-level `helm`, `services[].helm`, and `services[].derivatives[].helm`.
 
-#### service.container.resources
+- `name`: required Helm values path.
+- `value`: required value. Can be a scalar, array, or object.
+- `secret`: optional boolean. When `true`, the value is stored as a secret.
+- `envType`: optional environment type filter.
 
-Container-specific resources.  
+## Service Fields
+
+### `services[].name`
+
+Type: `string`. Required.
+
+Stack service machine name. It must be unique within the stack.
+
+Use lowercase letters, numbers, and dashes. The name must start with a letter and end with a letter or number.
+
+### `services[].title`
+
+Type: `string`. Required.
+
+Human-readable service title shown in the stack and app UI.
+
+### `services[].service`
+
+Type: `string`. Required.
+
+Reference to an existing service. You can use either a plain service name such as `php`, or a versioned reference such
+as `php:8.3`.
+
+The referenced service must exist and be available to your organization.
+
+### `services[].required`
+
+Type: `boolean`. Default: `false`.
+
+Marks the service as mandatory when a new app is created from the stack.
+
+### `services[].disabled`
+
+Type: `boolean`. Default: `false`.
+
+Disables the stack service by default.
+
+### `services[].replicas`
+
+Type: `integer`. Default: `1`.
+
+Default number of replicas for the stack service.
+
+### `services[].main`
+
+Type: `boolean`.
+
+Marks the main service in the stack. Only one stack service should be main. Use it for the primary HTTP service.
+
+If no service is marked as main, Wodby will automatically pick the first HTTP-capable service.
+
+### `services[].depends`
+
+Type: `array[string]`.
+
+List of stack service names that this service depends on. Every referenced name must exist in the same stack.
+
+This affects deployment order: a service is deployed after its dependencies and deleted before them.
+
+### `services[].options`
+
+Type: `array`.
+
+Limits which options from the referenced service can be used in this stack and defines the default option.
+
+Each item supports:
+
+- `version`: required option version from the referenced service.
+- `default`: optional boolean.
+
+If no option is marked as default, the first listed option becomes the default automatically.
+
+### `services[].env`
+
+Type: `array`.
+
+Service-specific environment variables.
+
+### `services[].helm`
+
+Type: `array`.
+
+Service-specific Helm values.
+
+### `services[].containers`
+
+Type: `array`.
+
+Per-container overrides for containers defined by the referenced service.
+
+Each item supports:
+
+- `name`: required container name.
+- `env`: optional container-specific environment variables.
+- `resources`: optional resource overrides.
+
+`resources` supports:
+
+- `request.cpu`
+- `request.memory`
+- `limit.cpu`
+- `limit.memory`
+
+CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
+
+### `services[].volumes`
+
+Type: `array`.
+
+Overrides sizes for volumes defined by the referenced service.
+
+Each item supports:
+
+- `name`: required service volume name.
+- `size`: required size in GB, minimum `1`.
+
+### `services[].links`
+
+Type: `array`.
+
+Links a stack service to another stack service to satisfy links defined by the referenced service.
+
+Each item supports:
+
+- `name`: required service-defined link name.
+- `service`: required target stack service name.
+
+Required service links must be satisfied in the stack definition.
+
+### `services[].cron`
+
+Type: `array`.
+
+Additional cron schedules for the stack service.
+
+Each item supports:
+
+- `name`: required schedule name.
+- `title`: required human-readable title.
+- `command`: required command to run.
+- `schedule`: required cron schedule.
+
+Use standard five-field crontab syntax such as `0 * * * *`. Cron schedules cannot run more often than once per hour.
+
+### `services[].configs`
+
+Type: `array`.
+
+Provides stack-specific file contents for configs defined by the referenced service.
+
+Each item supports:
+
+- `name`: required config name from the referenced service.
+- `config`: required file path relative to the stack directory.
+- `disabled`: optional boolean.
+
+### `services[].tokens`
+
+Type: `array`.
+
+Service-specific tokens. The object shape is the same as top-level `tokens`.
+
+### `services[].derivatives`
+
+Type: `array`.
+
+Overrides derivative services declared by the referenced service.
+
+Each item supports:
+
+- `name`: required stack service name for the derivative instance.
+- `service`: required derivative name from the referenced service.
+- `required`: optional boolean.
+- `env`: optional environment variables.
+- `helm`: optional Helm values.
+
+Only derivatives declared by the referenced service can be used here. Derivative names should follow the same naming
+rules as `services[].name`.
