@@ -1,11 +1,24 @@
 # Service template
 
-Services can be created only via templates. You can connect your git integration and import a custom service from a
-template.
+Custom services imported from git are defined by `service.yml`.
+
+If a repository contains multiple services, list their directories in `index.yml`:
+
+```yaml
+services:
+  - php
+  - nginx
+```
+
+Each listed directory must contain its own `service.yml`. Paths used by fields such as `configs[].config`,
+`build.dockerfile`, `build.dockerignore`, and `build.templates[].pipeline` are resolved relative to that service
+directory.
+
+Only the fields documented on this page are supported. Unknown fields will be rejected during import.
 
 ## Example
 
-```yml
+```yaml
 name: drupal11-php
 type: service
 from: php
@@ -15,15 +28,16 @@ labels:
   - drupal11
 
 options:
-  - version: '8.3'
+  - version: "8.3"
     default: true
-    eol: '2026-11-23T00:00:00+00:00'
+    eol: "2026-11-23T00:00:00+00:00"
 
 update: auto
 
 containers:
   - name: php
     image: wodby/drupal-php
+    main: true
 
 links:
   - name: files
@@ -31,27 +45,15 @@ links:
     required: true
     selectors:
       - type: storage
-  - name: solr
-    title: Solr
-    env:
-      - name: SOLR_CLOUD_SERVER
-        value: '{{link.host}}'
-      - name: SOLR_CLOUD_PASSWORD
-        value: '{{link.tokens.password}}'
-        secret: true
-    selectors:
-      - type: search
-        labels:
-          - solr
   - name: redis
     title: Redis
     env:
       - name: REDIS_PORT
-        value: '{{link.port}}'
+        value: "{{link.port}}"
       - name: REDIS_HOST
-        value: '{{link.host}}'
+        value: "{{link.host}}"
       - name: REDIS_PASSWORD
-        value: '{{link.tokens.password}}'
+        value: "{{link.tokens.password}}"
         secret: true
     selectors:
       - type: datastore
@@ -74,21 +76,19 @@ volumes:
 
 cron:
   - name: drush
-    title: drush cron
+    title: Drupal cron
     command: drush -r ${HTTP_ROOT} -l ${WODBY_PRIMARY_URL} cron
-    schedule: 0 0 * * *
+    schedule: "0 0 * * *"
 
 env:
   - name: DRUPAL_FILES_SYNC_SALT
-    value: '{{sync_salt}}'
+    value: "{{sync_salt}}"
     secret: true
   - name: DRUPAL_HASH_SALT
-    value: '{{hash_salt}}'
+    value: "{{hash_salt}}"
     secret: true
   - name: DRUPAL_VERSION
-    value: '11'
-  - name: HTTP_ROOT
-    value: "${APP_ROOT}/${DOCROOT_SUBDIR}"
+    value: "11"
 
 build:
   dockerfile: Dockerfile
@@ -102,1510 +102,619 @@ build:
 settings:
   - name: docroot
     title: Drupal root subdirectory
-    description: Composer-based projects have Drupal under 'web' directory by default
+    description: Composer-based projects usually keep Drupal under the web directory
     placeholder: path/relative/to/git/root
     default: web
     var: DOCROOT_SUBDIR
-  - name: sitedir
-    title: Drupal site dir
-    required: true
-    default: default
-    var: DRUPAL_SITE
 
 tokens:
   - name: sync_salt
     generate:
-      regex: '[0-9a-z]{32}'
+      regex: "[0-9a-z]{32}"
   - name: hash_salt
     generate:
-      regex: '[0-9a-z]{32}'
+      regex: "[0-9a-z]{32}"
 
 actions:
   - name: clear_cache
-    args: [ 'drush', 'cc', 'all' ]
+    args: ["drush", "cc", "all"]
     type: button
     title: Clear all cache
   - name: user_login
-    args: [ 'make', 'user-login' ]
+    args: ["make", "user-login"]
     type: output
     title: Generate one-time login link
     privileged: true
 ```
 
+## General rules
+
+- `service.yml` defines one service.
+- `from` lets you inherit from an existing service and override only the parts you need.
+- Non-external services normally define `containers` and `helm`. If the service inherits them from `from`, you do not
+  need to repeat them.
+- Only services of type `service` can use the `build` section.
+- Only services of type `db` can use the `database` section.
+- `external: true` is for services managed outside Wodby. External services cannot define `containers`, `build`,
+  `links`, `volumes`, `settings`, `env`, `configs`, `actions`, `certs`, `cron`, or `derivatives`.
+- Infrastructure services cannot be external and do not use `options`, `tokens`, or `imports`.
+
+## Shared values
+
+### Environment variable object
+
+Used by `env`, `containers[].env`, `links[].env`, `integrations[].providers[].env`, `imports[].init.env`, and
+`derivatives[].env`.
+
+- `name`: required environment variable name.
+- `value`: required string value.
+- `secret`: optional boolean. When `true`, the value is stored as a secret.
+- `envType`: optional environment type filter. Allowed values: `prod`, `dev`, `staging`, `test`, `feature`.
+
+### Helm value object
+
+Used by `links[].helm`, `volumes[].helm.values`, `helm.values`, and `derivatives[].helm.values`.
+
+- `name`: required Helm value path.
+- `value`: required value. Can be a scalar, array, or object.
+
+### Resources object
+
+Used by `containers[].resources` and `derivatives[].resources`.
+
+- `request.cpu`
+- `request.memory`
+- `limit.cpu`
+- `limit.memory`
+
+CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
+
+### Selector object
+
+Used by `links[].selectors` and `kubernetes.infrastructure[].selectors`.
+
+- `type`: service type to match.
+- `option`: optional service option version to match.
+- `labels`: optional labels that the matching service must have.
+
 ## Reference
 
 ### `name`
 
-Type: `string`.
+Type: `string`. Required.
 
-Machine name of a service, must be unique, cannot be changed. Only alphanumeric and dash symbols allowed.
-
-Required.
+Service machine name. Use lowercase letters, numbers, and dashes.
 
 ### `type`
 
 Type: `enum`. Required.
 
-[Service type](types.md).
-
-Following values allowed:
+Allowed values:
 
 - `service`
 - `db`
 - `infrastructure`
-- `storage`
-- `datastore`
-- `search`
 - `ssh`
-- `smtp`
+- `datastore`
+- `operator`
+- `search`
+- `vpn`
+- `storage`
 
-Can be used in selectors.
+This value is also used in selectors.
 
 ### `icon`
 
 Type: `string`.
 
-Icon name in Wodby dashboard.
+Icon name shown in the Wodby dashboard.
 
 ### `from`
 
 Type: `string`.
 
-Inherit specified service. Must specify existing service from Wodby catalog.
+Inherit configuration from an existing service available to your organization.
+
+### `update`
+
+Type: `enum`.
+
+Controls how the service should be updated from git. Allowed values:
+
+- `auto`
+- `manual`
 
 ### `title`
 
-Type: `string`.
+Type: `string`. Required.
 
-Human-readable title of a service.
+Human-readable service title.
 
-Required.
+### `external`
+
+Type: `boolean`. Default: `false`.
+
+Marks the service as externally managed.
 
 ### `scalable`
 
-Type: `boolean`. Default: `false`
+Type: `boolean`. Default: `false`.
 
-Whether this service support scalability. Should be always `true` for stateless services. For stateful services depends
-on the implementation.
+Whether this service supports running multiple replicas. This can only be enabled for services of type `service`.
 
 ### `labels`
 
-Type: `string list`.
+Type: `array[string]`.
 
-List of text labels for a service, to be used in selectors.
+Labels used by selectors and service discovery rules.
+
+### `env`
+
+Type: `array`.
+
+Service-wide environment variables. Uses the environment variable object described above.
 
 ### `options`
 
-Option represent version and variants of service. Mandatory to specify at least on option.
+Type: `array`.
 
-#### `options.[].version`
+Service versions or variants. Services that do not inherit from another service usually define at least one option,
+unless they are infrastructure services.
 
-Type: `string`. Required.
+Each item supports:
 
-Human-readable version
+- `version`: required option version.
+- `tag`: optional image tag for that version.
+- `default`: optional boolean.
+- `eol`: optional end-of-life date in ISO datetime format.
 
-#### `options.[].tag`
-
-Type: `string`.
-
-Image docker for the selected version. If not set, `version` will be used instead.
-
-#### `options.[].default`
-
-Type: `boolean`.
-
-Whether selected version should be selected by default. If none specified, first option will be chosen as default.
-
-#### `options.[].eol`
-
-Type: `string`.
-
-Optional date of end of life (EOL) of the version. Specify in format `YYYY-MM-DDT00:00:00+00:00`
+Only one option can be default. If none is marked as default, the first option becomes the default automatically.
 
 ### `containers`
 
-Definition of containers of a service. Not allowed for external services. Mandatory for non-external services.
+Type: `array`.
 
-#### `containers.[].name`
+Container definitions for the service. Non-external services normally define containers unless they inherit them from
+`from`.
 
-Type: `string`. Required.
+Each item supports:
 
-Machine name of the container.
+- `name`: required container name.
+- `image`: image for the container. When you define a new container, this should be set.
+- `main`: marks the main container.
+- `env`: optional container-specific environment variables.
+- `resources`: optional container-specific resource requests and limits.
 
-#### `containers.[].image`
-
-Type: `string`. Required.
-
-Docker image of the container.
+Only one container can be main. If the service has a single container, Wodby will make it the main container
+automatically.
 
 ### `build`
 
-Configuration for [buildable services](build.md).
+Type: `object`.
 
-#### `build.dockerfile`
+Build configuration for services of type `service`.
 
-Type: `string`.
+Each object supports:
 
-Dockerfile file name from service repository.
+- `dockerfile`: Dockerfile path.
+- `dockerignore`: `.dockerignore` path.
+- `connect`: whether the service requires a connected git repository.
+- `templates`: build templates customers can use as a starting point.
 
-#### `build.connect`
+Each `build.templates[]` item supports:
 
-Type: `boolean`.
+- `name`: required template name.
+- `title`: required template title.
+- `repo`: required GitHub repository URL in `https://github.com/...` format.
+- `branch`: git branch to use.
+- `tag`: git tag or tag pattern to use.
+- `pipeline`: optional pipeline file path.
 
-Whether this service requires a git repository to be connected.
-Otherwise, assumed the service will be built as a part of a build of different service.
-
-#### `build.templates`
-
-List of build templates (boilerplate) user can choose from for Demo purposes or clone to own repository.
-
-##### `build.templates.[].name`
-
-Type: `string`. Required.
-
-Machine name of template. Must be unique, cannot be changed.
-
-##### `build.templates.[].title`
-
-Type: `string`. Required.
-
-Human-readable title.
-
-##### `build.templates.[].repo`
-
-Type: `string`. Required.
-
-Address to a git repository from GitHub (must be specified in `https://` format)
-
-##### `build.templates.[].branch`
-
-Type: `string`.
-
-Branch name of a git repository, if not specified default branch will be used.
+Specify either `branch` or `tag` for each build template.
 
 ### `endpoints`
 
-Collection of [service endpoints](endpoints.md).
+Type: `array`.
 
-#### `endpoints.[].name`
+Service endpoints exposed by the service.
 
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
+Each `endpoints[]` item supports:
 
-Endpoint's machine name.
+- `name`: required endpoint name.
+- `service`: optional service name override used by the endpoint.
+- `main`: marks the main endpoint.
+- `ports`: required list of ports.
 
-#### `endpoints.[].ports`
+Each `endpoints[].ports[]` item supports:
 
-Collection of a service endpoint's ports.
+- `name`: required port name.
+- `number`: required port number.
+- `protocol`: required protocol. Allowed values: `http`, `tcp`, `udp`.
+- `private`: optional boolean.
+- `main`: marks the main port within that endpoint.
 
-##### `endpoints.[].ports.[].name`
+Only one endpoint can be main. If the service has a single endpoint, it becomes main automatically. If you define
+multiple endpoints, mark one of them as main.
 
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
-
-Endpoint's port machine name.
-
-##### `endpoints.[].ports.[].number`
-
-Type: `integer`. Required.
-
-Endpoint's port number.
-
-##### `endpoints.[].ports.[].type`
-
-Type: `enum`. Allowed values are `tcp`, `udp` and `http`
-
-Endpoint port's type.
-
-##### `endpoints.[].ports.[].main`
-
-Type: `boolean`.
-
-Set to true to mark the port as main. Only one per endpoint. If none marked the first one set as main.
+Only one port per endpoint can be main. If no port is marked as main, the first port becomes main automatically.
 
 ### `links`
 
-Collection of [service links](links.md).
+Type: `array`.
 
-#### `links.[].name`
+Service links define what other services can be connected to this service in a stack.
 
-Type: `string`. Required.
+Each item supports:
 
-Machine name of a link. Must be unique, cannot be changed.
+- `name`: required link name.
+- `title`: required link title.
+- `required`: optional boolean.
+- `selectors`: required selectors. A linked service must match at least one selector.
+- `env`: optional environment variables added when the link is set.
+- `helm`: optional Helm values added when the link is set.
 
-#### `links.[].title`
-
-Type: `string`.
-
-Human-readable title of a link.
-
-#### `links.[].required`
-
-Type: `boolean`.
-
-When set to true, the link is required to set in a stack.
-
-#### `links.[].selectors`
-
-Collection of selectors that a linked service must match. Must match at least one of the selectors.
-
-##### `links.[].selectors.[].type`
-
-Type: `enum`.
-
-[Type](types.md) of service that can be linked.
-
-Following values allowed:
-
-- `service`
-- `db`
-- `storage`
-- `datastore`
-- `search`
-- `ssh`
-
-##### `links.[].selectors.[].labels`
-
-Type: `string list`.
-
-List of labels that a linked service must have.
-
-#### `links.[].env`
-
-Collection of environment variables that will be added when the link set.
-
-##### `links.[].env.[].name`
-
-Type: `string`. Required.
-
-Name of the environment variable.
-
-##### `links.[].env.[].value`
-
-Type: `string`.
-
-Value of the environment variable. Can contain [`{{tokens}}`](tokens.md).
-
-##### `links.[].env.[].env`
-
-Type: `enum`.
-
-If set, the environment variable will be added only to application instances that have the provided [environment type](../apps/env.md#type).
-
-##### `links.[].env.[].secret`
-
-Type: `boolean`.
-
-True if the environment variable should be secret. Secret environment variable's value stored in Kubernetes secret resource and not shown in Wodby dashboard.
+Each `links[].selectors[]` item uses the selector object described above.
 
 ### `volumes`
 
-Collection of [service volumes](volumes.md)
+Type: `array`.
 
-#### `volumes.[].name`
+Service volumes.
 
-Type: `string`. Required.
+Each item supports:
 
-Volume's machine name. Must be unique, cannot be changed.
+- `name`: required volume name.
+- `title`: required volume title.
+- `shared`: optional boolean.
+- `readOnly`: optional boolean.
+- `link`: optional link name associated with this volume.
+- `optional`: optional boolean.
+- `path`: optional absolute mount path.
+- `from`: optional link name to reuse a volume from a linked service.
+- `size`: optional default size in GB. Minimum `1`.
+- `import`: optional ownership settings for imported files.
+- `helm`: optional Helm integration for the volume.
 
-#### `volumes.[].title`
+`volumes[].import` supports:
 
-Type: `string`.
+- `owner`: required numeric owner ID.
+- `group`: required numeric group ID.
 
-Volume's human-readable title.
+`volumes[].helm` supports:
 
-#### `volumes.[].size`
-
-Type: `int`.
-
-Default size of the volume, in GB.
-
-#### `volumes.[].optional`
-
-Type: `boolean`.
-
-True if volume is optional. When a volume optional and size not specified during new app creation, the persistent volume
-won't be created.
-
-#### `volumes.[].helm`
-
-Additional Helm configuration for the volume.
-
-##### `volumes.[].helm.values`
-
-Collection of helm values.
-
-###### `volumes.[].helm.values.[].name`
-
-Type: `string`
-
-Name of the helm value.
-
-###### `volumes.[].helm.values.[].value`
-
-Type: `string`, `string list`, `object`
-
-Value of the helm value. Can contain [`{{tokens}}`](tokens.md).
+- `labels`: optional Helm value path for labels.
+- `values`: optional Helm values.
 
 ### `integrations`
 
-Collection of [service integrations](integrations.md)
+Type: `array`.
 
-#### `integrations.[].name`
+Integrations that can be connected to the service.
 
-Type: `string`. Required.
+Each item supports:
 
-Integration's machine name. Must be unique, cannot be changed.
+- `name`: required integration name.
+- `title`: required integration title.
+- `type`: required integration type.
+- `required`: optional boolean.
+- `multiple`: optional boolean.
+- `labels`: optional labels used to filter compatible integrations.
+- `providers`: optional provider-specific overrides.
 
-#### `integrations.[].title`
+Each `integrations[].providers[]` item supports:
 
-Type: `string`.
-
-Integration's human-readable title.
-
-#### `integrations.[].type`
-
-Type: `enum`.
-
-[Type of integration](../integrations/types.md) that can be connected.
-
-#### `integrations.[].required`
-
-Type: `boolean`.
-
-Set to true when it's mandatory to connect at least one integration.
-
-#### `integrations.[].multiple`
-
-Type: `boolean`.
-
-Set to true when multiple integrations can be connected.
-
-#### `integrations.[].providers`
-
-Collection of extra configurations for specific providers.
-
-##### `integrations.[].providers.[].name`
-
-Machine name of the [provider](../integrations/providers.md) for which this configuration should apply.
-
-##### `integrations.[].providers.[].env`
-
-Collection of extra environment variables that will be added when integration of the specific provider added.
-
-###### `integrations.[].providers.[].env.[].name`
-
-Type: `string`. Required.
-
-Name of the environment variable.
-
-###### `integrations.[].providers.[].env.[].value`
-
-Type: `string`.
-
-Value of the environment variable. Can contain [`{{tokens}}`](tokens.md).
-
-###### `integrations.[].providers.[].env.[].env`
-
-Type: `enum`.
-
-If set, the environment variable will be added only to application instances that have the provided [environment type](../apps/env.md#type).
-
-###### `integrations.[].providers.[].env.[].secret`
-
-Type: `boolean`.
-
-True if the environment variable should be secret. Secret environment variable's value stored in Kubernetes secret resource and not shown in Wodby dashboard.
+- `name`: required provider name.
+- `env`: optional provider-specific environment variables.
 
 ### `settings`
 
-Collection of [service settings](settings.md)
+Type: `array`.
 
-#### `settings.[].name`
+Service settings shown when creating or configuring an app.
 
-Type: `string`. Required.
+Each item supports:
 
-Setting's machine name. Must be unique, cannot be changed.
-
-#### `settings.[].title`
-
-Type: `string`.
-
-Setting's human-readable title.
-
-#### `settings.[].var`
-
-Type: `string`. Required.
-
-Name of the setting's environment variable that will be added with the value of the setting.
-
-#### `settings.[].description`
-
-Type: `string`.
-
-Setting's description. Will be shown in Wodby's dashboard.
-
-#### `settings.[].placeholder`
-
-Type: `string`.
-
-Setting's placeholder for the setting's input. Will be shown in Wodby's dashboard.
-
-#### `settings.[].default`
-
-Type: `string`.
-
-Setting's default value.
-
-### `backups`
-
-Collection of [service backups](backups.md).
-
-Example #1 [simple files backup](backups.md#1-simple-files-backup):
-
-```yml
-backups:
-  - name: files
-title: Files backup
-upload:
-  dir: /export
-  gzip: false
-```
-
-Example #2 backup [through action](backups.md#2-through-action):
-
-```yml
-backups:
-  - name: database
-    title: Default database backup
-    create:
-      args:
-        - make
-        - backup
-        - 'host="{{database.host}}"'
-        - 'db="{{database.db.name}}"'
-        - 'ignore="{{db_backup_ignore_tables}}"'
-        - 'filepath=/var/lib/mysql/backup.sql.gz'
-    upload:
-      filepath: /var/lib/mysql/backup.sql.gz
-      extension: sql.gz
-```
-
-#### `backups.[].name`
-
-Type: `string`. Required.
-
-Backup's machine name. Must be unique, cannot be changed.
-
-#### `backups.[].title`
-
-Type: `string`.
-
-Backup's human-readable title.
-
-#### `backups.[].create`
-
-Container's configuration for the backup creation action. App service's pod container will be used to run a Kubernetes
-job with the provided configuration to create a backup. The job should result in an archive file.
-
-Mandatory unless it's a [simple files backup](backups.md#1-simple-files-backup).
-
-##### `backups.[].create.args`
-
-Type: `string list`.
-
-List of container's args to override for the action. Can contain [`{{tokens}}`](tokens.md).
-
-##### `backups.[].create.command`
-
-Type: `string list`.
-
-Container's command to override for the action.
-
-#### `backups.[].upload`
-
-Configuration for how to upload the backup archive to the cloud storage of the attached integration.
-
-##### `backups.[].upload.filepath`
-
-Type: `string`. Mandatory unless it's a [simple files backup](backups.md#1-simple-files-backup).
-
-Filepath of the backup archive.
-
-##### `backups.[].upload.extension`
-
-Type: `string`. Mandatory unless it's a [simple files backup](backups.md#1-simple-files-backup).
-
-Extension of the archive file for the cloud storage.
-
-##### `backups.[].upload.dir`
-
-Type: `string`. Mandatory for [simple files backups](backups.md#1-simple-files-backup).
-
-Directory with files that should be backed up.
-
-##### `backups.[].upload.gzip`
-
-Type: `boolean`. Only for [simple files backups](backups.md#1-simple-files-backup).
-
-If set to true, the files tarball will be additionally gzipped.
+- `name`: required setting name.
+- `title`: required setting title.
+- `description`: optional description.
+- `placeholder`: optional placeholder text.
+- `default`: optional default value.
+- `from`: optional link name to reuse the same setting from a linked service.
+- `required`: optional boolean.
+- `var`: required environment variable name created from this setting.
 
 ### `imports`
 
-Collection of [service imports](imports.md).
+Type: `array`.
 
-Example #1 [simple files import](imports.md#1-simple-files-import):
+Service import definitions.
 
-```yml
-imports:
-  - name: files
-    volume: data
-    title: Files import
-    destination: '/export/pvc-{{import_pvc_uid}}'
-    extensions:
-      - tar
-      - tar.gz
-      - tgz
-      - zip
-```
+Each item supports:
 
-Example #2 import [through init volume](imports.md#2-through-init-volume):
+- `name`: required import name.
+- `title`: required import title.
+- `volume`: required target volume name.
+- `extensions`: required supported file extensions.
+- `destination`: destination path for unpacking files.
+- `init`: init-volume import settings.
+- `args`: optional arguments.
+- `command`: optional command override.
 
-```yml
-imports:
-  - name: database
-    title: Database import
-    volume: data
-    init:
-      mount: /docker-entrypoint-initdb.d
-      env:
-        - name: MYSQL_DATABASE
-          value: '{{database.db.name}}'
-    extensions:
-      - gz
-      - tar.gz
-      - tgz
-      - zip
-```
+`imports[].destination` can use `{{import_pvc_uid}}`.
 
-#### `imports.[].name`
+`imports[].init` supports:
 
-Type: `string`. Required.
-
-Import's machine name. Must be unique, cannot be changed.
-
-#### `imports.[].title`
-
-Type: `string`.
-
-Import's human-readable title.
-
-#### `imports.[].volume`
-
-Type: `string`.
-
-Machine name of the [volume](volumes.md) where import should be imported to.
-
-###### `imports.[].extensions`
-
-Type: `string list`.
-
-List of support import archive extensions.
-
-#### `imports.[].destination`
-
-Type: `string`. Can contain [`{{tokens}}`](tokens.md). Supports extra token `{{import_pvc_uid}}` that has UID of the
-volume PVC.
-
-Destination path in a container where to unpack a tarball with files. Only
-for [simple files import](imports.md#1-simple-files-import)
-
-#### `imports.[].init`
-
-Configuration for [import through init volume](imports.md#2-through-init-volume).
-
-##### `imports.[].init.mount`
-
-Type: `string`. Required.
-
-Mount path in a container of the init volume that implements import.
-
-##### `imports.[].init.env`
-
-Collection of additional environment variables to be added during import.
-
-###### `imports.[].init.env.[].name`
-
-Type: `string`. Required.
-
-Name of the environment variable.
-
-###### `imports.[].init.env.[].value`
-
-Type: `string`.
-
-Value of the environment variable. Can contain [`{{tokens}}`](tokens.md).
-
-###### `imports.[].init.env.[].env`
-
-Type: `enum`.
-
-If set, the environment variable will be added only to application instances that have the provided [environment type](../apps/env.md#type).
-
-###### `imports.[].init.env.[].secret`
-
-Type: `boolean`.
-
-True if the environment variable should be secret. Secret environment variable's value stored in Kubernetes secret resource and not shown in Wodby dashboard.
+- `mount`: required mount path.
+- `env`: optional environment variables for the import.
 
 ### `tokens`
 
-Collection of [service tokens](tokens.md). A token must specify either a plain text value or a regular expression to
-generate a random value.
+Type: `array`.
 
-#### `tokens.[].name`
+Service tokens. A token must define either a fixed value or a generated value.
 
-Type: `string`. Required.
+Each item supports:
 
-Token's name. Must be unique, cannot be changed.
+- `name`: required token name.
+- `value`: fixed token value.
+- `generate.regex`: regex used to generate the value.
+- `secret`: optional boolean for fixed-value tokens.
+- `envType`: optional environment type filter.
 
-#### `tokens.[].value`
-
-Type: `string`.
-
-Token's plain text value.
-
-#### `tokens.[].generate`
-
-Configuration for how to randomly generate token's value.
-
-##### `tokens.[].generate.regex`
-
-Type: `string`.
-
-Regular expression to use for generating a random token's value. Generated tokens are always secrets.
-
-##### `tokens.[].secret`
-
-Type: `boolean`.
-
-True if the token should be secret. Secret token's value stored in Kubernetes secret resource and not shown in Wodby dashboard.
-
-##### `tokens.[].env`
-
-Type: `enum`.
-
-If set, the token will be added only to application instances that have the provided [environment type](../apps/env.md#type).
+Generated tokens are always treated as secrets. Exactly one of `value` or `generate.regex` must be set.
 
 ### `actions`
 
-Collection of [service actions](actions.md)
+Type: `array`.
 
-#### `actions.[].name`
+Service actions.
 
-Type: `string`. Required.
+Each item supports:
 
-Action's name. Must be unique, cannot be changed.
+- `name`: required action name.
+- `title`: required action title.
+- `args`: required argument list.
+- `command`: optional command override.
+- `type`: required action type.
+- `template`: optional build template name filter.
+- `privileged`: optional boolean.
+- `depends`: optional list of actions that must run first.
 
-#### `actions.[].title`
+Allowed `type` values:
 
-Type: `string`.
+- `button`
+- `output`
+- `post_upgrade`
+- `post_deploy`
+- `post_deploy_once`
 
-Action's human-readable title.
+### `backups`
 
-#### `actions.[].args`
+Type: `array`.
 
-Type: `string list`.
+Service backup definitions.
 
-List of container args to override of the main container for the kubernetes job when action executed.
+Each item supports:
 
-#### `actions.[].command`
+- `name`: required backup name.
+- `title`: required backup title.
+- `upload`: required upload settings.
+- `create`: optional action-based backup creation settings.
 
-Type: `string list`.
+`backups[].create` supports:
 
-Container's command to override of the main container for the kubernetes job when action executed.
+- `args`: required argument list when `create` is used.
 
-#### `actions.[].type`
+`backups[].upload` supports:
 
-Type: `enum`. Allowed values: `button`, `post_upgrade`, `post_deploy`, `post_deploy_once`
-
-[Action's type](actions.md#types). Defines how and when action will be executed.
-
-#### `actions.[].template`
-
-Type: `string`.
-
-Used only for `post_deploy` and `post_deploy_once`. Limits action to be run only if specified build source template
-selected.
-
-#### `actions.[].privileged`
-
-Type: `boolean`.
-
-When set true, privileged permissions will be set for the action's kubernetes job.
-
-#### `actions.[].depends`
-
-Type: `string list`.
-
-A list of existing actions that this action depends on. The action will run only after all specified actions
-successfully executed.
+- `filepath`: file to upload for action-based backups.
+- `extension`: uploaded file extension for action-based backups.
+- `dir`: directory to archive for simple file backups.
+- `gzip`: optional gzip compression for simple file backups.
 
 ### `helm`
 
-Configuration for [service Helm integration](helm.md). Mandatory for non-external services.
+Type: `object`.
 
-Example:
+Helm integration for the service. Non-external services normally define `helm` unless they inherit it from `from`.
 
-```yml
-helm:
-  name: wodby
-  source: oci://registry-1.docker.io/wodby/nfs-provisioner
-  chart: oci://registry-1.docker.io/wodby/nfs-provisioner
-  version: 0.1.2
-  configurations:
-    - name: nfs
-      annotations: podAnnotations
-      labels: podLabels
-      env: envVars
-      resources: resources
-```
+The object supports:
 
-#### `helm.name`
+- `name`: required chart source name.
+- `source`: optional Helm repository or OCI source URL.
+- `chart`: required chart name.
+- `version`: required chart version.
+- `crds`: optional CRD file list.
+- `configurations`: required configuration mappings.
+- `values`: optional extra Helm values.
 
-Type: `string`. Required.
+Each `helm.configurations[]` item supports:
 
-Helm repository's name.
-
-#### `helm.source`
-
-Type: `string`. Required.
-
-Helm repository's source. Supports `oci://` and `https://` sources.
-
-#### `helm.chart`
-
-Type: `string`. Required.
-
-Helm chart's name.
-
-#### `helm.version`
-
-Type: `string`. Required.
-
-Helm chart's version.
-
-#### `helm.configurations`
-
-Collection of Helm configurations. Required.
-
-##### `helm.configurations.[].container`
-
-Type: `string`. Required.
-
-Container to apply these configurations to. Must be one of the `containers.[].name` values.
-
-##### `helm.configurations.[].annotations`
-
-Type: `string`.
-
-Helm value's key for adding extra annotations.
-
-##### `helm.configurations.[].resources`
-
-Type: `string`.
-
-Helm value's key for setting kubernetes resources.
-
-##### `helm.configurations.[].env`
-
-Type: `string`.
-
-Helm value's key for adding environment variables in an object format (name, value). Cannot be used together with `.envKV`.
-
-##### `helm.configurations.[].envKV`
-
-Type: `string`.
-
-Helm value's key for adding environment variables in a key/value format.  Cannot be used together with `.env`.
-
-##### `helm.configurations.[].labels`
-
-Type: `string`.
-
-Helm value's key for adding labels.
-
-##### `helm.configurations.[].volumes`
-
-Type: `string`.
-
-Helm value's key for adding volumes.
-
-##### `helm.configurations.[].mounts`
-
-Type: `string`.
-
-Helm value's key for adding volume mounts.
-
-##### `helm.configurations.[].sidecars`
-
-Type: `string`.
-
-Helm value's key for adding sidecar containers.
-
-#### `helm.values`
-
-Extra helm values to add.
-
-###### `helm.values.[].name`
-
-Type: `string`
-
-Name of the helm value.
-
-###### `helm.values.[].value`
-
-Type: `string`, `string list`, `object`
-
-Value of the helm value. Can contain [`{{tokens}}`](tokens.md).
+- `name`: optional label for the configuration block.
+- `container`: required container name.
+- `labels`: Helm value path for labels.
+- `annotations`: Helm value path for annotations.
+- `env`: Helm value path for object-style environment variables.
+- `envKV`: Helm value path for key/value-style environment variables.
+- `resources`: Helm value path for resources.
+- `volumes`: Helm value path for extra volumes.
+- `mounts`: Helm value path for volume mounts.
+- `sidecars`: Helm value path for sidecars.
 
 ### `certs`
 
-Collection of service's [self-signed certificates](certs.md) to generate.
+Type: `array`.
 
-Example:
+Self-signed certificates to generate for the service.
 
-```yml
-certs:
-  - name: webhook
-    days: 36500
-    key:
-      type: rsa
-      length: 4096
-    dns:
-      - aws-load-balancer-webhook-service.{{service.name}}.svc
-      - aws-load-balancer-webhook-service.{{service.name}}.svc.cluster.local
-    helm:
-      cert: webhookTLS.cert
-      key: webhookTLS.key
-      ca: webhookTLS.caCert
-```
+Each item supports:
 
-#### `certs.[].name`
+- `name`: required certificate name.
+- `days`: required lifetime in days. Allowed range: `365` to `36500`.
+- `dns`: optional subject names.
+- `key`: required key configuration.
+- `helm`: required Helm mapping for the generated certificate.
 
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
+`certs[].key` supports:
 
-Certificate's name.
+- `type`: required key type. Allowed value: `rsa`.
+- `length`: required key length. Allowed values: `2048`, `4096`.
 
-#### `certs.[].days`
+`certs[].helm` supports:
 
-Type: `int`. Required.
-
-Certificate's days to expiration.
-
-#### `certs.[].key`
-
-Certificate key configuration. Required.
-
-##### `certs.[].key.type`
-
-Type: `enum`. Required. Allowed values: `rsa`
-
-Certificate key's type.
-
-##### `certs.[].key.length`
-
-Type: `int`. Required.
-
-Certificate key's length.
-
-#### `certs.[].dns`
-
-Type: `string list`.
-
-Domains names of certificate subject. Can contain [`{{tokens}}`](tokens.md).
-
-#### `certs.[].helm`
-
-Helm integration configuration to add generated certificates to the Helm chart.
-
-##### `certs.[].helm.cert`
-
-Helm value's key to add a base64 encoded certificate in PEM format.
-
-##### `certs.[].helm.key`
-
-Helm value's key to add a base64 encoded private key in PEM format.
-
-##### `certs.[].helm.ca`
-
-Helm value's key to add a base64 encoded CA certificate in PEM format.
+- `cert`: Helm value path for the certificate.
+- `key`: Helm value path for the private key.
+- `ca`: Helm value path for the CA certificate.
 
 ### `configs`
 
-Collection of [service configs](configs.md).
+Type: `array`.
 
-Example:
+Service config files.
 
-```yml
-configs:
-  - name: main
-    title: Main
-    filepath: /etc/gotpl/config/nginx.conf.tmpl
-    config: nginx.conf.tmpl
-    version: 1.29
-  - name: vhost
-    title: Virtual host
-    filepath: /etc/gotpl/vhost.conf.tmpl
-    config: vhost.conf.tmpl
-```
+Each item supports:
 
-#### `configs.[].name`
+- `name`: required config name.
+- `title`: optional config title.
+- `config`: required default config file path.
+- `filepath`: optional mount path in the container.
+- `filename`: optional filename to create in a config map.
+- `helm`: optional Helm value path used for the config.
+- `version`: optional service version this config applies to.
 
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
-
-Config's machine name.
-
-#### `configs.[].title`
-
-Type: `string`.
-
-Config's human-readable title.
-
-#### `configs.[].filepath`
-
-Type: `string`.
-
-Filepath where to mount the config file in a container.
-
-#### `configs.[].config`
-
-Type: `string`.
-
-Filepath to the default config file in a service's repository.
-
-#### `configs.[].version`
-
-Type: `string`.
-
-Optional, specify to each version of the service to apply this config, must be one of the `options.[].version` values.
+For a new config, specify one target with either `filepath`, `filename`, or `helm`. When overriding a config inherited
+from `from`, you can reuse the existing target and only replace what you need.
 
 ### `cron`
 
-Collection of [cron schedules](cron.md).
+Type: `array`.
 
-#### `cron.[].name`
+Service cron schedules.
 
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
+Each item supports:
 
-Cron schedule's machine name.
+- `name`: required schedule name.
+- `title`: required schedule title.
+- `command`: required command.
+- `schedule`: required schedule string.
 
-#### `cron.[].title`
-
-Type: `string`.
-
-Cron schedule's human-readable title.
-
-#### `cron.[].command`
-
-Type: `string`.
-
-Cron schedule's command for kubernetes job.
-
-#### `cron.[].schedule`
-
-Type: `string`.
-
-Cron schedule's schedule in crontab format.
+Use standard five-field crontab syntax such as `0 * * * *`. Cron schedules cannot run more often than once per hour.
 
 ### `annotations`
 
-Collection of [service annotations](annotations.md).
+Type: `array`.
 
-### `annotations.[].name`
+Service annotations.
 
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
+Each item supports:
 
-Annotation's machine name.
-
-### `annotations.[].value`
-
-Type: `string`.
-
-Annotation's value.
-
-### `annotations.[].env`
-
-Type: `enum`.
-
-If set, the annotation will be added only to application instances that have the provided [environment type](../apps/env.md#type).
+- `name`: required annotation name.
+- `value`: required annotation value.
+- `envType`: optional environment type filter.
 
 ### `database`
 
-Configuration of [service database](database.md)
+Type: `object`.
 
-Only allowed for `database` type services. Provides configuration for database.
+Database configuration for services of type `db`.
 
-Example:
+The object supports:
 
-```yml
+- `type`: required database type name.
+- `kind`: required database family.
+- `port`: database port. Required for non-external database services.
+- `ssl`: optional boolean.
+- `root`: optional admin credentials.
+- `db`: required database definition.
+- `user`: required user definition.
+- `charsets`: charset list. Required for non-external database services.
 
-database:
-  type: mariadb
-  kind: mariadb
-  port: 3306
-  ssl: true
-  root:
-    username: root
-    password: '{{root_password}}'
-  db:
-    name: '{{app.name}}_{{instance.name}}'
-    charset: 'utf8mb4'
-    collation: 'utf8mb4_unicode_520_ci'
-    actions:
-      create:
-        args:
-          - make
-          - create-db
-          - 'name="{{database.db.name}}"'
-          - 'charset="{{database.db.charset}}"'
-          - 'collation="{{database.db.collation}}"'
-          - 'host="{{database.host}}"'
-      drop:
-        args:
-          - make
-          - drop-db
-          - 'name="{{database.db.name}}"'
-          - 'host="{{database.host}}"'
-  user:
-    name: '{{app.name}}_{{instance.name}}'
-    password: '{{password}}'
-    actions:
-      create:
-        args:
-          - make
-          - create-user
-          - 'username="{{database.user.name}}"'
-          - 'password="{{database.user.password}}"'
-          - 'host="{{database.host}}"'
-      drop:
-        args:
-          - make
-          - drop-user
-          - 'username="{{database.user.name}}"'
-          - 'host="{{database.host}}"'
-      grant:
-        args:
-          - make
-          - grant-user-db
-          - 'username="{{database.user.name}}"'
-          - 'db="{{database.db.name}}"'
-          - 'host="{{database.host}}"'
-      revoke:
-        args:
-          - make
-          - revoke-user-db
-          - 'username="{{database.user.name}}"'
-          - 'db="{{database.db.name}}"'
-          - 'host="{{database.host}}"'
-  charsets:
-    - name: utf16
-      title: UTF-16 Unicode
-      collation: utf16_general_ci
-    - name: utf16le
-      title: UTF-16LE Unicode
-      collation: utf16le_general_ci
-    - name: utf32
-      title: UTF-32 Unicode
-      collation: utf32_general_ci
-    - name: utf8
-      title: UTF-8 Unicode
-      collation: utf8_general_ci
-    - name: utf8mb4
-      title: 4-Byte UTF-8 Unicode
-      collation: utf8mb4_unicode_520_ci
-      default: true
-```
-
-#### `database.type`
-
-Type: `string`. Required.
-
-Machine name of a specific database type.
-
-#### `database.kind`
-
-Type: `enum`. Required.
-
-Can be one of the following kinds:
+Allowed `kind` values:
 
 - `mysql`
 - `mariadb`
 - `postgres`
+- `sqlserver`
+- `oracle`
 
-#### `database.port`
+`database.root` supports:
 
-Type: `int`. Required.
+- `username`
+- `password`
 
-Database connection port number.
+`database.db` supports:
 
-#### `database.ssl`
+- `name`: required database name.
+- `charset`: required default charset.
+- `collation`: required default collation.
+- `actions`: optional database management actions.
 
-Type: `boolean`.
+`database.user` supports:
 
-Whether to use SSL connection for connecting to the database server.
+- `name`: required user name.
+- `password`: required user password.
+- `actions`: optional user management actions.
 
-#### `database.root`
+`database.db.actions` supports:
 
-Database super admin (root) user details. Required.
+- `create.args`
+- `drop.args`
 
-##### `database.root.username`
+`database.user.actions` supports:
 
-Type: `string`. Required.
+- `create.args`
+- `drop.args`
+- `grant.args`
+- `revoke.args`
 
-Database super admin (root) username.
+`database.charsets[]` supports:
 
-##### `database.root.password`
-
-Type: `string`. Required.
-
-Database super admin (root) password.
-
-#### `database.db`
-
-Database DB configuration settings.
-
-##### `database.db.name`
-
-Type: `string`. Required.
-
-Name of DB to create. Can contain [`{{tokens}}`](tokens.md).
-
-##### `database.db.charset`
-
-Type: `string`. Required.
-
-Default charset for a DB.
-
-##### `database.db.collation`
-
-Type: `string`. Required.
-
-Default collation for a DB.
-
-##### `database.db.actions`
-
-Defines actions for container-based database to run a kubernetes job to create and to drop DBs.
-
-##### `database.db.actions.create`
-
-Action to create a database DB.
-
-###### `database.db.actions.create.args`
-
-Type: `string list`.
-
-Container's args for action's kubernetes job to override.
-
-###### `database.db.actions.create.command`
-
-Type: `string list`.
-
-Container's command for action's kubernetes job to override.
-
-##### `database.db.actions.drop`
-
-Action to drop a database DB.
-
-###### `database.db.actions.drop.args`
-
-Type: `string list`.
-
-Container's args for action's kubernetes job to override.
-
-###### `database.db.actions.drop.command`
-
-Type: `string list`.
-
-Container's command for action's kubernetes job to override.
-
-#### `database.user`
-
-Database user configuration settings. Required.
-
-##### `database.user.name`
-
-Type: `string`. Required.
-
-Database user's name. Can contain [`{{tokens}}`](tokens.md).
-
-##### `database.user.password`
-
-Type: `string`. Required.
-
-Database user's password. Can contain [`{{tokens}}`](tokens.md).
-
-##### `database.user.actions`
-
-Defines actions for container-based database to run kubernetes job to create/drop database users and to grant/revoke permissions to a DB.
-
-##### `database.user.actions.create`
-
-Action to create a database user.
-
-###### `database.user.actions.create.args`
-
-Type: `string list`.
-
-Container's args for action's kubernetes job to override.
-
-###### `database.user.actions.create.command`
-
-Type: `string list`.
-
-Container's command for action's kubernetes job to override.
-
-##### `database.user.actions.drop`
-
-Action to drop a database user.
-
-###### `database.user.actions.drop.args`
-
-Type: `string list`.
-
-Container's args for action's kubernetes job to override.
-
-###### `database.user.actions.drop.command`
-
-Type: `string list`.
-
-Container's command for action's kubernetes job to override.
-
-##### `database.user.actions.grant`
-
-Action to drop a database user.
-
-###### `database.user.actions.grant.args`
-
-Type: `string list`.
-
-Container's args for action's kubernetes job to override.
-
-###### `database.user.actions.grant.command`
-
-Type: `string list`.
-
-Container's command for action's kubernetes job to override.
-
-##### `database.user.actions.revoke`
-
-Action to drop a database user.
-
-###### `database.user.actions.revoke.args`
-
-Type: `string list`.
-
-Container's args for action's kubernetes job to override.
-
-###### `database.user.actions.revoke.command`
-
-Type: `string list`.
-
-Container's command for action's kubernetes job to override.
-
-#### `database.charsets`
-
-List of charsets supported by database.
-
-##### `database.charsets.[].name`
-
-Type: `string`. Required.
-
-Machine name of a charset.
-
-##### `database.charsets.[].title`
-
-Type: `string`.
-
-Human-readable title of a charset.
-
-##### `database.charsets.[].collation`
-
-Type: `string`.
-
-Charset collation.
+- `name`: required charset name.
+- `title`: required charset title.
+- `collation`: required collation.
+- `default`: optional boolean.
 
 ### `derivatives`
 
-Configuration of [derivative services](derivatives.md).
+Type: `array`.
 
-Example:
+Derivative services created from the main service.
 
-```yml
-derivatives:
-  - name: php-sshd
-    icon: ssh
-    title: SSHD
-    args: [ 'sudo', '/usr/sbin/sshd', '-De' ]
-    type: ssh
-    default: true
-    required: false
-    endpoints:
-      - name: sshd
-        ports:
-          - name: sshd
-            main: true
-            number: 22
-            protocol: tcp
-    env:
-      - name: SSHD_GATEWAY_PORTS
-        value: clientspecified
-    helm:
-      values:
-        - name: livenessProbe
-          value: ""
-        - name: readinessProbe
-          value: ""
-        - name: containerPort.name
-          value: sshd
-        - name: containerPort.number
-          value: 22
-```
+Each item supports:
 
-#### `derivatives.[].name`
+- `name`: required derivative service name.
+- `title`: required derivative title.
+- `icon`: optional icon.
+- `type`: required derivative service type.
+- `args`: required container args.
+- `default`: optional boolean.
+- `required`: optional boolean.
+- `env`: optional environment variables.
+- `endpoints`: optional endpoint overrides.
+- `resources`: optional resource overrides.
+- `helm`: optional Helm values.
 
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
+Derivative names must start with the parent service name followed by a dash. For example, derivatives of `php` should
+use names like `php-sshd`.
 
-Derivative's machine name.
+Each `derivatives[].endpoints[]` item uses the same structure as `endpoints[]`.
 
-#### `derivatives.[].title`
+`derivatives[].helm` supports:
 
-Type: `string`. Required.
+- `values`: optional Helm values.
 
-Derivative's human-readable title.
+### `kubernetes`
 
-#### `derivatives.[].icon`
+Type: `object`.
 
-Type: `string`.
+Additional Kubernetes-specific metadata.
 
-Icon name of the derivative, shown in Wodby dashboard.
+Currently supported:
 
-#### `derivatives.[].type`
+- `infrastructure`: infrastructure service selectors.
 
-Type: `enum`.
+Each `kubernetes.infrastructure[]` item supports:
 
-Override type of the derivative service.
-
-#### `derivatives.[].args`
-
-Type: `string list`.
-
-List of container args to override.
-
-#### `derivatives.[].command`
-
-Type: `string list`.
-
-Container command to override.
-
-#### `derivatives.[].default`
-
-Type: `boolean`.
-
-True to make derivative be enabled by default when the parent service selected.
-
-#### `derivatives.[].required`
-
-Type: `boolean`.
-
-True to make derivative required mandatory when the parent service selected.
-
-#### `derivatives.[].env`
-
-Extra environment variables for the derivative.
-
-##### `derivatives.[].env.[].name`
-
-Type: `string`. Required.
-
-Environment variable's name.
-
-##### `derivatives.[].env.[].value`
-
-Type: `string`.
-
-Environment variable's value. Can contain [`{{tokens}}`](tokens.md).
-
-##### `derivatives.[].env.[].env`
-
-Type: `enum`.
-
-If set, the environment variable will be added only to application instances that have the provided [environment type](../apps/env.md#type).
-
-##### `derivatives.[].env.[].secret`
-
-Type: `boolean`.
-
-True if the environment variable should be secret. Secret environment variable's value stored in Kubernetes secret resource and not shown in Wodby dashboard.
-
-#### `derivatives.[].endpoints`
-
-Collection of [endpoints](endpoints.md) for the derivative. This will override parent service endpoints.
-
-##### `derivatives.[].endpoints.[].name`
-
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
-
-Machine name of the endpoint.
-
-##### `derivatives.[].endpoints.[].service`
-
-Type: `string`. Optional. Specifies a kubernetes service name for ingress if it doesn't match the stack service name. 
-
-Supports token `{{service.helm.release}}`.
-
-##### `derivatives.[].endpoints.[].ports`
-
-Collection of endpoint's ports.
-
-###### `derivatives.[].endpoints.[].ports.[].name`
-
-Type: `string`. Alphanumeric and dash symbols allowed. Required.
-
-Endpoint port's machine name.
-
-###### `derivatives.[].endpoints.[].ports.[].main`
-
-Type: `boolean`.
-
-True to make the derivative's endpoint's port as main. If none marked as main, the first port will be chosen as main.
-
-###### `derivatives.[].endpoints.[].ports.[].number`
-
-Type: `integer`.
-
-Port's number.
-
-###### `derivatives.[].endpoints.[].ports.[].protocol`
-
-Type: `enum`. Allowed values are `tcp`, `udp` and `http`
-
-Port's protocol.
-
-#### `derivatives.[].helm`
-
-Extra helm configuration for the derivative.
-
-##### `derivatives.[].helm.values`
-
-Collection of helm values.
-
-###### `derivatives.[].helm.values.[].name`
-
-Type: `string`
-
-Name of the helm value.
-
-###### `derivatives.[].helm.values.[].value`
-
-Type: `string`, `string list`, `object`
-
-Value of the helm value. Can contain [`{{tokens}}`](tokens.md).
+- `name`: required item name.
+- `title`: optional title.
+- `selectors`: required selectors that identify matching infrastructure services.

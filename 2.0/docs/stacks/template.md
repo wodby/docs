@@ -177,7 +177,7 @@ Used by top-level `tokens` and `services[].tokens`.
 - `secret`: optional boolean for fixed-value tokens.
 - `envType`: optional environment type filter.
 
-Exactly one of `value` or `generate.regex` must be specified.
+Exactly one of `value` or `generate.regex` must be specified. Regex tokens are always secret regardless of the `secret` setting.
 
 ### `annotations[]`
 
