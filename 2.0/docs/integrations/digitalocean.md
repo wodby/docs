@@ -34,5 +34,6 @@ Wodby provides a native integration with DigitalOcean Managed Database.
 
 Wodby provides a native integration with DigitalOcean Spaces. You can use it to store your applications' backups.
 
-- Wodby can list available Spaces buckets and resolve their region automatically
+- Wodby can list available Spaces buckets
+- When configuring backups, select the bucket only. Wodby resolves its region automatically
 - Wodby creates and manages Spaces access keys required for backup operations

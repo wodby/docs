@@ -189,7 +189,11 @@ Wodby provides native integration with Relational Database Service.
 
 ## S3
 
-Wodby provides native integration with Simple Storage Service. You can use S3 for storing your applications' backups.
+Wodby provides a native integration with Simple Storage Service. You can use S3 for storing your applications' backups.
+
+- Wodby can list available S3 buckets for the connected account
+- When configuring backups, select the bucket only. You no longer need to select a region separately
+- The storage class override is optional. If you leave it empty, the bucket's default storage class will be used
 
 ## SES
 
