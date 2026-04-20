@@ -1,24 +1,42 @@
 # CI/CD
 
-Wodby provides the built-in [Wodby CI](wodby-ci.md) to build, release and deploy your images stacks. Alternatively, you can use your own CI/CD system to build and push images to Wodby registry, for more see [CI integrations](../integrations/types.md#cicd). Both approaches utilize [Wodby CLI](../dev/cli.md) to continuously build and deploy your applications in four steps:
+Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-ci.md) and [third-party CI providers](third-party.md). The main difference is the identifier passed to `wodby ci init`:
+
+- In Wodby CI, use `WODBY_BUILD_ID`. The build already exists and the CLI loads it.
+- In third-party CI, use `WODBY_APP_SERVICE_ID`. The CLI creates a build from the CI metadata it detects.
+
+`wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If you run it outside those providers, pass `--build-id`, `--build-num`, and `--provider` explicitly.
+
+Initialize the pipeline with `wodby ci init $WODBY_BUILD_ID` in Wodby CI or `wodby ci init $WODBY_APP_SERVICE_ID` in third-party CI. After that, a typical flow looks like this:
+
+```bash
+# Optional one-off commands, for example dependency installation
+wodby ci run -- composer install -n --no-ansi
+
+# Build, push, and deploy images
+wodby ci build
+wodby ci release
+wodby ci deploy
+```
 
 ## 1. Init
 
-Wodby CLI fetches information about your application stack during
-`wodby ci init` step: Dockerfiles for services, their image, associated [docker registry](docker-registry.md).
+`wodby ci init` creates or loads the app build, logs Docker in to the associated [registry](docker-registry.md), prepares the working directory, and reads `.wodby/post-deployment.yml` from the build context when present.
 
-## 2. [Build](build.md)
+Use `--dind` when your CI provider builds through docker-in-docker. Use `--fix-permissions` only when you explicitly want the CLI to change codebase ownership.
 
-Step `wodby ci build [service]` runs
-`docker build` for all (or specific) [buildable services](../services/build.md). You can optionally specify a custom Dockerfile or change the build context.
+## 2. Run commands in the build environment
 
-## 3. Release
+`wodby ci run` starts a one-off container from a service image in your stack or from an explicitly specified image. This is typically used for dependency installation or asset compilation before `wodby ci build`.
 
-Step
-`wodby ci release` pushes built docker images to the associated registry. By default, we provide [Wodby Registry](wodby-registry.md), but you can also use your own registry such as Docker Hub, for more see [Docker registry integrations](../integrations/types.md#docker-registry).
+## 3. [Build](build.md)
 
-## 4. [Deploy](deploy.md)
+`wodby ci build [SERVICE]...` builds all buildable services or only the services you specify. The CLI can use a Dockerfile from your repository, a Dockerfile from the Wodby service configuration, or a generated default Dockerfile. It also supports build args, custom copy paths, and buildx cache backends.
 
-Step
-`wodby ci deploy` Sends information about the build (services and their built images) to Wodby API. Wodby will then run a deployment of the built services with provided options (e.g. force deploy all services, skip post-deployment scripts).  
+## 4. [Release](docker-registry.md)
 
+`wodby ci release [SERVICE]...` pushes the built images to the registry configured for the build. By default this is [Wodby Registry](wodby-registry.md), but you can also use supported [docker registry integrations](../integrations/types.md#docker-registry).
+
+## 5. [Deploy](deploy.md)
+
+`wodby ci deploy [SERVICE]...` tells Wodby to deploy the released images. You can optionally skip post-deployment scripts with `--skip-post-deploy`.

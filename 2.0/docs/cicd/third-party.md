@@ -1,26 +1,44 @@
 # Building with third-party CI
 
-If you prefer to use your own CI system instead of the integrated [Wodby CI](wodby-ci.md), you can do so by using [Wodby CLI](../dev/cli.md).
+If you prefer GitHub Actions, GitLab CI, CircleCI, or another CI provider, use [Wodby CLI](../dev/cli.md) inside that pipeline.
 
-The list of supported CI systems can be found [here](../integrations/types.md#cicd).
+Wodby CLI automatically detects build and git metadata for:
 
-- To build your application with third-party CI, first you need to add a secret environment variable
-  `WODBY_API_KEY` with your [API key](../dev/api-keys.md).
-- Next you need to add
-  `$APP_SERVICE_ID` environment variables, it's the ID of the git repository on Wodby that you've connected to the buildable app service. You can find it on the app service's Overview page
-- Building with Wodby CLI is similar to building with Wodby CI, it consists of 4 steps:
-    1.
-    `wodby ci init $APP_SERVICE_ID` - initializes the build process, fetch information about buildable app service and the stack, creates a build on Wodby with all information from your CI such as build number, id, git commit info
-    2.
-    `wodby ci build [service]` - builds the specified service or all services if no service is specified. Optionally provide your own Dockerfile, custom tag and build context
-    3. `wodby ci release` - pushes all the built images to associated [docker registry](docker-registry.md)
-    4.
-    `wodby ci deploy` - sends information about all built services to Wodby API, the build (that was created during init step) marked as complete and deployment of the build starts
+- GitHub Actions
+- GitLab CI
+- CircleCI
 
-You can find specific examples in https://github.com/wodby/wodby-ci repository.
+For any other provider, pass `--build-id`, `--build-num`, and `--provider` to `wodby ci init` so Wodby can identify the build correctly.
 
-## Post deployment scripts
+## Required variables
 
-You can still use [
-`.wodby/post-deployment.yml`](wodby-ci.md#post-deployment-scripts) file to defined scripts to run during deployment. You can optionally skip them by passsing `--skip-post-deploy` flag in `wodby ci deploy` command.
+- `WODBY_API_KEY` as a secret with your [Wodby API key](../dev/api-keys.md)
+- `WODBY_APP_SERVICE_ID` as the ID of the buildable app service you want the pipeline to build and deploy
 
+You can find the app service ID on the Overview page of the corresponding app service.
+
+## Typical flow
+
+1. Check out the repository in your CI job.
+2. Install Wodby CLI and run `wodby ci init $WODBY_APP_SERVICE_ID`.
+3. Use `wodby ci run ...` for dependency installation or other one-off commands.
+4. Run `wodby ci build [SERVICE]...`.
+5. Run `wodby ci release [SERVICE]...`.
+6. Run `wodby ci deploy [SERVICE]...`.
+
+Use `wodby ci init --dind $WODBY_APP_SERVICE_ID` when your provider builds through docker-in-docker, as in the GitLab CI examples.
+
+## Provider examples
+
+The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository contains complete examples for PHP and Node apps:
+
+- GitHub Actions examples use [`wodby/actions/setup-wodby-cli@v1`](https://github.com/wodby/actions/tree/main/setup-wodby-cli), which installs the CLI, exports `WODBY_API_KEY`, and runs `wodby ci init` automatically when `app-service-id` is provided.
+- GitHub Actions: [PHP](https://github.com/wodby/wodby-ci/blob/2.0/php/github-actions/wodby.yml), [Node](https://github.com/wodby/wodby-ci/blob/2.0/node/github-actions/wodby.yml)
+- GitLab CI: [PHP](https://github.com/wodby/wodby-ci/blob/2.0/php/gitlab-ci/.gitlab-ci.yml), [Node](https://github.com/wodby/wodby-ci/blob/2.0/node/gitlab-ci/.gitlab-ci.yml)
+- CircleCI: [PHP](https://github.com/wodby/wodby-ci/blob/2.0/php/circleci/config.yml), [Node](https://github.com/wodby/wodby-ci/blob/2.0/node/circleci/config.yml)
+
+For providers that support both VM-based and docker-based execution, prefer VM-based runners because Docker image builds are more straightforward without docker-in-docker. The CircleCI examples use the machine executor for that reason.
+
+## Post-deployment scripts
+
+You can still use [`.wodby/post-deployment.yml`](wodby-ci.md#post-deployment-scripts) with third-party CI. Wodby CLI reads it during `wodby ci init` and attaches it to the build. Pass `--skip-post-deploy` to `wodby ci deploy` when you want to skip those jobs.
