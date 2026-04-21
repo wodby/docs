@@ -1,5 +1,5 @@
 # Service annotations
 
-Service can provide annotations that will be added as Kubernetes annotations if associated Helm chart supports extra annotations. 
+Services can define annotations that Wodby adds to Kubernetes resources when the underlying Helm chart supports extra annotations.
 
-Service annotations defined under [`annotations` section](template.md#annotations) in a service template.
+Service annotations are defined under the [`annotations` section](template.md#annotations) in a service template.

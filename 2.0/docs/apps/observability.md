@@ -1,22 +1,22 @@
-# Applications Observability
+# Application Observability
 
 ## Monitoring
 
 ### Kubernetes resources monitoring
 
-Currently, we collect Kubernetes metrics per node level. More detailed metrics for app instances will be added later.
+Wodby currently collects Kubernetes metrics at the node level. More detailed metrics for app instances are planned for a future release.
 
 ### Monitoring with third-party service
 
-You can use any third-party service to monitor your app. For example, you can add [NewRelic APM integration](../integrations/newrelic.md).
+You can also monitor your app with third-party services. For example, you can attach a [New Relic integration](../providers/newrelic.md).
 
 ## Logging
 
 ### Live logs
 
-For successfully deployed application you can run live logs streaming to see container's output in the real-time from _Apps > [App] > Logs_ page.
+For a successfully deployed app, you can stream live container logs from `Apps > [App] > Logs`.
 
-You can find logs of the deployments, builds, cron jobs and actions in associated tasks.
+Logs for deployments, builds, cron jobs, and actions are available in the related tasks.
 
 ### Persistent storage
 
@@ -24,4 +24,4 @@ Coming soon...
 
 ## Metrics
 
-Services metrics collection is coming soon...
+Service-level metrics are coming soon...

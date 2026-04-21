@@ -1,13 +1,17 @@
 # Application Imports
 
-If an application's stack has services that provide [import function](../services/imports.md) you can run imports for the corresponding app service. There are two types imports:
+If an application's stack includes services that provide [import functionality](../services/imports.md), you can run imports for the corresponding app service.
+
+There are two main import methods.
 
 ## 1. Simple files import
 
-In this case we run import directly in the running volume by unpacking a provided tarball to a specified path. It's not transactional.
+Wodby imports files directly into the running volume by unpacking the provided tar archive to the specified path.
+
+This method is not transactional.
 
 ## 2. Through init volume
 
-In this case we mount the import archive to the init volume provided by the service, a container will perform the import from the init volume during a start-up. Normally used for databases.
+Wodby mounts the import archive into the init volume provided by the service, and a container performs the import during startup. This pattern is commonly used for databases.
 
-This import is transactional. We spin up a copy of the app service with a new persistent volume, if the import successful we perform a service redeploy during which a new persistent volume with the imported files mounted.
+This method is transactional. Wodby starts a copy of the app service with a new persistent volume. If the import succeeds, Wodby redeploys the service using the new volume that contains the imported data.

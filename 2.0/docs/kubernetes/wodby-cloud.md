@@ -1,16 +1,55 @@
 # Wodby Cloud
 
-If you don't want to bring your own Kubernetes cluster or a server for K3S, you can use Wodby Cloud.
+If you do not want to bring your own cloud account or server, you can use Wodby Cloud.
 
-Wodby takes care of clusters deployed to Wodby Cloud and bills you per hour of used compute resources in compute credits. 
-One compute credit costs $0.01, we charge separately for:
+Wodby Cloud is Wodby's managed Kubernetes infrastructure. Wodby creates and operates the cluster for you.
 
-- Per cluster (to mostly cover just load balancer)
-- Cluster node shared CPU core
-- Cluster node dedicated CPU core
-- Cluster node RAM
-- Persistent block storage utilized by apps deployed to the cluster
+## Creating a Wodby Cloud cluster
 
-Wodby Cloud is currently available in two regions: US and EU.
+Wodby Cloud clusters are created from the new application flow:
 
-Only organization with a paid subscription can use Wodby Cloud. Paid subscription includes 1000 compute credits per month.
+1. Start creating a new application
+2. In Step 2 choose `Wodby Cloud`
+3. Either enable `Demo` or configure a persistent cluster
+4. Complete the app creation flow
+
+Unlike managed Kubernetes and K3S, Wodby Cloud clusters are not created from the _Kubernetes_ page.
+
+## Persistent Wodby Cloud clusters
+
+Persistent Wodby Cloud clusters require a paid subscription.
+
+When creating one, you choose:
+
+- region
+- CPU type
+- machine type
+- minimum number of nodes
+- maximum number of nodes
+
+Wodby then creates the cluster and deploys the application to it.
+
+## Demo
+
+Demo is the temporary Wodby Cloud mode for testing.
+
+- free of charge
+- created from the same Step 2 flow
+- automatically deleted after 24 hours together with deployed applications
+
+## Billing
+
+Wodby Cloud is billed in compute credits. See the live pricing page for current rates:
+https://wodby.com/pricing
+
+Compute-credit usage is driven by:
+
+- cluster base cost, which mostly covers shared infrastructure such as the load balancer
+- shared CPU on cluster nodes
+- dedicated CPU on cluster nodes
+- cluster node RAM
+- persistent block storage used by apps deployed to the cluster
+
+Wodby Cloud is available in two regions: US and EU.
+
+Paid plans include 1000 compute credits per month.

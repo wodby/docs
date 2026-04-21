@@ -2,14 +2,18 @@
 
 ## Overview
 
-A service is the basic building block of your application's [stack](../stacks/index.md). It represents one part of
-your application, such as a web server, runtime, database, cache, or supporting component.
+A service is Wodby's reusable definition of one part of an application platform. Depending on the service, it can
+represent actual software running in Kubernetes, an abstraction over a Helm chart, or an operational workflow packaged
+as a service.
+
+Most services deploy one or more containers in the cluster. External services are the exception: they do not run their
+own containers in Wodby and instead model a connection to software managed elsewhere.
 
 Services are versioned. Each change creates a new service revision, and stacks reference specific revisions. Custom
 services imported from git are defined by a [template](template.md).
 
-Inside a stack, a service becomes a [stack service](../stacks/services.md). Stack services let you enable, disable,
-and customize a service for that stack.
+Inside a stack, a service revision becomes a [stack service](../stacks/services.md). Stack services let you enable,
+disable, connect, and customize a service for that stack.
 
 ## Type
 

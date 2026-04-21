@@ -1,6 +1,6 @@
 # Service template
 
-Custom services imported from git are defined by `service.yml`.
+Custom services imported from Git are defined by `service.yml`.
 
 If a repository contains multiple services, list their directories in `index.yml`:
 
@@ -10,9 +10,7 @@ services:
   - nginx
 ```
 
-Each listed directory must contain its own `service.yml`. Paths used by fields such as `configs[].config`,
-`build.dockerfile`, `build.dockerignore`, and `build.templates[].pipeline` are resolved relative to that service
-directory.
+Each listed directory must contain its own `service.yml`. Paths used by fields such as `configs[].config`, `build.dockerfile`, `build.dockerignore`, and `build.templates[].pipeline` are resolved relative to that service directory.
 
 Only the fields documented on this page are supported. Unknown fields will be rejected during import.
 
@@ -219,7 +217,7 @@ Inherit configuration from an existing service available to your organization.
 
 Type: `enum`.
 
-Controls how the service should be updated from git. Allowed values:
+Controls how service updates are pulled from Git. Allowed values:
 
 - `auto`
 - `manual`
@@ -258,8 +256,7 @@ Service-wide environment variables. Uses the environment variable object describ
 
 Type: `array`.
 
-Service versions or variants. Services that do not inherit from another service usually define at least one option,
-unless they are infrastructure services.
+Service versions or deployment variants. Services that do not inherit from another service usually define at least one option, unless they are infrastructure services.
 
 Each item supports:
 
@@ -274,8 +271,7 @@ Only one option can be default. If none is marked as default, the first option b
 
 Type: `array`.
 
-Container definitions for the service. Non-external services normally define containers unless they inherit them from
-`from`.
+Container definitions for the service. Non-external services normally define containers unless they inherit them from `from`.
 
 Each item supports:
 
@@ -299,7 +295,7 @@ Each object supports:
 - `dockerfile`: Dockerfile path.
 - `dockerignore`: `.dockerignore` path.
 - `connect`: whether the service requires a connected git repository.
-- `templates`: build templates customers can use as a starting point.
+- `templates`: starter repositories users can clone as a starting point.
 
 Each `build.templates[]` item supports:
 
@@ -342,7 +338,7 @@ Only one port per endpoint can be main. If no port is marked as main, the first 
 
 Type: `array`.
 
-Service links define what other services can be connected to this service in a stack.
+Service links define which other services can be connected to this service in a stack.
 
 Each item supports:
 
@@ -451,7 +447,7 @@ Each item supports:
 
 Type: `array`.
 
-Service tokens. A token must define either a fixed value or a generated value.
+Service tokens. Each token must define either a fixed value or a generated value.
 
 Each item supports:
 
@@ -545,7 +541,7 @@ Each `helm.configurations[]` item supports:
 
 Type: `array`.
 
-Self-signed certificates to generate for the service.
+Self-signed certificates generated for the service.
 
 Each item supports:
 
@@ -709,7 +705,7 @@ Type: `object`.
 
 Additional Kubernetes-specific metadata.
 
-Currently supported:
+Supported today:
 
 - `infrastructure`: infrastructure service selectors.
 

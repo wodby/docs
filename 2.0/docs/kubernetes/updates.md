@@ -2,13 +2,15 @@
 
 ## Infrastructure updates
 
-[Infrastructure apps](infrastructure.md) that we deploy work the same way as usual apps, i.e. they have a stack and a version. So when we release an update to a service, a new infrastructure stack version will be released and your cluster will be marked as outdated. You can then manually upgrade app stack of infrastructure apps. 
+[Infrastructure apps](infrastructure.md) are managed with the same stack-and-version model as regular apps.
 
-Auto-updates are not currently available.
+When Wodby releases an update to one of the infrastructure services, a new infrastructure stack version becomes available and the cluster is marked as outdated. You can then upgrade the infrastructure app stack manually.
+
+Infrastructure auto-updates are not available today.
 
 ## Worker node updates
 
-For [managed kubernetes](managed.md) clusters the simplest way of "updating" nodes is by recycling them.
+For [managed Kubernetes](managed.md) clusters, the simplest way to refresh worker nodes is usually to recycle them.
 
 ## Kubernetes version updates
 

@@ -1,6 +1,15 @@
 # Database backups
 
-From _"Databases > [Database] > Backup"_ you can run backups, which are different from snapshots, for individual DBs. When preparing a new backup, you can select one of the backup presets for this database or an organization-wide backup preset. Backup presets allow you to save time when entering backup destination details.
+From `Databases > [Database] > Backups` you can run one-off backups and manage backup presets.
+
+The database backup area has two tabs:
+
+- `Backups` for one-off backups
+- `Presets` for reusable destinations and automatic schedules
+
+Backups are different from snapshots. A backup is created by the database or service backup workflow and then mirrored to object storage.
+
+When preparing a new backup, you can select one of the backup presets for this database or an organization-wide backup preset.
 
 ## Backup destination
 
@@ -10,4 +19,37 @@ If the provider supports object storage classes, the storage class override is o
 
 ## Backup presets
 
-Backup presets are a way to save time when entering backup destination details. You can create an organization-wide preset and apply it to backup schedules.
+Backup presets save time when entering backup destination details, and they can also define automatic backups.
+
+Database presets can be scoped to:
+
+- any DB in the database, or one specific DB
+- if the database exposes named backup types, any backup type or one specific backup type
+
+You can also use organization-wide presets created from `Organization > Backups > Backup Presets`.
+
+When you create a manual backup, the dashboard combines:
+
+- matching database presets
+- matching organization-wide presets for the same environment
+
+If only one preset matches the selected DB and backup type, the dashboard can prefill it automatically.
+
+## Automatic backups
+
+Enable `Auto backups` in a preset when you want scheduled backups.
+
+Scheduled presets include:
+
+- start day
+- start time in UTC
+- duration in hours
+- enabled or disabled state
+- `Override other presets`
+
+Use override when one preset should win over other matching scheduled presets.
+
+## Related pages
+
+- [Backups](../backups.md)
+- [Application backups](../apps/backups.md)

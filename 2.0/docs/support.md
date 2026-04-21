@@ -1,10 +1,10 @@
 # Getting Support
 
-We have three levels of support
+Wodby offers three support levels.
 
 ## 1. Community support
 
-Ask Wodby community:
+Ask the Wodby community:
 
 - On Slack https://slack.wodby.com
 - On Discord https://discord.wodby.com
@@ -12,16 +12,16 @@ Ask Wodby community:
 
 ## 2. Best effort support
 
-We provide the best effort support for paid customers with no guaranteed reply time despite how urgent it is. We usually respond in EU business hours and try to give initial responses within one business week.
+Paid customers receive best-effort support without a guaranteed response time. We usually respond during EU business hours and aim to provide an initial response within one business week.
 
 You can contact us in one of these ways:
 
-* Contact us using a live chat (widget in the right bottom corner) or email us to support [at] wodby.com
-* For non-technical questions email us at hello [at] wodby.com
+- Contact us using live chat in the bottom-right corner of the dashboard, or email support [at] wodby.com
+- For non-technical questions, email hello [at] wodby.com
 
 !!! failure "Cannot see live chat widget?"
-    You may not see live chat support widget if you have tracking protection enabled in your browser
+    The live chat widget may be hidden if your browser blocks tracking scripts.
 
 ## 3. Premium support
 
-We also provide premium support with guaranteed response time in a private slack channel for the entire organization. The price depends on the size of the organization and number of applications. If you're interested please contact us at hello [at] wodby.com
+Premium support includes a guaranteed response time and a private Slack channel for the whole organization. Pricing depends on organization size and the number of applications. If you are interested, contact hello [at] wodby.com.

@@ -1,4 +1,4 @@
-# Service Helm integration
+# Service Helm Integration
 
 We use [Helm](https://helm.sh/) to deploy non-external services to Kubernetes.
 
@@ -16,7 +16,7 @@ uses to inject Kubernetes-specific configuration such as:
 Services can also define default Helm values in the template. Those values become part of the deployed configuration
 and can be overridden later at stack or app level when needed.
 
-On top of that we expect the Helm chart to support the following values:
+Wodby also expects a Helm chart to support common values such as:
 
 - `replicas` or `replicaCount` for scalability
 - `fullnameOverride` to override hostnames

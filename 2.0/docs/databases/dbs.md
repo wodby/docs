@@ -1,7 +1,11 @@
-# Database DBs
+# DBs
 
-You can create and delete individual databases (DB) in your database management system. 
+Inside a database server, you can create and delete individual DBs.
 
-To create a new database you need to specify a name, charset and a collation.
+When creating a DB, specify:
 
-For container-based databases the app instance specific user will be created automatically.
+- name
+- charset
+- collation
+
+For container-based databases created as part of an app, Wodby usually creates the app-specific DB and user automatically from the service configuration.

@@ -1,62 +1,28 @@
 # Integration types
 
-Every provider can have multiple integration types it offers. When you create a new integration you can select which type you want to create. Supported integration types listed below:
+Every provider can expose one or more integration types. When you create an integration, the selected type determines where that integration can be used in Wodby.
 
-## Git
+Use the directory below to jump to the type you need. Type-specific overview pages live in the [Providers](../providers/index.md) section because that is where providers are grouped in the navigation.
 
-Machine name: `git`
+| Type | Machine name | Typical use | Provider group |
+| --- | --- | --- | --- |
+| Kubernetes | `kubernetes` | Create managed Kubernetes clusters in supported cloud accounts | [Kubernetes providers](../providers/kubernetes.md) |
+| Databases | `db` | Create managed databases in supported cloud accounts | [Database providers](../providers/databases.md) |
+| Storage | `storage` | Store app and database backups in object storage | [Storage providers](../providers/storage.md) |
+| Git | `git` | Connect repositories for remote build sources | [Git providers](../providers/git.md) |
+| CI | `ci` | Run builds and deployments from Wodby CI or third-party CI | [CI providers](../providers/ci.md) |
+| Registry | `registry` | Push and pull build images from container registries | [Registry providers](../providers/registry.md) |
+| SMTP | `smtp` | Relay outbound email through a provider | [SMTP providers](../providers/smtp.md) |
+| VPN | `vpn` | Join supported services to a private network | [VPN providers](../providers/vpn.md) |
+| Variable | `variable` | Reuse provider-backed environment variables across apps and stacks | [Variable integrations](variable.md) |
 
-- [GitHub](github.md)
-- [GitLab](gitlab.md)
-- [BitBucket](bitbucket.md)
+## Notes
 
-## Kubernetes
+- Some providers support more than one type. For example, AWS can be used for Kubernetes, databases, storage, SMTP, and variables.
+- Type pages explain the type-level workflow. Provider pages explain the exact fields, auth methods, and exposed environment variables.
 
-Machine name: `kubernetes`
+## Related pages
 
-- [Google Cloud Platform GKE](gcp.md#gke)
-- [Amazon Web Services EKS](aws.md#eks)
-- [Azure AKS](azure.md#aks)
-- [DigitalOcean DOKS](digitalocean.md#doks)
-- [OVH Kubernetes](ovh.md#kubernetes)
-
-## Databases
-
-Machine name: `database`
-
-- [Google Cloud Platform Cloud SQL](gcp.md#cloud-sql)
-- [Amazon Web Services RDS](aws.md#rds)
-- [Azure Databases](azure.md#databases)
-- [DigitalOcean Managed Database](digitalocean.md#managed-database)
-
-## Storage
-
-Machine name: `storage`
-
-- [Amazon Web Services S3](aws.md#s3)
-- [Google Cloud Platform Cloud Storage](gcp.md#cloud-storage)
-- [Azure Blob Storage](azure.md#blob-storage)
-- [DigitalOcean Spaces](digitalocean.md#spaces)
-
-## CI/CD
-
-Machine name: `ci`
-
-- [Wodby CI](../cicd/wodby-ci.md)
-- [CircleCI](circleci.md)
-- [GitHub Actions](github.md#actions)
-- [GitLab CI](gitlab.md#ci)
-
-## Docker registry
-
-Machine name: `docker-registry`
-
-- [Wodby Registry](../cicd/wodby-registry.md)
-- [Docker Hub](docker.md)
-
-## Variable
-
-Machine name: `variable`
-
-- [NewRelic](newrelic.md)
-- [Sentry](sentry.md)
+- [Integrations overview](index.md)
+- [Providers overview](../providers/index.md)
+- [Provider vs integration](providers-vs-integrations.md)

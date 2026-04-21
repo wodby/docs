@@ -7,7 +7,7 @@ This section is optional and only needed for services that must integrate with p
 
 ## Infrastructure selectors
 
-Currently, the `kubernetes` section supports `infrastructure` selectors.
+The `kubernetes` section supports `infrastructure` selectors.
 
 Use `kubernetes.infrastructure` to describe which infrastructure services a service can work with. Each item includes:
 

@@ -8,6 +8,15 @@ If an application's stack has services that provide [backup functionality](../se
 - mirroring the backup to third-party object storage, such as S3 or another supported provider
 - cleaning up the backup from the container's ephemeral storage
 
+Backups are managed from `Apps > [Instance] > Backups`.
+
+The app backup area has two tabs:
+
+- `Backups` for one-off backups
+- `Presets` for reusable destinations and automatic schedules
+
+Only app services that expose backup actions are available in the backup flow.
+
 ## Backup destination
 
 When configuring a backup or backup preset, select the destination bucket only. You no longer need to select a region separately.
@@ -16,4 +25,37 @@ If the provider supports object storage classes, the storage class override is o
 
 ## Backup presets
 
-Backup presets are a way to save time when entering backup destination details. You can create an organization-wide preset and apply it to backup schedules.
+Backup presets save time when entering backup destination details, and they can also define automatic backups.
+
+App presets can be scoped to:
+
+- any app service in the app instance, or one specific app service
+- any backup type exposed by that service, or one specific backup type
+
+You can also use organization-wide presets created from `Organization > Backups > Backup Presets`.
+
+When you create a manual backup, the dashboard combines:
+
+- matching app-instance presets
+- matching organization-wide presets for the same environment
+
+If only one preset matches the selected app service and backup type, the dashboard can prefill it automatically.
+
+## Automatic backups
+
+Enable `Auto backups` in a preset when you want scheduled backups.
+
+Scheduled presets include:
+
+- start day
+- start time in UTC
+- duration in hours
+- enabled or disabled state
+- `Override other presets`
+
+Use override when one preset should win over other matching scheduled presets.
+
+## Related pages
+
+- [Backups](../backups.md)
+- [Database backups](../databases/backups.md)

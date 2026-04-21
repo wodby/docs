@@ -2,12 +2,18 @@
 
 ## Manual scaling
 
-You can adjust the number of minimum nodes in the cluster for [managed Kubernetes](managed.md) clusters.
+For [managed Kubernetes](managed.md) clusters, you can adjust the minimum node count manually.
 
 ## Autoscaling
 
-Usually, all cloud providers with [managed Kubernetes](managed.md) service deploy a cluster with autoscaler. You can set up maximum and minimum number of nodes in your cluster, and the autoscaler will automatically add or remove nodes based on the resource usage. This is a great way to ensure that your cluster is always running at optimal capacity, without having to manually manage the number of nodes.
+Managed Kubernetes providers usually support a cluster autoscaler. You configure the minimum and maximum number of worker nodes, and the autoscaler adds or removes nodes as needed.
 
-However, the resources usage is not the real usage that a cluster receives from the metrics, it's rather a total amount of CPU and memory [resources requested](../apps/scalability.md#resources-management) by your app services and the total amount of said resources across the worker nodes. The requested resources together with pod autoscaling rules may increase the number of pod replicas running based on the actual metrics (e.g. average CPU load), this in its turn, will increase the total amount of requested resource which will trigger the cluster autoscaling if nodes do not pose enough of it. 
+In practice, cluster autoscaling reacts more to total scheduled demand than to raw node metrics alone. The key input is the total amount of CPU and memory [requested](../apps/scalability.md#resources-management) by your workloads compared with the capacity available on worker nodes.
 
-The downscaling works the similar way – once the CPU load is below the defined threshold, the number of pod replicas will be decreased, and if the total requested resources are below the minimum threshold, the cluster autoscaler will remove nodes from the cluster.
+This means app-level pod autoscaling and cluster autoscaling work together:
+
+- pod autoscaling increases replicas based on workload metrics such as average CPU utilization
+- more replicas increase total requested resources
+- if the cluster no longer has enough capacity, the cluster autoscaler adds nodes
+
+Downscaling follows the reverse pattern. When workload demand falls, pod autoscaling reduces replicas. If the remaining requested resources fit on fewer nodes, the cluster autoscaler can remove nodes again.

@@ -24,56 +24,74 @@ flowchart TD
     Prod --> Rev2
 ```
 
-Every application is built on a stack. Stack is like a blueprint from which application created. All [app instances](instances.md) of the same app have the same stack but may have different revisions. Our intended use case for a stack is to have a stack per every app unless you have many simple very similar apps in which case it might be reasonable to just have one stack. The idea is to store all configuration in a stack and when configuration changed and a new stack revisions issued (every time a stack changed we release a new revision), upgrade app instance's stacks instance by instance. This way, all of your instances can be in sync.
+Every application is built from a stack.
+
+Think of a stack as the blueprint for the app:
+
+- it defines the services the app uses
+- it defines default configuration for those services
+- each stack change produces a new stack revision
+
+All [app instances](instances.md) of the same app share the same stack, but they can run different stack revisions.
+
+The usual model is one stack per application. When the stack changes, you upgrade instances revision by revision so environments can move forward at their own pace.
 
 ## Upgrade
 
-When a new revision of stack available you can upgrade app instance's stack. By default, we try to be less destructive with upgrades and instead provide options for you configure how exactly to perform the upgrade because some stack upgrades may have very drastic changes such as disabling or removal of app services that already in use or change linked services.
+When a new stack revision is available, you can upgrade an app instance to it.
 
-If app instance has buildable app services the upgrade will trigger rebuild of such app services because every build associated with a certain stack revision.
+Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app-instance overrides.
+
+If the app instance has buildable app services, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
 
 We always upgrade to the latest stack revision.
 
 ### Update versions to default
 
-By default, we always keep the same options (versions) in app services during upgrade but in case of, let's say, when you want to update all instances from end-of-life versions to new one, you can check this option, and we will override the versions. 
+By default, Wodby keeps the existing app-service versions during upgrade. Enable this option when you want the instance to move to the default versions defined by the latest stack revision.
 
 ### Update replicas
 
-When checked we will set replicas number in all app services to the one set in the latest stack revision.
+When enabled, Wodby updates app-service replica counts to match the latest stack revision.
 
 ### Override resources
 
-When checked we will set resources request and limits in all app services to the one set in the latest stack revision.
+When enabled, Wodby updates resource requests and limits to the values from the latest stack revision.
 
 ### Override integrations
 
-When checked we will override linked integrations in all app services to the one set in the latest stack revision.
+When enabled, Wodby replaces linked integrations with the latest stack defaults.
 
 ### Override enabled services
 
-When checked we will enable or disabled app services as they are in the latest stack revision.
+When enabled, Wodby aligns enabled and disabled services with the latest stack revision.
 
 ### Override service settings
 
-When checked we will override values of all settings to the values in the latest stack revision.
+When enabled, Wodby replaces service-setting values with the latest stack defaults.
 
 ### Override links
 
-When checked we will relink all services to how they are in the latest stack revision.
+When enabled, Wodby resets service links to the latest stack configuration.
 
 ### Override tokens
 
-When checked we will override values of all tokens to the values in the latest stack revision.
+When enabled, Wodby replaces token values with the latest stack defaults.
 
 ### Override configs
 
-When checked we will override configs to those that are in the latest stack revision.
+When enabled, Wodby replaces config overrides with the latest stack configuration.
 
 ### Override cron schedules
 
-When checked we will override cron schedules to those that are in the latest stack revision.
+When enabled, Wodby replaces cron schedules with the latest stack configuration.
 
 ### Override main app service
 
-When checked we will override main app service to the one in the latest stack revision. This may result in creating a new domain (main technical domain will be reattached), re-issuing a certificate, hence a certain downtime.
+When enabled, Wodby changes the main app service to match the latest stack revision. This can trigger domain reassignment, certificate re-issuance, and possible downtime.
+
+## Related pages
+
+- [Applications overview](index.md)
+- [Instances](instances.md)
+- [App services](services.md)

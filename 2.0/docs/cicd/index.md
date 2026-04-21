@@ -7,7 +7,7 @@ Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-c
 
 `wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If you run it outside those providers, pass `--build-id`, `--build-num`, and `--provider` explicitly.
 
-Initialize the pipeline with `wodby ci init $WODBY_BUILD_ID` in Wodby CI or `wodby ci init $WODBY_APP_SERVICE_ID` in third-party CI. After that, a typical flow looks like this:
+Initialize the pipeline with `wodby ci init $WODBY_BUILD_ID` in Wodby CI or `wodby ci init $WODBY_APP_SERVICE_ID` in third-party CI. A typical flow then looks like this:
 
 ```bash
 # Optional one-off commands, for example dependency installation
@@ -31,11 +31,11 @@ Use `--dind` when your CI provider builds through docker-in-docker. Use `--fix-p
 
 ## 3. [Build](build.md)
 
-`wodby ci build [SERVICE]...` builds all buildable services or only the services you specify. The CLI can use a Dockerfile from your repository, a Dockerfile from the Wodby service configuration, or a generated default Dockerfile. It also supports build args, custom copy paths, and buildx cache backends.
+`wodby ci build [SERVICE]...` builds all buildable services or only the services you specify. The CLI can use a Dockerfile from your repository, a Dockerfile from the Wodby service configuration, or a generated default Dockerfile. It also supports build arguments, custom copy paths, and buildx cache backends.
 
 ## 4. [Release](docker-registry.md)
 
-`wodby ci release [SERVICE]...` pushes the built images to the registry configured for the build. By default this is [Wodby Registry](wodby-registry.md), but you can also use supported [docker registry integrations](../integrations/types.md#docker-registry).
+`wodby ci release [SERVICE]...` pushes the built images to the registry configured for the build. By default this is [Wodby Registry](wodby-registry.md), but you can also use supported [registry providers](../providers/registry.md).
 
 ## 5. [Deploy](deploy.md)
 

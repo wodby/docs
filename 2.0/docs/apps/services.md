@@ -60,39 +60,113 @@ flowchart TD
     class stackEllipsis,appEllipsis,svcEllipsis ellipsis
 ```
 
-Application service is a representation of a [stack service](../stacks/services.md) in an application instance. Or it can be described as a configuration entity created per each service in a stack. It's similar to a stack service inside a stack but exists in the context of an app instance.
+An application service is the per-app-instance representation of a [stack service](../stacks/services.md).
 
-When you create a new app, app services created with the default configuration of corresponding stack services. You can further override configuration per specific app instance through app services.
+When you create a new app, Wodby creates one app service for each relevant stack service. The app service starts with stack defaults, then lets you override behavior for that specific app instance.
 
-You can also change your stack configuration and then upgrade an app instance's stack with override settings, in this case configurations from stack services will be transferred to app services.
+This is the main place to customize how one environment behaves without changing the stack for every other environment.
 
-## Configuration
+## App service menu
 
-- Each app services can be enabled or disabled
-- Service version can be changed
-- For stateless services you can change the number of replicas
+Inside `Apps > [Instance] > Services > [Service]`, the dashboard can show:
 
-When an app service's configuration changed, the app instance will be marked as _needs
-rebuild_ because configuration may affect the build process.
+- `Overview`
+- `Configure`
+- `Database`
+- `Integrations`
+- `Env vars`
+- `Helm`
+- `Resources`
+- `Links`
+- `Volumes`
+- `Settings`
+- `Configs`
+- `Tokens`
+- `Annotations`
+
+Not every app service gets every tab. The menu depends on the service type and whether it is external or derivative.
+
+In general:
+
+- `Database` appears only for services with database support
+- `Env vars`, `Helm`, and `Resources` appear only for non-external services
+- `Links`, `Volumes`, `Settings`, and `Configs` appear only when the service supports them
+- `Tokens` appear only for non-external top-level services
+- `Annotations` appear only for non-external services
+
+## Overview tab
+
+The `Overview` tab shows the current state of the app service, including:
+
+- status
+- machine name
+- title
+- version
+- linked service revision
+- runtime image
+- build image, if the service is built
+- last build
+- last deploy
+
+The same screen also exposes `Connect via web terminal`.
+
+The web terminal button is available only when both the app instance and the app service are in a healthy `OK` state. It opens an interactive shell session in a separate window.
+
+## Configure tab
+
+The `Configure` tab is the main operational form for the service.
+
+Depending on the service, you can:
+
+- enable or disable the service
+- mark it as the main service when it exposes HTTP routes
+- change the service version
+- change the number of replicas for non-external services
+- change build source settings for buildable services
+
+Changing app-service configuration can mark the app instance as needing rebuild, because some changes affect the build output or deployment manifests.
 
 ### Build source
 
-If a service is buildable, app service will have configuration for build source. You can specify a git repository and a reference: branch, tag or commit hash. Build source selected when you create a new app instance but can be also changed in the existing app instance.
+If a service is buildable, the app service includes build-source controls.
 
-### Integrations
+You can point the service to a Git repository and a reference such as:
 
-If a service provides certain integrations (e.g. backup storage for a database) you can attach [integrations](../integrations/index.md) of the appropriate [types](../integrations/types.md) to an app service.
+- branch
+- tag
+- commit SHA
 
-### Environment variables
+The available options depend on your CI mode and Git integrations. Build source is chosen during app creation, but can also be changed later from the app service.
 
-Here you can add, remove and override environment variables that will apply to a selected container. Some of the environment variables cannot be removed but can be overridden. Environment variables that cannot be removed can come from the following sources:
+## Database tab
 
-- Service manifest. A service may define environment variables in its manifest
-- Stack manifest. A stack manifest can override environment variables or add global environment variables that added to all services in the stack
-- From linked service, for example, a database link usually adds environment variables with connection credentials
-- From [settings](#settings)
+The `Database` tab appears for services that can attach to a database resource.
 
-Also, Wodby adds the following global variables to every container:
+From there you can choose:
+
+- database user
+- DB
+
+The available choices are filtered by databases visible in the current project context and by actual user-to-DB access inside the selected database resource.
+
+## Integrations tab
+
+If a service supports integrations, the `Integrations` tab lets you attach compatible [integrations](../integrations/index.md) of the required [type](../integrations/types.md).
+
+This is commonly used for storage, mail, monitoring, or other provider-backed features exposed by the service.
+
+## Env vars tab
+
+The `Env vars` tab lets you add, remove, or override environment variables for the app service.
+
+Some values are inherited and cannot be deleted directly, but they can usually be overridden. Inherited variables can come from:
+
+- the service manifest
+- the stack manifest
+- linked services such as databases
+- [settings](#settings-tab)
+
+Wodby also adds system variables to every container:
 
 | Variable                 | Description                                                                              |
 |--------------------------|------------------------------------------------------------------------------------------|
@@ -104,43 +178,75 @@ Also, Wodby adds the following global variables to every container:
 | `WODBY_PRIMARY_HOST`     | Hostname from the enabled main app service with an HTTP route                            |
 | `WODBY_PRIMARY_URL`      | URL (`https` if certificate attached) of the enabled main app service with an HTTP route |
 
-### Helm values
+## Helm tab
 
-Here you can add or override Helm values for an app service.
+The `Helm` tab lets you add or override Helm values for the app service.
 
 Use this when a specific environment needs a chart-level override without changing the stack for every other
 environment.
 
 App-level Helm values override values coming from the service and stack. Helm values can also be stored as secrets.
 
-### Resources
+## Resources tab
 
-Here you can configure resources for a service. You can specify CPU and memory requests and limits. CPU request and limits specified in
-_milicores_ where 1000 milicores equal to 1 CPU core. Memory requests and limits specified in
-_mebibytes_ where 1024 mebibytes equal to 1 GB.
+The `Resources` tab lets you configure CPU and memory requests and limits per container.
 
-Please note that resources request affects the deployment of the app service. For example, if your kubernetes cluster does not have enough resources to deploy an app service's pod with a requested amount of CPU or memory, the pod will be in a pending state until the resources become available. If your cluster has horizontal autoscaling enabled, it will scale up number of nodes to meet the demand.
+CPU values are set in millicores, where `1000` means `1` CPU core. Memory values are set in megabytes in the dashboard UI.
+
+Resource requests directly affect whether the service can be scheduled. If the cluster does not have enough available CPU or memory for the requested pod size, the pod stays pending until enough capacity becomes available. If cluster autoscaling is enabled, the cluster may add nodes to satisfy that demand.
+
+Apps running on a demo cluster cannot change service resources.
 
 ### Replicas
 
-App service replicas is the number of pods (container instances) deployed for the app service. Stateless app services can be easily scaled by increasing the number of replicas to handle increased load and for [high availability](high-availability.md) and redundancy. Replicas can also be increased automatically if [autoscaling](scalability.md) enabled. Some stateful services support scalability with extra replicas, e.g. database server's read replicas.
+Replicas are configured from `Configure`, but they directly affect service scaling.
 
-### Links
+Stateless app services can be scaled by increasing replicas for higher throughput and [high availability](high-availability.md). Replicas can also be adjusted automatically when [autoscaling](scalability.md) is enabled. Some stateful services expose their own replication behavior as part of the service design.
 
-Here you can change [links](../services/links.md) between app services. Usually they are set up in a stack but can also be overridden per app instance.
+## Links tab
 
-### Volumes
+The `Links` tab lets you change [links](../services/links.md) between app services.
 
-Currently, volumes resize not supported and cannot be changed in an existing app instance. You can only specify volume sizes when you create a new app instance.
+Links are usually defined in the stack, but app services can override them per app instance.
 
-### Settings
+## Volumes tab
 
-You can change values of [settings](../services/settings.md)
+The `Volumes` tab shows service volumes and their app-level values.
 
-### Configs
+Volume resize is not supported for existing app instances. In practice, volume size is chosen during app creation and should not be treated as something you can resize later from this screen.
 
-You can view default [configs](../services/configs.md) and override them.
+## Settings tab
 
-### Tokens
+The `Settings` tab lets you change values of [settings](../services/settings.md) exposed by the service.
 
-You can add or remove [tokens](tokens.md) that can be used in environment variables.
+These settings often flow into environment variables or runtime configuration generated by the service templates.
+
+## Configs tab
+
+The `Configs` tab lets you view default [configs](../services/configs.md) and override them for this app service.
+
+## Tokens tab
+
+The `Tokens` tab lets you add or remove [tokens](tokens.md) that can be used in environment variables and other generated configuration.
+
+Tokens can be plain or secret-backed. Secret-backed token values are revealed only on demand in the dashboard.
+
+## Annotations tab
+
+The `Annotations` tab lets you add custom annotations to the app service.
+
+Like env vars, annotations can come from several sources:
+
+- the service
+- the stack
+- Wodby system defaults
+
+Inherited annotations are shown in the list, and app-level annotations can override them.
+
+## Related pages
+
+- [Endpoints](endpoints.md)
+- [Builds](builds.md)
+- [Deploys](deploys.md)
+- [Environment](env.md)
+- [Tokens](tokens.md)

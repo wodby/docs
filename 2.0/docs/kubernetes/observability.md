@@ -1,15 +1,15 @@
-# Kubernetes cluster monitoring
+# Kubernetes Cluster Monitoring
 
-As the part of our [infrastructure apps](infrastructure.md) we deploy service to collect metrics from cluster nodes and kubernetes resources.
+As part of the cluster [infrastructure apps](infrastructure.md), Wodby deploys components that collect metrics from cluster nodes and Kubernetes resources.
 
-You can find the live metrics from our Dashboard: _"[Kubernetes cluster] > Metrics"_ page.
+You can view live metrics from `[Kubernetes cluster] > Metrics` in the dashboard.
 
-We track the following metrics:
+Tracked metrics include:
 
 - CPU usage
 - Memory usage
 - CPU capacity (total amount of [requested CPU](../apps/scalability.md#resources-management))
 - Memory capacity (total amount of [requested memory](../apps/scalability.md#resources-management))
-- Limit of pods per node
-- Node's disk usage
-- Node's inodes usage
+- pod limit per node
+- node disk usage
+- node inode usage

@@ -1,21 +1,25 @@
-# Managed Database Integration
+# Managed Databases
 
 ## Overview
 
-Wodby provides special "Cloud" external database services that integrate with third-party cloud providers.
+Wodby supports managed databases through external cloud-database services connected with provider integrations.
 
-- [GCP Cloud SQL for MySQL and PostgreSQL](../integrations/gcp.md#cloud-sql)
-- [AWS RDS](../integrations/aws.md#rds)
-- [Azure Databases](../integrations/azure.md#databases)
-- [DigitalOcean Managed Databases](../integrations/digitalocean.md#managed-database)
+- [GCP Cloud SQL for MySQL and PostgreSQL](../providers/gcp.md#cloud-sql)
+- [AWS RDS](../providers/aws.md#rds)
+- [Azure Databases](../providers/azure.md#databases)
+- [DigitalOcean Managed Databases](../providers/digitalocean.md#managed-database)
 
-## How to use an external database server from my app
+## Use a managed database from an app
 
-1. Create a new external database server from `Databases` page using your Cloud integration
-2. Go to the `Configure` page of your stack and add the appropriate _Cloud Database service_ (from listed above)
-3. To make sure your app will use the external database server instead of a container-based one, go to `Links` page of your stack service (from where database connection established) and update the DB link to use the _Cloud Database service_ instead of the container-based one
-4. Now, create a new app using this stack, in the process you will be asked to choose an external database server. Select the one you created on step 1 for the _Cloud Database service_
+1. Create the managed database from `Databases` using the required cloud integration.
+2. In your stack configuration, add the matching external cloud-database service.
+3. In the relevant stack-service `Links` configuration, point the database link to that cloud-database service instead of a container-based database service.
+4. Create or update an app from that stack. When Wodby asks you to choose a database server for the cloud-database service, select the managed database you created in step 1.
 
-## Reside with Kubernetes
+This lets the app use the managed database while keeping the rest of the application inside the Wodby deployment flow.
 
-When creating a new external managed database, you can choose a [Kubernetes cluster](../kubernetes/index.md) to reside this database with. The Kubernetes cluster must be created from the same integration as the database. When selected, it will use the same cloud network as the Kubernetes cluster for private connections and minimizing network latency.
+## Place it near Kubernetes
+
+When creating a managed database, you can optionally associate it with a [Kubernetes cluster](../kubernetes/index.md).
+
+The cluster must use the same cloud integration as the database. When you do this, Wodby can place the database in the same cloud network for private connectivity and lower latency.

@@ -1,7 +1,11 @@
 # Database users
 
-You can create and delete individual users of your database management system from _"Databases > [Database] > Users"_ page.
+From `Databases > [Database] > Users` you can create and delete database users.
 
-To create a new user enter the username, password and DBs the user need to have access to.
+When creating a user, specify:
 
-When an app instance with a database created a user will be created automatically according to the `database` configuration in service's manifest. 
+- username
+- password
+- which DBs the user should have access to
+
+For container-based app databases, Wodby usually creates an app-specific user automatically based on the service's `database` configuration.

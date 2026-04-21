@@ -1,9 +1,11 @@
 # Application Cron Schedules
 
-You can run cron jobs manually per app service that have defined cron schedules. There are few levels where cron schedules can be defined:
+You can run cron jobs manually for app services that expose cron schedules.
 
-- Service-level, provided by the service itself via service template
-- Stack-level, a schedule created via stack configuration UI or stack template  
-- App-level, a schedule created in a specific application instances  
+Cron schedules can exist at several levels:
 
-Cron scheduled can be defined for enabled non-external app services with a crontab syntax.
+- service level, provided by the service itself through the service template
+- stack level, created through stack configuration or a stack template
+- app level, created for a specific app instance
+
+Cron schedules can be defined for enabled, non-external app services using standard crontab syntax.

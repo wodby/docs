@@ -1,5 +1,7 @@
 # Service settings
 
-Service setting is the representation of a service configuration which is important and can be changed. Such settings will be shown on the new application create form. Also, settings can be reused in other services that link to a service with settings. Normally, a setting will produce an environment variable with a specified value (a setting can have a default value). 
+Service settings are configurable service values exposed in the application form and in stack or app-level configuration.
 
-Service settings defined under [`settings` section](template.md#settings) in a service template.
+In most cases, a setting maps to an environment variable or other service configuration value. Settings can also be reused by linked services when the service model supports that pattern.
+
+Service settings are defined under the [`settings` section](template.md#settings) in a service template.

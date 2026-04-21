@@ -1,27 +1,46 @@
 # Databases
 
+## Overview
+
+Databases are first-class resources in Wodby. They give you a shared place to manage:
+
+- [DBs](dbs.md)
+- [users](users.md)
+- [backups](backups.md)
+- [imports](imports.md)
+
+A database is a shareable entity and can be shared across multiple projects.
+
+A database also has an [environment](../apps/env.md). For container-based databases created from an app, the environment usually matches the app instance environment.
+
 ## Deployment types
 
-Database server is a first-class citizen on Wodby, we support two different ways of deploying your database server:
+Wodby supports two main ways to run a database server:
+
+| Type | Best when | How it works |
+| --- | --- | --- |
+| Container-based | The database belongs to one app stack | The database runs as part of your app deployment with attached persistent storage |
+| [Managed](managed.md) | You want an external provider-managed database | Wodby connects to a cloud-managed database workflow through integrations |
 
 ### 1. Container-based
 
-Deployed as a part of your application stack and runs in a container with an attached persistent storage. Add one of the database [services](../services/index.md) to your stack and specify desired storage size in a stack configuration or when creating a new app.
+The database runs as part of your application stack in a container with attached persistent storage.
+
+Add one of the database [services](../services/index.md) to your stack and choose storage size in stack configuration or during app creation.
 
 ### 2. [Managed](managed.md)
 
-A database server will be deployed on a third-party cloud provider, requires a special external cloud service and cloud integration. 
+The database server is deployed by a third-party cloud provider and connected through the required external service and cloud integration.
 
-## Overview
-
-Databases provide a layer for managing access to your [DBs](dbs.md), [users](users.md), [backups](backups.md) and [imports](imports.md).
-
-A database is a sharable entity and can be shared to multiple projects.
-
-A database has an [environment](../apps/env.md), for container-based databases the environment will be set to the same as instance's.
-
-Right now we support the following database kinds:
+Supported managed database kinds include:
 
 - MySQL
 - MariaDB
 - PostgreSQL
+
+## Related pages
+
+- [Managed databases](managed.md)
+- [DBs](dbs.md)
+- [Users](users.md)
+- [Backups](backups.md)

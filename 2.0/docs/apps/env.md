@@ -21,19 +21,28 @@ flowchart TD
     Feature --> EnvB
 ```
 
-Environment on Wodby is essentially a tag to define a context for application instance (and also [databases](../databases/index.md) and [kubernetes clusters](../kubernetes/index.md)) to separate production, development, testing and staging. This context can later be used when configuring your application (e.g. add environment variable but only for
-production instances).
+An Environment (Env) is an organization-level object that defines deployment context.
 
-Environments can be created by a user in addition to default environments.
+App instances, [databases](../databases/index.md), and some other resources are assigned to an Env. The Env itself is not the deployment. It is the label and matching context around that deployment.
 
-Environment has a type, at least one environment must per type.
+Each Env has:
 
-## Type
+- a name and title
+- a type chosen from a fixed enum
+- organization-level reuse across apps and other resources
 
-The following environment types supported:
+Multiple Envs can share the same type. For example, `Production EU` and `Production US` can both use the `prod` type.
 
-- `dev`
+This type matters because stack- and service-level configuration can target an environment type, not only a single named Env.
+
+Organizations start with default Envs for the standard types, and you can create additional named Envs as needed.
+
+## Environment types
+
+The current environment type enum is:
+
 - `prod`
 - `staging`
-- `testing`
+- `test`
+- `dev`
 - `feature`

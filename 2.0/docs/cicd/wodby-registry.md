@@ -1,16 +1,20 @@
 # Wodby Registry
 
-Wodby Registry is a private Docker registry that is used to store your application images. It is located in the US region and is available at `us-docker.wodby.com`.
+Wodby Registry is the private Docker registry used to store your application images. It is available at `us-docker.wodby.com`.
 
 You can authenticate to Wodby Registry using your Wodby account credentials.
 
 ## Repositories
 
-We create a new repository per each application instances, available as `[org-name]/[app-name]-[app-instance-name]`.
+Wodby creates one repository per app instance, using this pattern:
+
+```text
+[org-name]/[app-name]-[app-instance-name]
+```
 
 !!! important
-    Docker images that are not associated with existing application instances and builds will be automatically cleaned up.
+    Docker images that are no longer associated with existing app instances or builds are cleaned up automatically.
 
 ## Auth
 
-You can access registry images in your organization namespace using your Wodby account credentials via `docker login us-docker.wodby.com`. 
+You can access images in your organization's namespace with your Wodby account credentials via `docker login us-docker.wodby.com`.

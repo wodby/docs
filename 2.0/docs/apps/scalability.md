@@ -1,29 +1,45 @@
-# Applications Scalability
+# Application Scalability
 
-Before scaling your application, make sure you have a [Kubernetes cluster](../kubernetes/index.md) that is capable of [scaling](../kubernetes/scalability.md). The most flexible scalability offered by a [managed Kubernetes cluster](../kubernetes/managed.md) that is capable of scaling nodes dynamically using cluster autoscaler. If you are using a [K3S cluster](../kubernetes/k3s.md), you will be limited by the number of nodes you connect to your K3S cluster.
+Before you scale an app, make sure the underlying [Kubernetes cluster](../kubernetes/index.md) can scale with it.
+
+[Managed Kubernetes clusters](../kubernetes/managed.md) give you the most flexibility because they can scale worker nodes dynamically through a cluster autoscaler. With [K3S](../kubernetes/k3s.md), app scaling is limited by the number of servers you connect to the cluster.
 
 ## Manual scaling
 
-You can manually scale number of replicas of your app services. All stateless services can be scaled up and down, but stateful services need to support scalability (usually achieved by increasing read replicas). You can set up number of replicas in your stack configuration or do it individually per app instance.
+You can scale the replica count of app services manually.
+
+Stateless services can usually be scaled up and down directly. Stateful services need service-specific support for scaling, for example through read replicas.
+
+You can set replica counts:
+
+- in the stack configuration as the default
+- per app instance as an override
 
 ### Resources management
 
-App services may have resources request and limits (the [same way as in Kubernetes](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)).
+App services can define resource requests and limits, following the same model as [Kubernetes container resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 
-Although it's not mandatory to set up resources for your app services, we recommend to do so. Resources limits are useful to limit burstable workloads and their effect on other resources on the same cluster. Resources request help your cluster to schedule and distribute workloads across the nodes by [autoscaling](#autoscaling-rules) pods and also [scale the Kubernetes cluster](../kubernetes/scalability.md).
+Resource limits help contain bursty workloads so they do not affect other workloads on the same cluster. Resource requests help Kubernetes schedule pods correctly and also matter for both pod autoscaling and [cluster autoscaling](../kubernetes/scalability.md).
 
-CPU request and limits specified in milicores where 1000 milicores equal to 1 CPU core. Memory requests and limits specified in mebibytes where 1024 mebibytes equal to 1 GB.
+CPU requests and limits are specified in millicores, where `1000` millicores equals 1 CPU core. Memory requests and limits are specified in mebibytes, where `1024` MiB is roughly 1 GiB.
 
-Resources request and usage can be done on different levels:
+You can define resources at:
 
-- Stack level (via template or UI)
-- App service level
+- stack level
+- app-service level
 
 ## Autoscaling rules
 
-To enable autoscaling for your app, you need to define autoscaling rules when you create an app. Currently, the only autoscaling option is for average CPU consumption (hence it requires specifying [CPU request](#resources-management)), when average CPU utilization reaches % of specified request, the number of pod replicas will be increased by 1, e.g. if you specified `2000 milicores` (2 CPUs) with average utilization of `50%`, then the scaling will happen when the CPU utilization for the service reaches `1000 milicores`. 
+When creating an app, you can define autoscaling rules for supported services.
 
-You can specify minimum and maximum number of replicas for autoscaling. The minimum number of replicas is the number of replicas that will be used when the CPU consumption is below the defined threshold. The maximum number of replicas is the number of replicas that will be used when the CPU consumption is above the defined threshold.
+The current autoscaling signal is average CPU utilization, so you must define a [CPU request](#resources-management) first.
+
+The target is expressed as a percentage of the configured CPU request. For example, if a service has a CPU request of `2000` millicores and an autoscaling target of `50%`, scaling starts when average CPU usage reaches `1000` millicores.
+
+You can also define minimum and maximum replica counts:
+
+- the minimum replica count is the baseline when CPU usage stays below the target
+- the maximum replica count is the upper limit autoscaling can grow to
 
 ## Vertical scaling
 

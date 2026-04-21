@@ -6,7 +6,7 @@ Use `wodby ci build [OPTIONS] [SERVICE]...` to build one or more services from t
 
 ## Dockerfile resolution
 
-For each service the CLI resolves the Dockerfile in this order:
+For each service, the CLI resolves the Dockerfile in this order:
 
 1. The path passed with `-f, --dockerfile`
 2. `<service>_Dockerfile` from the build context
@@ -41,7 +41,7 @@ Cache-related flags:
 - `--cache-mode` to control cache export mode
 - `--cache-from` and `--cache-to` for advanced buildx overrides
 
-With non-DIND builds, `--cache-dir` is enough to enable local cache. In `--dind` mode, `--cache-backend auto` switches to a registry-backed cache reference per service.
+With non-DIND builds, `--cache-dir` is enough to enable local cache. In `--dind` mode, `--cache-backend auto` switches to a registry-backed cache reference for each service.
 
 ## Examples
 

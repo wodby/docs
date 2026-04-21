@@ -6,10 +6,10 @@ Only services of type `service` can define a build section.
 
 Use build settings when a service must be built in [CI/CD](../cicd/index.md) before deployment.
 
-There are two common cases:
+The two common patterns are:
 
-1. Services that require a connected git repository
-2. Services that are still built in [CI/CD](../cicd/index.md) but do not need a repository connection
+1. A service requires a connected Git repository as its build source.
+2. A service is still built in [CI/CD](../cicd/index.md), but does not need its own repository connection.
 
 ### Build templates
 
@@ -18,8 +18,7 @@ a GitHub repository and selects either a branch or a tag. A template can also re
 
 ### Dockerfile
 
-Services may specify a custom Dockerfile path in the same repository. Wodby CI uses it during
-`wodby ci build [service]`.
+Services can also specify a custom Dockerfile path in the same repository. Wodby CI uses it during `wodby ci build [service]`.
 
 ## Template
 

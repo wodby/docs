@@ -4,7 +4,7 @@
 
 `wodby ci release [SERVICE]...` pushes the images built during `wodby ci build`. If you do not specify services, the CLI releases all built services from the current build.
 
-By default Wodby uses [Wodby Registry](wodby-registry.md), but you can also attach another registry integration such as [Docker Hub](../integrations/docker.md) or [Distribution](../integrations/distribution.md).
+By default, Wodby uses [Wodby Registry](wodby-registry.md), but you can also attach another registry integration such as [Docker Hub](../providers/docker.md) or [Distribution Registry](../providers/distribution.md).
 
 Built images are tagged as:
 

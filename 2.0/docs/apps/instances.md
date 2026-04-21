@@ -19,16 +19,26 @@ flowchart TD
     Prod --> KubernetesA
 ```
 
-Application instance is a single isolated copy of your application that deployed to a [kubernetes cluster](../kubernetes/index.md) and has:
+An app instance is one isolated deployment of your application on a [Kubernetes cluster](../kubernetes/index.md).
 
-- [Environment](env.md) (like production, staging)
-- [Stack](stack.md) with a specific revision 
+Each instance has its own:
+
+- [Environment](env.md), which is a named Env with a fixed type such as `prod`, `staging`, or `dev`
+- [Stack](stack.md) revision
 - [Endpoints](endpoints.md) to configure domains and public ports
-- [Builds](builds.md) (if stack contains buildable services) and [deploys](deploys.md)
-- [Backups](backups.md) and [imports](imports.md) (if stack contains services that provide such)
-- [App Services](services.md) per each service that used to override stack configuration for this specific instance
-- Live [logs streaming](observability.md#live-logs) 
-- [Cron](cron.md) schedules and jobs 
+- [Builds](builds.md) and [deploys](deploys.md), when the stack has buildable services
+- [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
+- [App services](services.md) used to override stack configuration for this specific instance
+- live [log streaming](observability.md#live-logs)
+- [Cron](cron.md) schedules and jobs
 - [Tasks](tasks.md) history
 
-You can remove or add a new instance from the _"[App] > Instances"_ page.
+All instances of the same app share the same stack, but different instances can run on different clusters and different stack revisions.
+
+You add or remove instances from `Apps > [App] > Instances`.
+
+## Related pages
+
+- [Applications overview](index.md)
+- [App vs app instance vs app service](app-vs-instance-vs-service.md)
+- [Application stack](stack.md)

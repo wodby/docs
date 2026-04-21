@@ -97,15 +97,54 @@ plugins:
         'apps/logs.md': 'apps/observability.md'
         'apps/resources.md': 'apps/scalability.md'
         'kubernetes/monitoring.md': 'kubernetes/observability.md'
+        'integrations/algolia.md': 'providers/algolia.md'
+        'integrations/anthropic.md': 'providers/anthropic.md'
+        'integrations/auth0.md': 'providers/auth0.md'
+        'integrations/aws.md': 'providers/aws.md'
+        'integrations/azure.md': 'providers/azure.md'
+        'integrations/bitbucket.md': 'providers/bitbucket.md'
+        'integrations/brevo.md': 'providers/brevo.md'
+        'integrations/circleci.md': 'providers/circleci.md'
+        'integrations/cloudflare.md': 'providers/cloudflare.md'
+        'integrations/datadog.md': 'providers/variable.md'
+        'integrations/digitalocean.md': 'providers/digitalocean.md'
+        'integrations/discord.md': 'providers/discord.md'
+        'integrations/distribution.md': 'providers/distribution.md'
+        'integrations/docker.md': 'providers/docker.md'
+        'integrations/gcp.md': 'providers/gcp.md'
+        'integrations/gemini.md': 'providers/gemini.md'
+        'integrations/github.md': 'providers/github.md'
+        'integrations/gitlab.md': 'providers/gitlab.md'
+        'integrations/intercom.md': 'providers/intercom.md'
+        'integrations/mailchimp.md': 'providers/mailchimp.md'
+        'integrations/newrelic.md': 'providers/newrelic.md'
+        'integrations/openai.md': 'providers/openai.md'
+        'integrations/ovh.md': 'providers/ovh.md'
+        'integrations/providers.md': 'providers/index.md'
+        'integrations/pusher.md': 'providers/pusher.md'
+        'integrations/sentry.md': 'providers/sentry.md'
+        'integrations/slack.md': 'providers/slack.md'
+        'integrations/stripe.md': 'providers/stripe.md'
+        'integrations/tailscale.md': 'providers/tailscale.md'
+        'integrations/telegram.md': 'providers/telegram.md'
+        'integrations/twilio.md': 'providers/twilio.md'
+        'integrations/type-kubernetes.md': 'providers/kubernetes.md'
+        'integrations/type-databases.md': 'providers/databases.md'
+        'integrations/type-storage.md': 'providers/storage.md'
+        'integrations/type-git.md': 'providers/git.md'
+        'integrations/type-ci.md': 'providers/ci.md'
+        'integrations/type-registry.md': 'providers/registry.md'
+        'integrations/type-smtp.md': 'providers/smtp.md'
+        'integrations/type-vpn.md': 'providers/vpn.md'
 
 nav:
-  - Home:
-      - Getting started: index.md
-      - Organization: org.md
-      - Projects: projects.md
-      - Teams: teams.md
+  - Getting Started:
+      - Overview: index.md
+      - Choose a Kubernetes option: kubernetes/choose-platform.md
+      - App model: apps/app-vs-instance-vs-service.md
+      - Provider vs integration: integrations/providers-vs-integrations.md
+      - Glossary: glossary.md
       - Tasks: tasks.md
-      - Pricing & Billing: pricing.md
       - Open Source: oss.md
       - Status: status.md
       - Support: support.md
@@ -187,24 +226,86 @@ nav:
       - SSH services: services/ssh.md
   - Integrations:
       - Overview: integrations/index.md
-      - Providers: integrations/providers.md
       - Types: integrations/types.md
-      - Variable integration: integrations/variable.md
-      - Google Cloud Platform: integrations/gcp.md
-      - Amazon Web Service: integrations/aws.md
-      - Azure: integrations/azure.md
-      - DigitalOcean: integrations/digitalocean.md
-      - OVH: integrations/ovh.md
-      - GitHub: integrations/github.md
-      - GitLab: integrations/gitlab.md
-      - BitBucket: integrations/bitbucket.md
-      - CircleCI: integrations/circleci.md
-      - Brevo: integrations/brevo.md
-      - Docker: integrations/docker.md
-      - Distribution: integrations/distribution.md
-      - NewRelic: integrations/newrelic.md
-      - Datadog: integrations/datadog.md
-      - Sentry: integrations/sentry.md
+      - Variable integrations: integrations/variable.md
+  - Providers:
+      - Overview: providers/index.md
+      - Kubernetes:
+          - Overview: providers/kubernetes.md
+          - Amazon Web Services: providers/aws.md
+          - Azure: providers/azure.md
+          - Google Cloud Platform: providers/gcp.md
+          - DigitalOcean: providers/digitalocean.md
+          - OVH: providers/ovh.md
+      - Databases:
+          - Overview: providers/databases.md
+          - Amazon Web Services: providers/aws.md
+          - Azure: providers/azure.md
+          - Google Cloud Platform: providers/gcp.md
+          - DigitalOcean: providers/digitalocean.md
+      - Storage:
+          - Overview: providers/storage.md
+          - Amazon Web Services: providers/aws.md
+          - Azure: providers/azure.md
+          - Google Cloud Platform: providers/gcp.md
+          - DigitalOcean: providers/digitalocean.md
+      - Git:
+          - Overview: providers/git.md
+          - GitHub: providers/github.md
+          - GitLab: providers/gitlab.md
+          - Bitbucket: providers/bitbucket.md
+      - CI:
+          - Overview: providers/ci.md
+          - GitHub: providers/github.md
+          - GitLab: providers/gitlab.md
+          - CircleCI: providers/circleci.md
+      - Registry:
+          - Overview: providers/registry.md
+          - Docker Hub: providers/docker.md
+          - Distribution Registry: providers/distribution.md
+      - SMTP:
+          - Overview: providers/smtp.md
+          - Amazon Web Services: providers/aws.md
+          - Brevo: providers/brevo.md
+      - VPN:
+          - Overview: providers/vpn.md
+          - Tailscale: providers/tailscale.md
+      - Variable providers:
+          - Overview: providers/variable.md
+          - Amazon Web Services: providers/aws.md
+          - Algolia: providers/algolia.md
+          - Anthropic: providers/anthropic.md
+          - Auth0: providers/auth0.md
+          - Cloudflare: providers/cloudflare.md
+          - Discord: providers/discord.md
+          - Gemini: providers/gemini.md
+          - Intercom: providers/intercom.md
+          - Mailchimp: providers/mailchimp.md
+          - New Relic: providers/newrelic.md
+          - OpenAI: providers/openai.md
+          - Pusher: providers/pusher.md
+          - Sentry: providers/sentry.md
+          - Slack: providers/slack.md
+          - Stripe: providers/stripe.md
+          - Telegram: providers/telegram.md
+          - Twilio: providers/twilio.md
+  - Access & Billing:
+      - Organization: org.md
+      - Backups: backups.md
+      - Certificates: certs.md
+      - Projects: projects.md
+      - Teams: teams.md
+      - Access control: access-control.md
+      - Sharing: sharing.md
+      - User settings:
+          - Overview: user/index.md
+          - Account: user/account.md
+          - Emails: user/emails.md
+          - Security: user/security.md
+          - Identities: user/identities.md
+          - SSH keys: user/ssh-keys.md
+          - API keys: user/api-keys.md
+      - Pricing & Billing: pricing.md
   - Development:
       - API: dev/api.md
       - API keys: dev/api-keys.md

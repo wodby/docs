@@ -1,10 +1,14 @@
 # Stack
 
-Stack is a set of [services](../services/index.md) that you plan to use in your application. To create an application you need to choose a stack, instances of the same application use the same stack but revisions of the stacks they use may differ.
+A stack is the blueprint for an application.
 
-Stack is a versioned entity and can have multiple revisions. Every update made to a stack creates a new revision.
+It defines which [services](../services/index.md) the app uses and the default configuration for those services. To create an app, you choose a stack first.
 
-The intended use of a stack is to have a separate stack per each application or sometimes for multiple applications when they are small and alike. This way when you customize a stack you can be sure that all instances (environments) of the same application will get the update.
+All app instances of the same app share the same stack, but they can run different stack revisions.
+
+Stacks are versioned. Every change creates a new stack revision.
+
+The usual model is one stack per application. In some cases, multiple small similar apps may share a stack, but separate stacks are easier to evolve safely over time.
 
 ```mermaid
 flowchart TD
@@ -66,11 +70,12 @@ flowchart TD
 
 ## Updates
 
-When a service in a stack gets a new revision, your stack marked as outdated and can be updated. When you update a stack, the stack in your application will not be automatically updated, you can then upgrade your application stack for each instance individually.
+When a service used by the stack gets a new revision, or when stack-level configuration changes, the stack can become outdated and a new stack revision can be created.
 
-When you create a stack by adding from a catalog this stack marked as one that _has an origin_. Such stack can be additionally _synced with origin_. This may be useful if you want to get some updates from the stack in the catalog (not all stack updates done via services, sometimes there can be an update to a stack itself like addition of a new service or a new stack-wide environment variable).
+Updating a stack does not automatically update all app instances using it. Each app instance can be upgraded to the latest stack revision separately.
+
+If a stack was created from a catalog entry, it has an origin. You can sync it with that origin to pull catalog-side changes such as new services or new stack-wide defaults.
 
 ## Sharing
 
-Stack is a project's entity, it can be shared between multiple projects (with writable or read-only permissions) but must be attached to at least one project.
-
+A stack belongs to at least one project. It can also be shared with other projects in either read-only or writable mode.

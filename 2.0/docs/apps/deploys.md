@@ -1,28 +1,40 @@
 # Application Deployments
 
-Deployments are selective and can be performed for specific services. During the first deployment all services deployed except buildable services. For buildable services the app instance's status set to `awaiting` until deployment with the build information triggered from [CI system](../cicd/index.md).
+Deployments can target all services in an app instance or only selected services.
 
-A deployment always associated with a specific revision of app instance's stack's revision.
+During the first deployment, Wodby deploys all non-buildable services immediately. Buildable services usually leave the app instance in `awaiting` until a deployment is triggered with build information from a [CI system](../cicd/index.md).
+
+Every deployment is associated with a specific stack revision of the app instance.
 
 Deployments usually triggered in the following ways:
 
-- First deployment after app instance creation
-- Deployment of builds [requested from CI](../cicd/deploy.md)
-- Automated partial deployments (e.g. TSL certificates renewed)
-- Manual deployment from UI
+- first deployment after app creation
+- deployment of builds [requested from CI](../cicd/deploy.md)
+- automated partial deployments, for example after certificate renewal
+- manual deployment from the UI
 
 ## Build deployment
 
-Deployments from CI system can be triggered with `wodby ci deploy` command. For build deployment request a new deployment created associated with the build. Associated build can have multiple app service builds associated. Deployment from CI can optionally disable run of post-deployment scripts for the built services.
+Deployments from CI are triggered with `wodby ci deploy`.
+
+Each build deployment creates a new deployment record associated with the selected build. One build can contain image outputs for multiple app services. CI-triggered deployments can also skip post-deployment scripts for the built services when needed.
 
 ## New deployment
 
-A new application deployment can be manually run from _Apps > [App] > Deploys > New Deployment_ page. Services to include to the deployment can optionally be run with the force flag, for such deployments a random hash will be added to the Kubernetes annotations to force actual resources deployment even if there are no changes in manifests. Post-deployments are enabled by default for services that provide them but can be disabled. For buildable service last successful build selected by default but can be chosen to older builds as long as the build's associated stack revision and the current app instance's stack revision are the same.
+A new deployment can be started manually from `Apps > [App] > Deploys > New Deployment`.
+
+In that flow you can:
+
+- choose which services to deploy
+- force deployment even when manifests have not changed
+- disable post-deployment scripts for services that provide them
+- choose which successful build to deploy for buildable services, as long as the build belongs to the same stack revision as the current app instance
 
 ## Needs redeploy
 
-When app service's configuration changed app instance's will be marked as `needs redeploy`. It is to indicate that although changes has been done to the app services they are not yet applied.
+When app-service configuration changes, the app instance can be marked as `needs redeploy`.
+
+This means configuration has changed, but those changes have not yet been applied to the running deployment.
 
 !!! warning "Auto redeployment"
-    
-    Please note that app instance can sometimes be redeployed automatically, for example when domains' certificates renewed the associated app services will be redeployed automatically when renewal succeeded. 
+    Some redeployments happen automatically. For example, when a domain certificate is renewed successfully, the related app services may be redeployed automatically.

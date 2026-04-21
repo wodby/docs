@@ -1,6 +1,6 @@
 # Stack Template
 
-Custom stacks imported from git are defined by `stack.yml`.
+Custom stacks imported from Git are defined by `stack.yml`.
 
 If a repository contains multiple stacks, list their directories in `index.yml`:
 
@@ -10,8 +10,7 @@ stacks:
   - node
 ```
 
-Each listed directory must contain its own `stack.yml`. Paths used by `services[].configs[].config` are resolved
-relative to that stack directory.
+Each listed directory must contain its own `stack.yml`. Paths used by `services[].configs[].config` are resolved relative to that stack directory.
 
 Only the fields documented on this page are supported. Unknown fields will be rejected during import.
 
@@ -129,8 +128,7 @@ Icon name shown in the Wodby dashboard.
 
 Type: `array`. Required. Must contain at least one item.
 
-List of [stack services](services.md). Each item references an existing [service](../services/index.md) and can apply
-stack-level overrides to it.
+List of [stack services](services.md). Each item references an existing [service](../services/index.md) and can apply stack-level overrides to it.
 
 ### `env`
 
@@ -216,8 +214,7 @@ Human-readable service title shown in the stack and app UI.
 
 Type: `string`. Required.
 
-Reference to an existing service. You can use either a plain service name such as `php`, or a versioned reference such
-as `php:8.3`.
+Reference to an existing service. You can use either a plain service name such as `php` or a versioned reference such as `php:8.3`.
 
 The referenced service must exist and be available to your organization.
 
@@ -259,7 +256,7 @@ This affects deployment order: a service is deployed after its dependencies and 
 
 Type: `array`.
 
-Limits which options from the referenced service can be used in this stack and defines the default option.
+Limits which options from the referenced service can be used in this stack and sets the default option.
 
 Each item supports:
 

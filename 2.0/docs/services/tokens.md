@@ -1,7 +1,14 @@
 # Service tokens
 
-Service tokens are text values that can have a plain value or a regular expression that will be used to generate a random secret value when an app services created/updated. Tokens can be used in environment variables' values.
+Service tokens are named text values defined by a service.
 
-See [app tokens](tokens.md) for the list of supported tokens.
+They can either:
 
-Service tokens defined under [`tokens` section](template.md#tokens) in a service template.
+- have a fixed value
+- use a regular expression to generate a random secret value when the app is created or updated
+
+Service tokens can be referenced from environment variables and other generated configuration.
+
+See [app tokens](../apps/tokens.md) for the app-level token model and the list of built-in tokens.
+
+Service tokens are defined under the [`tokens` section](template.md#tokens) in a service template.

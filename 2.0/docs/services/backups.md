@@ -2,18 +2,18 @@
 
 ## Overview
 
-Service can define data backups. There are two main methods of backups:
+Services can define data-backup behavior. There are two main backup methods.
 
 ### 1. Simple files backup
 
-We create a tarball with files from the specified directory. The tarball can optionally be gzipped.
+Wodby creates a tar archive from the specified directory. The archive can optionally be gzipped.
 
-The tarball will be uploaded to a cloud storage bucket of a connected integration.
+The resulting archive is uploaded to the object-storage bucket configured through a connected storage integration.
 
 ### 2. Through action
 
-We run a kubernetes job with provided overridden args/command to create the backup archive. We expect to get an archive placed in the same volume as the result. The resulting archive will be uploaded to a cloud storage bucket of a connected integration.
+Wodby runs a Kubernetes job with the configured command or args override to create the backup archive. That job is expected to place the archive in the specified volume path, after which Wodby uploads it to the configured object-storage bucket.
 
 ## Template
 
-Service backups defined under [`backups` section](template.md#backups) in a service template.
+Service backups are defined under the [`backups` section](template.md#backups) in a service template.

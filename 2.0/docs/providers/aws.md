@@ -198,3 +198,11 @@ Wodby provides a native integration with Simple Storage Service. You can use S3 
 ## SES
 
 Wodby provides native integration with Simple Email Service. You can connect SMTP services such as OpenSMTPD to use SES as a relay for outbound emails.
+
+## Variables
+
+AWS integrations can also be used as a `variable` provider. When you attach the integration to an app service or stack, Wodby exposes:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION`

@@ -1,130 +1,135 @@
 # Tokens
 
-Tokens are text values that can have a plain value or a regular expression that will be used to generate a random secret value when an app services created/updated. Tokens can be used in environment variables' values.
+Tokens are named text values that can be referenced from environment variables and other generated configuration.
 
-In an app tokens compiled and overridden from different levels:
+A token can either:
 
-1. Service defined tokens
-2. Stack service define tokens
-3. Stack-wide tokens
-4. App instance tokens
-5. App service tokens
+- have a fixed plain value
+- use a regular expression to generate a random secret value when the app instance or app service is created or updated
 
-In addition to custom user-defined Wodby provides the following tokens available depending on the context:
+In an app, token values are composed and overridden across several levels. Later levels override earlier ones:
+
+1. service-defined tokens
+2. stack-service tokens
+3. stack-wide tokens
+4. app-instance tokens
+5. app-service tokens
+
+In addition to custom user-defined tokens, Wodby provides the following built-in tokens depending on context.
 
 ## `app`
 
 ### `app.id`
 
-Application (not instance) ID.
+Application ID, not app-instance ID.
 
 ### `app.name`
 
-Application's machine name.
+Application machine name.
 
 ### `app.title`
 
-Application's title.
+Application title.
 
 ## `instance`
 
 ### `instance.id`
 
-[Application instance's](instances.md) ID.
+[App instance](instances.md) ID.
 
 ### `instance.name`
 
-Application instance's machine name
+App-instance machine name.
 
 ### `instance.title`
 
-Application instance's title
+App-instance title.
 
 ## `kubernetes`
 
 ### `kubernetes.id`
 
-[Kubernetes cluster's](../kubernetes/index.md) ID.
+[Kubernetes cluster](../kubernetes/index.md) ID.
 
 ### `kubernetes.name`
 
-Kubernetes cluster's machine name.
+Kubernetes cluster machine name.
 
 ### `kubernetes.externalID`
 
-Kubernetes cluster's external ID.
+Kubernetes cluster external ID.
 
 ## `env`
 
 ### `env.id`
 
-[Environment's](env.md) ID.
+[Environment](env.md) ID.
 
 ### `env.name`
 
-Environment's machine name.
+Environment machine name.
 
 ### `env.title`
 
-Environment's title.
+Environment title.
 
 ### `env.type`
 
-Environment's type.
+Environment type.
 
 ## `org`
 
 ### `org.id`
 
-Organization's ID.
+Organization ID.
 
 ## `service`
 
 ### `service.id`
 
-App service's ID.
+App-service ID.
 
 ### `service.name`
 
-App service's machine name.
+App-service machine name.
 
 ### `service.title`
 
-App service's title.
+App-service title.
 
 ### `service.host`
 
-App service's hostname.
+App-service hostname.
 
 ### `service.image`
 
-App service's image.
+App-service image.
 
 ### `service.replicas`
 
-App service's number of replicas.
+App-service replica count.
 
 ## `database`
 
 ### `database.host`
 
-[Database's](../databases/index.md) hostname. Private host if access from app service with private user or public otherwise.
+[Database](../databases/index.md) hostname. This is private when accessed through an app service with a private database user, otherwise public.
 
 ### `database.port`
 
-Database's connection port. Private port if exists public otherwise.
+Database connection port. This is private when available, otherwise public.
 
 ### `database.driver`
 
-Database's driver. Depends on the database kind.
+Database driver, based on the database kind.
 
 ### `database.root.name`
 
-Database's superuser (root) username.
+Database superuser username.
 
 ### `database.root.password`
 
-Database's superuser (root) password.
+Database superuser password.
 
 ### `database.user`
 
@@ -132,11 +137,11 @@ Available when accessed through a database app service.
 
 ### `database.user.name`
 
-Current user's username.
+Database username for the current app-service context.
 
 ### `database.user.password`
 
-Current user's password.
+Database user password for the current app-service context.
 
 ### `database.db`
 
@@ -144,15 +149,15 @@ Available when accessed through a database app service.
 
 ### `database.db.name`
 
-Current db's name.
+Database name for the current app-service context.
 
 ### `database.db.charset`
 
-Current db's charset.
+Database charset for the current app-service context.
 
 ### `database.db.collation`
 
-Current db's collation.
+Database collation for the current app-service context.
 
 ## `links`
 
@@ -160,21 +165,20 @@ Accessed as `links.[name].[token]`
 
 ### `links.[].host`
 
-Linked app service's hostname.
+Linked app-service hostname.
 
 ### `links.[].port`
 
-Linked app service's primary endpoint's primary port.
+Primary port of the linked app service's primary endpoint.
 
 ### `links.[].env.[]`
 
-Linked app service's environment variable value. Accessed as `links.[name].env.[env-var-name]`
+Environment-variable value from the linked app service. Accessed as `links.[name].env.[env-var-name]`.
 
 ### `links.[].tokens.[]`
 
-Linked app service's token value. Accessed as `links.[name].tokens.[token-name]`
+Token value from the linked app service. Accessed as `links.[name].tokens.[token-name]`.
 
 ### `links.[].database.[]`
 
-Linked app service's database token. Accessed as `links.[name].database.[database-token]`. See [`database`](#database) for database tokens.
-
+Database token from the linked app service. Accessed as `links.[name].database.[database-token]`. See [`database`](#database) for the available database tokens.

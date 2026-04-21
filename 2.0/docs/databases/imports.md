@@ -1,7 +1,9 @@
-# Database import
+# Database Import
 
-From _"Databases > [Database] > Import"_ you can run import for individual DBs. You can either:
+From `Databases > [Database] > Import` you can run an import for an individual DB.
 
-- Upload your backup archive from the dashboard  
-- Specify a public URL where the backup archive can be downloaded from  
-- Specify existing backup  
+The import source can be:
+
+- an archive uploaded from the dashboard
+- a public URL where the archive can be downloaded
+- an existing backup

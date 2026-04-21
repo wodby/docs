@@ -1,26 +1,29 @@
 # Application Builds
 
-Some [services are buildable](../services/build.md), for such app services we expect a [CI system](../cicd/index.md) to build container images and trigger deployment via Wodby CLI. 
+Some app services are [buildable](../services/build.md). For those services, a [CI system](../cicd/index.md) builds container images and then triggers deployment through the Wodby CLI.
 
 ## Build sources and buildable services
 
-1. There are app services that have a connected git repository from a git integration as a build source
-2. There are associated app services that also buildable but do not have a build source. We expect users to build images from both of these services during a build and triggering a deployment that provides build information for both of those services
+The two common patterns are:
 
-A simple example will be an app with Nginx and PHP services, where a git repository that contains both backend and frontend connected to a PHP service. During the build in addition to backend build (e.g. composer) user can build frontend code (e.g. nodejs) for Nginx. After building container images for the both services a user will run a release (`wodby ci release` to push to associated docker registry) and deployment (`wodby ci deploy`).
+1. An app service has a connected Git repository and acts as the main build source.
+2. Other app services are also buildable, but do not have their own separate build source. They still produce images as part of the same build and deployment flow.
+
+For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you release them with `wodby ci release` and deploy them with `wodby ci deploy`.
 
 ## Build info
 
-A build always provides the following information:
+A build records:
 
-- Main app service with the build source (git repository) that provides the build pipeline
-- Build number
-- Associated stack revision
-- CI system that produced this build ([Wodby CI](../cicd/wodby-ci.md) by default)
-- Associated git repository
-- Related git commit information
-- Resulting docker images that should be deployed
+- the main app service that owns the build source
+- the build number
+- the associated stack revision
+- the CI system that produced the build, such as [Wodby CI](../cicd/wodby-ci.md)
+- the related Git repository and commit information
+- the resulting container images intended for deployment
 
 ## Needs rebuild
 
-Similar to [`needs_redeploy`](deploys.md#needs-redeploy) app instance with buildable services will be marked as `needs rebuild` when buildable services changed. It is to indicate although there were changes they may not have yet applied, for example an environment variable value changed that may affect the build process. 
+Like [`needs redeploy`](deploys.md#needs-redeploy), `needs rebuild` is a status that tells you build-related changes exist but have not yet been applied through a new build.
+
+A typical example is an environment-variable change that affects the build process.

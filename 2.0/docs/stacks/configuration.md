@@ -5,25 +5,21 @@ receiving updates from the services they include.
 
 ## Environment Variables
 
-You can add stack-wide environment variables from "[Stack] > Configure > Env vars". These values are applied to app
-services deployed from that stack revision.
+Add stack-wide environment variables from `Stack > Configure > Env vars`. These values apply to app services deployed from that stack revision.
 
-An environment variable can be marked as secret. Secret values are stored in a Kubernetes secret and are not shown in
-the Wodby dashboard.
+An environment variable can be marked as secret. Secret values are stored in a Kubernetes secret and are not shown in the Wodby dashboard.
 
 You can also limit a variable to a specific environment type.
 
 ## Annotations
 
-You can add stack-wide annotations from "[Stack] > Configure > Annotations". These annotations are added to app
-services deployed from that stack revision.
+Add stack-wide annotations from `Stack > Configure > Annotations`. These annotations are added to app services deployed from that stack revision.
 
 You can also limit an annotation to a specific environment type.
 
 ## Helm values
 
-You can add stack-wide Helm values from "[Stack] > Configure > Helm values". These values are applied to app services
-deployed from that stack revision and are useful when you need to override chart settings exposed by a service.
+Add stack-wide Helm values from `Stack > Configure > Helm values`. These values apply to app services deployed from that stack revision and are useful when you need to override chart settings exposed by a service.
 
 Each Helm value has a path-like name and a value. Values can be plain values, arrays, or objects.
 
@@ -31,8 +27,7 @@ Helm values can be stored as secrets, and you can optionally limit them to a spe
 
 ## Tokens
 
-You can add stack-wide tokens from "[Stack] > Configure > Tokens". These tokens are available to app services created
-from that stack revision.
+Add stack-wide tokens from `Stack > Configure > Tokens`. These tokens are available to app services created from that stack revision.
 
 Tokens can either store a fixed value or generate a secret value from a regular expression. You can reference tokens in
 environment variable values.
@@ -54,7 +49,7 @@ If no service is marked as main, Wodby uses the first HTTP-capable service in th
 
 ### Replicas
 
-You can change the number of replicas per service. This is not available for external services.
+You can set the number of replicas per service. This is not available for external services.
 
 ### Integrations
 
@@ -65,19 +60,15 @@ Additionally, all non-external services can use [Variable](../integrations/varia
 
 ### Environment Variables
 
-You can add service-specific environment variables from _"[Stack] > Configure > Stack services > [Service] > Env vars"_.
-These values are applied only to the corresponding app service.
+Add service-specific environment variables from `Stack > Configure > Stack services > [Service] > Env vars`. These values apply only to the corresponding app service.
 
-An environment variable can be marked as secret. Secret values are stored in a Kubernetes secret and are not shown in
-the Wodby dashboard.
+An environment variable can be marked as secret. Secret values are stored in a Kubernetes secret and are not shown in the Wodby dashboard.
 
 You can also limit a variable to a specific environment type.
 
 ### Helm values
 
-You can add service-specific Helm values from _"[Stack] > Configure > Stack services > [Service] > Helm values"_.
-These values apply only to the selected service and are useful when one service needs a chart override without changing
-the rest of the stack.
+Add service-specific Helm values from `Stack > Configure > Stack services > [Service] > Helm values`. These values apply only to the selected service and are useful when one service needs a chart override without changing the rest of the stack.
 
 Each Helm value has a path-like name and a value. Values can be plain values, arrays, or objects.
 
@@ -85,41 +76,35 @@ Helm values can be stored as secrets, and you can optionally limit them to a spe
 
 ### Resources
 
-For non-external services you can set up resource requests and limits from
-_"[Stack] > Configure > Stack services > [Service] > Resources"_. These map to
-[Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#how-pods-with-resource-limits-are-run).
+For non-external services, configure resource requests and limits from `Stack > Configure > Stack services > [Service] > Resources`. These map to [Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#how-pods-with-resource-limits-are-run).
 
 #### Request
 
-You can set CPU and memory requests. Requests help your cluster schedule workloads across nodes. If the cluster does
-not have enough resources, deployments can stay pending. CPU requests are required for scalability.
+Set CPU and memory requests. Requests help the cluster schedule workloads across nodes. If the cluster does not have enough capacity, deployments can stay pending. CPU requests are required for autoscaling.
 
 #### Limit
 
-You can set CPU and memory limits. Limits help control bursty workloads and reduce their impact on other services in
-the same cluster.
+Set CPU and memory limits. Limits help control bursty workloads and reduce their impact on other services in the same cluster.
 
 ### Options
 
 Options represent different versions or variants of a service. A stack can limit which options are enabled, for
-example to enforce compatibility or exclude end-of-life versions. You can change the default option and enabled
-options from _"[Stack] > Configure > Stack services > [Service] > Options"_.
+example to enforce compatibility or exclude end-of-life versions. You can change the default option and enabled options from `Stack > Configure > Stack services > [Service] > Options`.
 
 ### Links
 
 A service may provide a _link_, which represents a connection to another service. Some links are mandatory and some are
 optional. If a link is mandatory, the stack must specify which service should satisfy it.
 
-You can change links in your stack from _"[Stack] > Configure > Stack services > [Service] > Links"_.
+Change links from `Stack > Configure > Stack services > [Service] > Links`.
 
 ### Volumes
 
-You can change the size of volumes provided by a service from _"[Stack] > Configure > Stack services > [Service] > Volumes"_.
+Change service volume sizes from `Stack > Configure > Stack services > [Service] > Volumes`.
 
 ### Settings
 
-You can override settings provided by a service from _"[Stack] > Configure > Stack services > [Service] > Settings"_.
-Settings whose value comes from links cannot be edited.
+Override service settings from `Stack > Configure > Stack services > [Service] > Settings`. Settings whose value comes from links cannot be edited.
 
 ### Configs
 
@@ -128,16 +113,13 @@ defaults apply to app instances created from the stack revision and can still be
 
 ### Cron
 
-You can create cron schedules for a service in your stack from _"[Stack] > Configure > Stack services > [Service] > Cron"_.
-Each schedule must have a name, command, and schedule. Use standard five-field crontab syntax such as
-`0 0 * * *`. Cron schedules cannot run more often than once per hour.
+Create cron schedules for a service from `Stack > Configure > Stack services > [Service] > Cron`. Each schedule must have a name, command, and schedule. Use standard five-field crontab syntax such as `0 0 * * *`. Cron schedules cannot run more often than once per hour.
 
 You can also limit a cron schedule to a specific environment type.
 
 ### Tokens
 
-You can add service-specific tokens from "[Stack] > Configure > Stack services > [Service] > Tokens". These tokens are
-available to the corresponding app service.
+Add service-specific tokens from `Stack > Configure > Stack services > [Service] > Tokens`. These tokens are available to the corresponding app service.
 
 Tokens can either store a fixed value or generate a secret value from a regular expression. You can reference tokens in
 environment variable values.
@@ -146,8 +128,7 @@ You can also limit a token to a specific environment type.
 
 ### Annotations
 
-You can add service-specific annotations from "[Stack] > Configure > Stack services > [Service] > Annotations". These
-annotations are added only to the corresponding app service.
+Add service-specific annotations from `Stack > Configure > Stack services > [Service] > Annotations`. These annotations are added only to the corresponding app service.
 
 You can also limit an annotation to a specific environment type.
 
