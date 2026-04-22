@@ -39,12 +39,11 @@ The current REST API covers a focused subset of resources. At the time of writin
 Example:
 
 ```bash
-export WODBY_API_BASE_URL=https://api.wodby.com/v1
 export WODBY_API_KEY=...
 
 curl -sS \
   -H "X-API-KEY: ${WODBY_API_KEY}" \
-  "${WODBY_API_BASE_URL}/orgs"
+  "https://api.wodby.com/v1/orgs"
 ```
 
 REST errors are returned as regular JSON responses with an HTTP status code and a `message` field.
