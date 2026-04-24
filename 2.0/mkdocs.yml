@@ -206,6 +206,7 @@ nav:
       - Links: services/links.md
       - Derivatives: services/derivatives.md
       - Integrations: services/integrations.md
+      - Workloads: services/workloads.md
       - Helm: services/helm.md
       - Kubernetes: services/kubernetes.md
       - Actions: services/actions.md

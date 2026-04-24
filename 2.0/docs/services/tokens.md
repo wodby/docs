@@ -9,6 +9,7 @@ They can either:
 
 Service tokens can be referenced from environment variables and other generated configuration.
 
-See [app tokens](../apps/tokens.md) for the app-level token model and the list of built-in tokens.
+Built-in runtime tokens are documented in [app tokens](../apps/tokens.md), because they resolve in app-service
+context and can be used from service, stack, and app configuration.
 
 Service tokens are defined under the [`tokens` section](template.md#tokens) in a service template.

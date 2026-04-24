@@ -103,14 +103,16 @@ The `Overview` tab shows the current state of the app service, including:
 - title
 - version
 - linked service revision
-- runtime image
+- container images
 - build image, if the service is built
 - last build
 - last deploy
 
 The same screen also exposes `Connect via web terminal`.
 
-The web terminal button is available only when both the app instance and the app service are in a healthy `OK` state. It opens an interactive shell session in a separate window.
+The web terminal button is available only when both the app instance and the app service are in a healthy `OK` state.
+It opens an interactive shell session in a separate window. If the service has multiple workloads or containers, you
+can target a specific one. Otherwise Wodby uses the primary workload and its first container automatically.
 
 ## Configure tab
 
@@ -166,6 +168,9 @@ Some values are inherited and cannot be deleted directly, but they can usually b
 - linked services such as databases
 - [settings](#settings-tab)
 
+Env vars can be global for the whole service or scoped to a specific workload and container. If you do not specify a
+target, the variable is applied to all containers in the service.
+
 Wodby also adds system variables to every container:
 
 | Variable                 | Description                                                                              |
@@ -189,7 +194,7 @@ App-level Helm values override values coming from the service and stack. Helm va
 
 ## Resources tab
 
-The `Resources` tab lets you configure CPU and memory requests and limits per container.
+The `Resources` tab lets you configure CPU and memory requests and limits per workload and container.
 
 CPU values are set in millicores, where `1000` means `1` CPU core. Memory values are set in megabytes in the dashboard UI.
 

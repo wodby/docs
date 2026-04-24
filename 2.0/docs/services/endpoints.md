@@ -3,7 +3,8 @@
 ## Overview
 
 Services that expose network access can define endpoints. An endpoint groups together one or more ports that belong to
-the same exposed service. Domains are attached later at the app level.
+the same exposed workload. Wodby resolves the concrete Kubernetes Service from the Helm chart later. Domains are
+attached at the app level.
 
 Supported port protocols are:
 
@@ -28,9 +29,14 @@ Service endpoints are defined under the [`endpoints` section](template.md#endpoi
 ```yaml
 endpoints:
 - name: http
+  workload: main
   ports:
   - name: http
     number: 80
     protocol: http
     main: true
 ```
+
+`workload` is optional. If omitted, the endpoint targets the primary workload.
+
+Workload targeting and selectors are described in [service workloads](workloads.md).

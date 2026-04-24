@@ -15,170 +15,127 @@ In an app, token values are composed and overridden across several levels. Later
 4. app-instance tokens
 5. app-service tokens
 
-In addition to custom user-defined tokens, Wodby provides the following built-in tokens depending on context.
+This page is the public reference for built-in runtime tokens resolved in app-service context.
+
+Some internal or infrastructure-only secret-bearing tokens are intentionally omitted from this public list.
+
+## Where tokens are supported
+
+Tokens are commonly supported in:
+
+- environment variable values defined by services, stacks, apps, links, imports, and workloads
+- Helm values such as `helm.values[].value` and other service manifest fields that feed values into a Helm chart
+- config contents when `configs[].processTokens: true` is enabled
+- action arguments, database actions, backup actions, and similar generated runtime configuration
 
 ## `app`
 
-### `app.id`
-
-Application ID, not app-instance ID.
-
-### `app.name`
-
-Application machine name.
-
-### `app.title`
-
-Application title.
+- `app.id`: application ID, not app-instance ID
+- `app.name`: application machine name
+- `app.title`: application title
 
 ## `instance`
 
-### `instance.id`
-
-[App instance](instances.md) ID.
-
-### `instance.name`
-
-App-instance machine name.
-
-### `instance.title`
-
-App-instance title.
+- `instance.id`: [app instance](instances.md) ID
+- `instance.name`: app-instance machine name
+- `instance.namespace`: Kubernetes namespace for the app instance
+- `instance.title`: app-instance title
 
 ## `kubernetes`
 
-### `kubernetes.id`
+- `kubernetes.id`: [Kubernetes cluster](../kubernetes/index.md) ID
+- `kubernetes.externalID`: cluster external ID
+- `kubernetes.name`: cluster machine name
+- `kubernetes.fullName`: cluster full name
 
-[Kubernetes cluster](../kubernetes/index.md) ID.
-
-### `kubernetes.name`
-
-Kubernetes cluster machine name.
-
-### `kubernetes.externalID`
-
-Kubernetes cluster external ID.
+Infrastructure-oriented FRPC tokens are also supported under `kubernetes.frpc.*`, but the secret-bearing/internal
+subset is intentionally not documented here.
 
 ## `env`
 
-### `env.id`
-
-[Environment](env.md) ID.
-
-### `env.name`
-
-Environment machine name.
-
-### `env.title`
-
-Environment title.
-
-### `env.type`
-
-Environment type.
+- `env.id`: [environment](env.md) ID
+- `env.name`: environment machine name
+- `env.title`: environment title
+- `env.type`: environment type
 
 ## `org`
 
-### `org.id`
-
-Organization ID.
+- `org.id`: organization ID
 
 ## `service`
 
-### `service.id`
+- `service.id`: app-service ID
+- `service.name`: app-service machine name
+- `service.title`: app-service title
+- `service.host`: app-service hostname
+- `service.fqdnPrefix`: generated host prefix used for domains
+- `service.primaryURL`: primary URL for the service, including scheme when a primary domain exists
+- `service.primaryHost`: primary domain name for the service
+- `service.mainPort.number`: port number of the primary port on the primary endpoint
+- `service.mainPort.protocol`: protocol of the primary port on the primary endpoint
+- `service.replicas`: app-service replica count
+- `service.secrets.env`: generated Kubernetes Secret name used for secret environment variables
 
-App-service ID.
+Legacy `service.helm.release` is still supported for backward compatibility.
 
-### `service.name`
+## `helm`
 
-App-service machine name.
+- `helm.release`: resolved Helm release name for the current app service
 
-### `service.title`
+Use this token when a chart exposes labels, selectors, or values keyed by the Helm release name.
 
-App-service title.
+## `stack`
 
-### `service.host`
-
-App-service hostname.
-
-### `service.image`
-
-App-service image.
-
-### `service.replicas`
-
-App-service replica count.
+- `stack.id`: stack ID
+- `stack.name`: stack machine name
+- `stack.title`: stack title
+- `stack.version`: stack version
+- `stack.rev.id`: stack revision ID
+- `stack.rev.number`: stack revision number
 
 ## `database`
 
-### `database.host`
+Available when the current app-service context exposes a database.
 
-[Database](../databases/index.md) hostname. This is private when accessed through an app service with a private database user, otherwise public.
-
-### `database.port`
-
-Database connection port. This is private when available, otherwise public.
-
-### `database.driver`
-
-Database driver, based on the database kind.
-
-### `database.root.name`
-
-Database superuser username.
-
-### `database.root.password`
-
-Database superuser password.
-
-### `database.user`
-
-Available when accessed through a database app service.
-
-### `database.user.name`
-
-Database username for the current app-service context.
-
-### `database.user.password`
-
-Database user password for the current app-service context.
-
-### `database.db`
-
-Available when accessed through a database app service.
-
-### `database.db.name`
-
-Database name for the current app-service context.
-
-### `database.db.charset`
-
-Database charset for the current app-service context.
-
-### `database.db.collation`
-
-Database collation for the current app-service context.
+- `database.host`: database hostname. This is private when accessed through an app service with a private database user, otherwise public
+- `database.port`: database connection port. This is private when available, otherwise public
+- `database.driver`: database driver, based on the database kind
+- `database.root.name`: database superuser username
+- `database.root.password`: database superuser password
+- `database.user.name`: database username for the current app-service context
+- `database.user.password`: database user password for the current app-service context
+- `database.db.name`: database name for the current app-service context
+- `database.db.charset`: database charset for the current app-service context
+- `database.db.collation`: database collation for the current app-service context
 
 ## `links`
 
-Accessed as `links.[name].[token]`
+Accessed as `links.[name].[token]`.
 
-### `links.[].host`
+- `links.[name].host`: linked app-service hostname
+- `links.[name].port`: primary port of the linked app service's primary endpoint
+- `links.[name].service.*`: service token from the linked app service. See [`service`](#service)
+- `links.[name].instance.*`: app-instance token from the linked app service. See [`instance`](#instance)
+- `links.[name].env.[env-var-name]`: environment-variable value from the linked app service
+- `links.[name].tokens.[token-name]`: token value from the linked app service
+- `links.[name].database.*`: database token from the linked app service. See [`database`](#database)
 
-Linked app-service hostname.
+## `configs`
 
-### `links.[].port`
+Accessed as `configs.[name].[token]`.
 
-Primary port of the linked app service's primary endpoint.
+- `configs.[name].configMap`: generated Kubernetes ConfigMap name for the named config
 
-### `links.[].env.[]`
+## `volumes`
 
-Environment-variable value from the linked app service. Accessed as `links.[name].env.[env-var-name]`.
+Accessed as `volumes.[name].[token]`.
 
-### `links.[].tokens.[]`
+- `volumes.[name].size`: effective volume size in GB
+- `volumes.[name].claim`: generated PVC name for the named volume
 
-Token value from the linked app service. Accessed as `links.[name].tokens.[token-name]`.
+## `integrations`
 
-### `links.[].database.[]`
+Accessed as `integrations.[name].[token]`.
 
-Database token from the linked app service. Accessed as `links.[name].database.[database-token]`. See [`database`](#database) for the available database tokens.
+- `integrations.[name].key`: integration key or secret value
+- `integrations.[name].variables.[variable-name]`: exported integration variable by name

@@ -32,11 +32,6 @@ options:
 
 update: auto
 
-containers:
-  - name: php
-    image: wodby/drupal-php
-    main: true
-
 links:
   - name: files
     title: Files storage
@@ -88,6 +83,32 @@ env:
   - name: DRUPAL_VERSION
     value: "11"
 
+workloads:
+  - name: main
+    selector:
+      matchLabels:
+        app.kubernetes.io/instance: "{{helm.release}}"
+    kind: deployment
+    primary: true
+    containers:
+      - name: php
+        image: wodby/drupal-php
+        build: true
+        helm:
+          resources: resources
+          env: extraEnvVars
+          mounts: extraVolumeMounts
+          image:
+            repository: image.repository
+            tag: image.tag
+            registry: image.registry
+            pullPolicy: image.pullPolicy
+    helm:
+      labels: commonLabels
+      annotations: commonAnnotations
+      volumes: extraVolumes
+      sidecars: extraSidecars
+
 build:
   dockerfile: Dockerfile
   connect: true
@@ -96,6 +117,13 @@ build:
       title: Vanilla Drupal
       repo: https://github.com/wodby/drupal-vanilla
       branch: 11.x
+
+helm:
+  name: wodby
+  source: oci://registry-1.docker.io/wodby/php
+  chart: oci://registry-1.docker.io/wodby/php
+  version: 0.1.0
+  imagePullSecrets: image.pullSecrets
 
 settings:
   - name: docroot
@@ -129,11 +157,13 @@ actions:
 
 - `service.yml` defines one service.
 - `from` lets you inherit from an existing service and override only the parts you need.
-- Non-external services normally define `containers` and `helm`. If the service inherits them from `from`, you do not
+- Non-external services normally define `workloads` and `helm`. If the service inherits them from `from`, you do not
   need to repeat them.
+- If you override inherited workloads or containers, use workload names and container names that already exist in the
+  base service.
 - Only services of type `service` can use the `build` section.
 - Only services of type `db` can use the `database` section.
-- `external: true` is for services managed outside Wodby. External services cannot define `containers`, `build`,
+- `external: true` is for services managed outside Wodby. External services cannot define `workloads`, `build`,
   `links`, `volumes`, `settings`, `env`, `configs`, `actions`, `certs`, `cron`, or `derivatives`.
 - Infrastructure services cannot be external and do not use `options`, `tokens`, or `imports`.
 
@@ -141,7 +171,7 @@ actions:
 
 ### Environment variable object
 
-Used by `env`, `containers[].env`, `links[].env`, `integrations[].providers[].env`, `imports[].init.env`, and
+Used by `env`, `workloads[].containers[].env`, `links[].env`, `integrations[].providers[].env`, `imports[].init.env`, and
 `derivatives[].env`.
 
 - `name`: required environment variable name.
@@ -158,7 +188,7 @@ Used by `links[].helm`, `volumes[].helm.values`, `helm.values`, and `derivatives
 
 ### Resources object
 
-Used by `containers[].resources` and `derivatives[].resources`.
+Used by `workloads[].containers[].resources` and `derivatives[].resources`.
 
 - `request.cpu`
 - `request.memory`
@@ -213,6 +243,9 @@ Type: `string`.
 
 Inherit configuration from an existing service available to your organization.
 
+When overriding inherited workloads or containers, use only workload names and container names declared by the base
+service.
+
 ### `update`
 
 Type: `enum`.
@@ -252,6 +285,8 @@ Type: `array`.
 
 Service-wide environment variables. Uses the environment variable object described above.
 
+Environment variable values can use [built-in runtime tokens](../apps/tokens.md) and service-defined tokens.
+
 ### `options`
 
 Type: `array`.
@@ -267,22 +302,24 @@ Each item supports:
 
 Only one option can be default. If none is marked as default, the first option becomes the default automatically.
 
-### `containers`
+### `workloads`
 
 Type: `array`.
 
-Container definitions for the service. Non-external services normally define containers unless they inherit them from `from`.
+Workload definitions for the service. Non-external services normally define workloads unless they inherit them from `from`.
 
-Each item supports:
+Each workload declares:
 
-- `name`: required container name.
-- `image`: image for the container. When you define a new container, this should be set.
-- `main`: marks the main container.
-- `env`: optional container-specific environment variables.
-- `resources`: optional container-specific resource requests and limits.
+- a stable workload `name`
+- a rendered Kubernetes target selected by `selector.matchLabels`
+- a `kind`
+- one or more `containers`
+- optional workload- and container-level Helm value mappings
 
-Only one container can be main. If the service has a single container, Wodby will make it the main container
-automatically.
+If the service has multiple workloads, mark one as `primary`. The primary workload is the default target used by
+runtime features when no explicit workload is selected.
+
+Full field reference and examples: [Service workloads](workloads.md).
 
 ### `build`
 
@@ -296,6 +333,8 @@ Each object supports:
 - `dockerignore`: `.dockerignore` path.
 - `connect`: whether the service requires a connected git repository.
 - `templates`: starter repositories users can clone as a starting point.
+
+Set build targets with `workloads[].containers[].build: true`. Buildable services must mark at least one container.
 
 Each `build.templates[]` item supports:
 
@@ -317,7 +356,7 @@ Service endpoints exposed by the service.
 Each `endpoints[]` item supports:
 
 - `name`: required endpoint name.
-- `service`: optional service name override used by the endpoint.
+- `workload`: optional workload name. If omitted, Wodby targets the primary workload.
 - `main`: marks the main endpoint.
 - `ports`: required list of ports.
 
@@ -333,6 +372,9 @@ Only one endpoint can be main. If the service has a single endpoint, it becomes 
 multiple endpoints, mark one of them as main.
 
 Only one port per endpoint can be main. If no port is marked as main, the first port becomes main automatically.
+
+The endpoint backend service is resolved from the Helm chart based on the target workload and the endpoint ports. For
+multi-workload services, set `workload` explicitly when the endpoint should target a non-primary workload.
 
 ### `links`
 
@@ -520,22 +562,16 @@ The object supports:
 - `source`: optional Helm repository or OCI source URL.
 - `chart`: required chart name.
 - `version`: required chart version.
+- `imagePullSecrets`: optional Helm value path for image pull secrets. Defaults to `image.pullSecrets`.
 - `crds`: optional CRD file list.
-- `configurations`: required configuration mappings.
-- `values`: optional extra Helm values.
+- `values`: optional extra Helm values. `helm.values[].value` can use [built-in runtime tokens](../apps/tokens.md)
+  and service-defined tokens.
 
-Each `helm.configurations[]` item supports:
+Workload- and container-specific Helm mappings are defined under `workloads[].helm` and
+`workloads[].containers[].helm`.
 
-- `name`: optional label for the configuration block.
-- `container`: required container name.
-- `labels`: Helm value path for labels.
-- `annotations`: Helm value path for annotations.
-- `env`: Helm value path for object-style environment variables.
-- `envKV`: Helm value path for key/value-style environment variables.
-- `resources`: Helm value path for resources.
-- `volumes`: Helm value path for extra volumes.
-- `mounts`: Helm value path for volume mounts.
-- `sidecars`: Helm value path for sidecars.
+When a service is imported, Wodby validates configured Helm value paths against the chart's merged values and schema
+when they are available.
 
 ### `certs`
 
@@ -572,14 +608,28 @@ Each item supports:
 
 - `name`: required config name.
 - `title`: optional config title.
-- `config`: required default config file path.
-- `filepath`: optional mount path in the container.
-- `filename`: optional filename to create in a config map.
-- `helm`: optional Helm value path used for the config.
+- `config`: required default config content or a relative file path to load it from the repository.
+- `helm`: optional Helm value path that receives the resolved config content. Use this when the chart manages the
+  ConfigMap or Secret for the config itself.
+- `filepath`: optional mount path in the container. Wodby creates a ConfigMap and mounts it at this path.
+- `filename`: optional filename to create in a ConfigMap without mounting it. Use this when the chart expects an
+  existing ConfigMap name and mounts it on its own.
+- `processTokens`: optional boolean. When `true`, Wodby resolves template tokens inside the effective config content
+  before passing it to Helm or creating the ConfigMap. This is useful for generated configs such as Alloy or
+  Prometheus agent configs. See [app tokens](../apps/tokens.md) for the public built-in token list. Leave it disabled
+  for literal templates that use their own `{{ ... }}` syntax.
 - `version`: optional service version this config applies to.
 
-For a new config, specify one target with either `filepath`, `filename`, or `helm`. When overriding a config inherited
-from `from`, you can reuse the existing target and only replace what you need.
+For a new config, specify exactly one target with either `helm`, `filepath`, or `filename`. When overriding a config
+inherited from `from`, you can reuse the existing target and only replace what you need.
+
+Config delivery modes:
+
+- `helm`: Wodby passes the resolved config content into a Helm value. Use this when the chart itself creates and mounts
+  the ConfigMap or Secret.
+- `filepath`: Wodby creates a ConfigMap and mounts the file into the container at the given path.
+- `filename`: Wodby creates a ConfigMap entry but does not mount it. Use this when the chart expects the name of an
+  existing ConfigMap and mounts it on its own.
 
 ### `cron`
 

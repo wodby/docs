@@ -11,6 +11,15 @@ The two common patterns are:
 1. A service requires a connected Git repository as its build source.
 2. A service is still built in [CI/CD](../cicd/index.md), but does not need its own repository connection.
 
+Mark deployment targets explicitly with `workloads[].containers[].build: true`.
+
+- Buildable services must mark at least one container this way.
+- Non-buildable services must not define `build: true` on containers.
+- More than one container can be marked only when they are expected to receive the same built image.
+
+The target Helm paths are taken from `workloads[].containers[].helm.image` and default to `image.repository`,
+`image.tag`, `image.registry`, and `image.pullPolicy`.
+
 ### Build templates
 
 Build templates are starter repositories that customers can clone when creating a new project. Each template points to
@@ -23,3 +32,5 @@ Services can also specify a custom Dockerfile path in the same repository. Wodby
 ## Template
 
 Build information is defined under the [`build` section](template.md#build) in a service template.
+
+Container build targets are part of [service workloads](workloads.md).

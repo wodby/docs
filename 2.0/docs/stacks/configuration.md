@@ -62,6 +62,9 @@ Additionally, all non-external services can use [Variable](../integrations/varia
 
 Add service-specific environment variables from `Stack > Configure > Stack services > [Service] > Env vars`. These values apply only to the corresponding app service.
 
+Variables can be global for the whole service or scoped to a specific workload and container. If no target is set, the
+variable applies to all containers in that app service.
+
 An environment variable can be marked as secret. Secret values are stored in a Kubernetes secret and are not shown in the Wodby dashboard.
 
 You can also limit a variable to a specific environment type.
@@ -77,6 +80,8 @@ Helm values can be stored as secrets, and you can optionally limit them to a spe
 ### Resources
 
 For non-external services, configure resource requests and limits from `Stack > Configure > Stack services > [Service] > Resources`. These map to [Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#how-pods-with-resource-limits-are-run).
+
+Resources are set per workload and container defined by the service manifest.
 
 #### Request
 
@@ -110,6 +115,8 @@ Override service settings from `Stack > Configure > Stack services > [Service] >
 
 If a service defines [configs](../services/configs.md), the stack can provide default overrides for them. These
 defaults apply to app instances created from the stack revision and can still be overridden later at the app level.
+Stack overrides replace only the config content or disable the config. The service template still defines whether the
+config is delivered via Helm, mounted from a generated ConfigMap, or exposed by filename only.
 
 ### Cron
 

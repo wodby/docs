@@ -35,7 +35,7 @@ annotations:
     value: 64m
 
 helm:
-  - name: global.imagePullSecrets
+  - name: imagePullSecrets
     value:
       - registry-creds
 
@@ -53,18 +53,20 @@ services:
     tokens:
       - name: xdebug_ide_key
         value: phpstorm
-    containers:
-      - name: php
-        env:
-          - name: APP_ENV
-            value: prod
-        resources:
-          request:
-            cpu: 100
-            memory: 128
-          limit:
-            cpu: 500
-            memory: 512
+    workloads:
+      - name: main
+        containers:
+          - name: php
+            env:
+              - name: APP_ENV
+                value: prod
+            resources:
+              request:
+                cpu: 100
+                memory: 128
+              limit:
+                cpu: 500
+                memory: 512
     cron:
       - name: queue
         title: Queue runner
@@ -86,11 +88,13 @@ services:
     required: true
     depends:
       - php
-    containers:
-      - name: nginx
-        env:
-          - name: NGINX_VHOST_PRESET
-            value: php
+    workloads:
+      - name: main
+        containers:
+          - name: nginx
+            env:
+              - name: NGINX_VHOST_PRESET
+                value: php
     links:
       - name: backend
         service: php
@@ -158,7 +162,7 @@ Stack-wide Helm values. Use this to override values required by the service Helm
 
 ### `env[]`
 
-Used by top-level `env`, `services[].env`, and `services[].containers[].env`.
+Used by top-level `env`, `services[].env`, and `services[].workloads[].containers[].env`.
 
 - `name`: required environment variable name.
 - `value`: required string value. Use quoted strings in YAML.
@@ -277,15 +281,20 @@ Type: `array`.
 
 Service-specific Helm values.
 
-### `services[].containers`
+### `services[].workloads`
 
 Type: `array`.
 
-Per-container overrides for containers defined by the referenced service.
+Per-workload overrides for workloads defined by the referenced service.
 
 Each item supports:
 
-- `name`: required container name.
+- `name`: required workload name from the referenced service manifest.
+- `containers`: required list of container overrides for that workload.
+
+Each `services[].workloads[].containers[]` item supports:
+
+- `name`: required container name from the referenced service manifest.
 - `env`: optional container-specific environment variables.
 - `resources`: optional resource overrides.
 
@@ -297,6 +306,9 @@ Each item supports:
 - `limit.memory`
 
 CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
+
+Use the same workload names and container names declared by the referenced service. You only need to list the workloads
+and containers you want to override. Stack import validates these targets against the referenced service manifest.
 
 ### `services[].volumes`
 
@@ -348,6 +360,9 @@ Each item supports:
 - `name`: required config name from the referenced service.
 - `config`: required file path relative to the stack directory.
 - `disabled`: optional boolean.
+
+The stack override only replaces the config content or disables the config. The delivery target (`helm`, `filepath`, or
+`filename`) is still defined by the referenced service template.
 
 ### `services[].tokens`
 
