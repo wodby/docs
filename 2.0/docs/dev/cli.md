@@ -132,6 +132,8 @@ Useful flags:
 
 Deploys released images back to Wodby. If no services are specified, all released services are deployed.
 
+Deployments are transactional by default. If one of the app service deployments fails, Wodby rolls back the entire deployment.
+
 Useful flag:
 
 ```text
