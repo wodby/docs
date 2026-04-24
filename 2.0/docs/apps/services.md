@@ -214,6 +214,9 @@ The `Links` tab lets you change [links](../services/links.md) between app servic
 
 Links are usually defined in the stack, but app services can override them per app instance.
 
+Those overrides also affect deployment ordering for that app instance. If linked services are deployed together, Wodby
+deploys the linked target first.
+
 ## Volumes tab
 
 The `Volumes` tab shows service volumes and their app-level values.

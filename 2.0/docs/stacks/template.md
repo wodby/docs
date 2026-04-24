@@ -256,6 +256,9 @@ List of stack service names that this service depends on. Every referenced name 
 
 This affects deployment order: a service is deployed after its dependencies and deleted before them.
 
+Wodby also derives deploy-time ordering from the current service links in an app instance. Use `depends` when you need
+explicit ordering even when no link exists between the services.
+
 ### `services[].options`
 
 Type: `array`.
@@ -333,6 +336,9 @@ Each item supports:
 - `service`: required target stack service name.
 
 Required service links must be satisfied in the stack definition.
+
+When both linked services are part of the same app deployment, Wodby deploys the linked target service first. App-level
+link overrides can change that order for a specific app instance.
 
 ### `services[].cron`
 

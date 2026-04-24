@@ -2,6 +2,9 @@
 
 Deployments can target all services in an app instance or only selected services.
 
+Within a deployment, Wodby orders services using both explicit stack `depends` rules and the current links between app
+services. If two linked services are deployed together, the linked target service is deployed first.
+
 During the first deployment, Wodby deploys all non-buildable services immediately. Buildable services usually leave the app instance in `awaiting` until a deployment is triggered with build information from a [CI system](../cicd/index.md).
 
 Every deployment is associated with a specific stack revision of the app instance.
@@ -29,6 +32,8 @@ In that flow you can:
 - force deployment even when manifests have not changed
 - disable post-deployment scripts for services that provide them
 - choose which successful build to deploy for buildable services, as long as the build belongs to the same stack revision as the current app instance
+
+If you deploy only a subset of services, Wodby applies that ordering only inside the selected set.
 
 ## Needs redeploy
 
