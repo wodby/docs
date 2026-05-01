@@ -15,6 +15,8 @@ Organization members have one of the following roles:
 - **Owners** have full access to all resources and billing
 - **Admins** have full access to all resources but not billing
 - **Members** have access to resources in projects they are added to directly or through teams
+- **Support** users have view-only support access across the organization and billing view access
+- **Robot** users are internal automation users and are not assigned to teams or projects
 
 In the dashboard, organization-level administration pages are intended for owners and admins. Members typically work from project-scoped areas such as apps, Kubernetes, databases, integrations, stacks, services, providers, and tasks.
 

@@ -8,7 +8,7 @@ You use projects to:
 - control who can see or change those resources
 - keep environments or teams separated inside the same organization
 
-Most resources are created in a single project first. Some resource types can later be shared with additional projects when needed.
+Resources can be project-owned or organization-owned. Project-owned resources have one owner project and can be shared with additional projects when needed. Organization-owned resources can also be shared to projects so regular project members can use them.
 
 ## Project pages
 
@@ -28,7 +28,7 @@ The `Resources` page can include:
 - services
 - providers
 
-If a resource is shared into the project as read-only, the project resource list shows that as `Read only`.
+Shared resources can appear here even when they are owned by another project or by the organization.
 
 ## Creating a project
 
@@ -63,9 +63,11 @@ Access is granted per project, either:
 
 Project roles are:
 
-- `Read` to view the project and its resources
-- `Write` to modify resources inside the project
+- `Read` to view the project and use resources visible in it
+- `Write` to create and modify resources inside the project
 - `Admin` to manage the project itself
+
+Teams can receive `Read` or `Write` project roles. Project `Admin` is granted directly to specific users.
 
 See [Access control](access-control.md) for the full role model.
 
@@ -75,6 +77,7 @@ Projects are also resource boundaries.
 
 - Resources from one project are not automatically available in another.
 - Cross-project references are not allowed unless the resource is explicitly shared to the target project.
+- Organization-owned resources are visible to regular project members only when shared to one of their projects.
 - For example, an app cannot use a cluster, database, integration, service, stack, or provider from another project unless that resource is visible in the app's project context.
 
 See [Sharing](sharing.md) for how cross-project visibility works in practice.

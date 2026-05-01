@@ -78,4 +78,6 @@ If a stack was created from a catalog entry, it has an origin. You can sync it w
 
 ## Sharing
 
-A stack belongs to at least one project. It can also be shared with other projects in either read-only or writable mode.
+A stack can be project-owned or organization-owned. Sharing makes the stack visible and usable in additional projects without changing who can modify the stack itself.
+
+See [Sharing](../sharing.md) and [Access control](../access-control.md) for the full ownership and permission model.

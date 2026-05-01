@@ -13,6 +13,8 @@ Teams have two roles:
 
 Team leaders can view and update the teams they lead. Organization owners and admins can manage all teams, and only they can delete teams.
 
+Team leaders can manage regular team members. They cannot add, remove, promote, or demote other team leaders unless they also have an organization owner or admin role.
+
 ## How teams are used
 
 Teams do not replace [project access](access-control.md). Instead, they help you assign project access at scale.
@@ -22,9 +24,11 @@ Typical workflow:
 1. Create a team such as `Developers`, `Support`, or `Marketing`.
 2. Add organization members to that team.
 3. Add the team to one or more [projects](projects.md).
-4. Choose the appropriate project role for that team, such as `Read`, `Write`, or `Admin`.
+4. Choose the appropriate project role for that team, either `Read` or `Write`.
 
 A user can belong to multiple teams, and those teams can be added to different projects.
+
+Teams cannot receive the project `Admin` role. Project administration is granted directly to specific organization members.
 
 ## Teams and direct access
 

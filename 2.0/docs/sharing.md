@@ -1,64 +1,81 @@
 # Sharing
 
-Projects isolate resources by default. When you need to reuse a resource in another project, you share it to that project explicitly.
+Projects isolate resources by default. Sharing is how a resource becomes visible and usable outside its owner scope.
 
-This is the supported way to work across project boundaries.
+Sharing works together with [access control](access-control.md):
+
+- ownership decides who can modify a resource
+- sharing decides where the resource can be seen and used
 
 ## What sharing does
 
-Sharing makes a resource visible in one or more additional projects without moving ownership out of the original project.
+Sharing makes a resource available in one or more projects without moving ownership.
 
 This is useful when, for example:
 
-- several projects should use the same Kubernetes cluster
-- one project should consume a database owned by another project
-- a shared provider or integration should be available to multiple teams
+- several projects should deploy apps to the same Kubernetes cluster
+- one project should use an integration managed by another project or by the organization
+- multiple projects should use the same stack, service, provider, or database
+- an organization-owned resource should be available only to selected projects
 
-## How sharing is configured
+## Ownership scopes
 
-For supported resource types, open the resource and go to its `Sharing` screen.
+A share never changes the resource owner.
 
-Each target project has two controls:
-
-- `Access` makes the resource visible in that project
-- `Writable` removes the read-only restriction for that project
-
-If you enable `Writable`, Wodby automatically enables `Access`. If you disable `Access`, the share is removed.
-
-## Current dashboard support
-
-| Resource | Sharing in dashboard | Notes |
+| Ownership scope | Who can modify the resource | Who can read/use it |
 | --- | --- | --- |
-| Kubernetes clusters | Yes | Can be shared per project as read-only or writable |
-| Databases | Yes | Can be shared per project as read-only or writable |
-| Integrations | Yes | Can be shared per project as read-only or writable |
-| Services | Yes | Sharing is available only on the latest revision |
-| Stacks | Yes | Sharing is available only on the latest revision |
-| Providers | Yes | Sharing is available only for org-owned providers |
-| Apps | No dedicated sharing screen | Apps are project-scoped, but the dashboard does not currently expose a dedicated app sharing tab |
+| Organization-owned | Organization owners and admins | Organization owners, admins, support users, and users in shared projects |
+| Project-owned | Users with `Write` or `Admin` access to the owner project, plus organization owners and admins | Users who can access the owner project or any shared project |
 
-## Read-only vs writable
+Project shares grant visibility and use. They do not grant management rights over the shared resource.
 
-Read-only sharing is strict.
+## Read/use access
 
-- The resource appears in the target project.
-- Users in the target project can select or reference it where the workflow allows.
-- They cannot modify the shared resource itself.
-- This read-only restriction still applies even if the user is a project admin in the target project.
+Read access to a shared resource means the resource can be selected or referenced by supported workflows.
 
-Writable sharing removes that restriction for the target project.
+Examples:
+
+- a shared cluster can be selected as an app deployment target
+- a shared stack can be used to create an app
+- a shared integration can be attached to an app service
+- a shared service, provider, or database can be used where the resource type is supported
+
+The user still needs write access to the target project or target app they are changing. Sharing the selected resource does not grant permission to create or modify other objects.
+
+## What sharing does not do
+
+Sharing does not:
+
+- transfer ownership
+- grant project admin access
+- allow the target project to modify an organization-owned resource
+- allow the target project to modify a project-owned resource owned by another project
+- bypass resource-specific compatibility, status, provider, or type checks
+
+## Supported resource types
+
+The ACL model supports ownership and sharing for:
+
+- apps
+- Kubernetes clusters
+- databases
+- integrations
+- providers
+- services
+- stacks
+
+Dashboard screens may expose these controls in different places depending on the resource type.
 
 ## Where shared resources appear
 
-Shared resources appear in the target project's `Resources` view. That page also shows whether the share is read-only.
+Shared resources appear in the target project's `Resources` view and in resource selectors where the workflow supports that resource type.
 
-Once visible in the target project, the resource can be used by project-aware workflows there, such as app deployment or service configuration, subject to normal compatibility rules.
+If a resource from Project A is missing while you work in Project B, check whether:
 
-## Practical rule
-
-If a resource from Project A is missing while you work in Project B, the first thing to check is whether that resource has been shared to Project B.
-
-Without that share, cross-project references are not available.
+- the resource is shared to Project B
+- you have access to Project B
+- the resource is in a usable status
+- the resource type is compatible with the workflow
 
 ## Related pages
 
