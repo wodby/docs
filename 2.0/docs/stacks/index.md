@@ -78,6 +78,6 @@ If a stack was created from a catalog entry, it has an origin. You can sync it w
 
 ## Sharing
 
-A stack can be project-owned or organization-owned. Sharing makes the stack visible and usable in additional projects, and a `Modify/Delete` share can also grant write access without changing the owner.
+A stack can be project-owned or organization-owned. Sharing makes the stack visible and usable in additional projects. A `Modify/Delete` share marks the project-stack link as write-capable where supported, without changing the owner.
 
 See [Sharing](../sharing.md) and [Access control](../access-control.md) for the full ownership and permission model.

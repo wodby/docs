@@ -1,11 +1,11 @@
 # Sharing
 
-Projects isolate resources by default. Sharing is how a resource becomes visible, usable, or writable outside its owner scope.
+Projects isolate resources by default. Sharing is how a resource becomes visible or usable outside its owner scope.
 
 Sharing works together with [access control](access-control.md):
 
-- ownership decides who can modify a resource
-- sharing decides where the resource can be seen, used, modified, or deleted
+- ownership decides who can directly modify or delete a resource
+- sharing decides where the resource can be seen and used, and whether the project-resource link is read-only or write-capable
 
 ## What sharing does
 
@@ -17,18 +17,18 @@ This is useful when, for example:
 - one project should use an integration managed by another project or by the organization
 - multiple projects should use the same stack, service, provider, or database
 - an organization-owned resource should be available only to selected projects
-- a platform team should let another project modify a shared resource without transferring ownership
+- a platform team should let another project use a shared resource without transferring ownership
 
 ## Ownership scopes
 
 A share never changes the resource owner.
 
-| Ownership scope | Who can modify/delete the resource | Who can read/use it | Who can change ownership/sharing |
+| Ownership scope | Who can directly modify/delete the resource | Who can read/use it | Who can change ownership/sharing |
 | --- | --- | --- | --- |
-| Organization-owned | Organization owners/admins, and users with write-level access in projects that have `Modify/Delete` access | Organization owners, admins, support users, and users in shared projects | Organization owners and admins |
-| Project-owned | Users with `Write` or `Admin` access to the owner project, users with write-level access in projects that have `Modify/Delete` access, plus organization owners/admins | Users who can access the owner project or any shared project | Organization owners and admins |
+| Organization-owned | Organization owners/admins | Organization owners, admins, support users, and users in shared projects | Organization owners/admins |
+| Project-owned | Users with `Write` or `Admin` access to the owner project, plus organization owners/admins | Users who can access the owner project or any shared project | Organization owners/admins. If the resource remains project-owned, users with owner-scope write access can update sharing or owner project when they also have project `Admin` access to every affected project |
 
-Project shares do not transfer ownership and do not grant project administration rights.
+Project shares do not transfer ownership and do not grant project administration rights. Changing any resource to organization ownership requires organization owner/admin access.
 
 ## Project access levels
 
@@ -37,9 +37,9 @@ In the dashboard sharing form, project access is controlled with two columns:
 | Access level | Meaning |
 | --- | --- |
 | `Read/Use` | Users in the project can view, select, or reference the resource in supported workflows. |
-| `Modify/Delete` | Users with write-level access in the project can modify or delete the resource. This also includes read/use access. |
+| `Modify/Delete` | Includes `Read/Use` and marks the project-resource link as write-capable for workflows that check project-resource access. Users still need write-level access in that project. |
 
-Neither access level allows the target project to change the resource owner or sharing settings.
+Neither access level transfers ownership. A `Modify/Delete` share to a non-owner project does not by itself authorize direct resource update/delete mutations or allow the target project to change the resource owner or sharing settings.
 
 ## Read/use access
 
@@ -60,6 +60,7 @@ Sharing does not:
 
 - transfer ownership
 - grant project admin access
+- authorize direct resource update/delete mutations from a non-owner project
 - allow the target project to change ownership or sharing
 - let project members bypass their project role; `Modify/Delete` still requires write-level access in that project
 - bypass resource-specific compatibility, status, provider, or type checks
@@ -85,7 +86,7 @@ Open the resource and go to `Sharing`.
 The `Sharing settings` card has two areas:
 
 - `Ownership` controls the resource owner.
-- `Project access` controls which projects can use or modify the resource.
+- `Project access` controls which projects can use the resource, and whether each project-resource link is read-only or write-capable.
 
 In `Ownership`, the `Owner` field can be:
 
@@ -94,10 +95,10 @@ In `Ownership`, the `Owner` field can be:
 
 When a resource is project-owned, the owner project is always included in project access with `Modify/Delete` access. In the dashboard table it is marked with an `Owner` tag.
 
-In `Project access`, enable:
+In `Project access`, choose:
 
 - `Read/Use` when the project should be able to see and select the resource
-- `Modify/Delete` when the project should also be able to modify or delete the resource
+- `Modify/Delete` when the project-resource link should be write-capable where supported
 
 Click `Update` to save the owner and access list.
 

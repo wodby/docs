@@ -28,7 +28,7 @@ The `Resources` page can include:
 - services
 - providers
 
-Shared resources can appear here even when they are owned by another project or by the organization. Depending on the share level, the project may have `Read/Use` access only or `Modify/Delete` access.
+Shared resources can appear here even when they are owned by another project or by the organization. Depending on the share level, the project may have `Read/Use` or `Modify/Delete` access.
 
 ## Creating a project
 
@@ -77,7 +77,8 @@ Projects are also resource boundaries.
 
 - Resources from one project are not automatically available in another.
 - Cross-project references are not allowed unless the resource is explicitly shared to the target project.
-- Cross-project changes require a `Modify/Delete` share and write-level access in the target project.
+- Write-capable project-resource workflows require a `Modify/Delete` share and write-level access in the target project where that workflow supports shared-resource writes.
+- Direct resource update/delete operations still follow the resource owner scope.
 - Organization-owned resources are visible to regular project members only when shared to one of their projects.
 - For example, an app cannot use a cluster, database, integration, service, stack, or provider from another project unless that resource is visible in the app's project context.
 

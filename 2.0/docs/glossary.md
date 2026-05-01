@@ -62,7 +62,7 @@ Wodby's definition of how to work with a third-party service, including fields, 
 
 ## Resource owner
 
-The organization or project that owns a resource. The owner determines the default write boundary, while sharing controls which other projects can read/use or modify/delete the resource.
+The organization or project that owns a resource. The owner determines the direct write/delete boundary, while sharing controls which other projects can read or use the resource.
 
 ## Service
 
