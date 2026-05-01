@@ -99,17 +99,16 @@ From there, organization owners/admins and project admins can:
 
 Wodby uses the same basic permission meanings across resource types.
 
-| Permission               | Meaning                                                                | Typical requirement                                                                |
-|--------------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| Read/use                 | View, select, or reference an existing resource in supported workflows | Project `Read`, a resource share to an accessible project, or org-wide view access |
-| Create in project        | Create a new project-owned resource                                    | Project `Write` or `Admin`, or organization owner/admin                            |
-| Create in organization   | Create a new organization-owned resource                               | Organization owner/admin                                                           |
-| Modify                   | Change resource settings or mutable configuration                      | Resource owner write access, or organization owner/admin                           |
-| Delete                   | Remove the resource                                                    | Same owner-level access as modify, plus resource-specific dependency checks        |
-| Share                    | Change ownership scope or project shares                               | Same owner-level access as modify                                                  |
-| Manage project           | Rename, delete, or manage project access                               | Project `Admin`, or organization owner/admin                                       |
-| Manage organization/team | Manage org settings, teams, and team leaders                           | Organization owner/admin, except limited team-leader member management             |
-| Manage org members       | Invite, change roles, or remove organization members                   | Owners can manage owners/admins/members. Admins can manage members only            |
+| Permission               | Meaning                                                                | Typical requirement                                                                        |
+|--------------------------|------------------------------------------------------------------------|--------------------------------------------------------------------------------------------|
+| Read/use                 | View, select, or reference an existing resource in supported workflows | Project `Read`, a `Read/Use` or `Modify/Delete` resource share, or org-wide view access     |
+| Create in project        | Create a new project-owned resource                                    | Project `Write` or `Admin`, or organization owner/admin                                    |
+| Create in organization   | Create a new organization-owned resource                               | Organization owner/admin                                                                   |
+| Modify/delete            | Change or remove a resource                                            | Resource write access, a `Modify/Delete` share with project write access, or org owner/admin |
+| Ownership & sharing      | Change the resource owner or project access list                       | Organization owner/admin                                                                   |
+| Manage project           | Rename, delete, or manage project access                               | Project `Admin`, or organization owner/admin                                               |
+| Manage organization/team | Manage org settings, teams, and team leaders                           | Organization owner/admin, except limited team-leader member management                     |
+| Manage org members       | Invite, change roles, or remove organization members                   | Owners can manage owners/admins/members. Admins can manage members only                    |
 
 ## What read means
 
@@ -150,27 +149,29 @@ Access rules:
 
 | Action              | Allowed users                                                                                             |
 |---------------------|-----------------------------------------------------------------------------------------------------------|
-| Read/use            | Organization owners, admins, support users, or users who can access a project the resource is shared with |
-| Modify/delete/share | Organization owners and admins                                                                            |
+| Read/use            | Organization owners, admins, support users, or users who can access a project with `Read/Use` or `Modify/Delete` access |
+| Modify/delete       | Organization owners/admins, or users with `Write`/`Admin` access to a project with `Modify/Delete` access |
+| Ownership & sharing | Organization owners and admins                                                                            |
 
 Regular organization members do not automatically see organization-owned resources. They can see and use an organization-owned resource only when it is shared with a project they can access.
 
 ### Project-owned resources
 
-Project-owned resources have one owner project. The owner project controls write access.
+Project-owned resources have one owner project. The owner project always has write access, and additional projects can receive either read/use or modify/delete access through sharing.
 
 Access rules:
 
-| Action              | Allowed users                                                                                  |
-|---------------------|------------------------------------------------------------------------------------------------|
-| Read/use            | Users who can access the owner project or any project the resource is shared with              |
-| Modify/delete/share | Users with `Write` or `Admin` access to the owner project, plus organization owners and admins |
+| Action              | Allowed users                                                                                              |
+|---------------------|------------------------------------------------------------------------------------------------------------|
+| Read/use            | Users who can access the owner project or a project with `Read/Use` or `Modify/Delete` access              |
+| Modify/delete       | Users with `Write` or `Admin` access to the owner project or a project with `Modify/Delete` access, plus organization owners/admins |
+| Ownership & sharing | Organization owners and admins                                                                             |
 
-Sharing a project-owned resource to another project grants visibility and use in that target project. It does not move ownership and does not let the target project manage the resource.
+Sharing a project-owned resource to another project does not move ownership. A `Read/Use` share grants visibility and use only. A `Modify/Delete` share grants write/use access to users who already have write-level access in the target project, but it still does not allow that project to change ownership or sharing.
 
 ## Sharing
 
-Sharing makes a resource visible and usable outside its owner scope.
+Sharing makes a resource visible, usable, or writable outside its owner scope.
 
 Use sharing when:
 
@@ -181,10 +182,12 @@ Use sharing when:
 
 Sharing does not grant project administration rights and does not transfer ownership.
 
-The owner still controls modifications:
+Project access entries have two access levels:
 
-- organization-owned resources are modified by organization owners/admins
-- project-owned resources are modified by users with write/admin access to the owner project
+- `Read/Use` lets the target project view, select, or reference the resource.
+- `Modify/Delete` also lets users with write-level access in the target project modify or delete the resource.
+
+Only organization owners and admins can change the resource owner or project access list.
 
 See [Sharing](sharing.md) for the user-facing sharing workflow.
 
@@ -201,9 +204,11 @@ Organization-scoped tasks can be read by organization owners, admins, and suppor
 
 ## Apps and app instances
 
-Apps are created in a project. Creating an app requires write-level access in the target project.
+Apps can be organization-owned or project-owned. In the dashboard, the app creation `Owner` field accepts either `Organization <organization>` or `Project <project>`. Creating an organization-owned app requires organization owner/admin access. Creating a project-owned app requires write/admin access in the owner project, or organization owner/admin access.
 
-During app creation, referenced resources such as clusters, stacks, integrations, services, providers, and databases generally require read/use access, not modify access. This is why a shared cluster can be a valid deployment target for a user who has write access to the app's project.
+During app creation, referenced resources such as clusters, stacks, integrations, services, providers, and databases generally require read/use access, not modify access. This is why a shared cluster can be a valid deployment target without granting cluster modify/delete access.
+
+App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
 
 Changing an existing app, app instance, app service, deployment, build source, environment variables, tokens, annotations, domains, ports, auth settings, and similar app-owned configuration requires modify access to the app or app instance.
 
@@ -214,11 +219,12 @@ Changing an existing app, app instance, app service, deployment, build source, e
 Project Platform owns a Kubernetes cluster. Project Web can read/use that cluster through a share.
 
 - A Project Web writer can deploy an app from Project Web to the shared cluster.
-- The same user cannot scale, delete, or change sharing for the cluster unless they also have write/admin access to the owner project or organization admin/owner access.
+- The same user cannot scale or delete the cluster unless Project Web has `Modify/Delete` access to the cluster or the user also has write/admin access to the owner project or organization admin/owner access.
+- The same user cannot change ownership or sharing unless they are an organization owner or admin.
 
 ### Organization-owned integration
 
-An organization admin creates a GitHub integration at organization scope and shares it with Project API.
+An organization admin creates a GitHub integration at organization scope and shares it with Project API as `Read/Use`.
 
 - Project API users can select the integration in supported workflows.
 - Only organization owners and admins can modify or delete the integration.

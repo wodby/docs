@@ -20,7 +20,7 @@ For more details, see the official [K3S installation requirements](https://docs.
 ## Connect server flow
 
 1. Open `Kubernetes > Connect server` in the dashboard.
-2. Select the project where the cluster should live.
+2. Select the cluster `Owner`. Choose `Organization <organization>` for an organization-owned cluster or `Project <project>` for a project-owned cluster.
 3. Enter the cluster name and title.
 4. Decide whether to leave `Enable monitoring` turned on. It is enabled by default.
 5. Create the cluster.

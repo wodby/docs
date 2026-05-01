@@ -35,6 +35,8 @@ Each instance has its own:
 
 All instances of the same app share the same stack, but different instances can run on different clusters and different stack revisions.
 
+App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
+
 You add or remove instances from `Apps > [App] > Instances`.
 
 ## Related pages

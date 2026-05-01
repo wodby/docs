@@ -1,6 +1,6 @@
 # Integrations
 
-Integrations are reusable connections between Wodby and third-party services. You create an integration from a [provider](../providers/index.md), assign it to one or more projects, and then use it to create or connect resources in Wodby.
+Integrations are reusable connections between Wodby and third-party services. You create an integration from a [provider](../providers/index.md), choose an owner, and then use sharing when the integration should be available to additional projects.
 
 An integration can represent a cloud account, a Git provider connection, an SMTP relay, a registry account, a VPN integration, or a set of provider-managed environment variables.
 
@@ -11,6 +11,8 @@ Use integrations when:
 - Wodby needs to connect to an external account or service on your behalf
 - you want to reuse the same credentials or connection across multiple apps or projects
 - you want provider-backed environment variables instead of repeating raw values manually
+
+In the dashboard, the integration creation form has an `Owner` selector. Choose `Organization <organization>` for an organization-owned integration or `Project <project>` for a project-owned integration. Use the integration's `Sharing` page later when other projects need `Read/Use` or `Modify/Delete` access.
 
 If you are unsure about the difference between providers and integrations, start with [Provider vs integration](providers-vs-integrations.md).
 

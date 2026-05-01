@@ -22,8 +22,9 @@ The usual flow is:
 
 1. choose a provider
 2. create an integration from that provider
-3. assign the integration to one or more projects
-4. use that integration from Kubernetes, databases, stacks, or app services
+3. choose whether the integration is owned by the organization or by a project
+4. share the integration with additional projects when they need access
+5. use that integration from Kubernetes, databases, stacks, or app services
 
 ## Provider
 

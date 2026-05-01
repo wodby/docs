@@ -10,6 +10,13 @@ Wodby can deploy your applications to managed Kubernetes clusters in supported c
 
 To create a managed cluster, first connect your cloud account to Wodby by creating an integration of type `Kubernetes`.
 
+In the cluster creation form, choose an `Owner`:
+
+- `Organization <organization>` creates an organization-owned cluster
+- `Project <project>` creates a project-owned cluster
+
+Use the cluster `Sharing` page later if other projects need `Read/Use` or `Modify/Delete` access.
+
 When you delete a managed cluster from Wodby, Wodby also deletes it in the cloud provider account.
 
 !!! warning "Do not modify your cluster from cloud provider panel"

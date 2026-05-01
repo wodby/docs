@@ -60,9 +60,17 @@ The main resource and access boundary inside an organization.
 
 Wodby's definition of how to work with a third-party service, including fields, kinds, and exposed variables.
 
+## Resource owner
+
+The organization or project that owns a resource. The owner determines the default write boundary, while sharing controls which other projects can read/use or modify/delete the resource.
+
 ## Service
 
 Wodby's representation of one piece of software, a Helm-based workload, or a workflow. Most services deploy containers; external services represent software that runs outside Wodby.
+
+## Sharing
+
+The project access list for a resource. Sharing can grant `Read/Use` or `Modify/Delete` access without changing the resource owner.
 
 ## Stack
 

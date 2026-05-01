@@ -9,7 +9,7 @@ Databases are first-class resources in Wodby. They give you a shared place to ma
 - [backups](backups.md)
 - [imports](imports.md)
 
-A database is a shareable entity and can be shared across multiple projects.
+A database can be project-owned or organization-owned. Use the database `Sharing` page to make it available to additional projects with either `Read/Use` or `Modify/Delete` access.
 
 A database also has an [environment](../apps/env.md). For container-based databases created from an app, the environment usually matches the app instance environment.
 

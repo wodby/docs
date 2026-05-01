@@ -52,7 +52,9 @@ There are 5 steps of creating a new application:
 
 ### Step 1
 
-- Select a [project](../projects.md) where you want to place your new application
+- Select the app `Owner`.
+  - Choose `Organization <organization>` to create an organization-owned app.
+  - Choose `Project <project>` to create a project-owned app.
 - Select a stack
 - Optionally, if the stack has buildable services:
   - choose your [CI system](../cicd/index.md) ([Wodby CI](../cicd/wodby-ci.md) by default)

@@ -29,6 +29,8 @@ Most providers shown in the dashboard are built in and maintained by Wodby. Thei
 
 If you only need to inject environment variables and there is no built-in provider for that service, you can create your own variable provider from `Providers > New variable provider` in the dashboard.
 
+The new variable provider form has an `Owner` selector. Choose `Organization <organization>` for an organization-owned provider or `Project <project>` for a project-owned provider.
+
 Custom variable providers are useful when:
 
 - you need a provider that Wodby does not ship yet
