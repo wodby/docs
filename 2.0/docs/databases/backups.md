@@ -26,7 +26,17 @@ Database presets can be scoped to:
 - any DB in the database, or one specific DB
 - if the database exposes named backup types, any backup type or one specific backup type
 
-You can also use organization-wide presets created from `Organization > Backups > Backup Presets`.
+## Organization-wide presets
+
+Create organization-wide presets from `Organization > Backups > Backup Presets` when the same destination or schedule should be reused across several databases or apps.
+
+An organization-wide preset stores:
+
+- the storage integration
+- the destination bucket
+- an optional storage class override
+- an optional environment filter
+- an optional automatic schedule
 
 When you create a manual backup, the dashboard combines:
 
@@ -34,6 +44,8 @@ When you create a manual backup, the dashboard combines:
 - matching organization-wide presets for the same environment
 
 If only one preset matches the selected DB and backup type, the dashboard can prefill it automatically.
+
+Organization-wide presets are also available in [Application backups](../apps/backups.md).
 
 ## Automatic backups
 
@@ -51,5 +63,4 @@ Use override when one preset should win over other matching scheduled presets.
 
 ## Related pages
 
-- [Backups](../backups.md)
 - [Application backups](../apps/backups.md)

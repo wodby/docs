@@ -102,7 +102,7 @@ Wodby's managed Kubernetes offering, created from the new app flow instead of th
 
 ## Related pages
 
-- [Getting started](index.md)
+- [Get Started](index.md)
 - [Applications overview](apps/index.md)
 - [Kubernetes overview](kubernetes/index.md)
 - [Integrations overview](integrations/index.md)

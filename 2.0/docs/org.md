@@ -32,8 +32,8 @@ The organization area in the dashboard includes these sections:
 - `Projects` to create projects, review project resources, and manage project access
 - `Teams` to group users and reuse project access assignments
 - `Environments` to manage named environments used by apps and databases
-- `Backups` to manage organization-wide backup presets
-- `Certificates` to review issued certificates used by supported resources
+- `Backups` to create organization-wide backup presets reused in app and database backup flows
+- `Certificates` to review issued certificates used by application domains and supported database resources
 - `Billing` for subscription and plan-related operations
 - `Settings` to edit the organization itself
 
@@ -63,27 +63,11 @@ Environments are managed from `Organization > Environments`.
 
 They are shared organization-level definitions that apps, databases, and other workflows can reference. See [Environment](apps/env.md) for details.
 
-## Backups
-
-`Organization > Backups` focuses on organization-wide backup presets.
-
-Those presets can be reused in app and database backup flows, and can optionally be limited to a specific environment.
-
-See [Backups](backups.md) for the full model.
-
-## Certificates
-
-`Organization > Certificates` shows issued certificates and where they are used.
-
-Custom certificate upload is coming soon.
-
-See [Certificates](certs.md) for the current certificate model and planned direction.
-
 ## Billing
 
 Billing is managed at the organization level.
 
-See [Pricing & Billing](pricing.md) for the current plan model and Wodby Cloud billing notes.
+See [Billing](pricing.md) for the current plan model and Wodby Cloud billing notes.
 
 ## Settings
 
@@ -102,6 +86,4 @@ From there you can:
 - [Projects](projects.md)
 - [Teams](teams.md)
 - [Access control](access-control.md)
-- [Backups](backups.md)
-- [Certificates](certs.md)
-- [Pricing & Billing](pricing.md)
+- [Billing](pricing.md)

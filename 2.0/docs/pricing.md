@@ -1,4 +1,4 @@
-# Pricing & Billing
+# Billing
 
 ## Plans
 

@@ -32,7 +32,17 @@ App presets can be scoped to:
 - any app service in the app instance, or one specific app service
 - any backup type exposed by that service, or one specific backup type
 
-You can also use organization-wide presets created from `Organization > Backups > Backup Presets`.
+## Organization-wide presets
+
+Create organization-wide presets from `Organization > Backups > Backup Presets` when the same destination or schedule should be reused across several apps or databases.
+
+An organization-wide preset stores:
+
+- the storage integration
+- the destination bucket
+- an optional storage class override
+- an optional environment filter
+- an optional automatic schedule
 
 When you create a manual backup, the dashboard combines:
 
@@ -40,6 +50,8 @@ When you create a manual backup, the dashboard combines:
 - matching organization-wide presets for the same environment
 
 If only one preset matches the selected app service and backup type, the dashboard can prefill it automatically.
+
+Organization-wide presets are also available in [Database backups](../databases/backups.md).
 
 ## Automatic backups
 
@@ -57,5 +69,4 @@ Use override when one preset should win over other matching scheduled presets.
 
 ## Related pages
 
-- [Backups](../backups.md)
 - [Database backups](../databases/backups.md)

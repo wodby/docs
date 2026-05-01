@@ -1,4 +1,4 @@
-# Getting started
+# Get Started
 
 Wodby helps developers deploy and manage scalable web applications on Kubernetes with a workflow centered around
 stacks, integrations, and application instances.

@@ -59,7 +59,7 @@ Main domains are always primary. In practice:
 
 Wodby can issue TLS certificates for endpoint domains. For public docs, treat [Let's Encrypt](https://letsencrypt.org/) as the supported issuer for managed certificate flows today. Wodby automatically renews Let's Encrypt certificates before they expire.
 
-You can review certificates issued for your organization's applications from [Certificates](../certs.md).
+`Organization > Certificates` shows issued certificates, issuer, key type, status, issue date, renewal date, expiry date, and where each certificate is used. The list can include certificates used by application domains and supported database resources.
 
 Custom certificate upload is coming soon. The planned model is organization-level certificate management with endpoint-level selection.
 

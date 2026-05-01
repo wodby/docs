@@ -136,9 +136,11 @@ plugins:
         'integrations/type-registry.md': 'providers/registry.md'
         'integrations/type-smtp.md': 'providers/smtp.md'
         'integrations/type-vpn.md': 'providers/vpn.md'
+        'backups.md': 'apps/backups.md'
+        'certs.md': 'apps/endpoints.md'
 
 nav:
-  - Getting Started:
+  - Get Started:
       - Overview: index.md
       - Choose a Kubernetes option: kubernetes/choose-platform.md
       - App model: apps/app-vs-instance-vs-service.md
@@ -290,24 +292,22 @@ nav:
           - Stripe: providers/stripe.md
           - Telegram: providers/telegram.md
           - Twilio: providers/twilio.md
-  - Access & Billing:
-      - Organization: org.md
-      - Backups: backups.md
-      - Certificates: certs.md
+  - Org:
+      - Overview: org.md
       - Projects: projects.md
       - Teams: teams.md
       - Access control: access-control.md
       - Sharing: sharing.md
-      - User settings:
-          - Overview: user/index.md
-          - Account: user/account.md
-          - Emails: user/emails.md
-          - Security: user/security.md
-          - Identities: user/identities.md
-          - SSH keys: user/ssh-keys.md
-          - API keys: user/api-keys.md
-      - Pricing & Billing: pricing.md
-  - Development:
+      - Billing: pricing.md
+  - User:
+      - Overview: user/index.md
+      - Account: user/account.md
+      - Emails: user/emails.md
+      - Security: user/security.md
+      - Identities: user/identities.md
+      - SSH keys: user/ssh-keys.md
+      - API keys: user/api-keys.md
+  - Dev:
       - API: dev/api.md
       - API keys: dev/api-keys.md
       - CLI: dev/cli.md

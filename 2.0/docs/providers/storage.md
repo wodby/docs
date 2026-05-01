@@ -33,6 +33,5 @@ Wodby stores backup archives in the selected bucket or container. It does not us
 
 - [Integration types](../integrations/types.md)
 - [Providers overview](index.md)
-- [Backups](../backups.md)
 - [Application backups](../apps/backups.md)
 - [Database backups](../databases/backups.md)
