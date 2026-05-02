@@ -244,9 +244,12 @@ Default number of replicas for the stack service.
 
 Type: `boolean`.
 
-Marks the main service in the stack. Only one stack service should be main. Use it for the primary HTTP service.
+Marks the main service in the stack. Only one stack service can be main, and it must reference a service with HTTP
+ports. Use it for the primary HTTP service.
 
-If no service is marked as main, Wodby will automatically pick the first HTTP-capable service.
+If no service is marked as main, Wodby will automatically pick the first HTTP-capable service. The same fallback applies
+when a stack without a main service later gains an HTTP-capable service through the dashboard or Git sync. If the stack
+has no HTTP-capable services, no main service is required.
 
 ### `services[].depends`
 

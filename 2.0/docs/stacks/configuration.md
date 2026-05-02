@@ -42,10 +42,13 @@ use it.
 Each service in a stack can be configured under "[Stack] > Configure > Stack services > [Service]". A service can be
 enabled or disabled and marked as required or optional. Required services cannot be excluded during new app creation.
 
-Only one service should be marked as main. If that service has an HTTP endpoint, the app's main technical domain will
-target the main endpoint of the main app service.
+Only one HTTP-capable service can be marked as main. Services without HTTP endpoints cannot be main. The main stack
+service controls which app service receives the app instance's main technical domain, which targets the main endpoint of
+the main app service.
 
-If no service is marked as main, Wodby uses the first HTTP-capable service in the stack.
+If no service is marked as main and the stack has HTTP-capable services, Wodby uses the first HTTP-capable service in
+the stack. This fallback also applies when you add or sync an HTTP-capable service into a stack that currently has no
+main service. Stacks without HTTP-capable services can have no main service.
 
 ### Replicas
 
