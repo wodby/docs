@@ -11,25 +11,30 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Build docs
       env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}        
         WODBY_API_KEY: ${{ secrets.WODBY_API_KEY }}
         WODBY_INSTANCE_UUID: ${{ secrets.WODBY_INSTANCE_UUID }}
         CF_KEY: ${{ secrets.CF_KEY }}
         CF_EMAIL: ${{ secrets.CF_EMAIL }}
         CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+        VERSION: ${{ github.run_number }}
       run: |
         set -e
         wget -qO- https://api.wodby.com/api/v1/get/cli | sh
         wodby ci init "${WODBY_INSTANCE_UUID}"
 
+        echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+
         wodby ci run -i wodby/mkdocs -- \
           sh -c "mkdir sites && cd 1.0 && mkdocs build -d ../sites/1.0 && cd ../2.0 && mkdocs build -d ../sites/2.0"
 
-        wodby ci build --from ./sites --to /var/www/html/docs/
-        wodby ci release
-        wodby ci deploy
+        wodby ci build --dockerfile Dockerfile -t wodby/docs:${VERSION}
+        wodby ci release -t wodby/docs:${VERSION}
+        wodby ci deploy -t wodby/docs:${VERSION}
 
         curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
           -H "X-Auth-Email: ${CF_EMAIL}" \
