@@ -292,7 +292,7 @@ nav:
           - Stripe: providers/stripe.md
           - Telegram: providers/telegram.md
           - Twilio: providers/twilio.md
-  - Org:
+  - Organization:
       - Overview: org.md
       - Projects: projects.md
       - Teams: teams.md
@@ -307,7 +307,7 @@ nav:
       - Identities: user/identities.md
       - SSH keys: user/ssh-keys.md
       - API keys: user/api-keys.md
-  - Dev:
+  - Development:
       - API: dev/api.md
       - API keys: dev/api-keys.md
       - CLI: dev/cli.md
