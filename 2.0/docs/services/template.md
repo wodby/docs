@@ -743,6 +743,10 @@ Each item supports:
 Derivative names must start with the parent service name followed by a dash. For example, derivatives of `php` should
 use names like `php-sshd`.
 
+When a service inherits from another service with `from`, inherited derivative names are rewritten to use the child
+service name as the prefix. For example, if `drupal11-php` inherits from `php`, the inherited `php-sshd` derivative is
+named `drupal11-php-sshd`.
+
 Each `derivatives[].endpoints[]` item uses the same structure as `endpoints[]`.
 
 `derivatives[].helm` supports:

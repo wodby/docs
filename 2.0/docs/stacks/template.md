@@ -395,3 +395,7 @@ Each item supports:
 
 Only derivatives declared by the referenced service can be used here. Derivative names should follow the same naming
 rules as `services[].name`.
+
+If the referenced service inherits derivatives from another service, use the rewritten derivative name in `service`. For
+example, if `drupal11-php` inherits `php-sshd` from `php`, the stack derivative should reference
+`service: drupal11-php-sshd`. The `name` can still be a stack-local alias such as `sshd`.
