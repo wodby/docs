@@ -4,9 +4,11 @@ Wodby provides core cluster capabilities through infrastructure apps deployed du
 
 These infrastructure apps can include:
 
-- Ingress Nginx
+- Envoy Gateway
 - Monitoring
 - Proxy tunnel for secure connection to Kubernetes API
 - Additional controller applications (e.g. AWS Load Balancer controller for EKS cluster)
 
 Infrastructure apps follow the same general stack-and-version model as regular apps, so they can be upgraded and configured. Their configuration surface is narrower than a normal user application.
+
+New clusters use Envoy Gateway for public HTTP, HTTPS, TCP, and UDP entrypoints. Older clusters may still run Ingress Nginx until their cluster infrastructure is upgraded.

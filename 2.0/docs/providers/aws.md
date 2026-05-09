@@ -166,7 +166,7 @@ Wodby provides a native integration with Elastic Kubernetes Service.
 - EKS cluster we create always deployed with multi-az high availability in a chosen region
 - We create a CloudFormation stack to create a cluster's control plane, addons and node groups.
 - Micro and nano instance types forbidden due to the very low pod limit
-- We create a single load balancer (NLB) per cluster and deploy an Ingress Nginx controller to manage SSL certificates
+- We create a single load balancer (NLB) per cluster and deploy Envoy Gateway for public app entrypoints
 - Node disk size can be configured upon creation
 - We deploy a metrics server for the basic Wodby Kubernetes monitoring
 

@@ -31,8 +31,8 @@ tokens:
       regex: '[0-9a-z]{32}'
 
 annotations:
-  - name: nginx.ingress.kubernetes.io/proxy-body-size
-    value: 64m
+  - name: prometheus.io/scrape
+    value: "true"
 
 helm:
   - name: imagePullSecrets
@@ -150,7 +150,7 @@ Stack-wide tokens. Tokens can either store a fixed value or generate one from a 
 
 Type: `array`.
 
-Stack-wide annotations applied to deployed app services.
+Stack-wide annotations applied to deployed app services where the service template maps annotations into Kubernetes resources. Use app endpoint route settings for HTTP routing behavior.
 
 ### `helm`
 
@@ -188,6 +188,8 @@ Used by top-level `annotations`.
 - `name`: required annotation name.
 - `value`: required annotation value.
 - `envType`: optional environment type filter.
+
+Annotations are Kubernetes resource annotations. They are separate from [app endpoint route settings](../apps/endpoints.md#route-settings).
 
 ### `helm[]`
 

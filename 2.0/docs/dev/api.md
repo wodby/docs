@@ -33,7 +33,7 @@ The current REST API covers a focused subset of resources. At the time of writin
 - databases
 - integrations
 - backups
-- app domains
+- app routes
 - environments
 
 Example:

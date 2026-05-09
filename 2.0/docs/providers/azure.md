@@ -12,7 +12,7 @@ Wodby provides a native integration with Azure Kubernetes Service. We use deploy
 - AKS cluster we create always deployed with multi-az high availability in a chosen region
 - We set a limit of 50 pods per node by default
 - Since AKS cluster comes with a metrics server we use it for the basic Wodby kubernetes monitoring
-- We create a single load balancer per cluster and deploy an Ingress Nginx controller to manage SSL certificates
+- We create a single load balancer per cluster and deploy Envoy Gateway for public app entrypoints
 - We disable native Azure monitoring when creating a cluster
 
 We support the following regions:

@@ -25,7 +25,7 @@ Each instance has its own:
 
 - [Environment](env.md), which is a named Env with a fixed type such as `prod`, `staging`, or `dev`
 - [Stack](stack.md) revision
-- [Endpoints](endpoints.md) to configure domains and public ports
+- [Endpoints](endpoints.md) to configure HTTP routes and published ports
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has buildable services
 - [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
 - [App services](services.md) used to override stack configuration for this specific instance

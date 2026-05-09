@@ -650,7 +650,7 @@ Use standard five-field crontab syntax such as `0 * * * *`. Cron schedules canno
 
 Type: `array`.
 
-Service annotations.
+Service annotations. They are Kubernetes resource annotations where the service template maps annotations into Helm values. They are separate from [app endpoint route settings](../apps/endpoints.md#route-settings).
 
 Each item supports:
 

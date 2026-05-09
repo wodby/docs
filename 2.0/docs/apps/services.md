@@ -179,7 +179,7 @@ Wodby also adds system variables to every container:
 | `WODBY_INSTANCE_NAME`    | Machine name of the application instance                                                 |
 | `WODBY_ENVIRONMENT_NAME` | Name of the environment                                                                  |           
 | `WODBY_ENVIRONMENT_TYPE` | Type of the environment                                                                  |
-| `WODBY_HOSTS`            | List of domains from enabled HTTP routes                                                 |
+| `WODBY_HOSTS`            | List of hostnames from enabled HTTP routes                                               |
 | `WODBY_PRIMARY_HOST`     | Hostname from the enabled main app service with an HTTP route                            |
 | `WODBY_PRIMARY_URL`      | URL (`https` if certificate attached) of the enabled main app service with an HTTP route |
 

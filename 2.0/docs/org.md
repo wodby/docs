@@ -33,7 +33,7 @@ The organization area in the dashboard includes these sections:
 - `Teams` to group users and reuse project access assignments
 - `Environments` to manage named environments used by apps and databases
 - `Backups` to create organization-wide backup presets reused in app and database backup flows
-- `Certificates` to review issued certificates used by application domains and supported database resources
+- `Certificates` to review issued certificates used by application routes and supported database resources
 - `Billing` for subscription and plan-related operations
 - `Settings` to edit the organization itself
 

@@ -88,7 +88,7 @@ When enabled, Wodby replaces cron schedules with the latest stack configuration.
 
 ### Override main app service
 
-When enabled, Wodby changes the main app service to match the latest stack revision. This can trigger domain reassignment, certificate re-issuance, and possible downtime.
+When enabled, Wodby changes the main app service to match the latest stack revision. This can trigger route reassignment, certificate re-issuance, and possible downtime.
 
 ## Related pages
 

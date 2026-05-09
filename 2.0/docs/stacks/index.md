@@ -10,6 +10,16 @@ Stacks are versioned. Every change creates a new stack revision.
 
 The usual model is one stack per application. In some cases, multiple small similar apps may share a stack, but separate stacks are easier to evolve safely over time.
 
+## Creating Stacks
+
+You can create a stack in three ways:
+
+- Add a stack from the catalog, then customize it. Catalog stacks start from a curated stack definition and keep an origin, so you can later sync catalog-side changes into your customized stack.
+- Create a new stack from scratch. Use this when you want to choose services and defaults yourself in the dashboard instead of starting from a catalog stack.
+- Import a stack from a Git repository. The repository defines one or more custom stacks using a [stack template](template.md), with each stack described by `stack.yml` and optional multi-stack `index.yml`.
+
+After creation, all three paths produce regular versioned stacks. You can adjust their [configuration](configuration.md), add or remove stack services, and create apps from any available revision.
+
 ```mermaid
 flowchart TD
     subgraph APP["<div style='margin-top:10px; white-space: nowrap;'>App Instance (e.g. production)</div>"]

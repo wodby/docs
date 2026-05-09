@@ -49,7 +49,7 @@ The generated script performs the current bootstrap flow for you. It:
 
 After the script completes successfully, Wodby initializes the cluster and deploys the required infrastructure components.
 
-- Ingress Nginx is deployed for HTTP routing
+- Envoy Gateway is deployed for public HTTP, HTTPS, TCP, and UDP entrypoints
 - Monitoring components are deployed if you left monitoring enabled
 - The cluster moves out of `Awaiting` and eventually becomes ready for app deployments
 

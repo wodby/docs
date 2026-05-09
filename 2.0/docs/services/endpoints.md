@@ -3,12 +3,12 @@
 ## Overview
 
 Services that expose network access can define endpoints. An endpoint groups together one or more ports that belong to
-the same exposed workload. Wodby resolves the concrete Kubernetes Service from the Helm chart later. Domains are
+the same exposed workload. Wodby resolves the concrete Kubernetes Service from the Helm chart later. HTTP routes are
 attached at the app level.
 
 Supported port protocols are:
 
-1. `http` for web traffic and domains with TLS certificates
+1. `http` for web traffic and routes with TLS certificates
 2. `tcp` for generic TCP traffic
 3. `udp` for UDP traffic
 
@@ -19,7 +19,7 @@ One port per endpoint can be marked as main. If no port is marked as main, the f
 If a service defines a single endpoint, that endpoint becomes main automatically. If it defines multiple endpoints,
 mark one of them as main.
 
-When the main service in a stack has a main HTTP endpoint, Wodby attaches the app's main technical domain to the main
+When the main service in a stack has a main HTTP endpoint, Wodby attaches the app's main technical route to the main
 port of that endpoint.
 
 ## Template

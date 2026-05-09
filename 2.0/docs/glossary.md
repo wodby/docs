@@ -6,7 +6,7 @@ The top-level application object in Wodby. All app instances of the same app sha
 
 ## App instance
 
-One deployed copy of an app. Each app instance is assigned to an Environment (Env) and has its own services, domains, builds, and configuration.
+One deployed copy of an app. Each app instance is assigned to an Environment (Env) and has its own services, routes, builds, and configuration.
 
 ## App service
 
@@ -22,7 +22,7 @@ The temporary Wodby Cloud option for testing. Demo clusters and their applicatio
 
 ## Endpoint
 
-A network entry point exposed by an app service. In practice, endpoints back domains and ports.
+A network entry point exposed by an app service. In practice, endpoints back HTTP routes and published ports.
 
 ## Environment
 
@@ -36,9 +36,9 @@ A configured connection to a third-party service, created from a provider.
 
 A lightweight Kubernetes distribution used for self-hosted clusters connected from your own server.
 
-## Main domain
+## Main route
 
-The main domain for the whole app instance. The main domain is always also primary.
+The main HTTP route for the whole app instance. The main route is always also primary.
 
 ## Managed Kubernetes
 
@@ -48,9 +48,9 @@ A Kubernetes cluster created in your own cloud account through a supported provi
 
 The top-level workspace boundary for users, teams, projects, billing, and shared settings.
 
-## Primary domain
+## Primary route
 
-The default domain for a specific app service endpoint.
+The default HTTP route for a specific app service endpoint.
 
 ## Project
 
@@ -63,6 +63,10 @@ Wodby's definition of how to work with a third-party service, including fields, 
 ## Resource owner
 
 The organization or project that owns a resource. The owner determines the direct write/delete boundary, while sharing controls which other projects can read or use the resource.
+
+## Route
+
+An HTTP entrypoint for an app service endpoint. A route matches a hostname and path, then sends traffic to an app service endpoint or redirects the request.
 
 ## Service
 

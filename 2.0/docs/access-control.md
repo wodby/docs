@@ -212,7 +212,7 @@ During app creation, referenced resources such as clusters, stacks, integrations
 
 App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
 
-Changing an existing app, app instance, app service, deployment, build source, environment variables, tokens, annotations, domains, ports, auth settings, and similar app-owned configuration requires modify access to the app or app instance.
+Changing an existing app, app instance, app service, deployment, build source, environment variables, tokens, annotations, routes, ports, auth settings, and similar app-owned configuration requires modify access to the app or app instance.
 
 ## Practical examples
 

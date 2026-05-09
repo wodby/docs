@@ -13,7 +13,7 @@ Wodby provides integration with OVH Managed Kubernetes service.
 - We disable `AlwaysPullImages` plugin
 - We use the metrics server that comes by default for the basic Wodby kubernetes monitoring
 - Node disk cannot be configured upon creation
-- We create a single load balancer per cluster and deploy an Ingress Nginx controller to manage SSL certificates  
+- We create a single load balancer per cluster and deploy Envoy Gateway for public app entrypoints
 - You can choose a [billing option: hourly or monthly](#billing) 
 
 #### Supported regions

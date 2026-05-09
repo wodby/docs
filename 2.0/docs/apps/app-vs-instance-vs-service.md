@@ -62,7 +62,7 @@ An instance has its own:
 
 - cluster destination
 - environment
-- domains and ports
+- routes and ports
 - builds and deploys
 - backups and imports
 - cron schedules

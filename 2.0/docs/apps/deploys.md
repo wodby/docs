@@ -45,4 +45,4 @@ When app-service configuration changes, the app instance can be marked as `needs
 This means configuration has changed, but those changes have not yet been applied to the running deployment.
 
 !!! warning "Auto redeployment"
-    Some redeployments happen automatically. For example, when a domain certificate is renewed successfully, the related app services may be redeployed automatically.
+    Some redeployments happen automatically. For example, when a route certificate is renewed successfully, the related app services may be redeployed automatically.
