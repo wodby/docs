@@ -11,9 +11,7 @@ Teams have two roles:
 - `Member`
 - `Team leader`
 
-Team leaders can view and update the teams they lead. Organization owners and admins can manage all teams, and only they can delete teams.
-
-Team leaders can manage regular team members. They cannot add, remove, promote, or demote other team leaders unless they also have an organization owner or admin role.
+Team leaders can view the teams they lead. Organization owners and admins can create, update, and delete teams, including team membership and team leader changes.
 
 ## How teams are used
 

@@ -50,11 +50,9 @@ Team roles are:
 | Role          | Meaning                                                            |
 |---------------|--------------------------------------------------------------------|
 | `Member`      | Regular team member. Receives project access assigned to the team. |
-| `Team leader` | Can manage regular members in that team.                           |
+| `Team leader` | Can view that team. Receives project access assigned to the team.  |
 
-Team leaders can add and remove regular team members in teams they lead. They cannot add, remove, promote, or demote team leaders unless they also have an organization owner or admin role.
-
-Organization owners and admins can manage all teams and team leaders. Only organization owners and admins can delete teams.
+Organization owners and admins can create, update, and delete teams. They also manage team members and team leaders.
 
 Teams can be added to projects with `Read` or `Write` access. Teams cannot be assigned the project `Admin` role. Project administration is only granted directly to specific organization members.
 
@@ -107,7 +105,7 @@ Wodby uses the same basic permission meanings across resource types.
 | Modify/delete            | Change or remove the resource itself                                   | Organization owner/admin for organization-owned resources. Owner-project `Write` or `Admin`, or organization owner/admin, for project-owned resources |
 | Ownership & sharing      | Change the resource owner or project access list                       | See [Resource ownership](#resource-ownership). The requirement depends on whether the resource is organization-owned or project-owned                 |
 | Manage project           | Rename, delete, or manage project access                               | Project `Admin`, or organization owner/admin                                                                                                        |
-| Manage organization/team | Manage org settings, teams, and team leaders                           | Organization owner/admin, except limited team-leader member management                                                                              |
+| Manage organization/team | Manage org settings, teams, team members, and team leaders              | Organization owner/admin                                                                                                                           |
 | Manage org members       | Invite, change roles, or remove organization members                   | Owners can manage owners/admins/members. Admins can manage members only                                                                             |
 
 ## What read means
@@ -236,7 +234,7 @@ An organization admin creates a GitHub integration at organization scope and sha
 A `Developers` team is added to Project App with `Write`.
 
 - Team members can create and update resources inside Project App.
-- Team leaders can manage regular members in the `Developers` team.
+- Team leaders can view the `Developers` team, but organization owners/admins manage team membership.
 - The team cannot be project admin. Project admin must be granted directly to specific users.
 
 ## Related pages
