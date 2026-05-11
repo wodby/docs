@@ -407,7 +407,7 @@ Each item supports:
 - `readOnly`: optional boolean.
 - `link`: optional link name associated with this volume.
 - `optional`: optional boolean.
-- `path`: optional absolute mount path.
+- `path`: absolute mount path. Required when `shared` is `true` or `from` is set; optional for Helm-managed volumes that are not mounted directly by Wodby.
 - `from`: optional link name to reuse a volume from a linked service.
 - `size`: optional default size in GB. Minimum `1`.
 - `import`: optional ownership settings for imported files.
