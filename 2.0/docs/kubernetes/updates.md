@@ -4,7 +4,7 @@
 
 [Infrastructure apps](infrastructure.md) are managed with the same stack-and-version model as regular apps.
 
-When Wodby releases an update to one of the infrastructure services, a new infrastructure stack version becomes available and the cluster is marked as outdated. You can then upgrade the infrastructure app stack manually.
+When Wodby releases an update to one of the infrastructure services, a new infrastructure stack revision becomes available and the cluster is marked as outdated. You can then upgrade the infrastructure app instance to that stack revision manually.
 
 Infrastructure auto-updates are not available today.
 

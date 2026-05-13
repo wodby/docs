@@ -39,6 +39,9 @@ You can also limit a token to a specific environment type.
 A stack always includes specific service revisions. When a service publishes a new revision, the stack can be updated to
 use it.
 
+This is a stack update: Wodby updates the stack service revisions and creates a new stack revision. App instances that
+use the stack are upgraded to that revision separately.
+
 Each service in a stack can be configured under "[Stack] > Configure > Stack services > [Service]". A service can be
 enabled or disabled and marked as required or optional. Required services cannot be excluded during new app creation.
 

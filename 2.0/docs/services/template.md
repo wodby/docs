@@ -523,7 +523,7 @@ Allowed `type` values:
 
 - `button`
 - `output`
-- `post_upgrade`
+- `post_upgrade`: runs after an app instance is upgraded to a new stack revision
 - `post_deploy`
 - `post_deploy_once`
 

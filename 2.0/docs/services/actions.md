@@ -26,7 +26,7 @@ Same as `post_deploy`, but runs only during the first deployment. It can be limi
 
 ### `post_upgrade`
 
-Runs after a stack upgrade.
+Runs after an app instance is upgraded to a new stack revision.
 
 ### `output`
 
