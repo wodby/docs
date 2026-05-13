@@ -144,6 +144,7 @@ nav:
       - Overview: index.md
       - Choose a Kubernetes option: kubernetes/choose-platform.md
       - App model: apps/app-vs-instance-vs-service.md
+      - Naming rules: naming.md
       - Provider vs integration: integrations/providers-vs-integrations.md
       - Glossary: glossary.md
       - Tasks: tasks.md

@@ -18,6 +18,8 @@ Wodby supports managed databases through external cloud-database services connec
 
 This lets the app use the managed database while keeping the rest of the application inside the Wodby deployment flow.
 
+Managed database machine names are provider-facing. They must use lowercase letters, numbers, and dashes, start with a letter, end with a letter or number, and be 3 to 32 characters long.
+
 ## Place it near Kubernetes
 
 When creating a managed database, you can optionally associate it with a [Kubernetes cluster](../kubernetes/index.md).

@@ -116,6 +116,8 @@ Type: `string`. Required.
 
 Stack machine name. Use a lowercase slug with letters, numbers, and dashes.
 
+It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
+
 ### `title`
 
 Type: `string`. Required.
@@ -206,9 +208,9 @@ Used by top-level `helm`, `services[].helm`, and `services[].derivatives[].helm`
 
 Type: `string`. Required.
 
-Stack service machine name. It must be unique within the stack.
+Stack service machine name. It must be unique within the stack, including derivative stack services.
 
-Use lowercase letters, numbers, and dashes. The name must start with a letter and end with a letter or number.
+It must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names): lowercase letters, numbers, and dashes only; start with a letter; end with a letter or number; 63 characters or shorter.
 
 ### `services[].title`
 
@@ -297,12 +299,12 @@ Per-workload overrides for workloads defined by the referenced service.
 
 Each item supports:
 
-- `name`: required workload name from the referenced service manifest.
+- `name`: required workload name from the referenced service manifest. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `containers`: required list of container overrides for that workload.
 
 Each `services[].workloads[].containers[]` item supports:
 
-- `name`: required container name from the referenced service manifest.
+- `name`: required container name from the referenced service manifest. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `env`: optional container-specific environment variables.
 - `resources`: optional resource overrides.
 
@@ -326,7 +328,7 @@ Overrides sizes for volumes defined by the referenced service.
 
 Each item supports:
 
-- `name`: required service volume name.
+- `name`: required service volume name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `size`: required size in GB, minimum `1`.
 
 ### `services[].links`
@@ -368,7 +370,7 @@ Provides stack-specific file contents for configs defined by the referenced serv
 
 Each item supports:
 
-- `name`: required config name from the referenced service.
+- `name`: required config name from the referenced service. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `config`: required file path relative to the stack directory.
 - `disabled`: optional boolean.
 
@@ -395,8 +397,8 @@ Each item supports:
 - `env`: optional environment variables.
 - `helm`: optional Helm values.
 
-Only derivatives declared by the referenced service can be used here. Derivative names should follow the same naming
-rules as `services[].name`.
+Only derivatives declared by the referenced service can be used here. Derivative stack service names follow the same
+[Kubernetes service name rules](../naming.md#kubernetes-service-names) as `services[].name`.
 
 If the referenced service inherits derivatives from another service, use the rewritten derivative name in `service`. For
 example, if `drupal11-php` inherits `php-sshd` from `php`, the stack derivative should reference

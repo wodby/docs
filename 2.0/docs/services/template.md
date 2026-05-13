@@ -166,6 +166,7 @@ actions:
 - `external: true` is for services managed outside Wodby. External services cannot define `workloads`, `build`,
   `links`, `volumes`, `settings`, `env`, `configs`, `actions`, `certs`, `cron`, or `derivatives`.
 - Infrastructure services cannot be external and do not use `options`, `tokens`, or `imports`.
+- Kubernetes-facing names are validated during import and deployment. See [Naming rules](../naming.md) for service, workload, endpoint, port, volume, config, and generated resource name constraints.
 
 ## Shared values
 
@@ -211,7 +212,7 @@ Used by `links[].selectors` and `kubernetes.infrastructure[].selectors`.
 
 Type: `string`. Required.
 
-Service machine name. Use lowercase letters, numbers, and dashes.
+Service machine name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). If the service defines or inherits derivatives, use a name that starts with a letter so derivative names can satisfy the [Kubernetes service name rules](../naming.md#kubernetes-service-names).
 
 ### `type`
 
@@ -355,14 +356,14 @@ Service endpoints exposed by the service.
 
 Each `endpoints[]` item supports:
 
-- `name`: required endpoint name.
+- `name`: required endpoint name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `workload`: optional workload name. If omitted, Wodby targets the primary workload.
 - `main`: marks the main endpoint.
 - `ports`: required list of ports.
 
 Each `endpoints[].ports[]` item supports:
 
-- `name`: required port name.
+- `name`: required port name. It must follow the [port name rules](../naming.md#port-names).
 - `number`: required port number.
 - `protocol`: required protocol. Allowed values: `http`, `tcp`, `udp`.
 - `private`: optional boolean.
@@ -401,7 +402,7 @@ Service volumes.
 
 Each item supports:
 
-- `name`: required volume name.
+- `name`: required volume name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `title`: required volume title.
 - `shared`: optional boolean.
 - `readOnly`: optional boolean.
@@ -606,7 +607,7 @@ Service config files.
 
 Each item supports:
 
-- `name`: required config name.
+- `name`: required config name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `title`: optional config title.
 - `config`: required default config content or a relative file path to load it from the repository.
 - `helm`: optional Helm value path that receives the resolved config content. Use this when the chart manages the
@@ -740,8 +741,7 @@ Each item supports:
 - `resources`: optional resource overrides.
 - `helm`: optional Helm values.
 
-Derivative names must start with the parent service name followed by a dash. For example, derivatives of `php` should
-use names like `php-sshd`.
+Derivative names must start with the parent service name followed by a dash and must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names). For example, derivatives of `php` should use names like `php-sshd`.
 
 When a service inherits from another service with `from`, inherited derivative names are rewritten to use the child
 service name as the prefix. For example, if `drupal11-php` inherits from `php`, the inherited `php-sshd` derivative is

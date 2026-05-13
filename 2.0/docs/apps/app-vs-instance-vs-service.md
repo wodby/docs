@@ -40,6 +40,8 @@ It groups:
 
 The app itself is the organizing record. The actual running copies of the application are its app instances.
 
+The app machine name is permanent. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names): lowercase letters, numbers, and dashes only; start and end with a letter or number; 63 characters or shorter.
+
 All app instances of the same app share that stack, but each instance can run a different stack revision and can be deployed to a different cluster.
 
 Typical app-level actions:
@@ -57,6 +59,8 @@ Each instance is assigned to a named Environment (Env).
 An Env also has a type chosen from a fixed enum: `prod`, `staging`, `test`, `dev`, or `feature`.
 
 Multiple Envs can share the same type. For example, `Production EU` and `Production US` can both be `prod`.
+
+The instance machine name follows the same general naming rule as app names. Together, the app and instance names form a Kubernetes namespace as `<app-name>-<instance-name>`, which must also be 63 characters or shorter.
 
 An instance has its own:
 

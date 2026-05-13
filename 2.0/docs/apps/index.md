@@ -82,6 +82,8 @@ Select where you want to run the first instance of your application. The form of
 ### Step 3
 
 - Enter the name of your application and your instance. Application and instance names are used to generate machine names. Machine names are permanent and cannot be changed
+  - Application and instance machine names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names)
+  - The generated namespace, `<app-name>-<instance-name>`, must be 63 characters or shorter
 - Select the [environment](env.md) (_Development_ by default)   
 - Optionally, edit the root domain. By default it is `*.[instance-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose HTTP ports
 

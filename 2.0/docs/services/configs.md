@@ -6,6 +6,8 @@ Unlike [settings](settings.md), configs are intended for larger or file-based co
 
 Service configs are defined under the [`configs` section](template.md#configs) in a service template.
 
+Config names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names), because Wodby may use them in generated ConfigMap names.
+
 Each service config uses exactly one delivery mode:
 
 - `helm`: Wodby sends the resolved config content into a Helm value. Use this when the chart creates and mounts the

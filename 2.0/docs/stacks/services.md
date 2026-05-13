@@ -15,4 +15,6 @@ Links are defined between stack services, so the stack describes how services wo
 
 When you create an app instance, each stack service becomes an [app service](../apps/services.md) for that deployed copy of the app.
 
+Stack service machine names must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names) and be unique within the stack, including derivative stack services.
+
 See [Stack configuration](configuration.md#stack-services) for the stack-level controls available for stack services.

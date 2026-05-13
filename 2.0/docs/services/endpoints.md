@@ -39,4 +39,6 @@ endpoints:
 
 `workload` is optional. If omitted, the endpoint targets the primary workload.
 
+Endpoint names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). Port names must follow the [port name rules](../naming.md#port-names).
+
 Workload targeting and selectors are described in [service workloads](workloads.md).

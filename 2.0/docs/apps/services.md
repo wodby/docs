@@ -64,6 +64,8 @@ An application service is the per-app-instance representation of a [stack servic
 
 When you create a new app, Wodby creates one app service for each relevant stack service. The app service starts with stack defaults, then lets you override behavior for that specific app instance.
 
+The app service machine name comes from the stack service name and must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names).
+
 This is the main place to customize how one environment behaves without changing the stack for every other environment.
 
 ## App service menu

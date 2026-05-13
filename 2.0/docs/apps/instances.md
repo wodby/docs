@@ -37,6 +37,8 @@ All instances of the same app share the same stack, but different instances can 
 
 App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
 
+The instance machine name is permanent and must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). The generated namespace, `<app-name>-<instance-name>`, must be 63 characters or shorter.
+
 You add or remove instances from `Apps > [App] > Instances`.
 
 ## Related pages

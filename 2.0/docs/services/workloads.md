@@ -109,7 +109,7 @@ Each `workloads[]` item supports:
 
 ### Workload names
 
-`workloads[].name` is a Wodby identifier, not a Kubernetes resource name.
+`workloads[].name` is a Wodby identifier, not the rendered Kubernetes workload resource name. It must still follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names), because Wodby also uses it in generated Kubernetes configuration.
 
 Use it consistently in:
 
@@ -255,6 +255,7 @@ See also: [Helm](helm.md).
 Service import validates workloads strictly.
 
 - Workload names must be unique.
+- Workload names and container names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - One workload can be primary.
 - Every workload must contain at least one container.
 - Container names must be unique within a workload.
