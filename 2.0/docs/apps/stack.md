@@ -40,6 +40,13 @@ The usual model is one stack per application. When the stack changes, you upgrad
 
 When a new stack revision is available, you can upgrade an app instance to it.
 
+Open `Apps`, select the app, select an app instance, and go to the `Stack` tab. The `App instance stack` table shows the
+current stack revision, stack version, and status. The status is `Outdated` when a newer stack revision is available and
+`Up to date` when the instance already uses the latest revision.
+
+The `Upgrade stack` form is on the same tab. The `Upgrade` button is enabled only when the app instance is outdated. If
+the instance already uses the latest stack revision, the button says `Stack is up to date`.
+
 Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app-instance overrides.
 
 The reason is that app services can be customized per instance. Wodby cannot always tell whether an app-level value was
@@ -47,7 +54,10 @@ changed intentionally or whether it simply has not received a newer stack defaul
 
 If the app instance has buildable app services, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
 
-We always upgrade to the latest stack revision.
+The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
+
+All upgrade options are disabled by default. `Update versions to default` and `Update replicas` are shown directly in
+the form. The remaining options are under `Advanced settings`.
 
 During upgrade, Wodby matches existing app services to stack services by stack service name.
 
@@ -134,6 +144,8 @@ New cron schedules introduced by the service or stack are created during upgrade
 this setting is disabled.
 
 ### Override volumes
+
+This option is shown in the dashboard as `Override volumes (may cause data loss)`.
 
 When enabled, Wodby deletes app-service volume records that no longer exist in the latest service manifest.
 
