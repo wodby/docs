@@ -82,11 +82,14 @@ flowchart TD
 
 When a service used by the stack gets a new revision, or when stack-level configuration changes, the stack can become outdated and a new stack revision can be created.
 
-Updating stack service revisions moves the stack definition to the latest available service revisions and creates a new stack revision.
+Dashboard-managed stacks can update stack service revisions to use the latest available service revisions.
+Git-backed stacks are updated from Git. Catalog-derived stacks can also sync with their origin to pull in catalog-side
+manifest changes.
 
 Updating a stack does not automatically update all app instances using it. Each app instance can be upgraded to the latest stack revision separately.
 
-If a stack was created from a catalog entry, it has an origin. You can sync it with that origin to pull catalog-side changes such as new services or new stack-wide defaults.
+See [Stack updates](updates.md) for the stack update workflows and [Application stack](../apps/stack.md#upgrade) for
+the app instance upgrade settings.
 
 ## Sharing
 

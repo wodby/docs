@@ -198,6 +198,7 @@ nav:
       - Imports: databases/imports.md
   - Stacks:
       - Overview: stacks/index.md
+      - Updates: stacks/updates.md
       - Configuration: stacks/configuration.md
       - Stack services: stacks/services.md
       - Template: stacks/template.md
