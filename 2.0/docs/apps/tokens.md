@@ -7,13 +7,19 @@ A token can either:
 - have a fixed plain value
 - use a regular expression to generate a random secret value when the app instance or app service is created or updated
 
-In an app, token values are composed and overridden across several levels. Later levels override earlier ones:
+In an app service, token definitions are composed across several levels. Later levels override earlier ones when they use
+the same token name and the same environment type:
 
 1. service-defined tokens
-2. stack-service tokens
-3. stack-wide tokens
-4. app-instance tokens
-5. app-service tokens
+2. stack-wide tokens
+3. stack-service tokens
+
+Tokens with different environment types are separate definitions. When a token is resolved at runtime, an
+environment-specific token takes precedence over a token without an environment type.
+
+After tokens are materialized on an app service, the app-service token records are the effective runtime values. During
+a stack upgrade, enabling `Override tokens` recreates those app-service tokens from the latest service and stack
+definitions; leaving it disabled keeps the existing app-service token values.
 
 This page is the public reference for built-in runtime tokens resolved in app-service context.
 

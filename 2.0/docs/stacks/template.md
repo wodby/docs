@@ -146,7 +146,8 @@ Stack-wide environment variables. They are applied to app services created from 
 
 Type: `array`.
 
-Stack-wide tokens. Tokens can either store a fixed value or generate one from a regular expression.
+Stack-wide tokens. Tokens can either store a fixed value or generate one from a regular expression. A stack-wide token
+overrides a service-defined token with the same name and environment type.
 
 ### `annotations`
 
@@ -182,6 +183,9 @@ Used by top-level `tokens` and `services[].tokens`.
 - `envType`: optional environment type filter.
 
 Exactly one of `value` or `generate.regex` must be specified. Regex tokens are always secret regardless of the `secret` setting.
+
+Within one token scope, each `name` and `envType` pair must be unique. You can define the same token name more than once
+only when each definition has a different `envType`.
 
 ### `annotations[]`
 
@@ -381,7 +385,8 @@ The stack override only replaces the config content or disables the config. The 
 
 Type: `array`.
 
-Service-specific tokens. The object shape is the same as top-level `tokens`.
+Service-specific tokens. The object shape is the same as top-level `tokens`. A service-specific token overrides both
+service-defined and stack-wide tokens with the same name and environment type.
 
 ### `services[].derivatives`
 

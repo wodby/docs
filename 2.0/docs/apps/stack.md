@@ -126,6 +126,9 @@ created so newly introduced required connections can work.
 
 When enabled, Wodby recreates app-service tokens from the latest service and stack definitions.
 
+When the same token name and environment type is defined in multiple places, Wodby applies service-defined tokens first,
+then stack-wide tokens, then stack-service tokens.
+
 If disabled, tokens are left unchanged. This avoids replacing secrets that may have been intentionally customized for
 one app instance.
 

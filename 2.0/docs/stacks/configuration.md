@@ -34,6 +34,9 @@ environment variable values.
 
 You can also limit a token to a specific environment type.
 
+Stack-wide tokens override service-defined tokens with the same name and environment type. A stack-service token with
+the same name and environment type overrides the stack-wide token for that specific stack service.
+
 ## Stack Services
 
 A stack always includes specific service revisions. When a service publishes a new revision, the stack can be updated to
@@ -139,6 +142,9 @@ Tokens can either store a fixed value or generate a secret value from a regular 
 environment variable values.
 
 You can also limit a token to a specific environment type.
+
+Stack-service tokens take precedence over both service-defined and stack-wide tokens with the same name and environment
+type.
 
 ### Annotations
 

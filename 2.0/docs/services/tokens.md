@@ -9,6 +9,9 @@ They can either:
 
 Service tokens can be referenced from environment variables and other generated configuration.
 
+Stacks can override service tokens. A stack-wide token overrides a service-defined token with the same name and
+environment type, and a stack-service token overrides both for that specific stack service.
+
 Built-in runtime tokens are documented in [app tokens](../apps/tokens.md), because they resolve in app-service
 context and can be used from service, stack, and app configuration.
 

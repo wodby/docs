@@ -490,7 +490,8 @@ Each item supports:
 
 Type: `array`.
 
-Service tokens. Each token must define either a fixed value or a generated value.
+Service tokens. Each token must define either a fixed value or a generated value. Stack-wide and stack-service tokens
+can override service tokens with the same name and environment type.
 
 Each item supports:
 
