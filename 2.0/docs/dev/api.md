@@ -48,6 +48,23 @@ curl -sS \
 
 REST errors are returned as regular JSON responses with an HTTP status code and a `message` field.
 
+## Limits
+
+Wodby applies request limits to keep the API stable for all users. Current limits may change as the platform evolves.
+
+| Area | Limit |
+| --- | --- |
+| REST request body | `10 MB` |
+| REST rate limit | `120` requests per second per IP, with a burst of `240` |
+| GraphQL page size | Maximum `100` items per page |
+| GraphQL parser size | Maximum `15000` parser tokens |
+| GraphQL depth | Maximum depth `12` |
+| GraphQL complexity | Maximum complexity `1000` |
+
+Requests that exceed body-size limits can return `413 Request Entity Too Large`. Requests that exceed rate limits can return `429 Too Many Requests`.
+
+GraphQL clients should paginate large result sets instead of requesting page sizes above `100`. GraphQL validation errors are returned as GraphQL errors. Some authentication-related GraphQL operations have additional abuse-protection throttling and can return a `RATE_LIMITED` error code.
+
 ## Practical use
 
 Use the REST API when you want to:
