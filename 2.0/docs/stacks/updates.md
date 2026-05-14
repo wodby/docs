@@ -16,9 +16,18 @@ Open `Stacks`, select the stack, and stay on the `Overview` tab. When an owned s
 When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
 latest service revisions and create a new stack revision.
 
-This update keeps the stack service names and stack-level configuration. It is intended for service-template changes
+This update keeps stack service names and valid stack-level configuration. It is intended for service-template changes
 inside services that are already part of the stack, such as newer images, Helm changes, added settings, added configs,
 added links, new resource defaults, or new cron definitions.
+
+If a stack-level override no longer matches the new service revision, Wodby may remove the invalid override while keeping
+the rest of the stack configuration. For example, a config override can be removed if the service no longer defines that
+config, a cron override can be removed if it targets a workload that no longer exists, or an integration can be removed if
+the linked integration no longer satisfies the service requirements.
+
+When Wodby chooses a safe fallback during the update, the update task can finish with warnings. Open the task logs to
+review what changed. Warnings can include removed invalid overrides or derivative stack services created with a fallback
+name because the expected name was already taken.
 
 This workflow does not update Git-backed stacks. For Git-backed stacks, the `Stack update` card shows a warning and the
 `Update stack` button is disabled. Use `Edit` > `Update` for those stacks instead.
