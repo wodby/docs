@@ -107,7 +107,7 @@ Select [integrations](../integrations/index.md). If a service does not provide a
 
 #### Databases
 
-For database services you can optionally select an existing database server. By default, Wodby will create a new database server for you.
+For internal database services, Wodby creates a new database server. For external cloud-database services, select the existing managed database server that the service should use.
 
 #### Imports
 
