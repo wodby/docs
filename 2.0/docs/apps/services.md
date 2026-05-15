@@ -73,7 +73,9 @@ This is the main place to customize how one environment behaves without changing
 Inside `Apps > [Instance] > Services > [Service]`, the dashboard can show:
 
 - `Overview`
+- `Metrics`
 - `Configure`
+- `Actions`
 - `Database`
 - `Integrations`
 - `Env vars`
@@ -90,6 +92,8 @@ Not every app service gets every tab. The menu depends on the service type and w
 
 In general:
 
+- `Metrics` appears only when cluster monitoring is enabled and the app service is not external or disabled
+- `Actions` appears only when the service defines user-runnable actions
 - `Database` appears only for services with database support
 - `Env vars`, `Helm`, and `Resources` appear only for non-external services
 - `Links`, `Volumes`, `Settings`, and `Configs` appear only when the service supports them
@@ -115,6 +119,19 @@ The same screen also exposes `Connect via web terminal`.
 The web terminal button is available only when both the app instance and the app service are in a healthy `OK` state.
 It opens an interactive shell session in a separate window. If the service has multiple workloads or containers, you
 can target a specific one. Otherwise Wodby uses the primary workload and its first container automatically.
+
+## Metrics tab
+
+When cluster monitoring is enabled, non-external enabled app services expose a `Metrics` tab.
+
+It shows aggregate runtime metrics for the service and detailed per-pod and per-container metrics, including:
+
+- CPU and memory usage
+- CPU and memory requests and limits
+- pod and container readiness
+- restart counts
+- node placement
+- container start, finish, and exit data
 
 ## Actions
 

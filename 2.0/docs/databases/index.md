@@ -13,6 +13,8 @@ A database can be project-owned or organization-owned. Use the database `Sharing
 
 A database also has an [environment](../apps/env.md). For container-based databases created from an app, the environment usually matches the app instance environment.
 
+The database details page also shows the current connection metadata and can reveal the current master password on demand.
+
 ## Deployment types
 
 Wodby supports two main ways to run a database server:

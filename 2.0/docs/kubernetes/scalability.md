@@ -2,7 +2,12 @@
 
 ## Manual scaling
 
-For [managed Kubernetes](managed.md) clusters, you can adjust the minimum node count manually.
+For [managed Kubernetes](managed.md) clusters, you can scale worker capacity manually from `Kubernetes > [Cluster] > Control`.
+
+You can set:
+
+- minimum node count
+- maximum node count
 
 ## Autoscaling
 

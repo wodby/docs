@@ -29,6 +29,7 @@ Each instance has its own:
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has buildable services
 - [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
 - [App services](services.md) used to override stack configuration for this specific instance
+- [Metrics](observability.md#metrics), when cluster monitoring is enabled
 - live [log streaming](observability.md#live-logs)
 - [Cron](cron.md) schedules and jobs
 - [Tasks](tasks.md) history

@@ -57,7 +57,23 @@ Addons let you extend included limits and pay for extra usage when needed.
 - Addons are pay-as-you-go, and billing is calculated at the end of the cycle
 - You are charged only for usage above the free included amount
 - Free subscription is not eligible for exceeding addon limits
-- You can set up usage limits for Wodby CI minutes in the billing settings
+- Paid subscriptions can use optional spending limits for the main plan and for individual addons in the billing settings
+
+## Spending limits
+
+From `Organization > Billing > Subscription`, paid subscriptions can set optional spending limits for:
+
+- the main app-service plan usage
+- individual addons such as Wodby CI minutes, registry storage, cloud storage, and data transfer
+
+In practice:
+
+- leaving the value empty means `Unlimited`
+- the main plan limit cannot be set below the included app-service amount for that plan
+- addon limits are configured separately per addon
+- when a limit is reached, the billing UI shows that the limit was exceeded
+
+On the free plan, usage above included addon amounts is not allowed. In that case you must either upgrade or wait for the next billing cycle when the addon is renewable.
 
 ### Wodby CI minutes
 
