@@ -122,3 +122,4 @@ Review your application configuration and click _Create new app_.
 - [App vs app instance vs app service](app-vs-instance-vs-service.md)
 - [Instances](instances.md)
 - [App services](services.md)
+- [Web terminal](web-terminal.md)

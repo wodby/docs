@@ -156,6 +156,7 @@ nav:
       - Instances: apps/instances.md
       - Stack: apps/stack.md
       - App services: apps/services.md
+      - Web terminal: apps/web-terminal.md
       - Endpoints: apps/endpoints.md
       - Builds: apps/builds.md
       - Deploys: apps/deploys.md

@@ -120,6 +120,8 @@ The web terminal button is available only when both the app instance and the app
 It opens an interactive shell session in a separate window. If the service has multiple workloads or containers, you
 can target a specific one. Otherwise Wodby uses the primary workload and its first container automatically.
 
+See [Web terminal](web-terminal.md) for the full behavior and requirements.
+
 ## Metrics tab
 
 When cluster monitoring is enabled, non-external enabled app services expose a `Metrics` tab.
