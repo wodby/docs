@@ -14,6 +14,9 @@ When cluster monitoring is enabled, Wodby collects metrics at several levels:
 
 Cluster-level metrics are shown from `Kubernetes > [Cluster] > Metrics`.
 
+That page also includes namespace-level usage details, including namespace type, related app instance, pod and
+container counts, restart totals, and CPU and memory usage per namespace.
+
 ### Monitoring with third-party service
 
 You can also monitor your app with third-party services. For example, you can attach a [New Relic integration](../providers/newrelic.md).
