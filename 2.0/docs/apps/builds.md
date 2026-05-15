@@ -26,4 +26,5 @@ A build records:
 
 Like [`needs redeploy`](deploys.md#needs-redeploy), `needs rebuild` is a status that tells you build-related changes exist but have not yet been applied through a new build.
 
-A typical example is an environment-variable change that affects the build process.
+A typical example is changing a build-scoped setting or app-service environment variable. Runtime-only environment
+variable and setting changes mark the app service for redeploy instead.

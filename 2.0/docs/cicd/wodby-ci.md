@@ -110,7 +110,11 @@ Wodby CI injects the following environment variables into every job:
 - `WODBY_APP_INSTANCE_ID` with the app instance ID
 - `WODBY_APP_NAME` with the app name
 
-In addition to the predefined variables above, Wodby exports app service environment variables and setting-derived variables for the main service container into the build environment.
+In addition to the predefined variables above, Wodby exports build-scoped app-service environment variables and
+build-scoped setting-derived variables for the main service container into the build environment. Runtime-only values,
+stack env vars, and variable integrations are not exported to builds.
+
+Secret build-scoped values are injected as secret environment variables and are hidden from build logs.
 
 ## Post-deployment scripts
 

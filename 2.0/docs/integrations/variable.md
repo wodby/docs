@@ -61,6 +61,10 @@ Variable integrations are typically attached to:
 3. Attach the integration to an app service or stack.
 4. Wodby injects the provider's environment variables into the container.
 
+Variable integration env vars are runtime-only. They are not passed to Docker image builds or exported as CI build
+arguments. Use a build-scoped app-service environment variable or service setting when a Dockerfile needs a value
+during build.
+
 ## Built-in vs custom variable providers
 
 Wodby ships a growing set of built-in variable providers such as Sentry, OpenAI, Stripe, Algolia, and others.

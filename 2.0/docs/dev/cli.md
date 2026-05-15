@@ -89,8 +89,12 @@ Build behavior:
 - uses a service-specific Dockerfile from the build context when present
 - otherwise uses the Dockerfile from the Wodby app-service config when available
 - otherwise generates a default Dockerfile
+- passes Wodby-provided build arguments only for build-scoped service settings, service env vars, and app-service env vars
 - writes temporary `Dockerfile` and `.dockerignore` files only when needed
 - builds through `docker buildx build --load`, so the image stays available locally for `wodby ci release`
+
+The CLI passes build args only when the Dockerfile declares a matching `ARG`. Secret build args are forwarded from
+environment variables with matching names and redacted from command output.
 
 Cache-related flags:
 

@@ -82,6 +82,7 @@ env:
     secret: true
   - name: DRUPAL_VERSION
     value: "11"
+    build: true
 
 workloads:
   - name: main
@@ -132,6 +133,7 @@ settings:
     placeholder: path/relative/to/git/root
     default: web
     var: DOCROOT_SUBDIR
+    build: true
 
 tokens:
   - name: sync_salt
@@ -178,6 +180,13 @@ Used by `env`, `workloads[].containers[].env`, `links[].env`, `integrations[].pr
 - `value`: required string value.
 - `secret`: optional boolean. When `true`, the value is stored as a secret.
 - `envType`: optional environment type filter. Allowed values: `prod`, `dev`, `staging`, `test`, `feature`.
+- `runtime`: optional boolean. Defaults to `true`. When `false`, Wodby does not inject the variable into runtime containers.
+- `build`: optional boolean. Defaults to `false`. When `true`, Wodby can pass the variable to CI builds as a Docker build argument when the Dockerfile declares a matching `ARG`.
+
+At least one of `runtime` or `build` must be enabled.
+
+Provider-specific integration env vars under `integrations[].providers[].env` are runtime-only. They must remain
+runtime-enabled and cannot use `build: true`.
 
 ### Helm value object
 
@@ -287,6 +296,9 @@ Service-wide environment variables. Uses the environment variable object describ
 
 Environment variable values can use [built-in runtime tokens](../apps/tokens.md) and service-defined tokens.
 
+Use `build: true` when a service Dockerfile needs the value as a build argument. Use `runtime: false` with
+`build: true` for build-only values that should not be injected into deployed containers.
+
 ### `options`
 
 Type: `array`.
@@ -335,6 +347,9 @@ Each object supports:
 - `templates`: starter repositories users can clone as a starting point.
 
 Set build targets with `workloads[].containers[].build: true`. Buildable services must mark at least one container.
+
+Docker build arguments are opt-in. Wodby passes only values marked with `build: true` from service env vars, service
+settings, or app-service env vars. Runtime-only values are not passed to builds.
 
 Each `build.templates[]` item supports:
 
@@ -442,7 +457,7 @@ Each item supports:
 Each `integrations[].providers[]` item supports:
 
 - `name`: required provider name.
-- `env`: optional provider-specific environment variables.
+- `env`: optional provider-specific environment variables. These variables are runtime-only and cannot be build-scoped.
 
 ### `settings`
 
@@ -460,6 +475,11 @@ Each item supports:
 - `from`: optional link name to reuse the same setting from a linked service.
 - `required`: optional boolean.
 - `var`: required environment variable name created from this setting.
+- `runtime`: optional boolean. Defaults to `true`. When `false`, Wodby does not inject the setting-derived variable into runtime containers.
+- `build`: optional boolean. Defaults to `false`. When `true`, Wodby can pass the setting-derived variable to CI builds as a Docker build argument when the Dockerfile declares a matching `ARG`.
+
+At least one of `runtime` or `build` must be enabled. Use `build: true` for settings such as document root paths that
+must be available while building an image.
 
 ### `imports`
 

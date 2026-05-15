@@ -28,6 +28,10 @@ You can find the app service ID on the Overview page of the corresponding app se
 
 Use `wodby ci init --dind $WODBY_APP_SERVICE_ID` when your provider builds through docker-in-docker, as in the GitLab CI examples.
 
+If your app uses secret build-scoped environment variables, define matching secret environment variables in the CI
+provider. Wodby CLI forwards secret build args from the CI environment instead of storing their values in the local
+build config.
+
 ## Provider examples
 
 The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository contains complete examples for PHP and Node apps:

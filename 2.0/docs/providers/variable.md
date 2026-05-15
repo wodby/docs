@@ -47,6 +47,9 @@ Variable provider integrations are typically attached to:
 
 If a built-in provider is missing, you can create your own variable provider from `Providers > New variable provider` and define the environment variable names yourself.
 
+Variables exposed by variable providers are injected into runtime containers only. They are not passed to Docker image
+builds. Use build-scoped app-service environment variables or service settings for Dockerfile build arguments.
+
 ## Related pages
 
 - [Integrations overview](../integrations/index.md)

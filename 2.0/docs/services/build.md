@@ -29,6 +29,26 @@ a GitHub repository and selects either a branch or a tag. A template can also re
 
 Services can also specify a custom Dockerfile path in the same repository. Wodby CI uses it during `wodby ci build [service]`.
 
+### Build arguments
+
+Docker build arguments are explicit. If a service Dockerfile declares an `ARG`, Wodby passes a value only when the
+corresponding service setting, service environment variable, or app-service environment variable is marked
+`build: true`.
+
+Runtime values are not passed to image builds by default. This keeps deployment-only configuration and integration
+credentials out of the build environment unless a value is deliberately marked as a build input.
+
+For service templates:
+
+- set `build: true` on an `env` item when its `name` matches a Dockerfile `ARG`
+- set `build: true` on a `settings` item when its `var` matches a Dockerfile `ARG`
+- set `runtime: false` together with `build: true` for values that are needed only during image build
+
+App-service environment variables can also be marked as runtime, build, or both from the app service configuration.
+Build-scoped app-service env vars are allowed only on buildable app services.
+
+Variable integrations and stack environment variables are runtime-only and are not passed as build arguments.
+
 ## Template
 
 Build information is defined under the [`build` section](template.md#build) in a service template.

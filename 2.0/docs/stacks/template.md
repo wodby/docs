@@ -142,6 +142,8 @@ Type: `array`.
 
 Stack-wide environment variables. They are applied to app services created from this stack.
 
+Stack environment variables are runtime-only. They are not passed to Docker image builds.
+
 ### `tokens`
 
 Type: `array`.
@@ -171,6 +173,9 @@ Used by top-level `env`, `services[].env`, and `services[].workloads[].container
 - `value`: required string value. Use quoted strings in YAML.
 - `secret`: optional boolean. When `true`, the value is stored as a secret.
 - `envType`: optional environment type filter. Allowed values: `prod`, `dev`, `staging`, `test`, `feature`.
+
+Stack env vars do not support build scope. Use a build-scoped service setting, service env var, or app-service env var
+when a Dockerfile needs a build argument.
 
 ### `tokens[]`
 

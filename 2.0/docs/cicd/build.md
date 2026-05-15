@@ -31,6 +31,20 @@ The matching ignore file is `<dockerfile>.dockerignore`. If it is not present in
 
 `wodby ci build` supports additional Docker build args via `--build-arg NAME=VALUE` and can forward environment variables with `--build-arg-env NAME`.
 
+The app build config can also provide build arguments from Wodby service configuration. Only values explicitly marked
+as build-scoped are included:
+
+- service settings with `build: true`, using the setting's `var` as the argument name
+- service environment variables with `build: true`, using the env var `name`
+- app-service environment variables with `build: true`
+
+The CLI passes these values only when the Dockerfile declares a matching `ARG`. Runtime-only settings, runtime-only env
+vars, stack env vars, and variable integrations are not passed to builds.
+
+Secret build arguments are not written to the local CI config. The CLI forwards them from environment variables with
+matching names. Wodby CI injects these variables automatically; in third-party CI, configure the same names as CI secret
+environment variables.
+
 Builds use `docker buildx build --load`, so images remain available locally for `wodby ci release`.
 
 Cache-related flags:
