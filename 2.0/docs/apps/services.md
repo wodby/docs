@@ -118,11 +118,14 @@ can target a specific one. Otherwise Wodby uses the primary workload and its fir
 
 ## Actions
 
-Some services expose actions as buttons. Running an action creates a task for the app service. Use the task details to
-follow progress and inspect command output.
+Some app services expose an `Actions` tab. It lists the user-runnable service actions available for that specific app
+service. User-runnable actions are `button` and `output` actions.
 
-Actions are available only when both the app instance and app service are in a healthy `OK` state. They are not
-available for external services or derivative app services.
+Running an action creates a background task for the app service. Use the task details and logs to follow progress and
+inspect command output. `output` actions do not return output directly in the run request.
+
+Actions can appear disabled when the app instance or app service is not in a healthy `OK` state. They are not available
+for external services or derivative app services.
 
 ## Configure tab
 

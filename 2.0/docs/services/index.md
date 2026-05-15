@@ -102,7 +102,7 @@ Services can define cron schedules for recurring tasks.
 
 ## [Actions](actions.md)
 
-Services can define actions that run commands automatically during lifecycle events or on demand from the UI.
+Services can define actions that run automatically during lifecycle events or as user-runnable app-service actions.
 
 ## [Annotations](annotations.md)
 

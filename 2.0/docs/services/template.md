@@ -521,10 +521,12 @@ Each item supports:
 
 Allowed `type` values:
 
-- `button`
+- `button`: user-runnable action shown on the app service's `Actions` tab
+- `output`: user-runnable action shown on the app service's `Actions` tab; output is available through the task logs
 - `post_upgrade`: runs after an app instance is upgraded to a new stack revision
 - `post_deploy`
 - `post_deploy_once`
+- `empty`: no-op placeholder action, not user-runnable
 
 ### `backups`
 
