@@ -3,6 +3,20 @@
 Unlike Wodby 1.0, there is no separate managed stack mode. Stacks are meant to be customized to your needs while still
 receiving updates from the services they include.
 
+## Draft revisions
+
+Stack configuration changes are saved to an unpublished draft revision. The currently published revision remains active
+for existing app instances until you publish the draft.
+
+Use `Publish draft` when you want the draft to become a real stack revision. At that point, app instances using older
+published revisions can become outdated and can be upgraded from their `Stack` tab.
+
+Use `Discard` to delete the draft and abandon unpublished stack changes. If there is no draft, the stack has no
+unpublished configuration changes.
+
+Changing the stack title is part of the draft revision. Changing the stack machine name is a stack-level change and
+applies immediately.
+
 ## Environment Variables
 
 Add stack-wide environment variables from `Stack > Configure > Env vars`. These values apply to app services deployed from that stack revision.
@@ -42,9 +56,9 @@ the same name and environment type overrides the stack-wide token for that speci
 A stack always includes specific service revisions. When a service publishes a new revision, the stack can be updated to
 use it.
 
-This is a stack update: Wodby updates the stack service revisions and creates a new stack revision. App instances that
-use the stack are upgraded to that revision separately. See [Stack updates](updates.md) for update paths such as
-service revision updates, Git updates, and sync with origin.
+This is a stack update: Wodby updates the stack service revisions in the draft revision. Publish the draft to create a
+new stack revision. App instances that use the stack are upgraded to that published revision separately. See
+[Stack updates](updates.md) for update paths such as service revision updates, Git updates, and sync with origin.
 
 Each service in a stack can be configured under "[Stack] > Configure > Stack services > [Service]". A service can be
 enabled or disabled and marked as required or optional. Required services cannot be excluded during new app creation.

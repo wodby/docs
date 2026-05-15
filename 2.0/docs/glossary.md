@@ -80,9 +80,14 @@ The project access list for a resource. Sharing can grant `Read/Use` or `Modify/
 
 The blueprint from which an app is created.
 
+## Stack draft revision
+
+An unpublished version of stack configuration. Stack edits update the draft until it is either published as a stack
+revision or discarded.
+
 ## Stack revision
 
-A versioned snapshot of the stack configuration. App instances can be upgraded between stack revisions.
+A published versioned snapshot of the stack configuration. App instances can be upgraded between stack revisions.
 
 ## Stack service
 

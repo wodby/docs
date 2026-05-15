@@ -30,7 +30,7 @@ Think of a stack as the blueprint for the app:
 
 - it defines the services the app uses
 - it defines default configuration for those services
-- each stack change produces a new stack revision
+- each published stack change produces a new stack revision
 
 All [app instances](instances.md) of the same app share the same stack, but they can run different stack revisions.
 
@@ -38,7 +38,8 @@ The usual model is one stack per application. When the stack changes, you upgrad
 
 ## Upgrade
 
-When a new stack revision is available, you can upgrade an app instance to it.
+When a new published stack revision is available, you can upgrade an app instance to it. Unpublished stack drafts are
+not available for app upgrades and do not mark app instances as outdated.
 
 Open `Apps`, select the app, select an app instance, and go to the `Stack` tab. The `App instance stack` table shows the
 current stack revision, stack version, and status. The status is `Outdated` when a newer stack revision is available and

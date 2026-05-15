@@ -4,9 +4,9 @@ A stack is the blueprint for an application.
 
 It defines which [services](../services/index.md) the app uses and the default configuration for those services. To create an app, you choose a stack first.
 
-All app instances of the same app share the same stack, but they can run different stack revisions.
+All app instances of the same app share the same stack, but they can run different published stack revisions.
 
-Stacks are versioned. Every change creates a new stack revision.
+Stacks are versioned. Changes made in the dashboard are saved to an unpublished draft revision first. Publishing the draft creates a new stack revision. Discarding the draft removes the unpublished changes.
 
 The usual model is one stack per application. In some cases, multiple small similar apps may share a stack, but separate stacks are easier to evolve safely over time.
 
@@ -18,7 +18,7 @@ You can create a stack in three ways:
 - Create a new stack from scratch. Use this when you want to choose services and defaults yourself in the dashboard instead of starting from a catalog stack.
 - Import a stack from a Git repository. The repository defines one or more custom stacks using a [stack template](template.md), with each stack described by `stack.yml` and optional multi-stack `index.yml`.
 
-After creation, all three paths produce regular versioned stacks. You can adjust their [configuration](configuration.md), add or remove stack services, and create apps from any available revision.
+After creation, all three paths produce regular versioned stacks. You can adjust their [configuration](configuration.md), add or remove stack services, publish those changes as revisions, and create apps from any available published revision.
 
 ```mermaid
 flowchart TD
@@ -80,13 +80,13 @@ flowchart TD
 
 ## Updates
 
-When a service used by the stack gets a new revision, or when stack-level configuration changes, the stack can become outdated and a new stack revision can be created.
+When a service used by the stack gets a new revision, or when stack-level configuration changes, the stack can become outdated. Stack update workflows create or update an unpublished draft first.
 
 Dashboard-managed stacks can update stack service revisions to use the latest available service revisions.
 Git-backed stacks are updated from Git. Catalog-derived stacks can also sync with their origin to pull in catalog-side
 manifest changes.
 
-Updating a stack does not automatically update all app instances using it. Each app instance can be upgraded to the latest stack revision separately.
+Publishing the draft creates a new stack revision. Updating a stack does not automatically update all app instances using it. Each app instance can be upgraded to the latest published stack revision separately.
 
 See [Stack updates](updates.md) for the stack update workflows and [Application stack](../apps/stack.md#upgrade) for
 the app instance upgrade settings.

@@ -1,8 +1,10 @@
 # Stack updates
 
-Stacks are versioned. Any stack update creates a new stack revision, but it does not automatically change running app
-instances. After the stack revision is created, each app instance can be upgraded separately from its current revision
-to the latest revision.
+Stacks are versioned. Stack updates and configuration edits create or update an unpublished draft revision first. The
+currently published revision remains active for running app instances until you publish the draft.
+
+Publishing the draft creates a new stack revision, but it does not automatically change running app instances. After the
+revision is published, each app instance can be upgraded separately from its current revision to the latest revision.
 
 There are three common update paths.
 
@@ -11,10 +13,10 @@ There are three common update paths.
 Use this for stacks managed in the dashboard.
 
 Open `Stacks`, select the stack, and stay on the `Overview` tab. When an owned stack is marked `Outdated`, the
-`Stack update` card appears with an `Update stack` button.
+`Stack update` card appears with an `Update services to latest version` button.
 
 When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
-latest service revisions and create a new stack revision.
+latest service revisions in the draft revision.
 
 This update keeps stack service names and valid stack-level configuration. It is intended for service-template changes
 inside services that are already part of the stack, such as newer images, Helm changes, added settings, added configs,
@@ -39,8 +41,8 @@ Use this for stacks imported from a Git repository.
 Open `Stacks`, select the stack, and go to `Edit`. Git-backed stacks show an `Edit stack` form with the current
 repository, ref type, and Git ref. Select the Git tag or branch to import and click `Update`.
 
-Wodby imports the stack definition from the selected Git ref, finds the same stack by name, and creates a new stack
-revision from the updated `stack.yml`.
+Wodby imports the stack definition from the selected Git ref, finds the same stack by name, and creates or updates the
+draft revision from the updated `stack.yml`.
 
 Use this workflow when the stack manifest itself changed in Git, for example when services were added or removed,
 stack-level defaults changed, or stack service configuration changed.
@@ -50,8 +52,8 @@ updated from Git.
 
 ## Sync with origin
 
-A copied catalog stack keeps a reference to the origin stack revision it was copied from. Syncing with origin creates a
-new revision of your stack from the latest origin revision.
+A copied catalog stack keeps a reference to the origin stack revision it was copied from. Syncing with origin creates or
+updates your draft revision from the latest origin revision.
 
 Open `Stacks`, select the copied stack, and stay on the `Overview` tab. If the stack has an origin, the `SYNC` card
 appears with a `Sync with origin` button.
@@ -89,9 +91,19 @@ changes such as newly introduced services, newly introduced stack service defaul
 deletion options only when you are comfortable removing local stack customizations that are no longer present in the
 origin.
 
+## Publish or discard a draft
+
+After any stack edit or update workflow creates a draft, the stack shows an unpublished draft notice.
+
+Use `Publish draft` when you are ready to release the draft as a real stack revision. Publishing is the point where app
+instances using older stack revisions can become outdated.
+
+Use `Discard` to delete the draft and abandon the unpublished changes. After discard, the stack returns to its current
+published revision and app instances are unaffected.
+
 ## App instance upgrades
 
-After any stack update creates a new stack revision, app instances still run their current stack revision until you
+After a draft is published as a new stack revision, app instances still run their current stack revision until you
 upgrade them.
 
 Open `Apps`, select the app, select an app instance, and go to the `Stack` tab. See
