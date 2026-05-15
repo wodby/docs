@@ -33,6 +33,14 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 2.0.17
+
+- ⬆️ Updated to 18.4, 17.10, 16.14, 15.18, 14.23
+- ⭐️ Added optional PostGIS extension
+- 📜 Create db actions now also creates a schema with same name
+- 📜 Grant user db action now also gives privileges to a schema with the same name and adds it a search path
+- 📜 Revoke user db action now resets search path
+
 ### 2.0.16
 
 🐞 Adminer bugfix: default db host and db name env vars ignored https://github.com/wodby/adminer/issues/10
