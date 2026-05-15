@@ -5,7 +5,10 @@
 Services can define actions that run commands in an app. Actions can be shown as buttons in the UI or run
 automatically during deployment and upgrades. Each run creates a task with execution logs.
 
-If a service defines multiple actions, they run simultaneously unless dependencies are set between them.
+Actions run in the selected service workload. If an action does not specify `workload`, Wodby uses the service's
+primary workload.
+
+Deployment and upgrade actions run simultaneously unless dependencies are set between them.
 
 ## Types
 
@@ -13,7 +16,8 @@ An action type defines how and when the action runs.
 
 ### `button`
 
-Actions of this type are shown as buttons in the Wodby dashboard.
+Actions of this type are shown as buttons in the Wodby dashboard. Each run creates a task; command output is available
+in the task logs.
 
 ### `post_deploy`
 
@@ -27,10 +31,6 @@ Same as `post_deploy`, but runs only during the first deployment. It can be limi
 ### `post_upgrade`
 
 Runs after an app instance is upgraded to a new stack revision.
-
-### `output`
-
-Produces output that is shown in the Wodby dashboard.
 
 ## Template
 

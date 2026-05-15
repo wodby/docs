@@ -148,9 +148,8 @@ actions:
     title: Clear all cache
   - name: user_login
     args: ["make", "user-login"]
-    type: output
+    type: button
     title: Generate one-time login link
-    privileged: true
 ```
 
 ## General rules
@@ -516,14 +515,13 @@ Each item supports:
 - `args`: required argument list.
 - `command`: optional command override.
 - `type`: required action type.
-- `template`: optional build template name filter.
-- `privileged`: optional boolean.
+- `workload`: optional workload name. If omitted, Wodby targets the primary workload.
+- `template`: optional build template name filter for `post_deploy` and `post_deploy_once` actions.
 - `depends`: optional list of actions that must run first.
 
 Allowed `type` values:
 
 - `button`
-- `output`
 - `post_upgrade`: runs after an app instance is upgraded to a new stack revision
 - `post_deploy`
 - `post_deploy_once`

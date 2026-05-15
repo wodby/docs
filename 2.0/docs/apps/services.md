@@ -116,6 +116,14 @@ The web terminal button is available only when both the app instance and the app
 It opens an interactive shell session in a separate window. If the service has multiple workloads or containers, you
 can target a specific one. Otherwise Wodby uses the primary workload and its first container automatically.
 
+## Actions
+
+Some services expose actions as buttons. Running an action creates a task for the app service. Use the task details to
+follow progress and inspect command output.
+
+Actions are available only when both the app instance and app service are in a healthy `OK` state. They are not
+available for external services or derivative app services.
+
 ## Configure tab
 
 The `Configure` tab is the main operational form for the service.
