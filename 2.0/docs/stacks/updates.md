@@ -78,6 +78,7 @@ origin:
 | --- | --- |
 | Keep only origin stack env vars | Delete stack-level environment variables that do not exist in the origin. |
 | Keep only origin stack tokens | Delete stack-level tokens that do not exist in the origin. |
+| Keep only origin stack-level annotations | Delete stack-level annotations that do not exist in the origin. |
 | Keep only origin stack services | Delete stack services that do not exist in the origin. |
 | Keep only origin stack services configuration | For services that exist in both stacks, delete service-level configuration entries that do not exist in the origin. |
 
