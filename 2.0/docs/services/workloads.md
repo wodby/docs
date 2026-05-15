@@ -142,6 +142,11 @@ Selectors are preferred over resource names because they survive chart naming di
 For Wodby charts, use stable workload labels whenever possible. For third-party charts, use the labels that uniquely
 identify each workload in the rendered chart.
 
+Resolvable selectors are also required for force deployments. During a forced app-service upgrade, Wodby uses these
+selectors to find each rendered Deployment, StatefulSet, or DaemonSet and update its pod template so Kubernetes starts a
+new rollout. If the selector contains unresolved tokens or does not point to the rendered workload, Wodby cannot force a
+restart for that workload.
+
 ## Primary workload
 
 One workload should be treated as primary.

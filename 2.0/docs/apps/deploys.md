@@ -11,7 +11,7 @@ During the first deployment, Wodby deploys all non-buildable services immediatel
 
 Every deployment is associated with a specific stack revision of the app instance.
 
-Deployments usually triggered in the following ways:
+Deployments are usually triggered in the following ways:
 
 - first deployment after app creation
 - deployment of builds [requested from CI](../cicd/deploy.md)
@@ -37,6 +37,22 @@ In that flow you can:
 - choose which successful build to deploy for buildable services, as long as the build belongs to the same stack revision as the current app instance
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set.
+
+### Force deployment
+
+Use force deployment when you need Wodby to redeploy a selected app service even though the rendered Kubernetes
+manifests have not changed.
+
+For non-external services, Wodby runs the normal Helm upgrade and then updates the pod template of each resolved
+Deployment, StatefulSet, or DaemonSet with an internal redeploy annotation. Kubernetes treats the pod-template update as
+a new rollout, so the service pods are restarted with the same chart values and image references.
+
+Force deployment does not create a new build or change which image is deployed. For buildable services, choose the build
+you want to deploy in the same way as a regular manual deployment.
+
+Force deployment requires the service to define resolvable workload selectors. If Wodby cannot resolve the workload
+selectors for a forced upgrade, the deployment is stopped before the Helm release is changed. External services do not
+have Kubernetes workloads to restart.
 
 ## Needs redeploy
 
