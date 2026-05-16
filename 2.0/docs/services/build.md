@@ -25,6 +25,9 @@ The target Helm paths are taken from `workloads[].containers[].helm.image` and d
 Build templates are starter repositories that customers can clone when creating a new project. Each template points to
 a GitHub repository and selects either a branch or a tag. A template can also reference a custom pipeline file.
 
+One template can be marked as the default. When no template is marked as default, Wodby treats the first template in the
+service template as the default.
+
 ### Dockerfile
 
 Services can also specify a custom Dockerfile path in the same repository. Wodby CI uses it during `wodby ci build [service]`.

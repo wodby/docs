@@ -11,6 +11,9 @@ During the first deployment, Wodby deploys all non-buildable services immediatel
 
 Every deployment is associated with a specific stack revision of the app instance.
 
+Deployments require complete configuration for all enabled app services in the app instance. Wodby blocks deployment
+when a service is missing a required build source, external database, integration, linked setting, or required setting.
+
 Deployments are usually triggered in the following ways:
 
 - first deployment after app creation

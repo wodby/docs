@@ -72,6 +72,18 @@ are kept enabled even if the stack service is disabled.
 The upgrade task logs the changes it applies and also logs when it detects a stack change but skips it because the
 corresponding upgrade setting is disabled.
 
+New app services may need app-specific configuration that cannot be selected safely at stack-upgrade time, such as a
+connected build source, an external database, required integrations, or required settings. These gaps do not stop the
+stack upgrade. Wodby records them as warnings on the upgrade task, creates the app service, and waits for you to finish
+the service configuration before deploying.
+
+If a newly added buildable service defines build templates, Wodby uses the default build template automatically. If no
+template is marked as default, the first template is used. If the default template cannot be applied, Wodby records a
+warning and asks you to select the build source after the upgrade.
+
+When a stack upgrade leaves unresolved service configuration, Wodby skips the automatic post-upgrade deployment.
+Deployments are blocked until the app instance reports complete service configuration.
+
 ### Update versions to default
 
 By default, Wodby keeps existing app-service versions during upgrade. Enable this option when you want top-level app

@@ -117,6 +117,7 @@ build:
     - name: vanilla
       title: Vanilla Drupal
       repo: https://github.com/wodby/drupal-vanilla
+      default: true
       branch: 11.x
 
 helm:
@@ -356,6 +357,7 @@ Each `build.templates[]` item supports:
 - `name`: required template name.
 - `title`: required template title.
 - `repo`: required GitHub repository URL in `https://github.com/...` format.
+- `default`: marks the default starter repository. If no template is marked as default, the first template is used.
 - `branch`: git branch to use.
 - `tag`: git tag or tag pattern to use.
 - `pipeline`: optional pipeline file path.
