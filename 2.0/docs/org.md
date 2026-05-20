@@ -34,6 +34,7 @@ The organization area in the dashboard includes these sections:
 - `Environments` to manage named environments used by apps and databases
 - `Backups` to create organization-wide backup presets reused in app and database backup flows
 - `Certificates` to review issued certificates used by application routes and supported database resources
+- `Single Sign-On` to configure organization-level OIDC sign-in
 - `Billing` for subscription and plan-related operations
 - `Settings` to edit the organization itself
 
@@ -81,9 +82,18 @@ From there you can:
 - change the organization title
 - delete the organization
 
+## Single Sign-On
+
+Organization owners and admins can configure OIDC Single Sign-On for the organization.
+
+SSO lets users sign in through your identity provider, such as Okta, Microsoft Entra ID, Google Workspace, Auth0, ZITADEL, or Keycloak. It is currently an additional sign-in option and does not disable existing sign-in methods or API keys.
+
+See [Single Sign-On](sso.md) for setup, domain verification, and login behavior.
+
 ## Related pages
 
 - [Projects](projects.md)
 - [Teams](teams.md)
 - [Access control](access-control.md)
+- [Single Sign-On](sso.md)
 - [Billing](pricing.md)

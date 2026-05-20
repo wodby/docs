@@ -300,6 +300,7 @@ nav:
       - Projects: projects.md
       - Teams: teams.md
       - Access control: access-control.md
+      - Single Sign-On: sso.md
       - Sharing: sharing.md
       - Billing: pricing.md
   - User:
