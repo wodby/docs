@@ -34,7 +34,7 @@ The organization area in the dashboard includes these sections:
 - `Environments` to manage named environments used by apps and databases
 - `Backups` to create organization-wide backup presets reused in app and database backup flows
 - `Certificates` to review issued certificates used by application routes and supported database resources
-- `Single Sign-On` to configure organization-level OIDC sign-in
+- `SSO` to configure organization-level OIDC sign-in
 - `Billing` for subscription and plan-related operations
 - `Settings` to edit the organization itself
 

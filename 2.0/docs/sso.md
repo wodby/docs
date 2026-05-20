@@ -2,7 +2,7 @@
 
 Single Sign-On (SSO) lets users sign in to Wodby through your organization's identity provider.
 
-SSO is configured at the organization level. It is currently an additional sign-in option and does not disable email/password sign-in, GitHub sign-in, Google sign-in, or API keys.
+SSO is configured at the organization level from `Organization > SSO`. It is currently an additional sign-in option and does not disable email/password sign-in, GitHub sign-in, Google sign-in, or API keys.
 
 ## Supported protocol
 
@@ -17,7 +17,7 @@ Common OIDC identity providers include:
 - ZITADEL
 - Keycloak
 
-SAML, SCIM directory sync, role mapping, and mandatory SSO enforcement are not supported yet.
+The dashboard currently manages one OIDC provider per organization. SAML, SCIM directory sync, role mapping, and mandatory SSO enforcement are not supported yet.
 
 ## Who can configure SSO
 
@@ -62,9 +62,9 @@ openid profile email
 
 The identity provider must return a stable subject identifier and a verified email claim.
 
-## Configure SSO
+## Configure OIDC SSO
 
-Open `Organization > Settings > Single Sign-On`.
+Open `Organization > SSO`.
 
 1. Click `Enable SSO`.
 2. Enter a provider name, such as `Okta` or `Microsoft Entra ID`.
@@ -73,15 +73,15 @@ Open `Organization > Settings > Single Sign-On`.
 5. Enter the OIDC client secret.
 6. Add the email domains that should be allowed to sign in through this provider.
 7. Choose whether Just-in-Time provisioning should be enabled.
-8. Save the provider.
+8. Click `Create OIDC provider`.
 
-New providers are created disabled until all configured domains are verified.
+New providers are created disabled. Wodby shows domain verification records after the provider is created.
 
 ## Verify SSO domains
 
 Each SSO domain must be verified before the provider can be enabled.
 
-After saving the provider, Wodby shows a DNS `TXT` record for each domain. Add that record in your DNS provider.
+After saving the provider, Wodby shows a DNS `TXT` record for each domain. Add the exact record name, type, and value in your DNS provider.
 
 The record looks like this:
 
@@ -95,9 +95,17 @@ DNS propagation can take time. If verification fails, wait a few minutes and try
 
 ## Enable SSO
 
-After every configured domain is verified, enable the provider from the SSO settings page.
+After every configured domain is verified, enable the provider from `Organization > SSO`.
 
-Wodby blocks enabling an SSO provider while any configured domain is unverified.
+Wodby blocks enabling an SSO provider while any configured domain is unverified. If you edit the domain list later, newly added domains must be verified before SSO can be enabled again.
+
+## Update SSO settings
+
+You can update the provider name, issuer URL, client ID, client secret, allowed domains, and Just-in-Time provisioning setting from `Organization > SSO`.
+
+The OIDC client secret is write-only. Leave the client secret field blank when you want to keep the existing secret.
+
+If SSO is enabled and you add or change domains, Wodby disables SSO until every configured domain is verified again.
 
 ## Sign in with SSO
 
