@@ -68,7 +68,7 @@ Prepare the following values from your identity provider:
 In your identity provider, create an OIDC web application and add the Wodby SSO callback URL as an allowed redirect URI:
 
 ```text
-https://<wodby-dashboard-domain>/auth/sso/callback
+https://apps.wodby.com/auth/sso/callback
 ```
 
 Use the dashboard domain you normally use to sign in to Wodby.
