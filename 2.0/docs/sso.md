@@ -4,47 +4,66 @@ Single Sign-On (SSO) lets users sign in to Wodby through your organization's ide
 
 SSO is configured at the organization level from `Organization > SSO`. It is currently an additional sign-in option and does not disable email/password sign-in, GitHub sign-in, Google sign-in, or API keys.
 
-## Supported protocol
+## Supported providers
 
-Wodby currently supports OpenID Connect (OIDC).
+Wodby supports multiple SSO providers per organization.
 
-Common OIDC identity providers include:
+Supported provider kinds:
 
-- Okta
-- Microsoft Entra ID
-- Google Workspace
-- Auth0
-- ZITADEL
-- Keycloak
+- **OIDC** for OpenID Connect providers such as Okta, Microsoft Entra ID, Auth0, ZITADEL, or Keycloak
+- **Google Workspace** for Google-managed organization domains
+- **GitHub Organization** for GitHub organization membership checks
+- **SAML 2.0** for SAML identity providers
 
-The dashboard currently manages one OIDC provider per organization. SAML, SCIM directory sync, role mapping, and mandatory SSO enforcement are not supported yet.
+SCIM directory sync, role mapping, and mandatory SSO enforcement are not supported yet.
 
 ## Who can configure SSO
 
 Organization owners and admins can manage SSO providers.
 
-Users who sign in through SSO must have an email address that matches one of the verified SSO domains configured for the organization.
+Users who sign in through SSO must match the access rules of the selected provider. Most providers require a verified email address on a verified domain configured in Wodby.
 
 ## How SSO access works
 
 When SSO is enabled for an organization:
 
 - users can choose `Single Sign-On` on the sign-in page
-- users enter the organization name and are redirected to the configured identity provider
-- Wodby accepts only verified email addresses returned by the identity provider
+- users enter the organization name and are redirected to an enabled SSO provider
+- if more than one provider is available, users choose the provider before continuing
+- Wodby checks the identity returned by the provider against the provider rules
 - new users can be created automatically when Just-in-Time provisioning is enabled
 - Just-in-Time users are added to the organization with the `Member` role
 
 SSO does not change existing organization roles for current members.
 
-## Before you start
+## Domain verification
+
+OIDC, Google Workspace, and SAML 2.0 providers require at least one email domain. Each domain must be verified before the provider can be enabled or used for sign-in.
+
+GitHub Organization providers can be configured without domains. If domains are added to a GitHub Organization provider, Wodby also enforces email-domain matching and those domains must be verified.
+
+After saving a provider with domains, Wodby shows a DNS `TXT` record for each domain. Add the exact record name, type, and value in your DNS provider.
+
+The record looks like this:
+
+```text
+_wodby-sso.example.com TXT "wodby-sso-verification=<token>"
+```
+
+After the DNS record is published, click `Verify domain`.
+
+DNS propagation can take time. If verification fails, wait a few minutes and try again.
+
+When the last required domain for a provider is verified, Wodby enables that provider automatically. Providers that do not require domain verification, such as a GitHub Organization provider without domains, can be enabled immediately when they are created.
+
+## Configure an OIDC provider
 
 Prepare the following values from your identity provider:
 
 - OIDC issuer URL
 - OIDC client ID
 - OIDC client secret
-- one or more email domains allowed to use this SSO provider
+- one or more email domains allowed to use this provider
 
 In your identity provider, create an OIDC web application and add the Wodby SSO callback URL as an allowed redirect URI:
 
@@ -62,50 +81,117 @@ openid profile email
 
 The identity provider must return a stable subject identifier and a verified email claim.
 
-## Configure OIDC SSO
+To create the provider:
 
-Open `Organization > SSO`.
+1. Open `Organization > SSO`.
+2. Click `New provider`.
+3. Choose `OIDC`.
+4. Enter a provider name, issuer URL, client ID, and client secret.
+5. Add the email domains allowed to sign in through this provider.
+6. Choose whether Just-in-Time provisioning should be enabled.
+7. Click `Create provider`.
+8. Verify every configured domain.
+9. After the last domain is verified, Wodby enables the provider automatically.
 
-1. Click `Enable SSO`.
-2. Enter a provider name, such as `Okta` or `Microsoft Entra ID`.
-3. Enter the OIDC issuer URL.
-4. Enter the OIDC client ID.
-5. Enter the OIDC client secret.
-6. Add the email domains that should be allowed to sign in through this provider.
+The OIDC client secret is write-only. When editing an OIDC provider, leave the client secret field blank to keep the existing secret.
+
+## Configure a Google Workspace provider
+
+Google Workspace providers use Wodby's Google OAuth application. You do not need to create your own Google OAuth client.
+
+Prepare one or more Google Workspace email domains, such as `example.com`.
+
+To create the provider:
+
+1. Open `Organization > SSO`.
+2. Click `New provider`.
+3. Choose `Google Workspace`.
+4. Enter a provider name.
+5. Add the Google Workspace email domains allowed to sign in through this provider.
+6. Choose whether Just-in-Time provisioning should be enabled.
+7. Click `Create provider`.
+8. Verify every configured domain.
+9. After the last domain is verified, Wodby enables the provider automatically.
+
+During sign-in, Wodby requires a Google verified email address and a hosted domain claim that matches one of the provider domains.
+
+## Configure a GitHub Organization provider
+
+GitHub Organization providers use Wodby's GitHub OAuth application and require membership in a GitHub organization.
+
+Prepare the GitHub organization slug or URL, such as `wodby` or `https://github.com/wodby`.
+
+Domains are optional. If you add domains, Wodby also checks the user's verified primary GitHub email domain.
+
+To create the provider:
+
+1. Open `Organization > SSO`.
+2. Click `New provider`.
+3. Choose `GitHub Organization`.
+4. Enter a provider name.
+5. Enter the GitHub organization slug or URL.
+6. Optionally add email domains allowed to sign in through this provider.
 7. Choose whether Just-in-Time provisioning should be enabled.
-8. Click `Create OIDC provider`.
+8. Click `Create provider`.
+9. Verify any configured domains.
 
-New providers are created disabled. Wodby shows domain verification records after the provider is created.
+If no domains are configured, Wodby enables the provider immediately after it is created. If domains are configured, Wodby enables the provider after the last domain is verified.
 
-## Verify SSO domains
+During sign-in, Wodby requires GitHub organization membership and a verified primary GitHub email. If the provider has no domains, users must select the provider from the organization's SSO provider list because email-domain discovery cannot identify it.
 
-Each SSO domain must be verified before the provider can be enabled.
+## Configure a SAML 2.0 provider
 
-After saving the provider, Wodby shows a DNS `TXT` record for each domain. Add the exact record name, type, and value in your DNS provider.
+Prepare one of the following from your identity provider:
 
-The record looks like this:
+- IdP metadata URL
+- IdP metadata XML
 
-```text
-_wodby-sso.example.com TXT "wodby-sso-verification=<token>"
-```
+Also prepare one or more email domains allowed to use this provider.
 
-After the DNS record is published, click `Verify domain`.
+To create the provider:
 
-DNS propagation can take time. If verification fails, wait a few minutes and try again.
+1. Open `Organization > SSO`.
+2. Click `New provider`.
+3. Choose `SAML 2.0`.
+4. Enter a provider name.
+5. Enter either the IdP metadata URL or the IdP metadata XML.
+6. Add the email domains allowed to sign in through this provider.
+7. Choose whether Just-in-Time provisioning should be enabled.
+8. Click `Create provider`.
+9. Configure Wodby as a service provider in your identity provider.
+10. Verify every configured domain.
+11. After the last domain is verified, Wodby enables the provider automatically.
 
-## Enable SSO
+After the provider is created, Wodby shows SAML setup values:
 
-After every configured domain is verified, enable the provider from `Organization > SSO`.
+- IdP entity ID parsed from the metadata
+- Wodby service provider entity ID
+- Wodby service provider metadata URL
+- Assertion Consumer Service (ACS) URL
 
-Wodby blocks enabling an SSO provider while any configured domain is unverified. If you edit the domain list later, newly added domains must be verified before SSO can be enabled again.
+Use the service provider metadata URL when your identity provider can import SP metadata. Otherwise, configure the service provider entity ID and ACS URL manually.
+
+The service provider metadata URL is public and returns Wodby's SAML SP metadata XML for that provider.
+
+When editing a SAML 2.0 provider, leave both metadata fields blank to keep the existing IdP metadata. Enter a metadata URL or metadata XML only when replacing the IdP metadata. Do not enter both at the same time.
+
+The SAML assertion must include a stable subject identifier and an email address that matches a verified provider domain.
+
+## Provider enablement
+
+Providers that require domain verification are created disabled.
+
+After every required domain is verified, Wodby enables the provider automatically.
+
+Wodby does not enable an SSO provider while any configured domain is unverified. If you edit the domain list later, Wodby disables the provider until every configured domain is verified again.
 
 ## Update SSO settings
 
-You can update the provider name, issuer URL, client ID, client secret, allowed domains, and Just-in-Time provisioning setting from `Organization > SSO`.
+You can update the provider name, provider-specific settings, allowed domains, and Just-in-Time provisioning setting from `Organization > SSO`.
 
-The OIDC client secret is write-only. Leave the client secret field blank when you want to keep the existing secret.
+If a provider is enabled and you add or change domains, Wodby disables that provider and enables it again after every configured domain is verified.
 
-If SSO is enabled and you add or change domains, Wodby disables SSO until every configured domain is verified again.
+Provider kind cannot be changed after creation. Create a new provider when you need a different protocol or identity source.
 
 ## Sign in with SSO
 
@@ -114,8 +200,8 @@ To sign in:
 1. Open the Wodby sign-in page.
 2. Choose `Single Sign-On`.
 3. Enter the organization name.
-4. Continue to the identity provider.
-5. Complete authentication with your identity provider.
+4. If prompted, choose the SSO provider.
+5. Complete authentication with the identity provider.
 
 If the organization has one enabled SSO provider, Wodby redirects directly to that provider. If more than one provider is available, choose the provider first.
 
@@ -123,7 +209,7 @@ If the organization has one enabled SSO provider, Wodby redirects directly to th
 
 If an invited user signs in with SSO, the email returned by the identity provider must match the invitation email.
 
-If Just-in-Time provisioning is enabled, a user whose verified email domain matches the SSO provider can be created automatically and added as an organization `Member`.
+If Just-in-Time provisioning is enabled, a user whose identity matches the SSO provider rules can be created automatically and added as an organization `Member`.
 
 If Just-in-Time provisioning is disabled, the user must be invited before signing in with SSO.
 
@@ -142,8 +228,9 @@ Disabling SSO does not:
 ## Security notes
 
 - Verify only domains your organization controls.
-- Do not share the OIDC client secret.
-- Use a dedicated OIDC application for Wodby.
+- Use dedicated identity-provider applications for Wodby.
+- Do not share OIDC client secrets or SAML metadata XML from private IdPs.
+- For SAML providers, prefer metadata URLs when your IdP rotates signing certificates.
 - Keep at least one owner account able to sign in without SSO until mandatory SSO enforcement is available.
 - Review organization membership regularly when Just-in-Time provisioning is enabled.
 
