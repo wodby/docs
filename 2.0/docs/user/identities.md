@@ -12,6 +12,8 @@ For each linked identity, Wodby shows the associated email address and lets you 
 
 Organization SSO identities are created when you sign in through an organization's configured SSO provider.
 
+Google Workspace SSO and GitHub Organization SSO identities are separate from personal Google and GitHub sign-in identities. Signing in through organization SSO does not automatically link the regular Google or GitHub sign-in method to your Wodby user.
+
 ## Related pages
 
 - [User settings](index.md)

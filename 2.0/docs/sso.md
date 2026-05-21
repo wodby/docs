@@ -17,6 +17,17 @@ Supported provider kinds:
 
 SCIM directory sync, role mapping, and mandatory SSO enforcement are not supported yet.
 
+## Callback URLs and setup values
+
+Use these values when configuring identity-provider applications.
+
+| Provider kind | Value to configure |
+| ------------- | ------------------ |
+| OIDC redirect URI | `https://apps.wodby.com/auth/sso/callback` |
+| SAML ACS URL / Single sign-on URL | `https://apps.wodby.com/auth/sso/callback` |
+| SAML Audience URI / SP Entity ID | `https://api.wodby.com/v1/org-sso/<org-name>/saml/metadata` |
+| SAML SP metadata URL | `https://api.wodby.com/v1/org-sso/<org-name>/saml/metadata` |
+
 ## Who can configure SSO
 
 Organization owners and admins can manage SSO providers.
@@ -41,6 +52,8 @@ SSO does not change existing organization roles for current members.
 OIDC, Google Workspace, and SAML 2.0 providers require at least one email domain. Each domain must be verified before the provider can be enabled or used for sign-in.
 
 GitHub Organization providers can be configured without domains. If domains are added to a GitHub Organization provider, Wodby also enforces email-domain matching and those domains must be verified.
+
+A domain can be configured for only one SSO provider in the same organization. After a domain is verified, it cannot be verified for another organization.
 
 After saving a provider with domains, Wodby shows a DNS `TXT` record for each domain. Add the exact record name, type, and value in your DNS provider.
 
@@ -73,6 +86,19 @@ https://apps.wodby.com/auth/sso/callback
 
 Use the dashboard domain you normally use to sign in to Wodby.
 
+For Okta, use the issuer URL from the authorization server, not the Okta Admin Console URL. Okta issuer URLs usually look like one of these:
+
+```text
+https://example.okta.com
+https://example.okta.com/oauth2/default
+```
+
+Do not use an admin URL such as:
+
+```text
+https://example-admin.okta.com
+```
+
 The OIDC application must be allowed to request these scopes:
 
 ```text
@@ -80,6 +106,8 @@ openid profile email
 ```
 
 The identity provider must return a stable subject identifier and a verified email claim.
+
+Wodby uses the OIDC `sub` claim as the stable SSO identity subject. The provider must return an `email` value and `email_verified: true` in the ID token or from the userinfo endpoint. If the provider does not confirm that the email is verified, Wodby rejects the SSO sign-in.
 
 To create the provider:
 
@@ -97,7 +125,7 @@ The OIDC client secret is write-only. When editing an OIDC provider, leave the c
 
 ## Configure a Google Workspace provider
 
-Google Workspace providers use Wodby's Google OAuth application. You do not need to create your own Google OAuth client.
+Google Workspace providers let users sign in with a Google account from a verified Google Workspace domain.
 
 Prepare one or more Google Workspace email domains, such as `example.com`.
 
@@ -115,9 +143,11 @@ To create the provider:
 
 During sign-in, Wodby requires a Google verified email address and a hosted domain claim that matches one of the provider domains.
 
+Google Workspace SSO creates an organization SSO identity in Wodby. It does not automatically create a personal Google sign-in identity for the user.
+
 ## Configure a GitHub Organization provider
 
-GitHub Organization providers use Wodby's GitHub OAuth application and require membership in a GitHub organization.
+GitHub Organization providers require membership in a GitHub organization.
 
 Prepare the GitHub organization slug or URL, such as `wodby` or `https://github.com/wodby`.
 
@@ -139,9 +169,15 @@ If no domains are configured, Wodby enables the provider immediately after it is
 
 During sign-in, Wodby requires GitHub organization membership and a verified primary GitHub email. If the provider has no domains, users must select the provider from the organization's SSO provider list because email-domain discovery cannot identify it.
 
+GitHub Organization SSO requires GitHub's `read:org` permission so Wodby can check organization membership. If your GitHub organization restricts OAuth app access, a GitHub organization owner may need to approve the Wodby OAuth app before members can sign in.
+
+GitHub Organization SSO creates an organization SSO identity in Wodby. It does not automatically create a personal GitHub sign-in identity for the user.
+
 ## Configure a SAML 2.0 provider
 
-Prepare one of the following from your identity provider:
+First configure Wodby as a service provider in your identity provider. Use the SAML setup values from the table above. The service provider metadata URL uses the organization machine name, so it is available before the SAML provider is created in Wodby.
+
+Then prepare one of the following from your identity provider:
 
 - IdP metadata URL
 - IdP metadata XML
@@ -158,9 +194,8 @@ To create the provider:
 6. Add the email domains allowed to sign in through this provider.
 7. Choose whether Just-in-Time provisioning should be enabled.
 8. Click `Create provider`.
-9. Configure Wodby as a service provider in your identity provider.
-10. Verify every configured domain.
-11. After the last domain is verified, Wodby enables the provider automatically.
+9. Verify every configured domain.
+10. After the last domain is verified, Wodby enables the provider automatically.
 
 After the provider is created, Wodby shows SAML setup values:
 
@@ -171,11 +206,29 @@ After the provider is created, Wodby shows SAML setup values:
 
 Use the service provider metadata URL when your identity provider can import SP metadata. Otherwise, configure the service provider entity ID and ACS URL manually.
 
-The service provider metadata URL is public and returns Wodby's SAML SP metadata XML for that provider.
+The service provider metadata URL is public and returns Wodby's SAML SP metadata XML for that provider. Wodby uses the same URL as the service provider entity ID:
+
+```text
+https://api.wodby.com/v1/org-sso/<org-name>/saml/metadata
+```
+
+Replace `<org-name>` with the organization's machine name shown in `Organization > Settings`.
+
+In Okta and many other SAML identity providers, use these mappings:
+
+| Identity provider field     | Wodby value                                                    |
+|-----------------------------|----------------------------------------------------------------|
+| Single sign-on URL          | `https://apps.wodby.com/auth/sso/callback`                     |
+| ACS URL                     | `https://apps.wodby.com/auth/sso/callback`                     |
+| Recipient / Destination     | `https://apps.wodby.com/auth/sso/callback`                     |
+| Audience URI / SP Entity ID | `https://api.wodby.com/v1/org-sso/<org-name>/saml/metadata` |
+| SP metadata URL             | `https://api.wodby.com/v1/org-sso/<org-name>/saml/metadata` |
 
 When editing a SAML 2.0 provider, leave both metadata fields blank to keep the existing IdP metadata. Enter a metadata URL or metadata XML only when replacing the IdP metadata. Do not enter both at the same time.
 
-The SAML assertion must include a stable subject identifier and an email address that matches a verified provider domain.
+The SAML identity provider metadata must include an HTTP-Redirect SSO endpoint.
+
+The SAML assertion must include a stable subject identifier and an email address that matches a verified provider domain. Wodby uses the SAML `NameID` as the stable SSO identity subject and accepts common email attributes, including `email`, `mail`, and email-address claim URIs.
 
 ## Provider enablement
 
@@ -205,6 +258,10 @@ To sign in:
 
 If the organization has one enabled SSO provider, Wodby redirects directly to that provider. If more than one provider is available, choose the provider first.
 
+Use the `Single Sign-On` flow for organization SSO. The regular Google and GitHub sign-in buttons do not automatically use an organization's SSO provider, even when that provider is Google Workspace or GitHub Organization.
+
+If multiple SSO providers match the same account, choose the organization first and then select the provider.
+
 ## Invitations and Just-in-Time provisioning
 
 If an invited user signs in with SSO, the email returned by the identity provider must match the invitation email.
@@ -213,17 +270,21 @@ If Just-in-Time provisioning is enabled, a user whose identity matches the SSO p
 
 If Just-in-Time provisioning is disabled, the user must be invited before signing in with SSO.
 
-## Disabling SSO
+## Disabling or deleting SSO
 
 Disabling an SSO provider stops new SSO sign-ins through that provider.
 
-Disabling SSO does not:
+Deleting an SSO provider removes that provider, its domain verification records, and the SSO identity links created through that provider.
+
+Disabling or deleting SSO does not:
 
 - delete Wodby users
 - remove organization memberships
 - revoke API keys
 - disable email/password sign-in
 - disable GitHub or Google sign-in
+
+If you delete and recreate a provider, users sign in through the new provider as new SSO identities, even when the identity provider returns the same email address.
 
 ## Security notes
 
