@@ -76,6 +76,7 @@ Select where you want to run the first instance of your application. The form of
 2. **Wodby Cloud**
    - Wodby creates and manages a new cluster for this application
    - For persistent Wodby Cloud clusters you choose region, CPU type, machine type, and minimum and maximum node counts
+   - Enable `Single-node cluster` when you want one fixed node instead of configurable minimum and maximum node counts
    - Persistent Wodby Cloud clusters require a paid plan
    - For testing, enable `Demo` to create a free temporary Wodby Cloud cluster that is deleted automatically after 24 hours together with its applications
 

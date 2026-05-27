@@ -55,6 +55,16 @@ After the script completes successfully, Wodby initializes the cluster and deplo
 
 Once the cluster is ready, create new apps and choose that cluster from `My clusters`.
 
+## Single server model
+
+K3S clusters connected to Wodby are single-server clusters.
+
+Wodby does not support joining additional K3S nodes to the cluster. Multi-node self-hosted Kubernetes requires extra decisions around networking, storage, and node operations that are outside the supported K3S flow.
+
+In the dashboard, K3S clusters are shown as one-node clusters. They do not have the `Control` page and cannot be scaled from Wodby.
+
+Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles that service through its built-in ServiceLB controller, so Wodby does not create a cloud provider load balancer for K3S.
+
 ## Troubleshooting
 
 - If the command has expired, reload the cluster page and use the new command.
