@@ -24,9 +24,9 @@ When creating one, you choose:
 - region
 - CPU type
 - machine type
-- minimum number of nodes and maximum number of nodes, unless you enable `Single-node cluster`
+- minimum number of nodes and maximum number of nodes for scalable clusters
 
-You can also create a persistent Wodby Cloud cluster with the `Single-node cluster` checkbox. In this mode Wodby creates one fixed node, hides the minimum and maximum node count fields, disables cluster scaling, and does not provision a cloud load balancer. Public endpoint data is still shown in the cluster overview as `Public IPs` or `Hostname`.
+You can also create a persistent Wodby Cloud cluster with the `Single-node cluster` checkbox. In this mode Wodby creates one fixed node, disables cluster scaling, and does not provision a cloud load balancer. Public app traffic is routed directly to the node IP. Public endpoint data is still shown in the cluster overview as `Public IPs` or `Hostname`.
 
 Use single-node Wodby Cloud only when a small non-high-availability cluster is acceptable.
 
@@ -37,6 +37,7 @@ Wodby then creates the cluster and deploys the application to it.
 Demo is the temporary Wodby Cloud mode for testing.
 
 - free of charge
+- created as a single-node cluster
 - created from the same Step 2 flow
 - automatically deleted after 24 hours together with deployed applications
 

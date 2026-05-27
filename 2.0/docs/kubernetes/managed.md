@@ -25,15 +25,16 @@ Some managed Kubernetes providers expose a `Single-node cluster` option in Wodby
 
 When enabled, Wodby creates a fixed one-node cluster:
 
-- the dashboard does not ask for minimum or maximum node counts
 - minimum node count is fixed to `1`
 - maximum node count is fixed to `1`
 - `Kubernetes > [Cluster] > Control` is not shown
 - cluster scaling and node recycling actions are unavailable
+- Wodby does not create a cloud provider load balancer
+- public app traffic is routed directly to the node IP
 
 Use this mode for small clusters where reducing infrastructure cost matters more than high availability or scaling.
 
-For the current DigitalOcean-backed implementation, Wodby does not create a DigitalOcean Load Balancer. Public app traffic is routed directly to the node IP, and endpoint values are still shown in the cluster overview as `Public IPs` or `Hostname`.
+Endpoint values are still shown in the cluster overview as `Public IPs` or `Hostname`.
 
 Single-node clusters are currently available for DigitalOcean-backed Kubernetes clusters.
 
