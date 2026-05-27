@@ -49,6 +49,8 @@ Designed for large workloads and teams. Custom pricing and limits. On-premises o
 - Wodby Cloud compute usage if you run workloads on Wodby Cloud
 - Infrastructure costs from your cloud provider if you use managed Kubernetes, managed databases, or other resources in your own account
 
+Organization users and projects are included in your plan and are not billed separately.
+
 ## Addons
 
 Addons let you extend included limits and pay for extra usage when needed.
@@ -100,11 +102,3 @@ You can selectively delete backups to clean up stored backup data.
 ### Wodby data transfer
 
 Wodby data transfer is the total amount of data moved to and from Wodby Cloud Storage. It is billed by total transfer volume.
-
-### Users
-
-Extra organization users can be purchased as an addon. Usage is billed by total user-hours.
-
-### Projects
-
-Extra projects can be purchased as an addon. Usage is billed by total project-hours.
