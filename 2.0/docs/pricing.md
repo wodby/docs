@@ -66,7 +66,7 @@ Addons let you extend included limits and pay for extra usage when needed.
 From `Organization > Billing > Subscription`, paid subscriptions can set optional spending limits for:
 
 - the main app-service plan usage
-- individual addons such as Wodby CI minutes, registry storage, cloud storage, and data transfer
+- individual addons such as Wodby CI minutes, registry storage, and Wodby compute credits
 
 In practice:
 
@@ -91,14 +91,8 @@ When you delete your app instance, we automatically delete all images associated
 
 You can selectively delete older builds to clean up docker images.
 
-### Wodby cloud storage
+### Wodby compute credits
 
-Wodby Cloud Storage can be used for backups. Backup storage usage is billed by total GB-hours.
+Wodby Cloud is billed in compute credits. Usage is billed by total compute-credit hours.
 
-When you delete your app instance, we automatically delete all associated backups stored on Wodby Cloud storage.
-
-You can selectively delete backups to clean up stored backup data.
-
-### Wodby data transfer
-
-Wodby data transfer is the total amount of data moved to and from Wodby Cloud Storage. It is billed by total transfer volume.
+Paid plans include 1000 compute credits per month.
