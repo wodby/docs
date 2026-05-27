@@ -28,6 +28,8 @@ When creating one, you choose:
 
 You can also create a persistent Wodby Cloud cluster with the `Single-node cluster` checkbox. In this mode Wodby creates one fixed node, disables cluster scaling, and does not provision a cloud load balancer. Public app traffic is routed directly to the node IP. Public endpoint data is still shown in the cluster overview as `Public IPs` or `Hostname`.
 
+Single-node Wodby Cloud clusters cannot be changed into scalable clusters later. If you need node scaling after creation, create a regular Wodby Cloud cluster and move the application there.
+
 Use single-node Wodby Cloud only when a small non-high-availability cluster is acceptable.
 
 Wodby then creates the cluster and deploys the application to it.
