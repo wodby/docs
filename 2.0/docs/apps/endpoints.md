@@ -160,6 +160,8 @@ Manual port publishing is intended for non-HTTP ports such as SSH or other TCP o
 
 Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`. The first available port in that range is used.
 
+On regular managed Kubernetes clusters, published ports are exposed through the cluster load balancer. In single-node managed clusters that use direct node traffic instead of a load balancer, Wodby manages the node firewall rules for this published-port range.
+
 When a port is published, the dashboard shows the assigned public port. For SSHD services, it also shows ready-to-use `ssh`, `sftp`, and `scp` command examples based on the app instance main route.
 
 If you plan to use published SSH ports, see [SSH keys](../user/ssh-keys.md).
