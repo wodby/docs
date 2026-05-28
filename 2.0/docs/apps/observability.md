@@ -15,7 +15,7 @@ When cluster monitoring is enabled, Wodby collects metrics at several levels:
 Cluster-level metrics are shown from `Kubernetes > [Cluster] > Metrics`.
 
 That page also includes namespace-level usage details, including namespace type, related app instance, pod and
-container counts, restart totals, and CPU and memory usage per namespace.
+container counts, restart totals, CPU and memory usage, and persistent volume storage usage per namespace.
 
 ### Monitoring with third-party service
 
@@ -44,16 +44,22 @@ That page shows:
 
 - CPU and memory usage
 - CPU and memory requests and limits
+- persistent volume storage usage and capacity for the app instance namespace
 - pod and container readiness
 - restart counts
-- Kubernetes workload summaries for the instance
+- Kubernetes workload summaries for the instance, including service-level storage usage where available
 
 App service metrics are available from `Apps > [App] > [Instance] > Services > [Service] > Metrics`.
 
 That page shows:
 
 - aggregated CPU and memory usage for the service
+- persistent volume storage usage and capacity for volumes associated with the service
 - pod readiness
 - per-pod and per-container metrics such as requests, limits, restarts, node placement, and lifecycle timestamps
+
+Storage metrics come from Kubernetes PVC stats. They are available at app instance, app service, and namespace levels.
+Per-pod and per-container tables do not show separate storage usage because PVC usage is reported for volumes rather
+than individual containers.
 
 If cluster monitoring is disabled, app-instance and app-service metrics pages are not available.

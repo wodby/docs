@@ -130,10 +130,14 @@ It shows aggregate runtime metrics for the service and detailed per-pod and per-
 
 - CPU and memory usage
 - CPU and memory requests and limits
+- persistent volume storage usage and capacity for volumes associated with the service
 - pod and container readiness
 - restart counts
 - node placement
 - container start, finish, and exit data
+
+Storage usage is shown at the app service level. Per-pod and per-container storage usage is not reported separately,
+because Kubernetes exposes PVC usage for volumes rather than individual containers.
 
 ## Actions
 
