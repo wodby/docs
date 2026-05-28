@@ -18,6 +18,10 @@ Open `Stacks`, select the stack, and stay on the `Overview` tab. When an owned s
 When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
 latest service revisions in the draft revision.
 
+This is also the path to refresh service option metadata used for EOL review. If a stack shows an `EOL` flag, update the
+stack services to the latest service revisions before checking exact EOL dates or selecting newly available non-EOL
+versions.
+
 This update keeps stack service names and valid stack-level configuration. It is intended for service-template changes
 inside services that are already part of the stack, such as newer images, Helm changes, added settings, added configs,
 added links, new resource defaults, or new cron definitions.

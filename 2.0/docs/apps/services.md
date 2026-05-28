@@ -162,6 +162,10 @@ Depending on the service, you can:
 - change the number of replicas for non-external services
 - change build source settings for buildable services
 
+An `EOL` flag next to a service version means that the app service currently uses a version whose end-of-life date has
+passed. If newer supported versions are not available in the selector, update the app instance to a stack revision that
+uses the latest service revision first, then choose a non-EOL service version.
+
 Changing app-service configuration can mark the app instance as needing rebuild, because some changes affect the build output or deployment manifests.
 
 ### Build source

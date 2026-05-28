@@ -120,6 +120,9 @@ Set CPU and memory limits. Limits help control bursty workloads and reduce their
 Options represent different versions or variants of a service. A stack can limit which options are enabled, for
 example to enforce compatibility or exclude end-of-life versions. You can change the default option and enabled options from `Stack > Configure > Stack services > [Service] > Options`.
 
+An `EOL` flag on a stack means at least one enabled stack service defaults to an end-of-life version. If you do not see
+the expected replacement versions or exact EOL dates, first [update the stack service revisions](updates.md#update-stack-service-revisions).
+
 ### Links
 
 A service may provide a _link_, which represents a connection to another service. Some links are mandatory and some are

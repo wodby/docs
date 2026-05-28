@@ -92,6 +92,10 @@ services to move to the default versions defined by the latest stack revision.
 This does not stop the app service from moving to the latest service revision used by the stack. It controls the
 app-service version option, such as the PHP, MariaDB, or Redis version selected for that service.
 
+Use this when the latest stack revision changes an app service from an EOL default version to a supported default
+version. If you want to choose a different supported version, upgrade the stack first and then edit the app service from
+the `Services` tab.
+
 ### Update replicas
 
 When enabled, Wodby updates app-service replica counts to match the latest stack revision.
