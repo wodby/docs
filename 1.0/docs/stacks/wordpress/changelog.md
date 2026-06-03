@@ -7,6 +7,15 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.6
+
+- PHP:
+    - ⬆️ PECL extensions updates: mongodb 2.3.3
+- ⬆️ Nginx 1.31.1, 1.30.2
+- ⬆️ MariaDB 11.8.8, 11.4.12, 10.11.18, 10.6.27
+- 🐞 Adminer: missing theme styles file https://github.com/wodby/adminer/issues/11
+- ⬆️ XHProf, Webgrind rebuilt against the updated PHP image
+
 ## 6.2.5
 
 - ⬆️ Vanilla WordPress 7.0
