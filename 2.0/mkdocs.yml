@@ -307,6 +307,7 @@ nav:
       - Overview: user/index.md
       - Account: user/account.md
       - Emails: user/emails.md
+      - Notifications: user/notifications.md
       - Security: user/security.md
       - Identities: user/identities.md
       - SSH keys: user/ssh-keys.md

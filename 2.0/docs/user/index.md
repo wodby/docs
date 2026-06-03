@@ -8,6 +8,7 @@ Open them from your avatar menu in the dashboard.
 
 - [Account](account.md) for your profile and account deletion
 - [Emails](emails.md) for primary and secondary email addresses
+- [Notifications](notifications.md) for personal email notification preferences per organization
 - [Security](security.md) for password changes, two-factor authentication, and recovery codes
 - [Identities](identities.md) for linked sign-in providers
 - [SSH keys](ssh-keys.md) for public keys propagated to supported SSHD services
@@ -15,9 +16,13 @@ Open them from your avatar menu in the dashboard.
 
 ## Organization-aware settings
 
-Most user settings are personal. API keys are the main exception: every API key is created for one specific organization.
+Most user settings are personal. Some personal settings are also tied to an organization:
+
+- notification preferences are personal email settings for one selected organization
+- every API key is created for one specific organization
 
 ## Related pages
 
 - [Organization](../org.md)
+- [Notifications](notifications.md)
 - [Developer API keys](../dev/api-keys.md)
