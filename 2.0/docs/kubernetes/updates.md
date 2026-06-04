@@ -13,8 +13,8 @@ Infrastructure auto-updates are not available today.
 Some changes affect the cluster-level infrastructure version rather than only an infrastructure app stack revision.
 These upgrades can change how Wodby wires cluster networking, routing, or platform controllers.
 
-See [Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions) for the infrastructure version
-history, current versions, and cluster-type-specific upgrade behavior.
+See [Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions) for infrastructure version details,
+the changelog, current versions, and cluster-type-specific upgrade behavior.
 
 Run K3S infrastructure version upgrades during a maintenance window for production workloads, because pod networking can
 be briefly interrupted while K3S restarts and Cilium takes over.

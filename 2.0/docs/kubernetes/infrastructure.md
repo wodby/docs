@@ -59,7 +59,9 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
-### 3.0.0
+### Changelog
+
+#### 3.0.0
 
 This is the current infrastructure version for new clusters.
 
@@ -81,14 +83,14 @@ For managed Kubernetes clusters, version `3.0.0` does not replace the provider's
 the current Wodby infrastructure model. This version does not introduce a required action for managed Kubernetes clusters
 that already use version `2.0.0`.
 
-### 2.0.0
+#### 2.0.0
 
 Ingress Nginx was replaced with Envoy Gateway for public HTTP, HTTPS, TCP, and UDP entrypoints.
 
-### 1.0.0
+#### 1.0.0
 
 Introduced FRPC as the reverse proxy client used to connect to the Kubernetes API.
 
-### 0.1.0
+#### 0.1.0
 
 The first version of the Kubernetes cluster infrastructure.
