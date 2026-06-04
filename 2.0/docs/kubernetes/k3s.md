@@ -86,20 +86,12 @@ Once the cluster is ready, create new apps and choose that cluster from `My clus
 New K3S clusters use the current Wodby cluster infrastructure version. Existing K3S clusters can be marked as outdated
 when Wodby releases a K3S-specific infrastructure upgrade.
 
-The upgrade from infrastructure version `2.0.0` to `3.0.0` replaces the default K3S networking setup with Cilium. During
-this upgrade, Wodby:
-
-- applies K3S API endpoint hardening
-- restarts K3S with flannel disabled
-- disables the built-in K3S network policy controller
-- removes stale kube-router network policy rules from the server
-- installs Cilium
-- redeploys user applications so app instance network policies are applied
+The current K3S-specific upgrade path is described in
+[Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions). It replaces the default K3S
+flannel/kube-router networking setup with Cilium.
 
 The upgrade can briefly interrupt pod networking while K3S restarts and Cilium takes over. Run it during a maintenance
 window for production workloads.
-
-Managed Kubernetes clusters do not use this K3S-specific upgrade path.
 
 ## Single server model
 
