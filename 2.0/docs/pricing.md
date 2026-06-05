@@ -89,7 +89,7 @@ Wodby Registry is the default private Docker registry for images built and relea
 
 When you delete your app instance, we automatically delete all images associated with it.
 
-You can selectively delete older builds to clean up docker images.
+You can selectively void older build images to clean up docker images while keeping the build records.
 
 ### Wodby compute credits
 

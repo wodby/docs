@@ -22,6 +22,28 @@ A build records:
 - the related Git repository and commit information
 - the resulting container images intended for deployment
 
+## Void build images
+
+You can void build images when you want to remove old image outputs from future deployment use without deleting the
+build record itself. Voided images remain visible in build history, but Wodby blocks deployments that reference them.
+
+Open the build details page and use **Void build images**. The action is available only when all of these conditions are
+met:
+
+- the build is not pending or active
+- the build has at least one image-bearing app service build that has not already been voided
+- none of the build's app service images is currently used by an app service or the current deployment
+
+Voiding a build marks all eligible image-bearing app service builds from that build as voided. A build can show one of
+these image statuses:
+
+- `None`: no build images are voided, or the build has no recorded service-build images
+- `Partially voided`: some image-bearing app service builds are voided
+- `Voided`: all image-bearing app service builds are voided
+
+If a build image is currently deployed, create and deploy a newer build first. After the older image is no longer used,
+you can void it.
+
 ## Needs rebuild
 
 Like [`needs redeploy`](deploys.md#needs-redeploy), `needs rebuild` is a status that tells you build-related changes exist but have not yet been applied through a new build.
