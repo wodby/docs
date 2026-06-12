@@ -53,7 +53,7 @@ Compute usage is driven by:
 - selected cluster machine type
 - node count
 - additional cluster fee for scalable clusters
-- persistent block storage used by apps deployed to the cluster
+- provisioned persistent storage for apps deployed to the cluster
 
 Single-node Wodby Cloud clusters do not include the additional scalable-cluster fee.
 

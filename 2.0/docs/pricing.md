@@ -36,7 +36,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - best-effort support
 - $24 of Wodby compute per month
 
-Billing is per [app service](apps/services.md). On paid plans, usage is billed by app-service hours over the billing period.
+Billing is per [app service](apps/services.md). On paid plans, usage is based on the current number of billable app services.
 
 ### Enterprise
 
@@ -73,7 +73,7 @@ In practice:
 - leaving the value empty means `Unlimited`
 - the main plan limit cannot be set below the included app-service amount for that plan
 - addon limits are configured separately per addon
-- when a limit is reached, the billing UI shows that the limit was exceeded
+- operations that would exceed a limit can be blocked, and the billing UI shows that the limit was exceeded
 
 On the free plan, usage above included addon amounts is not allowed. In that case you must either upgrade or wait for the next billing cycle when the addon is renewable.
 
@@ -85,7 +85,7 @@ Each billing cycle includes a free amount of build minutes. Additional usage is 
 
 ### Wodby registry storage
 
-Wodby Registry is the default private Docker registry for images built and released during CI. Storage usage is billed by total GB-hours.
+Wodby Registry is the default private Docker registry for images built and released during CI. Storage usage is billed by stored GB above the included amount.
 
 When you delete your app instance, we automatically delete all images associated with it.
 
@@ -95,6 +95,6 @@ You can selectively void older build images to clean up docker images while keep
 
 Wodby Cloud is billed in dollars as Wodby compute usage.
 
-Compute usage is based on the selected machine type, node count, persistent storage, and cluster infrastructure used during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
+Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
 
 Paid plans include $24 of Wodby compute per month.
