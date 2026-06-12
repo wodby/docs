@@ -20,7 +20,7 @@ Wodby supports four practical deployment paths:
 | --- | --- | --- | --- | --- | --- |
 | Managed Kubernetes | Your cloud account | `Kubernetes` after connecting a provider integration | Production workloads with cloud-native flexibility | You and your cloud provider | Your cloud bill plus Wodby platform usage |
 | K3S | Your own server | `Kubernetes > Connect server` | Cost-sensitive self-hosted setups | You | Your server costs plus Wodby platform usage |
-| Wodby Cloud | Wodby-managed infrastructure | `Apps > New app > Step 2` | Teams that want less cluster ops work | Wodby | Wodby compute credits |
+| Wodby Cloud | Wodby-managed infrastructure | `Apps > New app > Step 2` | Teams that want less cluster ops work | Wodby | Wodby compute usage |
 | Demo | Temporary Wodby Cloud cluster | `Apps > New app > Step 2 > Wodby Cloud > Demo` | Evaluation, prototypes, short-lived testing | Wodby | Free, deleted after 24 hours |
 
 ## When to choose Managed Kubernetes

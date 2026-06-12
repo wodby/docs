@@ -34,7 +34,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - scheduled cron jobs
 - web shell for containers
 - best-effort support
-- 1000 compute credits per month for Wodby Cloud
+- $24 of Wodby compute per month
 
 Billing is per [app service](apps/services.md). On paid plans, usage is billed by app-service hours over the billing period.
 
@@ -66,7 +66,7 @@ Addons let you extend included limits and pay for extra usage when needed.
 From `Organization > Billing > Subscription`, paid subscriptions can set optional spending limits for:
 
 - the main app-service plan usage
-- individual addons such as Wodby CI minutes, registry storage, and Wodby compute credits
+- individual addons such as Wodby CI minutes, registry storage, and Wodby compute
 
 In practice:
 
@@ -91,8 +91,10 @@ When you delete your app instance, we automatically delete all images associated
 
 You can selectively void older build images to clean up docker images while keeping the build records.
 
-### Wodby compute credits
+### Wodby compute
 
-Wodby Cloud is billed in compute credits. Usage is billed by total compute-credit hours.
+Wodby Cloud is billed in dollars as Wodby compute usage.
 
-Paid plans include 1000 compute credits per month.
+Compute usage is based on the selected machine type, node count, persistent storage, and cluster infrastructure used during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
+
+Paid plans include $24 of Wodby compute per month.

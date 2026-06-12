@@ -45,17 +45,18 @@ Demo is the temporary Wodby Cloud mode for testing.
 
 ## Billing
 
-Wodby Cloud is billed in compute credits. See the live pricing page for current rates:
+Wodby Cloud is billed in dollars as Wodby compute usage. See the live pricing page for current rates:
 https://wodby.com/pricing
 
-Compute-credit usage is driven by:
+Compute usage is driven by:
 
-- cluster base cost, which mostly covers shared infrastructure such as the load balancer
-- shared CPU on cluster nodes
-- dedicated CPU on cluster nodes
-- cluster node RAM
+- selected cluster machine type
+- node count
+- additional cluster fee for scalable clusters
 - persistent block storage used by apps deployed to the cluster
+
+Single-node Wodby Cloud clusters do not include the additional scalable-cluster fee.
 
 Wodby Cloud is available in two regions: US and EU.
 
-Paid plans include 1000 compute credits per month.
+Paid plans include $24 of Wodby compute per month.
