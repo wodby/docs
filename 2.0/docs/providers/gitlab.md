@@ -4,11 +4,15 @@ After connecting your GitLab account you can use your repositories as a build so
 
 ## Build templates
 
-GitLab integrations can use GitLab repositories as app build sources. Automated import of public build templates into
-new GitLab repositories is not supported yet.
+GitLab integrations can use GitLab repositories as app build sources. When a buildable service provides a public build
+template, Wodby can create a new GitLab repository and import the template contents into it during new app creation.
 
-To start from a build template with GitLab, create or copy the repository manually in GitLab, then select that
-repository as the build source in Wodby.
+The target repository is created in the selected GitLab integration namespace:
+
+- If the integration has a scope, Wodby uses that scope as the user, group, or subgroup path.
+- If the integration has no scope, Wodby uses the authenticated GitLab user's namespace.
+
+The GitLab user or token actor must be allowed to create projects in that namespace.
 
 ## Auth
 
@@ -21,8 +25,9 @@ When using token authentication:
 
 - You can use a personal, group, or project access token
 - Required scopes for Git repository access: `read_api` and `read_repository`
-- Use `api` instead of `read_api` if you plan to use GitLab CI features such as re-running jobs or creating new pipelines
+- Use `api` instead of `read_api` if you plan to clone build templates into new repositories, use GitLab CI features such as re-running jobs, or create new pipelines
 - Required role: `Developer` or higher for both Git and CI integrations
+- To clone build templates, the token actor must be allowed to create projects in the target namespace
 - For self-hosted GitLab, specify the GitLab base URL. Leave it empty for GitLab.com
 - If you want to run GitLab CI builds from Wodby, make sure the token's actor is allowed to run pipelines for protected branches such as `main`
 

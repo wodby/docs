@@ -23,7 +23,7 @@ Git provider integrations are used for:
 | Provider | Notes |
 | --- | --- |
 | [GitHub](github.md) | Repositories, automated build-template import into new repositories, and GitHub Actions support |
-| [GitLab](gitlab.md) | Repositories and GitLab CI support; build-template imports must be done manually |
+| [GitLab](gitlab.md) | Repositories, automated build-template import into new repositories, and GitLab CI support |
 | [Bitbucket](bitbucket.md) | Repositories only; build-template imports must be done manually |
 
 ## Related pages
