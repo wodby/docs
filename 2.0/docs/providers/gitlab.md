@@ -1,6 +1,14 @@
 # GitLab
 
-After connecting your GitLab account you can use your repositories as a build source for applications deployed via Wodby or to clone existing public build templates.
+After connecting your GitLab account you can use your repositories as a build source for applications deployed via Wodby.
+
+## Build templates
+
+GitLab integrations can use GitLab repositories as app build sources. Automated import of public build templates into
+new GitLab repositories is not supported yet.
+
+To start from a build template with GitLab, create or copy the repository manually in GitLab, then select that
+repository as the build source in Wodby.
 
 ## Auth
 

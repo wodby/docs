@@ -94,7 +94,11 @@ You can also create a Wodby Cloud cluster before creating an app from `Kubernete
 
 #### Build sources
 
-For [buildable](../cicd/index.md) services select a build source. A build source is a git repository that contains your application code and, usually, CI pipeline manifests. Services often provide a public template that you can use directly or clone. You can also use your own git repository.
+For [buildable](../cicd/index.md) services select a build source. A build source is a git repository that contains
+your application code and, usually, CI pipeline manifests. Services often provide a public template that you can use
+directly. With [GitHub](../providers/github.md), Wodby can also create a new repository and import the template
+contents into it. For [GitLab](../providers/gitlab.md) and [Bitbucket](../providers/bitbucket.md), create or copy the
+template repository manually first, then select it as the build source.
 
 #### Settings 
 

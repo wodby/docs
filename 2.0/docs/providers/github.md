@@ -1,6 +1,18 @@
 # GitHub
 
-After connecting your GitHub account you can use your repositories as a build source for applications deployed via Wodby or to clone existing public build templates.
+After connecting your GitHub account you can use your repositories as a build source for applications deployed via Wodby.
+
+## Build template import
+
+GitHub integrations support importing public build templates into new GitHub repositories during app creation.
+
+When a buildable service provides a public build template, Wodby can create a new repository in the selected GitHub
+user or organization account and mirror the template contents into it. Use this when you want to start from template
+code but own the resulting repository.
+
+- The selected GitHub connection must be allowed to create and write to the target repository
+- Wodby uses the GitHub App installation to access organization repositories when applicable
+- Wodby uses the connected GitHub OAuth token when creating user-owned repositories and when mirroring template contents
 
 ## Actions
 
