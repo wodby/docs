@@ -2,7 +2,7 @@
 
 This page covers image builds in CI. To learn more about builds in general see [app builds](../apps/builds.md).
 
-Use `wodby ci build [OPTIONS] [SERVICE]...` to build one or more services from the current app build config. If you do not specify services, the CLI tries to build all buildable services and prioritizes the main service first.
+Use `wodby ci build [OPTIONS] [SERVICE]...` to build one or more services from the current app build config. If you do not specify services, the CLI tries to build all build image targets and prioritizes the main service first.
 
 ## Dockerfile resolution
 
@@ -60,7 +60,7 @@ With non-DIND builds, `--cache-dir` is enough to enable local cache. In `--dind`
 ## Examples
 
 ```bash
-# Build all buildable services
+# Build all build image targets
 wodby ci build
 
 # Build only the node service

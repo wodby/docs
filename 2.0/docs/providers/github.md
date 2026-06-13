@@ -6,7 +6,7 @@ After connecting your GitHub account you can use your repositories as a build so
 
 GitHub integrations support importing public build templates into new GitHub repositories during app creation.
 
-When a buildable service provides a public build template, Wodby can create a new repository in the selected GitHub
+When a service provides a public build template, Wodby can create a new repository in the selected GitHub
 user or organization account and mirror the template contents into it. Use this when you want to start from template
 code but own the resulting repository.
 

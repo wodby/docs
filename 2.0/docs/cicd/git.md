@@ -1,6 +1,6 @@
 # Git repository
 
-Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md), [GitLab](../providers/gitlab.md), or [Bitbucket](../providers/bitbucket.md). Then select the repository as the build source for a [buildable service](../services/build.md).
+Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md), [GitLab](../providers/gitlab.md), or [Bitbucket](../providers/bitbucket.md). Then select the repository as the build source for an app service with [build configuration](../services/build.md).
 
 If you use [Wodby CI](wodby-ci.md), keep the pipeline definition in the repository itself:
 

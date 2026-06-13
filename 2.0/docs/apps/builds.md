@@ -1,15 +1,17 @@
 # Application Builds
 
-Some app services are [buildable](../services/build.md). For those services, a [CI system](../cicd/index.md) builds container images and then triggers deployment through the Wodby CLI.
+Some app services have [build configuration](../services/build.md). For those services, a [CI system](../cicd/index.md) can build container images and then trigger deployment through the Wodby CLI.
 
-## Build sources and buildable services
+## Build sources and image targets
 
 The two common patterns are:
 
 1. An app service has a connected Git repository and acts as the main build source.
-2. Other app services are also buildable, but do not have their own separate build source. They still produce images as part of the same build and deployment flow.
+2. Other app services are build image targets but do not have their own separate build source. They can produce images as part of the same build and deployment flow.
 
 For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you release them with `wodby ci release` and deploy them with `wodby ci deploy`.
+
+Build image targets without their own build source are optional. If a build does not produce an image for one of those services, Wodby deploys the service with the configured image from the service manifest or chart. This lets pipelines build `nginx` only when the app needs custom static assets, while still allowing `nginx` to deploy normally as part of the stack.
 
 ## Build info
 

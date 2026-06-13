@@ -56,7 +56,7 @@ There are 5 steps of creating a new application:
   - Choose `Organization <organization>` to create an organization-owned app.
   - Choose `Project <project>` to create a project-owned app.
 - Select a stack
-- Optionally, if the stack has buildable services:
+- Optionally, if the stack has services with build configuration:
   - choose your [CI system](../cicd/index.md) ([Wodby CI](../cicd/wodby-ci.md) by default)
   - choose your [container registry](../cicd/index.md) ([Wodby registry](../cicd/wodby-registry.md) by default) 
 - In the selected stack you can:
@@ -94,7 +94,7 @@ You can also create a Wodby Cloud cluster before creating an app from `Kubernete
 
 #### Build sources
 
-For [buildable](../cicd/index.md) services select a build source. A build source is a git repository that contains
+For services that support a build source, select a Git repository that contains
 your application code and, usually, CI pipeline manifests. Services often provide a public template that you can use
 directly. With [GitHub](../providers/github.md) and [GitLab](../providers/gitlab.md), Wodby can also create a new
 repository and import the template contents into it. For [Bitbucket](../providers/bitbucket.md), create or copy the

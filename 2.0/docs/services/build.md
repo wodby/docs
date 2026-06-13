@@ -4,17 +4,19 @@
 
 Only services of type `service` can define a build section.
 
-Use build settings when a service must be built in [CI/CD](../cicd/index.md) before deployment.
+Use build settings when a service can receive a [CI/CD](../cicd/index.md) build image.
 
 The two common patterns are:
 
-1. A service requires a connected Git repository as its build source.
-2. A service is still built in [CI/CD](../cicd/index.md), but does not need its own repository connection.
+1. A service has a connected Git repository as its build source.
+2. A service is a build image target, but does not need its own repository connection.
+
+A service with a build source starts the build flow. A build image target without its own build source can still be built by the same pipeline, but it does not have to be built every time. If no build image is attached during deployment, Wodby uses the service's configured image from the manifest or chart.
 
 Mark deployment targets explicitly with `workloads[].containers[].build: true`.
 
-- Buildable services must mark at least one container this way.
-- Non-buildable services must not define `build: true` on containers.
+- Services with build configuration must mark at least one container this way.
+- Services without build configuration must not define `build: true` on containers.
 - More than one container can be marked only when they are expected to receive the same built image.
 
 The target Helm paths are taken from `workloads[].containers[].helm.image` and default to `image.repository`,
@@ -49,7 +51,7 @@ For service templates:
 - set `runtime: false` together with `build: true` for values that are needed only during image build
 
 App-service environment variables can also be marked as runtime, build, or both from the app service configuration.
-Build-scoped app-service env vars are allowed only on buildable app services.
+Build-scoped app-service env vars are allowed only on app services with build configuration.
 
 Variable integrations and stack environment variables are runtime-only and are not passed as build arguments.
 

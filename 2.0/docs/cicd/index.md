@@ -3,7 +3,7 @@
 Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-ci.md) and [third-party CI providers](third-party.md). The main difference is the identifier passed to `wodby ci init`:
 
 - In Wodby CI, use `WODBY_BUILD_ID`. The build already exists and the CLI loads it.
-- In third-party CI, use `WODBY_APP_SERVICE_ID`. The CLI creates a build from the CI metadata it detects.
+- In third-party CI, use `WODBY_APP_SERVICE_ID` for the app service that owns the build source. The CLI creates a build from the CI metadata it detects.
 
 `wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If you run it outside those providers, pass `--build-id`, `--build-num`, and `--provider` explicitly.
 
@@ -31,7 +31,7 @@ Use `--dind` when your CI provider builds through docker-in-docker. Use `--fix-p
 
 ## 3. [Build](build.md)
 
-`wodby ci build [SERVICE]...` builds all buildable services or only the services you specify. The CLI can use a Dockerfile from your repository, a Dockerfile from the Wodby service configuration, or a generated default Dockerfile. It also supports build arguments, custom copy paths, and buildx cache backends.
+`wodby ci build [SERVICE]...` builds all build image targets from the current app build config or only the services you specify. The CLI can use a Dockerfile from your repository, a Dockerfile from the Wodby service configuration, or a generated default Dockerfile. It also supports build arguments, custom copy paths, and buildx cache backends.
 
 ## 4. [Release](docker-registry.md)
 

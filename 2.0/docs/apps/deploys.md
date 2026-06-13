@@ -7,7 +7,7 @@ services. If two linked services are deployed together, the linked target servic
 
 Deployments are transactional by default. If one of the app service deployments fails, Wodby rolls back the entire deployment.
 
-During the first deployment, Wodby deploys all non-buildable services immediately. Buildable services usually leave the app instance in `awaiting` until a deployment is triggered with build information from a [CI system](../cicd/index.md).
+During the first deployment, Wodby deploys services without a connected build source immediately. Services with connected build sources usually leave the app instance in `awaiting` until a deployment is triggered with build information from a [CI system](../cicd/index.md). Optional build image targets without their own build source can still deploy with their configured service image when the build does not provide a custom image for them.
 
 Every deployment is associated with a specific stack revision of the app instance.
 
@@ -37,7 +37,7 @@ In that flow you can:
 - force deployment even when manifests have not changed
 - disable post-deployment scripts for services that provide them
 - use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment
-- choose which successful build to deploy for buildable services, as long as the build belongs to the same stack revision as the current app instance
+- choose which successful build to deploy for services with build sources, as long as the build belongs to the same stack revision as the current app instance
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set.
 
@@ -50,7 +50,7 @@ For non-external services, Wodby runs the normal Helm upgrade and then updates t
 Deployment, StatefulSet, or DaemonSet with an internal redeploy annotation. Kubernetes treats the pod-template update as
 a new rollout, so the service pods are restarted with the same chart values and image references.
 
-Force deployment does not create a new build or change which image is deployed. For buildable services, choose the build
+Force deployment does not create a new build or change which image is deployed. For services with build sources, choose the build
 you want to deploy in the same way as a regular manual deployment.
 
 Force deployment requires the service to define resolvable workload selectors. If Wodby cannot resolve the workload

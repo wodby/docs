@@ -13,7 +13,7 @@ For any other provider, pass `--build-id`, `--build-num`, and `--provider` to `w
 ## Required variables
 
 - `WODBY_API_KEY` as a secret with your [Wodby API key](../dev/api-keys.md)
-- `WODBY_APP_SERVICE_ID` as the ID of the buildable app service you want the pipeline to build and deploy
+- `WODBY_APP_SERVICE_ID` as the ID of the app service that owns the build source
 
 You can find the app service ID on the Overview page of the corresponding app service.
 

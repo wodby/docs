@@ -160,7 +160,7 @@ Depending on the service, you can:
 - mark it as the main service when it exposes HTTP routes
 - change the service version
 - change the number of replicas for non-external services
-- change build source settings for buildable services
+- change build source settings for services that support a build source
 
 An `EOL` flag next to a service version means that the app service currently uses a version whose end-of-life date has
 passed. If newer supported versions are not available in the selector, update the app instance to a stack revision that
@@ -170,7 +170,7 @@ Changing app-service configuration can mark the app instance as needing rebuild,
 
 ### Build source
 
-If a service is buildable, the app service includes build-source controls.
+If a service supports a build source, the app service includes build-source controls.
 
 You can point the service to a Git repository and a reference such as:
 
@@ -218,8 +218,8 @@ App-service env vars can be runtime-scoped, build-scoped, or both:
 - runtime-scoped variables are injected into deployed containers
 - build-scoped variables are passed to CI builds as Docker build arguments when the Dockerfile declares a matching `ARG`
 
-If neither scope is selected, Wodby rejects the variable. Build-scoped app-service env vars are supported only for
-buildable app services.
+If neither scope is selected, Wodby rejects the variable. Build-scoped app-service env vars are supported only for app
+services with build configuration.
 
 Changing a runtime-only env var marks the app service for redeploy. Changing a build-scoped env var marks it for
 rebuild.

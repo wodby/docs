@@ -1,10 +1,10 @@
 # Wodby CI
 
-Wodby CI is the built-in CI system for Wodby 2.0. Add the pipeline files to the repository you selected as the build source for a buildable service. Wodby provides `WODBY_BUILD_ID`, which you pass to `wodby ci init` inside the pipeline.
+Wodby CI is the built-in CI system for Wodby 2.0. Add the pipeline files to the repository you selected as the build source for an app service. Wodby provides `WODBY_BUILD_ID`, which you pass to `wodby ci init` inside the pipeline.
 
 ## Pipeline
 
-To use Wodby CI, create `.wodby/pipeline.yml` in the repository that you selected as the build source of a buildable service in your app.
+To use Wodby CI, create `.wodby/pipeline.yml` in the repository that you selected as the build source of an app service in your app.
 
 Example:
 

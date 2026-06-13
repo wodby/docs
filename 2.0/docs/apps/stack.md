@@ -53,7 +53,7 @@ Wodby does not force every possible override during upgrade. Instead, the upgrad
 The reason is that app services can be customized per instance. Wodby cannot always tell whether an app-level value was
 changed intentionally or whether it simply has not received a newer stack default yet.
 
-If the app instance has buildable app services, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
+If the app instance has services with connected build sources, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
@@ -77,7 +77,7 @@ connected build source, an external database, required integrations, or required
 stack upgrade. Wodby records them as warnings on the upgrade task, creates the app service, and waits for you to finish
 the service configuration before deploying.
 
-If a newly added buildable service defines build templates, Wodby uses the default build template automatically. If no
+If a newly added service supports build templates, Wodby uses the default build template automatically. If no
 template is marked as default, the first template is used. If the default template cannot be applied, Wodby records a
 warning and asks you to select the build source after the upgrade.
 

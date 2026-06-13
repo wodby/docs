@@ -347,7 +347,7 @@ Each object supports:
 - `connect`: whether the service requires a connected git repository.
 - `templates`: starter repositories users can clone as a starting point.
 
-Set build targets with `workloads[].containers[].build: true`. Buildable services must mark at least one container.
+Set build image targets with `workloads[].containers[].build: true`. Services with build configuration must mark at least one container.
 
 Docker build arguments are opt-in. Wodby passes only values marked with `build: true` from service env vars, service
 settings, or app-service env vars. Runtime-only values are not passed to builds.

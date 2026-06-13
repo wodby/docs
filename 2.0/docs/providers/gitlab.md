@@ -4,7 +4,7 @@ After connecting your GitLab account you can use your repositories as a build so
 
 ## Build templates
 
-GitLab integrations can use GitLab repositories as app build sources. When a buildable service provides a public build
+GitLab integrations can use GitLab repositories as app build sources. When a service provides a public build
 template, Wodby can create a new GitLab repository and import the template contents into it during new app creation.
 
 The target repository is created in the selected GitLab integration namespace:

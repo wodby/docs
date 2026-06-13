@@ -184,7 +184,7 @@ Container names must match the real container names created by the chart.
 
 ### Build targets
 
-Buildable services mark target containers with `build: true`.
+Services with build configuration mark target containers with `build: true`.
 
 - At least one container must be marked when the service defines `build`.
 - Containers must not use `build: true` when the service has no `build` section.
