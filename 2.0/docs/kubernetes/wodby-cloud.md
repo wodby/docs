@@ -59,7 +59,7 @@ Demo is the temporary Wodby Cloud mode for testing.
 
 ## Billing
 
-Wodby Cloud is billed in dollars as Wodby compute usage. See the live pricing page for current rates:
+Wodby Cloud is billed in dollars as Wodby Cloud usage. See the live pricing page for current rates:
 https://wodby.com/pricing
 
 Compute usage is driven by:
@@ -73,4 +73,4 @@ Single-node Wodby Cloud clusters do not include the additional scalable-cluster 
 
 Wodby Cloud is available in two regions: US and EU.
 
-Paid plans include $30 of Wodby compute per month.
+Paid plans include $30 of Wodby Cloud usage per month.

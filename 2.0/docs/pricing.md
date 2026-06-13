@@ -34,7 +34,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - scheduled cron jobs
 - web shell for containers
 - best-effort support
-- $30 of Wodby compute per month
+- $30 of Wodby Cloud usage per month
 
 Billing is per [app service](apps/services.md). On paid plans, usage is based on the current number of billable app services.
 
@@ -46,7 +46,7 @@ Designed for large workloads and teams. Custom pricing and limits. On-premises o
 
 - App services on paid plans
 - Addons usage above included amounts
-- Wodby Cloud compute usage if you run workloads on Wodby Cloud
+- Wodby Cloud usage if you run workloads on Wodby Cloud
 - Infrastructure costs from your cloud provider if you use managed Kubernetes, managed databases, or other resources in your own account
 
 Organization users and projects are included in your plan and are not billed separately.
@@ -66,7 +66,7 @@ Addons let you extend included limits and pay for extra usage when needed.
 From `Organization > Billing > Subscription`, organization owners on paid subscriptions can set optional spending limits for:
 
 - the main app-service plan usage
-- individual addons such as Wodby CI minutes, registry storage, and Wodby compute
+- individual addons such as Wodby CI minutes, registry storage, and Wodby Cloud usage
 
 In practice:
 
@@ -83,7 +83,7 @@ On the free plan, usage above included addon amounts is not allowed. In that cas
 
 When you downgrade a paid subscription, the downgrade is scheduled for the end of the current billing cycle. The existing paid billing period continues for billing and existing resource usage until the current period ends, and the organization moves to the free Developer plan after that.
 
-Usage-based charges can still accrue until the end of the billing cycle. The final invoice can include addon usage and Wodby compute usage above the included amounts for the period.
+Usage-based charges can still accrue until the end of the billing cycle. The final invoice can include addon usage and Wodby Cloud usage above the included amounts for the period.
 
 After a downgrade is scheduled:
 
@@ -108,10 +108,10 @@ When you delete your app instance, we automatically delete all images associated
 
 You can selectively void older build images to clean up docker images while keeping the build records.
 
-### Wodby compute
+### Wodby Cloud usage
 
-Wodby Cloud is billed in dollars as Wodby compute usage.
+Wodby Cloud is billed in dollars as Wodby Cloud usage.
 
 Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
 
-Paid plans include $30 of Wodby compute per month.
+Paid plans include $30 of Wodby Cloud usage per month.
