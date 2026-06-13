@@ -73,4 +73,4 @@ Single-node Wodby Cloud clusters do not include the additional scalable-cluster 
 
 Wodby Cloud is available in two regions: US and EU.
 
-Paid plans include $24 of Wodby compute per month.
+Paid plans include $30 of Wodby compute per month.
