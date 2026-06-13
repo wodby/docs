@@ -107,6 +107,7 @@ Wodby uses the same basic permission meanings across resource types.
 | Manage project           | Rename, delete, or manage project access                               | Project `Admin`, or organization owner/admin                                                                                                        |
 | Manage organization/team | Manage org settings, teams, team members, and team leaders              | Organization owner/admin                                                                                                                           |
 | Manage org members       | Invite, change roles, or remove organization members                   | Owners can manage owners/admins/members. Admins can manage members only                                                                             |
+| Manage billing           | Change subscription, billing details, invoices, or spending limits      | Organization owners only                                                                                                                           |
 
 ## What read means
 
