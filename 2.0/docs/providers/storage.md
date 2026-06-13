@@ -1,6 +1,6 @@
 # Storage providers
 
-Storage providers are third-party services whose integrations expose the `storage` type. Use this group when you want Wodby to send backups to an object storage service.
+Storage providers expose the `storage` type. Use this group when you want Wodby to send backups to an object storage service, either through Wodby Blob Storage or a connected third-party storage provider.
 
 Machine name: `storage`
 
@@ -8,7 +8,7 @@ Use a storage provider when:
 
 - you want app or database backups copied to an external bucket or object container
 - you want reusable backup destinations for manual backups and backup presets
-- you want backup storage to live in your own cloud account
+- you want backup storage to live in Wodby Blob Storage or your own cloud account
 
 ## Where it is used in Wodby
 
@@ -24,6 +24,7 @@ Wodby stores backup archives in the selected bucket or container. It does not us
 
 | Provider | Storage product |
 | --- | --- |
+| [Wodby](index.md#built-in-providers) | Blob Storage |
 | [Amazon Web Services](aws.md#s3) | S3 |
 | [Azure](azure.md#blob-storage) | Blob Storage |
 | [Google Cloud Platform](gcp.md#cloud-storage) | Cloud Storage |
