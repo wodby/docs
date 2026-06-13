@@ -26,13 +26,13 @@ Typical first steps:
 2. Decide how you want to run Kubernetes:
    - connect a managed Kubernetes provider via [integrations](integrations/index.md)
    - connect your own server with [K3S](kubernetes/k3s.md)
-   - choose [Wodby Cloud](kubernetes/wodby-cloud.md) in the new application flow
+   - create a [Wodby Cloud](kubernetes/wodby-cloud.md) cluster from the Kubernetes page or choose Wodby Cloud in the new application flow
 3. Create your first application from a [stack](stacks/index.md)
 4. Configure the first [instance](apps/instances.md) and deploy it
 
 If you use managed Kubernetes, create an [integration](integrations/index.md) from the _Integrations_ tab and then create a cluster from the _Kubernetes_ tab. Wodby will provision the cluster in the selected cloud account for you.
 
-If you use Wodby Cloud, select _Wodby Cloud_ in Step 2 of the new application form. For testing, you can enable [Demo](kubernetes/demo.md); demo clusters and their applications are deleted automatically after 24 hours.
+If you use Wodby Cloud, create a cluster from _Kubernetes > New Wodby Cloud cluster_ or select _Wodby Cloud_ in Step 2 of the new application form. For testing, you can enable [Demo](kubernetes/demo.md); demo clusters are deleted automatically after 24 hours, and applications deployed to them are deleted with them.
 
 ## Decision guides
 

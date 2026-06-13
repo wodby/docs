@@ -18,7 +18,7 @@ A reusable backup configuration that stores storage destination settings and can
 
 ## Demo
 
-The temporary Wodby Cloud option for testing. Demo clusters and their applications are deleted automatically after 24 hours.
+The temporary Wodby Cloud option for testing. Demo clusters are deleted automatically after 24 hours, and applications deployed to them are deleted with them.
 
 ## Endpoint
 
@@ -107,7 +107,7 @@ A provider that exposes environment variables instead of, or in addition to, inf
 
 ## Wodby Cloud
 
-Wodby's managed Kubernetes offering, created from the new app flow instead of the Kubernetes list.
+Wodby's managed Kubernetes offering. Wodby Cloud clusters can be created from the Kubernetes page or during the new app flow.
 
 ## Related pages
 

@@ -80,6 +80,8 @@ Select where you want to run the first instance of your application. The form of
    - Persistent Wodby Cloud clusters require a paid plan
    - For testing, enable `Demo` to create a free temporary single-node Wodby Cloud cluster that is deleted automatically after 24 hours together with its applications
 
+You can also create a Wodby Cloud cluster before creating an app from `Kubernetes > New Wodby Cloud cluster`.
+
 ### Step 3
 
 - Enter the name of your application and your instance. Application and instance names are used to generate machine names. Machine names are permanent and cannot be changed

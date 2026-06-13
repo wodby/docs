@@ -20,8 +20,8 @@ Wodby supports four practical deployment paths:
 | --- | --- | --- | --- | --- | --- |
 | Managed Kubernetes | Your cloud account | `Kubernetes` after connecting a provider integration | Production workloads with cloud-native flexibility | You and your cloud provider | Your cloud bill plus Wodby platform usage |
 | K3S | Your own server | `Kubernetes > Connect server` | Cost-sensitive self-hosted setups | You | Your server costs plus Wodby platform usage |
-| Wodby Cloud | Wodby-managed infrastructure | `Apps > New app > Step 2` | Teams that want less cluster ops work | Wodby | Wodby compute usage |
-| Demo | Temporary Wodby Cloud cluster | `Apps > New app > Step 2 > Wodby Cloud > Demo` | Evaluation, prototypes, short-lived testing | Wodby | Free, deleted after 24 hours |
+| Wodby Cloud | Wodby-managed infrastructure | `Kubernetes > New Wodby Cloud cluster` or `Apps > New app > Step 2` | Teams that want less cluster ops work | Wodby | Wodby compute usage |
+| Demo | Temporary Wodby Cloud cluster | `Kubernetes > New Wodby Cloud cluster > Demo` or `Apps > New app > Step 2 > Wodby Cloud > Demo` | Evaluation, prototypes, short-lived testing | Wodby | Free, deleted after 24 hours |
 
 ## When to choose Managed Kubernetes
 
@@ -57,7 +57,7 @@ Choose Demo when:
 - you need a disposable cluster for testing
 - you do not need the cluster or app to survive past the evaluation window
 
-Demo clusters and their deployed applications are deleted automatically after 24 hours.
+Demo clusters are deleted automatically after 24 hours. Applications deployed to a demo cluster are deleted with it.
 
 ## Related pages
 

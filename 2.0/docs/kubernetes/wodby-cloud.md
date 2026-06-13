@@ -6,14 +6,30 @@ Wodby Cloud is Wodby's managed Kubernetes infrastructure. Wodby creates and oper
 
 ## Creating a Wodby Cloud cluster
 
-Wodby Cloud clusters are created from the new application flow:
+You can create a Wodby Cloud cluster directly from the Kubernetes page, or as part of the new application flow.
+
+### From the Kubernetes page
+
+Use this flow when you want to provision a cluster before creating an application:
+
+1. Open `Kubernetes`
+2. Click `New Wodby Cloud cluster`
+3. Select the cluster `Owner`. Choose `Organization <organization>` for an organization-owned cluster or `Project <project>` for a project-owned cluster
+4. Either enable `Demo` or configure a persistent cluster
+5. Create the cluster
+
+The cluster is created immediately in Wodby, then provisioning continues in a background task. You can follow progress from the cluster page and its `Tasks` tab.
+
+### From the new application flow
+
+Use this flow when you want Wodby to create a cluster and deploy the first application to it:
 
 1. Start creating a new application
 2. In Step 2 choose `Wodby Cloud`
 3. Either enable `Demo` or configure a persistent cluster
 4. Complete the app creation flow
 
-Unlike managed Kubernetes and K3S, Wodby Cloud clusters are not created from the _Kubernetes_ page.
+Wodby creates the cluster and deploys the application to it.
 
 ## Persistent Wodby Cloud clusters
 
@@ -32,16 +48,14 @@ Single-node Wodby Cloud clusters cannot be changed into scalable clusters later.
 
 Use single-node Wodby Cloud only when a small non-high-availability cluster is acceptable.
 
-Wodby then creates the cluster and deploys the application to it.
-
 ## Demo
 
 Demo is the temporary Wodby Cloud mode for testing.
 
 - free of charge
 - created as a single-node cluster
-- created from the same Step 2 flow
-- automatically deleted after 24 hours together with deployed applications
+- created from `Kubernetes > New Wodby Cloud cluster` or from the same Step 2 application flow
+- automatically deleted after 24 hours; applications deployed to the demo cluster are deleted with it
 
 ## Billing
 

@@ -10,8 +10,8 @@ Use these pages when you are deciding where your app should run or when you need
 | --- | --- | --- |
 | Managed Kubernetes | You want cloud-native infrastructure in your own provider account | `Kubernetes` |
 | K3S | You want self-hosted Kubernetes on your own server | `Kubernetes > Connect server` |
-| Wodby Cloud | You want Wodby to create and manage the cluster | `Apps > New app > Step 2` |
-| Demo | You want a temporary test cluster for 24 hours | `Apps > New app > Step 2 > Wodby Cloud > Demo` |
+| Wodby Cloud | You want Wodby to create and manage the cluster | `Kubernetes > New Wodby Cloud cluster` or `Apps > New app > Step 2` |
+| Demo | You want a temporary test cluster for 24 hours | `Kubernetes > New Wodby Cloud cluster > Demo` or `Apps > New app > Step 2 > Wodby Cloud > Demo` |
 
 See [Choose a Kubernetes option](choose-platform.md) for the full decision guide.
 
@@ -31,13 +31,13 @@ Connect your server from the `Kubernetes` section using the `Connect server` flo
 
 ## 3. [Wodby Cloud](wodby-cloud.md)
 
-If you want Wodby to create and manage the cluster for you, choose `Wodby Cloud` in Step 2 of the new application form.
+If you want Wodby to create and manage the cluster for you, create it from `Kubernetes > New Wodby Cloud cluster` or choose `Wodby Cloud` in Step 2 of the new application form.
 Persistent Wodby Cloud clusters require a paid plan.
 
 ## Demo
 
-[Demo](demo.md) is the temporary Wodby Cloud option for testing. Enable the `Demo` switch in the same Step 2 flow.
-Demo clusters and their applications are deleted automatically after 24 hours.
+[Demo](demo.md) is the temporary Wodby Cloud option for testing. Enable the `Demo` switch when creating a Wodby Cloud cluster from the Kubernetes page or from the new application flow.
+Demo clusters are deleted automatically after 24 hours. Applications deployed to a demo cluster are deleted with it.
 
 ## Related pages
 
