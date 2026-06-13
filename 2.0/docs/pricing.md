@@ -79,6 +79,21 @@ Only organization owners can change subscription settings, open the customer por
 
 On the free plan, usage above included addon amounts is not allowed. In that case you must either upgrade or wait for the next billing cycle when the addon is renewable.
 
+## Downgrading a paid subscription
+
+When you downgrade a paid subscription, the downgrade is scheduled for the end of the current billing cycle. The existing paid billing period continues for billing and existing resource usage until the current period ends, and the organization moves to the free Developer plan after that.
+
+Usage-based charges can still accrue until the end of the billing cycle. The final invoice can include addon usage and Wodby compute usage above the included amounts for the period.
+
+After a downgrade is scheduled:
+
+- you can continue using existing resources until the billing period ends
+- usage-based addons can continue to accrue charges until the period ends
+- organization owners can still update spending limits
+- new paid-only features and capacity above the Developer plan limit are not available
+
+To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only features.
+
 ### Wodby CI minutes
 
 [Wodby CI](cicd/wodby-ci.md) is the default CI system to build your applications, release artifacts, and run deployments.
