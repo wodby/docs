@@ -12,6 +12,14 @@ Built images are tagged as:
 [registry-host]/[registry-repository]:[service]-[build-number]
 ```
 
+For Docker Hub registry integrations, the registry host is `docker.io`. The registry repository is based on the Docker Hub namespace and app instance name, for example:
+
+```text
+[namespace]/[app-name]_[app-instance-name]-[suffix]
+```
+
+Docker Hub push operations use the integration's main credentials. Deployment image pulls use the optional pull-only credentials when both pull-only fields are set; otherwise they use the main credentials.
+
 `wodby ci release` can also publish additional tags:
 
 - `--branch-tag` pushes a tag based on the current git branch
