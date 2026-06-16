@@ -27,3 +27,5 @@ The namespace is the optional `Namespace` field. If you leave it empty, Wodby us
 Use the main username and access token for image publishing. Make sure this account can push to the selected namespace.
 
 If you use only one Docker Hub account for both push and pull, fill only the main credentials. Use the pull-only credentials when runtime deployments should pull images with a different account from the account that publishes images. Wodby uses pull-only credentials for deployment image pulls only when both pull-only fields are set; otherwise it falls back to the main credentials.
+
+When you create or update a Docker Hub integration, Wodby checks the configured credentials against Docker Hub. The main credentials must grant pull and push access to the configured namespace. If both pull-only fields are set, Wodby also checks that they grant pull access.
