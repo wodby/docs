@@ -7,6 +7,17 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.7
+
+- PHP:
+    - ⬆️ PHP 8.5.7, 8.4.22
+    - ⬆️ PECL/extensions updates: grpc 1.81.0, protobuf 5.35.1, xdebug 3.5.3, php-ext-brotli 0.19.0
+    - 📜 Init actions now uses `default.settings.php` for `settings.php` when available
+- ⬆️ Redis 8.6.4, 8.4.4, 8.2.7
+- ⬆️ Apache 2.4.68
+- 📜 Memcached now provides env vars for configuring memory, threads, and max connections
+- 🏔️ Alpine Linux updated to 3.24.0 for some of the services
+
 ## 6.2.6
 
 - PHP:
