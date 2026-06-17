@@ -13,9 +13,14 @@ For any other provider, pass `--build-id`, `--build-num`, and `--provider` to `w
 ## Required variables
 
 - `WODBY_API_KEY` as a secret with your [Wodby API key](../dev/api-keys.md)
-- `WODBY_APP_SERVICE_ID` as the ID of the app service that owns the build source
+- `WODBY_APP_SERVICE_ID` as the ID of the app service being built
 
 You can find the app service ID on the Overview page of the corresponding app service.
+
+When the app instance uses third-party CI, an app service with a build source does not have to link a Git repository in
+Wodby. The CI provider checks out the code, and Wodby CLI creates the app build from the app service ID plus the git
+metadata it detects in the CI workspace. You can still link a Git repository when you want Wodby to show repository
+metadata or trigger supported provider rerun actions from existing builds.
 
 ## Typical flow
 

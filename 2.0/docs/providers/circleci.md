@@ -17,8 +17,8 @@ The following example:
 
 Make sure you've:
 
-- Added `WODBY_API_TOKEN` environment variable in CircleCI project settings with [your Wodby API Key](../dev/api-keys.md) value
-- Replaced `WODBY_GIT_REPO_ID` with the git repo ID of the PHP service or added the env var `WODBY_GIT_REPO_ID` with the value
+- Added `WODBY_API_KEY` environment variable in CircleCI project settings with [your Wodby API key](../dev/api-keys.md) value
+- Replaced `WODBY_APP_SERVICE_ID` with the app service ID of the service being built or added the env var `WODBY_APP_SERVICE_ID` with the value
 
 ```yaml
 version: 2
@@ -38,7 +38,7 @@ jobs:
         - composer-v1-
 
     - run: wget -qO- https://api.wodby.com/v1/get/cli | sh
-    - run: wodby ci init $WODBY_GIT_REPO_ID
+    - run: wodby ci init $WODBY_APP_SERVICE_ID
     - run:
         name: Fix .composer permissions
         command: wodby ci run -v $HOME/.composer:/home/wodby/.composer -s php --user root -- chown -R 1000:1000 /home/wodby/.composer

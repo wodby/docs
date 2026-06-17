@@ -7,7 +7,7 @@ services. If two linked services are deployed together, the linked target servic
 
 Deployments are transactional by default. If one of the app service deployments fails, Wodby rolls back the entire deployment.
 
-During the first deployment, Wodby deploys services without a connected build source immediately. Services with connected build sources usually leave the app instance in `awaiting` until a deployment is triggered with build information from a [CI system](../cicd/index.md). Optional build image targets without their own build source can still deploy with their configured service image when the build does not provide a custom image for them.
+During the first deployment, Wodby deploys services without a build source immediately. Services with build sources usually leave the app instance in `awaiting` until a deployment is triggered with build information from a [CI system](../cicd/index.md). Optional build image targets without their own build source can still deploy with their configured service image when the build does not provide a custom image for them.
 
 Every deployment is associated with a specific stack revision of the app instance.
 

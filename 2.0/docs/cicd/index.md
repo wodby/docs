@@ -3,7 +3,11 @@
 Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-ci.md) and [third-party CI providers](third-party.md). The main difference is the identifier passed to `wodby ci init`:
 
 - In Wodby CI, use `WODBY_BUILD_ID`. The build already exists and the CLI loads it.
-- In third-party CI, use `WODBY_APP_SERVICE_ID` for the app service that owns the build source. The CLI creates a build from the CI metadata it detects.
+- In third-party CI, use `WODBY_APP_SERVICE_ID` for the app service being built. The CLI creates a build from the CI metadata it detects.
+
+For app instances that use third-party CI, an app service with a build source does not have to link a Git repository in
+Wodby. The CI provider supplies the checkout, and Wodby CLI sends commit, ref, and build metadata when it creates the
+app build.
 
 `wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If you run it outside those providers, pass `--build-id`, `--build-num`, and `--provider` explicitly.
 

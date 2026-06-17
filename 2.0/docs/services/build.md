@@ -8,7 +8,7 @@ Use build settings when a service can receive a [CI/CD](../cicd/index.md) build 
 
 The two common patterns are:
 
-1. A service has a connected Git repository as its build source.
+1. A service has a build source. When the app instance uses Wodby CI, the source is a connected Git repository. When the app instance uses third-party CI, the source can be external and identified by app service ID.
 2. A service is a build image target, but does not need its own repository connection.
 
 A service with a build source starts the build flow. A build image target without its own build source can still be built by the same pipeline, but it does not have to be built every time. If no build image is attached during deployment, Wodby uses the service's configured image from the manifest or chart.

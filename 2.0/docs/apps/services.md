@@ -172,11 +172,15 @@ Changing app-service configuration can mark the app instance as needing rebuild,
 
 If a service supports a build source, the app service includes build-source controls.
 
-You can point the service to a Git repository and a reference such as:
+For Wodby CI, point the service to a Git repository and a reference such as:
 
 - branch
 - tag
 - commit SHA
+
+When the app instance uses third-party CI, linking a Git repository is optional for app services with build sources. You
+can leave the repository unlinked and run the pipeline with `wodby ci init $WODBY_APP_SERVICE_ID`; Wodby CLI uses the
+app service ID and metadata from the CI checkout to create the build.
 
 The available options depend on your CI mode and Git integrations. Build source is chosen during app creation, but can also be changed later from the app service.
 

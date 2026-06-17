@@ -53,7 +53,7 @@ Wodby does not force every possible override during upgrade. Instead, the upgrad
 The reason is that app services can be customized per instance. Wodby cannot always tell whether an app-level value was
 changed intentionally or whether it simply has not received a newer stack default yet.
 
-If the app instance has services with connected build sources, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
+If the app instance has services with build sources, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
@@ -73,7 +73,7 @@ The upgrade task logs the changes it applies and also logs when it detects a sta
 corresponding upgrade setting is disabled.
 
 New app services may need app-specific configuration that cannot be selected safely at stack-upgrade time, such as a
-connected build source, an external database, required integrations, or required settings. These gaps do not stop the
+build source, an external database, required integrations, or required settings. These gaps do not stop the
 stack upgrade. Wodby records them as warnings on the upgrade task, creates the app service, and waits for you to finish
 the service configuration before deploying.
 

@@ -344,7 +344,7 @@ Each object supports:
 
 - `dockerfile`: Dockerfile path.
 - `dockerignore`: `.dockerignore` path.
-- `connect`: whether the service requires a connected git repository.
+- `connect`: whether the service supports a connected git repository.
 - `templates`: starter repositories users can clone as a starting point.
 
 Set build image targets with `workloads[].containers[].build: true`. Services with build configuration must mark at least one container.
