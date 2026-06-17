@@ -314,6 +314,7 @@ nav:
       - SSH keys: user/ssh-keys.md
       - API keys: user/api-keys.md
   - Development:
+      - Overview: dev/index.md
       - API: dev/api.md
       - SDKs: dev/sdks.md
       - API keys: dev/api-keys.md
