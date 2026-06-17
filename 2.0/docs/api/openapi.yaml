@@ -1731,11 +1731,11 @@ components:
         services:
           type: array
           items:
-            $ref: '#/components/schemas/ServiceDeploymentInput'
+            $ref: '#/components/schemas/AppServiceDeploymentRequest'
         skipRollback:
           type: boolean
           nullable: true
-    ServiceDeploymentInput:
+    AppServiceDeploymentRequest:
       type: object
       required:
         - appServiceId
@@ -1880,6 +1880,9 @@ components:
       properties:
         demo:
           type: boolean
+        singleNode:
+          type: boolean
+          nullable: true
         region:
           type: string
           nullable: true
@@ -1905,6 +1908,161 @@ components:
         version:
           type: string
           nullable: true
+        buildSource:
+          $ref: '#/components/schemas/BuildSourceInput'
+        imports:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportInput'
+        volumes:
+          type: array
+          items:
+            $ref: '#/components/schemas/VolumeSizeInput'
+        integrations:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppServiceIntegrationInput'
+        settings:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppServiceSettingInput'
+        database:
+          $ref: '#/components/schemas/AppServiceDatabaseInput'
+        resources:
+          $ref: '#/components/schemas/ResourcesInput'
+        scalability:
+          $ref: '#/components/schemas/ScalabilityInput'
+    BuildSourceInput:
+      type: object
+      required:
+        - buildSourceType
+      properties:
+        buildSourceType:
+          type: string
+        template:
+          type: string
+          nullable: true
+        newRepoName:
+          type: string
+          nullable: true
+        integrationID:
+          type: integer
+          nullable: true
+        remoteGitRepoID:
+          type: string
+          nullable: true
+        gitRef:
+          type: string
+          nullable: true
+        gitRefType:
+          type: string
+          nullable: true
+    ImportInput:
+      type: object
+      required:
+        - source
+      properties:
+        importName:
+          type: string
+          nullable: true
+        source:
+          type: string
+        url:
+          type: string
+          nullable: true
+        backupID:
+          type: integer
+          nullable: true
+        from:
+          $ref: '#/components/schemas/ImportFromInput'
+    ImportFromInput:
+      type: object
+      properties:
+        databaseDBID:
+          type: integer
+          nullable: true
+        appServiceID:
+          type: integer
+          nullable: true
+        backupName:
+          type: string
+          nullable: true
+    VolumeSizeInput:
+      type: object
+      required:
+        - name
+        - size
+      properties:
+        name:
+          type: string
+        size:
+          type: integer
+    AppServiceIntegrationInput:
+      type: object
+      required:
+        - name
+        - integrationIDs
+      properties:
+        name:
+          type: string
+        integrationIDs:
+          type: array
+          items:
+            type: integer
+    AppServiceSettingInput:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    AppServiceDatabaseInput:
+      type: object
+      required:
+        - databaseID
+      properties:
+        databaseID:
+          type: integer
+        databaseDBID:
+          type: integer
+          nullable: true
+    ResourcesInput:
+      type: object
+      properties:
+        workload:
+          type: string
+          nullable: true
+        container:
+          type: string
+          nullable: true
+        requestCPU:
+          type: integer
+          nullable: true
+        requestMem:
+          type: integer
+          nullable: true
+        limitCPU:
+          type: integer
+          nullable: true
+        limitMem:
+          type: integer
+          nullable: true
+    ScalabilityInput:
+      type: object
+      required:
+        - averageCPU
+        - minReplicas
+        - maxReplicas
+      properties:
+        averageCPU:
+          type: integer
+        minReplicas:
+          type: integer
+        maxReplicas:
+          type: integer
     NewClusterInput:
       type: object
       required:
@@ -1928,6 +2086,9 @@ components:
           type: string
         serverless:
           type: boolean
+        singleNode:
+          type: boolean
+          nullable: true
         version:
           type: string
           nullable: true
