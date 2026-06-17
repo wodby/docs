@@ -265,6 +265,7 @@ nav:
           - GitHub: providers/github.md
           - GitLab: providers/gitlab.md
           - CircleCI: providers/circleci.md
+          - Custom CI: providers/custom-ci.md
       - Registry:
           - Overview: providers/registry.md
           - Docker Hub: providers/docker.md

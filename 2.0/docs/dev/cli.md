@@ -70,12 +70,12 @@ Important behaviors:
 Flags:
 
 ```text
--i, --build-id string   Custom build id when auto-detection cannot determine it
--n, --build-num int     Custom build number when auto-detection cannot determine it
+-i, --build-id string   Override detected build id, or provide it when auto-detection cannot determine it
+-n, --build-num int     Override detected build number, or provide it when auto-detection cannot determine it
 -c, --context string    Build context directory (default: current directory)
     --dind              Use docker-in-docker workflow with a data container
     --fix-permissions   Fix codebase permissions explicitly
-    --provider string   Custom CI provider name when auto-detection cannot determine it
+    --provider string   Override detected build provider name
 ```
 
 ## `wodby ci build`

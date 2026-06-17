@@ -8,7 +8,12 @@ Wodby CLI automatically detects build and git metadata for:
 - GitLab CI
 - CircleCI
 
-For any other provider, pass `--build-id`, `--build-num`, and `--provider` to `wodby ci init` so Wodby can identify the build correctly.
+For unsupported providers, Wodby CLI falls back to git metadata from the checkout and sends `provider: unknown`. Pass
+`--build-id` and `--build-num` when the CLI cannot detect the CI run ID and build number.
+
+Use [Custom CI](../providers/custom-ci.md) when you do not want to connect the CI provider to Wodby, or when the CI
+provider is not supported directly. With Custom CI, Wodby accepts the provider value detected by the CLI, including
+`unknown`, `github`, `gitlab`, or `circleci`, but does not call provider APIs for status polling, run, or rerun actions.
 
 ## Required variables
 
@@ -32,6 +37,13 @@ metadata or trigger supported provider rerun actions from existing builds.
 6. Run `wodby ci deploy [SERVICE]...`.
 
 Use `wodby ci init --dind $WODBY_APP_SERVICE_ID` when your provider builds through docker-in-docker, as in the GitLab CI examples.
+
+If your app instance uses Custom CI but the job runs in a known provider such as GitHub Actions or GitLab CI, either let
+the CLI send the detected provider value or force a generic value:
+
+```bash
+wodby ci init --provider unknown --build-id "$CI_BUILD_ID" --build-num "$CI_BUILD_NUMBER" "$WODBY_APP_SERVICE_ID"
+```
 
 If your app uses secret build-scoped environment variables, define matching secret environment variables in the CI
 provider. Wodby CLI forwards secret build args from the CI environment instead of storing their values in the local

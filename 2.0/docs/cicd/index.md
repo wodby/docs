@@ -9,7 +9,10 @@ For app instances that use third-party CI, an app service with a build source do
 Wodby. The CI provider supplies the checkout, and Wodby CLI sends commit, ref, and build metadata when it creates the
 app build.
 
-`wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If you run it outside those providers, pass `--build-id`, `--build-num`, and `--provider` explicitly.
+`wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If the CI
+provider is not recognized, the CLI reads git metadata from the checkout and sends `provider: unknown`. Pass
+`--provider` to override the detected provider value, for example when the app instance uses [Custom CI](../providers/custom-ci.md).
+Pass `--build-id` and `--build-num` when the CLI cannot detect a CI run ID and build number.
 
 Initialize the pipeline with `wodby ci init $WODBY_BUILD_ID` in Wodby CI or `wodby ci init $WODBY_APP_SERVICE_ID` in third-party CI. A typical flow then looks like this:
 

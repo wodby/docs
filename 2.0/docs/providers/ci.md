@@ -18,19 +18,24 @@ CI provider integrations are used for:
 - organization or app defaults for CI behavior
 - provider-backed actions such as triggering or rerunning supported workflows
 
+Provider-backed actions are available only for CI providers that Wodby can call directly. [Custom CI](custom-ci.md)
+uses the same CLI build and deploy flow, but Wodby does not poll, trigger, or rerun the external CI provider.
+
 ## Supported options
 
 | Option | Kind | Notes |
 | --- | --- | --- |
 | [Wodby CI](../cicd/wodby-ci.md) | Built-in | Wodby-managed CI flow |
 | [CircleCI](circleci.md) | Provider | Third-party CI integration |
+| [Custom CI](custom-ci.md) | Provider | No provider connection; build completion is driven by Wodby CLI |
 | [GitHub Actions](github.md#actions) | Provider | Uses the GitHub provider |
 | [GitLab CI](gitlab.md#ci) | Provider | Uses the GitLab provider |
 
 ## Choosing between Wodby CI and third-party CI
 
 - Use [Wodby CI](../cicd/wodby-ci.md) when you want the most direct Wodby-managed path.
-- Use a third-party CI integration when your team already builds in GitHub Actions, GitLab CI, or CircleCI.
+- Use a provider-backed third-party CI integration when your team already builds in GitHub Actions, GitLab CI, or CircleCI and you want Wodby to use provider APIs where supported.
+- Use Custom CI when your team already has a CI workflow but does not want to connect that CI provider to Wodby, or when the CI provider is unsupported.
 
 ## Related pages
 
