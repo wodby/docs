@@ -315,5 +315,6 @@ nav:
       - API keys: user/api-keys.md
   - Development:
       - API: dev/api.md
+      - SDKs: dev/sdks.md
       - API keys: dev/api-keys.md
       - CLI: dev/cli.md

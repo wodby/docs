@@ -2,11 +2,21 @@
 
 Wodby exposes a public REST API for resource-oriented automation and OpenAPI-based tooling.
 
+## API reference
+
+The API reference is published as a separate OpenAPI reference site, not as a MkDocs page:
+
+- [Wodby API reference](https://wodby.com/docs/2.0/api/)
+- [OpenAPI JSON](https://wodby.com/docs/2.0/api/openapi.json)
+- [OpenAPI YAML](https://wodby.com/docs/2.0/api/openapi.yaml)
+
+Use the reference site when you need endpoint details, request and response schemas, or generated model names.
+
 ## Base URL
 
 Use `https://api.wodby.com/v1` for REST requests.
 
-Wodby also publishes an OpenAPI description at:
+Wodby also publishes the live OpenAPI description from the API itself:
 
 - `https://api.wodby.com/v1/openapi.json`
 - `https://api.wodby.com/v1/openapi.yaml`
@@ -73,8 +83,11 @@ Use the REST API when you want to:
 - generate a client from OpenAPI
 - script workflows already exposed under `/v1/...`
 
+Generate a client from the OpenAPI schema when you want typed models for new `/v1` integrations. Existing SDKs for the older v3 API surface are listed under [SDKs](sdks.md).
+
 ## Related pages
 
 - [API keys](api-keys.md)
+- [SDKs](sdks.md)
 - [Wodby CLI](cli.md)
 - [User API keys](../user/api-keys.md)
