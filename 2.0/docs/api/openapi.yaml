@@ -1,7 +1,11 @@
 openapi: 3.0.3
 info:
-  title: Wodby 2.0 Public API
+  title: Wodby 2 Public API
   version: 1.0.0
+  termsOfService: https://wodby.com/legal
+  license:
+    name: Proprietary
+    url: https://wodby.com/legal
   description: |
     Public REST API for customer SDKs and code integrations.
     GraphQL remains internal for the dashboard. This contract is the versioned public surface.
@@ -12,29 +16,50 @@ security:
   - accessTokenHeader: []
 tags:
   - name: orgs
+    description: Organizations that own projects, resources, and access scopes.
   - name: projects
+    description: Project containers within organizations.
   - name: apps
+    description: Applications and app-level configuration.
   - name: app-instances
+    description: Deployable application instances.
   - name: app-services
+    description: Runtime services that belong to app instances.
   - name: app-deployments
+    description: Deployment records and deployment actions.
   - name: app-builds
+    description: Build records and CI build ingestion.
   - name: clusters
+    description: Kubernetes clusters connected to or managed by Wodby.
   - name: databases
+    description: Database instances managed through provider integrations.
   - name: integrations
+    description: Connected provider accounts and credentials.
   - name: integration-kinds
+    description: Provider capability metadata and option lists.
   - name: providers
+    description: Provider catalog entries and revisions.
   - name: services
+    description: Service catalog entries and service options.
   - name: stacks
+    description: Stack catalog entries and stack revisions.
   - name: backups
+    description: Backup records and backup creation.
   - name: imports
+    description: Import records and import creation.
   - name: tasks
+    description: User-visible task records and task actions.
   - name: task-steps
+    description: Task step logs and log URLs.
   - name: app-routes
+    description: HTTP routing rules for app instances.
   - name: envs
+    description: Organization-level environment definitions.
 paths:
   /openapi.yaml:
     get:
       summary: Get OpenAPI YAML
+      operationId: getOpenApiYaml
       security: []
       responses:
         '200':
@@ -43,9 +68,14 @@ paths:
             application/yaml:
               schema:
                 type: string
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /openapi.json:
     get:
       summary: Get OpenAPI JSON
+      operationId: getOpenApiJson
       security: []
       responses:
         '200':
@@ -54,11 +84,16 @@ paths:
             application/json:
               schema:
                 type: object
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /orgs:
     get:
       tags:
         - orgs
       summary: List orgs
+      operationId: listOrgs
       responses:
         '200':
           description: List of orgs
@@ -68,10 +103,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Org'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - orgs
       summary: Create org
+      operationId: createOrg
       requestBody:
         required: true
         content:
@@ -85,13 +125,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Org'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /orgs/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - orgs
+      summary: Get org
+      operationId: getOrg
+      responses:
+        '200':
+          description: Org
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Org'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - orgs
       summary: Update org
+      operationId: updateOrg
       requestBody:
         required: true
         content:
@@ -105,10 +166,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Org'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - orgs
       summary: Delete org
+      operationId: deleteOrg
       responses:
         '200':
           description: Delete result
@@ -116,11 +182,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /projects:
     get:
       tags:
         - projects
       summary: List projects
+      operationId: listProjects
       parameters:
         - $ref: '#/components/parameters/OrgId'
       responses:
@@ -132,10 +203,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Project'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - projects
       summary: Create project
+      operationId: createProject
       requestBody:
         required: true
         content:
@@ -149,11 +225,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /projects/by-name/{name}:
     get:
       tags:
         - projects
       summary: Get project by name
+      operationId: getProjectByName
       parameters:
         - $ref: '#/components/parameters/Name'
         - $ref: '#/components/parameters/OrgId'
@@ -164,13 +245,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /projects/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - projects
+      summary: Get project
+      operationId: getProject
+      responses:
+        '200':
+          description: Project
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - projects
       summary: Update project
+      operationId: updateProject
       requestBody:
         required: true
         content:
@@ -184,10 +286,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Project'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - projects
       summary: Delete project
+      operationId: deleteProject
       responses:
         '200':
           description: Delete result
@@ -195,11 +302,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /apps:
     get:
       tags:
         - apps
       summary: List apps
+      operationId: listApps
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -213,10 +325,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/App'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - apps
       summary: Create app
+      operationId: createApp
       requestBody:
         required: true
         content:
@@ -230,11 +347,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/App'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /apps/by-name/{name}:
     get:
       tags:
         - apps
       summary: Get app by name
+      operationId: getAppByName
       parameters:
         - $ref: '#/components/parameters/Name'
         - $ref: '#/components/parameters/OrgId'
@@ -245,6 +367,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/App'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /apps/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -252,6 +378,7 @@ paths:
       tags:
         - apps
       summary: Get app
+      operationId: getApp
       responses:
         '200':
           description: App
@@ -259,10 +386,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/App'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - apps
       summary: Update app
+      operationId: updateApp
       requestBody:
         required: true
         content:
@@ -276,10 +408,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/App'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - apps
       summary: Delete app
+      operationId: deleteApp
       responses:
         '200':
           description: Delete result
@@ -287,11 +424,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-instances:
     get:
       tags:
         - app-instances
       summary: List app instances
+      operationId: listAppInstances
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -307,10 +449,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppInstance'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - app-instances
       summary: Create app instance
+      operationId: createAppInstance
       requestBody:
         required: true
         content:
@@ -324,11 +471,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppInstance'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-instances/by-name/{appName}/{instanceName}:
     get:
       tags:
         - app-instances
       summary: Get app instance by app and instance name
+      operationId: getAppInstanceByName
       parameters:
         - name: appName
           in: path
@@ -348,6 +500,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppInstance'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-instances/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -355,6 +511,7 @@ paths:
       tags:
         - app-instances
       summary: Get app instance
+      operationId: getAppInstance
       responses:
         '200':
           description: App instance
@@ -362,10 +519,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppInstance'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - app-instances
       summary: Update app instance
+      operationId: updateAppInstance
       requestBody:
         required: true
         content:
@@ -379,10 +541,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppInstance'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - app-instances
       summary: Delete app instance
+      operationId: deleteAppInstance
       parameters:
         - $ref: '#/components/parameters/Force'
       responses:
@@ -392,11 +559,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-services:
     get:
       tags:
         - app-services
       summary: List app services
+      operationId: listAppServices
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
       responses:
@@ -408,6 +580,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-services/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -415,6 +591,7 @@ paths:
       tags:
         - app-services
       summary: Get app service
+      operationId: getAppService
       responses:
         '200':
           description: App service
@@ -422,10 +599,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - app-services
       summary: Update app service
+      operationId: updateAppService
       requestBody:
         required: true
         content:
@@ -439,6 +621,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-services/{id}/actions/{name}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -447,6 +633,7 @@ paths:
       tags:
         - app-services
       summary: Run app service action
+      operationId: runAppServiceAction
       responses:
         '201':
           description: Action task result
@@ -454,11 +641,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-deployments:
     get:
       tags:
         - app-deployments
       summary: List app deployments
+      operationId: listAppDeployments
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
         - $ref: '#/components/parameters/Page'
@@ -470,10 +662,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppDeploymentsResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - app-deployments
       summary: Create deployment
+      operationId: createAppDeployment
       requestBody:
         required: true
         content:
@@ -487,11 +684,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppDeployment'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-deployments/from-ci:
     post:
       tags:
         - app-deployments
       summary: Create deployment from CI
+      operationId: createAppDeploymentFromCi
       requestBody:
         required: true
         content:
@@ -505,6 +707,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppDeployment'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-deployments/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -512,6 +718,7 @@ paths:
       tags:
         - app-deployments
       summary: Get deployment
+      operationId: getAppDeployment
       responses:
         '200':
           description: Deployment
@@ -519,6 +726,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppDeployment'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-deployments/{id}/redeploy:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -526,6 +737,7 @@ paths:
       tags:
         - app-deployments
       summary: Redeploy deployment
+      operationId: redeployAppDeployment
       responses:
         '201':
           description: Created deployment
@@ -533,11 +745,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppDeployment'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-builds:
     get:
       tags:
         - app-builds
       summary: List app builds
+      operationId: listAppBuilds
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
         - $ref: '#/components/parameters/Page'
@@ -549,10 +766,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppBuildsResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - app-builds
       summary: Create build
+      operationId: createAppBuild
       requestBody:
         required: true
         content:
@@ -568,11 +790,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppBuild'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-builds/from-ci:
     post:
       tags:
         - app-builds
       summary: Create build from CI
+      operationId: createAppBuildFromCi
       requestBody:
         required: true
         content:
@@ -586,6 +813,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppBuild'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-builds/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -593,6 +824,7 @@ paths:
       tags:
         - app-builds
       summary: Get build
+      operationId: getAppBuild
       responses:
         '200':
           description: Build
@@ -600,6 +832,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppBuild'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-builds/{id}/docker-registry-credentials:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -607,6 +843,7 @@ paths:
       tags:
         - app-builds
       summary: Get Docker registry credentials for build
+      operationId: getAppBuildDockerRegistryCredentials
       responses:
         '200':
           description: Docker registry credentials
@@ -614,6 +851,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DockerRegistryCredentials'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-builds/{id}/deploy:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -621,6 +862,7 @@ paths:
       tags:
         - app-builds
       summary: Deploy build
+      operationId: deployAppBuild
       responses:
         '201':
           description: Created deployment
@@ -628,6 +870,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppDeployment'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-builds/{id}/void:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -635,6 +881,7 @@ paths:
       tags:
         - app-builds
       summary: Void build images
+      operationId: voidAppBuild
       responses:
         '200':
           description: Updated build
@@ -642,11 +889,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppBuild'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /clusters:
     get:
       tags:
         - clusters
       summary: List clusters
+      operationId: listClusters
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -660,10 +912,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - clusters
       summary: Create cluster
+      operationId: createCluster
       requestBody:
         required: true
         content:
@@ -677,13 +934,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cluster'
-  /clusters/{id}:
-    parameters:
-      - $ref: '#/components/parameters/Id'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /clusters/by-name/{name}:
     get:
       tags:
         - clusters
-      summary: Get cluster
+      summary: Get cluster by name
+      operationId: getClusterByName
+      parameters:
+        - $ref: '#/components/parameters/Name'
+        - $ref: '#/components/parameters/OrgId'
       responses:
         '200':
           description: Cluster
@@ -691,10 +954,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /clusters/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - clusters
+      summary: Get cluster
+      operationId: getCluster
+      responses:
+        '200':
+          description: Cluster
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - clusters
       summary: Update cluster
+      operationId: updateCluster
       requestBody:
         required: true
         content:
@@ -708,10 +995,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Cluster'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - clusters
       summary: Delete cluster
+      operationId: deleteCluster
       parameters:
         - $ref: '#/components/parameters/Force'
       responses:
@@ -721,11 +1013,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /databases:
     get:
       tags:
         - databases
       summary: List databases
+      operationId: listDatabases
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -742,10 +1039,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Database'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - databases
       summary: Create database
+      operationId: createDatabase
       requestBody:
         required: true
         content:
@@ -759,13 +1061,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Database'
-  /databases/{id}:
-    parameters:
-      - $ref: '#/components/parameters/Id'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /databases/by-name/{name}:
     get:
       tags:
         - databases
-      summary: Get database
+      summary: Get database by name
+      operationId: getDatabaseByName
+      parameters:
+        - $ref: '#/components/parameters/Name'
+        - $ref: '#/components/parameters/OrgId'
       responses:
         '200':
           description: Database
@@ -773,10 +1081,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Database'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /databases/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - databases
+      summary: Get database
+      operationId: getDatabase
+      responses:
+        '200':
+          description: Database
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Database'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - databases
       summary: Update database
+      operationId: updateDatabase
       requestBody:
         required: true
         content:
@@ -790,10 +1122,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Database'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - databases
       summary: Delete database
+      operationId: deleteDatabase
       responses:
         '200':
           description: Delete result
@@ -801,11 +1138,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integrations:
     get:
       tags:
         - integrations
       summary: List integrations
+      operationId: listIntegrations
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -823,10 +1165,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Integration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - integrations
       summary: Create integration
+      operationId: createIntegration
       requestBody:
         required: true
         content:
@@ -840,11 +1187,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integrations/by-name/{name}:
     get:
       tags:
         - integrations
       summary: Get integration by name
+      operationId: getIntegrationByName
       parameters:
         - $ref: '#/components/parameters/Name'
         - $ref: '#/components/parameters/OrgId'
@@ -855,13 +1207,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integration'
-  /integrations/{id}/scopes:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/scopes:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
         - integrations
       summary: List integration scopes
+      operationId: listIntegrationScopes
       responses:
         '200':
           description: Integration scopes
@@ -871,13 +1228,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/IntegrationScope'
-  /integrations/{id}/remote-git-repos:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/remote-git-repos:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
         - integrations
       summary: List remote Git repositories
+      operationId: listIntegrationRemoteGitRepos
       responses:
         '200':
           description: Remote Git repositories
@@ -887,7 +1249,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/RemoteGitRepo'
-  /integrations/{id}/remote-git-repo-branches:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/remote-git-repo-branches:
     parameters:
       - $ref: '#/components/parameters/Id'
       - $ref: '#/components/parameters/RemoteGitRepoId'
@@ -895,6 +1261,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repository branches
+      operationId: listIntegrationRemoteGitRepoBranches
       responses:
         '200':
           description: Branch names
@@ -904,7 +1271,11 @@ paths:
                 type: array
                 items:
                   type: string
-  /integrations/{id}/remote-git-repo-tags:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/remote-git-repo-tags:
     parameters:
       - $ref: '#/components/parameters/Id'
       - $ref: '#/components/parameters/RemoteGitRepoId'
@@ -912,6 +1283,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repository tags
+      operationId: listIntegrationRemoteGitRepoTags
       responses:
         '200':
           description: Tag names
@@ -921,13 +1293,18 @@ paths:
                 type: array
                 items:
                   type: string
-  /integrations/{id}/kube-regions:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/kube-regions:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
         - integrations
       summary: List Kubernetes regions
+      operationId: listIntegrationKubeRegions
       responses:
         '200':
           description: Kubernetes regions
@@ -937,13 +1314,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GenericObject'
-  /integrations/{id}/kube-zones:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/kube-zones:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
         - integrations
       summary: List Kubernetes zones
+      operationId: listIntegrationKubeZones
       responses:
         '200':
           description: Kubernetes zones
@@ -953,7 +1335,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GenericObject'
-  /integrations/{id}/kube-machine-types:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/kube-machine-types:
     parameters:
       - $ref: '#/components/parameters/Id'
       - $ref: '#/components/parameters/Location'
@@ -961,6 +1347,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes machine types
+      operationId: listIntegrationKubeMachineTypes
       responses:
         '200':
           description: Kubernetes machine types
@@ -970,7 +1357,11 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GenericObject'
-  /integrations/{id}/kube-versions:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/kube-versions:
     parameters:
       - $ref: '#/components/parameters/Id'
       - $ref: '#/components/parameters/Location'
@@ -978,6 +1369,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes versions
+      operationId: listIntegrationKubeVersions
       responses:
         '200':
           description: Kubernetes versions
@@ -987,13 +1379,18 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/KubeVersion'
-  /integrations/{id}/kube-settings:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/kube-settings:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
         - integrations
       summary: Get Kubernetes settings
+      operationId: getIntegrationKubeSettings
       responses:
         '200':
           description: Kubernetes settings
@@ -1001,13 +1398,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericObject'
-  /integrations/{id}/storage-buckets:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/storage-buckets:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
         - integrations
       summary: List storage buckets
+      operationId: listIntegrationStorageBuckets
       responses:
         '200':
           description: Bucket names
@@ -1017,13 +1419,18 @@ paths:
                 type: array
                 items:
                   type: string
-  /integrations/{id}/storage-classes:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/{id}/options/storage-classes:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
         - integrations
       summary: List storage classes
+      operationId: listIntegrationStorageClasses
       responses:
         '200':
           description: Storage class names
@@ -1033,13 +1440,34 @@ paths:
                 type: array
                 items:
                   type: string
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integrations/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - integrations
+      summary: Get integration
+      operationId: getIntegration
+      responses:
+        '200':
+          description: Integration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - integrations
       summary: Update integration
+      operationId: updateIntegration
       requestBody:
         required: true
         content:
@@ -1053,10 +1481,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - integrations
       summary: Delete integration
+      operationId: deleteIntegration
       responses:
         '200':
           description: Delete result
@@ -1064,6 +1497,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integration-kinds/{id}/database-types:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1071,6 +1508,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database types
+      operationId: listIntegrationKindDatabaseTypes
       responses:
         '200':
           description: Database types
@@ -1080,6 +1518,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DatabaseType'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integration-kinds/{id}/database-regions:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1090,6 +1532,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database regions
+      operationId: listIntegrationKindDatabaseRegions
       responses:
         '200':
           description: Database regions
@@ -1099,6 +1542,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GenericObject'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integration-kinds/{id}/database-versions:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1107,6 +1554,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database versions
+      operationId: listIntegrationKindDatabaseVersions
       responses:
         '200':
           description: Database versions
@@ -1116,6 +1564,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/DatabaseVersion'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integration-kinds/{id}/database-machine-types:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1134,6 +1586,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database machine types
+      operationId: listIntegrationKindDatabaseMachineTypes
       responses:
         '200':
           description: Database machine types
@@ -1143,6 +1596,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GenericObject'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integration-kinds/{id}/database-settings:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1151,6 +1608,7 @@ paths:
       tags:
         - integration-kinds
       summary: Get database settings
+      operationId: getIntegrationKindDatabaseSettings
       responses:
         '200':
           description: Database settings
@@ -1158,11 +1616,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/GenericObject'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /providers:
     get:
       tags:
         - providers
       summary: List providers
+      operationId: listProviders
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -1180,11 +1643,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProvidersResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /providers/by-name/{name}:
     get:
       tags:
         - providers
       summary: Get provider by name
+      operationId: getProviderByName
       parameters:
         - $ref: '#/components/parameters/Name'
       responses:
@@ -1194,6 +1662,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Provider'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /providers/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - providers
+      summary: Get provider
+      operationId: getProvider
+      responses:
+        '200':
+          description: Provider
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Provider'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /provider-revisions/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1201,6 +1692,7 @@ paths:
       tags:
         - providers
       summary: Get provider revision
+      operationId: getProviderRevision
       responses:
         '200':
           description: Provider revision
@@ -1208,11 +1700,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProviderRevision'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /services:
     get:
       tags:
         - services
       summary: List services
+      operationId: listServices
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -1226,11 +1723,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServicesResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /services/by-name/{name}:
     get:
       tags:
         - services
       summary: Get service by name
+      operationId: getServiceByName
       parameters:
         - $ref: '#/components/parameters/Name'
         - $ref: '#/components/parameters/RevNumber'
@@ -1241,13 +1743,37 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Service'
-  /services/{name}/link-candidates:
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /services/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - services
+      summary: Get service
+      operationId: getService
+      responses:
+        '200':
+          description: Service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Service'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /services/{name}/options/link-candidates:
     parameters:
       - $ref: '#/components/parameters/Name'
     get:
       tags:
         - services
       summary: List service link candidates
+      operationId: listServiceLinkCandidates
       responses:
         '200':
           description: Service link candidates
@@ -1257,6 +1783,10 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/GenericObject'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /service-revisions/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1264,6 +1794,7 @@ paths:
       tags:
         - services
       summary: Get service revision
+      operationId: getServiceRevision
       responses:
         '200':
           description: Service revision
@@ -1271,11 +1802,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ServiceRevision'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /stacks:
     get:
       tags:
         - stacks
       summary: List stacks
+      operationId: listStacks
       parameters:
         - $ref: '#/components/parameters/OrgId'
         - $ref: '#/components/parameters/ProjectIds'
@@ -1289,11 +1825,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StacksResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /stacks/by-name/{name}:
     get:
       tags:
         - stacks
       summary: Get stack by name
+      operationId: getStackByName
       parameters:
         - $ref: '#/components/parameters/Name'
         - $ref: '#/components/parameters/RevNumber'
@@ -1304,6 +1845,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stack'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stacks/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stacks
+      summary: Get stack
+      operationId: getStack
+      responses:
+        '200':
+          description: Stack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stack'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /stack-revisions/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1311,6 +1875,7 @@ paths:
       tags:
         - stacks
       summary: Get stack revision
+      operationId: getStackRevision
       responses:
         '200':
           description: Stack revision
@@ -1318,6 +1883,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/StackRevision'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /stack-revisions/{id}/services:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1325,6 +1894,7 @@ paths:
       tags:
         - stacks
       summary: List stack services
+      operationId: listStackRevisionServices
       responses:
         '200':
           description: Stack services
@@ -1334,11 +1904,16 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/StackService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /backups:
     get:
       tags:
         - backups
       summary: List backups
+      operationId: listBackups
       parameters:
         - $ref: '#/components/parameters/AppInstanceIdOptional'
         - $ref: '#/components/parameters/AppServiceIdOptional'
@@ -1357,10 +1932,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Backup'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - backups
       summary: Create backup
+      operationId: createBackup
       requestBody:
         required: true
         content:
@@ -1374,6 +1954,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /backups/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1381,6 +1965,7 @@ paths:
       tags:
         - backups
       summary: Get backup
+      operationId: getBackup
       responses:
         '200':
           description: Backup
@@ -1388,11 +1973,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Backup'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /imports:
     get:
       tags:
         - imports
       summary: List imports
+      operationId: listImports
       parameters:
         - $ref: '#/components/parameters/AppInstanceIdOptional'
         - $ref: '#/components/parameters/AppServiceIdOptional'
@@ -1407,10 +1997,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Import'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - imports
       summary: Create import
+      operationId: createImport
       requestBody:
         required: true
         content:
@@ -1424,6 +2019,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /imports/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1431,6 +2030,7 @@ paths:
       tags:
         - imports
       summary: Get import
+      operationId: getImport
       responses:
         '200':
           description: Import
@@ -1438,11 +2038,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Import'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /tasks:
     get:
       tags:
         - tasks
       summary: List tasks
+      operationId: listTasks
       parameters:
         - name: scope
           in: query
@@ -1487,6 +2092,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TasksResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /tasks/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1494,6 +2103,7 @@ paths:
       tags:
         - tasks
       summary: Get task
+      operationId: getTask
       responses:
         '200':
           description: Task
@@ -1501,6 +2111,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Task'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /tasks/{id}/cancel:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1508,6 +2122,7 @@ paths:
       tags:
         - tasks
       summary: Cancel task
+      operationId: cancelTask
       responses:
         '200':
           description: Cancel result
@@ -1515,6 +2130,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /tasks/{id}/repeat:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1522,6 +2141,7 @@ paths:
       tags:
         - tasks
       summary: Repeat task
+      operationId: repeatTask
       requestBody:
         required: true
         content:
@@ -1535,6 +2155,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /task-steps/{id}/logs:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1542,6 +2166,7 @@ paths:
       tags:
         - task-steps
       summary: Get task step logs
+      operationId: getTaskStepLogs
       responses:
         '200':
           description: Task step logs
@@ -1549,6 +2174,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TaskStepLogs'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /task-steps/{id}/log-url:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1556,6 +2185,7 @@ paths:
       tags:
         - task-steps
       summary: Get task step log URL
+      operationId: getTaskStepLogUrl
       responses:
         '200':
           description: Task step log URL
@@ -1563,11 +2193,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/URLResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-routes:
     get:
       tags:
         - app-routes
       summary: List app routes
+      operationId: listAppRoutes
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
       responses:
@@ -1579,10 +2214,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppRoute'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - app-routes
       summary: Create app route
+      operationId: createAppRoute
       requestBody:
         required: true
         content:
@@ -1596,6 +2236,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppRoute'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-routes/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -1603,6 +2247,7 @@ paths:
       tags:
         - app-routes
       summary: Get app route
+      operationId: getAppRoute
       responses:
         '200':
           description: App route
@@ -1610,10 +2255,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppRoute'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - app-routes
       summary: Update app route
+      operationId: updateAppRoute
       requestBody:
         required: true
         content:
@@ -1627,10 +2277,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AppRoute'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - app-routes
       summary: Delete app route
+      operationId: deleteAppRoute
       responses:
         '200':
           description: Delete result
@@ -1638,11 +2293,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /envs:
     get:
       tags:
         - envs
       summary: List envs
+      operationId: listEnvs
       parameters:
         - $ref: '#/components/parameters/OrgId'
       responses:
@@ -1654,10 +2314,15 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Env'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     post:
       tags:
         - envs
       summary: Create env
+      operationId: createEnv
       requestBody:
         required: true
         content:
@@ -1671,13 +2336,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Env'
-  /envs/{id}:
-    parameters:
-      - $ref: '#/components/parameters/Id'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /envs/by-name/{name}:
     get:
       tags:
         - envs
-      summary: Get env
+      summary: Get env by name
+      operationId: getEnvByName
+      parameters:
+        - $ref: '#/components/parameters/Name'
+        - $ref: '#/components/parameters/OrgId'
       responses:
         '200':
           description: Env
@@ -1685,10 +2356,34 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Env'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /envs/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - envs
+      summary: Get env
+      operationId: getEnv
+      responses:
+        '200':
+          description: Env
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Env'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     put:
       tags:
         - envs
       summary: Update env
+      operationId: updateEnv
       requestBody:
         required: true
         content:
@@ -1702,10 +2397,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Env'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
     delete:
       tags:
         - envs
       summary: Delete env
+      operationId: deleteEnv
       responses:
         '200':
           description: Delete result
@@ -1713,7 +2413,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
 components:
+  responses:
+    Error:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     apiKeyHeader:
       type: apiKey
@@ -1885,6 +2596,13 @@ components:
       schema:
         type: integer
   schemas:
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
     OperationResult:
       type: object
       required:
@@ -3094,10 +3812,10 @@ components:
       properties:
         title:
           type: string
-        registryIntegrationID:
+        registryIntegrationId:
           type: integer
           nullable: true
-        ciIntegrationID:
+        ciIntegrationId:
           type: integer
           nullable: true
     UpdateTitleRequest:
@@ -3166,26 +3884,27 @@ components:
           type: boolean
     CreateBuildRequest:
       type: object
+      required:
+        - appServiceIds
       properties:
-        appServiceId:
-          type: integer
         appServiceIds:
           type: array
+          minItems: 1
           items:
             type: integer
-      description: Specify either appServiceId for one service or appServiceIds for a multi-service build.
+      description: App service IDs to build.
     NewBuildFromCIInput:
       type: object
       required:
-        - appServiceID
+        - appServiceId
         - gitCommitSHA
         - gitRef
         - gitRefType
         - buildNum
-        - buildID
+        - buildId
         - provider
       properties:
-        appServiceID:
+        appServiceId:
           type: integer
         gitCommitSHA:
           type: string
@@ -3195,7 +3914,7 @@ components:
           type: string
         buildNum:
           type: integer
-        buildID:
+        buildId:
           type: string
         workflow:
           type: string
@@ -3217,11 +3936,11 @@ components:
     DeploymentFromCIInput:
       type: object
       required:
-        - appBuildID
+        - appBuildId
         - services
         - skipPostDeployment
       properties:
-        appBuildID:
+        appBuildId:
           type: integer
         services:
           type: array
@@ -3271,10 +3990,10 @@ components:
       required:
         - import
       properties:
-        appServiceID:
+        appServiceId:
           type: integer
           nullable: true
-        databaseDBID:
+        databaseDbId:
           type: integer
           nullable: true
         import:
@@ -3289,21 +4008,21 @@ components:
     NewProjectInput:
       type: object
       required:
-        - orgID
+        - orgId
         - name
         - title
       properties:
-        orgID:
+        orgId:
           type: integer
         name:
           type: string
         title:
           type: string
-        teamIDs:
+        teamIds:
           type: array
           items:
             type: integer
-        orgMembershipIDs:
+        orgMembershipIds:
           type: array
           items:
             type: integer
@@ -3319,17 +4038,17 @@ components:
     NewAppInput:
       type: object
       required:
-        - orgID
+        - orgId
         - name
         - title
         - instanceName
         - instanceTitle
         - domain
-        - stackRevID
+        - stackRevId
         - services
-        - envID
+        - envId
       properties:
-        orgID:
+        orgId:
           type: integer
         name:
           type: string
@@ -3341,40 +4060,40 @@ components:
           type: string
         domain:
           type: string
-        projectID:
+        projectId:
           type: integer
           nullable: true
-        stackRevID:
+        stackRevId:
           type: integer
         services:
           type: array
           items:
             $ref: '#/components/schemas/NewAppServiceInput'
-        clusterID:
+        clusterId:
           type: integer
           nullable: true
         newCluster:
           $ref: '#/components/schemas/NewManagedClusterInput'
-        envID:
+        envId:
           type: integer
-        ciIntegrationID:
+        ciIntegrationId:
           type: integer
           nullable: true
-        registryIntegrationID:
+        registryIntegrationId:
           type: integer
           nullable: true
     NewAppInstanceInput:
       type: object
       required:
-        - appID
+        - appId
         - instanceName
         - instanceTitle
         - domain
-        - stackRevID
+        - stackRevId
         - services
-        - envID
+        - envId
       properties:
-        appID:
+        appId:
           type: integer
         instanceName:
           type: string
@@ -3382,23 +4101,23 @@ components:
           type: string
         domain:
           type: string
-        stackRevID:
+        stackRevId:
           type: integer
         services:
           type: array
           items:
             $ref: '#/components/schemas/NewAppServiceInput'
-        clusterID:
+        clusterId:
           type: integer
           nullable: true
         newCluster:
           $ref: '#/components/schemas/NewManagedClusterInput'
-        envID:
+        envId:
           type: integer
-        ciIntegrationID:
+        ciIntegrationId:
           type: integer
           nullable: true
-        registryIntegrationID:
+        registryIntegrationId:
           type: integer
           nullable: true
     NewManagedClusterInput:
@@ -3473,10 +4192,10 @@ components:
         newRepoName:
           type: string
           nullable: true
-        integrationID:
+        integrationId:
           type: integer
           nullable: true
-        remoteGitRepoID:
+        remoteGitRepoId:
           type: string
           nullable: true
         gitRef:
@@ -3498,7 +4217,7 @@ components:
         url:
           type: string
           nullable: true
-        backupID:
+        backupId:
           type: integer
           nullable: true
         from:
@@ -3506,10 +4225,10 @@ components:
     ImportFromInput:
       type: object
       properties:
-        databaseDBID:
+        databaseDbId:
           type: integer
           nullable: true
-        appServiceID:
+        appServiceId:
           type: integer
           nullable: true
         backupName:
@@ -3529,11 +4248,11 @@ components:
       type: object
       required:
         - name
-        - integrationIDs
+        - integrationIds
       properties:
         name:
           type: string
-        integrationIDs:
+        integrationIds:
           type: array
           items:
             type: integer
@@ -3550,11 +4269,11 @@ components:
     AppServiceDatabaseInput:
       type: object
       required:
-        - databaseID
+        - databaseId
       properties:
-        databaseID:
+        databaseId:
           type: integer
-        databaseDBID:
+        databaseDbId:
           type: integer
           nullable: true
     ResourcesInput:
@@ -3594,19 +4313,19 @@ components:
     NewClusterInput:
       type: object
       required:
-        - orgID
-        - integrationID
+        - orgId
+        - integrationId
         - name
         - title
         - serverless
         - disableMonitoring
       properties:
-        orgID:
+        orgId:
           type: integer
-        projectID:
+        projectId:
           type: integer
           nullable: true
-        integrationID:
+        integrationId:
           type: integer
         name:
           type: string
@@ -3646,27 +4365,27 @@ components:
     NewDatabaseInput:
       type: object
       required:
-        - orgID
-        - envID
+        - orgId
+        - envId
         - name
         - title
-        - integrationKindID
+        - integrationKindId
         - type
         - version
         - machineType
       properties:
-        orgID:
+        orgId:
           type: integer
-        projectID:
+        projectId:
           type: integer
           nullable: true
-        envID:
+        envId:
           type: integer
         name:
           type: string
         title:
           type: string
-        integrationKindID:
+        integrationKindId:
           type: integer
         type:
           type: string
@@ -3692,7 +4411,7 @@ components:
         zone:
           type: string
           nullable: true
-        residedClusterID:
+        residedClusterId:
           type: integer
           nullable: true
         iops:
@@ -3701,15 +4420,15 @@ components:
     NewIntegrationInput:
       type: object
       required:
-        - orgID
-        - providerID
+        - orgId
+        - providerId
         - name
         - title
         - kinds
       properties:
-        orgID:
+        orgId:
           type: integer
-        providerID:
+        providerId:
           type: integer
         name:
           type: string
@@ -3722,7 +4441,7 @@ components:
         auth:
           type: string
           nullable: true
-        projectID:
+        projectId:
           type: integer
           nullable: true
         fieldsInput:
@@ -3767,19 +4486,19 @@ components:
     NewBackupInput:
       type: object
       required:
-        - integrationID
+        - integrationId
         - bucket
       properties:
-        appServiceID:
+        appServiceId:
           type: integer
           nullable: true
-        databaseDBID:
+        databaseDbId:
           type: integer
           nullable: true
         backupName:
           type: string
           nullable: true
-        integrationID:
+        integrationId:
           type: integer
         bucket:
           type: string
@@ -3789,13 +4508,13 @@ components:
     NewAppRouteInput:
       type: object
       required:
-        - appServiceID
+        - appServiceId
         - main
         - primary
         - port
         - host
       properties:
-        appServiceID:
+        appServiceId:
           type: integer
         main:
           type: boolean
@@ -3841,7 +4560,7 @@ components:
         authPassword:
           type: string
           nullable: true
-        authID:
+        authId:
           type: integer
           nullable: true
         options:
