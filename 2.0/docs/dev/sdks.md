@@ -6,17 +6,18 @@ Use the [2.0 API reference](https://wodby.com/docs/2.0/api/) for the current pub
 
 ## Compatibility
 
-The current 2.0 API reference documents the public `/v1` API contract.
+The SDKs listed below target the current Wodby 2.0 public `/v1` API and are generated from the OpenAPI schema published in the [API reference](https://wodby.com/docs/2.0/api/).
 
-The SDK repositories listed below are generated clients for the older v3 API surface. Use them for existing v3 SDK integrations. For new integrations against the 2.0 `/v1` API, use the OpenAPI schema from the [API reference](https://wodby.com/docs/2.0/api/) to generate a client or call the REST API directly.
+SDK package versions `4.0.0` and newer target the Wodby 2 API `/v1`. If you maintain an older integration that uses the previous v3 SDK surface, keep it pinned to a compatible `3.x` package version until you migrate.
 
 ## Official SDKs
 
-| Language | Package | Repository | Generated docs |
-| --- | --- | --- | --- |
-| PHP | `wodby/wodby-sdk-php` | [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php) | [SwaggerClient-php](https://github.com/wodby/wodby-sdk-php/tree/master/SwaggerClient-php) |
-| Go | Go package in repository | [wodby/wodby-sdk-go](https://github.com/wodby/wodby-sdk-go) | [pkg](https://github.com/wodby/wodby-sdk-go/tree/master/pkg) |
-| Python | `wodby` | [wodby/wodby-sdk-python](https://github.com/wodby/wodby-sdk-python) | [src](https://github.com/wodby/wodby-sdk-python/tree/master/src) |
+| Language | Package | Registry | Repository | Generated docs |
+| --- | --- | --- | --- | --- |
+| PHP | `wodby/wodby-sdk-php` | [Packagist](https://packagist.org/packages/wodby/wodby-sdk-php) | [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php/tree/2.0) | [SwaggerClient-php/docs](https://github.com/wodby/wodby-sdk-php/tree/2.0/SwaggerClient-php/docs) |
+| Python | `wodby` | [PyPI](https://pypi.org/project/wodby/) | [wodby/wodby-sdk-python](https://github.com/wodby/wodby-sdk-python/tree/2.0) | [src/docs](https://github.com/wodby/wodby-sdk-python/tree/2.0/src/docs) |
+| JavaScript and TypeScript | `@wodby/sdk` | [npm](https://www.npmjs.com/package/@wodby/sdk) | [wodby/wodby-sdk-js](https://github.com/wodby/wodby-sdk-js/tree/2.0) | [src](https://github.com/wodby/wodby-sdk-js/tree/2.0/src) |
+| Go | `github.com/wodby/wodby-sdk-go/v4/pkg` | [pkg.go.dev](https://pkg.go.dev/github.com/wodby/wodby-sdk-go/v4/pkg) | [wodby/wodby-sdk-go](https://github.com/wodby/wodby-sdk-go/tree/2.0) | [pkg/docs](https://github.com/wodby/wodby-sdk-go/tree/2.0/pkg/docs) |
 
 ## Install
 
@@ -32,7 +33,17 @@ Python:
 pip install wodby
 ```
 
-For Go, follow the generated package documentation in the [wodby-sdk-go](https://github.com/wodby/wodby-sdk-go) repository.
+JavaScript and TypeScript:
+
+```bash
+npm install @wodby/sdk
+```
+
+Go:
+
+```bash
+go get github.com/wodby/wodby-sdk-go/v4/pkg
+```
 
 ## Authentication
 
@@ -46,9 +57,17 @@ import wodby
 
 configuration = wodby.Configuration()
 configuration.api_key["X-API-KEY"] = os.environ["WODBY_API_KEY"]
+```
 
-org_api = wodby.OrganizationApi(wodby.ApiClient(configuration))
-orgs = org_api.get_orgs()
+JavaScript example:
+
+```js
+const { Configuration, OrgsApi } = require('@wodby/sdk');
+
+const api = new OrgsApi(new Configuration({
+  basePath: 'https://api.wodby.com/v1',
+  apiKey: process.env.WODBY_API_KEY,
+}));
 ```
 
 PHP example:
@@ -60,16 +79,13 @@ require_once './vendor/autoload.php';
 
 $config = \Wodby\Api\Configuration::getDefaultConfiguration()
     ->setApiKey('X-API-KEY', getenv('WODBY_API_KEY'));
-
-$appApi = new \Wodby\Api\Client\ApplicationApi(new GuzzleHttp\Client(), $config);
-$apps = $appApi->getApps();
 ```
 
 ## Choosing between API, SDKs, and CLI
 
 - Use the 2.0 REST API directly for simple scripts, debugging, and unsupported languages.
 - Generate a client from the 2.0 OpenAPI schema when you want typed models for new `/v1` integrations.
-- Use the existing SDKs for integrations that already target the older v3 API surface.
+- Use the official SDK packages when you want generated models and request helpers in a supported language.
 - Use the [Wodby CLI](cli.md) for CI build, release, and deploy workflows.
 
 ## Related pages
