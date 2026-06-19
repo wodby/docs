@@ -140,7 +140,6 @@ plugins:
         'certs.md': 'apps/endpoints.md'
 
 not_in_nav: |
-  dev/cli-reference/wodby*.md
 
 nav:
   - Get Started:
