@@ -1,0 +1,779 @@
+
+  
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>wodby app instance status | Wodby CLI</title>
+  <link rel="stylesheet" href="manual.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="index.html">Wodby CLI</a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="index.html">Manual</a>
+      <a href="wodby.html">Commands</a>
+      <a href="https://wodby.com/docs/2.0/dev/cli/">Docs</a>
+    </nav>
+  </header>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="sidebar-title">CLI manual</div>
+      <a class="nav-link " href="index.html">Getting started</a>
+      <nav class="command-nav" aria-label="Commands">
+        
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby.html">wodby</a>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app.html">app</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_instance.html">instance</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_instance_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_instance_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link active" href="wodby_app_instance_status.html">status</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_route.html">route</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_route_create.html">create</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_route_delete.html">delete</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_route_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_route_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_route_update.html">update</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_service.html">service</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_service_action.html">action</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_service_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_service_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_service_update.html">update</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_app_status.html">status</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_backup.html">backup</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_backup_create.html">create</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_backup_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_backup_list.html">list</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_build.html">build</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_build_deploy.html">deploy</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_build_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_build_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_build_registry-login.html">registry-login</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_build_void.html">void</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_ci.html">ci</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_ci_build.html">build</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_ci_deploy.html">deploy</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_ci_init.html">init</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_ci_release.html">release</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_ci_run.html">run</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_completion.html">completion</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_completion_bash.html">bash</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_completion_fish.html">fish</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_completion_powershell.html">powershell</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_completion_zsh.html">zsh</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_deployment.html">deployment</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_deployment_create.html">create</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_deployment_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_deployment_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_deployment_redeploy.html">redeploy</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_deployment_wait.html">wait</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_env.html">env</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_env_create.html">create</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_env_delete.html">delete</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_env_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_env_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_env_update.html">update</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_import.html">import</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_import_create.html">create</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_import_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_import_list.html">list</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_instance.html">instance</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_instance_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_instance_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_instance_status.html">status</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_org.html">org</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_org_current.html">current</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_project.html">project</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_project_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_project_list.html">list</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_route.html">route</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_route_create.html">create</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_route_delete.html">delete</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_route_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_route_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_route_update.html">update</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_task.html">task</a>
+    
+      <div class="nav-children">
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_task_cancel.html">cancel</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_task_get.html">get</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_task_list.html">list</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_task_logs.html">logs</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_task_repeat.html">repeat</a>
+    
+  </div>
+
+        
+          
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_task_wait.html">wait</a>
+    
+  </div>
+
+        
+      </div>
+    
+  </div>
+
+  
+    
+  <div class="nav-item">
+    <a class="nav-link " href="wodby_version.html">version</a>
+    
+  </div>
+
+  
+
+      </nav>
+    </aside>
+    <main class="content">
+      
+  
+    
+  <article class="manual-page">
+    <div class="breadcrumbs">
+      <a href="index.html">Manual</a>
+      <span>/</span><a href="wodby_app_instance.html">wodby app instance</a>
+    </div>
+
+    <h1>wodby app instance status</h1>
+    <p class="lead">Show app instance status</p>
+    
+
+    
+
+    <section class="section">
+      <h2>Usage</h2>
+      <pre><code>wodby app instance status ID [flags]</code></pre>
+    </section>
+
+    
+
+    
+
+    
+      <section class="section">
+        <h2>Options</h2>
+        
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Flag</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td><code>-h, --help</code></td>
+            <td>help for status</td>
+            <td><code>false</code></td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+      </section>
+    
+
+    
+      <section class="section">
+        <h2>Options inherited from parent commands</h2>
+        
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Flag</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+          <tr>
+            <td><code>--access-token string</code></td>
+            <td>Access token</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--api-base-url string</code></td>
+            <td>Public REST API base URL</td>
+            <td><code>https://api.wodby.com/v1</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--api-key string</code></td>
+            <td>API key</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--ci-config-path string</code></td>
+            <td>Path to CI config</td>
+            <td><code>/tmp/.wodby-ci.json</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>-o, --output string</code></td>
+            <td>Output format: table or json</td>
+            <td><code>table</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--verbose</code></td>
+            <td>Verbose output</td>
+            <td><code>false</code></td>
+          </tr>
+        
+      </tbody>
+    </table>
+  </div>
+
+      </section>
+    
+
+    
+      <section class="section">
+        <h2>See also</h2>
+        <a href="wodby_app_instance.html">wodby app instance</a>
+      </section>
+    
+  </article>
+
+  
+
+    </main>
+  </div>
+</body>
+</html>
+
