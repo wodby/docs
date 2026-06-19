@@ -140,6 +140,7 @@ plugins:
         'certs.md': 'apps/endpoints.md'
 
 not_in_nav: |
+  cli/*.html
 
 nav:
   - Get Started:
