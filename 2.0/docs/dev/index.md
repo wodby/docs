@@ -10,4 +10,4 @@ Use these pages when you integrate external automation with Wodby.
 
 ## CLI
 
-- [Wodby CLI](cli.md) is focused on CI build, release, deploy, and one-off run workflows.
+- [Wodby CLI](cli.md) covers common CI build, release, deploy, and one-off run workflows, with links to the generated full CLI reference.
