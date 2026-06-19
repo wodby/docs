@@ -139,6 +139,9 @@ plugins:
         'backups.md': 'apps/backups.md'
         'certs.md': 'apps/endpoints.md'
 
+not_in_nav: |
+  dev/cli-reference/wodby*.md
+
 nav:
   - Get Started:
       - Overview: index.md
@@ -319,3 +322,4 @@ nav:
       - SDKs: dev/sdks.md
       - API keys: dev/api-keys.md
       - CLI: dev/cli.md
+      - CLI reference: dev/cli-reference/index.md
