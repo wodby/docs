@@ -40,7 +40,9 @@ The main service with HTTP endpoints also gets a shorter technical hostname:
 
 - `<instance-name>.<app-name>.<org-name>.wodby.app`
 
-Wodby automatically issues and renews Let's Encrypt certificates for these technical routes.
+Wodby automatically issues and renews Let's Encrypt certificates for these technical routes. Certificate validation for
+technical routes uses Wodby-managed DNS records, so the certificate can be issued before the app service itself is
+serving traffic.
 
 ### Custom routes
 
@@ -70,6 +72,10 @@ Main routes are always primary. In practice:
 ### TLS certificates
 
 Wodby can issue TLS certificates for endpoint routes. For public docs, treat [Let's Encrypt](https://letsencrypt.org/) as the supported issuer for managed certificate flows today. Wodby automatically renews Let's Encrypt certificates before they expire.
+
+For generated technical routes, Wodby validates certificates through managed DNS. For custom routes, make sure the
+hostname resolves to the target cluster before enabling Let's Encrypt; custom route certificates are validated through
+the public HTTP route.
 
 `Organization > Certificates` shows issued certificates, issuer, key type, status, issue date, renewal date, expiry date, and where each certificate is used. The list can include certificates used by application routes and supported database resources.
 
