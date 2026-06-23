@@ -139,6 +139,9 @@ plugins:
         'backups.md': 'apps/backups.md'
         'certs.md': 'apps/endpoints.md'
 
+hooks:
+  - scripts/include_generated_reference_sitemap.py
+
 not_in_nav: |
   cli/*.html
 

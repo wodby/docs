@@ -22,6 +22,8 @@ build/Release
 # Dependency directory
 node_modules
 site
+__pycache__/
+*.py[cod]
 # npm Components (Installed Automatically)
 themes/default/public/lib/
 
@@ -32,4 +34,3 @@ themes/default/public/lib/
 
 # IDE
 .idea
-
