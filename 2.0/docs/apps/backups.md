@@ -21,6 +21,10 @@ Only app services that expose backup actions are available in the backup flow.
 
 When configuring a backup or backup preset, select the destination bucket only. You no longer need to select a region separately.
 
+The connected storage provider credentials must allow Wodby to list/select buckets, check the selected bucket's location
+when the provider requires it, and upload/read backup objects. For provider-specific requirements, see
+[Storage providers](../providers/storage.md).
+
 If the provider supports object storage classes, the storage class override is optional. If you set it, Wodby will use it for uploaded backup objects. If you leave it empty, the bucket's default storage class will be used.
 
 ## Backup presets

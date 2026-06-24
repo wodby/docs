@@ -159,6 +159,16 @@ If you plan to use S3 (backups storage)
 }
 ```
 
+For backup storage, the connected AWS credentials must also be able to:
+
+- list buckets for bucket selection: `s3:ListAllMyBuckets` on `*`
+- get the selected bucket location: `s3:GetBucketLocation` on `arn:aws:s3:::BUCKET_NAME`
+- upload backup objects: `s3:PutObject` on `arn:aws:s3:::BUCKET_NAME/*`
+- read backup objects for downloads and restores: `s3:GetObject` on `arn:aws:s3:::BUCKET_NAME/*`
+
+If you use a narrower custom S3 policy instead of `AmazonS3FullAccess`, include those actions for every bucket used as
+a Wodby backup destination.
+
 ## EKS
 
 Wodby provides a native integration with Elastic Kubernetes Service. 
