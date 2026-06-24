@@ -1,6 +1,6 @@
 # Wodby CI
 
-Wodby CI is the built-in CI system for Wodby 2.0. Add the pipeline files to the repository you selected as the build source for an app service. Wodby provides `WODBY_BUILD_ID`, which you pass to `wodby ci init` inside the pipeline.
+Wodby CI is the built-in CI system for Wodby 2.0. Add the pipeline files to the repository you selected as the build source for an app service. Wodby installs Wodby CLI before your pipeline steps run and provides `WODBY_BUILD_ID`, which you pass to `wodby ci init` inside the pipeline.
 
 ## Pipeline
 
@@ -25,7 +25,6 @@ jobs:
           path: ~/.composer
           key: 'composer-{{ hash "composer.lock" }}-v1'
 
-      - run: wget -qO- https://api.wodby.com/v1/get/cli | sh
       - run: wodby ci init $WODBY_BUILD_ID
       - run: wodby ci run -v $HOME/.composer:/home/wodby/.composer -- composer install -n --no-ansi
 
