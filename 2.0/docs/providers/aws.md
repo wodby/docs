@@ -1,113 +1,116 @@
 # Amazon Web Services
 
+Wodby AWS integrations can be used for EKS clusters, RDS managed databases, S3 backup storage, SES SMTP relay, and
+variables. Select only the integration kinds you need, and grant permissions for those kinds.
+
 ## Auth
 
-Currently, the only authentication method we support is the IAM user key pair with a region specified during the integration creation. 
+For EKS, RDS, S3, and variables, use an IAM access key pair and an AWS region. The access key belongs to the AWS identity
+whose permissions are described below.
 
-### Required IAM policies
+SES is different: Wodby uses the Amazon SES SMTP interface, so SES integrations use Amazon SES SMTP credentials instead
+of regular AWS API access keys. See [SES](#ses).
 
-IAM key for AWS integration requires the following policies:
+## Required Permissions
 
-#### AmazonEC2FullAccess
+Required AWS permissions depend on the selected integration kind. If one AWS integration is used for multiple AWS API
+features, the IAM user needs the combined permissions for those features. Use separate integrations when credential types
+or permission scopes should differ, especially for SES.
 
-AWS Managed Policy
+| Integration kind | Credentials | Permissions |
+| --- | --- | --- |
+| EKS | IAM access key pair | Attach [AmazonEC2FullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2FullAccess.html), [AWSCloudFormationFullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSCloudFormationFullAccess.html), [IAMFullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/IAMFullAccess.html), and the [custom EKS policy](#custom-eks-policy). |
+| RDS | IAM access key pair | Attach [AmazonEC2FullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2FullAccess.html), [AWSCloudFormationFullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSCloudFormationFullAccess.html), and the [custom RDS policy](#custom-rds-policy). |
+| S3 | IAM access key pair | Use the [custom S3 backup policy](#custom-s3-backup-policy). [AmazonS3FullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonS3FullAccess.html) also works, but grants more access than Wodby needs for backups. |
+| SES | Amazon SES SMTP credentials | The IAM user behind the SMTP credentials must be allowed to send through SES. See the [SES send policy](#ses-send-policy). |
+| Variables | IAM access key pair | No AWS API permissions are required by Wodby. The integration only exposes the configured values to apps or stacks. |
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "ec2:*",
-      "Effect": "Allow",
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "elasticloadbalancing:*",
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "cloudwatch:*",
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "autoscaling:*",
-      "Resource": "*"
-    },
-    {
-      "Effect": "Allow",
-      "Action": "iam:CreateServiceLinkedRole",
-      "Resource": "*",
-      "Condition": {
-        "StringEquals": {
-          "iam:AWSServiceName": [
-            "autoscaling.amazonaws.com",
-            "ec2scheduled.amazonaws.com",
-            "elasticloadbalancing.amazonaws.com",
-            "spot.amazonaws.com",
-            "spotfleet.amazonaws.com",
-            "transitgateway.amazonaws.com"
-          ]
-        }
-      }
-    }
-  ]
-}
-```
+AWS managed policy contents are maintained by AWS and can change over time. Attach AWS managed policies by name instead
+of copying their JSON into your own customer-managed policies.
 
-#### AWSCloudFormationFullAccess
+## EKS
 
-AWS Managed Policy
+Wodby provides a native integration with Amazon Elastic Kubernetes Service.
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "cloudformation:*"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
+- Wodby creates CloudFormation stacks for the VPC, networking, EKS control plane, add-ons, and default node group.
+- New EKS clusters are created across multiple Availability Zones in the selected region.
+- Wodby installs AWS Load Balancer Controller and Envoy Gateway, with one Network Load Balancer used for public app
+  entrypoints.
+- Node disk size is configurable during cluster creation.
+- Wodby deploys Metrics Server for basic Kubernetes monitoring.
+- The node type selector shows only instance types Wodby supports for EKS: x86_64 instances available in the selected
+  zone with more than 1 CPU, more than 4 GiB RAM, at most 32 GiB RAM, and without unsupported accelerator, Mac, or
+  burstable families.
 
-#### IAMFullAccess
+### Storage
 
-AWS Managed Policy
+Persistent storage is provided by Amazon Elastic Block Store through the default storage class. Wodby creates one EBS
+volume for each persistent volume claim.
 
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "iam:*",
-        "organizations:DescribeAccount",
-        "organizations:DescribeOrganization",
-        "organizations:DescribeOrganizationalUnit",
-        "organizations:DescribePolicy",
-        "organizations:ListChildren",
-        "organizations:ListParents",
-        "organizations:ListPoliciesForTarget",
-        "organizations:ListRoots",
-        "organizations:ListPolicies",
-        "organizations:ListTargetsForPolicy"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-```
+## RDS
 
-#### EKS Full Access
+Wodby provides a native integration with Amazon Relational Database Service.
 
-Custom policy, must be manually created
+- Wodby supports MySQL, MariaDB, and PostgreSQL.
+- Wodby uses CloudFormation stacks to create and manage RDS resources.
+- RDS instances can be created in a Wodby-managed VPC or in the VPC of an EKS cluster created under the same AWS
+  integration.
+- Wodby-created RDS resources use the `wodby-rds-` prefix.
+- Database servers can be highly available with RDS Multi-AZ, or zonal when high availability is disabled.
+- Wodby uses the `standard` RDS storage type.
+- Storage size is configured during database creation. Wodby does not configure RDS storage autoscaling for these
+  instances.
+- You can manage databases and database users from the Wodby dashboard.
+
+## S3
+
+Wodby provides a native integration with Amazon Simple Storage Service. You can use S3 to store app and database backups.
+
+- Wodby can list available S3 buckets for the connected account.
+- When configuring backups, select the bucket only. Wodby resolves the selected bucket's region automatically.
+- The storage class override is optional. If you leave it empty, the bucket's default storage class is used.
+- Supported storage classes are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER`,
+  `GLACIER_IR`, and `DEEP_ARCHIVE`.
+- Wodby creates pre-signed S3 URLs for backup upload, download, and restore operations.
+- Wodby backups do not use AWS Lambda or S3 Object Lambda.
+
+If backups are stored in archive classes such as `GLACIER` or `DEEP_ARCHIVE`, AWS requires restoring the archived object
+before it can be read for a Wodby download or restore.
+
+## SES
+
+Wodby provides a native integration with Amazon Simple Email Service. You can connect SMTP services such as OpenSMTPD to
+use SES as a relay for outbound emails.
+
+For SES, use Amazon SES SMTP credentials, not regular AWS API credentials. Amazon SES SMTP credentials are
+region-specific and are not the same as the AWS secret access key. In the Wodby AWS integration form:
+
+- `Access Key ID` should be the SES SMTP user name.
+- `Secret Access Key` should be the SES SMTP password.
+- `Region` should match the SES SMTP credentials' region.
+
+If you also use AWS API features such as EKS, RDS, or S3, create a separate AWS integration for SES because the secret
+value for SES must be an SMTP password.
+
+You must also verify the sender identity in Amazon SES and make sure the AWS account is allowed to send to your intended
+recipients according to your SES sandbox or production sending status.
+
+## Variables
+
+AWS integrations can also be used as a `variable` provider. When you attach the integration to an app service or stack,
+Wodby exposes:
+
+- `AWS_ACCESS_KEY_ID`
+- `AWS_SECRET_ACCESS_KEY`
+- `AWS_REGION`
+
+## Policy Reference
+
+Use these customer-managed policies only when the permission matrix above asks for a custom policy.
+
+### Custom EKS Policy
+
+Create this policy and attach it to the IAM user used by Wodby for EKS integrations.
 
 ```json
 {
@@ -122,9 +125,9 @@ Custom policy, must be manually created
 }
 ```
 
-#### RDS Full Access
+### Custom RDS Policy
 
-If you plan to use Managed databases. Custom policy, must be manually created
+Create this policy and attach it to the IAM user used by Wodby for RDS integrations.
 
 ```json
 {
@@ -139,80 +142,60 @@ If you plan to use Managed databases. Custom policy, must be manually created
 }
 ```
 
-#### AmazonS3FullAccess
+### Custom S3 Backup Policy
 
-If you plan to use S3 (backups storage)
-
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:*",
-                "s3-object-lambda:*"
-            ],
-            "Resource": "*"
-        }
-    ]
-}
-```
-
-For backup storage, the connected AWS credentials must also be able to:
+The connected AWS credentials must be able to:
 
 - list buckets for bucket selection: `s3:ListAllMyBuckets` on `*`
 - get the selected bucket location: `s3:GetBucketLocation` on `arn:aws:s3:::BUCKET_NAME`
 - upload backup objects: `s3:PutObject` on `arn:aws:s3:::BUCKET_NAME/*`
 - read backup objects for downloads and restores: `s3:GetObject` on `arn:aws:s3:::BUCKET_NAME/*`
 
-If you use a narrower custom S3 policy instead of `AmazonS3FullAccess`, include those actions for every bucket used as
-a Wodby backup destination.
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListAllMyBuckets",
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetBucketLocation",
+      "Resource": "arn:aws:s3:::BUCKET_NAME"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject"
+      ],
+      "Resource": "arn:aws:s3:::BUCKET_NAME/*"
+    }
+  ]
+}
+```
 
-## EKS
+Replace `BUCKET_NAME` with each bucket used as a Wodby backup destination.
 
-Wodby provides a native integration with Elastic Kubernetes Service. 
+AWS's managed `AmazonS3FullAccess` policy includes `s3-object-lambda:*`. Wodby backups do not use S3 Object Lambda, so
+that permission is not required when you use a custom policy.
 
-- EKS cluster we create always deployed with multi-az high availability in a chosen region
-- We create a CloudFormation stack to create a cluster's control plane, addons and node groups.
-- Micro and nano instance types forbidden due to the very low pod limit
-- We create a single load balancer (NLB) per cluster and deploy Envoy Gateway for public app entrypoints
-- Node disk size can be configured upon creation
-- We deploy a metrics server for the basic Wodby Kubernetes monitoring
+### SES Send Policy
 
-### Storage
+The IAM user behind the SES SMTP credentials must be allowed to send email through SES. The minimum send action for the
+SES SMTP interface is:
 
-Persistent storage is provided by Elastic Block Storage via the default storage class. We create a new block storage volume for each persistent volume claim.
-
-## RDS
-
-Wodby provides native integration with Relational Database Service.
-
-- We support MySQL, MariaDB and PostgreSQL
-- We use cloudformation stacks to manage all the resources
-- Databases can be resided with a EKS cluster created under the same integration
-- All resources we create have `wodby-rds-` prefix
-- Database server can either be highly available (regional) or not (zonal)
-- We use `standard` storage type
-- Storage size can be configured upon creation and storage autoscaling can be enabled
-- You can manage your DBs and users form Wodby dashboard
-
-## S3
-
-Wodby provides a native integration with Simple Storage Service. You can use S3 for storing your applications' backups.
-
-- Wodby can list available S3 buckets for the connected account
-- When configuring backups, select the bucket only. You no longer need to select a region separately
-- The storage class override is optional. If you leave it empty, the bucket's default storage class will be used
-
-## SES
-
-Wodby provides native integration with Simple Email Service. You can connect SMTP services such as OpenSMTPD to use SES as a relay for outbound emails.
-
-## Variables
-
-AWS integrations can also be used as a `variable` provider. When you attach the integration to an app service or stack, Wodby exposes:
-
-- `AWS_ACCESS_KEY_ID`
-- `AWS_SECRET_ACCESS_KEY`
-- `AWS_REGION`
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "ses:SendRawEmail",
+      "Resource": "*"
+    }
+  ]
+}
+```
