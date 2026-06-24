@@ -5,8 +5,8 @@ Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-c
 - In Wodby CI, use `WODBY_BUILD_ID`. The build already exists and the CLI loads it.
 - In third-party CI, use `WODBY_APP_SERVICE_ID` for the app service being built. The CLI creates a build from the CI metadata it detects.
 
-Wodby CI installs Wodby CLI before your pipeline steps run. Third-party CI jobs must install Wodby CLI themselves before
-calling `wodby ci init`.
+Wodby CI installs Wodby CLI during the `Setting up build environment` step. Third-party CI jobs must install Wodby CLI
+themselves before calling `wodby ci init`.
 
 For app instances that use third-party CI, an app service with a build source does not have to link a Git repository in
 Wodby. The CI provider supplies the checkout, and Wodby CLI sends commit, ref, and build metadata when it creates the
