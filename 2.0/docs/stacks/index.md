@@ -10,6 +10,10 @@ Stacks are versioned. Changes made in the dashboard are saved to an unpublished 
 
 The usual model is one stack per application. In some cases, multiple small similar apps may share a stack, but separate stacks are easier to evolve safely over time.
 
+Public Wodby stacks are listed in [`wodby/stacks`](https://github.com/wodby/stacks), with links to their source
+repositories. To create a new stack in Git, start from the [`wodby/stack`](https://github.com/wodby/stack)
+boilerplate.
+
 ## Creating Stacks
 
 You can create a stack in three ways:

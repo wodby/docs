@@ -48,7 +48,9 @@ During service import, Wodby validates explicit Helm value paths against the cha
 are available.
 
 If you're creating a custom Helm chart, we recommend starting from one of the existing
-[charts by Wodby](https://github.com/wodby/charts) or [by Bitnami](https://github.com/bitnami/charts).
+[charts by Wodby](https://github.com/wodby/charts) or [by Bitnami](https://github.com/bitnami/charts). The
+[`wodby/charts`](https://github.com/wodby/charts) repository contains public Wodby Helm charts and boilerplates for
+stateful and stateless charts.
 
 Helm chart information and default Helm values are defined under the [`helm` section](template.md#helm) in a service
 template.

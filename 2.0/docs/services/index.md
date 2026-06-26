@@ -12,6 +12,10 @@ own containers in Wodby and instead model a connection to software managed elsew
 Services are versioned. Each change creates a new service revision, and stacks reference specific revisions. Custom
 services imported from git are defined by a [template](template.md).
 
+Public Wodby services are listed in [`wodby/services`](https://github.com/wodby/services), with links to their source
+repositories. To create a new service in Git, start from the [`wodby/service`](https://github.com/wodby/service)
+boilerplate.
+
 Inside a stack, a service revision becomes a [stack service](../stacks/services.md). Stack services let you enable,
 disable, connect, and customize a service for that stack.
 
