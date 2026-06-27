@@ -16,6 +16,8 @@ security:
 tags:
   - name: orgs
     description: Organizations that own projects, resources, and access scopes.
+  - name: org-memberships
+    description: Organization users, invitations, roles, and membership status.
   - name: projects
     description: Project containers within organizations.
   - name: apps
@@ -28,6 +30,10 @@ tags:
     description: Deployment records and deployment actions.
   - name: app-builds
     description: Build records and CI build ingestion.
+  - name: app-ports
+    description: Network ports exposed by app services and app endpoints.
+  - name: app-routes
+    description: HTTP routing rules for app instances.
   - name: clusters
     description: Kubernetes clusters connected to or managed by Wodby.
   - name: databases
@@ -42,6 +48,8 @@ tags:
     description: Service catalog entries and service options.
   - name: stacks
     description: Stack catalog entries and stack revisions.
+  - name: stack-services
+    description: Stack service definitions and stack-service actions.
   - name: backups
     description: Backup records and backup creation.
   - name: imports
@@ -50,14 +58,13 @@ tags:
     description: User-visible task records and task actions.
   - name: task-steps
     description: Task step logs and log URLs.
-  - name: app-routes
-    description: HTTP routing rules for app instances.
   - name: envs
     description: Organization-level environment definitions.
 paths:
   /openapi.yaml:
     get:
       summary: Get OpenAPI YAML
+      description: Returns the public OpenAPI schema in YAML format.
       operationId: getOpenApiYaml
       security: []
       responses:
@@ -74,6 +81,7 @@ paths:
   /openapi.json:
     get:
       summary: Get OpenAPI JSON
+      description: Returns the public OpenAPI schema in JSON format.
       operationId: getOpenApiJson
       security: []
       responses:
@@ -92,6 +100,7 @@ paths:
       tags:
         - orgs
       summary: List orgs
+      description: Returns orgs matching the request filters.
       operationId: listOrgs
       responses:
         '200':
@@ -113,6 +122,7 @@ paths:
       tags:
         - orgs
       summary: Get org
+      description: Returns the org identified by the request path.
       operationId: getOrg
       responses:
         '200':
@@ -129,6 +139,7 @@ paths:
       tags:
         - orgs
       summary: Update org
+      description: Updates the org and returns the updated resource.
       operationId: updateOrg
       requestBody:
         required: true
@@ -151,6 +162,7 @@ paths:
       tags:
         - orgs
       summary: Delete org
+      description: Deletes the org and returns the operation result.
       operationId: deleteOrg
       responses:
         '200':
@@ -163,11 +175,54 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /org-memberships:
+    get:
+      tags:
+        - org-memberships
+      summary: List org memberships
+      description: Returns org memberships matching the request filters.
+      operationId: listOrgMemberships
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: List of org memberships
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgMembership'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /org-memberships/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - org-memberships
+      summary: Get org membership
+      description: Returns the org membership identified by the request path.
+      operationId: getOrgMembership
+      responses:
+        '200':
+          description: Org membership
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgMembership'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /projects:
     get:
       tags:
         - projects
       summary: List projects
+      description: Returns projects matching the request filters.
       operationId: listProjects
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -188,6 +243,7 @@ paths:
       tags:
         - projects
       summary: Create project
+      description: Creates a project and returns the created resource.
       operationId: createProject
       requestBody:
         required: true
@@ -211,6 +267,7 @@ paths:
       tags:
         - projects
       summary: Get project by name
+      description: Returns the project identified by name.
       operationId: getProjectByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -233,6 +290,7 @@ paths:
       tags:
         - projects
       summary: Get project
+      description: Returns the project identified by the request path.
       operationId: getProject
       responses:
         '200':
@@ -249,6 +307,7 @@ paths:
       tags:
         - projects
       summary: Update project
+      description: Updates the project and returns the updated resource.
       operationId: updateProject
       requestBody:
         required: true
@@ -271,6 +330,7 @@ paths:
       tags:
         - projects
       summary: Delete project
+      description: Deletes the project and returns the operation result.
       operationId: deleteProject
       responses:
         '200':
@@ -288,6 +348,7 @@ paths:
       tags:
         - apps
       summary: List apps
+      description: Returns apps matching the request filters.
       operationId: listApps
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -310,6 +371,7 @@ paths:
       tags:
         - apps
       summary: Create app
+      description: Creates an app and returns the created resource.
       operationId: createApp
       requestBody:
         required: true
@@ -333,6 +395,7 @@ paths:
       tags:
         - apps
       summary: Get app by name
+      description: Returns the app identified by name.
       operationId: getAppByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -355,6 +418,7 @@ paths:
       tags:
         - apps
       summary: Get app
+      description: Returns the app identified by the request path.
       operationId: getApp
       responses:
         '200':
@@ -371,6 +435,7 @@ paths:
       tags:
         - apps
       summary: Update app
+      description: Updates the app and returns the updated resource.
       operationId: updateApp
       requestBody:
         required: true
@@ -393,6 +458,7 @@ paths:
       tags:
         - apps
       summary: Delete app
+      description: Deletes the app and returns the operation result.
       operationId: deleteApp
       responses:
         '200':
@@ -410,6 +476,7 @@ paths:
       tags:
         - app-instances
       summary: List app instances
+      description: Returns app instances matching the request filters.
       operationId: listAppInstances
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -434,6 +501,7 @@ paths:
       tags:
         - app-instances
       summary: Create app instance
+      description: Creates an app instance and returns the created resource.
       operationId: createAppInstance
       requestBody:
         required: true
@@ -457,6 +525,7 @@ paths:
       tags:
         - app-instances
       summary: Get app instance by app and instance name
+      description: Returns the app instance identified by app and instance name.
       operationId: getAppInstanceByName
       parameters:
         - name: appName
@@ -488,6 +557,7 @@ paths:
       tags:
         - app-instances
       summary: Get app instance
+      description: Returns the app instance identified by the request path.
       operationId: getAppInstance
       responses:
         '200':
@@ -504,6 +574,7 @@ paths:
       tags:
         - app-instances
       summary: Update app instance
+      description: Updates the app instance and returns the updated resource.
       operationId: updateAppInstance
       requestBody:
         required: true
@@ -526,6 +597,7 @@ paths:
       tags:
         - app-instances
       summary: Delete app instance
+      description: Deletes the app instance and returns the operation result.
       operationId: deleteAppInstance
       parameters:
         - $ref: '#/components/parameters/Force'
@@ -545,6 +617,7 @@ paths:
       tags:
         - app-services
       summary: List app services
+      description: Returns app services matching the request filters.
       operationId: listAppServices
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -568,6 +641,7 @@ paths:
       tags:
         - app-services
       summary: Get app service
+      description: Returns the app service identified by the request path.
       operationId: getAppService
       responses:
         '200':
@@ -584,6 +658,7 @@ paths:
       tags:
         - app-services
       summary: Update app service
+      description: Updates the app service and returns the updated resource.
       operationId: updateAppService
       requestBody:
         required: true
@@ -610,6 +685,7 @@ paths:
       tags:
         - app-services
       summary: Run app service action
+      description: Runs the named action for an app service.
       operationId: runAppServiceAction
       responses:
         '201':
@@ -622,11 +698,54 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /app-ports:
+    get:
+      tags:
+        - app-ports
+      summary: List app ports
+      description: Returns app ports matching the request filters.
+      operationId: listAppPorts
+      parameters:
+        - $ref: '#/components/parameters/AppInstanceId'
+      responses:
+        '200':
+          description: List of app ports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppPort'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-ports/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-ports
+      summary: Get app port
+      description: Returns the app port identified by the request path.
+      operationId: getAppPort
+      responses:
+        '200':
+          description: App port
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppPort'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-deployments:
     get:
       tags:
         - app-deployments
       summary: List app deployments
+      description: Returns app deployments matching the request filters.
       operationId: listAppDeployments
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -647,6 +766,7 @@ paths:
       tags:
         - app-deployments
       summary: Create deployment
+      description: Creates a deployment and returns the created resource.
       operationId: createAppDeployment
       requestBody:
         required: true
@@ -670,6 +790,7 @@ paths:
       tags:
         - app-deployments
       summary: Create deployment from CI
+      description: Creates a deployment from a CI workflow request.
       operationId: createAppDeploymentFromCi
       security:
         - apiKeyHeader: []
@@ -698,6 +819,7 @@ paths:
       tags:
         - app-deployments
       summary: Get deployment
+      description: Returns the deployment identified by the request path.
       operationId: getAppDeployment
       responses:
         '200':
@@ -717,6 +839,7 @@ paths:
       tags:
         - app-deployments
       summary: Redeploy deployment
+      description: Creates a redeployment task for an existing deployment.
       operationId: redeployAppDeployment
       responses:
         '201':
@@ -734,6 +857,7 @@ paths:
       tags:
         - app-builds
       summary: List app builds
+      description: Returns app builds matching the request filters.
       operationId: listAppBuilds
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -754,6 +878,7 @@ paths:
       tags:
         - app-builds
       summary: Create build
+      description: Creates a build and returns the created resource.
       operationId: createAppBuild
       requestBody:
         required: true
@@ -779,6 +904,7 @@ paths:
       tags:
         - app-builds
       summary: Create build from CI
+      description: Creates a build from a CI workflow request.
       operationId: createAppBuildFromCi
       requestBody:
         required: true
@@ -804,6 +930,7 @@ paths:
       tags:
         - app-builds
       summary: Get build
+      description: Returns the build identified by the request path.
       operationId: getAppBuild
       security:
         - apiKeyHeader: []
@@ -826,6 +953,7 @@ paths:
       tags:
         - app-builds
       summary: Get build config
+      description: Returns CI build configuration for the app build.
       operationId: getAppBuildConfig
       security:
         - apiKeyHeader: []
@@ -848,6 +976,7 @@ paths:
       tags:
         - app-builds
       summary: Get Docker registry credentials for build
+      description: Returns Docker registry credentials for the app build.
       operationId: getAppBuildDockerRegistryCredentials
       security:
         - apiKeyHeader: []
@@ -870,6 +999,7 @@ paths:
       tags:
         - app-builds
       summary: Deploy build
+      description: Creates a deployment from the completed app build.
       operationId: deployAppBuild
       responses:
         '201':
@@ -887,6 +1017,7 @@ paths:
       tags:
         - clusters
       summary: List clusters
+      description: Returns clusters matching the request filters.
       operationId: listClusters
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -909,6 +1040,7 @@ paths:
       tags:
         - clusters
       summary: Create cluster
+      description: Creates a cluster and returns the created resource.
       operationId: createCluster
       requestBody:
         required: true
@@ -932,6 +1064,7 @@ paths:
       tags:
         - clusters
       summary: Get cluster by name
+      description: Returns the cluster identified by name.
       operationId: getClusterByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -954,6 +1087,7 @@ paths:
       tags:
         - clusters
       summary: Get cluster
+      description: Returns the cluster identified by the request path.
       operationId: getCluster
       responses:
         '200':
@@ -970,6 +1104,7 @@ paths:
       tags:
         - clusters
       summary: Update cluster
+      description: Updates the cluster and returns the updated resource.
       operationId: updateCluster
       requestBody:
         required: true
@@ -992,6 +1127,7 @@ paths:
       tags:
         - clusters
       summary: Delete cluster
+      description: Deletes the cluster and returns the operation result.
       operationId: deleteCluster
       parameters:
         - $ref: '#/components/parameters/Force'
@@ -1011,6 +1147,7 @@ paths:
       tags:
         - databases
       summary: List databases
+      description: Returns databases matching the request filters.
       operationId: listDatabases
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1036,6 +1173,7 @@ paths:
       tags:
         - databases
       summary: Create database
+      description: Creates a database and returns the created resource.
       operationId: createDatabase
       requestBody:
         required: true
@@ -1059,6 +1197,7 @@ paths:
       tags:
         - databases
       summary: Get database by name
+      description: Returns the database identified by name.
       operationId: getDatabaseByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1081,6 +1220,7 @@ paths:
       tags:
         - databases
       summary: Get database
+      description: Returns the database identified by the request path.
       operationId: getDatabase
       responses:
         '200':
@@ -1097,6 +1237,7 @@ paths:
       tags:
         - databases
       summary: Update database
+      description: Updates the database and returns the updated resource.
       operationId: updateDatabase
       requestBody:
         required: true
@@ -1119,6 +1260,7 @@ paths:
       tags:
         - databases
       summary: Delete database
+      description: Deletes the database and returns the operation result.
       operationId: deleteDatabase
       responses:
         '200':
@@ -1136,6 +1278,7 @@ paths:
       tags:
         - integrations
       summary: List integrations
+      description: Returns integrations matching the request filters.
       operationId: listIntegrations
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1162,6 +1305,7 @@ paths:
       tags:
         - integrations
       summary: Create integration
+      description: Creates an integration and returns the created resource.
       operationId: createIntegration
       requestBody:
         required: true
@@ -1185,6 +1329,7 @@ paths:
       tags:
         - integrations
       summary: Get integration by name
+      description: Returns the integration identified by name.
       operationId: getIntegrationByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1207,6 +1352,7 @@ paths:
       tags:
         - integrations
       summary: List integration scopes
+      description: Returns integration scopes matching the request filters.
       operationId: listIntegrationScopes
       responses:
         '200':
@@ -1228,6 +1374,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repositories
+      description: Returns remote Git repositories matching the request filters.
       operationId: listIntegrationRemoteGitRepos
       responses:
         '200':
@@ -1250,6 +1397,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repository branches
+      description: Returns remote Git repository branches matching the request filters.
       operationId: listIntegrationRemoteGitRepoBranches
       responses:
         '200':
@@ -1272,6 +1420,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repository tags
+      description: Returns remote Git repository tags matching the request filters.
       operationId: listIntegrationRemoteGitRepoTags
       responses:
         '200':
@@ -1293,6 +1442,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes regions
+      description: Returns Kubernetes regions matching the request filters.
       operationId: listIntegrationKubeRegions
       responses:
         '200':
@@ -1314,6 +1464,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes zones
+      description: Returns Kubernetes zones matching the request filters.
       operationId: listIntegrationKubeZones
       responses:
         '200':
@@ -1336,6 +1487,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes machine types
+      description: Returns Kubernetes machine types matching the request filters.
       operationId: listIntegrationKubeMachineTypes
       responses:
         '200':
@@ -1358,6 +1510,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes versions
+      description: Returns Kubernetes versions matching the request filters.
       operationId: listIntegrationKubeVersions
       responses:
         '200':
@@ -1379,6 +1532,7 @@ paths:
       tags:
         - integrations
       summary: Get Kubernetes settings
+      description: Returns the Kubernetes settings identified by the request path.
       operationId: getIntegrationKubeSettings
       responses:
         '200':
@@ -1398,6 +1552,7 @@ paths:
       tags:
         - integrations
       summary: List storage buckets
+      description: Returns storage buckets matching the request filters.
       operationId: listIntegrationStorageBuckets
       responses:
         '200':
@@ -1419,6 +1574,7 @@ paths:
       tags:
         - integrations
       summary: List storage classes
+      description: Returns storage classes matching the request filters.
       operationId: listIntegrationStorageClasses
       responses:
         '200':
@@ -1440,6 +1596,7 @@ paths:
       tags:
         - integrations
       summary: Get integration
+      description: Returns the integration identified by the request path.
       operationId: getIntegration
       responses:
         '200':
@@ -1456,6 +1613,7 @@ paths:
       tags:
         - integrations
       summary: Update integration
+      description: Updates the integration and returns the updated resource.
       operationId: updateIntegration
       requestBody:
         required: true
@@ -1478,6 +1636,7 @@ paths:
       tags:
         - integrations
       summary: Delete integration
+      description: Deletes the integration and returns the operation result.
       operationId: deleteIntegration
       responses:
         '200':
@@ -1497,6 +1656,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database types
+      description: Returns database types matching the request filters.
       operationId: listIntegrationKindDatabaseTypes
       responses:
         '200':
@@ -1521,6 +1681,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database regions
+      description: Returns database regions matching the request filters.
       operationId: listIntegrationKindDatabaseRegions
       responses:
         '200':
@@ -1543,6 +1704,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database versions
+      description: Returns database versions matching the request filters.
       operationId: listIntegrationKindDatabaseVersions
       responses:
         '200':
@@ -1575,6 +1737,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database machine types
+      description: Returns database machine types matching the request filters.
       operationId: listIntegrationKindDatabaseMachineTypes
       responses:
         '200':
@@ -1597,6 +1760,7 @@ paths:
       tags:
         - integration-kinds
       summary: Get database settings
+      description: Returns the database settings identified by the request path.
       operationId: getIntegrationKindDatabaseSettings
       responses:
         '200':
@@ -1614,6 +1778,7 @@ paths:
       tags:
         - providers
       summary: List providers
+      description: Returns providers matching the request filters.
       operationId: listProviders
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1641,6 +1806,7 @@ paths:
       tags:
         - providers
       summary: Get provider by name
+      description: Returns the provider identified by name.
       operationId: getProviderByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1662,6 +1828,7 @@ paths:
       tags:
         - providers
       summary: Get provider
+      description: Returns the provider identified by the request path.
       operationId: getProvider
       responses:
         '200':
@@ -1681,6 +1848,7 @@ paths:
       tags:
         - providers
       summary: Get provider revision
+      description: Returns the provider revision identified by the request path.
       operationId: getProviderRevision
       responses:
         '200':
@@ -1698,6 +1866,7 @@ paths:
       tags:
         - services
       summary: List services
+      description: Returns services matching the request filters.
       operationId: listServices
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1721,6 +1890,7 @@ paths:
       tags:
         - services
       summary: Get service by name
+      description: Returns the service identified by name.
       operationId: getServiceByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1743,6 +1913,7 @@ paths:
       tags:
         - services
       summary: Get service
+      description: Returns the service identified by the request path.
       operationId: getService
       responses:
         '200':
@@ -1762,6 +1933,7 @@ paths:
       tags:
         - services
       summary: List service link candidates
+      description: Returns service link candidates matching the request filters.
       operationId: listServiceLinkCandidates
       responses:
         '200':
@@ -1783,6 +1955,7 @@ paths:
       tags:
         - services
       summary: Get service revision
+      description: Returns the service revision identified by the request path.
       operationId: getServiceRevision
       responses:
         '200':
@@ -1800,6 +1973,7 @@ paths:
       tags:
         - stacks
       summary: List stacks
+      description: Returns stacks matching the request filters.
       operationId: listStacks
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1823,6 +1997,7 @@ paths:
       tags:
         - stacks
       summary: Get stack by name
+      description: Returns the stack identified by name.
       operationId: getStackByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1845,10 +2020,57 @@ paths:
       tags:
         - stacks
       summary: Get stack
+      description: Returns the stack identified by the request path.
       operationId: getStack
       responses:
         '200':
           description: Stack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stack'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stacks/{id}/actions/update-from-git:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - stacks
+      summary: Update stack from git
+      description: Starts a task that updates the stack from its configured Git source.
+      operationId: updateStackFromGit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStackFromGitRequest'
+      responses:
+        '201':
+          description: Update task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stacks/{id}/actions/publish-draft:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - stacks
+      summary: Publish stack draft
+      description: Publishes the current stack draft as the active stack revision.
+      operationId: publishStackDraft
+      responses:
+        '200':
+          description: Published stack
           content:
             application/json:
               schema:
@@ -1864,6 +2086,7 @@ paths:
       tags:
         - stacks
       summary: Get stack revision
+      description: Returns the stack revision identified by the request path.
       operationId: getStackRevision
       responses:
         '200':
@@ -1883,6 +2106,7 @@ paths:
       tags:
         - stacks
       summary: List stack services
+      description: Returns stack services matching the request filters.
       operationId: listStackRevisionServices
       responses:
         '200':
@@ -1897,11 +2121,104 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /stack-services:
+    get:
+      tags:
+        - stack-services
+      summary: List stack services
+      description: Returns stack services matching the request filters.
+      operationId: listStackServices
+      parameters:
+        - name: stackRevId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Stack services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service
+      description: Creates a stack service and returns the created resource.
+      operationId: createStackService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStackServiceInput'
+      responses:
+        '201':
+          description: Created stack service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Update stack service
+      description: Updates the stack service and returns the updated resource.
+      operationId: updateStackService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackServiceInput'
+      responses:
+        '200':
+          description: Updated stack service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service
+      description: Deletes the stack service and returns the operation result.
+      operationId: deleteStackService
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /backups:
     get:
       tags:
         - backups
       summary: List backups
+      description: Returns backups matching the request filters.
       operationId: listBackups
       parameters:
         - $ref: '#/components/parameters/AppInstanceIdOptional'
@@ -1929,6 +2246,7 @@ paths:
       tags:
         - backups
       summary: Create backup
+      description: Creates a backup and returns the created resource.
       operationId: createBackup
       requestBody:
         required: true
@@ -1954,6 +2272,7 @@ paths:
       tags:
         - backups
       summary: Get backup
+      description: Returns the backup identified by the request path.
       operationId: getBackup
       responses:
         '200':
@@ -1971,6 +2290,7 @@ paths:
       tags:
         - imports
       summary: List imports
+      description: Returns imports matching the request filters.
       operationId: listImports
       parameters:
         - $ref: '#/components/parameters/AppInstanceIdOptional'
@@ -1994,6 +2314,7 @@ paths:
       tags:
         - imports
       summary: Create import
+      description: Creates an import and returns the created resource.
       operationId: createImport
       requestBody:
         required: true
@@ -2019,6 +2340,7 @@ paths:
       tags:
         - imports
       summary: Get import
+      description: Returns the import identified by the request path.
       operationId: getImport
       responses:
         '200':
@@ -2036,6 +2358,7 @@ paths:
       tags:
         - tasks
       summary: List tasks
+      description: Returns tasks matching the request filters.
       operationId: listTasks
       parameters:
         - name: scope
@@ -2092,6 +2415,7 @@ paths:
       tags:
         - tasks
       summary: Get task
+      description: Returns the task identified by the request path.
       operationId: getTask
       responses:
         '200':
@@ -2111,6 +2435,7 @@ paths:
       tags:
         - tasks
       summary: Cancel task
+      description: Requests cancellation for the task.
       operationId: cancelTask
       responses:
         '200':
@@ -2130,6 +2455,7 @@ paths:
       tags:
         - tasks
       summary: Repeat task
+      description: Creates a repeated run for the task.
       operationId: repeatTask
       requestBody:
         required: true
@@ -2155,6 +2481,7 @@ paths:
       tags:
         - task-steps
       summary: Get task step logs
+      description: Returns logs captured for the task step.
       operationId: getTaskStepLogs
       responses:
         '200':
@@ -2174,6 +2501,7 @@ paths:
       tags:
         - task-steps
       summary: Get task step log URL
+      description: Returns a temporary log URL for the task step.
       operationId: getTaskStepLogUrl
       responses:
         '200':
@@ -2191,6 +2519,7 @@ paths:
       tags:
         - app-routes
       summary: List app routes
+      description: Returns app routes matching the request filters.
       operationId: listAppRoutes
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -2211,6 +2540,7 @@ paths:
       tags:
         - app-routes
       summary: Create app route
+      description: Creates an app route and returns the created resource.
       operationId: createAppRoute
       requestBody:
         required: true
@@ -2236,6 +2566,7 @@ paths:
       tags:
         - app-routes
       summary: Get app route
+      description: Returns the app route identified by the request path.
       operationId: getAppRoute
       responses:
         '200':
@@ -2252,6 +2583,7 @@ paths:
       tags:
         - app-routes
       summary: Update app route
+      description: Updates the app route and returns the updated resource.
       operationId: updateAppRoute
       requestBody:
         required: true
@@ -2274,6 +2606,7 @@ paths:
       tags:
         - app-routes
       summary: Delete app route
+      description: Deletes the app route and returns the operation result.
       operationId: deleteAppRoute
       responses:
         '200':
@@ -2291,6 +2624,7 @@ paths:
       tags:
         - envs
       summary: List envs
+      description: Returns envs matching the request filters.
       operationId: listEnvs
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -2311,6 +2645,7 @@ paths:
       tags:
         - envs
       summary: Create env
+      description: Creates an env and returns the created resource.
       operationId: createEnv
       requestBody:
         required: true
@@ -2334,6 +2669,7 @@ paths:
       tags:
         - envs
       summary: Get env by name
+      description: Returns the env identified by name.
       operationId: getEnvByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -2356,6 +2692,7 @@ paths:
       tags:
         - envs
       summary: Get env
+      description: Returns the env identified by the request path.
       operationId: getEnv
       responses:
         '200':
@@ -2372,6 +2709,7 @@ paths:
       tags:
         - envs
       summary: Update env
+      description: Updates the env and returns the updated resource.
       operationId: updateEnv
       requestBody:
         required: true
@@ -2394,6 +2732,7 @@ paths:
       tags:
         - envs
       summary: Delete env
+      description: Deletes the env and returns the operation result.
       operationId: deleteEnv
       responses:
         '200':
@@ -2625,6 +2964,55 @@ components:
           type: string
         domain:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    User:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    OrgMembership:
+      type: object
+      required:
+        - id
+        - orgId
+        - role
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+          nullable: true
+        user:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        orgId:
+          type: integer
+        role:
+          type: string
+        status:
+          type: string
+        joinedAt:
+          type: string
+          format: date-time
+          nullable: true
         createdAt:
           type: string
           format: date-time
@@ -2994,6 +3382,9 @@ components:
         integrationId:
           type: integer
           nullable: true
+        appServiceId:
+          type: integer
+          nullable: true
         envId:
           type: integer
         orgId:
@@ -3104,6 +3495,11 @@ components:
           type: boolean
         userId:
           type: integer
+        user:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
         orgId:
           type: integer
           nullable: true
@@ -3439,8 +3835,42 @@ components:
           type: boolean
         revId:
           type: integer
+        draftRevId:
+          type: integer
+          nullable: true
         latestRevNumber:
           type: integer
+        gitRepoId:
+          type: integer
+          nullable: true
+        gitRepoRemoteId:
+          type: string
+          nullable: true
+        gitRepoRef:
+          type: string
+          nullable: true
+        gitRepoRefType:
+          type: string
+          nullable: true
+        originStackRevId:
+          type: integer
+          nullable: true
+        originStackRevStackId:
+          type: integer
+          nullable: true
+        originStackRevName:
+          type: string
+          nullable: true
+        originStackRevNumber:
+          type: integer
+          nullable: true
+        originStackRevVersion:
+          type: string
+          nullable: true
+        originStackRevCreatedAt:
+          type: string
+          format: date-time
+          nullable: true
         orgId:
           type: integer
         createdAt:
@@ -3698,6 +4128,45 @@ components:
         parentAppServiceId:
           type: integer
           nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    AppPort:
+      type: object
+      required:
+        - id
+        - name
+        - protocol
+        - number
+        - private
+        - appEndpointId
+        - appInstanceId
+        - appServiceId
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        protocol:
+          type: string
+        number:
+          type: integer
+        publicPort:
+          type: integer
+          nullable: true
+        private:
+          type: boolean
+        appEndpointId:
+          type: integer
+        appInstanceId:
+          type: integer
+        appServiceId:
+          type: integer
         createdAt:
           type: string
           format: date-time
@@ -4050,6 +4519,58 @@ components:
           nullable: true
         buildSource:
           $ref: '#/components/schemas/BuildSourceInput'
+    NewStackServiceInput:
+      type: object
+      required:
+        - stackId
+        - serviceId
+        - name
+        - title
+        - required
+        - replicas
+      properties:
+        stackId:
+          type: integer
+        serviceId:
+          type: integer
+        name:
+          type: string
+        title:
+          type: string
+        required:
+          type: boolean
+        replicas:
+          type: integer
+    StackServiceInput:
+      type: object
+      properties:
+        replicas:
+          type: integer
+          nullable: true
+        required:
+          type: boolean
+          nullable: true
+        disabled:
+          type: boolean
+          nullable: true
+        main:
+          type: boolean
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        buildSource:
+          $ref: '#/components/schemas/BuildSourceInput'
+    UpdateStackFromGitRequest:
+      type: object
+      required:
+        - gitRef
+        - gitRefType
+      properties:
+        gitRef:
+          type: string
+        gitRefType:
+          type: string
     NewImportInput:
       type: object
       required:
