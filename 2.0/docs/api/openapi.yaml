@@ -2899,6 +2899,11 @@ components:
         - title
         - status
         - serverless
+        - demo
+        - wodby
+        - k3s
+        - singleNode
+        - infraVersion
         - orgId
         - createdAt
         - updatedAt
@@ -2913,13 +2918,31 @@ components:
           type: string
         serverless:
           type: boolean
+        demo:
+          type: boolean
+        wodby:
+          type: boolean
+        k3s:
+          type: boolean
+        singleNode:
+          type: boolean
         version:
           type: string
           nullable: true
+        infraVersion:
+          type: string
         region:
           type: string
           nullable: true
         zone:
+          type: string
+          nullable: true
+        ips:
+          type: array
+          nullable: true
+          items:
+            type: string
+        hostname:
           type: string
           nullable: true
         integrationId:
