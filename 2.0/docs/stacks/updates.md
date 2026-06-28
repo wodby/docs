@@ -111,5 +111,5 @@ published revision and app instances are unaffected.
 After a draft is published as a new stack revision, app instances still run their current stack revision until you
 upgrade them.
 
-Open `Apps`, select the app, select an app instance, and go to the `Stack` tab. See
+Open `Apps`, select the app, select an app instance, and go to `Stack > Operations`. See
 [Application stack](../apps/stack.md#upgrade) for the app instance upgrade workflow and the available upgrade settings.

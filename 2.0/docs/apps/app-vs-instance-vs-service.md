@@ -8,7 +8,7 @@ These three terms describe different layers of the same application model.
 | --- | --- | --- | --- |
 | App | The top-level application record built on one stack | `shop` | `Apps` |
 | App instance | One deployed copy of that app, assigned to an Env | `prod-eu`, `staging`, `dev` | `Apps > [App] > Instances` |
-| App service | One service inside one app instance | `php`, `nginx`, `redis`, `postgres` | `Apps > [App] > [Instance] > Services` |
+| App service | One service inside one app instance | `php`, `nginx`, `redis`, `postgres` | `Apps > [App] > [Instance] > Stack > App services` |
 
 ## Relationship
 

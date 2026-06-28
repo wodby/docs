@@ -41,12 +41,12 @@ The usual model is one stack per application. When the stack changes, you upgrad
 When a new published stack revision is available, you can upgrade an app instance to it. Unpublished stack drafts are
 not available for app upgrades and do not mark app instances as outdated.
 
-Open `Apps`, select the app, select an app instance, and go to the `Stack` tab. The `App instance stack` table shows the
-current stack revision, stack version, and status. The status is `Outdated` when a newer stack revision is available and
-`Up to date` when the instance already uses the latest revision.
+Open `Apps`, select the app, select an app instance, and go to `Stack > Operations`. The `App instance stack` table
+shows the current stack revision, stack version, and status. The status is `Outdated` when a newer stack revision is
+available and `Up to date` when the instance already uses the latest revision.
 
-The `Upgrade stack` form is on the same tab. The `Upgrade` button is enabled only when the app instance is outdated. If
-the instance already uses the latest stack revision, the button says `Stack is up to date`.
+The `Upgrade stack` form is on the same subtab. The `Upgrade` button is enabled only when the app instance is outdated.
+If the instance already uses the latest stack revision, the button says `Stack is up to date`.
 
 Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app-instance overrides.
 
@@ -94,7 +94,7 @@ app-service version option, such as the PHP, MariaDB, or Redis version selected 
 
 Use this when the latest stack revision changes an app service from an EOL default version to a supported default
 version. If you want to choose a different supported version, upgrade the stack first and then edit the app service from
-the `Services` tab.
+`Stack > App services`.
 
 ### Update replicas
 

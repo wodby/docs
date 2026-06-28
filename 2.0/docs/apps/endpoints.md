@@ -2,7 +2,7 @@
 
 Endpoints are the public or private entry points to your app services. They consist of HTTP routes and/or published ports.
 
-From `Apps > [Instance] > Endpoints` you can manage:
+From `Apps > [App] > [Instance] > Endpoints` you can manage:
 
 - `Routes`
 - `Ports`

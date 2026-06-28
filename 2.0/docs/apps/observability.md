@@ -49,7 +49,7 @@ That page shows:
 - restart counts
 - Kubernetes workload summaries for the instance, including service-level storage usage where available
 
-App service metrics are available from `Apps > [App] > [Instance] > Services > [Service] > Metrics`.
+App service metrics are available from `Apps > [App] > [Instance] > Stack > App services > [Service] > Metrics`.
 
 That page shows:
 

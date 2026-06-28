@@ -9,7 +9,7 @@ Stack configuration changes are saved to an unpublished draft revision. The curr
 for existing app instances until you publish the draft.
 
 Use `Publish draft` when you want the draft to become a real stack revision. At that point, app instances using older
-published revisions can become outdated and can be upgraded from their `Stack` tab.
+published revisions can become outdated and can be upgraded from `Stack > Operations`.
 
 Use `Discard` to delete the draft and abandon unpublished stack changes. If there is no draft, the stack has no
 unpublished configuration changes.

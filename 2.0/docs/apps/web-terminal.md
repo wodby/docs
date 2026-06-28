@@ -9,7 +9,7 @@ use [SSH services](../services/ssh.md) and, when needed, [published ports](endpo
 
 ## Where to find it
 
-From `Apps > [App] > [Instance] > Services > [Service] > Overview`, click `Connect via web terminal`.
+From `Apps > [App] > [Instance] > Stack > App services > [Service] > Overview`, click `Connect via web terminal`.
 
 ## Requirements
 

@@ -29,7 +29,7 @@ Each build deployment creates a new deployment record associated with the select
 
 ## New deployment
 
-A new deployment can be started manually from `Apps > [App] > Deploys > New Deployment`.
+A new deployment can be started manually from `Apps > [App] > [Instance] > CI/CD > Deploys > New Deployment`.
 
 In that flow you can:
 

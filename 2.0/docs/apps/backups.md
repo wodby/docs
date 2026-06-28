@@ -8,12 +8,13 @@ If an application's stack has services that provide [backup functionality](../se
 - mirroring the backup to third-party object storage, such as S3 or another supported provider
 - cleaning up the backup from the container's ephemeral storage
 
-Backups are managed from `Apps > [Instance] > Backups`.
+Backups are managed from `Apps > [App] > [Instance] > Data > Backups`.
 
-The app backup area has two tabs:
+The app instance `Data` area includes:
 
 - `Backups` for one-off backups
-- `Presets` for reusable destinations and automatic schedules
+- `Backup presets` for reusable destinations and automatic schedules
+- `Imports` for data imports
 
 Only app services that expose backup actions are available in the backup flow.
 

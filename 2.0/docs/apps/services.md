@@ -70,7 +70,7 @@ This is the main place to customize how one environment behaves without changing
 
 ## App service menu
 
-Inside `Apps > [Instance] > Services > [Service]`, the dashboard can show:
+Inside `Apps > [App] > [Instance] > Stack > App services > [Service]`, the dashboard can show:
 
 - `Overview`
 - `Metrics`
