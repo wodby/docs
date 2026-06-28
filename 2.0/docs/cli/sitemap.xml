@@ -10,6 +10,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_create.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_get.html</loc>
   </url>
   <url>
@@ -38,6 +41,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_build_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_create.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_deployment.html</loc>
@@ -335,6 +341,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_build_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_create.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_deployment.html</loc>

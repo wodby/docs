@@ -5,17 +5,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>wodby database | Wodby CLI</title>
-  <meta name="description" content="wodby database command reference for Wodby CLI. Manage databases.">
-  <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_database.html">
+  <title>wodby app instance create | Wodby CLI</title>
+  <meta name="description" content="wodby app instance create command reference for Wodby CLI. Create app instance.">
+  <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_app_instance_create.html">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Wodby Documentation">
-  <meta property="og:title" content="wodby database | Wodby CLI">
-  <meta property="og:description" content="wodby database command reference for Wodby CLI. Manage databases.">
-  <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_database.html">
+  <meta property="og:title" content="wodby app instance create | Wodby CLI">
+  <meta property="og:description" content="wodby app instance create command reference for Wodby CLI. Create app instance.">
+  <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_app_instance_create.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="wodby database | Wodby CLI">
-  <meta name="twitter:description" content="wodby database command reference for Wodby CLI. Manage databases.">
+  <meta name="twitter:title" content="wodby app instance create | Wodby CLI">
+  <meta name="twitter:description" content="wodby app instance create command reference for Wodby CLI. Create app instance.">
   <link rel="sitemap" type="application/xml" href="https://wodby.com/docs/2.0/cli/sitemap.xml">
   <link rel="stylesheet" href="manual.css">
 </head>
@@ -134,7 +134,7 @@
         
           
   <div class="nav-item">
-    <a class="nav-link " href="wodby_app_instance_create.html">create</a>
+    <a class="nav-link active" href="wodby_app_instance_create.html">create</a>
     
   </div>
 
@@ -601,7 +601,7 @@
   
     
   <div class="nav-item">
-    <a class="nav-link active" href="wodby_database.html">database</a>
+    <a class="nav-link " href="wodby_database.html">database</a>
     
       <div class="nav-children">
         
@@ -1468,67 +1468,20 @@
   <article class="manual-page">
     <div class="breadcrumbs">
       <a href="index.html">Manual</a>
-      <span>/</span><a href="wodby.html">wodby</a>
+      <span>/</span><a href="wodby_app_instance.html">wodby app instance</a>
     </div>
 
-    <h1>wodby database</h1>
-    <p class="lead">Manage databases</p>
+    <h1>wodby app instance create</h1>
+    <p class="lead">Create app instance</p>
     
 
-    
-      <section class="section">
-        <h2>Commands</h2>
-        <div class="command-list">
-          
-            <a class="command-row" href="wodby_database_create.html">
-              <code>wodby database create</code>
-              <span>Create database</span>
-            </a>
-          
-            <a class="command-row" href="wodby_database_db.html">
-              <code>wodby database db</code>
-              <span>Manage DBs</span>
-            </a>
-          
-            <a class="command-row" href="wodby_database_delete.html">
-              <code>wodby database delete</code>
-              <span>Delete database</span>
-            </a>
-          
-            <a class="command-row" href="wodby_database_get.html">
-              <code>wodby database get</code>
-              <span>Get database</span>
-            </a>
-          
-            <a class="command-row" href="wodby_database_list.html">
-              <code>wodby database list</code>
-              <span>List databases</span>
-            </a>
-          
-            <a class="command-row" href="wodby_database_update.html">
-              <code>wodby database update</code>
-              <span>Update database</span>
-            </a>
-          
-            <a class="command-row" href="wodby_database_user.html">
-              <code>wodby database user</code>
-              <span>Manage database users</span>
-            </a>
-          
-        </div>
-      </section>
     
 
     <section class="section">
       <h2>Usage</h2>
-      <pre><code>wodby database [flags]</code></pre>
+      <pre><code>wodby app instance create [flags]</code></pre>
     </section>
 
-    
-      <section class="section">
-        <h2>Aliases</h2>
-        <p><code>databases</code></p>
-      </section>
     
 
     
@@ -1549,15 +1502,99 @@
       <tbody>
         
           <tr>
-            <td><code>-h, --help</code></td>
-            <td>help for database</td>
+            <td><code>--app string</code></td>
+            <td>App ID</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--cluster string</code></td>
+            <td>Cluster ID</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--cluster-app</code></td>
+            <td>Create a cluster app instance</td>
             <td><code>false</code></td>
           </tr>
         
           <tr>
-            <td><code>-o, --output string</code></td>
-            <td>Output format: table, vertical, or json</td>
-            <td><code>table</code></td>
+            <td><code>--data string</code></td>
+            <td>JSON request body</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--domain string</code></td>
+            <td>Main domain</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--env string</code></td>
+            <td>Environment ID</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>-f, --file string</code></td>
+            <td>Path to JSON request body</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>-h, --help</code></td>
+            <td>help for create</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--name string</code></td>
+            <td>App instance machine name</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--region string</code></td>
+            <td>Provider region</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--stack string</code></td>
+            <td>Stack ID</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--stack-rev string</code></td>
+            <td>Stack revision ID</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--timeout duration</code></td>
+            <td>Maximum time to wait</td>
+            <td><code>10m0s</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--title string</code></td>
+            <td>App instance title</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--wait</code></td>
+            <td>Wait for the created task or deployment to finish</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--zone string</code></td>
+            <td>Provider zone</td>
+            <td><span class="muted">-</span></td>
           </tr>
         
       </tbody>
@@ -1607,6 +1644,12 @@
           </tr>
         
           <tr>
+            <td><code>-o, --output string</code></td>
+            <td>Output format: table, vertical, or json</td>
+            <td><code>table</code></td>
+          </tr>
+        
+          <tr>
             <td><code>--verbose</code></td>
             <td>Verbose output</td>
             <td><code>false</code></td>
@@ -1622,7 +1665,7 @@
     
       <section class="section">
         <h2>See also</h2>
-        <a href="wodby.html">wodby</a>
+        <a href="wodby_app_instance.html">wodby app instance</a>
       </section>
     
   </article>
