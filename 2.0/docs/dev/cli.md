@@ -47,6 +47,8 @@ One-off commands can run inside the build context before building:
 wodby ci run --service php composer install -n --no-ansi
 ```
 
+For built-in Wodby CI pipeline configuration, see [Wodby CI](../cicd/wodby-ci.md). For more pipeline examples, see [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci).
+
 For command-specific options and generated usage output, use the [CLI reference](https://wodby.com/docs/2.0/cli/). For provider setup and build behavior details, use the CI/CD pages below.
 
 ## Related pages
