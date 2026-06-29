@@ -16,6 +16,8 @@ security:
 tags:
   - name: orgs
     description: Organizations that own projects, resources, and access scopes.
+  - name: org-memberships
+    description: Organization users, invitations, roles, and membership status.
   - name: projects
     description: Project containers within organizations.
   - name: apps
@@ -28,6 +30,10 @@ tags:
     description: Deployment records and deployment actions.
   - name: app-builds
     description: Build records and CI build ingestion.
+  - name: app-ports
+    description: Network ports exposed by app services and app endpoints.
+  - name: app-routes
+    description: HTTP routing rules for app instances.
   - name: clusters
     description: Kubernetes clusters connected to or managed by Wodby.
   - name: databases
@@ -42,6 +48,8 @@ tags:
     description: Service catalog entries and service options.
   - name: stacks
     description: Stack catalog entries and stack revisions.
+  - name: stack-services
+    description: Stack service definitions and stack-service actions.
   - name: backups
     description: Backup records and backup creation.
   - name: imports
@@ -50,14 +58,13 @@ tags:
     description: User-visible task records and task actions.
   - name: task-steps
     description: Task step logs and log URLs.
-  - name: app-routes
-    description: HTTP routing rules for app instances.
   - name: envs
     description: Organization-level environment definitions.
 paths:
   /openapi.yaml:
     get:
       summary: Get OpenAPI YAML
+      description: Returns the public OpenAPI schema in YAML format.
       operationId: getOpenApiYaml
       security: []
       responses:
@@ -74,6 +81,7 @@ paths:
   /openapi.json:
     get:
       summary: Get OpenAPI JSON
+      description: Returns the public OpenAPI schema in JSON format.
       operationId: getOpenApiJson
       security: []
       responses:
@@ -92,6 +100,7 @@ paths:
       tags:
         - orgs
       summary: List orgs
+      description: Returns orgs matching the request filters.
       operationId: listOrgs
       responses:
         '200':
@@ -113,6 +122,7 @@ paths:
       tags:
         - orgs
       summary: Get org
+      description: Returns the org identified by the request path.
       operationId: getOrg
       responses:
         '200':
@@ -129,6 +139,7 @@ paths:
       tags:
         - orgs
       summary: Update org
+      description: Updates the org and returns the updated resource.
       operationId: updateOrg
       requestBody:
         required: true
@@ -151,6 +162,7 @@ paths:
       tags:
         - orgs
       summary: Delete org
+      description: Deletes the org and returns the operation result.
       operationId: deleteOrg
       responses:
         '200':
@@ -163,11 +175,54 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /org-memberships:
+    get:
+      tags:
+        - org-memberships
+      summary: List org memberships
+      description: Returns org memberships matching the request filters.
+      operationId: listOrgMemberships
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: List of org memberships
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgMembership'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /org-memberships/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - org-memberships
+      summary: Get org membership
+      description: Returns the org membership identified by the request path.
+      operationId: getOrgMembership
+      responses:
+        '200':
+          description: Org membership
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrgMembership'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /projects:
     get:
       tags:
         - projects
       summary: List projects
+      description: Returns projects matching the request filters.
       operationId: listProjects
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -188,6 +243,7 @@ paths:
       tags:
         - projects
       summary: Create project
+      description: Creates a project and returns the created resource.
       operationId: createProject
       requestBody:
         required: true
@@ -211,6 +267,7 @@ paths:
       tags:
         - projects
       summary: Get project by name
+      description: Returns the project identified by name.
       operationId: getProjectByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -233,6 +290,7 @@ paths:
       tags:
         - projects
       summary: Get project
+      description: Returns the project identified by the request path.
       operationId: getProject
       responses:
         '200':
@@ -249,6 +307,7 @@ paths:
       tags:
         - projects
       summary: Update project
+      description: Updates the project and returns the updated resource.
       operationId: updateProject
       requestBody:
         required: true
@@ -271,6 +330,7 @@ paths:
       tags:
         - projects
       summary: Delete project
+      description: Deletes the project and returns the operation result.
       operationId: deleteProject
       responses:
         '200':
@@ -288,6 +348,7 @@ paths:
       tags:
         - apps
       summary: List apps
+      description: Returns apps matching the request filters.
       operationId: listApps
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -310,6 +371,7 @@ paths:
       tags:
         - apps
       summary: Create app
+      description: Creates an app and returns the created resource.
       operationId: createApp
       requestBody:
         required: true
@@ -333,6 +395,7 @@ paths:
       tags:
         - apps
       summary: Get app by name
+      description: Returns the app identified by name.
       operationId: getAppByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -355,6 +418,7 @@ paths:
       tags:
         - apps
       summary: Get app
+      description: Returns the app identified by the request path.
       operationId: getApp
       responses:
         '200':
@@ -371,6 +435,7 @@ paths:
       tags:
         - apps
       summary: Update app
+      description: Updates the app and returns the updated resource.
       operationId: updateApp
       requestBody:
         required: true
@@ -393,6 +458,7 @@ paths:
       tags:
         - apps
       summary: Delete app
+      description: Deletes the app and returns the operation result.
       operationId: deleteApp
       responses:
         '200':
@@ -410,6 +476,7 @@ paths:
       tags:
         - app-instances
       summary: List app instances
+      description: Returns app instances matching the request filters.
       operationId: listAppInstances
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -434,6 +501,7 @@ paths:
       tags:
         - app-instances
       summary: Create app instance
+      description: Creates an app instance and returns the created resource.
       operationId: createAppInstance
       requestBody:
         required: true
@@ -457,6 +525,7 @@ paths:
       tags:
         - app-instances
       summary: Get app instance by app and instance name
+      description: Returns the app instance identified by app and instance name.
       operationId: getAppInstanceByName
       parameters:
         - name: appName
@@ -488,6 +557,7 @@ paths:
       tags:
         - app-instances
       summary: Get app instance
+      description: Returns the app instance identified by the request path.
       operationId: getAppInstance
       responses:
         '200':
@@ -504,6 +574,7 @@ paths:
       tags:
         - app-instances
       summary: Update app instance
+      description: Updates the app instance and returns the updated resource.
       operationId: updateAppInstance
       requestBody:
         required: true
@@ -526,6 +597,7 @@ paths:
       tags:
         - app-instances
       summary: Delete app instance
+      description: Deletes the app instance and returns the operation result.
       operationId: deleteAppInstance
       parameters:
         - $ref: '#/components/parameters/Force'
@@ -540,11 +612,38 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /app-instances/{id}/actions/upgrade-stack:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-instances
+      summary: Upgrade app instance stack
+      description: Upgrades an app instance stack using the selected upgrade sections.
+      operationId: upgradeAppInstanceStack
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppInstanceStackUpgradeInput'
+      responses:
+        '200':
+          description: Upgrade result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-services:
     get:
       tags:
         - app-services
       summary: List app services
+      description: Returns app services matching the request filters.
       operationId: listAppServices
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -568,6 +667,7 @@ paths:
       tags:
         - app-services
       summary: Get app service
+      description: Returns the app service identified by the request path.
       operationId: getAppService
       responses:
         '200':
@@ -584,6 +684,7 @@ paths:
       tags:
         - app-services
       summary: Update app service
+      description: Updates the app service and returns the updated resource.
       operationId: updateAppService
       requestBody:
         required: true
@@ -610,6 +711,7 @@ paths:
       tags:
         - app-services
       summary: Run app service action
+      description: Runs the named action for an app service.
       operationId: runAppServiceAction
       responses:
         '201':
@@ -622,11 +724,906 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /app-services/{id}/log-streams:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-services
+      summary: Create app service log stream
+      description: Creates a log stream for an app service container and returns the stream id.
+      operationId: createAppServiceLogStream
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAppServiceLogStreamInput'
+      responses:
+        '201':
+          description: Created log stream
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogStream'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/env-vars:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service env vars
+      description: Returns environment variables configured for an app service.
+      operationId: listAppServiceEnvVars
+      responses:
+        '200':
+          description: List of app service env vars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceEnvVar'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - app-services
+      summary: Create app service env var
+      description: Creates an environment variable for an app service.
+      operationId: createAppServiceEnvVar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAppServiceEnvVarInput'
+      responses:
+        '201':
+          description: Created app service env var
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceEnvVar'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-env-vars/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - app-services
+      summary: Update app service env var
+      description: Updates an app service environment variable.
+      operationId: updateAppServiceEnvVar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppServiceEnvVarInput'
+      responses:
+        '200':
+          description: Updated app service env var
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceEnvVar'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - app-services
+      summary: Delete app service env var
+      description: Deletes an app service environment variable.
+      operationId: deleteAppServiceEnvVar
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/helm-values:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service Helm values
+      description: Returns Helm values configured for an app service.
+      operationId: listAppServiceHelmValues
+      responses:
+        '200':
+          description: List of app service Helm values
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceHelmValue'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - app-services
+      summary: Create app service Helm value
+      description: Creates a Helm value override for an app service.
+      operationId: createAppServiceHelmValue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NamedSecretValueInput'
+      responses:
+        '201':
+          description: Created app service Helm value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceHelmValue'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-helm-values/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - app-services
+      summary: Update app service Helm value
+      description: Updates an app service Helm value override.
+      operationId: updateAppServiceHelmValue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSecretValueInput'
+      responses:
+        '200':
+          description: Updated app service Helm value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceHelmValue'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - app-services
+      summary: Delete app service Helm value
+      description: Deletes an app service Helm value override.
+      operationId: deleteAppServiceHelmValue
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/tokens:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service tokens
+      description: Returns tokens configured for an app service without revealing secret values.
+      operationId: listAppServiceTokens
+      responses:
+        '200':
+          description: List of app service tokens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceToken'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - app-services
+      summary: Create app service token
+      description: Creates a token for an app service.
+      operationId: createAppServiceToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NamedSecretValueInput'
+      responses:
+        '201':
+          description: Created app service token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceToken'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-tokens/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - app-services
+      summary: Update app service token
+      description: Updates an app service token value or secret flag.
+      operationId: updateAppServiceToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSecretValueInput'
+      responses:
+        '200':
+          description: Updated app service token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceToken'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - app-services
+      summary: Delete app service token
+      description: Deletes an app service token.
+      operationId: deleteAppServiceToken
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/annotations:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service annotations
+      description: Returns annotations configured for an app service.
+      operationId: listAppServiceAnnotations
+      responses:
+        '200':
+          description: List of app service annotations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceAnnotation'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - app-services
+      summary: Create app service annotation
+      description: Creates an annotation for an app service.
+      operationId: createAppServiceAnnotation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAnnotationInput'
+      responses:
+        '201':
+          description: Created app service annotation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceAnnotation'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-annotations/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    delete:
+      tags:
+        - app-services
+      summary: Delete app service annotation
+      description: Deletes an app service annotation.
+      operationId: deleteAppServiceAnnotation
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/integrations:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service integrations
+      description: Returns integration links configured for an app service.
+      operationId: listAppServiceIntegrations
+      responses:
+        '200':
+          description: List of app service integrations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceIntegration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - app-services
+      summary: Create app service integration
+      description: Links an integration to an app service integration slot.
+      operationId: createAppServiceIntegration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationLinkInput'
+      responses:
+        '201':
+          description: Created app service integration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceIntegration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-integrations/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    delete:
+      tags:
+        - app-services
+      summary: Delete app service integration
+      description: Removes an integration link from an app service.
+      operationId: deleteAppServiceIntegration
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/settings:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service settings
+      description: Returns settings configured for an app service.
+      operationId: listAppServiceSettings
+      responses:
+        '200':
+          description: List of app service settings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceSetting'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/settings/{name}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - $ref: '#/components/parameters/Name'
+    put:
+      tags:
+        - app-services
+      summary: Set app service setting
+      description: Sets a named setting value for an app service.
+      operationId: setAppServiceSetting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetStringValueInput'
+      responses:
+        '200':
+          description: Updated app service setting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceSetting'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/configs:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service configs
+      description: Returns config overrides for an app service.
+      operationId: listAppServiceConfigs
+      responses:
+        '200':
+          description: List of app service configs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceConfig'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/configs/{name}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - $ref: '#/components/parameters/Name'
+    put:
+      tags:
+        - app-services
+      summary: Set app service config
+      description: Sets or disables a named config override for an app service.
+      operationId: setAppServiceConfig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfigOverrideInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/links:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service links
+      description: Returns service links configured for an app service.
+      operationId: listAppServiceLinks
+      responses:
+        '200':
+          description: List of app service links
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceLink'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/links/{name}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - $ref: '#/components/parameters/Name'
+    put:
+      tags:
+        - app-services
+      summary: Set app service link
+      description: Links or unlinks another app service for a named link slot.
+      operationId: setAppServiceLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppServiceLinkInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/containers:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service containers
+      description: Returns container resource settings for an app service.
+      operationId: listAppServiceContainers
+      responses:
+        '200':
+          description: List of app service containers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceContainer'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/resources:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - app-services
+      summary: Set app service resources
+      description: Sets CPU and memory requests or limits for an app service container.
+      operationId: setAppServiceResources
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourcesInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/database:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - app-services
+      summary: Update app service database references
+      description: Updates the database DB and user references used by an app service.
+      operationId: updateAppServiceDatabase
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppServiceDatabaseInput'
+      responses:
+        '200':
+          description: Updated app service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-services/{id}/cron-schedules:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: List app service cron schedules
+      description: Returns cron schedules configured for an app service.
+      operationId: listAppServiceCronSchedules
+      responses:
+        '200':
+          description: List of app service cron schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppServiceCronSchedule'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - app-services
+      summary: Create app service cron schedule
+      description: Creates a cron schedule for an app service.
+      operationId: createAppServiceCronSchedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAppServiceCronScheduleInput'
+      responses:
+        '201':
+          description: Created app service cron schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceCronSchedule'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-cron-schedules/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - app-services
+      summary: Update app service cron schedule
+      description: Updates an app service cron schedule.
+      operationId: updateAppServiceCronSchedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAppServiceCronScheduleInput'
+      responses:
+        '200':
+          description: Updated app service cron schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceCronSchedule'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - app-services
+      summary: Delete app service cron schedule
+      description: Deletes an app service cron schedule.
+      operationId: deleteAppServiceCronSchedule
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-cron-schedules/{id}/run:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-services
+      summary: Run app service cron schedule
+      description: Runs an app service cron schedule immediately and returns the created task.
+      operationId: runAppServiceCronSchedule
+      responses:
+        '201':
+          description: Cron run task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-cron-jobs:
+    get:
+      tags:
+        - app-services
+      summary: List app service cron jobs
+      description: Returns app service cron jobs matching the request filters.
+      operationId: listAppServiceCronJobs
+      parameters:
+        - $ref: '#/components/parameters/AppInstanceIdOptional'
+        - $ref: '#/components/parameters/AppServiceIdOptional'
+        - $ref: '#/components/parameters/ScheduleIdOptional'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: App service cron jobs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceCronJobsResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-service-cron-jobs/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-services
+      summary: Get app service cron job
+      description: Returns the app service cron job identified by the request path.
+      operationId: getAppServiceCronJob
+      responses:
+        '200':
+          description: App service cron job
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppServiceCronJob'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /log-streams/{id}/start:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-services
+      summary: Start log stream
+      description: Starts an existing log stream.
+      operationId: startLogStream
+      responses:
+        '200':
+          description: Start result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /log-streams/{id}/keep-alive:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-services
+      summary: Keep log stream alive
+      description: Extends an existing log stream lease.
+      operationId: keepLogStreamAlive
+      responses:
+        '200':
+          description: Keep-alive result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /log-streams/{id}/stop:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-services
+      summary: Stop log stream
+      description: Stops an existing log stream.
+      operationId: stopLogStream
+      responses:
+        '200':
+          description: Stop result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-ports:
+    get:
+      tags:
+        - app-ports
+      summary: List app ports
+      description: Returns app ports matching the request filters.
+      operationId: listAppPorts
+      parameters:
+        - $ref: '#/components/parameters/AppInstanceId'
+      responses:
+        '200':
+          description: List of app ports
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppPort'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-ports/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-ports
+      summary: Get app port
+      description: Returns the app port identified by the request path.
+      operationId: getAppPort
+      responses:
+        '200':
+          description: App port
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppPort'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-deployments:
     get:
       tags:
         - app-deployments
       summary: List app deployments
+      description: Returns app deployments matching the request filters.
       operationId: listAppDeployments
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -647,6 +1644,7 @@ paths:
       tags:
         - app-deployments
       summary: Create deployment
+      description: Creates a deployment and returns the created resource.
       operationId: createAppDeployment
       requestBody:
         required: true
@@ -670,6 +1668,7 @@ paths:
       tags:
         - app-deployments
       summary: Create deployment from CI
+      description: Creates a deployment from a CI workflow request.
       operationId: createAppDeploymentFromCi
       security:
         - apiKeyHeader: []
@@ -698,6 +1697,7 @@ paths:
       tags:
         - app-deployments
       summary: Get deployment
+      description: Returns the deployment identified by the request path.
       operationId: getAppDeployment
       responses:
         '200':
@@ -717,6 +1717,7 @@ paths:
       tags:
         - app-deployments
       summary: Redeploy deployment
+      description: Creates a redeployment task for an existing deployment.
       operationId: redeployAppDeployment
       responses:
         '201':
@@ -734,6 +1735,7 @@ paths:
       tags:
         - app-builds
       summary: List app builds
+      description: Returns app builds matching the request filters.
       operationId: listAppBuilds
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -754,6 +1756,7 @@ paths:
       tags:
         - app-builds
       summary: Create build
+      description: Creates a build and returns the created resource.
       operationId: createAppBuild
       requestBody:
         required: true
@@ -779,6 +1782,7 @@ paths:
       tags:
         - app-builds
       summary: Create build from CI
+      description: Creates a build from a CI workflow request.
       operationId: createAppBuildFromCi
       requestBody:
         required: true
@@ -804,6 +1808,7 @@ paths:
       tags:
         - app-builds
       summary: Get build
+      description: Returns the build identified by the request path.
       operationId: getAppBuild
       security:
         - apiKeyHeader: []
@@ -826,6 +1831,7 @@ paths:
       tags:
         - app-builds
       summary: Get build config
+      description: Returns CI build configuration for the app build.
       operationId: getAppBuildConfig
       security:
         - apiKeyHeader: []
@@ -848,6 +1854,7 @@ paths:
       tags:
         - app-builds
       summary: Get Docker registry credentials for build
+      description: Returns Docker registry credentials for the app build.
       operationId: getAppBuildDockerRegistryCredentials
       security:
         - apiKeyHeader: []
@@ -870,6 +1877,7 @@ paths:
       tags:
         - app-builds
       summary: Deploy build
+      description: Creates a deployment from the completed app build.
       operationId: deployAppBuild
       responses:
         '201':
@@ -882,30 +1890,12 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
-  /app-builds/{id}/void:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    post:
-      tags:
-        - app-builds
-      summary: Void build images
-      operationId: voidAppBuild
-      responses:
-        '200':
-          description: Updated build
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppBuild'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
   /clusters:
     get:
       tags:
         - clusters
       summary: List clusters
+      description: Returns clusters matching the request filters.
       operationId: listClusters
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -928,6 +1918,7 @@ paths:
       tags:
         - clusters
       summary: Create cluster
+      description: Creates a cluster and returns the created resource.
       operationId: createCluster
       requestBody:
         required: true
@@ -951,6 +1942,7 @@ paths:
       tags:
         - clusters
       summary: Get cluster by name
+      description: Returns the cluster identified by name.
       operationId: getClusterByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -973,6 +1965,7 @@ paths:
       tags:
         - clusters
       summary: Get cluster
+      description: Returns the cluster identified by the request path.
       operationId: getCluster
       responses:
         '200':
@@ -989,6 +1982,7 @@ paths:
       tags:
         - clusters
       summary: Update cluster
+      description: Updates the cluster and returns the updated resource.
       operationId: updateCluster
       requestBody:
         required: true
@@ -1011,6 +2005,7 @@ paths:
       tags:
         - clusters
       summary: Delete cluster
+      description: Deletes the cluster and returns the operation result.
       operationId: deleteCluster
       parameters:
         - $ref: '#/components/parameters/Force'
@@ -1030,6 +2025,7 @@ paths:
       tags:
         - databases
       summary: List databases
+      description: Returns databases matching the request filters.
       operationId: listDatabases
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1055,6 +2051,7 @@ paths:
       tags:
         - databases
       summary: Create database
+      description: Creates a database and returns the created resource.
       operationId: createDatabase
       requestBody:
         required: true
@@ -1078,6 +2075,7 @@ paths:
       tags:
         - databases
       summary: Get database by name
+      description: Returns the database identified by name.
       operationId: getDatabaseByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1100,6 +2098,7 @@ paths:
       tags:
         - databases
       summary: Get database
+      description: Returns the database identified by the request path.
       operationId: getDatabase
       responses:
         '200':
@@ -1116,6 +2115,7 @@ paths:
       tags:
         - databases
       summary: Update database
+      description: Updates the database and returns the updated resource.
       operationId: updateDatabase
       requestBody:
         required: true
@@ -1138,7 +2138,203 @@ paths:
       tags:
         - databases
       summary: Delete database
+      description: Deletes the database and returns the operation result.
       operationId: deleteDatabase
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /databases/{id}/options/charsets:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - databases
+      summary: List database charsets
+      description: Returns charset and default collation options supported by a database.
+      operationId: listDatabaseCharsets
+      responses:
+        '200':
+          description: List of database charsets
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatabaseCharset'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /database-dbs:
+    get:
+      tags:
+        - databases
+      summary: List database DBs
+      description: Returns DBs that belong to a database.
+      operationId: listDatabaseDBs
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+      responses:
+        '200':
+          description: List of database DBs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatabaseDB'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - databases
+      summary: Create database DB
+      description: Creates a DB inside a database.
+      operationId: createDatabaseDB
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewDatabaseDBInput'
+      responses:
+        '201':
+          description: Created database DB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseDB'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /database-dbs/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - databases
+      summary: Get database DB
+      description: Returns the database DB identified by the request path.
+      operationId: getDatabaseDB
+      responses:
+        '200':
+          description: Database DB
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseDB'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - databases
+      summary: Delete database DB
+      description: Deletes a database DB and returns the operation result.
+      operationId: deleteDatabaseDB
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /database-users:
+    get:
+      tags:
+        - databases
+      summary: List database users
+      description: Returns users that belong to a database without revealing passwords.
+      operationId: listDatabaseUsers
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+      responses:
+        '200':
+          description: List of database users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatabaseUser'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - databases
+      summary: Create database user
+      description: Creates a database user and optionally grants it access to DBs.
+      operationId: createDatabaseUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewDatabaseUserInput'
+      responses:
+        '201':
+          description: Created database user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseUser'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /database-users/{id}/dbs:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - databases
+      summary: Update database user DB grants
+      description: Replaces the DB grants for a database user.
+      operationId: updateDatabaseUserDBs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDatabaseUserDBsInput'
+      responses:
+        '200':
+          description: Updated database user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatabaseUser'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /database-users/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    delete:
+      tags:
+        - databases
+      summary: Delete database user
+      description: Deletes a database user and returns the operation result.
+      operationId: deleteDatabaseUser
       responses:
         '200':
           description: Delete result
@@ -1155,6 +2351,7 @@ paths:
       tags:
         - integrations
       summary: List integrations
+      description: Returns integrations matching the request filters.
       operationId: listIntegrations
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1181,6 +2378,7 @@ paths:
       tags:
         - integrations
       summary: Create integration
+      description: Creates an integration and returns the created resource.
       operationId: createIntegration
       requestBody:
         required: true
@@ -1204,6 +2402,7 @@ paths:
       tags:
         - integrations
       summary: Get integration by name
+      description: Returns the integration identified by name.
       operationId: getIntegrationByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1226,6 +2425,7 @@ paths:
       tags:
         - integrations
       summary: List integration scopes
+      description: Returns integration scopes matching the request filters.
       operationId: listIntegrationScopes
       responses:
         '200':
@@ -1247,6 +2447,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repositories
+      description: Returns remote Git repositories matching the request filters.
       operationId: listIntegrationRemoteGitRepos
       responses:
         '200':
@@ -1269,6 +2470,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repository branches
+      description: Returns remote Git repository branches matching the request filters.
       operationId: listIntegrationRemoteGitRepoBranches
       responses:
         '200':
@@ -1291,6 +2493,7 @@ paths:
       tags:
         - integrations
       summary: List remote Git repository tags
+      description: Returns remote Git repository tags matching the request filters.
       operationId: listIntegrationRemoteGitRepoTags
       responses:
         '200':
@@ -1312,6 +2515,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes regions
+      description: Returns Kubernetes regions matching the request filters.
       operationId: listIntegrationKubeRegions
       responses:
         '200':
@@ -1333,6 +2537,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes zones
+      description: Returns Kubernetes zones matching the request filters.
       operationId: listIntegrationKubeZones
       responses:
         '200':
@@ -1355,6 +2560,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes machine types
+      description: Returns Kubernetes machine types matching the request filters.
       operationId: listIntegrationKubeMachineTypes
       responses:
         '200':
@@ -1377,6 +2583,7 @@ paths:
       tags:
         - integrations
       summary: List Kubernetes versions
+      description: Returns Kubernetes versions matching the request filters.
       operationId: listIntegrationKubeVersions
       responses:
         '200':
@@ -1398,6 +2605,7 @@ paths:
       tags:
         - integrations
       summary: Get Kubernetes settings
+      description: Returns the Kubernetes settings identified by the request path.
       operationId: getIntegrationKubeSettings
       responses:
         '200':
@@ -1417,6 +2625,7 @@ paths:
       tags:
         - integrations
       summary: List storage buckets
+      description: Returns storage buckets matching the request filters.
       operationId: listIntegrationStorageBuckets
       responses:
         '200':
@@ -1438,6 +2647,7 @@ paths:
       tags:
         - integrations
       summary: List storage classes
+      description: Returns storage classes matching the request filters.
       operationId: listIntegrationStorageClasses
       responses:
         '200':
@@ -1459,6 +2669,7 @@ paths:
       tags:
         - integrations
       summary: Get integration
+      description: Returns the integration identified by the request path.
       operationId: getIntegration
       responses:
         '200':
@@ -1475,6 +2686,7 @@ paths:
       tags:
         - integrations
       summary: Update integration
+      description: Updates the integration and returns the updated resource.
       operationId: updateIntegration
       requestBody:
         required: true
@@ -1497,6 +2709,7 @@ paths:
       tags:
         - integrations
       summary: Delete integration
+      description: Deletes the integration and returns the operation result.
       operationId: deleteIntegration
       responses:
         '200':
@@ -1516,6 +2729,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database types
+      description: Returns database types matching the request filters.
       operationId: listIntegrationKindDatabaseTypes
       responses:
         '200':
@@ -1540,6 +2754,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database regions
+      description: Returns database regions matching the request filters.
       operationId: listIntegrationKindDatabaseRegions
       responses:
         '200':
@@ -1562,6 +2777,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database versions
+      description: Returns database versions matching the request filters.
       operationId: listIntegrationKindDatabaseVersions
       responses:
         '200':
@@ -1594,6 +2810,7 @@ paths:
       tags:
         - integration-kinds
       summary: List database machine types
+      description: Returns database machine types matching the request filters.
       operationId: listIntegrationKindDatabaseMachineTypes
       responses:
         '200':
@@ -1616,6 +2833,7 @@ paths:
       tags:
         - integration-kinds
       summary: Get database settings
+      description: Returns the database settings identified by the request path.
       operationId: getIntegrationKindDatabaseSettings
       responses:
         '200':
@@ -1633,6 +2851,7 @@ paths:
       tags:
         - providers
       summary: List providers
+      description: Returns providers matching the request filters.
       operationId: listProviders
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1660,6 +2879,7 @@ paths:
       tags:
         - providers
       summary: Get provider by name
+      description: Returns the provider identified by name.
       operationId: getProviderByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1681,6 +2901,7 @@ paths:
       tags:
         - providers
       summary: Get provider
+      description: Returns the provider identified by the request path.
       operationId: getProvider
       responses:
         '200':
@@ -1700,6 +2921,7 @@ paths:
       tags:
         - providers
       summary: Get provider revision
+      description: Returns the provider revision identified by the request path.
       operationId: getProviderRevision
       responses:
         '200':
@@ -1717,6 +2939,7 @@ paths:
       tags:
         - services
       summary: List services
+      description: Returns services matching the request filters.
       operationId: listServices
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1740,6 +2963,7 @@ paths:
       tags:
         - services
       summary: Get service by name
+      description: Returns the service identified by name.
       operationId: getServiceByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1762,6 +2986,7 @@ paths:
       tags:
         - services
       summary: Get service
+      description: Returns the service identified by the request path.
       operationId: getService
       responses:
         '200':
@@ -1781,6 +3006,7 @@ paths:
       tags:
         - services
       summary: List service link candidates
+      description: Returns service link candidates matching the request filters.
       operationId: listServiceLinkCandidates
       responses:
         '200':
@@ -1802,6 +3028,7 @@ paths:
       tags:
         - services
       summary: Get service revision
+      description: Returns the service revision identified by the request path.
       operationId: getServiceRevision
       responses:
         '200':
@@ -1819,6 +3046,7 @@ paths:
       tags:
         - stacks
       summary: List stacks
+      description: Returns stacks matching the request filters.
       operationId: listStacks
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -1842,6 +3070,7 @@ paths:
       tags:
         - stacks
       summary: Get stack by name
+      description: Returns the stack identified by name.
       operationId: getStackByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -1864,10 +3093,57 @@ paths:
       tags:
         - stacks
       summary: Get stack
+      description: Returns the stack identified by the request path.
       operationId: getStack
       responses:
         '200':
           description: Stack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stack'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stacks/{id}/actions/update-from-git:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - stacks
+      summary: Update stack from git
+      description: Starts a task that updates the stack from its configured Git source.
+      operationId: updateStackFromGit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStackFromGitRequest'
+      responses:
+        '201':
+          description: Update task
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stacks/{id}/actions/publish-draft:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - stacks
+      summary: Publish stack draft
+      description: Publishes the current stack draft as the active stack revision.
+      operationId: publishStackDraft
+      responses:
+        '200':
+          description: Published stack
           content:
             application/json:
               schema:
@@ -1883,6 +3159,7 @@ paths:
       tags:
         - stacks
       summary: Get stack revision
+      description: Returns the stack revision identified by the request path.
       operationId: getStackRevision
       responses:
         '200':
@@ -1902,6 +3179,7 @@ paths:
       tags:
         - stacks
       summary: List stack services
+      description: Returns stack services matching the request filters.
       operationId: listStackRevisionServices
       responses:
         '200':
@@ -1916,11 +3194,812 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /stack-services:
+    get:
+      tags:
+        - stack-services
+      summary: List stack services
+      description: Returns stack services matching the request filters.
+      operationId: listStackServices
+      parameters:
+        - name: stackRevId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Stack services
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service
+      description: Creates a stack service and returns the created resource.
+      operationId: createStackService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStackServiceInput'
+      responses:
+        '201':
+          description: Created stack service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Update stack service
+      description: Updates the stack service and returns the updated resource.
+      operationId: updateStackService
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackServiceInput'
+      responses:
+        '200':
+          description: Updated stack service
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackService'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service
+      description: Deletes the stack service and returns the operation result.
+      operationId: deleteStackService
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/env-vars:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service env vars
+      description: Returns environment variables configured for a stack service.
+      operationId: listStackServiceEnvVars
+      responses:
+        '200':
+          description: List of stack service env vars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceEnvVar'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service env var
+      description: Creates an environment variable for a stack service.
+      operationId: createStackServiceEnvVar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStackServiceEnvVarInput'
+      responses:
+        '201':
+          description: Created stack service env var
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceEnvVar'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-service-env-vars/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Update stack service env var
+      description: Updates a stack service environment variable.
+      operationId: updateStackServiceEnvVar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStackServiceEnvVarInput'
+      responses:
+        '200':
+          description: Updated stack service env var
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceEnvVar'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service env var
+      description: Deletes a stack service environment variable.
+      operationId: deleteStackServiceEnvVar
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/helm-values:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service Helm values
+      description: Returns Helm values configured for a stack service.
+      operationId: listStackServiceHelmValues
+      responses:
+        '200':
+          description: List of stack service Helm values
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceHelmValue'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service Helm value
+      description: Creates a Helm value override for a stack service.
+      operationId: createStackServiceHelmValue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStackServiceScopedValueInput'
+      responses:
+        '201':
+          description: Created stack service Helm value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceHelmValue'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-service-helm-values/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Update stack service Helm value
+      description: Updates a stack service Helm value override.
+      operationId: updateStackServiceHelmValue
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSecretValueInput'
+      responses:
+        '200':
+          description: Updated stack service Helm value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceHelmValue'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service Helm value
+      description: Deletes a stack service Helm value override.
+      operationId: deleteStackServiceHelmValue
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/tokens:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service tokens
+      description: Returns tokens configured for a stack service without revealing secret values.
+      operationId: listStackServiceTokens
+      responses:
+        '200':
+          description: List of stack service tokens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceToken'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service token
+      description: Creates a token for a stack service.
+      operationId: createStackServiceToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStackServiceTokenInput'
+      responses:
+        '201':
+          description: Created stack service token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceToken'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-service-tokens/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Update stack service token
+      description: Updates a stack service token value, secret flag, or regex.
+      operationId: updateStackServiceToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStackServiceTokenInput'
+      responses:
+        '200':
+          description: Updated stack service token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceToken'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service token
+      description: Deletes a stack service token.
+      operationId: deleteStackServiceToken
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/annotations:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service annotations
+      description: Returns annotations configured for a stack service.
+      operationId: listStackServiceAnnotations
+      responses:
+        '200':
+          description: List of stack service annotations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceAnnotation'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service annotation
+      description: Creates an annotation for a stack service.
+      operationId: createStackServiceAnnotation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStackServiceAnnotationInput'
+      responses:
+        '201':
+          description: Created stack service annotation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceAnnotation'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-service-annotations/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service annotation
+      description: Deletes a stack service annotation.
+      operationId: deleteStackServiceAnnotation
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/integrations:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service integrations
+      description: Returns integration links configured for a stack service.
+      operationId: listStackServiceIntegrations
+      responses:
+        '200':
+          description: List of stack service integrations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceIntegration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service integration
+      description: Links an integration to a stack service integration slot.
+      operationId: createStackServiceIntegration
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationLinkInput'
+      responses:
+        '201':
+          description: Created stack service integration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceIntegration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-service-integrations/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service integration
+      description: Removes an integration link from a stack service.
+      operationId: deleteStackServiceIntegration
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/links:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service links
+      description: Returns service links configured for a stack service.
+      operationId: listStackServiceLinks
+      responses:
+        '200':
+          description: List of stack service links
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceLink'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/links/{name}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - $ref: '#/components/parameters/Name'
+    put:
+      tags:
+        - stack-services
+      summary: Set stack service link
+      description: Links or unlinks another stack service for a named link slot.
+      operationId: setStackServiceLink
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackServiceLinkInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/volumes:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service volumes
+      description: Returns volumes configured for a stack service.
+      operationId: listStackServiceVolumes
+      responses:
+        '200':
+          description: List of stack service volumes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceVolume'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/volumes/{name}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - $ref: '#/components/parameters/Name'
+    put:
+      tags:
+        - stack-services
+      summary: Set stack service volume
+      description: Sets or clears a stack service volume size.
+      operationId: setStackServiceVolume
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackServiceVolumeInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/settings/{name}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - $ref: '#/components/parameters/Name'
+    put:
+      tags:
+        - stack-services
+      summary: Set stack service setting
+      description: Sets or clears a named setting value for a stack service.
+      operationId: setStackServiceSetting
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetNullableStringValueInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/configs:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service configs
+      description: Returns config overrides for a stack service.
+      operationId: listStackServiceConfigs
+      responses:
+        '200':
+          description: List of stack service configs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceConfig'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/configs/{name}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+      - $ref: '#/components/parameters/Name'
+    put:
+      tags:
+        - stack-services
+      summary: Set stack service config
+      description: Sets a named config override for a stack service.
+      operationId: setStackServiceConfig
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackServiceConfigInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/resources:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Set stack service resources
+      description: Sets CPU and memory requests or limits for a stack service container.
+      operationId: setStackServiceResources
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourcesInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/options:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Update stack service options
+      description: Replaces stack service option settings.
+      operationId: setStackServiceOptions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StackServiceOptionsInput'
+      responses:
+        '200':
+          description: Update result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-services/{id}/cron-schedules:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stack-services
+      summary: List stack service cron schedules
+      description: Returns cron schedules configured for a stack service.
+      operationId: listStackServiceCronSchedules
+      responses:
+        '200':
+          description: List of stack service cron schedules
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StackServiceCronSchedule'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    post:
+      tags:
+        - stack-services
+      summary: Create stack service cron schedule
+      description: Creates a cron schedule for a stack service.
+      operationId: createStackServiceCronSchedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewStackServiceCronScheduleInput'
+      responses:
+        '201':
+          description: Created stack service cron schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceCronSchedule'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stack-service-cron-schedules/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - stack-services
+      summary: Update stack service cron schedule
+      description: Updates a stack service cron schedule.
+      operationId: updateStackServiceCronSchedule
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStackServiceCronScheduleInput'
+      responses:
+        '200':
+          description: Updated stack service cron schedule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackServiceCronSchedule'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    delete:
+      tags:
+        - stack-services
+      summary: Delete stack service cron schedule
+      description: Deletes a stack service cron schedule.
+      operationId: deleteStackServiceCronSchedule
+      responses:
+        '200':
+          description: Delete result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /backups:
     get:
       tags:
         - backups
       summary: List backups
+      description: Returns backups matching the request filters.
       operationId: listBackups
       parameters:
         - $ref: '#/components/parameters/AppInstanceIdOptional'
@@ -1948,6 +4027,7 @@ paths:
       tags:
         - backups
       summary: Create backup
+      description: Creates a backup and returns the created resource.
       operationId: createBackup
       requestBody:
         required: true
@@ -1973,6 +4053,7 @@ paths:
       tags:
         - backups
       summary: Get backup
+      description: Returns the backup identified by the request path.
       operationId: getBackup
       responses:
         '200':
@@ -1990,6 +4071,7 @@ paths:
       tags:
         - imports
       summary: List imports
+      description: Returns imports matching the request filters.
       operationId: listImports
       parameters:
         - $ref: '#/components/parameters/AppInstanceIdOptional'
@@ -2013,6 +4095,7 @@ paths:
       tags:
         - imports
       summary: Create import
+      description: Creates an import and returns the created resource.
       operationId: createImport
       requestBody:
         required: true
@@ -2038,6 +4121,7 @@ paths:
       tags:
         - imports
       summary: Get import
+      description: Returns the import identified by the request path.
       operationId: getImport
       responses:
         '200':
@@ -2055,6 +4139,7 @@ paths:
       tags:
         - tasks
       summary: List tasks
+      description: Returns tasks matching the request filters.
       operationId: listTasks
       parameters:
         - name: scope
@@ -2111,6 +4196,7 @@ paths:
       tags:
         - tasks
       summary: Get task
+      description: Returns the task identified by the request path.
       operationId: getTask
       responses:
         '200':
@@ -2130,6 +4216,7 @@ paths:
       tags:
         - tasks
       summary: Cancel task
+      description: Requests cancellation for the task.
       operationId: cancelTask
       responses:
         '200':
@@ -2149,6 +4236,7 @@ paths:
       tags:
         - tasks
       summary: Repeat task
+      description: Creates a repeated run for the task.
       operationId: repeatTask
       requestBody:
         required: true
@@ -2174,7 +4262,19 @@ paths:
       tags:
         - task-steps
       summary: Get task step logs
+      description: Returns current inline logs for pending task steps and a temporary log URL for persisted task steps.
       operationId: getTaskStepLogs
+      parameters:
+        - name: delivery
+          in: query
+          schema:
+            type: string
+            enum:
+              - auto
+              - inline
+              - url
+            default: auto
+          description: Delivery mode. Auto returns a URL for persisted logs and inline lines for pending or empty logs.
       responses:
         '200':
           description: Task step logs
@@ -2193,6 +4293,7 @@ paths:
       tags:
         - task-steps
       summary: Get task step log URL
+      description: Returns a temporary log URL for the task step.
       operationId: getTaskStepLogUrl
       responses:
         '200':
@@ -2210,6 +4311,7 @@ paths:
       tags:
         - app-routes
       summary: List app routes
+      description: Returns app routes matching the request filters.
       operationId: listAppRoutes
       parameters:
         - $ref: '#/components/parameters/AppInstanceId'
@@ -2230,6 +4332,7 @@ paths:
       tags:
         - app-routes
       summary: Create app route
+      description: Creates an app route and returns the created resource.
       operationId: createAppRoute
       requestBody:
         required: true
@@ -2255,6 +4358,7 @@ paths:
       tags:
         - app-routes
       summary: Get app route
+      description: Returns the app route identified by the request path.
       operationId: getAppRoute
       responses:
         '200':
@@ -2271,6 +4375,7 @@ paths:
       tags:
         - app-routes
       summary: Update app route
+      description: Updates the app route and returns the updated resource.
       operationId: updateAppRoute
       requestBody:
         required: true
@@ -2293,6 +4398,7 @@ paths:
       tags:
         - app-routes
       summary: Delete app route
+      description: Deletes the app route and returns the operation result.
       operationId: deleteAppRoute
       responses:
         '200':
@@ -2310,6 +4416,7 @@ paths:
       tags:
         - envs
       summary: List envs
+      description: Returns envs matching the request filters.
       operationId: listEnvs
       parameters:
         - $ref: '#/components/parameters/OrgId'
@@ -2330,6 +4437,7 @@ paths:
       tags:
         - envs
       summary: Create env
+      description: Creates an env and returns the created resource.
       operationId: createEnv
       requestBody:
         required: true
@@ -2353,6 +4461,7 @@ paths:
       tags:
         - envs
       summary: Get env by name
+      description: Returns the env identified by name.
       operationId: getEnvByName
       parameters:
         - $ref: '#/components/parameters/Name'
@@ -2375,6 +4484,7 @@ paths:
       tags:
         - envs
       summary: Get env
+      description: Returns the env identified by the request path.
       operationId: getEnv
       responses:
         '200':
@@ -2391,6 +4501,7 @@ paths:
       tags:
         - envs
       summary: Update env
+      description: Updates the env and returns the updated resource.
       operationId: updateEnv
       requestBody:
         required: true
@@ -2413,6 +4524,7 @@ paths:
       tags:
         - envs
       summary: Delete env
+      description: Deletes the env and returns the operation result.
       operationId: deleteEnv
       responses:
         '200':
@@ -2598,6 +4710,17 @@ components:
       in: query
       schema:
         type: integer
+    ScheduleIdOptional:
+      name: scheduleId
+      in: query
+      schema:
+        type: integer
+    DatabaseId:
+      name: databaseId
+      in: query
+      required: true
+      schema:
+        type: integer
     DatabaseIdOptional:
       name: databaseId
       in: query
@@ -2644,6 +4767,55 @@ components:
           type: string
         domain:
           type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    User:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+    OrgMembership:
+      type: object
+      required:
+        - id
+        - orgId
+        - role
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        userId:
+          type: integer
+          nullable: true
+        user:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        orgId:
+          type: integer
+        role:
+          type: string
+        status:
+          type: string
+        joinedAt:
+          type: string
+          format: date-time
+          nullable: true
         createdAt:
           type: string
           format: date-time
@@ -2714,6 +4886,13 @@ components:
         - appId
         - clusterId
         - envId
+        - stackId
+        - stackRevId
+        - stackName
+        - stackTitle
+        - stackIcon
+        - stackRevNumber
+        - stackVersion
         - createdAt
         - updatedAt
       properties:
@@ -2734,6 +4913,20 @@ components:
           type: integer
         envId:
           type: integer
+        stackId:
+          type: integer
+        stackRevId:
+          type: integer
+        stackName:
+          type: string
+        stackTitle:
+          type: string
+        stackIcon:
+          type: string
+        stackRevNumber:
+          type: integer
+        stackVersion:
+          type: string
         createdAt:
           type: string
           format: date-time
@@ -2918,6 +5111,11 @@ components:
         - title
         - status
         - serverless
+        - demo
+        - wodby
+        - k3s
+        - singleNode
+        - infraVersion
         - orgId
         - createdAt
         - updatedAt
@@ -2932,13 +5130,40 @@ components:
           type: string
         serverless:
           type: boolean
+        demo:
+          type: boolean
+        wodby:
+          type: boolean
+        k3s:
+          type: boolean
+        singleNode:
+          type: boolean
         version:
           type: string
+          nullable: true
+        infraVersion:
+          type: string
+        minNodeCount:
+          type: integer
+          nullable: true
+        maxNodeCount:
+          type: integer
+          nullable: true
+        lastNodeCount:
+          type: integer
           nullable: true
         region:
           type: string
           nullable: true
         zone:
+          type: string
+          nullable: true
+        ips:
+          type: array
+          nullable: true
+          items:
+            type: string
+        hostname:
           type: string
           nullable: true
         integrationId:
@@ -2988,6 +5213,9 @@ components:
           type: string
           nullable: true
         integrationId:
+          type: integer
+          nullable: true
+        appServiceId:
           type: integer
           nullable: true
         envId:
@@ -3100,6 +5328,11 @@ components:
           type: boolean
         userId:
           type: integer
+        user:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/User'
+          nullable: true
         orgId:
           type: integer
           nullable: true
@@ -3435,8 +5668,42 @@ components:
           type: boolean
         revId:
           type: integer
+        draftRevId:
+          type: integer
+          nullable: true
         latestRevNumber:
           type: integer
+        gitRepoId:
+          type: integer
+          nullable: true
+        gitRepoRemoteId:
+          type: string
+          nullable: true
+        gitRepoRef:
+          type: string
+          nullable: true
+        gitRepoRefType:
+          type: string
+          nullable: true
+        originStackRevId:
+          type: integer
+          nullable: true
+        originStackRevStackId:
+          type: integer
+          nullable: true
+        originStackRevName:
+          type: string
+          nullable: true
+        originStackRevNumber:
+          type: integer
+          nullable: true
+        originStackRevVersion:
+          type: string
+          nullable: true
+        originStackRevCreatedAt:
+          type: string
+          format: date-time
+          nullable: true
         orgId:
           type: integer
         createdAt:
@@ -3700,6 +5967,718 @@ components:
         updatedAt:
           type: string
           format: date-time
+    AppServiceEnvVarSource:
+      type: object
+      required:
+        - fromService
+        - fromStack
+        - fromWodby
+      properties:
+        fromService:
+          type: boolean
+        fromStack:
+          type: boolean
+        fromWodby:
+          type: boolean
+        setting:
+          type: string
+          nullable: true
+        link:
+          type: string
+          nullable: true
+        integration:
+          type: string
+          nullable: true
+    AppServiceEnvVar:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - workload
+        - container
+        - name
+        - value
+        - runtime
+        - build
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        workload:
+          type: string
+        container:
+          type: string
+        name:
+          type: string
+        value:
+          type: string
+        valueSecretId:
+          type: integer
+          nullable: true
+        runtime:
+          type: boolean
+        build:
+          type: boolean
+        envType:
+          type: string
+          nullable: true
+        source:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/AppServiceEnvVarSource'
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+    AppServiceHelmValueSource:
+      type: object
+      required:
+        - fromService
+        - fromStack
+      properties:
+        fromService:
+          type: boolean
+        fromStack:
+          type: boolean
+    AppServiceHelmValue:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - name
+        - value
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+        valueSecretId:
+          type: integer
+          nullable: true
+        source:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/AppServiceHelmValueSource'
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+    AppServiceToken:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - name
+        - value
+        - createdAt
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+        valueSecretId:
+          type: integer
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    AppServiceAnnotationSource:
+      type: object
+      required:
+        - fromService
+        - fromStack
+        - fromWodby
+      properties:
+        fromService:
+          type: boolean
+        fromStack:
+          type: boolean
+        fromWodby:
+          type: boolean
+    AppServiceAnnotation:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - name
+        - value
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+        envType:
+          type: string
+          nullable: true
+        source:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/AppServiceAnnotationSource'
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+    AppServiceIntegration:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - name
+        - integrationId
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        name:
+          type: string
+        integrationId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    AppServiceSetting:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - name
+        - value
+        - var
+        - runtime
+        - build
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+        var:
+          type: string
+        runtime:
+          type: boolean
+        build:
+          type: boolean
+        fromSettingId:
+          type: integer
+          nullable: true
+    AppServiceConfig:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - name
+        - title
+        - disabled
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        name:
+          type: string
+        title:
+          type: string
+        config:
+          type: string
+          nullable: true
+        disabled:
+          type: boolean
+    AppServiceLink:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - linkedAppServiceId
+        - name
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        linkedAppServiceId:
+          type: integer
+        name:
+          type: string
+    AppServiceContainer:
+      type: object
+      required:
+        - appServiceId
+        - workload
+        - name
+      properties:
+        id:
+          type: integer
+          nullable: true
+        appServiceId:
+          type: integer
+        workload:
+          type: string
+        name:
+          type: string
+        requestCPU:
+          type: integer
+          nullable: true
+        requestMem:
+          type: integer
+          nullable: true
+        limitCPU:
+          type: integer
+          nullable: true
+        limitMem:
+          type: integer
+          nullable: true
+    AppServiceCronSchedule:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - title
+        - crontab
+        - command
+        - disabled
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        title:
+          type: string
+        crontab:
+          type: string
+        command:
+          type: string
+        workload:
+          type: string
+          nullable: true
+        disabled:
+          type: boolean
+        envType:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    AppServiceCronJob:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - title
+        - command
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        scheduleId:
+          type: integer
+          nullable: true
+        taskId:
+          type: integer
+          nullable: true
+        title:
+          type: string
+        command:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    AppServiceCronJobsResponse:
+      type: object
+      required:
+        - items
+        - totalCount
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppServiceCronJob'
+        totalCount:
+          type: integer
+        nextPage:
+          type: integer
+          nullable: true
+    LogStream:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+    StackServiceEnvVar:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - workload
+        - container
+        - name
+        - createdAt
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        workload:
+          type: string
+        container:
+          type: string
+        name:
+          type: string
+        value:
+          type: string
+          nullable: true
+        valueSecretId:
+          type: integer
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    StackServiceHelmValue:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - name
+        - createdAt
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+          nullable: true
+        valueSecretId:
+          type: integer
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    StackServiceToken:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - name
+        - createdAt
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+          nullable: true
+        regex:
+          type: string
+          nullable: true
+        valueSecretId:
+          type: integer
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    StackServiceAnnotation:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - name
+        - createdAt
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        name:
+          type: string
+        value:
+          type: string
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+    StackServiceIntegration:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - name
+        - integrationId
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        name:
+          type: string
+        integrationId:
+          type: integer
+    StackServiceLink:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - linkedStackServiceId
+        - name
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        linkedStackServiceId:
+          type: integer
+        name:
+          type: string
+    StackServiceConfig:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - name
+        - config
+        - disabled
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        name:
+          type: string
+        config:
+          type: string
+        disabled:
+          type: boolean
+    StackServiceVolume:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - name
+        - size
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        name:
+          type: string
+        size:
+          type: integer
+    StackServiceCronSchedule:
+      type: object
+      required:
+        - id
+        - stackServiceId
+        - name
+        - title
+        - crontab
+        - command
+        - disabled
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        stackServiceId:
+          type: integer
+        name:
+          type: string
+        title:
+          type: string
+        crontab:
+          type: string
+        command:
+          type: string
+        workload:
+          type: string
+          nullable: true
+        disabled:
+          type: boolean
+        envType:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    DatabaseDB:
+      type: object
+      required:
+        - id
+        - name
+        - collation
+        - charset
+        - status
+        - updatedAt
+        - createdAt
+      properties:
+        id:
+          type: integer
+        databaseId:
+          type: integer
+        name:
+          type: string
+        collation:
+          type: string
+        charset:
+          type: string
+        status:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    DatabaseUser:
+      type: object
+      required:
+        - id
+        - name
+        - passwordSecretId
+        - status
+        - updatedAt
+        - createdAt
+      properties:
+        id:
+          type: integer
+        databaseId:
+          type: integer
+        name:
+          type: string
+        passwordSecretId:
+          type: integer
+        hostname:
+          type: string
+          nullable: true
+        status:
+          type: string
+        dbs:
+          type: array
+          items:
+            $ref: '#/components/schemas/DatabaseDB'
+        updatedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+    DatabaseCharset:
+      type: object
+      required:
+        - name
+        - title
+        - defaultCollation
+        - default
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        defaultCollation:
+          type: string
+        default:
+          type: boolean
+    AppPort:
+      type: object
+      required:
+        - id
+        - name
+        - protocol
+        - number
+        - private
+        - appEndpointId
+        - appInstanceId
+        - appServiceId
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        protocol:
+          type: string
+        number:
+          type: integer
+        publicPort:
+          type: integer
+          nullable: true
+        private:
+          type: boolean
+        appEndpointId:
+          type: integer
+        appInstanceId:
+          type: integer
+        appServiceId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     Import:
       type: object
       required:
@@ -3771,11 +6750,22 @@ components:
     TaskStepLogs:
       type: object
       required:
+        - status
         - lines
       properties:
+        status:
+          type: string
+          enum:
+            - persisted
+            - empty
+            - pending
         streamId:
           type: integer
           nullable: true
+        url:
+          type: string
+          nullable: true
+          description: Temporary URL for persisted logs when URL delivery is selected or auto-selected.
         lines:
           type: array
           items:
@@ -4046,6 +7036,442 @@ components:
           nullable: true
         buildSource:
           $ref: '#/components/schemas/BuildSourceInput'
+    NewAppServiceEnvVarInput:
+      type: object
+      required:
+        - name
+        - value
+        - secret
+      properties:
+        workload:
+          type: string
+          nullable: true
+        container:
+          type: string
+          nullable: true
+        name:
+          type: string
+        value:
+          type: string
+        secret:
+          type: boolean
+        runtime:
+          type: boolean
+          nullable: true
+        build:
+          type: boolean
+          nullable: true
+    UpdateAppServiceEnvVarInput:
+      type: object
+      required:
+        - secret
+      properties:
+        value:
+          type: string
+          nullable: true
+        secret:
+          type: boolean
+        runtime:
+          type: boolean
+          nullable: true
+        build:
+          type: boolean
+          nullable: true
+    NamedSecretValueInput:
+      type: object
+      required:
+        - name
+        - value
+        - secret
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        secret:
+          type: boolean
+    UpdateSecretValueInput:
+      type: object
+      required:
+        - value
+        - secret
+      properties:
+        value:
+          type: string
+        secret:
+          type: boolean
+    NewAnnotationInput:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+    IntegrationLinkInput:
+      type: object
+      required:
+        - name
+        - integrationId
+      properties:
+        name:
+          type: string
+        integrationId:
+          type: integer
+    SetStringValueInput:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          type: string
+    SetNullableStringValueInput:
+      type: object
+      properties:
+        value:
+          type: string
+          nullable: true
+    ConfigOverrideInput:
+      type: object
+      properties:
+        config:
+          type: string
+          nullable: true
+        disabled:
+          type: boolean
+          nullable: true
+    AppServiceLinkInput:
+      type: object
+      properties:
+        linkedAppServiceId:
+          type: integer
+          nullable: true
+    UpdateAppServiceDatabaseInput:
+      type: object
+      properties:
+        databaseDbId:
+          type: integer
+          nullable: true
+        databaseUserId:
+          type: integer
+          nullable: true
+    NewAppServiceCronScheduleInput:
+      type: object
+      required:
+        - title
+        - crontab
+        - command
+      properties:
+        title:
+          type: string
+        crontab:
+          type: string
+        command:
+          type: string
+        workload:
+          type: string
+          nullable: true
+    UpdateAppServiceCronScheduleInput:
+      type: object
+      properties:
+        disabled:
+          type: boolean
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        crontab:
+          type: string
+          nullable: true
+        command:
+          type: string
+          nullable: true
+        workload:
+          type: string
+          nullable: true
+    NewAppServiceLogStreamInput:
+      type: object
+      properties:
+        workload:
+          type: string
+          nullable: true
+        container:
+          type: string
+          nullable: true
+    AppInstanceStackUpgradeInput:
+      type: object
+      required:
+        - versions
+        - replicas
+        - resources
+        - integrations
+        - services
+        - settings
+        - links
+        - tokens
+        - configs
+        - cron
+        - volumes
+        - main
+      properties:
+        versions:
+          type: boolean
+        replicas:
+          type: boolean
+        resources:
+          type: boolean
+        integrations:
+          type: boolean
+        services:
+          type: boolean
+        settings:
+          type: boolean
+        links:
+          type: boolean
+        tokens:
+          type: boolean
+        configs:
+          type: boolean
+        cron:
+          type: boolean
+        volumes:
+          type: boolean
+        main:
+          type: boolean
+    NewStackServiceInput:
+      type: object
+      required:
+        - stackId
+        - serviceId
+        - name
+        - title
+        - required
+        - replicas
+      properties:
+        stackId:
+          type: integer
+        serviceId:
+          type: integer
+        name:
+          type: string
+        title:
+          type: string
+        required:
+          type: boolean
+        replicas:
+          type: integer
+    StackServiceInput:
+      type: object
+      properties:
+        replicas:
+          type: integer
+          nullable: true
+        required:
+          type: boolean
+          nullable: true
+        disabled:
+          type: boolean
+          nullable: true
+        main:
+          type: boolean
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        buildSource:
+          $ref: '#/components/schemas/BuildSourceInput'
+    NewStackServiceEnvVarInput:
+      type: object
+      required:
+        - name
+        - value
+        - secret
+      properties:
+        workload:
+          type: string
+          nullable: true
+        container:
+          type: string
+          nullable: true
+        name:
+          type: string
+        value:
+          type: string
+        secret:
+          type: boolean
+        envType:
+          type: string
+          nullable: true
+    UpdateStackServiceEnvVarInput:
+      type: object
+      required:
+        - value
+        - secret
+      properties:
+        value:
+          type: string
+        secret:
+          type: boolean
+    NewStackServiceScopedValueInput:
+      type: object
+      required:
+        - name
+        - value
+        - secret
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        secret:
+          type: boolean
+        envType:
+          type: string
+          nullable: true
+    NewStackServiceTokenInput:
+      type: object
+      required:
+        - name
+        - secret
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+          nullable: true
+        secret:
+          type: boolean
+        regex:
+          type: string
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+    UpdateStackServiceTokenInput:
+      type: object
+      required:
+        - secret
+      properties:
+        value:
+          type: string
+          nullable: true
+        secret:
+          type: boolean
+        regex:
+          type: string
+          nullable: true
+    NewStackServiceAnnotationInput:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        envType:
+          type: string
+          nullable: true
+    StackServiceLinkInput:
+      type: object
+      properties:
+        linkedStackServiceId:
+          type: integer
+          nullable: true
+    StackServiceVolumeInput:
+      type: object
+      properties:
+        size:
+          type: integer
+          nullable: true
+    StackServiceConfigInput:
+      type: object
+      required:
+        - config
+      properties:
+        config:
+          type: string
+    StackServiceOptionsInput:
+      type: object
+      required:
+        - options
+      properties:
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/StackServiceOptionInput'
+    StackServiceOptionInput:
+      type: object
+      required:
+        - version
+        - default
+        - disabled
+      properties:
+        version:
+          type: string
+        default:
+          type: boolean
+        disabled:
+          type: boolean
+    NewStackServiceCronScheduleInput:
+      type: object
+      required:
+        - name
+        - title
+        - crontab
+        - command
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        crontab:
+          type: string
+        command:
+          type: string
+        workload:
+          type: string
+          nullable: true
+        disabled:
+          type: boolean
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+    UpdateStackServiceCronScheduleInput:
+      type: object
+      properties:
+        disabled:
+          type: boolean
+          nullable: true
+        title:
+          type: string
+          nullable: true
+        crontab:
+          type: string
+          nullable: true
+        command:
+          type: string
+          nullable: true
+        workload:
+          type: string
+          nullable: true
+        envType:
+          type: string
+          nullable: true
+    UpdateStackFromGitRequest:
+      type: object
+      required:
+        - gitRef
+        - gitRefType
+      properties:
+        gitRef:
+          type: string
+        gitRefType:
+          type: string
     NewImportInput:
       type: object
       required:
@@ -4100,12 +7526,8 @@ components:
       type: object
       required:
         - name
-        - title
         - instanceName
-        - instanceTitle
-        - domain
         - stackRevId
-        - services
         - envId
       properties:
         orgId:
@@ -4115,12 +7537,15 @@ components:
           type: string
         title:
           type: string
+          description: Defaults to name when omitted.
         instanceName:
           type: string
         instanceTitle:
           type: string
+          description: Defaults to instanceName when omitted.
         domain:
           type: string
+          description: Defaults to instanceName.name.orgDomain when omitted.
         projectId:
           type: integer
           nullable: true
@@ -4128,13 +7553,12 @@ components:
           type: integer
         services:
           type: array
+          description: Defaults to the stack revision's service defaults when omitted.
           items:
             $ref: '#/components/schemas/NewAppServiceInput'
         clusterId:
           type: integer
           nullable: true
-        newCluster:
-          $ref: '#/components/schemas/NewManagedClusterInput'
         envId:
           type: integer
         ciIntegrationId:
@@ -4148,10 +7572,7 @@ components:
       required:
         - appId
         - instanceName
-        - instanceTitle
-        - domain
         - stackRevId
-        - services
         - envId
       properties:
         appId:
@@ -4160,47 +7581,26 @@ components:
           type: string
         instanceTitle:
           type: string
+          description: Defaults to instanceName when omitted.
         domain:
           type: string
+          description: Defaults to instanceName.appName.orgDomain when omitted.
         stackRevId:
           type: integer
         services:
           type: array
+          description: Defaults to the stack revision's service defaults when omitted.
           items:
             $ref: '#/components/schemas/NewAppServiceInput'
         clusterId:
           type: integer
           nullable: true
-        newCluster:
-          $ref: '#/components/schemas/NewManagedClusterInput'
         envId:
           type: integer
         ciIntegrationId:
           type: integer
           nullable: true
         registryIntegrationId:
-          type: integer
-          nullable: true
-    NewManagedClusterInput:
-      type: object
-      required:
-        - demo
-      properties:
-        demo:
-          type: boolean
-        singleNode:
-          type: boolean
-          nullable: true
-        region:
-          type: string
-          nullable: true
-        machineType:
-          type: string
-          nullable: true
-        minNodeCount:
-          type: integer
-          nullable: true
-        maxNodeCount:
           type: integer
           nullable: true
     NewAppServiceInput:
@@ -4478,6 +7878,51 @@ components:
         iops:
           type: integer
           nullable: true
+    NewDatabaseDBInput:
+      type: object
+      required:
+        - databaseId
+        - name
+      properties:
+        databaseId:
+          type: integer
+        name:
+          type: string
+        charset:
+          type: string
+          nullable: true
+        collation:
+          type: string
+          nullable: true
+    NewDatabaseUserInput:
+      type: object
+      required:
+        - databaseId
+        - name
+        - password
+      properties:
+        databaseId:
+          type: integer
+        name:
+          type: string
+        password:
+          type: string
+        hostname:
+          type: string
+          nullable: true
+        databaseDbIds:
+          type: array
+          items:
+            type: integer
+    UpdateDatabaseUserDBsInput:
+      type: object
+      required:
+        - databaseDbIds
+      properties:
+        databaseDbIds:
+          type: array
+          items:
+            type: integer
     NewIntegrationInput:
       type: object
       required:
