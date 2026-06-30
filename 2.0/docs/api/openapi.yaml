@@ -34,6 +34,8 @@ tags:
     description: Network ports exposed by app services and app endpoints.
   - name: app-routes
     description: HTTP routing rules for app instances.
+  - name: certs
+    description: TLS certificate metadata for routes, app services, app instances, and databases.
   - name: clusters
     description: Kubernetes clusters connected to or managed by Wodby.
   - name: databases
@@ -4411,6 +4413,50 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /certs:
+    get:
+      tags:
+        - certs
+      summary: List certs
+      description: Returns certificate metadata for an organization.
+      operationId: listCerts
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: List of certs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Cert'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /certs/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - certs
+      summary: Get cert
+      description: Returns certificate metadata identified by the request path within the requested organization.
+      operationId: getCert
+      parameters:
+        - $ref: '#/components/parameters/OrgId'
+      responses:
+        '200':
+          description: Cert
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cert'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /envs:
     get:
       tags:
@@ -4941,6 +4987,8 @@ components:
         - status
         - skipRollback
         - appInstanceId
+        - builds
+        - appServiceDeployments
         - createdAt
         - updatedAt
       properties:
@@ -4954,6 +5002,60 @@ components:
           type: boolean
         appInstanceId:
           type: integer
+        builds:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppBuild'
+        task:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Task'
+          nullable: true
+        appServiceDeployments:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppServiceDeployment'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        startedAt:
+          type: string
+          format: date-time
+          nullable: true
+        endedAt:
+          type: string
+          format: date-time
+          nullable: true
+    AppServiceDeployment:
+      type: object
+      required:
+        - id
+        - jobName
+        - status
+        - appServiceId
+        - skipPostDeployment
+        - force
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        jobName:
+          type: string
+        status:
+          type: string
+        appServiceId:
+          type: integer
+        appServiceBuildId:
+          type: integer
+          nullable: true
+        skipPostDeployment:
+          type: boolean
+        force:
+          type: boolean
         createdAt:
           type: string
           format: date-time
@@ -4991,6 +5093,7 @@ components:
         - status
         - appInstanceId
         - appServiceId
+        - appServiceBuilds
         - gitRefType
         - gitRef
         - commitHash
@@ -5008,6 +5111,15 @@ components:
           type: integer
         appServiceId:
           type: integer
+        task:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Task'
+          nullable: true
+        appServiceBuilds:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppServiceBuild'
         gitRefType:
           type: string
         gitRef:
@@ -5030,6 +5142,36 @@ components:
           type: string
           format: date-time
           nullable: true
+    AppServiceBuild:
+      type: object
+      required:
+        - id
+        - status
+        - image
+        - imageDeleted
+        - size
+        - appServiceId
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        status:
+          type: string
+        image:
+          type: string
+        imageDeleted:
+          type: boolean
+        size:
+          type: integer
+        appServiceId:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
     AppBuildsResponse:
       type: object
       required:
@@ -5523,6 +5665,11 @@ components:
           type: integer
         portId:
           type: integer
+        cert:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/Cert'
+          nullable: true
         createdAt:
           type: string
           format: date-time
@@ -5530,6 +5677,54 @@ components:
           type: string
           format: date-time
         lastSyncedAt:
+          type: string
+          format: date-time
+          nullable: true
+    Cert:
+      type: object
+      required:
+        - id
+        - issuer
+        - keyType
+        - keyLength
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        issuer:
+          type: string
+        keyType:
+          type: string
+        keyLength:
+          type: integer
+        status:
+          type: string
+        appInstanceId:
+          type: integer
+          nullable: true
+        appServiceId:
+          type: integer
+          nullable: true
+        databaseId:
+          type: integer
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        issuedAt:
+          type: string
+          format: date-time
+          nullable: true
+        renewsAt:
+          type: string
+          format: date-time
+          nullable: true
+        expiresAt:
           type: string
           format: date-time
           nullable: true
