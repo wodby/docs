@@ -43,6 +43,18 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_build_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cert.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cert_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cert_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cert_list.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_create.html</loc>
   </url>
   <url>
@@ -80,6 +92,15 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_port.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_port_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_port_list.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_route.html</loc>
@@ -161,6 +182,18 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_build_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cert.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cert_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cert_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cert_list.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_ci.html</loc>
@@ -265,6 +298,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_database_user_delete.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_database_user_get.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_database_user_list.html</loc>
   </url>
   <url>
@@ -343,6 +379,18 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_build_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cert.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cert_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cert_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cert_list.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_create.html</loc>
   </url>
   <url>
@@ -380,6 +428,15 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_port.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_port_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_port_list.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_route.html</loc>
@@ -446,6 +503,15 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_current.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_port.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_port_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_port_list.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_project.html</loc>
