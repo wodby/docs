@@ -60,6 +60,26 @@ The dashboard always upgrades to the latest stack revision. There is no revision
 All upgrade options are disabled by default. `Update versions to default` and `Update replicas` are shown directly in
 the form. The remaining options are under `Advanced settings`.
 
+## Auto-upgrade
+
+An app instance can be configured to upgrade its stack automatically after the stack is automatically updated.
+This is an app-instance setting, so production, staging, and development instances can use different behavior even when
+they belong to the same app.
+
+Auto-upgrade uses the same settings as the manual `Upgrade stack` form. The saved settings decide which app-instance
+overrides Wodby replaces with values from the latest stack revision.
+
+Auto-upgrade can run after supported automatic stack updates, including Git-backed stack auto-updates, automatic stack
+service revision updates, and automatic sync with origin.
+
+Auto-upgrade is disabled by default. Enable it only for instances where it is acceptable to move to the latest stack
+revision without a manual review step. If the stack upgrade creates app services that need extra configuration, Wodby
+records warnings and waits for you to finish the service configuration before deployment, the same as a manual stack
+upgrade.
+
+Manual stack updates, manual syncs, and manually published drafts do not force app instances forward. Use the manual
+upgrade flow when you want to control the rollout yourself.
+
 During upgrade, Wodby matches existing app services to stack services by stack service name.
 
 - If a matching stack service still exists, the app service is moved to the new stack revision and the upgrade settings below decide which app-level values are replaced.

@@ -20,6 +20,8 @@ Only the fields documented on this page are supported. Unknown fields will be re
 name: drupal11-php
 type: service
 from: php
+fromVersionConstraint: "^1.0.0"
+fromVersion: "1.0.0"
 title: PHP (Drupal 11)
 labels:
   - drupal
@@ -29,8 +31,6 @@ options:
   - version: "8.3"
     default: true
     eol: "2026-11-23T00:00:00+00:00"
-
-update: auto
 
 links:
   - name: files
@@ -253,17 +253,28 @@ Type: `string`.
 
 Inherit configuration from an existing service available to your organization.
 
+Inherited services must also set `fromVersion`. Set `fromVersionConstraint` when the child service should later be
+eligible for parent-version updates within a semantic-version range.
+
 When overriding inherited workloads or containers, use only workload names and container names declared by the base
 service.
 
-### `update`
+### `fromVersion`
 
-Type: `enum`.
+Type: `string`.
 
-Controls how service updates are pulled from Git. Allowed values:
+Exact base service version used when Wodby imports and merges the inherited service.
 
-- `auto`
-- `manual`
+When `from` is set, Wodby finds the base service revision with this version and merges that revision into the child
+service. The imported child service keeps this value so future automation can see the current parent version.
+
+### `fromVersionConstraint`
+
+Type: `string`.
+
+Optional semantic-version constraint for allowed future parent service updates, such as `^1.0.0`.
+
+When set, the current `fromVersion` must satisfy the constraint.
 
 ### `title`
 

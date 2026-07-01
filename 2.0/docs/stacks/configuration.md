@@ -56,9 +56,9 @@ the same name and environment type overrides the stack-wide token for that speci
 A stack always includes specific service revisions. When a service publishes a new revision, the stack can be updated to
 use it.
 
-This is a stack update: Wodby updates the stack service revisions in the draft revision. Publish the draft to create a
-new stack revision. App instances that use the stack are upgraded to that published revision separately. See
-[Stack updates](updates.md) for update paths such as service revision updates, Git updates, and sync with origin.
+This is a stack update: Wodby updates the stack service revisions in a new stack revision. App instances that use the
+stack are upgraded to that published revision separately. See [Stack updates](updates.md) for update paths such as
+service revision updates, Git updates, and sync with origin.
 
 Each service in a stack can be configured under "[Stack] > Configure > Stack services > [Service]". A service can be
 enabled or disabled and marked as required or optional. Required services cannot be excluded during new app creation.

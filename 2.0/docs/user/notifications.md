@@ -27,6 +27,7 @@ Examples include:
 - failed app builds or deployments
 - app creation results
 - cluster creation or connection events
+- automatic service updates, Git-backed stack updates, stack service revision updates, origin stack syncs, and app stack upgrades
 - failed cron jobs, backups, imports, certificate renewals, service actions, or integration installs
 - breached spending limits
 - weekly organization reports

@@ -1,12 +1,15 @@
 # Stack updates
 
-Stacks are versioned. Stack updates and configuration edits create or update an unpublished draft revision first. The
-currently published revision remains active for running app instances until you publish the draft.
+Stacks are versioned. Dashboard-managed stack configuration edits create or update an unpublished draft revision first.
+The currently published revision remains active for running app instances until you publish the draft.
+Stack service revision updates, Git updates, sync with origin, and automatic stack updates create a new stack revision
+directly after the update task succeeds.
 
-Publishing the draft creates a new stack revision, but it does not automatically change running app instances. After the
-revision is published, each app instance can be upgraded separately from its current revision to the latest revision.
+Publishing a draft or completing a stack update does not automatically change running app instances. Automatic stack
+updates can also auto-upgrade app instances when auto-upgrade is enabled for those instances. After a new revision
+exists, each app instance can still be upgraded separately from its current revision to the latest revision.
 
-There are three common update paths.
+There are several common update paths.
 
 ## Update stack service revisions
 
@@ -16,7 +19,7 @@ Open `Stacks`, select the stack, and stay on the `Overview` tab. When an owned s
 `Stack update` card appears with an `Update services to latest version` button.
 
 When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
-latest service revisions in the draft revision.
+latest service revisions in a new stack revision.
 
 This is also the path to refresh service option metadata used for EOL review. If a stack shows an `EOL` flag, update the
 stack services to the latest service revisions before checking exact EOL dates or selecting newly available non-EOL
@@ -38,6 +41,35 @@ name because the expected name was already taken.
 This workflow does not update Git-backed stacks. For Git-backed stacks, the `Stack update` card shows a warning and the
 `Update stack` button is disabled. Use `Edit` > `Update` for those stacks instead.
 
+## Auto-update stack service revisions
+
+Use this for dashboard-managed stacks that should follow newer service revisions without a manual stack update step.
+
+When auto-update is enabled for stack service revisions, Wodby can create a new stack revision after a service used by
+the stack gets a newer revision. This uses the same reconciliation as the manual `Update services to latest version`
+workflow, including task logs and warnings for removed invalid overrides.
+
+For custom dashboard-managed stacks, auto-update is disabled by default. Git-backed stacks cannot use this setting
+because they are updated from their Git source instead.
+
+Wodby catalog stacks added from the catalog enable this setting automatically. They update all stack services except
+disabled services, and use semantic-version mode with patch and minor updates allowed and major updates disabled.
+
+The stack auto-update policy controls which service revision changes are allowed. Choose the service update scope and
+one version mode: semantic-version updates or non-semver updates.
+
+| Option | Effect |
+| --- | --- |
+| Update stateless only | Update only services whose target manifests have no database, volumes, or StatefulSet workloads. |
+| Update all services | Allow stateful and stateless services. Use this only when the stack can accept automatic stateful-service changes. |
+| Include disabled services | Also update stack services that are disabled in the stack. |
+| Semantic-version updates | Update only when the current and target service versions are valid semantic versions and the target is newer. |
+| Non-semver updates | Update only when the target service version is non-empty, non-semver, and different from the current service version. |
+| Allow patch, minor, or major versions | In semantic-version mode, limit updates by version segment. |
+
+By default, the saved policy allows patch and minor semantic-version updates for stateless services. It does not include
+disabled stack services, major version updates, or non-semver version changes unless you enable those options.
+
 ## Update from Git
 
 Use this for stacks imported from a Git repository.
@@ -45,8 +77,8 @@ Use this for stacks imported from a Git repository.
 Open `Stacks`, select the stack, and go to `Edit`. Git-backed stacks show an `Edit stack` form with the current
 repository, ref type, and Git ref. Select the Git tag or branch to import and click `Update`.
 
-Wodby imports the stack definition from the selected Git ref, finds the same stack by name, and creates or updates the
-draft revision from the updated `stack.yml`.
+Wodby imports the stack definition from the selected Git ref, finds the same stack by name, and creates a new stack
+revision from the updated `stack.yml`.
 
 Use this workflow when the stack manifest itself changed in Git, for example when services were added or removed,
 stack-level defaults changed, or stack service configuration changed.
@@ -54,10 +86,34 @@ stack-level defaults changed, or stack service configuration changed.
 The update form is available only on the latest stack revision. Older stack revisions can be viewed, but they cannot be
 updated from Git.
 
+## Auto-update from Git
+
+Git-backed stacks can be updated automatically when a supported Git provider sends a push event for the stack source.
+Auto-update uses the same import logic as manual `Update from Git`, but it is started by the webhook instead of a
+dashboard action.
+
+The auto-update settings decide which push events are allowed:
+
+- Branch updates run only when the pushed branch matches the stack's tracked Git ref.
+- Tag updates run only when the stack currently tracks a valid semantic-version tag and the pushed tag is a newer
+  semantic version.
+- Tag updates can be limited to patch, minor, or major version changes.
+- Commit-pinned stacks are not auto-updated.
+
+When auto-update is enabled, choose either branch updates or semantic-version tag updates. Semantic-version tag updates
+can be enabled only when the stack currently tracks a valid semantic-version Git tag.
+
+New Git-backed catalog stacks default to auto-update enabled. Branch-based stacks follow the tracked branch. Tag-based
+stacks follow newer semantic-version tags, with patch and minor updates allowed by default and major updates disabled.
+Custom Git-backed stacks can use the same settings when they should follow their source repository automatically.
+
+Auto-update is skipped while a stack is already updating, while another stack update task is active, or while the stack
+has an unpublished draft. Resolve the draft first, then run the update again or wait for the next matching push event.
+
 ## Sync with origin
 
-A copied catalog stack keeps a reference to the origin stack revision it was copied from. Syncing with origin creates or
-updates your draft revision from the latest origin revision.
+A copied catalog stack keeps a reference to the origin stack revision it was copied from. Syncing with origin creates a
+new stack revision from the latest origin revision.
 
 Open `Stacks`, select the copied stack, and stay on the `Overview` tab. If the stack has an origin, the `SYNC` card
 appears with a `Sync with origin` button.
@@ -96,9 +152,55 @@ changes such as newly introduced services, newly introduced stack service defaul
 deletion options only when you are comfortable removing local stack customizations that are no longer present in the
 origin.
 
+## Auto-sync with origin
+
+Use this for copied catalog stacks that should follow their origin stack automatically.
+
+When origin auto-sync is enabled, Wodby can create a new stack revision after the origin stack publishes a new
+revision. The first check is revision-based: if your stack still points to an older origin revision, it becomes a
+candidate for sync.
+
+For custom copied catalog stacks, origin auto-sync is disabled by default. Wodby catalog stacks added from the catalog
+enable origin auto-sync automatically with semantic-version mode, patch and minor updates allowed, major updates
+disabled, and no deletion options. Origin auto-sync is available only for stacks that have an origin stack revision and
+are not Git-backed.
+
+The origin version policy controls which origin revisions are allowed:
+
+| Option | Effect |
+| --- | --- |
+| Semantic-version updates | Sync only when the previously tracked origin version and target origin version are valid semantic versions and the target is newer. |
+| Non-semver updates | Sync only when the target origin version is non-empty, non-semver, and different from the previously tracked origin version. |
+| Allow patch, minor, or major versions | In semantic-version mode, limit updates by version segment. |
+
+The default origin auto-sync version policy uses semantic-version mode with patch and minor updates allowed and major
+updates disabled. EOL status does not control origin auto-sync.
+
+If the previously tracked origin version is not semantic-version compatible and the target origin version is semantic
+version compatible, origin auto-sync skips the change in both modes. Semantic-version mode requires both versions to be
+valid semantic versions, and non-semver mode accepts only non-semver target versions.
+
+Sync behavior is conservative by default. Without deletion options, missing origin objects are added, and local objects
+that are not present in the origin are preserved.
+
+You can also configure origin auto-sync to prune local objects that no longer exist in the origin. The available
+auto-sync deletion options match manual sync:
+
+| Auto-sync option | Effect |
+| --- | --- |
+| Keep only origin stack env vars | Delete stack-level environment variables that do not exist in the origin. |
+| Keep only origin stack Helm values | Delete stack-level Helm values that do not exist in the origin. |
+| Keep only origin stack tokens | Delete stack-level tokens that do not exist in the origin. |
+| Keep only origin stack-level annotations | Delete stack-level annotations that do not exist in the origin. |
+| Keep only origin stack services | Delete stack services that do not exist in the origin. |
+| Keep only origin stack services configuration | For services that exist in both stacks, delete service-level configuration entries that do not exist in the origin. |
+
+Use deletion options only when the copied stack should closely mirror the catalog origin. Leave them disabled when the
+stack has local customizations that should survive catalog changes.
+
 ## Publish or discard a draft
 
-After any stack edit or update workflow creates a draft, the stack shows an unpublished draft notice.
+After any stack configuration edit creates a draft, the stack shows an unpublished draft notice.
 
 Use `Publish draft` when you are ready to release the draft as a real stack revision. Publishing is the point where app
 instances using older stack revisions can become outdated.

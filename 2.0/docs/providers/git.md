@@ -17,6 +17,19 @@ Git provider integrations are used for:
 - selecting remote repositories during app build-source setup
 - browsing branches and tags for build configuration
 - connecting app instances to provider-hosted source code
+- updating Git-backed stacks and services from selected branches or tags
+
+## Push events
+
+For supported providers, Wodby can use repository push events to start automatic work connected to the tracked Git ref.
+Examples include Git-backed stack updates, Git-backed service updates, and other Git-driven automation.
+
+Wodby currently handles push events from GitHub and GitLab integrations.
+
+Automatic stack and service updates still follow the auto-update settings on the stack or service. A push to an
+untracked branch or a tag outside the allowed semantic-version range is ignored.
+Git auto-update can follow either the tracked branch or newer semantic-version tags for the tracked tag. It cannot use
+both modes at the same time.
 
 ## Supported providers
 
