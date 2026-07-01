@@ -15,7 +15,7 @@ There are several common update paths.
 
 Use this for stacks managed in the dashboard.
 
-Open `Stacks`, select the stack, and stay on the `Overview` tab. When an owned stack is marked `Outdated`, the
+Open `Stacks`, select the stack, and go to `Operations`. When an owned stack is marked `Outdated`, the
 `Stack update` card appears with an `Update services to latest version` button.
 
 When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
@@ -38,8 +38,8 @@ When Wodby chooses a safe fallback during the update, the update task can finish
 review what changed. Warnings can include removed invalid overrides or derivative stack services created with a fallback
 name because the expected name was already taken.
 
-This workflow does not update Git-backed stacks. For Git-backed stacks, the `Stack update` card shows a warning and the
-`Update stack` button is disabled. Use `Edit` > `Update` for those stacks instead.
+This workflow does not update Git-backed stacks. Use `Update from repository` on the `Operations` tab for those stacks
+instead.
 
 ## Auto-update stack service revisions
 
@@ -74,8 +74,8 @@ disabled stack services, major version updates, or non-semver version changes un
 
 Use this for stacks imported from a Git repository.
 
-Open `Stacks`, select the stack, and go to `Edit`. Git-backed stacks show an `Edit stack` form with the current
-repository, ref type, and Git ref. Select the Git tag or branch to import and click `Update`.
+Open `Stacks`, select the stack, and go to `Operations`. Git-backed stacks show an `Update from repository` card with
+the current repository, ref type, and Git ref. Select the Git tag or branch to import and click `Update`.
 
 Wodby imports the stack definition from the selected Git ref, finds the same stack by name, and creates a new stack
 revision from the updated `stack.yml`.
@@ -115,7 +115,7 @@ has an unpublished draft. Resolve the draft first, then run the update again or 
 A copied catalog stack keeps a reference to the origin stack revision it was copied from. Syncing with origin creates a
 new stack revision from the latest origin revision.
 
-Open `Stacks`, select the copied stack, and stay on the `Overview` tab. If the stack has an origin, the `SYNC` card
+Open `Stacks`, select the copied stack, and go to `Operations`. If the stack has an origin, the `Sync` card
 appears with a `Sync with origin` button.
 
 Sync is conservative by default:

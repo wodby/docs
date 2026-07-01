@@ -24,6 +24,15 @@ You can create a stack in three ways:
 
 After creation, all three paths produce regular versioned stacks. You can adjust their [configuration](configuration.md), add or remove stack services, publish those changes as revisions, and create apps from any available published revision.
 
+### Duplicate or add a stack
+
+Use `Add stack` on a public catalog stack to copy it into your organization. The copied stack can be customized and
+deployed like any other stack, and it keeps an origin so you can later [sync catalog changes](updates.md#sync-with-origin).
+
+Use `Duplicate stack` on an owned stack to create a separate stack copy. The duplicate is independent from the original
+stack, so later changes to one stack do not change the other. When you duplicate a Git-backed stack, the duplicate is
+created as a regular dashboard-managed stack and does not stay linked to the Git repository.
+
 ```mermaid
 flowchart TD
     subgraph APP["<div style='margin-top:10px; white-space: nowrap;'>App Instance (e.g. production)</div>"]

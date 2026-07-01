@@ -39,25 +39,10 @@ See [service types](types.md) for details.
 
 Custom services imported from git are defined by a template. See the [template reference](template.md).
 
-## Git-backed service updates
+## Updates
 
-Services imported from Git can be updated from their source repository. When Git auto-update is enabled, Wodby can start
-a service update automatically after a supported push event matches the service source.
-
-The auto-update settings decide which push events are allowed:
-
-- Branch updates run only when the pushed branch matches the service's tracked Git ref.
-- Tag updates run only when the service currently tracks a valid semantic-version tag and the pushed tag is a newer
-  semantic version.
-- Tag updates can be limited to patch, minor, or major version changes.
-- Commit-pinned services are not auto-updated.
-
-When auto-update is enabled, choose either branch updates or semantic-version tag updates. Semantic-version tag updates
-can be enabled only when the service currently tracks a valid semantic-version Git tag.
-
-Service auto-update creates a new service revision from Git. Stacks that use the service still control when they move to
-the new service revision. Dashboard-managed stacks can be updated manually, and stacks with stack service revision
-auto-update enabled can move to newer allowed service revisions automatically.
+Services imported from Git can be updated from their source repository manually or automatically. See
+[Service updates](updates.md) for the Git update workflows and auto-update settings.
 
 ## External
 

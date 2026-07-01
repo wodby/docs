@@ -211,6 +211,7 @@ nav:
       - Template: stacks/template.md
   - Services:
       - Overview: services/index.md
+      - Updates: services/updates.md
       - Template: services/template.md
       - Types: services/types.md
       - Endpoints: services/endpoints.md
