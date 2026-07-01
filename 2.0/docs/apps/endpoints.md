@@ -77,6 +77,10 @@ For generated technical routes, Wodby validates certificates through managed DNS
 hostname resolves to the target cluster before enabling Let's Encrypt; custom route certificates are validated through
 the public HTTP route.
 
+Certificate renewals are scheduled automatically and spread over time. If Let's Encrypt is temporarily busy or rate
+limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
+notification.
+
 `Organization > Certificates` shows issued certificates, issuer, key type, status, issue date, renewal date, expiry date, and where each certificate is used. The list can include certificates used by application routes and supported database resources.
 
 Custom certificate upload is coming soon. The planned model is organization-level certificate management with endpoint-level selection.
