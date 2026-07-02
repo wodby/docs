@@ -7,7 +7,7 @@ move to that new revision, either through a manual stack update or stack service
 
 Use this for services imported from a Git repository.
 
-Open `Services`, select the service, and go to `Operations`. The `Update from repository` card shows the current
+Open `Services`, select the service, and go to `Operations`. The `Manual update from Git` card shows the current
 repository and Git ref. Select the Git tag or branch to import and click `Update`.
 
 Wodby imports the service definition from the selected Git ref and creates a new service revision from the updated
@@ -18,6 +18,11 @@ configs, links, integrations, volumes, cron schedules, or other manifest section
 
 The update form is available only on the latest service revision. Older service revisions can be viewed, but they
 cannot be updated from Git.
+
+## Delete a Git-backed service
+
+Open `Services`, select the service, and go to `Edit`. Git-backed services show the delete action on the `Edit` tab,
+not on the `Operations` tab. The delete action is available only on the latest service revision.
 
 ## Auto-update from Git
 
