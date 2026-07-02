@@ -2,14 +2,17 @@
 
 ## Manual scaling
 
-For [managed Kubernetes](managed.md) clusters, you can scale worker capacity manually from `Kubernetes > [Cluster] > Control`.
+For [managed Kubernetes](managed.md) clusters, you can scale worker capacity manually from
+`Kubernetes > [Cluster] > Infrastructure > Kubernetes`.
 
 You can set:
 
 - minimum node count
 - maximum node count
 
-Clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later. They always have one node, and the dashboard does not show the `Control` page for them. Create a regular managed Kubernetes or Wodby Cloud cluster if you need cluster autoscaling or future node growth.
+Clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later. They always have
+one node, and the dashboard does not show scaling controls for them. Create a regular managed Kubernetes or Wodby Cloud
+cluster if you need cluster autoscaling or future node growth.
 
 ## Autoscaling
 

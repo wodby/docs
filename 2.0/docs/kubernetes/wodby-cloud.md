@@ -34,7 +34,8 @@ Wodby creates the cluster and deploys the application to it.
 ## Automatic infrastructure upgrades
 
 Wodby Cloud clusters have automatic infrastructure upgrades enabled by default, and the setting cannot be turned off.
-Wodby uses this to keep the cluster infrastructure and infrastructure apps current.
+Wodby uses this to keep the cluster infrastructure and infrastructure apps current. In the dashboard, the settings are
+shown under `Kubernetes > [Cluster] > Infrastructure > Operations` as managed by Wodby.
 
 Automatic upgrades for Wodby Cloud allow patch and minor updates by default. Major automatic upgrades are not allowed.
 

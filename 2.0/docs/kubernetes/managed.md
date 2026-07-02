@@ -15,8 +15,8 @@ In the cluster creation form, choose an `Owner`:
 - `Organization <organization>` creates an organization-owned cluster
 - `Project <project>` creates a project-owned cluster
 
-You can also enable automatic infrastructure upgrades during cluster creation. For managed Kubernetes clusters, this is
-disabled by default and can be changed later from the cluster settings.
+Automatic infrastructure upgrades are enabled by default during cluster creation for managed Kubernetes clusters. You can
+disable them during creation or change them later from `Kubernetes > [Cluster] > Infrastructure > Operations`.
 
 Use the cluster `Sharing` page later if other projects need `Read/Use` or `Modify/Delete` access.
 
@@ -30,8 +30,7 @@ When enabled, Wodby creates a fixed one-node cluster:
 
 - minimum node count is fixed to `1`
 - maximum node count is fixed to `1`
-- `Kubernetes > [Cluster] > Control` is not shown
-- cluster scaling and node recycling actions are unavailable
+- cluster scaling is unavailable from `Infrastructure > Kubernetes`
 - Wodby does not create a cloud provider load balancer
 - public app traffic is routed directly to the node IP
 
