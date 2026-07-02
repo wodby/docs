@@ -31,6 +31,15 @@ Use this flow when you want Wodby to create a cluster and deploy the first appli
 
 Wodby creates the cluster and deploys the application to it.
 
+## Automatic infrastructure upgrades
+
+Wodby Cloud clusters have automatic infrastructure upgrades enabled by default, and the setting cannot be turned off.
+Wodby uses this to keep the cluster infrastructure and infrastructure apps current.
+
+Automatic upgrades for Wodby Cloud allow patch and minor updates by default. Major automatic upgrades are not allowed.
+
+See [Kubernetes cluster updates](updates.md#automatic-infrastructure-upgrades) for details.
+
 ## Persistent Wodby Cloud clusters
 
 Persistent Wodby Cloud clusters require a paid subscription.

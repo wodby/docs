@@ -44,3 +44,4 @@ Demo clusters are deleted automatically after 24 hours. Applications deployed to
 - [Choose a Kubernetes option](choose-platform.md)
 - [Wodby Cloud](wodby-cloud.md)
 - [K3S](k3s.md)
+- [Kubernetes cluster updates](updates.md)

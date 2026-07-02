@@ -23,7 +23,9 @@ For more details, see the official [K3S installation requirements](https://docs.
 2. Select the cluster `Owner`. Choose `Organization <organization>` for an organization-owned cluster or `Project <project>` for a project-owned cluster.
 3. Enter the cluster name and title.
 4. Decide whether to leave `Enable monitoring` turned on. It is enabled by default.
-5. Create the cluster.
+5. Decide whether to enable automatic infrastructure upgrades. They are disabled by default and can be changed later
+   from the cluster settings.
+6. Create the cluster.
 
 New K3S clusters are created in the `Awaiting` state. This means Wodby is waiting for you to run the generated installation command on your server.
 
@@ -92,6 +94,10 @@ flannel/kube-router networking setup with Cilium.
 
 The upgrade can briefly interrupt pod networking while K3S restarts and Cilium takes over. Run it during a maintenance
 window for production workloads.
+
+Automatic infrastructure upgrades are available for K3S clusters, but they are disabled by default. Enable them only
+when automatic maintenance is acceptable for that cluster. See
+[Kubernetes cluster updates](updates.md#automatic-infrastructure-upgrades) for the automatic upgrade settings.
 
 ## Single server model
 

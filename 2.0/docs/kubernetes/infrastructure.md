@@ -9,7 +9,15 @@ These infrastructure apps can include:
 - FRPC proxy tunnel for secure connection to the Kubernetes API
 - Additional controller applications (e.g. AWS Load Balancer controller for EKS cluster)
 
-Infrastructure apps follow the same general stack-and-version model as regular apps, so they can be upgraded and configured. Their configuration surface is narrower than a normal user application.
+Infrastructure apps follow the same general stack-and-version model as regular apps, so they can be upgraded and
+configured. Their configuration surface is narrower than a normal user application.
+
+Wodby tracks two separate kinds of cluster infrastructure updates:
+
+- infrastructure app stack revisions, for updates to the apps that provide platform capabilities
+- infrastructure versions, for cluster-level platform wiring changes such as networking or routing behavior
+
+See [Kubernetes cluster updates](updates.md) for manual and automatic infrastructure upgrade behavior.
 
 New clusters use Envoy Gateway for public HTTP, HTTPS, TCP, and UDP entrypoints. New self-hosted K3S clusters also use
 Cilium for Kubernetes networking and NetworkPolicy enforcement.

@@ -15,6 +15,9 @@ In the cluster creation form, choose an `Owner`:
 - `Organization <organization>` creates an organization-owned cluster
 - `Project <project>` creates a project-owned cluster
 
+You can also enable automatic infrastructure upgrades during cluster creation. For managed Kubernetes clusters, this is
+disabled by default and can be changed later from the cluster settings.
+
 Use the cluster `Sharing` page later if other projects need `Read/Use` or `Modify/Delete` access.
 
 When you delete a managed cluster from Wodby, Wodby also deletes it in the cloud provider account.
