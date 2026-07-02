@@ -69,7 +69,7 @@ one version mode: semantic-version updates, non-semver updates, or revision upda
 
 | Option | Effect |
 | --- | --- |
-| Update stateless only | Update only services whose target manifests have no database, volumes, or StatefulSet workloads. |
+| Update stateless only | Update only services whose target manifests have no database, StatefulSet workloads, or owned persistent volumes. |
 | Update all services | Allow stateful and stateless services. Use this only when the stack can accept automatic stateful-service changes. |
 | Include disabled services | Also update stack services that are disabled in the stack. |
 | Semantic-version updates | Update only when the current and target service versions are valid semantic versions and the target is newer. |
@@ -81,6 +81,10 @@ By default, the saved policy allows patch and minor semantic-version updates for
 disabled stack services, major version updates, or non-semver version changes unless you enable those options. When you
 enable service revision auto-update for a Git-backed stack in the dashboard, `Update all services` is selected by
 default; review the scope before saving if the stack should update only stateless services.
+
+For the `Update stateless only` scope, a service that mounts storage from another service is not treated as the storage
+owner. Volumes that borrow storage with `from` or delegate storage to a linked storage service with `shared` and `link`
+can still be updated under the stateless-only policy.
 
 Use revision mode for services imported from a branch, such as `main`, when each service revision may keep the same
 service version string.
