@@ -37,8 +37,9 @@ for two upgrade types:
 | Infrastructure | Cluster-level infrastructure version upgrades |
 | Infrastructure apps | Infrastructure app stack revision upgrades |
 
-Each upgrade type has its own version policy. The default policy uses semantic versions, allows patch and minor updates,
-and does not allow major updates.
+Each upgrade type has its own semver-only policy. Automatic infrastructure upgrades do not use revision or non-semver
+matching. The policy controls whether automatic patch, minor, and major semver updates are allowed. By default, patch
+and minor updates are allowed, and major updates are not.
 
 Version policy settings affect automatic upgrades only. You can still run a manual infrastructure or infrastructure app
 upgrade when the dashboard offers one.
