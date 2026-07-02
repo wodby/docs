@@ -53,8 +53,7 @@ clusters. Wodby Cloud infrastructure is operated by Wodby and can still be upgra
 
 ## Automatic infrastructure upgrades
 
-Automatic infrastructure upgrades are configured per cluster. The setting has one master switch and separate controls
-for two upgrade types:
+Automatic infrastructure upgrades are configured per cluster with separate controls for two upgrade types:
 
 | Control | Applies to |
 | --- | --- |
@@ -64,6 +63,9 @@ for two upgrade types:
 Each upgrade type has its own semver-only policy. Automatic infrastructure upgrades do not use revision or non-semver
 matching. The policy controls whether automatic patch, minor, and major semver updates are allowed. By default, patch
 and minor updates are allowed, and major updates are not.
+
+Each upgrade type has its own `Auto upgrade` switch. Disabling both switches disables automatic infrastructure upgrades
+for the cluster.
 
 Version policy settings affect automatic upgrades only. You can still run a manual infrastructure or infrastructure app
 upgrade when the dashboard offers one.

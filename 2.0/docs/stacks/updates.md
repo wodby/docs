@@ -15,8 +15,12 @@ There are several common update paths.
 
 Use this when the stack should keep the same stack definition but move included services to newer service revisions.
 
-Open `Stacks`, select the stack, and go to `Operations`. When an owned stack is marked `Outdated`, the
-`Manual service update` card appears with an `Update services to latest version` button.
+Open `Stacks`, select the stack, and go to `Operations`. Owned stacks show a `Service update` card with an
+`Update services to latest version` button.
+
+When updates are available, the card lists the affected services and shows the current and latest service revision
+versions. When every unpinned service already uses the latest available service revision, the card shows an `Up to date`
+tag and the update button is disabled.
 
 When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
 latest service revisions in a new stack revision.
@@ -39,8 +43,8 @@ review what changed. Warnings can include removed invalid overrides or derivativ
 name because the expected name was already taken.
 
 This workflow can be used for dashboard-managed and Git-backed stacks. For Git-backed stacks, it does not fetch the
-stack repository or apply `stack.yml` changes. Use `Manual update from Git` when the stack manifest itself changed, or
-when you want to change a pinned/versioned service reference from Git.
+stack repository or apply `stack.yml` changes. Use `Update from Git` when the stack manifest itself changed, or when you
+want to change a pinned/versioned service reference from Git.
 
 ## Auto-update stack service revisions
 
@@ -53,9 +57,9 @@ workflow, including task logs and warnings for removed invalid overrides.
 For custom stacks, auto-update is disabled by default. Git-backed stacks can use this setting for service revision
 updates; Wodby updates stack service rows in a new stack revision without fetching the stack repository.
 
-In the dashboard, open `Stacks`, select the stack, and go to `Operations`. The `Auto update settings` card contains
-the service revision automation controls. For Git-backed stacks, use the `Update services used by this stack` section;
-this is separate from the `Update stack from Git` section, which controls Git imports.
+In the dashboard, open `Stacks`, select the stack, and go to `Operations`. Service revision automation is configured in
+the `Services auto update` card. For Git-backed stacks, this card is shown separately from `Auto update from git`, which
+controls Git imports.
 
 Wodby catalog stacks added from the catalog enable this setting automatically. They update all stack services except
 disabled services, and use semantic-version mode with patch and minor updates allowed and major updates disabled.
@@ -93,8 +97,8 @@ service version string.
 
 Use this for stacks imported from a Git repository.
 
-Open `Stacks`, select the stack, and go to `Operations`. Git-backed stacks show a `Manual update from Git` card with
-the current repository, ref type, and Git ref. Select the Git tag or branch to import and click `Update`.
+Open `Stacks`, select the stack, and go to `Operations`. Git-backed stacks show an `Update from Git` card with the
+current repository, ref type, and Git ref. Select the Git tag or branch to import and click `Update`.
 
 Wodby imports the stack definition from the selected Git ref, finds the same stack by name, and creates a new stack
 revision from the updated `stack.yml`.
@@ -116,10 +120,9 @@ Git-backed stacks can be updated automatically when a supported Git provider sen
 Auto-update uses the same import logic as manual `Update from Git`, but it is started by the webhook instead of a
 dashboard action.
 
-In the dashboard, Git auto-update settings for stacks are shown in `Operations > Auto update settings > Update stack
-from Git`. Keep them separate from `Update services used by this stack`: Git auto-update imports the stack manifest
-from Git, while service revision auto-update keeps the current stack revision definition and updates eligible stack
-service revision references.
+In the dashboard, Git auto-update settings for stacks are shown in `Operations > Auto update from git`. Keep them
+separate from `Services auto update`: Git auto-update imports the stack manifest from Git, while service revision
+auto-update keeps the current stack revision definition and updates eligible stack service revision references.
 
 The auto-update settings decide which push events are allowed:
 
@@ -144,8 +147,8 @@ has an unpublished draft. Resolve the draft first, then run the update again or 
 A copied catalog stack keeps a reference to the origin stack revision it was copied from. Syncing with origin creates a
 new stack revision from the latest origin revision.
 
-Open `Stacks`, select the copied stack, and go to `Operations`. If the stack has an origin, the
-`Manual sync with origin` card appears with a `Sync with origin` button.
+Open `Stacks`, select the copied stack, and go to `Operations`. If the stack has an origin, the `Sync with origin stack`
+card appears with a `Sync with origin` button.
 
 Sync is conservative by default:
 
@@ -160,21 +163,19 @@ Sync is conservative by default:
 If the origin changes an existing value under the same name, sync keeps your local value. Review and update those values
 manually when you want to adopt the changed origin default.
 
-The sync form also has advanced deletion options for cases where you want the local stack to become closer to the
-origin:
+The sync form also has options for cases where you want the local stack to become closer to the origin:
 
 | Dashboard option | Effect |
 | --- | --- |
-| Keep only origin stack env vars | Delete stack-level environment variables that do not exist in the origin. |
-| Keep only origin stack tokens | Delete stack-level tokens that do not exist in the origin. |
-| Keep only origin stack-level annotations | Delete stack-level annotations that do not exist in the origin. |
-| Keep only origin stack services | Delete stack services that do not exist in the origin. |
-| Keep only origin stack services configuration | For services that exist in both stacks, delete service-level configuration entries that do not exist in the origin. |
+| Origin Helm values only | Delete stack-level Helm values that do not exist in the origin. |
+| Origin env vars only | Delete stack-level environment variables that do not exist in the origin. |
+| Origin tokens only | Delete stack-level tokens that do not exist in the origin. |
+| Origin annotations only | Delete stack-level annotations that do not exist in the origin. |
+| Origin services only | Delete stack services that do not exist in the origin. |
+| Origin service config only | For services that exist in both stacks, delete service-level configuration entries that do not exist in the origin. |
 
 Stack service configuration includes service-level Helm values, environment variables, volumes, tokens, settings,
 options, resource overrides, cron schedules, configs, and links.
-
-The dashboard sync form does not expose a deletion option for stack-level Helm values.
 
 Sync with origin is the right workflow when you copied a catalog stack and want to pull in catalog-side manifest
 changes such as newly introduced services, newly introduced stack service defaults, or removed services. Use the
@@ -193,6 +194,9 @@ For custom copied catalog stacks, origin auto-sync is disabled by default. Wodby
 enable origin auto-sync automatically with semantic-version mode, patch and minor updates allowed, major updates
 disabled, and no deletion options. Origin auto-sync is available only for stacks that have an origin stack revision and
 are not Git-backed.
+
+In the dashboard, origin auto-sync settings are shown in the `Auto sync with origin stack` card next to
+`Services auto update`.
 
 The origin version policy controls which origin revisions are allowed:
 
