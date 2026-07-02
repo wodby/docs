@@ -97,9 +97,10 @@ When a service used by the stack gets a new revision, or when stack-level config
 outdated. Configuration edits create or update an unpublished draft first. Stack service revision updates, Git updates,
 sync with origin, and automatic stack updates create a new stack revision directly after the update task succeeds.
 
-Dashboard-managed stacks can update stack service revisions to use the latest available service revisions.
-Git-backed stacks are updated from Git, either manually or through Git auto-update when a supported push event matches
-the stack source. Catalog-derived stacks can also sync with their origin to pull in catalog-side manifest changes.
+Stacks can update stack service revisions to use the latest available service revisions without changing which services
+the stack contains. Git-backed stacks can also update from Git, either manually or through Git auto-update when a
+supported push event matches the stack source. Catalog-derived stacks can sync with their origin to pull in catalog-side
+manifest changes.
 
 Publishing the draft creates a new stack revision. Updating a stack does not automatically update all app instances
 using it unless the stack was updated automatically and auto-upgrade is enabled for those app instances. Each app

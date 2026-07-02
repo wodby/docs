@@ -63,6 +63,10 @@ service revision updates, Git updates, and sync with origin.
 Each service in a stack can be configured under "[Stack] > Configure > Stack services > [Service]". A service can be
 enabled or disabled and marked as required or optional. Required services cannot be excluded during new app creation.
 
+You can pin a stack service to its current service revision. Pinned stack services are skipped by manual and automatic
+stack service revision updates, and they do not make the stack appear outdated when the underlying service publishes a
+new revision. Derivative stack services inherit the pin state from their parent service.
+
 Only one HTTP-capable service can be marked as main. Services without HTTP endpoints cannot be main. The main stack
 service controls which app service receives the app instance's main technical route, which targets the main endpoint of
 the main app service.

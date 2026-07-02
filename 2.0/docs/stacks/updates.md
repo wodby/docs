@@ -13,7 +13,7 @@ There are several common update paths.
 
 ## Update stack service revisions
 
-Use this for stacks managed in the dashboard.
+Use this when the stack should keep the same stack definition but move included services to newer service revisions.
 
 Open `Stacks`, select the stack, and go to `Operations`. When an owned stack is marked `Outdated`, the
 `Stack update` card appears with an `Update services to latest version` button.
@@ -38,25 +38,30 @@ When Wodby chooses a safe fallback during the update, the update task can finish
 review what changed. Warnings can include removed invalid overrides or derivative stack services created with a fallback
 name because the expected name was already taken.
 
-This workflow does not update Git-backed stacks. Use `Update from repository` on the `Operations` tab for those stacks
-instead.
+This workflow can be used for dashboard-managed and Git-backed stacks. For Git-backed stacks, it does not fetch the
+stack repository or apply `stack.yml` changes. Use `Update from repository` when the stack manifest itself changed, or
+when you want to change a pinned/versioned service reference from Git.
 
 ## Auto-update stack service revisions
 
-Use this for dashboard-managed stacks that should follow newer service revisions without a manual stack update step.
+Use this for stacks that should follow newer service revisions without a manual stack update step.
 
 When auto-update is enabled for stack service revisions, Wodby can create a new stack revision after a service used by
 the stack gets a newer revision. This uses the same reconciliation as the manual `Update services to latest version`
 workflow, including task logs and warnings for removed invalid overrides.
 
-For custom dashboard-managed stacks, auto-update is disabled by default. Git-backed stacks cannot use this setting
-because they are updated from their Git source instead.
+For custom stacks, auto-update is disabled by default. Git-backed stacks can use this setting for service revision
+updates; Wodby updates stack service rows in a new stack revision without fetching the stack repository.
 
 Wodby catalog stacks added from the catalog enable this setting automatically. They update all stack services except
 disabled services, and use semantic-version mode with patch and minor updates allowed and major updates disabled.
 
+Pinned stack services are skipped by manual and automatic service revision updates. They do not make the stack
+`Outdated`. Pin a stack service when it should stay on its current service revision until you explicitly unpin it or
+update the stack from Git with a different service reference.
+
 The stack auto-update policy controls which service revision changes are allowed. Choose the service update scope and
-one version mode: semantic-version updates or non-semver updates.
+one version mode: semantic-version updates, non-semver updates, or revision updates.
 
 | Option | Effect |
 | --- | --- |
@@ -65,10 +70,14 @@ one version mode: semantic-version updates or non-semver updates.
 | Include disabled services | Also update stack services that are disabled in the stack. |
 | Semantic-version updates | Update only when the current and target service versions are valid semantic versions and the target is newer. |
 | Non-semver updates | Update only when the target service version is non-empty, non-semver, and different from the current service version. |
+| Revision updates | Update whenever the target service revision changed, even when the service version string stayed the same. |
 | Allow patch, minor, or major versions | In semantic-version mode, limit updates by version segment. |
 
 By default, the saved policy allows patch and minor semantic-version updates for stateless services. It does not include
 disabled stack services, major version updates, or non-semver version changes unless you enable those options.
+
+Use revision mode for services imported from a branch, such as `main`, when each service revision may keep the same
+service version string.
 
 ## Update from Git
 

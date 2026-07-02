@@ -37,8 +37,8 @@ When auto-update is enabled, choose either branch updates or semantic-version ta
 can be enabled only when the service currently tracks a valid semantic-version Git tag.
 
 Service auto-update creates a new service revision from Git. Stacks that use the service still control when they move to
-the new service revision. Dashboard-managed stacks can be updated manually, and stacks with stack service revision
-auto-update enabled can move to newer allowed service revisions automatically.
+the new service revision. Stacks can be updated manually, and stacks with stack service revision auto-update enabled can
+move to newer allowed service revisions automatically.
 
 Auto-update settings are stored on the connected Git repository. If multiple services or stacks use the same repository,
 changing the settings from one resource changes auto-update behavior for the other resources that share it.

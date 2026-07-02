@@ -85,6 +85,7 @@ services:
   - name: nginx
     title: Nginx
     service: php-nginx
+    serviceRevPinned: true
     required: true
     depends:
       - php
@@ -234,6 +235,20 @@ Type: `string`. Required.
 Reference to an existing service. You can use either a plain service name such as `php` or a versioned reference such as `php:8.3`.
 
 The referenced service must exist and be available to your organization.
+
+Versioned references pin the stack service to the service revision that matches the requested service version. Stack
+service revision updates skip pinned services. Use an unversioned reference when the stack service should move to newer
+service revisions through manual or automatic stack service revision updates.
+
+### `services[].serviceRevPinned`
+
+Type: `boolean`. Default: `false`.
+
+Pins the stack service to the service revision selected during import. This is useful when the `service` reference is
+unversioned but the stack should still keep the current service revision until you update the stack template or unpin
+the service in the dashboard.
+
+Derivative stack services inherit the pin state from their parent stack service.
 
 ### `services[].required`
 
