@@ -5131,12 +5131,9 @@ components:
       type: object
       required:
         - scope
-        - includeDisabled
       properties:
         scope:
           type: string
-        includeDisabled:
-          type: boolean
         versionPolicy:
           $ref: '#/components/schemas/StackAutoUpdateVersionPolicy'
     StackAutoUpdatePolicyInput:
@@ -5144,9 +5141,6 @@ components:
       properties:
         scope:
           type: string
-          nullable: true
-        includeDisabled:
-          type: boolean
           nullable: true
         versionPolicy:
           $ref: '#/components/schemas/StackAutoUpdateVersionPolicyInput'
@@ -5878,7 +5872,10 @@ components:
         maxNodeCount:
           type: integer
           nullable: true
-        lastNodeCount:
+        lastNodesReady:
+          type: integer
+          nullable: true
+        lastNodesTotal:
           type: integer
           nullable: true
         region:
