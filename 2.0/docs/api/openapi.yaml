@@ -6631,6 +6631,7 @@ components:
         - disabled
         - required
         - replicas
+        - outdated
         - serviceRevId
         - serviceRevName
         - serviceRevTitle
@@ -6654,6 +6655,8 @@ components:
           type: boolean
         replicas:
           type: integer
+        outdated:
+          type: boolean
         serviceRevId:
           type: integer
         serviceRevName:
