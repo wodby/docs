@@ -20,7 +20,7 @@ App instance Kubernetes namespaces are generated as:
 
 The generated namespace must also be 63 characters or shorter, so keep app and instance names short enough for the combined value.
 
-Some dashboard route words are reserved, such as `new`, `settings`, and `kubernetes`, even if they otherwise match the character rules.
+Some dashboard route words are reserved, such as `new`, `settings`, and `clusters`, even if they otherwise match the character rules.
 
 ## Kubernetes service names
 

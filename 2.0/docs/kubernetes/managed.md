@@ -16,7 +16,7 @@ In the cluster creation form, choose an `Owner`:
 - `Project <project>` creates a project-owned cluster
 
 Automatic infrastructure upgrades are enabled by default during cluster creation for managed Kubernetes clusters. You can
-disable them during creation or change them later from `Kubernetes > [Cluster] > Infrastructure > Operations`.
+disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Operations`.
 
 Use the cluster `Sharing` page later if other projects need `Read/Use` or `Modify/Delete` access.
 

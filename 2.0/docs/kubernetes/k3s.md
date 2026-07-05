@@ -19,12 +19,12 @@ For more details, see the official [K3S installation requirements](https://docs.
 
 ## Connect server flow
 
-1. Open `Kubernetes > Connect server` in the dashboard.
+1. Open `Clusters > Connect server` in the dashboard.
 2. Select the cluster `Owner`. Choose `Organization <organization>` for an organization-owned cluster or `Project <project>` for a project-owned cluster.
 3. Enter the cluster name and title.
 4. Decide whether to leave `Enable monitoring` turned on. It is enabled by default.
 5. Decide whether to leave automatic infrastructure upgrades enabled. They are enabled by default and can be changed later
-   from `Kubernetes > [Cluster] > Infrastructure > Operations`.
+   from `Clusters > [Cluster] > Infrastructure > Operations`.
 6. Create the cluster.
 
 New K3S clusters are created in the `Awaiting` state. This means Wodby is waiting for you to run the generated installation command on your server.
@@ -109,7 +109,7 @@ In the dashboard, K3S clusters are shown as one-node clusters. They do not have 
 be scaled from Wodby.
 
 If Wodby cannot detect the correct public ingress IP for a K3S cluster, update it from
-`Kubernetes > [Cluster] > Infrastructure > Settings`. The update is available only while the cluster status is `OK`.
+`Clusters > [Cluster] > Infrastructure > Settings`. The update is available only while the cluster status is `OK`.
 
 Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles that service through its built-in ServiceLB controller, so Wodby does not create a cloud provider load balancer for K3S.
 

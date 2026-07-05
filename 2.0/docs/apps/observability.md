@@ -12,7 +12,7 @@ When cluster monitoring is enabled, Wodby collects metrics at several levels:
 - app service runtime metrics
 - pod and container runtime metrics
 
-Cluster-level metrics are shown from `Kubernetes > [Cluster] > Metrics`.
+Cluster-level metrics are shown from `Clusters > [Cluster] > Metrics`.
 
 That page also includes namespace-level usage details, including namespace type, related app instance, pod and
 container counts, restart totals, CPU and memory usage, and persistent volume storage usage per namespace.

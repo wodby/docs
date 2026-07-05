@@ -18,10 +18,10 @@ Wodby supports four practical deployment paths:
 
 | Option | Runs where | Created from | Best for | Who manages infra | Billing model |
 | --- | --- | --- | --- | --- | --- |
-| Managed Kubernetes | Your cloud account | `Kubernetes` after connecting a provider integration | Production workloads with cloud-native flexibility | You and your cloud provider | Your cloud bill plus Wodby platform usage |
-| K3S | Your own server | `Kubernetes > Connect server` | Cost-sensitive self-hosted setups | You | Your server costs plus Wodby platform usage |
-| Wodby Cloud | Wodby-managed infrastructure | `Kubernetes > New Wodby Cloud cluster` or `Apps > New app > Step 2` | Teams that want less cluster ops work | Wodby | Wodby Cloud usage |
-| Demo | Temporary Wodby Cloud cluster | `Kubernetes > New Wodby Cloud cluster > Demo` or `Apps > New app > Step 2 > Wodby Cloud > Demo` | Evaluation, prototypes, short-lived testing | Wodby | Free, deleted after 24 hours |
+| Managed Kubernetes | Your cloud account | `Clusters` after connecting a provider integration | Production workloads with cloud-native flexibility | You and your cloud provider | Your cloud bill plus Wodby platform usage |
+| K3S | Your own server | `Clusters > Connect server` | Cost-sensitive self-hosted setups | You | Your server costs plus Wodby platform usage |
+| Wodby Cloud | Wodby-managed infrastructure | `Clusters > New Wodby Cloud cluster` or `Apps > New app > Step 2` | Teams that want less cluster ops work | Wodby | Wodby Cloud usage |
+| Demo | Temporary Wodby Cloud cluster | `Clusters > New Wodby Cloud cluster > Demo` or `Apps > New app > Step 2 > Wodby Cloud > Demo` | Evaluation, prototypes, short-lived testing | Wodby | Free, deleted after 24 hours |
 
 ## When to choose Managed Kubernetes
 

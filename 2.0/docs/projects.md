@@ -52,7 +52,7 @@ The project selector in the dashboard header is your working scope.
 - At least one project must remain selected.
 - Your selection is stored as your default project filter for that organization.
 
-This filter affects the lists you see across project-aware areas such as apps, Kubernetes, databases, integrations, stacks, services, providers, and tasks.
+This filter affects the lists you see across project-aware areas such as apps, clusters, databases, integrations, stacks, services, providers, and tasks.
 
 ## Access model
 

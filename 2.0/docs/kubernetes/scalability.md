@@ -3,7 +3,7 @@
 ## Manual scaling
 
 For [managed Kubernetes](managed.md) clusters, you can scale worker capacity manually from
-`Kubernetes > [Cluster] > Infrastructure > Kubernetes`.
+`Clusters > [Cluster] > Infrastructure > Kubernetes`.
 
 You can set:
 

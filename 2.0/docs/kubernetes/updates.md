@@ -1,6 +1,6 @@
 # Kubernetes cluster updates
 
-Cluster updates are managed from the dashboard at `Kubernetes > [Cluster] > Infrastructure`.
+Cluster updates are managed from the dashboard at `Clusters > [Cluster] > Infrastructure`.
 
 Wodby tracks two update states for each cluster:
 
@@ -22,7 +22,7 @@ are enabled.
 Infrastructure app updates can include changes to platform services such as Envoy Gateway, monitoring, the FRPC proxy
 tunnel, or provider-specific controller apps.
 
-In the dashboard, open `Kubernetes`, select the cluster, and go to `Infrastructure > Operations`. The
+In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure > Operations`. The
 `Infrastructure app stacks` card shows whether stack updates are available. When Wodby can identify the affected
 infrastructure apps, the card lists each app and the current and target stack revision numbers.
 
@@ -44,7 +44,7 @@ If both an infrastructure version upgrade and infrastructure app stack upgrade a
 infrastructure version upgrade first. Infrastructure app upgrades are checked again after the cluster is no longer
 outdated at the infrastructure version level.
 
-In the dashboard, open `Kubernetes`, select the cluster, and go to `Infrastructure > Operations`. The
+In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure > Operations`. The
 `Wodby infrastructure` card shows the current infrastructure version, the target version when an upgrade is available,
 and a manual upgrade button. The manual button is disabled when no infrastructure version upgrade is available.
 

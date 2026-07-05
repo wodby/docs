@@ -107,7 +107,7 @@ A provider that exposes environment variables instead of, or in addition to, inf
 
 ## Wodby Cloud
 
-Wodby's managed Kubernetes offering. Wodby Cloud clusters can be created from the Kubernetes page or during the new app flow.
+Wodby's managed Kubernetes offering. Wodby Cloud clusters can be created from the Clusters page or during the new app flow.
 
 ## Related pages
 

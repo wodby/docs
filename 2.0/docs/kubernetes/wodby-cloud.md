@@ -6,13 +6,13 @@ Wodby Cloud is Wodby's managed Kubernetes infrastructure. Wodby creates and oper
 
 ## Creating a Wodby Cloud cluster
 
-You can create a Wodby Cloud cluster directly from the Kubernetes page, or as part of the new application flow.
+You can create a Wodby Cloud cluster directly from the Clusters page, or as part of the new application flow.
 
-### From the Kubernetes page
+### From the Clusters page
 
 Use this flow when you want to provision a cluster before creating an application:
 
-1. Open `Kubernetes`
+1. Open `Clusters`
 2. Click `New Wodby Cloud cluster`
 3. Select the cluster `Owner`. Choose `Organization <organization>` for an organization-owned cluster or `Project <project>` for a project-owned cluster
 4. Either enable `Demo` or configure a persistent cluster
@@ -35,7 +35,7 @@ Wodby creates the cluster and deploys the application to it.
 
 Wodby Cloud clusters have automatic infrastructure upgrades enabled by default, and the setting cannot be turned off.
 Wodby uses this to keep the cluster infrastructure and infrastructure apps current. In the dashboard, the settings are
-shown under `Kubernetes > [Cluster] > Infrastructure > Operations` as managed by Wodby.
+shown under `Clusters > [Cluster] > Infrastructure > Operations` as managed by Wodby.
 
 Automatic upgrades for Wodby Cloud allow patch and minor updates by default. Major automatic upgrades are not allowed.
 
@@ -64,7 +64,7 @@ Demo is the temporary Wodby Cloud mode for testing.
 
 - free of charge
 - created as a single-node cluster
-- created from `Kubernetes > New Wodby Cloud cluster` or from the same Step 2 application flow
+- created from `Clusters > New Wodby Cloud cluster` or from the same Step 2 application flow
 - automatically deleted after 24 hours; applications deployed to the demo cluster are deleted with it
 
 ## Billing

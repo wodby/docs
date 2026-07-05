@@ -72,7 +72,7 @@ Select where you want to run the first instance of your application. The form of
 1. **My clusters**
    - Choose one of your existing clusters
    - This can be a managed Kubernetes cluster created from a cloud [integration](../integrations/index.md)
-   - It can also be a self-hosted [K3S](../kubernetes/k3s.md) cluster connected from _Kubernetes > Connect server_
+   - It can also be a self-hosted [K3S](../kubernetes/k3s.md) cluster connected from _Clusters > Connect server_
 2. **Wodby Cloud**
    - Wodby creates and manages a new cluster for this application
    - For persistent Wodby Cloud clusters you choose region, CPU type, machine type, and minimum and maximum node counts
@@ -80,7 +80,7 @@ Select where you want to run the first instance of your application. The form of
    - Persistent Wodby Cloud clusters require a paid plan
    - For testing, enable `Demo` to create a free temporary single-node Wodby Cloud cluster that is deleted automatically after 24 hours together with its applications
 
-You can also create a Wodby Cloud cluster before creating an app from `Kubernetes > New Wodby Cloud cluster`.
+You can also create a Wodby Cloud cluster before creating an app from `Clusters > New Wodby Cloud cluster`.
 
 ### Step 3
 
