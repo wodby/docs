@@ -59,6 +59,92 @@ Restart your MCP client after changing its configuration.
 Some hosted AI clients do not support custom request headers. Those clients need a future OAuth-based Wodby MCP
 connection instead of API-key headers.
 
+### Claude Desktop
+
+Open the Claude Desktop MCP configuration file and add the Wodby server:
+
+=== "macOS"
+
+    ```bash
+    code ~/Library/Application\ Support/Claude/claude_desktop_config.json
+    ```
+
+=== "Windows"
+
+    ```powershell
+    code "$env:APPDATA\Claude\claude_desktop_config.json"
+    ```
+
+```json
+{
+  "mcpServers": {
+    "wodby": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote@latest",
+        "https://mcp.wodby.com/mcp",
+        "--header",
+        "X-API-KEY: ${WODBY_API_KEY}"
+      ],
+      "env": {
+        "WODBY_API_KEY": "your-api-key"
+      }
+    }
+  }
+}
+```
+
+Save the file and restart Claude Desktop.
+
+### Claude Code
+
+Claude Code can connect to remote HTTP MCP servers directly. Add Wodby with a static header:
+
+```bash
+claude mcp add-json wodby '{"type":"http","url":"https://mcp.wodby.com/mcp","headers":{"X-API-KEY":"your-api-key"}}' --scope user
+```
+
+Then verify the server:
+
+```bash
+claude mcp list
+claude mcp get wodby
+```
+
+### Codex
+
+Codex stores MCP servers in `~/.codex/config.toml`, or in `.codex/config.toml` for a trusted project. Use
+`env_http_headers` to read the Wodby API key from the environment instead of storing the key directly in the file:
+
+```toml
+[mcp_servers.wodby]
+url = "https://mcp.wodby.com/mcp"
+env_http_headers = { "X-API-KEY" = "WODBY_API_KEY" }
+```
+
+Set the key before starting Codex:
+
+```bash
+export WODBY_API_KEY=...
+codex
+```
+
+In the Codex terminal UI, use `/mcp` to check connected MCP servers.
+
+## Before GA
+
+The early-access notice will be removed after the MCP server has:
+
+- OAuth-based remote authentication for hosted clients that cannot send custom API-key headers.
+- Stable client validation with Claude Desktop, Claude Code, Codex, and other common MCP hosts.
+- Tool coverage for the main Dashboard workflows: create and configure apps, deploy/build, configure app services,
+  manage routes and ports, run backups/imports, update stacks, and upgrade app instance stacks.
+- A documented permission model for read, operate, configure, provision, destructive, and sensitive tools.
+- Redaction and no-echo guarantees for secret values, tokens, credentials, and environment variable values.
+- Tool-call audit logs, rate limits, metrics, and production alerts.
+- Conformance tests for MCP initialization, tool listing, tool calls, protocol-version handling, and error mapping.
+
 ## Available tools
 
 Read-only discovery and diagnostic tools:
