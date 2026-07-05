@@ -328,5 +328,4 @@ nav:
       - API: dev/api.md
       - SDKs: dev/sdks.md
       - API keys: dev/api-keys.md
-      - MCP: dev/mcp.md
       - CLI: dev/cli.md

@@ -86,12 +86,10 @@ $config = \Wodby\Api\Configuration::getDefaultConfiguration()
 - Use the 2.0 REST API directly for simple scripts, debugging, and unsupported languages.
 - Generate a client from the 2.0 OpenAPI schema when you want typed models for new `/v1` integrations.
 - Use the official SDK packages when you want generated models and request helpers in a supported language.
-- Use [Wodby MCP](mcp.md) when an AI assistant needs Wodby context or deployment diagnostics.
 - Use the [Wodby CLI](cli.md) for CI build, release, and deploy workflows.
 
 ## Related pages
 
 - [Wodby API](api.md)
-- [Wodby MCP](mcp.md)
 - [API keys](api-keys.md)
 - [Wodby CLI](cli.md)

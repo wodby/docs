@@ -27,7 +27,6 @@ Use API keys for external automation against the public REST API. Send the key i
 
 - authenticating automation against the Wodby API
 - using the [Wodby CLI](cli.md)
-- connecting early-access [Wodby MCP](mcp.md) clients that support custom request headers
 - scripting organization-specific operational tasks
 
 ## Header example
@@ -51,6 +50,5 @@ See [User API keys](../user/api-keys.md) for key management in the dashboard.
 ## Related pages
 
 - [Wodby API](api.md)
-- [Wodby MCP](mcp.md)
 - [Wodby CLI](cli.md)
 - [User API keys](../user/api-keys.md)

@@ -85,13 +85,9 @@ Use the REST API when you want to:
 
 Generate a client from the OpenAPI schema when you want typed models for new `/v1` integrations. Existing SDKs for the older v3 API surface are listed under [SDKs](sdks.md).
 
-Use [Wodby MCP](mcp.md) instead when an AI assistant needs to inspect Wodby context or diagnose deployments through a
-tool interface.
-
 ## Related pages
 
 - [API keys](api-keys.md)
-- [Wodby MCP](mcp.md)
 - [SDKs](sdks.md)
 - [Wodby CLI](cli.md)
 - [User API keys](../user/api-keys.md)
