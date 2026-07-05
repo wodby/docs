@@ -583,6 +583,12 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_upgrade-infra.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_upgrade-infra-apps.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_completion.html</loc>
   </url>
   <url>
@@ -1090,9 +1096,6 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_current.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_delete.html</loc>
-  </url>
-  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_get.html</loc>
   </url>
   <url>
@@ -1193,6 +1196,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_duplicate.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_get.html</loc>
@@ -1369,6 +1375,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_settings_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_sync-origin.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_update-from-git.html</loc>
   </url>
   <url>
@@ -1412,6 +1421,15 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_task_wait.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_user.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_user_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_user_update.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_version.html</loc>
