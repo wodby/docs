@@ -1,6 +1,6 @@
 # Instances
 
-``` mermaid
+```mermaid
 flowchart TD
     subgraph App["<div style='margin-top:10px; white-space: nowrap;'>App</div>"]
         subgraph group[ ]

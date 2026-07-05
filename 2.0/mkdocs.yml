@@ -40,6 +40,7 @@ theme:
     - search.highlight
     - search.share
     - search.suggest
+    - content.tabs.link
     - toc.follow
   palette:
     - media: "(prefers-color-scheme: light)"
@@ -78,6 +79,8 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.smartsymbols
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
