@@ -61,12 +61,16 @@ In the dashboard, open `Stacks`, select the stack, and go to `Operations`. Servi
 the `Services auto update` card. For Git-backed stacks, this card is shown separately from `Auto update from git`, which
 controls Git imports.
 
-Wodby catalog stacks added from the catalog enable this setting automatically. They update all stack services except
-disabled services, and use semantic-version mode with patch and minor updates allowed and major updates disabled.
+Wodby catalog stacks added from the catalog enable this setting by default unless you turn off `Services auto update`
+in the `Add stack` form. Their default policy updates stateless services only, uses semantic-version mode, allows patch
+and minor updates, and disables major updates.
 
 Pinned stack services are skipped by manual and automatic service revision updates. They do not make the stack
 `Outdated`. Pin a stack service when it should stay on its current service revision until you explicitly unpin it or
 update the stack from Git with a different service reference.
+
+Disabled stack services are still considered by manual and automatic service revision updates. If a disabled service
+should stay on its current service revision, pin it.
 
 The stack auto-update policy controls which service revision changes are allowed. Choose the service update scope and
 one version mode: semantic-version updates, non-semver updates, or revision updates.
@@ -75,16 +79,15 @@ one version mode: semantic-version updates, non-semver updates, or revision upda
 | --- | --- |
 | Update stateless only | Update only services whose target manifests have no database, StatefulSet workloads, or owned persistent volumes. |
 | Update all services | Allow stateful and stateless services. Use this only when the stack can accept automatic stateful-service changes. |
-| Include disabled services | Also update stack services that are disabled in the stack. |
 | Semantic-version updates | Update only when the current and target service versions are valid semantic versions and the target is newer. |
 | Non-semver updates | Update only when the target service version is non-empty, non-semver, and different from the current service version. |
 | Revision updates | Update whenever the target service revision changed, even when the service version string stayed the same. |
 | Allow patch, minor, or major versions | In semantic-version mode, limit updates by version segment. |
 
-By default, the saved policy allows patch and minor semantic-version updates for stateless services. It does not include
-disabled stack services, major version updates, or non-semver version changes unless you enable those options. When you
-enable service revision auto-update for a Git-backed stack in the dashboard, `Update all services` is selected by
-default; review the scope before saving if the stack should update only stateless services.
+By default, the saved policy allows patch and minor semantic-version updates for stateless services. It does not allow
+major version updates or non-semver version changes unless you enable those options. When you enable service revision
+auto-update for a Git-backed stack in the dashboard, `Update stateless only` is selected by default; review the scope
+before saving if the stack can accept automatic stateful-service changes.
 
 For the `Update stateless only` scope, a service that mounts storage from another service is not treated as the storage
 owner. Volumes that borrow storage with `from` or delegate storage to a linked storage service with `shared` and `link`
@@ -190,10 +193,10 @@ When origin auto-sync is enabled, Wodby can create a new stack revision after th
 revision. The first check is revision-based: if your stack still points to an older origin revision, it becomes a
 candidate for sync.
 
-For custom copied catalog stacks, origin auto-sync is disabled by default. Wodby catalog stacks added from the catalog
-enable origin auto-sync automatically with semantic-version mode, patch and minor updates allowed, major updates
-disabled, and no deletion options. Origin auto-sync is available only for stacks that have an origin stack revision and
-are not Git-backed.
+When you add a Wodby catalog stack, the `Add stack` form shows `Auto sync with origin` enabled by default. Turning that
+switch off creates the stack with origin auto-sync disabled. When enabled by default, origin auto-sync uses
+semantic-version mode with patch and minor updates allowed, major updates disabled, and no deletion options. Origin
+auto-sync is available only for stacks that have an origin stack revision and are not Git-backed.
 
 In the dashboard, origin auto-sync settings are shown in the `Auto sync with origin stack` card next to
 `Services auto update`.

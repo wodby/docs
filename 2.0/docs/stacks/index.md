@@ -28,6 +28,9 @@ After creation, all three paths produce regular versioned stacks. You can adjust
 
 Use `Add stack` on a public catalog stack to copy it into your organization. The copied stack can be customized and
 deployed like any other stack, and it keeps an origin so you can later [sync catalog changes](updates.md#sync-with-origin).
+The add form lets you choose whether `Services auto update` and `Auto sync with origin` start enabled. Both switches are
+enabled by default for Wodby catalog stacks; turn either one off before adding the stack if you want to review those
+updates manually first.
 
 Use `Duplicate stack` on an owned stack to create a separate stack copy. The duplicate is independent from the original
 stack, so later changes to one stack do not change the other. When you duplicate a Git-backed stack, the duplicate is
