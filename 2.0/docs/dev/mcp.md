@@ -22,9 +22,16 @@ the Dashboard. Sign in, choose the organization to grant, and approve the reques
 
 Wodby currently exposes these MCP OAuth scopes:
 
-- `mcp:read` for discovery, diagnostics, deployment status, task status, and logs.
-- `mcp:operate` for deployments, builds, backups, imports, stack operations, cluster upgrade operations, and other
-  task-backed actions.
+- `mcp:read` for discovery, diagnostics, deployment status, task status, bounded metrics, pod status, and logs.
+- `mcp:operate` for task-backed operations such as deployments, builds, backups, cron runs, app service actions, and
+  task repeats.
+- `mcp:configure` for settings, metadata, stack configuration, and resource configuration.
+- `mcp:provision` for creating infrastructure and resource objects.
+- `mcp:destructive` for deletes, cancellations, destructive imports, and high-impact upgrades.
+- `mcp:sensitive` for submitting secret or credential values. Sensitive values are not returned in MCP responses.
+
+Default OAuth grants request all scopes except `mcp:sensitive`. Tools that use sensitive input, such as database user
+passwords, require a client to explicitly request `mcp:sensitive`.
 
 OAuth grants are organization-scoped and run with the permissions of the Wodby user who approved them.
 
@@ -168,7 +175,11 @@ codex
 
 ## Available tools
 
-Read-only discovery and diagnostic tools:
+Wodby MCP tools are grouped by scope. Destructive and high-impact tools also require a `confirm: true` argument.
+
+### Read tools
+
+These tools require `mcp:read` when using OAuth.
 
 | Tool | Use |
 | --- | --- |
@@ -176,16 +187,40 @@ Read-only discovery and diagnostic tools:
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization. |
 | `list_apps` | List apps in an organization, optionally filtered by project. |
+| `get_app` | Get an app by ID. |
 | `find_environment` | Find an app instance by organization, app name, and instance name. |
 | `list_app_instances` | List app instances with optional project, app, cluster, and status filters. |
+| `get_app_instance` | Get an app instance by ID. |
 | `list_app_services` | List services for an app instance. |
+| `get_app_service` | Get an app service by ID. |
+| `list_app_builds` | List recent builds for an app instance. |
+| `get_app_build` | Get an app build by ID. |
 | `list_recent_deployments` | List recent deployments for an app instance. |
 | `get_deployment` | Get deployment status, task, and service deployment details. |
 | `get_task` | Get task jobs and steps. |
 | `get_task_step_logs` | Get recent inline logs for a task step. |
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
+| `list_clusters` | List clusters in an organization. |
+| `get_cluster` | Get a cluster by ID. |
+| `get_cluster_metrics` | Get a current cluster metrics summary. |
+| `list_cluster_node_metrics` | List node metrics for a cluster. |
+| `list_databases` | List databases in an organization. |
+| `get_database` | Get a database by ID. |
+| `list_database_dbs` | List DBs inside a database. |
+| `list_database_users` | List database users without returning passwords. |
+| `list_public_services` | List public service catalog items. |
+| `list_services` | List services in an organization. |
+| `get_service` | Get a service by name and optional revision number. |
+| `list_public_stacks` | List public stack catalog items. |
+| `list_stacks` | List stacks in an organization. |
+| `get_stack` | Get a stack by name and optional revision number. |
+| `get_app_service_pods` | Get Kubernetes pod status for an app service. |
+| `get_app_services_metrics` | Get current metrics for one or more app services. |
+| `get_app_instances_metrics` | Get current metrics for one or more app instances. |
 
-Operational tools:
+### Operation tools
+
+These tools require `mcp:operate` when using OAuth.
 
 | Tool | Use |
 | --- | --- |
@@ -200,12 +235,56 @@ Operational tools:
 | `update_current_user` | Update the authenticated user's display name. |
 | `duplicate_stack` | Duplicate a stack into an organization and optional project. |
 
-Destructive or higher-impact tools require a `confirm: true` argument:
+### Configuration tools
+
+These tools require `mcp:configure` when using OAuth. Tools marked here with `confirm: true` make high-impact
+configuration changes.
+
+| Tool | Use |
+| --- | --- |
+| `update_cluster` | Update a cluster title. |
+| `update_cluster_settings` | Update cluster settings such as automatic infrastructure upgrades. Requires `confirm: true`. |
+| `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
+| `update_database` | Update a database title. |
+| `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
+| `update_service_from_git` | Update a service from its Git source. Requires `confirm: true`. |
+| `update_stack_from_git` | Update a stack from its Git source. Requires `confirm: true`. |
+
+### Provisioning tools
+
+These tools require `mcp:provision` when using OAuth and require `confirm: true`.
+
+| Tool | Use |
+| --- | --- |
+| `create_cluster` | Create a managed cluster. |
+| `create_k3s_cluster` | Create a self-hosted k3s cluster record. |
+| `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. |
+| `scale_cluster` | Scale a cluster node pool. |
+| `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
+| `create_database_db` | Create a DB inside a database. |
+| `import_services` | Import services from a Git repository. |
+| `import_stacks` | Import stacks from a Git repository. |
+
+### Sensitive tools
+
+These tools require `mcp:sensitive` in addition to their other scope and require `confirm: true`.
+
+| Tool | Use |
+| --- | --- |
+| `create_database_user` | Create a database user by submitting a password. The password is not returned in the MCP response. |
+
+### Destructive tools
+
+These tools require `mcp:destructive` when using OAuth and require `confirm: true`.
 
 | Tool | Use |
 | --- | --- |
 | `create_import` | Import data into an app service or database DB. |
 | `cancel_task` | Cancel a running task. |
+| `delete_cluster` | Delete a cluster. |
+| `delete_database` | Delete a database. |
+| `delete_database_db` | Delete a DB inside a database. |
+| `delete_database_user` | Delete a database user. |
 | `update_app_instance_settings` | Update app-instance settings such as automatic stack upgrades. |
 | `update_stack_service` | Update selected stack-service settings. |
 | `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
@@ -229,6 +308,9 @@ After connecting the MCP server, ask your AI client questions such as:
 - `Create a build for app service 456.`
 - `Redeploy deployment 789.`
 - `Run cron schedule 123.`
+- `List clusters in org 123 and summarize nodes that are not ready.`
+- `Show databases in project 456 and list their DBs and users.`
+- `Import services from Git repository repo-abc on branch main.`
 
 ## Choosing MCP, API, SDKs, or CLI
 
