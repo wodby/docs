@@ -61,6 +61,9 @@ Rollback is not always possible. Wodby does not attempt rollback when:
 If rollback is not attempted, the failed release state remains in the cluster. If rollback is attempted but fails, the
 deployment remains failed and the task logs include the rollback error.
 
+Deployment history and deployment details show rollback status when Wodby rolled back successfully or when rollback
+failed. Deployments without a rollback do not show a rollback status.
+
 Failed deployment notifications include whether Wodby rolled back, did not roll back, or attempted rollback and failed.
 
 ### Force deployment
