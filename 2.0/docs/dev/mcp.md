@@ -173,6 +173,114 @@ export WODBY_API_KEY=...
 codex
 ```
 
+## Using Wodby in your MCP client
+
+After the server is connected, start a normal chat in your MCP client. In most clients, you do not call MCP tool names
+directly. Ask for the Wodby information or action you want, and the client chooses the matching Wodby tool calls.
+
+For Claude Code, start a chat after adding and logging in to the server:
+
+```bash
+claude
+```
+
+For Codex, start the terminal UI after adding and logging in to the server:
+
+```bash
+codex
+```
+
+In Codex, run `/mcp` to verify that `wodby` is connected. If the assistant does not use Wodby automatically, name the
+server in the prompt:
+
+```text
+Use Wodby to list my organizations and projects.
+```
+
+A practical workflow is:
+
+1. Ask Wodby for the organization, project, app, app instance, service, cluster, or database IDs you need.
+2. Ask for a read-only summary or diagnosis before making changes.
+3. Ask the assistant to explain the intended operation.
+4. Approve the Wodby tool call in your client when you are ready to run it.
+
+### Discovery examples
+
+```text
+Use Wodby to list my organizations and projects.
+```
+
+```text
+Find the production environment for the app named example in org 123.
+```
+
+```text
+List app instances in project 456 that are not running or have a failed latest deployment.
+```
+
+### Diagnostics examples
+
+```text
+Use Wodby to explain why deployment 789 failed and include the failed task step logs.
+```
+
+```text
+Show pods and current service metrics for app instance 456, then summarize anything unhealthy.
+```
+
+```text
+Check the latest builds and deployments for app instance 456 and tell me what changed most recently.
+```
+
+### Operation examples
+
+```text
+Create builds for the PHP and Node app services in app instance 456, then show the task status.
+```
+
+```text
+Redeploy the latest successful deployment for app instance 456.
+```
+
+```text
+Run cron schedule 123 and follow the created task until it finishes.
+```
+
+```text
+Create a backup for database DB db-abc before the next deployment.
+```
+
+### Cluster, database, and catalog examples
+
+```text
+List clusters in org 123, summarize node health, and recommend whether cluster cluster-abc needs scaling.
+```
+
+```text
+Scale cluster cluster-abc to min 2 and max 5 nodes. Explain the change first, then use confirm=true if I approve.
+```
+
+```text
+Import services from Git repository repo-abc on branch main. Show the import target before using confirm=true.
+```
+
+```text
+Create database DB app_prod inside database db-abc. Ask before using confirm=true.
+```
+
+### Sensitive and destructive examples
+
+Sensitive actions, such as creating a database user with a password, require the `mcp:sensitive` OAuth scope. Destructive
+and other high-impact actions require `confirm: true` in the tool call.
+
+```text
+Create database user app_rw for database db-abc with grants to DB app_prod. Request the password from me first and do not print it back.
+```
+
+```text
+Delete database DB old_test from database db-abc. Show exactly what will be deleted and ask me before using confirm=true.
+```
+
 ## Available tools
 
 Wodby MCP tools are grouped by scope. Destructive and high-impact tools also require a `confirm: true` argument.
@@ -294,23 +402,6 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 
 MCP responses are compact summaries designed for AI agents. They do not expose secret-bearing values such as
 environment variable values, service tokens, registry credentials, or integration credentials.
-
-## Example prompts
-
-After connecting the MCP server, ask your AI client questions such as:
-
-- `List my Wodby organizations.`
-- `Find the production instance for app example in org 123.`
-- `Show recent deployments for app instance 456.`
-- `Why did deployment 789 fail?`
-- `Get logs for the failed task step.`
-- `List services in app instance 456 and summarize which ones need redeploy.`
-- `Create a build for app service 456.`
-- `Redeploy deployment 789.`
-- `Run cron schedule 123.`
-- `List clusters in org 123 and summarize nodes that are not ready.`
-- `Show databases in project 456 and list their DBs and users.`
-- `Import services from Git repository repo-abc on branch main.`
 
 ## Choosing MCP, API, SDKs, or CLI
 
