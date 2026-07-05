@@ -7,7 +7,7 @@ Use `wodby ci deploy [SERVICE]...` to deploy previously released images. If you 
 Each CI deployment is associated with the Wodby build created during `wodby ci init`. You can review the deployment
 history, including failed deployments, from `Apps > [App] > [Instance] > CI/CD > Deploys`.
 
-Deployments are transactional by default. If one of the app service deployments fails, Wodby rolls back the entire deployment.
+CI-triggered deployments use the same [rollback behavior](../apps/deploys.md#deployment-rollback) as manual deployments.
 
 ## Post-deployment scripts
 
