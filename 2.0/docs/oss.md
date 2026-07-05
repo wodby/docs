@@ -1,8 +1,8 @@
 # Open Source
 
-We at Wodby try to open-source most of our work. Our Docker images are public and available at
-https://hub.docker.com/r/wodby. This documentation, Wodby 2.0 definitions, Helm charts, and docker4x projects for local
-development are available publicly on GitHub: https://github.com/wodby
+Wodby publishes the core building blocks for Wodby 2.0 on GitHub. Public Docker images are available on
+[Docker Hub](https://hub.docker.com/r/wodby), and source repositories are available under the
+[Wodby GitHub organization](https://github.com/wodby).
 
 ## Wodby 2.0
 
@@ -15,11 +15,5 @@ development are available publicly on GitHub: https://github.com/wodby
 
 ## Projects
 
-- [Documentation](https://github.com/wodby/docs)
-- [Wodby CLI](https://github.com/wodby/wodby-cli)
-- [Docker4Drupal](https://github.com/wodby/docker4drupal)
-- [Docker4WordPress](https://github.com/wodby/docker4wordpress)
-- [Docker4PHP](https://github.com/wodby/docker4php)
-- [Docker4Ruby](https://github.com/wodby/docker4ruby)
-- [Docker4Python](https://github.com/wodby/docker4python)
-- [Docker4Laravel](https://github.com/wodby/docker4laravel)
+- [Documentation](https://github.com/wodby/docs) contains the public Wodby documentation.
+- [Wodby CLI](https://github.com/wodby/wodby-cli) provides command-line automation for Wodby 2.0 resources and CI workflows.
