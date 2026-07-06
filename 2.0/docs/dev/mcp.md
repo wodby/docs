@@ -268,6 +268,20 @@ Import services from Git repository repo-abc on branch main. Show the import tar
 Create database DB app_prod inside database db-abc. Ask before using confirm=true.
 ```
 
+### Service and stack manifest examples
+
+Wodby MCP can help an assistant draft, validate, and create custom Wodby services and stacks from manifests. Ask the
+assistant to fetch the Wodby schema and examples first, validate the generated manifest, and show you the result before
+creating it. Creation requires `confirm: true`.
+
+```text
+Generate a Wodby service manifest for this Helm chart URL, validate it with Wodby, and show the manifest before creating it in org 123.
+```
+
+```text
+Create a Wodby stack manifest that uses service my-service and validates against the Wodby stack schema. Ask before using confirm=true.
+```
+
 ### Sensitive and destructive examples
 
 Sensitive actions, such as creating a database user with a password, require the `mcp:sensitive` OAuth scope. Destructive
@@ -319,9 +333,15 @@ These tools require `mcp:read` when using OAuth.
 | `list_public_services` | List public service catalog items. |
 | `list_services` | List services in an organization. |
 | `get_service` | Get a service by name and optional revision number. |
+| `get_service_schema` | Get the Wodby service manifest JSON schema. |
+| `get_service_examples` | Get concise Wodby service manifest examples. |
+| `validate_service_manifest` | Validate a Wodby service manifest without creating it. |
 | `list_public_stacks` | List public stack catalog items. |
 | `list_stacks` | List stacks in an organization. |
 | `get_stack` | Get a stack by name and optional revision number. |
+| `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
+| `get_stack_examples` | Get concise Wodby stack manifest examples. |
+| `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
 | `get_app_service_pods` | Get Kubernetes pod status for an app service. |
 | `get_app_services_metrics` | Get current metrics for one or more app services. |
 | `get_app_instances_metrics` | Get current metrics for one or more app instances. |
@@ -372,6 +392,8 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
 | `import_stacks` | Import stacks from a Git repository. |
+| `create_service_from_manifest` | Create a custom service from a Wodby service manifest. |
+| `create_stack_from_manifest` | Create a custom stack from a Wodby stack manifest. |
 
 ### Sensitive tools
 
