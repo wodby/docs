@@ -204,9 +204,14 @@ A practical workflow is:
 2. Ask for a read-only summary or diagnosis before making changes.
 3. Ask the assistant to explain the intended operation.
 4. Approve the Wodby tool call in your client when you are ready to run it.
+5. For task-backed operations, ask the assistant to follow the returned task until it finishes.
 
 Many tools still accept IDs when you have them. For app workflows, MCP tools can usually resolve common selectors such
 as `org`, `project`, `app`, `instance`, `app_service`, `cluster`, `environment`, `stack`, and cron schedule title.
+
+Task-backed tools return `suggestedCalls` in their structured response when there is an obvious next step. For example,
+build creation suggests waiting for the build task, deployment creation suggests waiting for the deployment task, and a
+finished build task can suggest waiting for the deployment task that deploys that build.
 
 ### Discovery examples
 
@@ -256,6 +261,10 @@ Get current metrics for the php and nginx services in the production instance of
 
 ```text
 Create builds for the php and node app services in the production instance of app example, then show the task status.
+```
+
+```text
+Create a build for the php service in the production instance of app example, wait for the build task, then follow the deployment task if Wodby creates one for that build.
 ```
 
 ```text
@@ -337,7 +346,7 @@ These tools require `mcp:read` when using OAuth.
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
 | `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
-| `show_app_status` | Return a dashboard-style app summary with instances, services, latest build, latest deployment, and operational needs. |
+| `show_app_status` | Return a dashboard-style app summary with instances, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
 | `get_app` | Get an app by ID. |
 | `find_environment` | Find an app instance by organization, app name, and instance name. |
 | `list_app_instances` | List app instances with optional project, app, cluster, and status filters by names or IDs. |
@@ -349,8 +358,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_app_build` | Get an app build by ID. |
 | `list_recent_deployments` | List recent deployments for an app instance by ID or organization/app/instance names. |
 | `get_deployment` | Get deployment status, task, and service deployment details. |
-| `get_task` | Get task jobs and steps. |
-| `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs. |
+| `get_task` | Get task jobs and steps, with follow-up suggestions when task results point to builds or deployments. |
+| `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs and follow-up suggestions. |
 | `get_task_logs` | Get structured task job and step logs. |
 | `get_task_step_logs` | Get recent inline logs for a task step. |
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
@@ -384,10 +393,10 @@ These tools require `mcp:operate` when using OAuth.
 
 | Tool | Use |
 | --- | --- |
-| `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app instance selector. |
+| `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app instance selector, and suggest waiting for its task. |
 | `redeploy_deployment` | Redeploy from an existing deployment. |
 | `deploy_build` | Deploy a completed app build. |
-| `create_builds` | Create builds for one or more app services selected by IDs or by service names with an app instance selector. |
+| `create_builds` | Create builds for one or more app services selected by IDs or by service names with an app instance selector, and suggest waiting for the build task. |
 | `run_app_service_action` | Run a named action on an app service selected by ID or by service name with an app instance selector. |
 | `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
 | `create_backup` | Create a backup for an app service or database DB. |
@@ -420,7 +429,7 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `create_k3s_cluster` | Create a self-hosted k3s cluster record. |
 | `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. |
 | `scale_cluster` | Scale a cluster node pool. |
-| `create_app_from_stack` | Create an app and initial app instance from stack, environment, cluster, organization, and project names or IDs. |
+| `create_app_from_stack` | Create an app and initial app instance from stack, environment, cluster, organization, and project names or IDs, and suggest task/status follow-up calls. |
 | `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
@@ -455,8 +464,10 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `upgrade_cluster_infra` | Upgrade cluster infrastructure. |
 | `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |
 
-MCP responses are compact summaries designed for AI agents. They do not expose secret-bearing values such as
-environment variable values, service tokens, registry credentials, or integration credentials.
+MCP responses are compact summaries designed for AI agents. Some operation and task responses include `suggestedCalls`,
+which are follow-up tool calls the client can use to continue the workflow, such as waiting for a build or deployment
+task. Responses do not expose secret-bearing values such as environment variable values, service tokens, registry
+credentials, or integration credentials.
 
 ## Choosing MCP, API, SDKs, or CLI
 
