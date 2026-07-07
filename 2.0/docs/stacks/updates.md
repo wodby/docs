@@ -79,7 +79,7 @@ one version mode: semantic-version updates, non-semver updates, or revision upda
 | --- | --- |
 | Update stateless only | Update only services whose target manifests have no database, StatefulSet workloads, or owned persistent volumes. |
 | Update all services | Allow stateful and stateless services. Use this only when the stack can accept automatic stateful-service changes. |
-| Semantic-version updates | Update only when the current and target service versions are valid semantic versions and the target is newer. |
+| Semantic-version updates | Update only when the target service version is a stable semantic version. If the current service version is also semantic-version compatible, the target must be newer. If the current version is not semantic-version compatible, Wodby allows the first move to a stable semantic-version target. |
 | Non-semver updates | Update only when the target service version is non-empty, non-semver, and different from the current service version. |
 | Revision updates | Update whenever the target service revision changed, even when the service version string stayed the same. |
 | Allow patch, minor, or major versions | In semantic-version mode, limit updates by version segment. |
@@ -205,7 +205,7 @@ The origin version policy controls which origin revisions are allowed:
 
 | Option | Effect |
 | --- | --- |
-| Semantic-version updates | Sync only when the previously tracked origin version and target origin version are valid semantic versions and the target is newer. |
+| Semantic-version updates | Sync only when the target origin version is a stable semantic version. If the previously tracked origin version is also semantic-version compatible, the target must be newer. If the previously tracked version is not semantic-version compatible, Wodby allows the first move to a stable semantic-version target. |
 | Non-semver updates | Sync only when the target origin version is non-empty, non-semver, and different from the previously tracked origin version. |
 | Allow patch, minor, or major versions | In semantic-version mode, limit updates by version segment. |
 
@@ -213,8 +213,8 @@ The default origin auto-sync version policy uses semantic-version mode with patc
 updates disabled. EOL status does not control origin auto-sync.
 
 If the previously tracked origin version is not semantic-version compatible and the target origin version is semantic
-version compatible, origin auto-sync skips the change in both modes. Semantic-version mode requires both versions to be
-valid semantic versions, and non-semver mode accepts only non-semver target versions.
+version compatible, semantic-version mode allows the sync as the first move to a stable semantic-version target.
+Non-semver mode still skips that change because it accepts only non-semver target versions.
 
 Sync behavior is conservative by default. Without deletion options, missing origin objects are added, and local objects
 that are not present in the origin are preserved.
