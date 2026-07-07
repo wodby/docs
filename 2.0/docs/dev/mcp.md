@@ -206,7 +206,7 @@ A practical workflow is:
 4. Approve the Wodby tool call in your client when you are ready to run it.
 
 Many tools still accept IDs when you have them. For app workflows, MCP tools can usually resolve common selectors such
-as `org`, `project`, `app`, `instance`, `app_service`, `cluster`, `environment`, and `stack`.
+as `org`, `project`, `app`, `instance`, `app_service`, `cluster`, `environment`, `stack`, and cron schedule title.
 
 ### Discovery examples
 
@@ -230,6 +230,10 @@ List app instances in project storefront that are not deployed or have a failed 
 List services for the production instance of app example in organization acme.
 ```
 
+```text
+List cron schedules for the php service in the production instance of app example.
+```
+
 ### Diagnostics examples
 
 ```text
@@ -242,6 +246,10 @@ Show pods and current service metrics for the php service in the production inst
 
 ```text
 Check the latest builds and deployments for the production instance of app example and tell me what changed most recently.
+```
+
+```text
+Get current metrics for the php and nginx services in the production instance of app example.
 ```
 
 ### Operation examples
@@ -259,7 +267,7 @@ Run the clear-cache action on the php app service in the production instance of 
 ```
 
 ```text
-Run cron schedule 123 and follow the created task until it finishes.
+Run the Nightly cleanup cron schedule on the php service in the production instance of app example and follow the created task until it finishes.
 ```
 
 ```text
@@ -336,9 +344,10 @@ These tools require `mcp:read` when using OAuth.
 | `get_app_instance` | Get an app instance by ID. |
 | `list_app_services` | List services for an app instance by app instance ID or organization/app/instance names. |
 | `get_app_service` | Get an app service by ID. |
-| `list_app_builds` | List recent builds for an app instance. |
+| `list_app_service_cron_schedules` | List cron schedules for an app instance or app service by IDs or by organization/app/instance/service names. |
+| `list_app_builds` | List recent builds for an app instance by ID or organization/app/instance names. |
 | `get_app_build` | Get an app build by ID. |
-| `list_recent_deployments` | List recent deployments for an app instance. |
+| `list_recent_deployments` | List recent deployments for an app instance by ID or organization/app/instance names. |
 | `get_deployment` | Get deployment status, task, and service deployment details. |
 | `get_task` | Get task jobs and steps. |
 | `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs. |
@@ -365,8 +374,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
 | `get_stack_examples` | Get concise Wodby stack manifest examples. |
 | `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
-| `get_app_service_pods` | Get Kubernetes pod status for an app service. |
-| `get_app_services_metrics` | Get current metrics for one or more app services. |
+| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app instance selector. |
+| `get_app_services_metrics` | Get current metrics for one or more app services selected by IDs or by service names with an app instance selector. |
 | `get_app_instances_metrics` | Get current metrics for one or more app instances. |
 
 ### Operation tools
@@ -380,7 +389,7 @@ These tools require `mcp:operate` when using OAuth.
 | `deploy_build` | Deploy a completed app build. |
 | `create_builds` | Create builds for one or more app services selected by IDs or by service names with an app instance selector. |
 | `run_app_service_action` | Run a named action on an app service selected by ID or by service name with an app instance selector. |
-| `run_app_service_cron` | Run a cron schedule immediately. |
+| `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
 | `update_current_user` | Update the authenticated user's display name. |
