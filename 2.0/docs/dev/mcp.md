@@ -2,8 +2,8 @@
 
 Wodby exposes a Model Context Protocol (MCP) server for AI assistants and coding agents that need Wodby context.
 
-Use MCP when you want an AI client to inspect Wodby resources, summarize deployment state, or diagnose failed
-operations without manually copying IDs, task logs, and deployment details between tools.
+Use MCP when you want an AI client to inspect Wodby resources, summarize app and deployment state, create or operate
+apps, or diagnose failed operations without manually copying IDs, task logs, and deployment details between tools.
 
 ## Endpoint
 
@@ -199,10 +199,14 @@ Use Wodby to list my organizations and projects.
 
 A practical workflow is:
 
-1. Ask Wodby for the organization, project, app, app instance, service, cluster, or database IDs you need.
+1. Start with names where possible: organization, project, app, app instance, app service, cluster, stack, and
+   environment names are easier for an assistant to use than numeric IDs.
 2. Ask for a read-only summary or diagnosis before making changes.
 3. Ask the assistant to explain the intended operation.
 4. Approve the Wodby tool call in your client when you are ready to run it.
+
+Many tools still accept IDs when you have them. For app workflows, MCP tools can usually resolve common selectors such
+as `org`, `project`, `app`, `instance`, `app_service`, `cluster`, `environment`, and `stack`.
 
 ### Discovery examples
 
@@ -211,11 +215,19 @@ Use Wodby to list my organizations and projects.
 ```
 
 ```text
-Find the production environment for the app named example in org 123.
+Use Wodby to show the status of app example in organization acme.
 ```
 
 ```text
-List app instances in project 456 that are not running or have a failed latest deployment.
+Find the production instance for app example in organization acme.
+```
+
+```text
+List app instances in project storefront that are not deployed or have a failed latest deployment.
+```
+
+```text
+List services for the production instance of app example in organization acme.
 ```
 
 ### Diagnostics examples
@@ -225,21 +237,25 @@ Use Wodby to explain why deployment 789 failed and include the failed task step 
 ```
 
 ```text
-Show pods and current service metrics for app instance 456, then summarize anything unhealthy.
+Show pods and current service metrics for the php service in the production instance of app example, then summarize anything unhealthy.
 ```
 
 ```text
-Check the latest builds and deployments for app instance 456 and tell me what changed most recently.
+Check the latest builds and deployments for the production instance of app example and tell me what changed most recently.
 ```
 
 ### Operation examples
 
 ```text
-Create builds for the PHP and Node app services in app instance 456, then show the task status.
+Create builds for the php and node app services in the production instance of app example, then show the task status.
 ```
 
 ```text
-Redeploy the latest successful deployment for app instance 456.
+Create a deployment for the php and nginx app services in the production instance of app example, then wait for the task and include logs if it fails.
+```
+
+```text
+Run the clear-cache action on the php app service in the production instance of app example.
 ```
 
 ```text
@@ -266,6 +282,10 @@ Import services from Git repository repo-abc on branch main. Show the import tar
 
 ```text
 Create database DB app_prod inside database db-abc. Ask before using confirm=true.
+```
+
+```text
+Create an app named example from stack drupal11 in organization acme, environment production, and cluster main. Explain the resolved inputs before using confirm=true.
 ```
 
 ### Service and stack manifest examples
@@ -307,19 +327,22 @@ These tools require `mcp:read` when using OAuth.
 | --- | --- |
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
-| `list_projects` | List projects in an organization. |
-| `list_apps` | List apps in an organization, optionally filtered by project. |
+| `list_projects` | List projects in an organization by organization name or ID. |
+| `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
+| `show_app_status` | Return a dashboard-style app summary with instances, services, latest build, latest deployment, and operational needs. |
 | `get_app` | Get an app by ID. |
 | `find_environment` | Find an app instance by organization, app name, and instance name. |
-| `list_app_instances` | List app instances with optional project, app, cluster, and status filters. |
+| `list_app_instances` | List app instances with optional project, app, cluster, and status filters by names or IDs. |
 | `get_app_instance` | Get an app instance by ID. |
-| `list_app_services` | List services for an app instance. |
+| `list_app_services` | List services for an app instance by app instance ID or organization/app/instance names. |
 | `get_app_service` | Get an app service by ID. |
 | `list_app_builds` | List recent builds for an app instance. |
 | `get_app_build` | Get an app build by ID. |
 | `list_recent_deployments` | List recent deployments for an app instance. |
 | `get_deployment` | Get deployment status, task, and service deployment details. |
 | `get_task` | Get task jobs and steps. |
+| `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs. |
+| `get_task_logs` | Get structured task job and step logs. |
 | `get_task_step_logs` | Get recent inline logs for a task step. |
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
 | `list_clusters` | List clusters in an organization. |
@@ -352,11 +375,11 @@ These tools require `mcp:operate` when using OAuth.
 
 | Tool | Use |
 | --- | --- |
-| `create_deployment` | Create a deployment for one or more app services. |
+| `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app instance selector. |
 | `redeploy_deployment` | Redeploy from an existing deployment. |
 | `deploy_build` | Deploy a completed app build. |
-| `create_builds` | Create builds for one or more app services. |
-| `run_app_service_action` | Run a named action on an app service. |
+| `create_builds` | Create builds for one or more app services selected by IDs or by service names with an app instance selector. |
+| `run_app_service_action` | Run a named action on an app service selected by ID or by service name with an app instance selector. |
 | `run_app_service_cron` | Run a cron schedule immediately. |
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
@@ -388,6 +411,7 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `create_k3s_cluster` | Create a self-hosted k3s cluster record. |
 | `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. |
 | `scale_cluster` | Scale a cluster node pool. |
+| `create_app_from_stack` | Create an app and initial app instance from stack, environment, cluster, organization, and project names or IDs. |
 | `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
