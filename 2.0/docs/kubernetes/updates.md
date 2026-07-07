@@ -48,6 +48,10 @@ In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure
 `Wodby infrastructure` card shows the current infrastructure version, the target version when an upgrade is available,
 and a manual upgrade button. The manual button is disabled when no infrastructure version upgrade is available.
 
+If the latest infrastructure version upgrade or infrastructure app stack upgrade failed and can be retried, the
+dashboard shows `Retry available` and replaces the normal upgrade button with a re-run button for the failed task. Open
+the failed task from the dialog when you need to review logs before re-running it.
+
 Manual infrastructure version upgrades and manual infrastructure app stack upgrades are not available for Wodby Cloud
 clusters. Wodby Cloud infrastructure is operated by Wodby and can still be upgraded automatically by Wodby.
 
