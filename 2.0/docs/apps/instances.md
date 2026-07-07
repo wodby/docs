@@ -46,14 +46,14 @@ You add or remove instances from `Apps > [App] > Instances`.
 
 An app instance can move to `errored` when Wodby cannot finish creating it or cannot finish deletion cleanup.
 
-Errored instances remain visible so you can inspect task logs and recover or delete the instance. After fixing the
-underlying problem, retry recovery with a new build, a new deployment, or redeploy an existing deployment. If the
-instance cannot be recovered, delete it and create a new one.
+Errored instances remain visible so you can inspect task logs and delete the instance. Operations that would create new
+runtime work or change deployable configuration are blocked, including new builds and deployments, stack upgrades,
+service configuration changes, route and auth changes, app-scoped backups, cron jobs, shell sessions, live logs, pod
+queries, and container-backed database changes. Automatic app-scoped schedules such as backups, cron jobs, and
+certificate renewals skip errored instances.
 
-Configuration and runtime operations remain blocked while the instance is errored. This includes stack upgrades, service
-configuration changes, route and auth changes, app-scoped backups, cron jobs, shell sessions, live logs, pod queries, and
-container-backed database changes. Automatic app-scoped schedules such as backups, cron jobs, and certificate renewals
-skip errored instances.
+Review the failed task to find the cause. After fixing the underlying problem, delete the errored instance and create a
+new one.
 
 ## Related pages
 
