@@ -703,6 +703,18 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_env_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_helm.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_helm_inspect.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_helm_scaffold-service.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_helm_scaffold-stack.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_import.html</loc>
   </url>
   <url>
@@ -1168,6 +1180,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_service.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_service_create-from-manifest.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_service_get.html</loc>
   </url>
   <url>
@@ -1195,7 +1210,13 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_service_settings_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_service_validate-manifest.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_create-from-manifest.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_duplicate.html</loc>
@@ -1379,6 +1400,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_update-from-git.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_validate-manifest.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_task.html</loc>
