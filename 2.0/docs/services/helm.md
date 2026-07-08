@@ -54,3 +54,6 @@ stateful and stateless charts.
 
 Helm chart information and default Helm values are defined under the [`helm` section](template.md#helm) in a service
 template.
+
+To generate a service manifest from an existing chart, see
+[Create a service from a Helm chart](create-from-helm.md).

@@ -39,6 +39,10 @@ See [service types](types.md) for details.
 
 Custom services imported from git are defined by a template. See the [template reference](template.md).
 
+## [Create from a Helm chart](create-from-helm.md)
+
+Use the Wodby CLI to inspect a Helm chart, scaffold a service manifest, validate it, and create a custom service.
+
 ## Updates
 
 Services imported from Git can be updated from their source repository manually or automatically. See

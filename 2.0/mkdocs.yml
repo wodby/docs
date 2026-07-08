@@ -216,6 +216,7 @@ nav:
       - Overview: services/index.md
       - Updates: services/updates.md
       - Template: services/template.md
+      - Create from Helm chart: services/create-from-helm.md
       - Types: services/types.md
       - Endpoints: services/endpoints.md
       - Links: services/links.md
