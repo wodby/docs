@@ -213,6 +213,12 @@ Task-backed tools return `suggestedCalls` in their structured response when ther
 build creation suggests waiting for the build task, deployment creation suggests waiting for the deployment task, and a
 finished build task can suggest waiting for the deployment task that deploys that build.
 
+For creation flows, Wodby MCP separates preparation from execution. Preparation tools resolve names, apply safe defaults,
+and return structured questions for choices that should not be guessed, such as which cluster to deploy to, whether a
+Wodby Cloud cluster should be demo or persistent, cloud provider location and size, required service integrations, or
+required build source settings. Creation tools still require `confirm: true`; if required inputs are unresolved, they
+return the same questions instead of creating resources.
+
 ### Discovery examples
 
 ```text
@@ -305,6 +311,18 @@ Create database DB app_prod inside database db-abc. Ask before using confirm=tru
 Create an app named example from stack drupal11 in organization acme, environment production, and cluster main. Explain the resolved inputs before using confirm=true.
 ```
 
+```text
+Create an app from stack drupal11 in organization acme. Use defaults where safe and ask me which cluster to deploy it to.
+```
+
+```text
+Add a staging instance to app example. Use the app's current stack by default and ask where it should be deployed.
+```
+
+```text
+Create a Wodby Cloud cluster for organization acme. Ask whether it should be demo or persistent before using confirm=true.
+```
+
 ### Service and stack manifest examples
 
 Wodby MCP can help an assistant draft, validate, and create custom Wodby services and stacks from manifests. Ask the
@@ -345,12 +363,16 @@ These tools require `mcp:read` when using OAuth.
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
+| `list_envs` | List environments in an organization for app and app-instance creation. |
+| `list_integrations` | List integrations, optionally filtered by type, status, project, or provider labels. |
 | `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
 | `show_app_status` | Return a dashboard-style app summary with instances, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
 | `get_app` | Get an app by ID. |
 | `find_environment` | Find an app instance by organization, app name, and instance name. |
 | `list_app_instances` | List app instances with optional project, app, cluster, and status filters by names or IDs. |
 | `get_app_instance` | Get an app instance by ID. |
+| `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app instance. This does not create anything. |
+| `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app instance in an existing app. This does not create anything. |
 | `list_app_services` | List services for an app instance by app instance ID or organization/app/instance names. |
 | `get_app_service` | Get an app service by ID. |
 | `list_app_service_cron_schedules` | List cron schedules for an app instance or app service by IDs or by organization/app/instance/service names. |
@@ -365,6 +387,9 @@ These tools require `mcp:read` when using OAuth.
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
 | `list_clusters` | List clusters in an organization. |
 | `get_cluster` | Get a cluster by ID. |
+| `get_kubernetes_cluster_options` | Get provider-backed Kubernetes regions or zones, machine types, versions, and settings for a Kubernetes integration. |
+| `get_wodby_cloud_options` | Get Wodby Cloud regions, machine types, pricing, and creation notes. |
+| `prepare_cluster_creation` | Resolve defaults and return missing questions for creating managed, k3s, demo, or Wodby Cloud clusters. This does not create anything. |
 | `get_cluster_metrics` | Get a current cluster metrics summary. |
 | `list_cluster_node_metrics` | List node metrics for a cluster. |
 | `list_databases` | List databases in an organization. |
@@ -425,11 +450,12 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 
 | Tool | Use |
 | --- | --- |
-| `create_cluster` | Create a managed cluster. |
+| `create_cluster` | Create a managed cluster. Minimal input is prepared with defaults; unresolved integration, location, sizing, or billing choices are returned as questions. |
 | `create_k3s_cluster` | Create a self-hosted k3s cluster record. |
-| `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. |
+| `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. If demo or sizing choices are unresolved, they are returned as questions. |
 | `scale_cluster` | Scale a cluster node pool. |
-| `create_app_from_stack` | Create an app and initial app instance from stack, environment, cluster, organization, and project names or IDs, and suggest task/status follow-up calls. |
+| `create_app_from_stack` | Create an app and initial app instance from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_instance_from_stack` | Create an app instance in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
 | `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
