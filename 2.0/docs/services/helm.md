@@ -56,4 +56,4 @@ Helm chart information and default Helm values are defined under the [`helm` sec
 template.
 
 To generate a service manifest from an existing chart, see
-[Create a service from a Helm chart](create-from-helm.md).
+[Create from a Helm chart](create.md#create-from-a-helm-chart).

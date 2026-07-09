@@ -10,7 +10,7 @@ Most services deploy one or more containers in the cluster. External services ar
 own containers in Wodby and instead model a connection to software managed elsewhere.
 
 Services are versioned. Each change creates a new service revision, and stacks reference specific revisions. Custom
-services imported from git are defined by a [template](template.md).
+services are defined by a [template](template.md).
 
 Public Wodby services are listed in [`wodby/services`](https://github.com/wodby/services), with links to their source
 repositories. To create a new service in Git, start from the [`wodby/service`](https://github.com/wodby/service)
@@ -35,13 +35,14 @@ Every service has a type that defines how Wodby treats it and which template sec
 
 See [service types](types.md) for details.
 
+## [Create](create.md)
+
+Create services from Git, local manifests, or Helm chart scaffolds. A service must be added to a
+[stack](../stacks/create.md) before it can be deployed by an app.
+
 ## [Template](template.md)
 
-Custom services imported from git are defined by a template. See the [template reference](template.md).
-
-## [Create from a Helm chart](create-from-helm.md)
-
-Use the Wodby CLI to inspect a Helm chart, scaffold a service manifest, validate it, and create a custom service.
+Custom services are defined by a template. See the [template reference](template.md).
 
 ## Updates
 

@@ -141,6 +141,7 @@ plugins:
         'integrations/type-vpn.md': 'providers/vpn.md'
         'backups.md': 'apps/backups.md'
         'certs.md': 'apps/endpoints.md'
+        'services/create-from-helm.md': 'services/create.md#create-from-a-helm-chart'
 
 hooks:
   - scripts/include_generated_reference_sitemap.py
@@ -208,15 +209,16 @@ nav:
       - Imports: databases/imports.md
   - Stacks:
       - Overview: stacks/index.md
+      - Create: stacks/create.md
       - Updates: stacks/updates.md
       - Configuration: stacks/configuration.md
       - Stack services: stacks/services.md
       - Template: stacks/template.md
   - Services:
       - Overview: services/index.md
+      - Create: services/create.md
       - Updates: services/updates.md
       - Template: services/template.md
-      - Create from Helm chart: services/create-from-helm.md
       - Types: services/types.md
       - Endpoints: services/endpoints.md
       - Links: services/links.md

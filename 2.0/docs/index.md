@@ -27,8 +27,10 @@ Typical first steps:
    - connect a managed Kubernetes provider via [integrations](integrations/index.md)
    - connect your own server with [K3S](kubernetes/k3s.md)
    - create a [Wodby Cloud](kubernetes/wodby-cloud.md) cluster from the Clusters page or choose Wodby Cloud in the new application flow
-3. Create your first application from a [stack](stacks/index.md)
+3. Create your first application from a [stack](stacks/index.md). Use a catalog stack, or [create a custom stack](stacks/create.md) when you need your own service composition.
 4. Configure the first [instance](apps/instances.md) and deploy it
+
+If the catalog does not include the component you need, [create or import a service](services/create.md), add it to a stack, and then create an application from that stack.
 
 If you use managed Kubernetes, create an [integration](integrations/index.md) from the _Integrations_ tab and then create a cluster from the _Clusters_ tab. Wodby will provision the cluster in the selected cloud account for you.
 
@@ -60,3 +62,5 @@ How to:
 
 - [Create your first application](apps/index.md#creating-new-application)
 - [Create your Kubernetes cluster](kubernetes/index.md)
+- [Create or import a service](services/create.md)
+- [Create or import a stack](stacks/create.md)

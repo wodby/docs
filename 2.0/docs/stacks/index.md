@@ -14,27 +14,17 @@ Public Wodby stacks are listed in [`wodby/stacks`](https://github.com/wodby/stac
 repositories. To create a new stack in Git, start from the [`wodby/stack`](https://github.com/wodby/stack)
 boilerplate.
 
-## Creating Stacks
+## Create
 
-You can create a stack in three ways:
+You can create stacks from the dashboard catalog, from scratch in the dashboard, by duplicating an existing stack, from
+Git, from a local manifest, or from a Helm scaffold.
 
-- Add a stack from the catalog, then customize it. Catalog stacks start from a curated stack definition and keep an origin, so you can later sync catalog-side changes into your customized stack.
-- Create a new stack from scratch. Use this when you want to choose services and defaults yourself in the dashboard instead of starting from a catalog stack.
-- Import a stack from a Git repository. The repository defines one or more custom stacks using a [stack template](template.md), with each stack described by `stack.yml` and optional multi-stack `index.yml`.
+After creation, all paths produce regular versioned stacks. You can adjust their [configuration](configuration.md), add
+or remove stack services, publish changes as revisions, and create apps from any available published revision.
 
-After creation, all three paths produce regular versioned stacks. You can adjust their [configuration](configuration.md), add or remove stack services, publish those changes as revisions, and create apps from any available published revision.
+See [Create a stack](create.md).
 
-### Duplicate or add a stack
-
-Use `Add stack` on a public catalog stack to copy it into your organization. The copied stack can be customized and
-deployed like any other stack, and it keeps an origin so you can later [sync catalog changes](updates.md#sync-with-origin).
-The add form lets you choose whether `Services auto update` and `Auto sync with origin` start enabled. Both switches are
-enabled by default for Wodby catalog stacks; turn either one off before adding the stack if you want to review those
-updates manually first.
-
-Use `Duplicate stack` on an owned stack to create a separate stack copy. The duplicate is independent from the original
-stack, so later changes to one stack do not change the other. When you duplicate a Git-backed stack, the duplicate is
-created as a regular dashboard-managed stack and does not stay linked to the Git repository.
+## Model
 
 ```mermaid
 flowchart TD
