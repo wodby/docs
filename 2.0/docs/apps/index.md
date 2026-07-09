@@ -106,7 +106,7 @@ build source.
 
 #### Settings 
 
-Configure [settings](../services/index.md#settings) for services that provide them.
+Configure [settings](../services/configuration.md#settings) for services that provide them.
 
 #### Volumes 
 

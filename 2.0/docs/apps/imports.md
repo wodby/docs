@@ -1,6 +1,6 @@
 # Application Imports
 
-If an application's stack includes services that provide [import functionality](../services/imports.md), you can run imports for the corresponding app service.
+If an application's stack includes services that provide [import functionality](../services/operations.md#imports), you can run imports for the corresponding app service.
 
 There are two main import methods.
 

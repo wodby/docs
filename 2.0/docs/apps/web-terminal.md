@@ -5,7 +5,7 @@ The web terminal opens an interactive shell session in a running app-service con
 It is intended for quick inspection, debugging, and one-off commands without exposing SSH or publishing a port.
 
 No SSH service or public SSH port is required. If you need external shell or file-transfer access from your own terminal,
-use [SSH services](../services/ssh.md) and, when needed, [published ports](endpoints.md#publishing-ports).
+use [SSH services](../services/types.md#ssh) and, when needed, [published ports](endpoints.md#publishing-ports).
 
 ## Where to find it
 

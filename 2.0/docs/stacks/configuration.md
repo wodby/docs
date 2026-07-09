@@ -144,7 +144,7 @@ Override service settings from `Stack > Configure > Stack services > [Service] >
 
 ### Configs
 
-If a service defines [configs](../services/configs.md), the stack can provide default overrides for them. These
+If a service defines [configs](../services/configuration.md#configs), the stack can provide default overrides for them. These
 defaults apply to app instances created from the stack revision and can still be overridden later at the app level.
 Stack overrides replace only the config content or disable the config. The service template still defines whether the
 config is delivered via Helm, mounted from a generated ConfigMap, or exposed by filename only.

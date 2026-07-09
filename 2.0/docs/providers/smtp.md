@@ -28,5 +28,5 @@ SMTP provider integrations are used for:
 ## Related pages
 
 - [Integration types](../integrations/types.md)
-- [Mail services](../services/smtp.md)
+- [Mail relay services](../services/types.md#mail-relay-services)
 - [Providers overview](index.md)

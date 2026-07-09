@@ -35,4 +35,4 @@ Database integrations are used for:
 - [Integration types](../integrations/types.md)
 - [Providers overview](index.md)
 - [Managed databases](../databases/managed.md)
-- [Database services](../services/database.md)
+- [Database services](../services/types.md#db)

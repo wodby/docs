@@ -142,6 +142,25 @@ plugins:
         'backups.md': 'apps/backups.md'
         'certs.md': 'apps/endpoints.md'
         'services/create-from-helm.md': 'services/create.md#create-from-a-helm-chart'
+        'services/actions.md': 'services/operations.md#actions'
+        'services/annotations.md': 'services/configuration.md#annotations'
+        'services/backups.md': 'services/operations.md#backups'
+        'services/certs.md': 'services/configuration.md#certificates'
+        'services/configs.md': 'services/configuration.md#configs'
+        'services/cron.md': 'services/operations.md#cron-schedules'
+        'services/database.md': 'services/types.md#db'
+        'services/endpoints.md': 'services/networking.md#endpoints'
+        'services/imports.md': 'services/operations.md#imports'
+        'services/integrations.md': 'services/configuration.md#integrations'
+        'services/kubernetes.md': 'services/helm.md#kubernetes-metadata'
+        'services/links.md': 'services/networking.md#links'
+        'services/options.md': 'services/configuration.md#options'
+        'services/settings.md': 'services/configuration.md#settings'
+        'services/smtp.md': 'services/types.md#mail-relay-services'
+        'services/ssh.md': 'services/types.md#ssh'
+        'services/storage.md': 'services/types.md#storage'
+        'services/tokens.md': 'services/configuration.md#tokens'
+        'services/volumes.md': 'services/configuration.md#volumes'
 
 hooks:
   - scripts/include_generated_reference_sitemap.py
@@ -220,29 +239,13 @@ nav:
       - Updates: services/updates.md
       - Template: services/template.md
       - Types: services/types.md
-      - Endpoints: services/endpoints.md
-      - Links: services/links.md
-      - Derivatives: services/derivatives.md
-      - Integrations: services/integrations.md
       - Workloads: services/workloads.md
       - Helm: services/helm.md
-      - Kubernetes: services/kubernetes.md
-      - Actions: services/actions.md
-      - Certificates: services/certs.md
-      - Configs: services/configs.md
-      - Settings: services/settings.md
-      - Options: services/options.md
-      - Backups: services/backups.md
-      - Imports: services/imports.md
-      - Volumes: services/volumes.md
-      - Cron: services/cron.md
-      - Tokens: services/tokens.md
-      - Annotations: services/annotations.md
       - Build: services/build.md
-      - Database services: services/database.md
-      - Storage services: services/storage.md
-      - Mail services: services/smtp.md
-      - SSH services: services/ssh.md
+      - Networking: services/networking.md
+      - Configuration: services/configuration.md
+      - Operations: services/operations.md
+      - Derivatives: services/derivatives.md
   - Integrations:
       - Overview: integrations/index.md
       - Types: integrations/types.md

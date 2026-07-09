@@ -18,11 +18,11 @@ Local storage is typical for K3S clusters. By default, persistent volume claims 
 
 #### Container-based
 
-Some workloads need shared storage with multiple writers, especially in scaled or highly available setups. For those cases, Wodby provides [storage services](../services/storage.md).
+Some workloads need shared storage with multiple writers, especially in scaled or highly available setups. For those cases, Wodby provides [storage services](../services/types.md#storage).
 
 The simplest container-based option is an NFS server. It is easy to use, but it is not highly available on its own. In this setup, the NFS server stores its data on local or block storage, depending on the cluster type, and then exposes a storage class for other services to use.
 
-Services that require distributed storage have [volumes](../services/volumes.md) defined with a mandatory link to reference a storage service.
+Services that require distributed storage have [volumes](../services/configuration.md#volumes) defined with a mandatory link to reference a storage service.
 
 #### Managed
 

@@ -2,7 +2,7 @@
 
 ## Overview
 
-If an application's stack has services that provide [backup functionality](../services/backups.md), you can run backups for the corresponding app service. The backup process consists of three steps:
+If an application's stack has services that provide [backup functionality](../services/operations.md#backups), you can run backups for the corresponding app service. The backup process consists of three steps:
 
 - creating the backup archive in the container's ephemeral storage
 - mirroring the backup to third-party object storage, such as S3 or another supported provider

@@ -19,118 +19,46 @@ boilerplate.
 Inside a stack, a service revision becomes a [stack service](../stacks/services.md). Stack services let you enable,
 disable, connect, and customize a service for that stack.
 
-## Type
+## Service model
 
 Every service has a type that defines how Wodby treats it and which template sections are available.
 
 - `service`: general-purpose application services, including runtimes, web servers, workers, and mail relays
-- [`db`](database.md): database services
+- `db`: database services
 - `infrastructure`: infrastructure-level services used in infrastructure apps
-- [`storage`](storage.md): shared storage services
+- `storage`: shared storage services
 - `datastore`: in-memory and key-value stores such as Redis or Memcached
 - `search`: search and indexing services
 - `operator`: services that manage other Kubernetes resources or workloads
-- [`ssh`](ssh.md): SSH access services, usually used as derivatives
+- `ssh`: SSH access services, usually used as derivatives
 - `vpn`: VPN and private connectivity services
 
 See [service types](types.md) for details.
 
-## [Create](create.md)
+## Authoring
 
-Create services from Git, local manifests, or Helm chart scaffolds. A service must be added to a
-[stack](../stacks/create.md) before it can be deployed by an app.
+Use these pages when creating or maintaining custom services:
 
-## [Template](template.md)
+- [Create](create.md): create services from Git, local manifests, or Helm chart scaffolds.
+- [Updates](updates.md): update Git-backed services manually or automatically.
+- [Template reference](template.md): full `service.yml` schema.
 
-Custom services are defined by a template. See the [template reference](template.md).
+## Runtime model
 
-## Updates
+Use these pages to understand how a service deploys and connects inside an app:
 
-Services imported from Git can be updated from their source repository manually or automatically. See
-[Service updates](updates.md) for the Git update workflows and auto-update settings.
+- [Workloads](workloads.md): Kubernetes workload mapping, selectors, containers, primary workloads, and build targets.
+- [Helm](helm.md): chart references, Helm values, image mappings, and Kubernetes-specific metadata.
+- [Build](build.md): CI/CD build configuration for buildable services.
+- [Networking](networking.md): endpoints and service-to-service links.
+- [Derivatives](derivatives.md): additional services derived from a parent service, such as SSH access services.
 
-## External
+## Configuration and operations
+
+Use these pages for stack and app-service customization surfaces:
+
+- [Configuration](configuration.md): options, settings, configs, volumes, tokens, annotations, certificates, and integrations.
+- [Operations](operations.md): actions, backups, imports, and cron schedules.
 
 External services do not deploy their own containers in Wodby. Instead, they connect your app to services managed
 outside Wodby, such as a cloud database or another third-party system.
-
-## [Derivatives](derivatives.md)
-
-Derivatives are additional services created from another service. A common example is an SSH service added as a
-derivative of an application runtime.
-
-## [Endpoints](endpoints.md)
-
-Endpoints define the ports a service exposes.
-
-## [Options](options.md)
-
-Options usually represent supported versions or variants of a service.
-
-## [Build](build.md)
-
-Only services of type `service` can define build instructions for [CI/CD](../cicd/index.md). A build can also provide
-starter templates for new projects.
-
-## [Links](links.md)
-
-Links define how services connect to each other, what dependencies they require, and which services are compatible.
-
-## [Settings](settings.md)
-
-Settings are simple configuration values exposed in the UI. They usually map to environment variables used by the
-service.
-
-## [Configs](configs.md)
-
-Configs represent configuration files that can be mounted into a service and overridden at stack or app level.
-
-## [Helm](helm.md)
-
-Non-external services define Helm information and can provide default Helm values that tell Wodby how to deploy their
-Kubernetes resources.
-
-## [Kubernetes](kubernetes.md)
-
-Some services define additional Kubernetes-specific metadata, such as infrastructure selectors.
-
-## [Tokens](tokens.md)
-
-Tokens provide reusable fixed or generated values that services can reference.
-
-## [Backups](backups.md)
-
-Services can define backup functionality that creates archives for upload to connected storage.
-
-## [Imports](imports.md)
-
-Services can define import workflows for restoring files or data into a running service.
-
-## [Database](database.md)
-
-Database services define extra information for working with [databases](../databases/index.md).
-
-## [Cron](cron.md)
-
-Services can define cron schedules for recurring tasks.
-
-## [Actions](actions.md)
-
-Services can define actions that run automatically during lifecycle events or as user-runnable app-service actions.
-
-## [Annotations](annotations.md)
-
-Services can define annotations for additional Helm or Kubernetes configuration.
-
-## [Certificates](certs.md)
-
-Services may require self-signed TLS certificates that are then mounted into deployed resources.
-
-## [Integrations](integrations.md)
-
-Services can define which integrations they support or require. A common example is a [mail service](smtp.md) that
-connects to a third-party SMTP provider.
-
-## [Volumes](volumes.md)
-
-Services can define volumes for persistent or shared data.
