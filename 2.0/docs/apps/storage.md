@@ -1,6 +1,6 @@
 # Application Persistent Storage
 
-Persistent storage options depend on the type of cluster you run: [managed Kubernetes](../kubernetes/managed.md) or [K3S](../kubernetes/k3s.md).
+Persistent storage options depend on the type of cluster you run: [managed Kubernetes](../clusters/managed.md) or [K3S](../clusters/k3s.md).
 
 ## Storage types
 

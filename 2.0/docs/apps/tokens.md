@@ -49,7 +49,7 @@ Tokens are commonly supported in:
 
 ## `kubernetes`
 
-- `kubernetes.id`: [Kubernetes cluster](../kubernetes/index.md) ID
+- `kubernetes.id`: [Kubernetes cluster](../clusters/index.md) ID
 - `kubernetes.externalID`: cluster external ID
 - `kubernetes.name`: cluster machine name
 - `kubernetes.fullName`: cluster full name

@@ -6,7 +6,7 @@ An application in Wodby is built on a [stack](stack.md) and can contain multiple
 
 - Every app can have an unlimited number of instances but at least one
 - You can deploy as many instances as you want
-- You can deploy instances of the same app across different [Kubernetes clusters](../kubernetes/index.md), including self-hosted K3S clusters on different servers
+- You can deploy instances of the same app across different [Kubernetes clusters](../clusters/index.md), including self-hosted K3S clusters on different servers
 - One stack per application
 - Different instances can have different revisions of the same stack
 
@@ -72,7 +72,7 @@ Select where you want to run the first instance of your application. The form of
 1. **My clusters**
    - Choose one of your existing clusters
    - This can be a managed Kubernetes cluster created from a cloud [integration](../integrations/index.md)
-   - It can also be a self-hosted [K3S](../kubernetes/k3s.md) cluster connected from _Clusters > Connect server_
+   - It can also be a self-hosted [K3S](../clusters/k3s.md) cluster connected from _Clusters > Connect server_
 2. **Wodby Cloud**
    - Wodby creates and manages a new cluster for this application
    - For persistent Wodby Cloud clusters you choose region, CPU type, machine type, and minimum and maximum node counts

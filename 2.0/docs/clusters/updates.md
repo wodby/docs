@@ -1,4 +1,4 @@
-# Kubernetes cluster updates
+# Cluster updates
 
 Cluster updates are managed from the dashboard at `Clusters > [Cluster] > Infrastructure`.
 

@@ -1,4 +1,4 @@
-# Choose a Kubernetes Option
+# Choose a cluster option
 
 Wodby supports four practical deployment paths:
 
@@ -61,7 +61,7 @@ Demo clusters are deleted automatically after 24 hours. Applications deployed to
 
 ## Related pages
 
-- [Kubernetes overview](index.md)
+- [Clusters overview](index.md)
 - [Managed Kubernetes](managed.md)
 - [K3S](k3s.md)
 - [Wodby Cloud](wodby-cloud.md)

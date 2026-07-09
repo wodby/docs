@@ -1,4 +1,4 @@
-# Kubernetes High Availability
+# Cluster high availability
 
 ## Overview
 

@@ -1,8 +1,8 @@
 # Application Scalability
 
-Before you scale an app, make sure the underlying [Kubernetes cluster](../kubernetes/index.md) can scale with it.
+Before you scale an app, make sure the underlying [Kubernetes cluster](../clusters/index.md) can scale with it.
 
-[Managed Kubernetes clusters](../kubernetes/managed.md) give you the most flexibility because they can scale worker nodes dynamically through a cluster autoscaler. With [K3S](../kubernetes/k3s.md), app scaling is limited by the number of servers you connect to the cluster.
+[Managed Kubernetes clusters](../clusters/managed.md) give you the most flexibility because they can scale worker nodes dynamically through a cluster autoscaler. With [K3S](../clusters/k3s.md), app scaling is limited by the number of servers you connect to the cluster.
 
 ## Manual scaling
 
@@ -19,7 +19,7 @@ You can set replica counts:
 
 App services can define resource requests and limits, following the same model as [Kubernetes container resources](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 
-Resource limits help contain bursty workloads so they do not affect other workloads on the same cluster. Resource requests help Kubernetes schedule pods correctly and also matter for both pod autoscaling and [cluster autoscaling](../kubernetes/scalability.md).
+Resource limits help contain bursty workloads so they do not affect other workloads on the same cluster. Resource requests help Kubernetes schedule pods correctly and also matter for both pod autoscaling and [cluster autoscaling](../clusters/scalability.md).
 
 CPU requests and limits are specified in millicores, where `1000` millicores equals 1 CPU core. Memory requests and limits are specified in mebibytes, where `1024` MiB is roughly 1 GiB.
 

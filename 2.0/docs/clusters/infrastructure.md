@@ -1,4 +1,4 @@
-# Kubernetes cluster infrastructure
+# Cluster infrastructure
 
 Wodby provides core cluster capabilities through infrastructure apps deployed during cluster creation.
 

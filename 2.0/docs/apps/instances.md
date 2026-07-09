@@ -19,7 +19,7 @@ flowchart TD
     Prod --> KubernetesA
 ```
 
-An app instance is one isolated deployment of your application on a [Kubernetes cluster](../kubernetes/index.md).
+An app instance is one isolated deployment of your application on a [Kubernetes cluster](../clusters/index.md).
 
 Each instance has its own:
 

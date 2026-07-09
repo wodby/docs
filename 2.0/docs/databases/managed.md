@@ -22,6 +22,6 @@ Managed database machine names are provider-facing. They must use lowercase lett
 
 ## Place it near Kubernetes
 
-When creating a managed database, you can optionally associate it with a [Kubernetes cluster](../kubernetes/index.md).
+When creating a managed database, you can optionally associate it with a [Kubernetes cluster](../clusters/index.md).
 
 The cluster must use the same cloud integration as the database. When you do this, Wodby can place the database in the same cloud network for private connectivity and lower latency.

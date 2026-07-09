@@ -99,7 +99,18 @@ plugins:
         'apps/monitoring.md': 'apps/observability.md'
         'apps/logs.md': 'apps/observability.md'
         'apps/resources.md': 'apps/scalability.md'
-        'kubernetes/monitoring.md': 'kubernetes/observability.md'
+        'kubernetes/index.md': 'clusters/index.md'
+        'kubernetes/choose-platform.md': 'clusters/choose-platform.md'
+        'kubernetes/demo.md': 'clusters/demo.md'
+        'kubernetes/high-availability.md': 'clusters/high-availability.md'
+        'kubernetes/infrastructure.md': 'clusters/infrastructure.md'
+        'kubernetes/k3s.md': 'clusters/k3s.md'
+        'kubernetes/managed.md': 'clusters/managed.md'
+        'kubernetes/monitoring.md': 'clusters/observability.md'
+        'kubernetes/observability.md': 'clusters/observability.md'
+        'kubernetes/scalability.md': 'clusters/scalability.md'
+        'kubernetes/updates.md': 'clusters/updates.md'
+        'kubernetes/wodby-cloud.md': 'clusters/wodby-cloud.md'
         'integrations/algolia.md': 'providers/algolia.md'
         'integrations/anthropic.md': 'providers/anthropic.md'
         'integrations/auth0.md': 'providers/auth0.md'
@@ -171,7 +182,7 @@ not_in_nav: |
 nav:
   - Get Started:
       - Overview: index.md
-      - Choose a Kubernetes option: kubernetes/choose-platform.md
+      - Choose a cluster option: clusters/choose-platform.md
       - App model: apps/app-vs-instance-vs-service.md
       - Naming rules: naming.md
       - Provider vs integration: integrations/providers-vs-integrations.md
@@ -208,17 +219,17 @@ nav:
       - Third-party CI: cicd/third-party.md
       - Wodby CI: cicd/wodby-ci.md
       - Wodby Registry: cicd/wodby-registry.md
-  - Kubernetes:
-      - Overview: kubernetes/index.md
-      - Managed: kubernetes/managed.md
-      - K3S: kubernetes/k3s.md
-      - Demo Cluster: kubernetes/demo.md
-      - Wodby Cloud: kubernetes/wodby-cloud.md
-      - Infrastructure: kubernetes/infrastructure.md
-      - High availability: kubernetes/high-availability.md
-      - Scalability: kubernetes/scalability.md
-      - Observability: kubernetes/observability.md
-      - Updates: kubernetes/updates.md
+  - Clusters:
+      - Overview: clusters/index.md
+      - Managed: clusters/managed.md
+      - K3S: clusters/k3s.md
+      - Demo Cluster: clusters/demo.md
+      - Wodby Cloud: clusters/wodby-cloud.md
+      - Infrastructure: clusters/infrastructure.md
+      - High availability: clusters/high-availability.md
+      - Scalability: clusters/scalability.md
+      - Observability: clusters/observability.md
+      - Updates: clusters/updates.md
   - Databases:
       - Overview: databases/index.md
       - Managed: databases/managed.md

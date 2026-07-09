@@ -1,4 +1,4 @@
-# Kubernetes
+# Clusters
 
 Wodby supports four practical deployment choices for Kubernetes-backed applications.
 
@@ -13,7 +13,7 @@ Use these pages when you are deciding where your app should run or when you need
 | Wodby Cloud | You want Wodby to create and manage the cluster | `Clusters > New Wodby Cloud cluster` or `Apps > New app > Step 2` |
 | Demo | You want a temporary test cluster for 24 hours | `Clusters > New Wodby Cloud cluster > Demo` or `Apps > New app > Step 2 > Wodby Cloud > Demo` |
 
-See [Choose a Kubernetes option](choose-platform.md) for the full decision guide.
+See [Choose a cluster option](choose-platform.md) for the full decision guide.
 
 ## 1. [Managed Kubernetes](managed.md)
 
@@ -41,7 +41,7 @@ Demo clusters are deleted automatically after 24 hours. Applications deployed to
 
 ## Related pages
 
-- [Choose a Kubernetes option](choose-platform.md)
+- [Choose a cluster option](choose-platform.md)
 - [Wodby Cloud](wodby-cloud.md)
 - [K3S](k3s.md)
-- [Kubernetes cluster updates](updates.md)
+- [Cluster updates](updates.md)

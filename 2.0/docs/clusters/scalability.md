@@ -1,4 +1,4 @@
-# Kubernetes Scalability
+# Cluster scalability
 
 ## Manual scaling
 

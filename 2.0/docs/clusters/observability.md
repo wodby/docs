@@ -1,4 +1,4 @@
-# Kubernetes Cluster Monitoring
+# Cluster observability
 
 As part of the cluster [infrastructure apps](infrastructure.md), Wodby deploys components that collect metrics from cluster nodes and Kubernetes resources.
 

@@ -1,4 +1,4 @@
-# Demo Kubernetes Cluster
+# Demo cluster
 
 Demo is the temporary Wodby Cloud option for testing.
 

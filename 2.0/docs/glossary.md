@@ -113,5 +113,5 @@ Wodby's managed Kubernetes offering. Wodby Cloud clusters can be created from th
 
 - [Get Started](index.md)
 - [Applications overview](apps/index.md)
-- [Kubernetes overview](kubernetes/index.md)
+- [Clusters overview](clusters/index.md)
 - [Integrations overview](integrations/index.md)

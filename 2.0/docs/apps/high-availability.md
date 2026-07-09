@@ -2,7 +2,7 @@
 
 High availability depends on more than one layer. To make an app highly available, look at the cluster, the app services themselves, and the storage they depend on.
 
-## [Kubernetes cluster high availability](../kubernetes/high-availability.md)
+## [Kubernetes cluster high availability](../clusters/high-availability.md)
 
 Start with the cluster. A common baseline is:
 
