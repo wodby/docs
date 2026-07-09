@@ -18,6 +18,40 @@ Use the method that matches how you want to own and update the service:
 | CLI manifest creation | You want the same non-Git-backed service creation from automation or scripts. |
 | Helm chart scaffold | You want to generate a starting `service.yml` from an existing Helm chart. |
 
+## Start from Wodby repositories
+
+Use Wodby's public repositories as working examples before writing a service from scratch:
+
+- [`wodby/service`](https://github.com/wodby/service) is the boilerplate for a Git-backed service. It includes a small
+  `service.yml`, starter `Dockerfile`, starter `.dockerignore`, and README guidance.
+- [`wodby/services`](https://github.com/wodby/services) is the index of Wodby-managed services. It links to the source
+  repository for each public service.
+
+The boilerplate service defines a buildable HTTP service using the Wodby nginx Helm chart. Replace its example metadata,
+options, image, Helm chart, settings, and build files with the service you want to publish. Keep workload and container
+names stable after users create app services from the service, because stack and app-level overrides can depend on those
+names.
+
+For existing Wodby-managed service implementations, use the current
+[`wodby/services`](https://github.com/wodby/services) index instead of copying repository links into this page.
+
+## Wodby Helm charts
+
+[`wodby/charts`](https://github.com/wodby/charts) contains Helm charts used by Wodby services. These charts are designed
+for deployment through Wodby services and may not be generic standalone charts. Wodby handles some platform concerns,
+such as certificates, selected config maps, and network policies, outside the chart manifests.
+
+Use a chart from this repository when the service should deploy with a Wodby-maintained chart. Use the boilerplate
+charts when you need a simple chart shape for a new service:
+
+| Chart | Use when |
+| --- | --- |
+| [`stateless`](https://github.com/wodby/charts/tree/main/stateless) | The service runs stateless workloads such as HTTP applications, workers, or edge components. |
+| [`stateful`](https://github.com/wodby/charts/tree/main/stateful) | The service needs stateful workload defaults such as a headless service or persistent storage support. |
+
+Reference the selected chart in the `helm` section of `service.yml`, then expose any user-controlled chart values
+through service settings, Helm values, or stack/app-level overrides.
+
 ## Create a Git-backed service
 
 Use Git when you want the service manifest to remain the source of truth.

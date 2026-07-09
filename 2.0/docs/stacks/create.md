@@ -20,6 +20,22 @@ Use the method that matches how you want to manage the stack:
 | CLI manifest creation | You want the same non-Git-backed stack creation from automation or scripts. |
 | Helm scaffold | You want to generate a starter service and one-service stack from a simple Helm chart. |
 
+## Start from Wodby repositories
+
+Use Wodby's public repositories as working examples before writing a stack from scratch:
+
+- [`wodby/stack`](https://github.com/wodby/stack) is the boilerplate for a Git-backed stack. It includes a small
+  `stack.yml` with one required nginx service and README guidance for service references, links, and overrides.
+- [`wodby/stacks`](https://github.com/wodby/stacks) is the index of Wodby-managed stacks. It links to the source
+  repository for each public stack.
+
+The boilerplate stack is a working baseline. Replace its metadata and `services[].service` references with the services
+your stack should manage. Keep `services[].name` as the stack-local service name, use `services[].links` to satisfy
+required service links, and use stack-level overrides only for defaults that should apply to apps created from the stack.
+
+For existing Wodby-managed stack implementations, use the current
+[`wodby/stacks`](https://github.com/wodby/stacks) index instead of copying repository links into this page.
+
 ## Add a catalog stack
 
 Use a catalog stack when an existing public Wodby stack is close to what you need.
