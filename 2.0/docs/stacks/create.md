@@ -14,9 +14,10 @@ Use the method that matches how you want to manage the stack:
 | Dashboard catalog | You want to copy an existing public Wodby stack and customize it. |
 | Dashboard from scratch | You want to choose services and defaults in the dashboard. |
 | Duplicate stack | You want an independent copy of an existing owned stack. |
-| Dashboard Git import | You maintain `stack.yml` in a Git repository and want Wodby to track that repository. |
+| Dashboard from Git | You maintain `stack.yml` in a Git repository and want Wodby to track that repository. |
 | CLI Git import | You want the same Git-backed stack import from automation or scripts. |
-| CLI manifest creation | You have a local `stack.yml` and want to create a non-Git-backed stack. |
+| Dashboard manifest creation | You have a local `stack.yml` and want to create a non-Git-backed stack. |
+| CLI manifest creation | You want the same non-Git-backed stack creation from automation or scripts. |
 | Helm scaffold | You want to generate a starter service and one-service stack from a simple Helm chart. |
 
 ## Add a catalog stack
@@ -53,7 +54,7 @@ The duplicate is not linked to the original stack. Later changes to one stack do
 a Git-backed stack, the duplicate is created as a regular dashboard-managed stack and does not stay linked to the Git
 repository.
 
-## Import a Git-backed stack
+## Create a Git-backed stack
 
 Use Git when you want the stack manifest to remain the source of truth.
 
@@ -71,9 +72,9 @@ Each listed directory must contain its own `stack.yml`. See the [stack template 
 
 1. Connect a Git provider integration if the repository is not already available. See [Git provider](../providers/git.md).
 2. Open `Stacks`.
-3. Start an import from Git.
+3. Select `New stack from Git`.
 4. Select the organization or project, Git integration, repository, ref type, and ref.
-5. Import the stack.
+5. Create the stack.
 
 Git-backed stacks can later be updated from the same repository manually or automatically. See [Stack updates](updates.md).
 
@@ -109,6 +110,19 @@ See [`wodby stack import`](../cli/wodby_stack_import.html) for all flags.
 ## Create from a local manifest
 
 Use manifest creation when you have a `stack.yml` file and do not need Wodby to track a Git repository.
+
+### Dashboard
+
+1. Open `Stacks`.
+2. Select `New stack from manifest`.
+3. Select the organization or project that should own the stack.
+4. Paste the manifest YAML, or read it from a local `stack.yml` file.
+5. Enter the stack version.
+6. Create the stack.
+
+If the stack manifest references local files such as stack configs, use the CLI workflow with `--include`.
+
+### CLI
 
 Validate the manifest first:
 

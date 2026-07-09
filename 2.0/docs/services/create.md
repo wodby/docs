@@ -12,12 +12,13 @@ Use the method that matches how you want to own and update the service:
 
 | Method | Use when |
 | --- | --- |
-| Dashboard Git import | You maintain `service.yml` in a Git repository and want Wodby to track that repository. |
+| Dashboard from Git | You maintain `service.yml` in a Git repository and want Wodby to track that repository. |
 | CLI Git import | You want the same Git-backed service import from automation or scripts. |
-| CLI manifest creation | You have a local `service.yml` and want to create a non-Git-backed service. |
+| Dashboard manifest creation | You have a local `service.yml` and want to create a non-Git-backed service. |
+| CLI manifest creation | You want the same non-Git-backed service creation from automation or scripts. |
 | Helm chart scaffold | You want to generate a starting `service.yml` from an existing Helm chart. |
 
-## Import a Git-backed service
+## Create a Git-backed service
 
 Use Git when you want the service manifest to remain the source of truth.
 
@@ -35,9 +36,9 @@ Each listed directory must contain its own `service.yml`. See the [service templ
 
 1. Connect a Git provider integration if the repository is not already available. See [Git provider](../providers/git.md).
 2. Open `Services`.
-3. Start an import from Git.
+3. Select `New service from Git`.
 4. Select the organization or project, Git integration, repository, ref type, and ref.
-5. Import the service.
+5. Create the service.
 
 Git-backed services can later be updated from the same repository manually or automatically. See
 [Service updates](updates.md).
@@ -74,6 +75,19 @@ See [`wodby service import`](../cli/wodby_service_import.html) for all flags.
 ## Create from a local manifest
 
 Use manifest creation when you have a `service.yml` file and do not need Wodby to track a Git repository.
+
+### Dashboard
+
+1. Open `Services`.
+2. Select `New service from manifest`.
+3. Select the organization or project that should own the service.
+4. Paste the manifest YAML, or read it from a local `service.yml` file.
+5. Enter the service version.
+6. If the manifest references local files such as configs or Dockerfiles, add them under `Additional files` with the
+   same paths used by the manifest.
+7. Create the service.
+
+### CLI
 
 Validate the manifest first:
 
