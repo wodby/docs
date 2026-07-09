@@ -152,7 +152,7 @@ plugins:
         'services/endpoints.md': 'services/networking.md#endpoints'
         'services/imports.md': 'services/operations.md#imports'
         'services/integrations.md': 'services/configuration.md#integrations'
-        'services/kubernetes.md': 'services/helm.md#kubernetes-metadata'
+        'services/kubernetes.md': 'services/helm.md'
         'services/links.md': 'services/networking.md#links'
         'services/options.md': 'services/configuration.md#options'
         'services/settings.md': 'services/configuration.md#settings'

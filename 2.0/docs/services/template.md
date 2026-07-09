@@ -209,7 +209,7 @@ CPU values are in millicores and must be multiples of `100`. Memory values are i
 
 ### Selector object
 
-Used by `links[].selectors` and `kubernetes.infrastructure[].selectors`.
+Used by `links[].selectors`.
 
 - `type`: service type to match.
 - `option`: optional service option version to match.
@@ -786,19 +786,3 @@ Each `derivatives[].endpoints[]` item uses the same structure as `endpoints[]`.
 `derivatives[].helm` supports:
 
 - `values`: optional Helm values.
-
-### `kubernetes`
-
-Type: `object`.
-
-Additional Kubernetes-specific metadata.
-
-Supported today:
-
-- `infrastructure`: infrastructure service selectors.
-
-Each `kubernetes.infrastructure[]` item supports:
-
-- `name`: required item name.
-- `title`: optional title.
-- `selectors`: required selectors that identify matching infrastructure services.
