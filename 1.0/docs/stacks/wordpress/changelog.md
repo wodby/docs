@@ -7,6 +7,14 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.8
+
+- ⬆️ Vanilla WordPress 7.0.1
+- ⬆️ PHP 8.5.8, 8.4.23, 8.3.32, 8.2.32
+- ⬆️ Varnish 8.0.2, 6.0.18
+- ⬆️ Memcached 1.6.45
+- ⬆️ Adminer 5.4.4
+
 ## 6.2.7
 
 - PHP:

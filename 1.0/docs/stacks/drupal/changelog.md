@@ -7,6 +7,15 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.8
+
+- ⬆️ Vanilla Drupal 11.4.4, 10.6.13
+- ⬆️ PHP 8.5.8, 8.4.23, 8.3.32, 8.2.32
+- ⬆️ Nginx 1.31.3, 1.30.4
+- ⬆️ Varnish 8.0.2, 6.0.18
+- ⬆️ Memcached 1.6.45
+- ⬆️ Adminer 5.4.4
+
 ## 6.2.7
 
 - PHP:
