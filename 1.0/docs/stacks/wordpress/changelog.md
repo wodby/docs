@@ -11,6 +11,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 - ⬆️ Vanilla WordPress 7.0.1
 - ⬆️ PHP 8.5.8, 8.4.23, 8.3.32, 8.2.32
+- ⬆️ Nginx 1.31.3, 1.30.4
 - ⬆️ Varnish 8.0.2, 6.0.18
 - ⬆️ Memcached 1.6.45
 - ⬆️ Adminer 5.4.4
