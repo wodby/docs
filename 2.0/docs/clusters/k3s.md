@@ -14,8 +14,13 @@ If you want to keep infrastructure under your control and avoid managed Kubernet
 - Supported OS: Ubuntu/Debian, Fedora/CentOS, OpenSUSE
 - Currently only `amd64` machines are supported
 - At least 20 GB of disk space
+- Outbound HTTPS access to Wodby and the public package/chart registries used during installation
+- Outbound TCP access to `frps.wodby.com:31225`, either directly or through an HTTP CONNECT proxy
 
 For more details, see the official [K3S installation requirements](https://docs.k3s.io/installation/requirements).
+
+The FRPS ports `7500` and `8080` are server-side dashboard and HTTP virtual-host ports. A K3S server does not need
+outbound access to those ports; its FRPC connection uses `frps.wodby.com:31225`.
 
 ## Connect server flow
 
@@ -49,6 +54,54 @@ The generated script performs the current bootstrap flow for you. It:
 - prepares local kubeconfig on the server
 - installs Wodby's proxy client so the cluster can securely connect back to Wodby
 - sends the final initialization request to Wodby
+
+### Install through a Squid proxy
+
+The installation command supports a server whose only internet access is through Squid. Squid must permit normal HTTP
+and HTTPS destinations required by the installer and must explicitly permit the CONNECT method to
+`frps.wodby.com:31225`. Add the FRPS rule before any general CONNECT-deny rule. For example:
+
+```squidconf
+acl CONNECT method CONNECT
+acl SSL_ports port 443
+acl SSL_ports port 31225
+acl wodby_k3s_client src 192.0.2.10/32
+acl wodby_frps dstdomain frps.wodby.com
+acl wodby_frps_port port 31225
+http_access allow wodby_k3s_client wodby_frps wodby_frps_port CONNECT
+```
+
+Replace the example client address with the K3S server's address as seen by Squid. Keep your organization's existing
+authentication and destination ACLs, and include those authorization conditions in the allow rule. If Squid performs
+TLS interception, bypass SSL bumping for `frps.wodby.com:31225`; this destination carries the FRP transport inside the
+CONNECT tunnel, not HTTP.
+
+Open a root shell on the target server, export the proxy variables in that same shell, and then paste the one-time
+installation command shown by Wodby:
+
+```sh
+sudo -i
+export HTTP_PROXY='http://proxy-user:proxy-password@squid.example.internal:3128'
+export HTTPS_PROXY="$HTTP_PROXY"
+export NO_PROXY='127.0.0.1,localhost,.example.internal'
+
+# Paste and run the installation command from the cluster page here.
+```
+
+Use an `http://` URL even though HTTPS destinations travel through the proxy: Squid creates a CONNECT tunnel for them.
+If the username or password contains characters such as `@`, `:`, `/`, `#`, or `%`, percent-encode those characters in
+the URL. Avoid placing proxy credentials in shared scripts or logs.
+
+The bootstrap verifies Wodby API access through the proxy and verifies that Squid can open a CONNECT tunnel to the FRPS
+endpoint before changing the server. It then:
+
+- passes both uppercase and lowercase proxy variables to installation tools and K3S
+- adds localhost, Kubernetes pod/service networks, and cluster DNS names to `NO_PROXY`
+- persists the proxy for K3S and container image pulls
+- stores the proxy configuration in a cluster-local Secret used by FRPC and its upgrade jobs
+
+These settings apply to K3S system operations and Wodby's FRPC component. They are not automatically injected into app
+containers deployed on the cluster.
 
 ## Uninstall after a failed installation
 
@@ -118,4 +171,12 @@ Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles
 - If the command has expired, reload the cluster page and use the new command.
 - If the cluster stays in `Awaiting`, the bootstrap script likely never completed the final initialization step.
 - If the script fails, fix the server issue, run `sudo /usr/local/bin/wodby-k3s-uninstall`, and then rerun a fresh command from the cluster page.
-- Make sure the server can reach the public internet and the Wodby API endpoints during installation.
+- Without a proxy, make sure the server can reach the public internet, Wodby API endpoints, and
+  `frps.wodby.com:31225` directly during installation.
+- With Squid, `HTTP 403` during the FRPS check means the CONNECT destination or port is denied by an ACL. Allow
+  `frps.wodby.com:31225` and ensure the allow rule appears before the relevant deny rule.
+- `HTTP 407` means Squid rejected or did not receive the proxy credentials. Check the proxy URL, percent-encoding, and
+  the authentication policy.
+- A connection error without an HTTP status usually means the server cannot resolve or reach Squid, or Squid cannot
+  resolve or reach the requested destination.
+- Do not open FRPS ports `7500` or `8080` on the K3S server; they do not carry the outbound FRPC control connection.
