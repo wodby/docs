@@ -55,11 +55,33 @@ The generated script performs the current bootstrap flow for you. It:
 - installs Wodby's proxy client so the cluster can securely connect back to Wodby
 - sends the final initialization request to Wodby
 
-### Install through a Squid proxy
+### Install behind an outbound proxy
 
-The installation command supports a server whose only internet access is through Squid. Squid must permit normal HTTP
-and HTTPS destinations required by the installer and must explicitly permit the CONNECT method to
-`frps.wodby.com:31225`. Add the FRPS rule before any general CONNECT-deny rule. For example:
+The installation command supports a server whose only internet access is through an HTTP forward proxy. The proxy must
+support the CONNECT method because the installer uses it for HTTPS downloads and for Wodby's FRPC control connection.
+
+#### Recommended proxy rules
+
+Configure the proxy to:
+
+- allow HTTP and HTTPS access to the Wodby API and the package, installation, chart, and container registries used by
+  K3S, Helm, Cilium, and FRPC
+- allow `CONNECT frps.wodby.com:31225` from the K3S server
+- resolve `frps.wodby.com` and permit the proxy host to connect to its TCP port `31225`
+- bypass TLS interception for `frps.wodby.com:31225` because the CONNECT tunnel carries the FRP protocol, not HTTP
+- apply the same source, authentication, and destination restrictions your organization normally requires
+- place the specific FRPS allow rule before a general CONNECT or destination deny rule
+
+Port `443` remains necessary for normal HTTPS destinations. The FRPC control connection uses port `31225`; the K3S
+server does not need access to the FRPS dashboard and HTTP virtual-host ports `7500` and `8080`.
+
+Strict destination allowlists must also include all download and registry endpoints used by the selected Linux
+distribution and the installed component versions. These can include OS package mirrors, `get.k3s.io`, GitHub release
+downloads, `raw.githubusercontent.com`, `helm.cilium.io`, and the OCI registry endpoints used by K3S and Wodby charts.
+
+#### Squid example
+
+The following Squid example permits a specific K3S server to establish the FRPC tunnel:
 
 ```squidconf
 acl CONNECT method CONNECT
@@ -71,29 +93,31 @@ acl wodby_frps_port port 31225
 http_access allow wodby_k3s_client wodby_frps wodby_frps_port CONNECT
 ```
 
-Replace the example client address with the K3S server's address as seen by Squid. Keep your organization's existing
-authentication and destination ACLs, and include those authorization conditions in the allow rule. If Squid performs
-TLS interception, bypass SSL bumping for `frps.wodby.com:31225`; this destination carries the FRP transport inside the
-CONNECT tunnel, not HTTP.
+Replace the example client address with the K3S server's address as seen by Squid. Reuse the existing `CONNECT` and
+`SSL_ports` ACLs if they are already defined, and keep the organization's authentication conditions in the allow rule.
+When SSL bumping is enabled, add `frps.wodby.com:31225` to the applicable splice or bypass policy.
+
+#### Configure the server
 
 Open a root shell on the target server, export the proxy variables in that same shell, and then paste the one-time
 installation command shown by Wodby:
 
 ```sh
 sudo -i
-export HTTP_PROXY='http://proxy-user:proxy-password@squid.example.internal:3128'
+export HTTP_PROXY='http://proxy-user:proxy-password@proxy.example.internal:3128'
 export HTTPS_PROXY="$HTTP_PROXY"
 export NO_PROXY='127.0.0.1,localhost,.example.internal'
 
 # Paste and run the installation command from the cluster page here.
 ```
 
-Use an `http://` URL even though HTTPS destinations travel through the proxy: Squid creates a CONNECT tunnel for them.
-If the username or password contains characters such as `@`, `:`, `/`, `#`, or `%`, percent-encode those characters in
-the URL. Avoid placing proxy credentials in shared scripts or logs.
+An HTTP forward proxy commonly uses an `http://` URL even when the destination is HTTPS; HTTPS traffic travels through a
+CONNECT tunnel. Follow the proxy product's URL requirements. If the username or password contains characters such as
+`@`, `:`, `/`, `#`, or `%`, percent-encode those characters in the URL. Avoid placing proxy credentials in shared
+scripts or logs.
 
-The bootstrap verifies Wodby API access through the proxy and verifies that Squid can open a CONNECT tunnel to the FRPS
-endpoint before changing the server. It then:
+The bootstrap verifies Wodby API access through the proxy and verifies that the proxy can open a CONNECT tunnel to the
+FRPS endpoint before changing the server. It then:
 
 - passes both uppercase and lowercase proxy variables to installation tools and K3S
 - adds localhost, Kubernetes pod/service networks, and cluster DNS names to `NO_PROXY`
@@ -173,10 +197,10 @@ Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles
 - If the script fails, fix the server issue, run `sudo /usr/local/bin/wodby-k3s-uninstall`, and then rerun a fresh command from the cluster page.
 - Without a proxy, make sure the server can reach the public internet, Wodby API endpoints, and
   `frps.wodby.com:31225` directly during installation.
-- With Squid, `HTTP 403` during the FRPS check means the CONNECT destination or port is denied by an ACL. Allow
-  `frps.wodby.com:31225` and ensure the allow rule appears before the relevant deny rule.
-- `HTTP 407` means Squid rejected or did not receive the proxy credentials. Check the proxy URL, percent-encoding, and
-  the authentication policy.
-- A connection error without an HTTP status usually means the server cannot resolve or reach Squid, or Squid cannot
-  resolve or reach the requested destination.
+- Behind a proxy, `HTTP 403` during the FRPS check usually means the CONNECT destination or port is denied by proxy
+  policy. Allow `frps.wodby.com:31225` and ensure the allow rule takes precedence over the relevant deny rule.
+- `HTTP 407` means the proxy rejected or did not receive the proxy credentials. Check the proxy URL, percent-encoding,
+  and authentication policy.
+- A connection error without an HTTP status usually means the server cannot resolve or reach the proxy, or the proxy
+  cannot resolve or reach the requested destination.
 - Do not open FRPS ports `7500` or `8080` on the K3S server; they do not carry the outbound FRPC control connection.
