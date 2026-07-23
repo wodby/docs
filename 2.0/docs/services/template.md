@@ -186,6 +186,23 @@ Used by `env`, `workloads[].containers[].env`, `links[].env`, `integrations[].pr
 
 At least one of `runtime` or `build` must be enabled.
 
+Within each environment variable list, every `name` and `envType` pair must be unique. You can repeat a variable name
+when each definition targets a different environment type:
+
+```yaml
+env:
+  - name: NODE_ENV
+    value: production
+    envType: prod
+  - name: NODE_ENV
+    value: development
+    envType: dev
+```
+
+When a service inherits from another service, a child variable overrides only the parent variable with the same `name`
+and `envType`. Parent variants for other environment types remain inherited. At runtime, Wodby includes variables
+without `envType` and variables matching the app instance's environment type.
+
 Provider-specific integration env vars under `integrations[].providers[].env` are runtime-only. They must remain
 runtime-enabled and cannot use `build: true`.
 
