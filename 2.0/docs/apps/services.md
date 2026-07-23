@@ -293,7 +293,13 @@ setting marks the app service for rebuild; changing a runtime-only setting marks
 
 ## Configs tab
 
-The `Configs` tab lets you view default [configs](../services/configuration.md#configs) and override them for this app service.
+The `Configs` tab lets you view default [configs](../services/configuration.md#configs) and override them for this app
+service. The dashboard identifies whether a default comes from the service repository or from the selected service
+image and shows image source details when available.
+
+An app override takes precedence over the displayed default. Use `Reset override` to delete it. For an image-backed
+config, resetting means the next deployment stops mounting the override and the container uses the file supplied by its
+image; Wodby does not save a copy of the image default as another override.
 
 ## Tokens tab
 

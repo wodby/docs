@@ -73,14 +73,29 @@ Each service config uses exactly one delivery mode:
 - `filename`: Wodby creates a ConfigMap entry but does not mount it. Use this when the chart expects an existing
   ConfigMap name and handles the mount on its own.
 
-`config` can contain the file content inline or point to a file in the service repository.
+A config default can come from either:
+
+- `config`: inline content or a file in the service repository.
+- `default.source: image`: a file supplied by the service image for the selected service option.
+
+Image-backed defaults let Wodby show the exact default for each service version without storing duplicate copies in the
+service repository. The config's top-level `filepath` remains the destination for an override, while
+`default.filepath` identifies the source file inside the image. Wodby resolves this content centrally for display; it
+does not run a discovery job in your cluster.
+
+When an image-backed config has no stack or app override, Wodby does not create or mount a ConfigMap for it. The
+container continues to use the file supplied by its image. Resetting an override restores that behavior by deleting the
+override rather than saving a copy of the displayed default.
+
+The dashboard identifies whether a displayed default comes from the service repository or image. An image default can
+temporarily appear as pending or unavailable while a newly published service revision is being resolved.
 
 If `processTokens: true` is set, Wodby resolves supported template tokens inside the effective config content before it
 is passed to Helm or written into the generated ConfigMap. See [app tokens](../apps/tokens.md) for the public
 built-in token list. Leave it disabled for configs that use their own `{{ ... }}` template syntax literally.
 
-Stack and app overrides replace the config content or disable the config. They do not change the delivery mode defined
-by the service template.
+Stack and app overrides replace the config content or disable the config. They do not change the delivery mode or
+default source defined by the service template.
 
 ## Volumes
 

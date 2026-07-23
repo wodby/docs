@@ -643,7 +643,8 @@ Each item supports:
 
 - `name`: required config name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `title`: optional config title.
-- `config`: required default config content or a relative file path to load it from the repository.
+- `config`: optional default config content or a relative file path to load it from the repository.
+- `default`: optional external default source. Currently, image-backed defaults are supported.
 - `helm`: optional Helm value path that receives the resolved config content. Use this when the chart manages the
   ConfigMap or Secret for the config itself.
 - `filepath`: optional mount path in the container. Wodby creates a ConfigMap and mounts it at this path.
@@ -657,23 +658,56 @@ Each item supports:
   versions. An exact version entry overrides the unversioned config with the same name; otherwise the unversioned
   config is used as the fallback.
 
-For a new config, specify exactly one target with either `helm`, `filepath`, or `filename`. When overriding a config
-inherited from `from`, you can reuse the existing target and only replace what you need. The combination of `name` and
-`version` must be unique, including at most one unversioned fallback for each name.
+Each config must specify at least one default with `config` or `default`. Both can be present during migration, in which
+case `config` is a repository fallback until the external default is available.
 
-For example, this uses the default config for every version except `1.25`:
+`default` supports:
+
+- `source`: required default source. Currently supported value: `image`.
+- `filepath`: required absolute path to the source file inside the image.
+- `workload`: optional workload containing the source image.
+- `container`: optional container containing the source image.
+
+Set `workload` and `container` together when the source is not the primary container. If both are omitted, Wodby uses
+the primary workload's first container. The top-level `filepath` is still the destination where an override is mounted;
+it can differ from `default.filepath`.
+
+For a new config, specify exactly one delivery target with either `helm`, `filepath`, or `filename`. When overriding a
+config inherited from `from`, you can reuse the existing target and only replace what you need. The combination of
+`name` and `version` must be unique, including at most one unversioned fallback for each name.
+
+For example, this displays the matching default from every Nginx option image and mounts an override at the same path
+only when one exists:
 
 ```yaml
 configs:
 - name: main
   title: Main
   filepath: /etc/gotpl/config/nginx.conf.tmpl
-  config: nginx.conf.tmpl
+  default:
+    source: image
+    filepath: /etc/gotpl/config/nginx.conf.tmpl
+```
+
+The same unversioned entry is resolved independently for every service option, so different image content alone does
+not require version-specific config entries. Add an exact `version` entry only when that version uses a different
+source path, source container, delivery target, or other manifest behavior:
+
+```yaml
+configs:
 - name: main
   title: Main
-  filepath: /etc/gotpl/config/nginx.conf.tmpl
-  config: nginx.conf.1.25.tmpl
-  version: '1.25'
+  filepath: /etc/gotpl/default.vcl.tmpl
+  default:
+    source: image
+    filepath: /etc/gotpl/default.vcl.tmpl
+- name: main
+  title: Main
+  version: '6.0'
+  filepath: /etc/gotpl/default.vcl.tmpl
+  default:
+    source: image
+    filepath: /etc/gotpl/default.vcl.6.tmpl
 ```
 
 Stack and app overrides use `name` as the logical config identity, so an override continues to apply when the service

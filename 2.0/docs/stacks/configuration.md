@@ -149,6 +149,11 @@ defaults apply to app instances created from the stack revision and can still be
 Stack overrides replace only the config content or disable the config. The service template still defines whether the
 config is delivered via Helm, mounted from a generated ConfigMap, or exposed by filename only.
 
+The dashboard identifies whether the underlying service default comes from the service repository or the selected
+service image. Resetting a stack override deletes it instead of copying that displayed default into the stack. New app
+instances then inherit the service behavior; for an image-backed config with no other override, the container uses its
+native image file.
+
 ### Cron
 
 Create cron schedules for a service from `Stack > Configure > Stack services > [Service] > Cron`. Each schedule must have a name, command, and schedule. Use standard five-field crontab syntax such as `0 0 * * *`. Cron schedules cannot run more often than once per hour.
