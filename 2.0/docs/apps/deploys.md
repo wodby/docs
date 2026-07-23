@@ -41,6 +41,24 @@ In that flow you can:
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set.
 
+### Post-deployment scripts
+
+CI scripts defined in `.wodby/post-deployment.yml` run in a separate task after the application rollout succeeds. The
+deployment and post-deployment task therefore have separate outcomes:
+
+- the deployment is `completed` when the selected app services roll out successfully
+- the post-deployment status separately shows whether scripts are pending, running, completed, failed, canceled,
+  skipped, or not applicable
+
+If a post-deployment script fails, the completed deployment and app instance remain successful. Wodby shows a
+post-deployment warning with separate task logs and does not roll back the deployed app services. You can retry the
+post-deployment task without redeploying the application.
+
+Wodby CLI deployment commands that stream logs or wait for completion follow both tasks. If the rollout succeeds but the
+post-deployment task fails, the CLI returns a non-zero exit code with a message that distinguishes the script failure
+from deployment failure. `wodby ci deploy` remains asynchronous: it queues the deployment and does not wait for either
+task to finish.
+
 ### Deployment rollback
 
 When an app service upgrade is applied and its workloads fail health checks, Wodby tries to roll that service release
@@ -57,6 +75,8 @@ Rollback is not always possible. Wodby does not attempt rollback when:
 - the service has no previous successful release
 - the failure happens before the Helm upgrade is applied
 - the deployment is canceled, interrupted, or times out while waiting for workloads
+
+Failures in `.wodby/post-deployment.yml` happen after a successful rollout and never trigger deployment rollback.
 
 If rollback is not attempted, the failed release state remains in the cluster. If rollback is attempted but fails, the
 deployment remains failed and the task logs include the rollback error.

@@ -51,6 +51,19 @@ For built-in Wodby CI pipeline configuration, see [Wodby CI](../cicd/wodby-ci.md
 
 For command-specific options and generated usage output, use the [CLI reference](https://wodby.com/docs/2.0/cli/). For provider setup and build behavior details, use the CI/CD pages below.
 
+## Deployment completion
+
+`wodby ci deploy` is asynchronous. It submits the deployment and exits after Wodby accepts it.
+
+Operational deployment commands that stream logs or wait for completion, including `wodby ops deployment wait ID`,
+treat application rollout and repository post-deployment scripts as two phases of the requested operation. They wait for
+the rollout and then follow the separate post-deployment task when one exists.
+
+If the rollout succeeds but a post-deployment script fails, the CLI returns a non-zero exit code and identifies the
+post-deployment failure. The deployment itself remains completed, the app remains successful, and Wodby does not attempt
+rollback. Deployment list and detail output include the separate post-deployment status, and detail output includes the
+post-deployment task.
+
 ## Related pages
 
 - [Wodby API](api.md)

@@ -138,3 +138,8 @@ See also the example files in [`wodby/wodby-ci`](https://github.com/wodby/wodby-
 - [Node post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/post-deployment.yml)
 
 You can skip execution of post-deployment scripts by passing `--skip-post-deploy` to `wodby ci deploy`.
+
+Post-deployment scripts run as a separate task after a successful application rollout. A script failure is reported as a
+post-deployment warning with its own logs; it does not mark the deployment or app as failed and does not trigger
+rollback. You can retry the post-deployment task without redeploying. See
+[Application deployments](../apps/deploys.md#post-deployment-scripts) for status and CLI behavior.
