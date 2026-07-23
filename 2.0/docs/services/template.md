@@ -271,7 +271,8 @@ Type: `string`.
 Inherit configuration from an existing service available to your organization.
 
 Inherited services must also set `fromVersion`. Set `fromVersionConstraint` when the child service should later be
-eligible for parent-version updates within a semantic-version range.
+eligible for parent-version updates within a semantic-version range. Set `fromOptionVersionConstraint` when the child
+supports only a semantic-version range of the parent's runtime options.
 
 When overriding inherited workloads or containers, use only workload names and container names declared by the base
 service.
@@ -292,6 +293,26 @@ Type: `string`.
 Optional semantic-version constraint for allowed future parent service updates, such as `^1.0.0`.
 
 When set, the current `fromVersion` must satisfy the constraint.
+
+### `fromOptionVersionConstraint`
+
+Type: `string`.
+
+Optional semantic-version constraint that filters the runtime options inherited from the base service:
+
+```yaml
+from: php-nginx
+fromVersion: "1.0.4"
+fromVersionConstraint: "^1.0.0"
+fromOptionVersionConstraint: ">=1.27"
+```
+
+This differs from `fromVersionConstraint`, which applies to the version of the base service itself. The option
+constraint is evaluated during every import. Existing matching options keep their inherited metadata and default, and
+new matching options added to the base service are inherited automatically without an explicit child option list.
+
+The field can only be used with `from`. Import fails if the constraint is invalid, an inherited option version is not
+a semantic version, or no inherited option satisfies the constraint.
 
 ### `title`
 
