@@ -659,7 +659,7 @@ Each item supports:
   config is used as the fallback.
 
 Each config must specify at least one default with `config` or `default`. Both can be present during migration, in which
-case `config` is a repository fallback until the external default is available.
+case `config` remains a fallback for service revisions created before import-time image resolution was enabled.
 
 `default` supports:
 
@@ -670,7 +670,8 @@ case `config` is a repository fallback until the external default is available.
 
 Set `workload` and `container` together when the source is not the primary container. If both are omitted, Wodby uses
 the primary workload's first container. The top-level `filepath` is still the destination where an override is mounted;
-it can differ from `default.filepath`.
+it can differ from `default.filepath`. Wodby resolves the declared file for every service option while importing or
+updating the service revision. If an image or file cannot be resolved, that import or update fails.
 
 For a new config, specify exactly one delivery target with either `helm`, `filepath`, or `filename`. When overriding a
 config inherited from `from`, you can reuse the existing target and only replace what you need. The combination of

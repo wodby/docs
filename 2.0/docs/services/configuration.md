@@ -80,15 +80,15 @@ A config default can come from either:
 
 Image-backed defaults let Wodby show the exact default for each service version without storing duplicate copies in the
 service repository. The config's top-level `filepath` remains the destination for an override, while
-`default.filepath` identifies the source file inside the image. Wodby resolves this content centrally for display; it
-does not run a discovery job in your cluster.
+`default.filepath` identifies the source file inside the image. Wodby resolves this content from the image registry
+while importing or updating the service revision; it does not run a discovery job in your cluster.
 
 When an image-backed config has no stack or app override, Wodby does not create or mount a ConfigMap for it. The
 container continues to use the file supplied by its image. Resetting an override restores that behavior by deleting the
 override rather than saving a copy of the displayed default.
 
-The dashboard identifies whether a displayed default comes from the service repository or image. An image default can
-temporarily appear as pending or unavailable while a newly published service revision is being resolved.
+The dashboard identifies whether a displayed default comes from the service repository or image. Wodby does not publish
+a new service revision if one of its declared image defaults cannot be resolved.
 
 If `processTokens: true` is set, Wodby resolves supported template tokens inside the effective config content before it
 is passed to Helm or written into the generated ConfigMap. See [app tokens](../apps/tokens.md) for the public
