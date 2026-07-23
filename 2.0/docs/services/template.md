@@ -653,10 +653,31 @@ Each item supports:
   before passing it to Helm or creating the ConfigMap. This is useful for generated configs such as Alloy or
   Prometheus agent configs. See [app tokens](../apps/tokens.md) for the public built-in token list. Leave it disabled
   for literal templates that use their own `{{ ... }}` syntax.
-- `version`: optional service version this config applies to.
+- `version`: optional service version this config applies to. Configs can repeat the same `name` for different
+  versions. An exact version entry overrides the unversioned config with the same name; otherwise the unversioned
+  config is used as the fallback.
 
 For a new config, specify exactly one target with either `helm`, `filepath`, or `filename`. When overriding a config
-inherited from `from`, you can reuse the existing target and only replace what you need.
+inherited from `from`, you can reuse the existing target and only replace what you need. The combination of `name` and
+`version` must be unique, including at most one unversioned fallback for each name.
+
+For example, this uses the default config for every version except `1.25`:
+
+```yaml
+configs:
+- name: main
+  title: Main
+  filepath: /etc/gotpl/config/nginx.conf.tmpl
+  config: nginx.conf.tmpl
+- name: main
+  title: Main
+  filepath: /etc/gotpl/config/nginx.conf.tmpl
+  config: nginx.conf.1.25.tmpl
+  version: '1.25'
+```
+
+Stack and app overrides use `name` as the logical config identity, so an override continues to apply when the service
+changes versions. The selected manifest entry supplies the version-appropriate default and delivery settings.
 
 Config delivery modes:
 
