@@ -10,7 +10,9 @@ services:
   - nginx
 ```
 
-Each listed directory must contain its own `service.yml`. Paths used by fields such as `configs[].config`, `build.dockerfile`, `build.dockerignore`, and `build.templates[].pipeline` are resolved relative to that service directory.
+Each listed directory must contain its own `service.yml`. Paths used by fields such as `configs[].config`,
+`build.dockerfile`, `build.dockerignore`, and `build.boilerplates[].pipeline` are resolved relative to that service
+directory.
 
 Only the fields documented on this page are supported. Unknown fields will be rejected during import.
 
@@ -113,7 +115,7 @@ workloads:
 build:
   dockerfile: Dockerfile
   connect: true
-  templates:
+  boilerplates:
     - name: vanilla
       title: Vanilla Drupal
       repo: https://github.com/wodby/drupal-vanilla
@@ -624,8 +626,11 @@ Each item supports:
 - `command`: optional command override.
 - `type`: required action type.
 - `workload`: optional workload name. If omitted, Wodby targets the primary workload.
-- `template`: optional build template name filter for `post_deploy` and `post_deploy_once` actions.
+- `boilerplate`: optional build boilerplate name filter for `post_deploy` and `post_deploy_once` actions.
 - `depends`: optional list of actions that must run first.
+
+The legacy `template` action filter remains supported for existing manifests but is deprecated. Use `boilerplate` for
+new and updated manifests.
 
 Allowed `type` values:
 

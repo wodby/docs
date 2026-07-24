@@ -97,9 +97,9 @@ build source, an external database, required integrations, or required settings.
 stack upgrade. Wodby records them as warnings on the upgrade task, creates the app service, and waits for you to finish
 the service configuration before deploying.
 
-If a newly added service supports build templates, Wodby uses the default build template automatically. If no
-template is marked as default, the first template is used. If the default template cannot be applied, Wodby records a
-warning and asks you to select the build source after the upgrade.
+If a newly added service supports build boilerplates, Wodby uses the default build boilerplate automatically. If no
+boilerplate is marked as default, the first boilerplate is used. If the default boilerplate cannot be applied, Wodby
+records a warning and asks you to select the build source after the upgrade.
 
 When a stack upgrade leaves unresolved service configuration, Wodby skips the automatic post-upgrade deployment.
 Deployments are blocked until the app instance reports complete service configuration.

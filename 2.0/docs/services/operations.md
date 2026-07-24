@@ -32,11 +32,11 @@ task; output is associated with the task logs and is not returned directly by th
 #### `post_deploy`
 
 Runs after every service deployment. If a deployment includes more than one service, the action runs only after all
-deployments succeed. It can be limited to a specific build template.
+deployments succeed. It can be limited to a specific build boilerplate.
 
 #### `post_deploy_once`
 
-Same as `post_deploy`, but runs only during the first deployment. It can be limited to a specific build template.
+Same as `post_deploy`, but runs only during the first deployment. It can be limited to a specific build boilerplate.
 
 #### `post_upgrade`
 

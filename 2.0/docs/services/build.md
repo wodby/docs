@@ -22,14 +22,14 @@ Mark deployment targets explicitly with `workloads[].containers[].build: true`.
 The target Helm paths are taken from `workloads[].containers[].helm.image` and default to `image.repository`,
 `image.tag`, `image.registry`, and `image.pullPolicy`.
 
-### Build templates
+### Build boilerplates
 
-Build templates are starter repositories that customers can clone when creating a new project. Each template points to
-a GitHub repository and selects either a branch or a tag. During new app creation, Wodby can import the selected template
-into a new GitHub or GitLab repository. A template can also reference a custom pipeline file.
+Build boilerplates are starter repositories that customers can clone when creating a new project. Each boilerplate
+points to a GitHub repository and selects either a branch or a tag. During new app creation, Wodby can import the
+selected boilerplate into a new GitHub or GitLab repository. A boilerplate can also reference a custom pipeline file.
 
-One template can be marked as the default. When no template is marked as default, Wodby treats the first template in the
-service template as the default.
+One boilerplate can be marked as the default. When no boilerplate is marked as default, Wodby treats the first
+boilerplate in the service template as the default.
 
 ### Dockerfile
 
