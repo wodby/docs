@@ -30,5 +30,7 @@ If the integration does not define a repository prefix, Wodby uses the organizat
 
 `wodby ci release` can also publish additional tags:
 
-- `--branch-tag` pushes a tag based on the current git branch
+- `--branch-tag` pushes a Docker-compatible tag based on the current git branch. Branch names that are already valid
+  Docker tags are preserved. Invalid or overlong names are converted to a readable tag with a short hash suffix so
+  different branch names do not overwrite the same tag.
 - `--latest-branch <branch>` updates the `latest` tag when the build comes from the selected branch

@@ -67,6 +67,9 @@ You can pin a stack service to its current service revision. Pinned stack servic
 stack service revision updates, and they do not make the stack appear outdated when the underlying service publishes a
 new revision. Derivative stack services inherit the pin state from their parent service.
 
+From Wodby CLI, pass `--service-rev-pinned` when creating or updating a stack service. To unpin it, run
+`wodby stack service update ID --service-rev-pinned=false`.
+
 Only one HTTP-capable service can be marked as main. Services without HTTP endpoints cannot be main. The main stack
 service controls which app service receives the app instance's main technical route, which targets the main endpoint of
 the main app service.
