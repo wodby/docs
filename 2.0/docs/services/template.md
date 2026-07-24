@@ -394,24 +394,61 @@ Each object supports:
 - `dockerfile`: Dockerfile path.
 - `dockerignore`: `.dockerignore` path.
 - `connect`: whether the service supports a connected git repository.
-- `templates`: starter repositories users can clone as a starting point.
+- `boilerplates`: starter repositories users can clone as a starting point.
 
 Set build image targets with `workloads[].containers[].build: true`. Services with build configuration must mark at least one container.
 
 Docker build arguments are opt-in. Wodby passes only values marked with `build: true` from service env vars, service
 settings, or app-service env vars. Runtime-only values are not passed to builds.
 
-Each `build.templates[]` item supports:
+Each `build.boilerplates[]` item supports:
 
-- `name`: required template name.
-- `title`: required template title.
+- `name`: required boilerplate name.
+- `title`: required boilerplate title.
 - `repo`: required GitHub repository URL in `https://github.com/...` format.
-- `default`: marks the default starter repository. If no template is marked as default, the first template is used.
+- `default`: marks the default starter repository. If no boilerplate is marked as default, the first boilerplate is used.
 - `branch`: git branch to use.
 - `tag`: git tag or tag pattern to use.
 - `pipeline`: optional pipeline file path.
+- `optionVersionConstraint`: optional semantic-version constraint for service option versions compatible with the
+  boilerplate.
 
-Specify either `branch` or `tag` for each build template.
+Specify either `branch` or `tag` for each build boilerplate.
+
+The legacy `build.templates` field remains supported for existing manifests but is deprecated. Use `build.boilerplates`
+for new and updated manifests.
+
+#### Boilerplate option compatibility
+
+Set `optionVersionConstraint` when a boilerplate supports only some of the service's runtime options:
+
+```yaml
+options:
+  - version: "8.5"
+  - version: "8.4"
+    default: true
+  - version: "8.3"
+  - version: "8.2"
+
+build:
+  boilerplates:
+    - name: laravel
+      title: Laravel
+      repo: https://github.com/laravel/laravel
+      tag: "^13"
+      optionVersionConstraint: "^8.3"
+```
+
+Wodby checks the selected service option whenever this boilerplate is selected, including during app creation,
+default-boilerplate assignment, and build-source replacement. In this example, PHP 8.3, 8.4, and 8.5 are compatible,
+while PHP 8.2 is rejected.
+
+The constraint applies to public and cloned build sources. It does not apply to connected repositories, filter the
+service option catalog, or change the versions of existing app services during stack upgrades.
+
+The constraint is evaluated using semantic-version rules. Service import fails if the constraint is invalid, the
+service has no options, an option version is not a semantic version, or none of the service options satisfies the
+constraint.
 
 ### `endpoints`
 
