@@ -36,7 +36,17 @@ Team includes everything in Developer, plus production-focused features such as:
 - best-effort support
 - $30 of Wodby Cloud usage per month
 
-Billing is per [app service](apps/services.md). On paid plans, usage is based on the current number of billable app services.
+The Team plan has a $48 minimum for each monthly billing cycle. It includes up to 24 billable
+[app services](apps/services.md). Capacity above the included amount is billed at the current rate shown on the
+[pricing page](https://wodby.com/pricing).
+
+App-service capacity is based on the current number of billable app services, not the highest count reached during the
+cycle. When that number changes, Wodby prorates the capacity charge for the portion of the billing cycle during which
+each quantity applied. The $48 plan minimum is not prorated when app-service usage falls below 24.
+
+For example, if an organization has 30 billable app services for half of its billing cycle and 20 for the other half,
+the base $48 still applies for the full cycle. Only the six services above the included 24 are charged for half of the
+cycle.
 
 ### Enterprise
 
@@ -103,6 +113,14 @@ Each billing cycle includes a free amount of build minutes. Additional usage is 
 ### Wodby registry storage
 
 Wodby Registry is the default private Docker registry for images built and released during CI. Storage usage is billed by stored GB above the included amount.
+
+The first 5 GB are included in each billing cycle. Wodby measures the organization's current total stored image data,
+converts it to GiB, and rounds a non-whole value up to the next whole unit for billing. For example, 5.1 GiB produces a
+billing quantity of 6 GiB, of which 1 GiB is above the included amount.
+
+When the stored quantity changes, the storage charge is prorated for the portion of the billing cycle during which each
+quantity applied. Deleting images can therefore reduce the remaining storage charge after the next usage
+synchronization; it does not retroactively remove storage already used earlier in the cycle.
 
 When you delete your app instance, we automatically delete all images associated with it.
 
