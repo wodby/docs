@@ -192,6 +192,12 @@ When enabled, Wodby deletes app-service volume records that no longer exist in t
 New volumes introduced by the service revision are created during upgrade. Existing volume sizes are not changed for
 running app instances.
 
+Existing volume storage classes are also kept. For a new owned volume, Wodby refreshes the cluster's live
+storage-class inventory and reuses one class configured consistently across existing owned volumes when possible;
+otherwise it uses the one selectable default. The upgrade stops if the inventory cannot be refreshed or no unambiguous
+class is available.
+See [Application persistent storage](storage.md#changing-a-storage-class).
+
 ### Override main app service
 
 When enabled, Wodby changes the main app service to match the latest stack revision. This can trigger route reassignment, certificate re-issuance, and possible downtime.

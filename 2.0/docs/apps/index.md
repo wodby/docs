@@ -110,7 +110,18 @@ Configure [settings](../services/configuration.md#settings) for services that pr
 
 #### Volumes 
 
-Specify sizes for persistent volumes. Some services, such as Redis, may provide optional volumes. For those, specifying size `0` means no persistent storage will be created.
+Specify sizes and, when supported by the service revision, select a
+[storage class](storage.md#choose-a-storage-class) for each persistent volume. The selector lists classes from the
+chosen destination cluster, shows their provisioners, and marks and preselects the sole cluster default. Some services,
+such as Redis, may provide optional volumes. For those, specifying size `0` means no persistent storage will be created.
+
+When a service-owned volume cannot apply an explicit class, the dashboard shows the safe cluster default in the same
+selector but disables the control. A shared volume instead shows its linked storage service in a disabled selector; use
+that linked service's own volume settings to choose the underlying storage class.
+
+The storage-class choice applies when the volume is created. Existing bound volumes cannot be moved to another class
+by editing the app. After creation, the app service's `Volumes` tab shows the
+[configured and effective classes](storage.md#current-storage-class).
 
 #### Integrations
 

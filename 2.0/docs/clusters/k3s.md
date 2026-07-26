@@ -160,6 +160,23 @@ After the script completes successfully, Wodby initializes the cluster and deplo
 
 Once the cluster is ready, create new apps and choose that cluster from `My clusters`.
 
+## Disk capacity and persistent volumes
+
+The default K3S local-path storage class stores persistent-volume data on the server's host disk. The 20 GB installation
+requirement is only a minimum for K3S and Wodby infrastructure; size production disks for application data, container
+images, logs, backups, imports, and operating-system growth.
+
+Before app-service backups and imports, Wodby checks the backing node's `DiskPressure` condition and, when available,
+kubelet volume statistics. A known shortage stops the operation before storage work begins. When the operation's peak
+demand or authoritative capacity is unavailable, the task shows a warning and continues.
+
+These checks run at operation time and do not provide proactive low-disk alerts. Monitor the server filesystem
+separately and leave enough headroom for transactional imports, which temporarily keep the current data volume while
+creating a replacement volume and a 10 GiB scratch volume.
+
+If a preflight blocks an operation, free space or increase the backing disk capacity, confirm that Kubernetes no longer
+reports `DiskPressure`, and retry. See [Application persistent storage](../apps/storage.md) for storage-class behavior.
+
 ## Infrastructure upgrades
 
 New K3S clusters use the current Wodby cluster infrastructure version. Existing K3S clusters can be marked as outdated

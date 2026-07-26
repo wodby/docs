@@ -18,6 +18,23 @@ The app instance `Data` area includes:
 
 Only app services that expose backup actions are available in the backup flow.
 
+## K3S storage capacity preflight
+
+Before an app-service backup runs on K3S, its task includes a `Check storage capacity` step. For volumes using the
+default K3S local-path provisioner, Wodby checks the backing node for Kubernetes `DiskPressure` and reads available
+bytes reported by the kubelet.
+
+Known disk pressure stops the backup before the backup job is created. Existing service backup definitions do not
+declare their peak temporary-space requirement, so a byte-for-byte capacity comparison is usually not possible. Wodby
+shows the available capacity as a warning and continues unless Kubernetes reports disk pressure.
+
+If Kubernetes does not expose volume statistics, the API permission is unavailable, or the storage provisioner does
+not have a capacity resolver, Wodby records that capacity could not be verified and allows the backup to continue.
+This task-time check is not continuous low-disk monitoring.
+
+K3S backup and import tasks share a cluster storage-operation slot so two preflights cannot approve competing work
+against the same local disk at the same time.
+
 ## Backup destination
 
 When configuring a backup or backup preset, select the destination bucket only. You no longer need to select a region separately.
@@ -27,6 +44,10 @@ when the provider requires it, and upload/read backup objects. For provider-spec
 [Storage providers](../providers/storage.md).
 
 If the provider supports object storage classes, the storage class override is optional. If you set it, Wodby will use it for uploaded backup objects. If you leave it empty, the bucket's default storage class will be used.
+
+!!! note
+    A backup destination's object storage class, such as an S3 archive class, is separate from the
+    [Kubernetes storage class](storage.md) used by the app service's persistent volume.
 
 ## Backup presets
 

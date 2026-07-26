@@ -106,6 +106,11 @@ service provides the [distributed persistent storage](types.md#storage), for exa
 
 Service volumes can define a default size, which can then be overridden at the stack or app level.
 
+A service revision can also support per-volume
+[storage-class selection](template.md#storage-class-selection-contract). Shared volumes and volumes that reuse a linked
+service's claim inherit their class and do not expose a separate choice. Kubernetes does not allow changing the class
+of an existing bound claim; see [Application persistent storage](../apps/storage.md#changing-a-storage-class).
+
 When Wodby mounts a service volume directly, the volume must define `path` as the absolute mount path. This applies to
 shared volumes and volumes that reuse storage from a linked service with `from`. Helm-managed volumes that are not
 mounted directly by Wodby do not need `path`.

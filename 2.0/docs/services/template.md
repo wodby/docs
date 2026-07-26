@@ -528,6 +528,39 @@ Each item supports:
 - `labels`: optional Helm value path for labels.
 - `values`: optional Helm values.
 
+#### Storage-class selection contract
+
+Wodby exposes storage-class selection only when it can prove that the selected value reaches the PVC.
+
+An import volume, or another volume whose Helm values contain the exact `{{volumes.<name>.claim}}` token, uses a PVC
+created by Wodby. Wodby applies the selected class directly to that claim.
+
+When the Helm chart creates the PVC, the volume must:
+
+- map the exact `{{volumes.<name>.storageClassName}}` token to the chart's storage-class value
+- set `volumes[].helm.labels` to the chart value path used for PVC labels, allowing Wodby to associate the live claim
+  with the app-service volume
+
+For example:
+
+```yaml
+volumes:
+  - name: data
+    title: Data
+    size: 10
+    helm:
+      labels: persistence.labels
+      values:
+        - name: persistence.storageClass
+          value: "{{volumes.data.storageClassName}}"
+```
+
+Token matching is exact. Do not embed either token inside a larger string. If the class is unset while a new cluster is
+being created, Wodby omits the chart-owned storage-class value instead of rendering `storageClassName: ""`.
+
+Shared volumes and volumes with `from` inherit an existing claim and cannot implement an independent class selector.
+Changing the class of an existing bound PVC requires a separate data migration.
+
 ### `integrations`
 
 Type: `array`.

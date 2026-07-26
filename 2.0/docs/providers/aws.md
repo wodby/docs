@@ -44,8 +44,8 @@ Wodby provides a native integration with Amazon Elastic Kubernetes Service.
 
 ### Storage
 
-Persistent storage is provided by Amazon Elastic Block Store through the default storage class. Wodby creates one EBS
-volume for each persistent volume claim.
+Persistent storage is provided by Amazon Elastic Block Store through the cluster's selectable storage classes. Wodby
+creates one EBS volume for each persistent volume claim and uses the default class when no other class is selected.
 
 ## RDS
 

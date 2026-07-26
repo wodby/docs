@@ -41,4 +41,6 @@ For more details please refer to the official OVH documentation.
 
 ### Storage
 
-Persistent storage is provided by OVH Public Cloud Block Storage via the default storage class. We create a new block storage volume for each persistent volume claim.
+Persistent storage is provided by OVH Public Cloud Block Storage through the cluster's selectable storage classes.
+Wodby creates a new block storage volume for each persistent volume claim and uses the default class when no other
+class is selected.

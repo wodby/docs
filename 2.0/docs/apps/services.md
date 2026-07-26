@@ -279,9 +279,15 @@ deploys the linked target first.
 
 ## Volumes tab
 
-The `Volumes` tab shows service volumes and their app-level values.
+The `Volumes` tab shows service volumes, their app-level values, and the effective storage class observed on the live
+Kubernetes claim. A healthy volume shows its effective class once. When the selected and effective classes differ or
+cannot be verified, the dashboard expands the value to show both and adds a `Mismatch`, `Mixed`, `Unknown`, or
+`Unavailable` status.
 
-Volume resize is not supported for existing app instances. In practice, volume size is chosen during app creation and should not be treated as something you can resize later from this screen.
+Volume resize and storage-class changes are not supported for existing app instances. In practice, volume size and
+class are chosen during app creation and should not be treated as values you can change later from this screen. See
+[Current storage class](storage.md#current-storage-class) for the status definitions and
+[Choose a storage class](storage.md#choose-a-storage-class) for the creation workflow.
 
 ## Settings tab
 

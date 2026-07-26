@@ -19,7 +19,9 @@ Wodby provides a native integration with DigitalOcean Kubernetes Service.
 
 ### Storage
 
-Persistent storage is provided by DigitalOcean Block Storage via the default storage class. We create a new block storage volume for each persistent volume claim. 
+Persistent storage is provided by DigitalOcean Block Storage through the cluster's selectable storage classes. Wodby
+creates a new block storage volume for each persistent volume claim and uses the default class when no other class is
+selected.
 
 ## Managed Database
 

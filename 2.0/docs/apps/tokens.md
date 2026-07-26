@@ -138,6 +138,8 @@ Accessed as `volumes.[name].[token]`.
 
 - `volumes.[name].size`: effective volume size in GB
 - `volumes.[name].claim`: generated PVC name for the named volume
+- `volumes.[name].storageClassName`: configured Kubernetes storage class. An unset class resolves as an omitted Helm
+  value so the cluster can apply default storage-class admission.
 
 ## `integrations`
 
