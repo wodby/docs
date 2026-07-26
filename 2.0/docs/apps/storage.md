@@ -93,8 +93,17 @@ Block storage is typically single-writer and attached to one node at a time.
 ### Local storage
 
 Local storage is typical for K3S clusters. By default, persistent volume claims use storage from the server where the
-app service is running. App-service backups and imports perform a
+app service is running. New app creation, initial deployments, app-service backups, and imports perform a
 [storage-capacity preflight](../clusters/k3s.md#disk-capacity-and-persistent-volumes) before storage work begins.
+
+For a new app on an existing K3S cluster, Wodby adds the requested sizes of enabled, physical local-path volumes and
+checks them against the host disk before saving the app. Shared volumes, volumes that reuse another claim, disabled
+services, and unselected optional volumes do not add another allocation. Wodby repeats the check in the initial
+deployment task immediately before it can create claims; retries exclude claims that already exist.
+
+A known shortage or Kubernetes `DiskPressure` stops creation or deployment with an error. If K3S cannot report
+authoritative host-filesystem capacity, or a selected storage class uses a provisioner without a capacity resolver,
+Wodby warns and continues instead of treating unknown capacity as zero.
 
 ### Distributed storage
 

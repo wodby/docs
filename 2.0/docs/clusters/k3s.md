@@ -166,9 +166,24 @@ The default K3S local-path storage class stores persistent-volume data on the se
 requirement is only a minimum for K3S and Wodby infrastructure; size production disks for application data, container
 images, logs, backups, imports, and operating-system growth.
 
-Before app-service backups and imports, Wodby checks the backing node's `DiskPressure` condition and, when available,
-kubelet volume statistics. A known shortage stops the operation before storage work begins. When the operation's peak
-demand or authoritative capacity is unavailable, the task shows a warning and continues.
+For new apps on an existing K3S cluster, Wodby checks storage twice:
+
+1. Before saving the app, it totals the requested sizes of enabled, physical local-path volumes and compares that
+   allocation with the host filesystem's available bytes.
+2. Before the initial deployment creates persistent volume claims, it repeats the check inside the cluster's serialized
+   storage-operation queue. This catches capacity consumed after the form was submitted. A retry does not count claims
+   that already exist as new allocations.
+
+The first check returns an error without creating app records when the known available bytes are insufficient or the
+node reports `DiskPressure`. The second appears as `Check storage capacity` in the deployment task and stops before the
+deployment starts under the same conditions.
+
+App-service backups and imports also check the backing node's `DiskPressure` condition and, when available, kubelet
+volume statistics before storage work begins.
+
+When authoritative capacity is unavailable, creation continues and the deployment or operation task shows a warning.
+Storage classes backed by a provisioner other than K3S local-path, such as a class installed by a future Rook
+infrastructure app, also remain non-blocking until Wodby has a capacity resolver for that provisioner.
 
 These checks run at operation time and do not provide proactive low-disk alerts. Monitor the server filesystem
 separately and leave enough headroom for transactional imports, which temporarily keep the current data volume while
