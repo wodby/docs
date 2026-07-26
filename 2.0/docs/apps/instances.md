@@ -42,6 +42,17 @@ The instance machine name is permanent and must follow the [general Kubernetes n
 
 You add or remove instances from `Apps > [App] > Instances`.
 
+## Deleting an instance
+
+Deleting an app instance marks it as `deleting` immediately and blocks new builds and deployments from starting.
+
+Before Kubernetes cleanup begins, the deletion task cancels active builds, deployments, and post-deployment script
+tasks for the instance and waits for each task to stop. It then removes the instance's Kubernetes resources and other
+generated resources. Follow the deletion task logs to see which active tasks were canceled and whether cleanup
+completed.
+
+Deleting an app applies the same process to all of its instances.
+
 ## Errored instances
 
 An app instance can move to `errored` when Wodby cannot finish creating it or cannot finish deletion cleanup.

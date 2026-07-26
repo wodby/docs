@@ -99,10 +99,10 @@ the source is a Git repository that contains your application code and pipeline 
 third-party CI, the source can also be external, with builds created from `WODBY_APP_SERVICE_ID` and the provider
 checkout.
 
-Services often provide a public template that you can use directly. With [GitHub](../providers/github.md) and
-[GitLab](../providers/gitlab.md), Wodby can also create a new repository and import the template contents into it. For
-[Bitbucket](../providers/bitbucket.md), create or copy the template repository manually first, then select it as the
-build source.
+Services often provide a public build boilerplate that you can use directly. With [GitHub](../providers/github.md) and
+[GitLab](../providers/gitlab.md), Wodby can also create a new repository and import the boilerplate contents into it.
+For [Bitbucket](../providers/bitbucket.md), create or copy the boilerplate repository manually first, then select it as
+the build source.
 
 #### Settings 
 

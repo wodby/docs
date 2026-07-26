@@ -39,7 +39,9 @@ In that flow you can:
 - use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment
 - choose which successful build to deploy for services with build sources, as long as the build belongs to the same stack revision as the current app instance
 
-If you deploy only a subset of services, Wodby applies that ordering only inside the selected set.
+If you deploy only a subset of services, Wodby applies that ordering only inside the selected set. Repository
+post-deployment scripts run only when the app service that owns the corresponding build is included in the selected
+deployment. Reusing that build for another selected service does not make the build owner's scripts applicable.
 
 ### Post-deployment scripts
 
@@ -52,7 +54,8 @@ deployment and post-deployment task therefore have separate outcomes:
 
 If a post-deployment script fails, the completed deployment and app instance remain successful. Wodby shows a
 post-deployment warning with separate task logs and does not roll back the deployed app services. You can retry the
-post-deployment task without redeploying the application.
+post-deployment task without redeploying the application while that deployment remains active for the app instance.
+After another deployment becomes active, the older deployment's post-deployment task can no longer be retried.
 
 Wodby CLI deployment commands that stream logs or wait for completion follow both tasks. If the rollout succeeds but the
 post-deployment task fails, the CLI returns a non-zero exit code with a message that distinguishes the script failure

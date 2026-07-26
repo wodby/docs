@@ -64,9 +64,13 @@ Automatic infrastructure upgrades are configured per cluster with separate contr
 | Infrastructure | Cluster-level infrastructure version upgrades |
 | Infrastructure apps | Infrastructure app stack revision upgrades |
 
-Each upgrade type has its own semver-only policy. Automatic infrastructure upgrades do not use revision or non-semver
-matching. The policy controls whether automatic patch, minor, and major semver updates are allowed. By default, patch
-and minor updates are allowed, and major updates are not.
+Each upgrade type has its own semver-only policy. The policy controls whether automatic patch, minor, and major semver
+updates are allowed. By default, patch and minor updates are allowed, and major updates are not.
+
+Infrastructure app stacks can also follow a newer stack revision that keeps the same stable semantic version. This is
+useful when an infrastructure service is republished without changing its version. Same-version revision upgrades are
+enabled by default and apply only to infrastructure app stacks. Cluster-level infrastructure versions must still move
+to a newer semantic version, and prerelease or non-semver targets are not selected automatically.
 
 Each upgrade type has its own `Auto upgrade` switch. Disabling both switches disables automatic infrastructure upgrades
 for the cluster.
@@ -80,7 +84,8 @@ In the dashboard, auto-update settings are in the same two cards as the manual a
 - `Infrastructure > Operations > Infrastructure app stacks > Auto updates`
 
 Each section has an `Auto upgrade` switch and `Patch versions`, `Minor versions`, and `Major versions` policy
-checkboxes. `Major versions` is visible but is not enabled by default.
+checkboxes. The infrastructure app stacks section also has a `Same version (newer revisions)` checkbox. Same-version,
+patch, and minor updates are enabled by default. `Major versions` is visible but is not enabled by default.
 
 ### Defaults by cluster type
 

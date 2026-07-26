@@ -2,6 +2,14 @@
 
 Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md), [GitLab](../providers/gitlab.md), or [Bitbucket](../providers/bitbucket.md). When the app instance uses Wodby CI, the selected repository is the build source for an app service with [build configuration](../services/build.md). When the app instance uses third-party CI, linking the repository in Wodby is optional because the CI provider performs the checkout.
 
+## Repository authentication
+
+Wodby CI clones connected Git-provider repositories over HTTPS and authenticates with the connected integration.
+
+Wodby does not inject a shared SSH private key into builds. An SSH clone URL requires an app-service-specific private
+key named `id_rsa`; without that key, use the connected repository's HTTPS clone URL instead. Keys configured for one
+app service are not shared with other app services.
+
 If you use [Wodby CI](wodby-ci.md), keep the pipeline definition in the repository itself:
 
 - `.wodby/pipeline.yml`

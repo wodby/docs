@@ -35,9 +35,9 @@ both modes at the same time.
 
 | Provider | Notes |
 | --- | --- |
-| [GitHub](github.md) | Repositories, automated build-template import into new repositories, and GitHub Actions support |
-| [GitLab](gitlab.md) | Repositories, automated build-template import into new repositories, and GitLab CI support |
-| [Bitbucket](bitbucket.md) | Repositories only; build-template imports must be done manually |
+| [GitHub](github.md) | Repositories, automated build boilerplate import into new repositories, and GitHub Actions support |
+| [GitLab](gitlab.md) | Repositories, automated build boilerplate import into new repositories, and GitLab CI support |
+| [Bitbucket](bitbucket.md) | Repositories only; build boilerplate imports must be done manually |
 
 ## Related pages
 
