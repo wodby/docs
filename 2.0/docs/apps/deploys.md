@@ -27,6 +27,11 @@ Deployments from CI are triggered with `wodby ci deploy`.
 
 Each build deployment creates a new deployment record associated with the selected build. One build can contain image outputs for multiple app services. CI-triggered deployments can also skip post-deployment scripts for the built services when needed.
 
+Regular app builds can continue while the target cluster is undergoing an infrastructure upgrade. If all required
+builds become ready during the upgrade, the deployment remains `awaiting` without a deployment task. Wodby starts it
+automatically after the cluster returns to `ok`; you do not need to trigger the deployment again. If the infrastructure
+upgrade fails, the deployment continues waiting until the cluster recovers to `ok`.
+
 ## New deployment
 
 A new deployment can be started manually from `Apps > [App] > [Instance] > CI/CD > Deploys > New Deployment`.

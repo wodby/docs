@@ -52,6 +52,23 @@ If the latest infrastructure version upgrade or infrastructure app stack upgrade
 dashboard shows `Retry available` and replaces the normal upgrade button with a re-run button for the failed task. Open
 the failed task from the dialog when you need to review logs before re-running it.
 
+## App activity during infrastructure upgrades
+
+Before starting either type of infrastructure upgrade, Wodby checks for application work that could change cluster
+resources. An upgrade cannot start while the cluster has active app creation or deletion, deployments,
+post-deployment scripts, app stack upgrades, service uninstall tasks, or infrastructure app builds. Wait for those
+operations to finish and then retry the upgrade. Automatic upgrade attempts skip a busy cluster and try again during a
+later scheduled check.
+
+Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
+while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
+returns to `ok`. If the infrastructure upgrade fails, the deployment continues waiting until the cluster recovers to
+`ok`.
+
+While an upgrade is running, new app instance creation or deletion, direct deployments, post-deployment script retries,
+and app stack upgrades cannot start on that cluster. Operations that are part of the infrastructure upgrade itself
+continue normally.
+
 Manual infrastructure version upgrades and manual infrastructure app stack upgrades are not available for Wodby Cloud
 clusters. Wodby Cloud infrastructure is operated by Wodby and can still be upgraded automatically by Wodby.
 
