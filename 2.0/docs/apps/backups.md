@@ -35,6 +35,10 @@ This task-time check is not continuous low-disk monitoring.
 K3S backup and import tasks share a cluster storage-operation slot so two preflights cannot approve competing work
 against the same local disk at the same time.
 
+If a scheduled backup fails, Wodby emails organization admins who have the `Backup failed` notification enabled. The
+notification is enabled by default and can be changed under `User settings > Notifications`. The email links to the
+backup task logs, where the `Check storage capacity` step shows the exact preflight error.
+
 ## Backup destination
 
 When configuring a backup or backup preset, select the destination bucket only. You no longer need to select a region separately.

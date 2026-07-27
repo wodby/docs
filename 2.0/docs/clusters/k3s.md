@@ -169,14 +169,19 @@ images, logs, backups, imports, and operating-system growth.
 For new apps on an existing K3S cluster, Wodby checks storage twice:
 
 1. Before saving the app, it totals the requested sizes of enabled, physical local-path volumes and compares that
-   allocation with the host filesystem's available bytes.
+   allocation with the host filesystem's available bytes after keeping a 10% safety reserve. It also compares the
+   total size claimed by existing and requested local-path volumes with the usable host capacity.
 2. Before the initial deployment creates persistent volume claims, it repeats the check inside the cluster's serialized
    storage-operation queue. This catches capacity consumed after the form was submitted. A retry does not count claims
    that already exist as new allocations.
 
-The first check returns an error without creating app records when the known available bytes are insufficient or the
-node reports `DiskPressure`. The second appears as `Check storage capacity` in the deployment task and stops before the
-deployment starts under the same conditions.
+The first check returns an error without creating app records when the requested allocation does not fit in the known
+available bytes after the safety reserve, or when the node reports `DiskPressure`. The second appears as
+`Check storage capacity` in the deployment task and stops before the deployment starts under the same conditions.
+
+The claimed-volume comparison is advisory. If existing and requested local-path volume sizes exceed usable host
+capacity but measured free space is still sufficient, Wodby shows a warning and continues. A local-path volume request
+is a maximum claim and does not mean that the same amount of disk is already in use.
 
 App-service backups and imports also check the backing node's `DiskPressure` condition and, when available, kubelet
 volume statistics before storage work begins.

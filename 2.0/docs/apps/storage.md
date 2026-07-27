@@ -97,13 +97,17 @@ app service is running. New app creation, initial deployments, app-service backu
 [storage-capacity preflight](../clusters/k3s.md#disk-capacity-and-persistent-volumes) before storage work begins.
 
 For a new app on an existing K3S cluster, Wodby adds the requested sizes of enabled, physical local-path volumes and
-checks them against the host disk before saving the app. Shared volumes, volumes that reuse another claim, disabled
-services, and unselected optional volumes do not add another allocation. Wodby repeats the check in the initial
-deployment task immediately before it can create claims; retries exclude claims that already exist.
+checks them against measured free space after keeping a 10% host-disk safety reserve. It also compares the combined
+size claimed by existing and requested local-path volumes with usable host capacity. Shared volumes, volumes that reuse
+another claim, disabled services, and unselected optional volumes do not add another allocation. Wodby repeats the
+check in the initial deployment task immediately before it can create claims; retries exclude claims that already
+exist.
 
-A known shortage or Kubernetes `DiskPressure` stops creation or deployment with an error. If K3S cannot report
-authoritative host-filesystem capacity, or a selected storage class uses a provisioner without a capacity resolver,
-Wodby warns and continues instead of treating unknown capacity as zero.
+When the requested allocation does not fit in measured free space after the safety reserve, or Kubernetes reports
+`DiskPressure`, Wodby stops creation or deployment with an error. If only the combined claimed volume sizes exceed
+usable capacity, Wodby warns and continues because claims are maximum sizes rather than current disk usage. If K3S
+cannot report authoritative host-filesystem capacity, or a selected storage class uses a provisioner without a
+capacity resolver, Wodby also warns and continues instead of treating unknown capacity as zero.
 
 ### Distributed storage
 
