@@ -42,6 +42,43 @@ The instance machine name is permanent and must follow the [general Kubernetes n
 
 You add or remove instances from `Apps > [App] > Instances`.
 
+## Pausing and resuming an instance
+
+Open an app instance's `Settings` tab. Settings opens on `Edit` by default; select `Lifecycle`, then
+`Pause app instance`, when you want to stop the instance temporarily without deleting its configuration or data.
+
+The Lifecycle status is `Running` during normal operation. It changes to `Pausing` while workloads are being stopped,
+`Paused` after Kubernetes verifies the pause, and `Resuming` while workloads are being restored.
+
+Pausing cancels active work for the instance, then:
+
+- scales Deployments and StatefulSets to zero
+- stops scheduled jobs and removes other active Kubernetes workload resources
+- releases the workloads' requested compute and memory back to the cluster
+- leaves routes, configuration, secrets, persistent volumes, and Helm releases in place
+
+The instance's endpoints do not respond while it is paused. Persistent volumes and their data remain provisioned so the
+instance can be resumed later. A pause has no automatic expiration.
+
+After Kubernetes verifies that the workloads have stopped, the instance moves to `paused`. Select
+`Resume app instance` from the same Lifecycle tab to make its services count toward plan usage again and restore the
+workloads and endpoints. Infrastructure app instances cannot be paused independently.
+
+### Billing while paused
+
+An instance continues to count toward app-service plan usage while the pause is in progress. After Kubernetes verifies
+the pause, its enabled app services no longer count toward that usage. They count again before workloads are restored
+when the instance resumes. Pausing does not cancel the organization's subscription, and the Team plan's $48 monthly
+minimum still applies. See [Billing](../pricing.md).
+
+For instances running on Wodby Cloud, persistent storage and cluster infrastructure are billed separately. Pausing an
+instance does not itself resize or stop its cluster, although the freed workload capacity may allow a scalable cluster
+to reduce its node count. This Wodby Cloud infrastructure note does not apply to clusters in your own cloud account,
+where infrastructure costs are determined by your provider.
+
+Wodby periodically checks paused instances for active Kubernetes workloads. If workloads are started manually outside
+Wodby, the instance is automatically resumed and its app services count toward plan usage again.
+
 ## Deleting an instance
 
 Deleting an app instance marks it as `deleting` immediately and blocks new builds and deployments from starting.
