@@ -81,9 +81,12 @@ practice:
 The main route and the main app service are separate choices. The main route determines the canonical hostname used by
 the app, while the main app service determines where the root Wodby technical hostname sends traffic.
 
-An enabled custom main route remains main until you disable, delete, or explicitly replace it. When Wodby must choose a
-replacement, enabled custom routes are preferred over generated technical routes. A generated technical main route can
-therefore change automatically as services and routes are reconciled.
+An enabled main route remains main until you disable, delete, or explicitly replace it. This applies to both custom
+routes and Wodby-generated technical routes. Wodby also preserves a valid primary route for an endpoint instead of
+replacing it during routine reconciliation.
+
+When the selected main or primary route becomes unavailable, Wodby chooses a replacement. Enabled custom routes are
+preferred over generated technical routes only when such a replacement is necessary.
 
 ### TLS certificates
 
