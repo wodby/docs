@@ -44,10 +44,10 @@ You add or remove instances from `Apps > [App] > Instances`.
 
 ## Pausing and resuming an instance
 
-Open an app instance's `Settings` tab. Settings opens on `Edit` by default; select `Lifecycle`, then
+Open an app instance's `Settings` tab. Settings opens on `Edit` by default; select `Pause & Resume`, then
 `Pause app instance`, when you want to stop the instance temporarily without deleting its configuration or data.
 
-The Lifecycle status is `Running` during normal operation. It changes to `Pausing` while workloads are being stopped,
+The status in this tab is `Running` during normal operation. It changes to `Pausing` while workloads are being stopped,
 `Paused` after Kubernetes verifies the pause, and `Resuming` while workloads are being restored.
 
 Pausing cancels active work for the instance, then:
@@ -61,8 +61,8 @@ The instance's endpoints do not respond while it is paused. Persistent volumes a
 instance can be resumed later. A pause has no automatic expiration.
 
 After Kubernetes verifies that the workloads have stopped, the instance moves to `paused`. Select
-`Resume app instance` from the same Lifecycle tab to make its services count toward plan usage again and restore the
-workloads and endpoints. Infrastructure app instances cannot be paused independently.
+`Resume app instance` from the same `Pause & Resume` tab to make its services count toward plan usage again and restore
+the workloads and endpoints. Infrastructure app instances cannot be paused independently.
 
 ### Billing while paused
 
