@@ -61,6 +61,10 @@ Use a custom route when you want to:
 
 Only services with HTTP endpoints are available in this flow.
 
+You can retarget an existing custom route to a public HTTP port on another enabled app service. Retargeting preserves
+the hostname, path, TLS certificate, route settings, and route authentication. Wodby-generated technical routes cannot
+be retargeted from this form.
+
 ### Main and primary
 
 Wodby distinguishes between two default-route flags:
@@ -76,6 +80,10 @@ practice:
 
 The main route and the main app service are separate choices. The main route determines the canonical hostname used by
 the app, while the main app service determines where the root Wodby technical hostname sends traffic.
+
+An enabled custom main route remains main until you disable, delete, or explicitly replace it. When Wodby must choose a
+replacement, enabled custom routes are preferred over generated technical routes. A generated technical main route can
+therefore change automatically as services and routes are reconciled.
 
 ### TLS certificates
 

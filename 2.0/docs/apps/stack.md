@@ -86,6 +86,11 @@ During upgrade, Wodby matches existing app services to stack services by stack s
 - If a stack service was added, Wodby creates the missing app service during the upgrade.
 - If a stack service was removed, the obsolete app service is marked for deletion and its Kubernetes resources are uninstalled after the upgrade task.
 
+Wodby does not delete a customer route implicitly when its target disappears. If the target stack revision would
+remove an app service, endpoint, or port still used by a custom route, the upgrade stops before committing. Retarget or
+delete the listed route, then retry the upgrade. Changes that only rename the primary endpoint or primary port preserve
+the existing target and do not require retargeting.
+
 Service revision, title, type, icon, and required status are updated to match the new stack service. Required services
 are kept enabled even if the stack service is disabled.
 

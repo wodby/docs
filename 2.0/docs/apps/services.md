@@ -166,7 +166,10 @@ The main app service owns the app instance's root Wodby technical hostname. Sele
 retargets that technical route to the new service's primary public HTTP endpoint. It does not replace the app
 instance's canonical `Main` route, which may be a customer-added custom route.
 
-Disabled, external, and derivative app services cannot be main.
+Disabled, external, and derivative app services cannot be main. You can disable the current main app service: Wodby
+selects another eligible enabled service for the root technical hostname, or removes that technical route when no
+replacement exists. Disabling a service also disables its routes, including custom domains; it does not move those
+customer routes to another service.
 
 An `EOL` flag next to a service version means that the app service currently uses a version whose end-of-life date has
 passed. If newer supported versions are not available in the selector, update the app instance to a stack revision that
