@@ -200,10 +200,13 @@ See [Application persistent storage](storage.md#changing-a-storage-class).
 
 ### Override main app service
 
-When enabled, Wodby changes the main app service to match the latest stack revision. This can trigger route reassignment, certificate re-issuance, and possible downtime.
+When enabled, Wodby changes the main app service to match the latest stack revision. Wodby retargets the existing root
+technical route to the new main app service's primary public HTTP endpoint while preserving the route's hostname,
+certificate, settings, and canonical `Main` flag. A separate custom or technical `Main` route remains unchanged.
 
-If the current main app service was removed from the stack, Wodby updates the main service even when this option is not
-selected, because the old main service can no longer stay active.
+Wodby applies the latest stack's main-service selection even when this option is not selected if the current main app
+service cannot remain the technical-domain owner. This includes cases where it is removed, becomes external, no longer
+exposes a public HTTP port on its main endpoint, or would be disabled by an enabled service override.
 
 ## Related pages
 

@@ -70,13 +70,13 @@ new revision. Derivative stack services inherit the pin state from their parent 
 From Wodby CLI, pass `--service-rev-pinned` when creating or updating a stack service. To unpin it, run
 `wodby stack service update ID --service-rev-pinned=false`.
 
-Only one HTTP-capable service can be marked as main. Services without HTTP endpoints cannot be main. The main stack
-service controls which app service receives the app instance's main technical route, which targets the main endpoint of
-the main app service.
+Only one service whose main endpoint exposes a public HTTP port can be marked as main. The main stack service controls
+which app service receives the app instance's main technical route. This technical-domain ownership is independent of
+the app instance's canonical `Main` route.
 
-If no service is marked as main and the stack has HTTP-capable services, Wodby uses the first HTTP-capable service in
-the stack. This fallback also applies when you add or sync an HTTP-capable service into a stack that currently has no
-main service. Stacks without HTTP-capable services can have no main service.
+If no service is marked as main and the stack has eligible services, Wodby uses the first eligible service in the
+stack. This fallback also applies when you add or sync an eligible service into a stack that currently has no main
+service. Stacks without an eligible service can have no main service.
 
 ### Replicas
 

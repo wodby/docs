@@ -36,9 +36,13 @@ The default hostname pattern is:
 
 - `<service-name>.<instance-name>.<app-name>.<org-name>.wodby.app`
 
-The main service with HTTP endpoints also gets a shorter technical hostname:
+The main app service also owns the shorter root technical hostname:
 
 - `<instance-name>.<app-name>.<org-name>.wodby.app`
+
+Changing the main app service retargets this existing root technical route to the new service's primary public HTTP
+endpoint. The hostname, certificate, and route settings stay with the route. This does not change which route is the
+app instance's `Main` route.
 
 Wodby automatically issues and renews Let's Encrypt certificates for these technical routes. Certificate validation for
 technical routes uses Wodby-managed DNS records, so the certificate can be issued before the app service itself is
@@ -61,13 +65,17 @@ Only services with HTTP endpoints are available in this flow.
 
 Wodby distinguishes between two default-route flags:
 
-- `Main` is the main route for the whole app instance
-- `Primary` is the default route for a specific app service endpoint
+- `Main` is the canonical route for the whole app instance
+- `Primary` is the default route for a specific endpoint
 
-Main routes are always primary. In practice:
+The main route can be either a Wodby-generated technical route or a custom route. Main routes are always primary. In
+practice:
 
-- an app instance has one main route
-- each app service can have its own primary route
+- an app instance with enabled public routes has one main route
+- each endpoint can have its own primary route
+
+The main route and the main app service are separate choices. The main route determines the canonical hostname used by
+the app, while the main app service determines where the root Wodby technical hostname sends traffic.
 
 ### TLS certificates
 

@@ -157,10 +157,16 @@ The `Configure` tab is the main operational form for the service.
 Depending on the service, you can:
 
 - enable or disable the service
-- mark it as the main service when it exposes HTTP routes
+- mark it as the main service when its main endpoint exposes a public HTTP port
 - change the service version
 - change the number of replicas for non-external services
 - change build source settings for services that support a build source
+
+The main app service owns the app instance's root Wodby technical hostname. Selecting a different main app service
+retargets that technical route to the new service's primary public HTTP endpoint. It does not replace the app
+instance's canonical `Main` route, which may be a customer-added custom route.
+
+Disabled, external, and derivative app services cannot be main.
 
 An `EOL` flag next to a service version means that the app service currently uses a version whose end-of-life date has
 passed. If newer supported versions are not available in the selector, update the app instance to a stack revision that
@@ -240,8 +246,8 @@ Wodby also adds runtime-only system variables to every container:
 | `WODBY_ENV_NAME`            | Name of the environment                                                                  |
 | `WODBY_ENV_TYPE`            | Type of the environment                                                                  |
 | `WODBY_HOSTS`               | List of hostnames from enabled HTTP routes                                               |
-| `WODBY_PRIMARY_HOST`        | Hostname from the enabled main app service with an HTTP route                            |
-| `WODBY_PRIMARY_URL`         | URL (`https` if certificate attached) of the enabled main app service with an HTTP route |
+| `WODBY_PRIMARY_HOST`        | Hostname of the enabled `Main` route for the app instance                                |
+| `WODBY_PRIMARY_URL`         | URL of the enabled `Main` route (`https` when it has a certificate attached)             |
 
 ## Helm tab
 

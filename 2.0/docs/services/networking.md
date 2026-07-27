@@ -24,8 +24,9 @@ One port per endpoint can be marked as main. If no port is marked as main, the f
 If a service defines a single endpoint, that endpoint becomes main automatically. If it defines multiple endpoints,
 mark one of them as main.
 
-When the main service in a stack has a main HTTP endpoint, Wodby attaches the app's main technical route to the main
-port of that endpoint.
+When an app service is main, Wodby attaches the app instance's root technical route to a public HTTP port on the
+service's main endpoint. This technical route is independent of the app instance's canonical `Main` route, which may be
+a custom domain.
 
 Service endpoints are defined under the [`endpoints` section](template.md#endpoints) in a service template.
 

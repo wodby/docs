@@ -161,7 +161,8 @@ Sync is conservative by default:
   changed its default
 - if the origin introduces a main HTTP service and your stack already has another main service, Wodby clears the old
   main flag when needed to keep only one main service
-- if the stack ends up without a main HTTP service, Wodby picks the first HTTP-capable stack service
+- if the stack ends up without a main HTTP service, Wodby picks the first stack service whose main endpoint exposes a
+  public HTTP port
 
 If the origin changes an existing value under the same name, sync keeps your local value. Review and update those values
 manually when you want to adopt the changed origin default.
