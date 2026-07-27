@@ -76,9 +76,6 @@ instance does not itself resize or stop its cluster, although the freed workload
 to reduce its node count. This Wodby Cloud infrastructure note does not apply to clusters in your own cloud account,
 where infrastructure costs are determined by your provider.
 
-Wodby periodically checks paused instances for active Kubernetes workloads. If workloads are started manually outside
-Wodby, the instance is automatically resumed and its app services count toward plan usage again.
-
 ## Deleting an instance
 
 Deleting an app instance marks it as `deleting` immediately and blocks new builds and deployments from starting.
