@@ -111,6 +111,20 @@ failed. Deployments without a rollback do not show a rollback status.
 
 Failed deployment notifications include whether Wodby rolled back, did not roll back, or attempted rollback and failed.
 
+### App service status after deployment
+
+An app service's status reflects the outcome of its own rollout, not just the overall deployment:
+
+- A successful rollout sets the app service to `ok`, or `disabled` when the service is disabled.
+- If an earlier check or dependency failure prevents the service rollout from starting, Wodby keeps the service's
+  previous status. Its deployment is canceled and the service remains marked for redeploy.
+- If the service rollout starts and then fails or is canceled, the app service becomes `errored`.
+- If that failed rollout is successfully rolled back, Wodby restores the service's previous healthy `ok` or `disabled`
+  status. The deployment still fails and the service remains marked for redeploy.
+
+A successful build does not change an app service's deployment status. After a rollout error, deploy the service again
+to clear the error, unless an automatic rollback already restored its previous healthy status.
+
 ### Force deployment
 
 Use force deployment when you need Wodby to redeploy a selected app service even though the rendered Kubernetes
