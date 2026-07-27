@@ -48,6 +48,10 @@ Wodby automatically issues and renews Let's Encrypt certificates for these techn
 technical routes uses Wodby-managed DNS records, so the certificate can be issued before the app service itself is
 serving traffic.
 
+Technical routes are managed by Wodby. You can disable one to stop serving it, but you cannot retarget it, change its
+generated hostname or path, or delete it. Wodby removes generated routes when the underlying endpoint structure no
+longer requires them.
+
 ### Custom routes
 
 From the dashboard you can add a custom route to an HTTP app service endpoint.
@@ -81,9 +85,9 @@ practice:
 The main route and the main app service are separate choices. The main route determines the canonical hostname used by
 the app, while the main app service determines where the root Wodby technical hostname sends traffic.
 
-An enabled main route remains main until you disable, delete, or explicitly replace it. This applies to both custom
-routes and Wodby-generated technical routes. Wodby also preserves a valid primary route for an endpoint instead of
-replacing it during routine reconciliation.
+An enabled main route remains main until it becomes unavailable or you explicitly replace it. A custom main route can
+also be deleted; a Wodby-generated technical route cannot. Wodby also preserves a valid primary route for an endpoint
+instead of replacing it during routine reconciliation.
 
 When the selected main or primary route becomes unavailable, Wodby chooses a replacement. Enabled custom routes are
 preferred over generated technical routes only when such a replacement is necessary.

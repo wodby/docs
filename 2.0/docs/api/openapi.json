@@ -8400,7 +8400,7 @@
           "app-routes"
         ],
         "summary": "Delete app route",
-        "description": "Deletes the app route and returns the operation result.",
+        "description": "Deletes a customer route and returns the operation result. Wodby-managed technical routes cannot be deleted; disable them instead.",
         "operationId": "deleteAppRoute",
         "responses": {
           "200": {
@@ -11777,6 +11777,7 @@
           "main",
           "primary",
           "private",
+          "technical",
           "appInstanceId",
           "appServiceId",
           "portId",
@@ -11829,6 +11830,11 @@
           },
           "private": {
             "type": "boolean"
+          },
+          "technical": {
+            "type": "boolean",
+            "readOnly": true,
+            "description": "Whether Wodby generates and manages the route."
           },
           "appInstanceId": {
             "type": "integer"
@@ -15901,6 +15907,16 @@
       "UpdateAppRouteInput": {
         "type": "object",
         "properties": {
+          "appServiceId": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Target app service for retargeting. Must be supplied together with port."
+          },
+          "port": {
+            "type": "integer",
+            "nullable": true,
+            "description": "Target public HTTP port for retargeting. Must be supplied together with appServiceId."
+          },
           "disabled": {
             "type": "boolean",
             "nullable": true
