@@ -128,6 +128,10 @@ When enabled, Wodby updates app-service replica counts to match the latest stack
 Replicas are not applied to app services that remain disabled. If the same upgrade also enables a service through
 `Override enabled services`, replicas are applied after the service is enabled.
 
+An exception applies when Wodby must enable a disabled app service to make it the main service. If that service has
+zero replicas, Wodby restores the replica count from the target stack even when `Update replicas` is disabled, so the
+root technical route does not target a service with no running pods.
+
 ### Override resources
 
 When enabled, Wodby updates resource requests and limits to the values from the latest stack revision.
@@ -209,9 +213,16 @@ When enabled, Wodby changes the main app service to match the latest stack revis
 technical route to the new main app service's primary public HTTP endpoint while preserving the route's hostname,
 certificate, settings, and canonical `Main` flag. A separate custom or technical `Main` route remains unchanged.
 
+If this option is not selected and the current main app service can still own the root technical domain, it remains
+main even when the target stack revision selects a different service.
+
 Wodby applies the latest stack's main-service selection even when this option is not selected if the current main app
 service cannot remain the technical-domain owner. This includes cases where it is removed, becomes external, no longer
 exposes a public HTTP port on its main endpoint, or would be disabled by an enabled service override.
+
+If this automatic fallback selects an app service that is currently disabled by an app-level override, Wodby enables
+it even when `Override enabled services` is disabled. Enabling it can increase billable app-service usage, so Wodby
+performs the normal quota and billing checks before committing the upgrade.
 
 ## Related pages
 
