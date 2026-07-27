@@ -21,6 +21,23 @@ Deployments are usually triggered in the following ways:
 - automated partial deployments, for example after certificate renewal
 - manual deployment from the UI
 
+## Automated redeployments
+
+Some platform operations automatically redeploy only the affected app services. Examples include certificate renewal,
+SSH authorized-key refreshes, disabling a service, and completing an import.
+
+When an affected service uses a build image, Wodby first tries to preserve the image selected by the operation. It uses
+that image only when it is still available and belongs to the app instance's current stack revision. Otherwise Wodby
+selects the newest successful, non-voided build available for that service and exact stack revision.
+
+Wodby does not silently replace a missing compatible build with the service's default image. If no reusable build exists
+for the current stack revision, the automated operation stops before creating the deployment and its task log asks you
+to run a new build.
+
+Task logs identify the selected or rejected build and show both stack revisions. Stack revision numbers are scoped to a
+stack, so two revisions can display the same number, such as `#25`, while having different internal stack or revision
+IDs. In that case, create and deploy a new build for the app instance's current stack revision.
+
 ## Build deployment
 
 Deployments from CI are triggered with `wodby ci deploy`.
@@ -117,4 +134,6 @@ When app-service configuration changes, the app instance can be marked as `needs
 This means configuration has changed, but those changes have not yet been applied to the running deployment.
 
 !!! warning "Auto redeployment"
-    Some redeployments happen automatically. For example, when a route certificate is renewed successfully, the related app services may be redeployed automatically.
+    Some redeployments happen automatically. For example, when a route certificate is renewed successfully, the related
+    app services may be redeployed automatically. See [automated redeployments](#automated-redeployments) for build
+    selection and recovery behavior.
