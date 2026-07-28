@@ -711,6 +711,7 @@ The object supports:
 - `chart`: required chart name.
 - `version`: required chart version.
 - `imagePullSecrets`: optional Helm value path for image pull secrets. Defaults to `image.pullSecrets`.
+- `valueMappings`: optional paths for backend-managed app-service values. Omitted mappings retain the legacy defaults.
 - `crds`: optional CRD file list.
 - `values`: optional extra Helm values. `helm.values[].value` can use [built-in runtime tokens](../apps/tokens.md)
   and service-defined tokens.
@@ -719,7 +720,42 @@ Workload- and container-specific Helm mappings are defined under `workloads[].he
 `workloads[].containers[].helm`.
 
 When a service is imported, Wodby validates configured Helm value paths against the chart's merged values and schema
-when they are available.
+when they are available. It also performs semantic rendering checks for backend-managed replica and service-account
+values. See [Service Helm Integration](helm.md#backend-managed-value-mappings).
+
+#### `helm.valueMappings`
+
+Type: `object`.
+
+Maps backend-managed app-service settings to chart-specific Helm value paths. The object and all its properties are
+optional. An omitted property uses its current compatibility default.
+
+The object supports:
+
+- `replicas`: replica-count path. When omitted, Wodby writes both `replicas` and `replicaCount`. When configured, only
+  the configured path is written.
+- `fullnameOverride`: resource-name override path. Defaults to `fullnameOverride`.
+- `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
+- `autoscaling`: optional autoscaling path mappings:
+  - `enabled`: defaults to `autoscaling.enabled`.
+  - `minReplicas`: defaults to `autoscaling.minReplicas`.
+  - `maxReplicas`: defaults to `autoscaling.maxReplicas`.
+  - `targetCPUUtilizationPercentage`: defaults to `autoscaling.targetCPUUtilizationPercentage`.
+
+Example:
+
+```yaml
+helm:
+  name: wodby
+  source: oci://registry-1.docker.io/wodby/ruby
+  chart: oci://registry-1.docker.io/wodby/ruby
+  version: 0.1.1
+  valueMappings:
+    serviceAccountName: serviceAccount.name
+```
+
+For the deployment contract, defaults, and import-time rendering checks, see
+[Service Helm Integration](helm.md#backend-managed-value-mappings).
 
 ### `certs`
 
