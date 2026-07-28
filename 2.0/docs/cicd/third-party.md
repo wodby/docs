@@ -27,6 +27,13 @@ Wodby. The CI provider checks out the code, and Wodby CLI creates the app build 
 metadata it detects in the CI workspace. You can still link a Git repository when you want Wodby to show repository
 metadata or trigger supported provider rerun actions from existing builds.
 
+## Builds without a linked Git repository
+
+Without a linked Git repository, Wodby cannot poll the CI provider for the build status. After `wodby ci init`, run
+`wodby ci deploy` within three hours. Otherwise, Wodby marks the build as errored and cancels its awaiting deployment.
+A later deploy attempt cannot reopen the expired build; restart the CI workflow so it initializes a new build and
+deployment.
+
 ## Typical flow
 
 1. Check out the repository in your CI job.
