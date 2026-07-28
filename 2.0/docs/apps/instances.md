@@ -57,6 +57,11 @@ Pausing cancels active work for the instance, then:
 - releases the workloads' requested compute and memory back to the cluster
 - leaves routes, configuration, secrets, persistent volumes, and Helm releases in place
 
+Automatic cron jobs and backups that become due while the instance is `Pausing`, `Paused`, or `Resuming` are skipped.
+Wodby advances each schedule to its next run instead of queueing the missed execution for after resume. Managed
+technical-domain certificates can still renew through DNS validation while the instance is paused, but renewal does
+not restore or redeploy application workloads.
+
 The instance's endpoints do not respond while it is paused. Persistent volumes and their data remain provisioned so the
 instance can be resumed later. A pause has no automatic expiration.
 
@@ -94,8 +99,8 @@ An app instance can move to `errored` when Wodby cannot finish creating it or ca
 Errored instances remain visible so you can inspect task logs and delete the instance. Operations that would create new
 runtime work or change deployable configuration are blocked, including new builds and deployments, stack upgrades,
 service configuration changes, route and auth changes, app-scoped backups, cron jobs, shell sessions, live logs, pod
-queries, and container-backed database changes. Automatic app-scoped schedules such as backups, cron jobs, and
-certificate renewals skip errored instances.
+queries, and container-backed database changes. Automatic app-scoped backups and cron jobs skip errored instances.
+Managed technical-domain certificates can still renew through DNS validation, without deploying application workloads.
 
 Review the failed task to find the cause. After fixing the underlying problem, delete the errored instance and create a
 new one.

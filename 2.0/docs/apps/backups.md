@@ -97,6 +97,11 @@ Scheduled presets include:
 
 Use override when one preset should win over other matching scheduled presets.
 
+An automatic backup targeting an app instance, app service, or container-backed database runs only while its app
+instance is running. If the backup becomes due while the instance is `Pausing`, `Paused`, `Resuming`, or `Errored`,
+Wodby skips that execution and advances the schedule. The missed backup is not queued or replayed when the instance
+becomes runnable again.
+
 ## Related pages
 
 - [Database backups](../databases/backups.md)
