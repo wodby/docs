@@ -256,6 +256,8 @@ Type: `boolean`. Default: `false`.
 
 Marks the service as mandatory when a new app is created from the stack.
 
+A required stack service cannot be disabled.
+
 ### `services[].disabled`
 
 Type: `boolean`. Default: `false`.
@@ -290,6 +292,9 @@ This affects deployment order: a service is deployed after its dependencies and 
 
 Wodby also derives deploy-time ordering from the current service links in an app instance. Use `depends` when you need
 explicit ordering even when no link exists between the services.
+
+The combined graph formed by `depends` entries and service links must be acyclic. This also applies to disabled services,
+so enabling a service cannot expose a dependency cycle later.
 
 ### `services[].options`
 
@@ -369,8 +374,13 @@ Each item supports:
 
 Required service links must be satisfied in the stack definition.
 
+The link mapping remains part of the stack configuration when the source service is disabled. An enabled source service
+cannot have a disabled target for a required link; both source and target may be disabled. Stack drafts can temporarily
+omit required mappings while being edited, but they cannot be published or used to create or upgrade an app until all
+required links are valid.
+
 When both linked services are part of the same app deployment, Wodby deploys the linked target service first. App-level
-link overrides can change that order for a specific app instance.
+link overrides can change that order for a specific app instance. A link override cannot introduce a dependency cycle.
 
 ### `services[].cron`
 

@@ -92,7 +92,7 @@ delete the listed route, then retry the upgrade. Changes that only rename the pr
 the existing target and do not require retargeting.
 
 Service revision, title, type, icon, and required status are updated to match the new stack service. Required services
-are kept enabled even if the stack service is disabled.
+must remain enabled.
 
 The upgrade task logs the changes it applies and also logs when it detects a stack change but skips it because the
 corresponding upgrade setting is disabled.
@@ -101,6 +101,10 @@ New app services may need app-specific configuration that cannot be selected saf
 build source, an external database, required integrations, or required settings. These gaps do not stop the
 stack upgrade. Wodby records them as warnings on the upgrade task, creates the app service, and waits for you to finish
 the service configuration before deploying.
+
+Required service links are structural rather than post-upgrade configuration. The upgrade stops without committing if
+a required link is missing, has an incompatible or disabled target while its source is enabled, or creates a dependency
+cycle.
 
 If a newly added service supports build boilerplates, Wodby uses the default build boilerplate automatically. If no
 boilerplate is marked as default, the first boilerplate is used. If the default boilerplate cannot be applied, Wodby
@@ -153,6 +157,9 @@ When enabled, Wodby aligns enabled and disabled services with the latest stack r
 If disabled, existing app-service enabled or disabled state is kept for services that still exist in the stack. This
 option does not keep obsolete app services when their stack service was removed.
 
+The preserved state must still satisfy required-service and required-link rules. Required services cannot be disabled.
+A required-link target may be disabled only while its source is also disabled.
+
 ### Override service settings
 
 When enabled, Wodby replaces service-setting values with the latest stack defaults.
@@ -165,8 +172,9 @@ values are kept unless the setting changes from a direct value to a linked value
 When enabled, Wodby updates service links to the latest stack configuration and deletes app-service links that no longer
 exist in the stack service.
 
-If disabled, existing link targets and extra app-service links are kept. Missing links from the new stack are still
-created so newly introduced required connections can work.
+If disabled, existing optional link targets and extra app-service links are kept. Missing links from the new stack are
+still created. Required links are updated to the target stack mapping when necessary even when this option is disabled,
+because an override cannot preserve a missing or obsolete required target. Link changes cannot create dependency cycles.
 
 ### Override tokens
 
