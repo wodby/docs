@@ -24,19 +24,20 @@ Deployments are usually triggered in the following ways:
 ## Automated redeployments
 
 Some platform operations automatically redeploy only the affected app services. Examples include certificate renewal,
-SSH authorized-key refreshes, disabling a service, and completing an import.
+SSH authorized-key refreshes and completing an import.
 
-When an affected service uses a build image, Wodby first tries to preserve the image selected by the operation. It uses
-that image only when it is still available and belongs to the app instance's current stack revision. Otherwise Wodby
-selects the newest successful, non-voided build available for that service and exact stack revision.
+When an affected service uses a build image, Wodby prefers its last successfully deployed build. That known-good image
+can be reused after a stack upgrade even though it was built for the previous stack revision. The task log warns when
+this happens and shows the selected build and both revision numbers.
 
-Wodby does not silently replace a missing compatible build with the service's default image. If no reusable build exists
-for the current stack revision, the automated operation stops before creating the deployment and its task log asks you
-to run a new build.
+Once a newer build is successfully deployed, the previous build is no longer considered the last known-good image and
+cannot be reused across stack revisions. Any other selected build must be successful, non-voided, and built for the app
+instance's current stack revision.
 
-Task logs identify the selected or rejected build and show both stack revisions. Stack revision numbers are scoped to a
-stack, so two revisions can display the same number, such as `#25`, while having different internal stack or revision
-IDs. In that case, create and deploy a new build for the app instance's current stack revision.
+Wodby does not silently replace a missing reusable build with the service's default image. If neither the last
+successfully deployed build nor a compatible current-revision build is available, the automated operation stops before
+creating the deployment and its task log asks you to run and successfully deploy a new build. Selection logs use build
+numbers, service names, and stack revision numbers without exposing internal entity IDs.
 
 ## Build deployment
 
