@@ -103,6 +103,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_pause.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_port.html</loc>
   </url>
   <url>
@@ -110,6 +113,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_port_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_resume.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_route.html</loc>
@@ -586,6 +592,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_metrics.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_settings.html</loc>
   </url>
   <url>
@@ -820,6 +829,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_pause.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_port.html</loc>
   </url>
   <url>
@@ -827,6 +839,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_port_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_resume.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_route.html</loc>
