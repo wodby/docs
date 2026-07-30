@@ -338,7 +338,16 @@ Marks the service as externally managed.
 
 Type: `boolean`. Default: `false`.
 
-Whether this service supports running multiple replicas. This can only be enabled for services of type `service`.
+Whether this service supports ordinary horizontal scaling by running multiple interchangeable replicas. This can only
+be enabled for services of type `service`.
+
+Set this to `true` only when replicas can safely share traffic and externalize or coordinate their state. Do not enable
+it merely because the chart renders a Deployment or StatefulSet. Databases, queues, storage servers, controllers, and
+other workloads with service-specific clustering or singleton semantics should remain fixed unless their scaling model
+has been explicitly integrated and validated.
+
+Wodby uses this flag for API validation, dashboard controls, Helm chart conformance, and backend-managed autoscaling.
+Fixed services accept zero or one replica; scalable services must render the requested replica count exactly.
 
 ### `labels`
 

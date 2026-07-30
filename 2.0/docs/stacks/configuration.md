@@ -80,7 +80,8 @@ service. Stacks without an eligible service can have no main service.
 
 ### Replicas
 
-You can set the number of replicas per service. This is not available for external services.
+You can set the number of replicas per service. This is not available for external services. Fixed services accept
+zero or one replica; services whose revision supports horizontal scaling can use higher replica counts.
 
 ### Integrations
 

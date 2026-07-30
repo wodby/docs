@@ -268,7 +268,8 @@ Disables the stack service by default.
 
 Type: `integer`. Default: `1`.
 
-Default number of replicas for the stack service.
+Default number of replicas for the stack service. Fixed service revisions accept `0` or `1`; service revisions that
+support horizontal scaling can use higher values.
 
 ### `services[].main`
 

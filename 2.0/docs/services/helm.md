@@ -52,6 +52,7 @@ uses the legacy default:
 | Replica count | Both `replicas` and `replicaCount` |
 | Full resource-name override | `fullnameOverride` |
 | Kubernetes service account name | `serviceAccountName` |
+| Disable chart-owned service account creation | No default; configure `serviceAccountCreate` when needed |
 | Autoscaling enabled | `autoscaling.enabled` |
 | Autoscaling minimum replicas | `autoscaling.minReplicas` |
 | Autoscaling maximum replicas | `autoscaling.maxReplicas` |
@@ -70,6 +71,7 @@ helm:
     replicas: workload.replicaCount
     fullnameOverride: workload.fullnameOverride
     serviceAccountName: serviceAccount.name
+    serviceAccountCreate: serviceAccount.create
     autoscaling:
       enabled: workload.autoscaling.enabled
       minReplicas: workload.autoscaling.minReplicas
@@ -79,11 +81,14 @@ helm:
 
 An explicit `replicas` mapping replaces both legacy replica aliases with the configured path. Each other property is
 resolved independently, so a partial `valueMappings` object continues to use the defaults for omitted properties.
+`serviceAccountCreate` has no default because not every chart creates a service account. When configured, Wodby sets it
+to `false` whenever it supplies an annotated service account and points the workload at that account.
 
 Wodby supplies the effective replica count on every deployment, including `0` while an app service is disabled or its
 app instance is paused. A chart should therefore render `spec.replicas` from the mapped value for Deployments and
 StatefulSets. Chart-managed autoscaling should default to disabled and should omit `spec.replicas` only when Wodby
-explicitly enables autoscaling.
+explicitly enables autoscaling. The chart must not render a HorizontalPodAutoscaler; Wodby creates and reconciles that
+resource so autoscaling ownership remains consistent across services.
 
 Service-level `helm.values` are applied after the backend-managed defaults. Do not set the same paths there unless the
 service intentionally replaces the backend-managed value. Replica overrides and explicit service-account mappings
@@ -98,14 +103,20 @@ full repository path into the configured `repository` value instead.
 During service import, Wodby validates explicit Helm value paths against the chart's merged values and schema when they
 are available. It also renders the chart with the same backend-managed values used during deployment.
 
-For the primary Deployment or StatefulSet, Wodby renders replica counts `0`, `1`, and `2` and verifies that the
-matching workload has the same `spec.replicas` value. This semantic check detects charts that accept a Helm value but
-do not use it, including charts that omit `spec.replicas` because autoscaling is enabled by default. DaemonSets do not
-have a replica-count check.
+For the primary Deployment or StatefulSet, Wodby renders replica counts `0` and `1` and verifies that the matching
+workload has the same `spec.replicas` value. Services marked as scalable are also rendered with `2` replicas and must
+preserve that exact count. Fixed services may normalize values above one to a singleton. This semantic check detects
+charts that accept a Helm value but do not use it, including charts that omit `spec.replicas` because autoscaling is
+enabled by default. DaemonSets do not have a replica-count check.
+
+Validation also rejects any chart-rendered HorizontalPodAutoscaler. For scalable services, Wodby renders the chart with
+its autoscaling value mappings enabled to verify that the workload remains compatible with the backend-managed HPA.
 
 When `helm.valueMappings.serviceAccountName` is explicit, Wodby also renders a sentinel service account and verifies
-that it reaches `spec.template.spec.serviceAccountName`. A chart-rendering failure during these checks fails the service
-import instead of skipping validation.
+that it reaches `spec.template.spec.serviceAccountName`. If `serviceAccountCreate` is configured, validation also
+checks that setting it to `false` prevents the chart from rendering the backend-managed account. Build-image workloads
+must similarly render the configured image pull secret; services without build-image workloads do not need that
+capability. A chart-rendering failure during these checks fails the service import instead of skipping validation.
 
 If you're creating a custom Helm chart, we recommend starting from one of the existing
 [charts by Wodby](https://github.com/wodby/charts) or [by Bitnami](https://github.com/bitnami/charts). The

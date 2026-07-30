@@ -6,9 +6,12 @@ Before you scale an app, make sure the underlying [Kubernetes cluster](../cluste
 
 ## Manual scaling
 
-You can scale the replica count of app services manually.
+You can scale the replica count of app services manually when the selected service revision supports horizontal
+scaling. The service overview shows whether horizontal scaling is supported.
 
-Stateless services can usually be scaled up and down directly. Stateful services need service-specific support for scaling, for example through read replicas.
+Stateless services can usually be scaled up and down directly. Stateful services need service-specific support for
+scaling, for example through read replicas. A fixed service can be scaled to zero or run as a single replica, but it
+cannot be configured with multiple replicas.
 
 You can set replica counts:
 
@@ -30,7 +33,8 @@ You can define resources at:
 
 ## Autoscaling rules
 
-When creating an app, you can define autoscaling rules for supported services.
+When creating an app, you can define autoscaling rules for supported services. The dashboard does not show autoscaling
+controls for fixed services, and the API rejects autoscaling settings for them.
 
 The current autoscaling signal is average CPU utilization, so you must define a [CPU request](#resources-management) first.
 

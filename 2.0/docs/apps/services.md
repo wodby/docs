@@ -159,7 +159,7 @@ Depending on the service, you can:
 - enable or disable the service
 - mark it as the main service when its main endpoint exposes a public HTTP port
 - change the service version
-- change the number of replicas for non-external services
+- change the number of replicas for non-external services; fixed services are limited to zero or one replica
 - change build source settings for services that support a build source
 
 The main app service owns the app instance's root Wodby technical hostname. Selecting a different main app service
@@ -276,7 +276,11 @@ Apps running on a demo cluster cannot change service resources.
 
 Replicas are configured from `Configure`, but they directly affect service scaling.
 
-Stateless app services can be scaled by increasing replicas for higher throughput and [high availability](high-availability.md). Replicas can also be adjusted automatically when [autoscaling](scalability.md) is enabled. Some stateful services expose their own replication behavior as part of the service design.
+Service revisions explicitly declare whether they support horizontal scaling. The service overview displays this
+capability. Scalable services can run multiple replicas for higher throughput and
+[high availability](high-availability.md), and their replicas can be adjusted automatically with
+[autoscaling](scalability.md). Fixed services are limited to zero or one replica. Stateful replication that requires
+service-specific topology, quorum, or failover is not represented as ordinary app-service scaling.
 
 ## Links tab
 
