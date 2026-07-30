@@ -64,8 +64,8 @@ support the CONNECT method because the installer uses it for HTTPS downloads and
 
 Configure the proxy to:
 
-- allow HTTP and HTTPS access to the Wodby API and the package, installation, chart, and container registries used by
-  K3S, Helm, Cilium, and FRPC
+- allow HTTP and HTTPS access to the Wodby API, including its monitoring metrics endpoint, and the package,
+  installation, chart, and container registries used by K3S, Helm, Cilium, and FRPC
 - allow `CONNECT frps.wodby.com:31225` from the K3S server
 - resolve `frps.wodby.com` and permit the proxy host to connect to its TCP port `31225`
 - bypass TLS interception for `frps.wodby.com:31225` because the CONNECT tunnel carries the FRP protocol, not HTTP
@@ -122,10 +122,15 @@ FRPS endpoint before changing the server. It then:
 - passes both uppercase and lowercase proxy variables to installation tools and K3S
 - adds localhost, Kubernetes pod/service networks, and cluster DNS names to `NO_PROXY`
 - persists the proxy for K3S and container image pulls
-- stores the proxy configuration in a cluster-local Secret used by FRPC and its upgrade jobs
+- stores the proxy configuration in a cluster-local Secret used by FRPC, its upgrade jobs, and Wodby's monitoring
+  infrastructure app
 
-These settings apply to K3S system operations and Wodby's FRPC component. They are not automatically injected into app
-containers deployed on the cluster.
+These settings apply to K3S system operations, Wodby's FRPC component, and Wodby's monitoring remote writes. They are
+not automatically injected into customer app containers deployed on the cluster.
+
+Existing proxy-enabled clusters start using the proxy for monitoring after the monitoring infrastructure app is
+upgraded or redeployed. If automatic infrastructure app updates are disabled, apply the available monitoring update
+from the cluster's infrastructure operations.
 
 ## Uninstall after a failed installation
 
@@ -240,4 +245,6 @@ Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles
   and authentication policy.
 - A connection error without an HTTP status usually means the server cannot resolve or reach the proxy, or the proxy
   cannot resolve or reach the requested destination.
+- If cluster metrics remain unavailable after a proxy installation, upgrade or redeploy the monitoring infrastructure
+  app and confirm that the proxy permits HTTPS access to the Wodby API monitoring endpoint.
 - Do not open FRPS ports `7500` or `8080` on the K3S server; they do not carry the outbound FRPC control connection.
