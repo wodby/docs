@@ -33,7 +33,14 @@ boilerplate in the service template as the default.
 
 ### Dockerfile
 
-Services can also specify a custom Dockerfile path in the same repository. Wodby CI uses it during `wodby ci build [service]`.
+Services can specify a custom Dockerfile in the service manifest. Use `build.dockerfilePath` for a path in the same
+repository; it is resolved relative to the directory containing `service.yml` and must exist. Use
+`build.dockerignorePath` for the matching ignore file. Wodby CI uses this configuration during
+`wodby ci build [service]`.
+
+The legacy `build.dockerfile` and `build.dockerignore` fields remain compatible with existing manifests that use them
+as paths. For new manifests, use the `*Path` fields for repository files and reserve the legacy fields for inline
+content.
 
 ### Build arguments
 

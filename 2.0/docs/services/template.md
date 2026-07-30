@@ -10,9 +10,16 @@ services:
   - nginx
 ```
 
-Each listed directory must contain its own `service.yml`. Paths used by fields such as `configs[].config`,
-`build.dockerfile`, `build.dockerignore`, and `build.boilerplates[].pipeline` are resolved relative to that service
-directory.
+Each listed directory must contain its own `service.yml`. Repository files referenced by `configs[].configFile`,
+`build.dockerfilePath`, `build.dockerignorePath`, and `build.boilerplates[].pipelinePath` are resolved relative to that
+service directory.
+
+Repository file references must be relative paths and cannot use `..` to traverse to a parent directory. Import or
+update fails when an explicitly referenced file is missing. Empty referenced files are supported.
+
+Older manifests can use `config`, `dockerfile`, `dockerignore`, and `pipeline` as either inline content or a repository
+path. These ambiguous forms remain supported, but new and updated manifests should use the explicit `*Path` or
+`configFile` fields for repository files.
 
 Only the fields documented on this page are supported. Unknown fields will be rejected during import.
 
@@ -113,7 +120,7 @@ workloads:
       sidecars: extraSidecars
 
 build:
-  dockerfile: Dockerfile
+  dockerfilePath: Dockerfile
   connect: true
   boilerplates:
     - name: vanilla
@@ -393,12 +400,16 @@ Build configuration for services of type `service`.
 
 Each object supports:
 
-- `dockerfile`: Dockerfile path.
-- `dockerignore`: `.dockerignore` path.
+- `dockerfilePath`: relative repository path to Dockerfile content. The file must exist.
+- `dockerignorePath`: relative repository path to `.dockerignore` content. The file must exist.
+- `dockerfile`: inline Dockerfile content. Older manifests can also use it as a repository path.
+- `dockerignore`: inline `.dockerignore` content. Older manifests can also use it as a repository path.
 - `connect`: whether the service supports a connected git repository.
 - `boilerplates`: starter repositories users can clone as a starting point.
 
 Set build image targets with `workloads[].containers[].build: true`. Services with build configuration must mark at least one container.
+
+Do not specify both `dockerfile` and `dockerfilePath`, or both `dockerignore` and `dockerignorePath`.
 
 Docker build arguments are opt-in. Wodby passes only values marked with `build: true` from service env vars, service
 settings, or app-service env vars. Runtime-only values are not passed to builds.
@@ -411,11 +422,13 @@ Each `build.boilerplates[]` item supports:
 - `default`: marks the default starter repository. If no boilerplate is marked as default, the first boilerplate is used.
 - `branch`: git branch to use.
 - `tag`: git tag or tag pattern to use.
-- `pipeline`: optional pipeline file path.
+- `pipelinePath`: optional relative repository path to pipeline content. The file must exist.
+- `pipeline`: optional inline pipeline content. Older manifests can also use it as a repository path.
 - `optionVersionConstraint`: optional semantic-version constraint for service option versions compatible with the
   boilerplate.
 
 Specify either `branch` or `tag` for each build boilerplate.
+Do not specify both `pipeline` and `pipelinePath`.
 
 The legacy `build.templates` field remains supported for existing manifests but is deprecated. Use `build.boilerplates`
 for new and updated manifests.
@@ -792,7 +805,8 @@ Each item supports:
 
 - `name`: required config name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `title`: optional config title.
-- `config`: optional default config content or a relative file path to load it from the repository.
+- `config`: optional inline default config content. Older manifests can also use it as a repository path.
+- `configFile`: optional relative repository path to default config content. The file must exist.
 - `default`: optional external default source. Currently, image-backed defaults are supported.
 - `helm`: optional Helm value path that receives the resolved config content. Use this when the chart manages the
   ConfigMap or Secret for the config itself.
@@ -807,8 +821,9 @@ Each item supports:
   versions. An exact version entry overrides the unversioned config with the same name; otherwise the unversioned
   config is used as the fallback.
 
-Each config must specify at least one default with `config` or `default`. Both can be present during migration, in which
-case `config` remains a fallback for service revisions created before import-time image resolution was enabled.
+Each config must specify at least one default with `config`, `configFile`, or `default`. Do not specify both `config`
+and `configFile`. A content or file default can be present alongside `default` during migration, in which case it
+remains a fallback for service revisions created before import-time image resolution was enabled.
 
 `default` supports:
 
