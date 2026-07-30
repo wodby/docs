@@ -53,10 +53,6 @@ uses the legacy default:
 | Full resource-name override | `fullnameOverride` |
 | Kubernetes service account name | `serviceAccountName` |
 | Disable chart-owned service account creation | No default; configure `serviceAccountCreate` when needed |
-| Autoscaling enabled | `autoscaling.enabled` |
-| Autoscaling minimum replicas | `autoscaling.minReplicas` |
-| Autoscaling maximum replicas | `autoscaling.maxReplicas` |
-| Autoscaling target CPU utilization | `autoscaling.targetCPUUtilizationPercentage` |
 
 Override only the paths that differ from these defaults. For example, a chart that nests its deployment values can
 define:
@@ -72,11 +68,6 @@ helm:
     fullnameOverride: workload.fullnameOverride
     serviceAccountName: serviceAccount.name
     serviceAccountCreate: serviceAccount.create
-    autoscaling:
-      enabled: workload.autoscaling.enabled
-      minReplicas: workload.autoscaling.minReplicas
-      maxReplicas: workload.autoscaling.maxReplicas
-      targetCPUUtilizationPercentage: workload.autoscaling.targetCPU
 ```
 
 An explicit `replicas` mapping replaces both legacy replica aliases with the configured path. Each other property is
@@ -84,11 +75,17 @@ resolved independently, so a partial `valueMappings` object continues to use the
 `serviceAccountCreate` has no default because not every chart creates a service account. When configured, Wodby sets it
 to `false` whenever it supplies an annotated service account and points the workload at that account.
 
+When an external database connection requires workload identity, `serviceAccountName` must be mapped explicitly in the
+selected service revision. Wodby stops the deployment with a user-facing compatibility error before running Helm if
+that mapping is absent. If assigning the mapped name makes the chart render its own ServiceAccount, the chart must also
+map `serviceAccountCreate` so Wodby can disable that duplicate resource.
+
 Wodby supplies the effective replica count on every deployment, including `0` while an app service is disabled or its
 app instance is paused. A chart should therefore render `spec.replicas` from the mapped value for Deployments and
-StatefulSets. Chart-managed autoscaling should default to disabled and should omit `spec.replicas` only when Wodby
-explicitly enables autoscaling. The chart must not render a HorizontalPodAutoscaler; Wodby creates and reconciles that
-resource so autoscaling ownership remains consistent across services.
+StatefulSets. Wodby does not enable chart autoscaling values. When autoscaling is configured, Wodby creates and
+reconciles the HorizontalPodAutoscaler while the chart continues to render its ordinary replica value. A chart-owned
+autoscaler must therefore remain disabled with the service manifest's Helm values. Wodby-maintained charts always
+render `spec.replicas` and do not expose chart-owned autoscaling values.
 
 Service-level `helm.values` are applied after the backend-managed defaults. Do not set the same paths there unless the
 service intentionally replaces the backend-managed value. Replica overrides and explicit service-account mappings
@@ -109,8 +106,8 @@ preserve that exact count. Fixed services may normalize values above one to a si
 charts that accept a Helm value but do not use it, including charts that omit `spec.replicas` because autoscaling is
 enabled by default. DaemonSets do not have a replica-count check.
 
-Validation also rejects any chart-rendered HorizontalPodAutoscaler. For scalable services, Wodby renders the chart with
-its autoscaling value mappings enabled to verify that the workload remains compatible with the backend-managed HPA.
+Validation rejects any HorizontalPodAutoscaler rendered with the service manifest's Helm values. A chart may expose a
+dormant autoscaling option, but Wodby does not enable it because app-service autoscaling is managed by the backend.
 
 When `helm.valueMappings.serviceAccountName` is explicit, Wodby also renders a sentinel service account and verifies
 that it reaches `spec.template.spec.serviceAccountName`. If `serviceAccountCreate` is configured, validation also

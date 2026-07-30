@@ -757,11 +757,14 @@ The object supports:
   the configured path is written.
 - `fullnameOverride`: resource-name override path. Defaults to `fullnameOverride`.
 - `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
-- `autoscaling`: optional autoscaling path mappings:
-  - `enabled`: defaults to `autoscaling.enabled`.
-  - `minReplicas`: defaults to `autoscaling.minReplicas`.
-  - `maxReplicas`: defaults to `autoscaling.maxReplicas`.
-  - `targetCPUUtilizationPercentage`: defaults to `autoscaling.targetCPUUtilizationPercentage`.
+- `serviceAccountCreate`: optional chart-owned service-account creation path. Wodby sets it to `false` when it supplies
+  an annotated service account. There is no compatibility default because not every chart creates an account.
+
+`serviceAccountName` must be explicit for service revisions that can use workload identity for an external database.
+If the chart creates the named account, `serviceAccountCreate` is required as well.
+
+Autoscaling paths are intentionally not part of `valueMappings`. Wodby owns the HorizontalPodAutoscaler and continues
+to pass the ordinary replica value to the chart.
 
 Example:
 
