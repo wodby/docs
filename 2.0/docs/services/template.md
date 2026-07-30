@@ -18,8 +18,7 @@ Repository file references must be relative paths and cannot use `..` to travers
 update fails when a referenced file is missing. Empty referenced files are supported.
 
 Use `configContent`, `dockerfileContent`, `dockerignoreContent`, and `pipelineContent` when content is defined inline in
-`service.yml`. Historical multiline inline values in the path fields remain temporarily supported and produce a
-deprecation warning.
+`service.yml`. The corresponding path fields are never interpreted as inline content.
 
 Only the fields documented on this page are supported. Unknown fields will be rejected during import.
 
