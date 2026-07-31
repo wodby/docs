@@ -26,6 +26,22 @@ In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure
 `Infrastructure app stacks` card shows whether stack updates are available. When Wodby can identify the affected
 infrastructure apps, the card lists each app and the current and target stack revision numbers.
 
+### Review an infrastructure app changelog
+
+Select `Show changelog` in the `Infrastructure app stacks` card to load the changes for the currently available upgrade.
+Wodby recalculates the current upgrade targets when you open the changelog. The result is grouped by infrastructure app
+and shows its current and target stack versions and revision numbers.
+
+For each app, the changelog identifies stack services that will be added, removed, or moved to another service
+revision. For a newer semantic service version, published notes include stable release tags after the current version
+through the target version. For same-version revision changes or other version formats, Wodby can show the target tag's
+notes when the service is tag-backed. Release notes come from the Git provider, so some service updates show that no
+published release notes were found.
+
+The changelog summarizes stack service membership and service revision changes. A newer stack revision can contain no
+service revision changes and still change configuration such as environment variables, Helm values, links, or
+resources. The changelog calls out this case, but it is not a complete configuration diff.
+
 The `Infrastructure Apps` tab lists the infrastructure apps installed on the cluster. Use it when you need to inspect
 the app list or open an individual infrastructure app page.
 
