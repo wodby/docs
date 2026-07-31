@@ -15,10 +15,15 @@ From `Apps > [App] > [Instance] > Stack > App services > [Service] > Overview`, 
 
 To start a session:
 
+- the organization must have an active paid subscription
 - you need writable access to the app instance
 - the app instance status must be `OK`
 - the app service status must be `OK`
 - the target service must have at least one workload container and a current pod to connect to
+
+The dashboard disables `Connect via web terminal` when the organization does not have paid-plan access or when the app
+instance or app service is not `OK`. If paid-plan access is missing, hover over the disabled button to see the plan
+requirement.
 
 If Wodby cannot find a current pod for the selected workload, the session cannot start.
 

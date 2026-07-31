@@ -2,6 +2,9 @@
 
 From `Databases > [Database] > Backups` you can run one-off backups and manage backup presets.
 
+One-off manual backups are available on all active plans. Creating or editing any backup preset requires an active
+paid subscription, whether or not the preset includes an automatic schedule.
+
 The database backup area has two tabs:
 
 - `Backups` for one-off backups
@@ -24,6 +27,8 @@ If the provider supports object storage classes, the storage class override is o
 ## Backup presets
 
 Backup presets save time when entering backup destination details, and they can also define automatic backups.
+
+All backup presets are a paid feature. Turning `Auto backups` off does not make a preset available on the free plan.
 
 Database presets can be scoped to:
 

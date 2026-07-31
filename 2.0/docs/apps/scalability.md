@@ -33,6 +33,8 @@ You can define resources at:
 
 ## Autoscaling rules
 
+Autoscaling requires an active paid subscription. Manual replica scaling remains available on all active plans.
+
 When creating an app, you can define autoscaling rules for supported services. You can change the rule later from
 **Apps > your app > your instance > Services > your service > Configure**. Turn **Autoscaling** on to edit the CPU
 target and replica range, or turn it off to clear the saved rule. The controls remain available when the app service is

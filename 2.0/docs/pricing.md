@@ -17,6 +17,7 @@ Typical included capabilities:
 - 5 GB of private Docker registry storage
 - logs streaming
 - stacks updates
+- unlimited projects
 - manual backups and imports
 - technical domains with SSL
 - community support
@@ -31,8 +32,8 @@ Team includes everything in Developer, plus production-focused features such as:
 - auto-renewed SSL certificates
 - autoscaling tools
 - app instance pausing
-- auto backups
-- scheduled cron jobs
+- backup presets and automatic backups
+- scheduled and manually run cron jobs
 - web shell for containers
 - best-effort support
 - $30 of Wodby Cloud usage per month
@@ -60,7 +61,8 @@ Designed for large workloads and teams. Custom pricing and limits. On-premises o
 - Wodby Cloud usage if you run workloads on Wodby Cloud
 - Infrastructure costs from your cloud provider if you use managed Kubernetes, managed databases, or other resources in your own account
 
-Organization users and projects are included in your plan and are not billed separately.
+Organization users and projects are included in your plan and are not billed separately. Projects have no plan-based
+quantity limit.
 
 ## Addons
 

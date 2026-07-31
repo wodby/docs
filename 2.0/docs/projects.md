@@ -34,6 +34,8 @@ Shared resources can appear here even when they are owned by another project or 
 
 Create projects from `Organization > Projects`.
 
+Projects are available on all active plans, with no plan-based limit on the number of projects in an organization.
+
 When creating a project, you can:
 
 - set the project name

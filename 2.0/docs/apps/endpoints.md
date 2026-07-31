@@ -56,6 +56,9 @@ longer requires them.
 
 From the dashboard you can add a custom route to an HTTP app service endpoint.
 
+Creating or editing custom routes and domains requires an active paid subscription. Wodby-managed technical routes and
+their SSL certificates remain available on all active plans.
+
 Use a custom route when you want to:
 
 - attach your own hostname

@@ -2,6 +2,8 @@
 
 You can run cron jobs manually for app services that expose cron schedules.
 
+Cron schedules and manual cron-job runs require an active paid subscription.
+
 Cron schedules can exist at several levels:
 
 - service level, provided by the service itself through the service template

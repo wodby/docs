@@ -18,6 +18,9 @@ The app instance `Data` area includes:
 
 Only app services that expose backup actions are available in the backup flow.
 
+One-off manual backups are available on all active plans. Creating or editing a backup preset requires an active paid
+subscription, including presets that do not enable an automatic schedule.
+
 ## K3S storage capacity preflight
 
 Before an app-service backup runs on K3S, its task includes a `Check storage capacity` step. For volumes using the
@@ -56,6 +59,8 @@ If the provider supports object storage classes, the storage class override is o
 ## Backup presets
 
 Backup presets save time when entering backup destination details, and they can also define automatic backups.
+
+All backup presets are a paid feature. Turning `Auto backups` off does not make a preset available on the free plan.
 
 App presets can be scoped to:
 
