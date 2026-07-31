@@ -102,7 +102,15 @@ After a downgrade is scheduled:
 - organization owners can still update spending limits
 - new paid-only features and capacity above the Developer plan limit are not available
 
-To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only features.
+To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
+features. If autoscaling is configured, the downgrade error identifies the affected app, instance, and service. Open
+each service from **Apps > your app > your instance > Services > your service > Configure**, turn **Autoscaling** off,
+and select **Update** before retrying the downgrade.
+
+Disabling an app service is not enough: disabled services keep their autoscaling settings so those settings can be
+restored when the service is re-enabled. You can turn autoscaling off while the service remains disabled; deleting the
+service is not required. See [Application Scalability](apps/scalability.md#autoscaling-rules) for the configuration
+requirements and behavior.
 
 ### Wodby CI minutes
 

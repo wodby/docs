@@ -33,8 +33,12 @@ You can define resources at:
 
 ## Autoscaling rules
 
-When creating an app, you can define autoscaling rules for supported services. The dashboard does not show autoscaling
-controls for fixed services, and the API rejects autoscaling settings for them.
+When creating an app, you can define autoscaling rules for supported services. You can change the rule later from
+**Apps > your app > your instance > Services > your service > Configure**. Turn **Autoscaling** on to edit the CPU
+target and replica range, or turn it off to clear the saved rule. The controls remain available when the app service is
+disabled, so you do not need to re-enable or delete a service just to remove its autoscaling configuration.
+
+The dashboard does not show autoscaling controls for fixed services, and the API rejects autoscaling settings for them.
 
 The current autoscaling signal is average CPU utilization, so you must define a [CPU request](#resources-management) first.
 
@@ -44,6 +48,10 @@ You can also define minimum and maximum replica counts:
 
 - the minimum replica count is the baseline when CPU usage stays below the target
 - the maximum replica count is the upper limit autoscaling can grow to
+
+Disabling an app service preserves its autoscaling rule for a future re-enable. It does not turn autoscaling off or
+remove the service as a [subscription downgrade](../pricing.md#downgrading-a-paid-subscription) blocker. To remove the
+rule, open the disabled service's **Configure** page, turn **Autoscaling** off, and select **Update**.
 
 ## Vertical scaling
 
