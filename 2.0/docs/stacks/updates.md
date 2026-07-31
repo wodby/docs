@@ -22,6 +22,11 @@ When updates are available, the card lists the affected services and shows the c
 versions. When every unpinned service already uses the latest available service revision, the card shows an `Up to date`
 tag and the update button is disabled.
 
+Select `Show changelog` to review published release notes before updating. For semantic-version updates, the changelog
+includes stable release tags after the current version through the target version and groups them by service. For other
+version formats, Wodby can show the target tag's notes when the service is tag-backed. Release notes come from the Git
+provider, so services without published tag or release descriptions show that no release notes were found.
+
 When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
 latest service revisions in a new stack revision.
 
