@@ -46,6 +46,7 @@ You add or remove instances from `Apps > [App] > Instances`.
 
 Open an app instance's `Settings` tab. Settings opens on `Edit` by default; select `Pause & Resume`, then
 `Pause app instance`, when you want to stop the instance temporarily without deleting its configuration or data.
+Pausing is available on paid plans. Resuming remains available so you can leave the paused state before a downgrade.
 
 The status in this tab is `Running` during normal operation. It changes to `Pausing` while workloads are being stopped,
 `Paused` after Kubernetes verifies the pause, and `Resuming` while workloads are being restored.
@@ -74,7 +75,9 @@ the workloads and endpoints. Infrastructure app instances cannot be paused indep
 An instance continues to count toward app-service plan usage while the pause is in progress. After Kubernetes verifies
 the pause, its enabled app services no longer count toward that usage. They count again before workloads are restored
 when the instance resumes. Pausing does not cancel the organization's subscription, and the Team plan's $48 monthly
-minimum still applies. See [Billing](../pricing.md).
+minimum still applies. A paid subscription cannot be downgraded while an instance is `Pausing` or `Paused`: wait for
+any pause in progress to finish, resume every paused instance, then retry the downgrade. See
+[Billing](../pricing.md#downgrading-a-paid-subscription).
 
 For instances running on Wodby Cloud, persistent storage and cluster infrastructure are billed separately. Pausing an
 instance does not itself resize or stop its cluster, although the freed workload capacity may allow a scalable cluster

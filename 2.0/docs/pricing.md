@@ -30,6 +30,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - custom domains
 - auto-renewed SSL certificates
 - autoscaling tools
+- app instance pausing
 - auto backups
 - scheduled cron jobs
 - web shell for containers
@@ -103,9 +104,14 @@ After a downgrade is scheduled:
 - new paid-only features and capacity above the Developer plan limit are not available
 
 To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
-features. If autoscaling is configured, the downgrade error identifies the affected app, instance, and service. Open
-each service from **Apps > your app > your instance > Services > your service > Configure**, turn **Autoscaling** off,
-and select **Update** before retrying the downgrade.
+features. App instance pausing is a paid feature, so no instance can be `Pausing` or `Paused` when a downgrade is
+scheduled. If an instance is `Pausing`, wait for it to reach `Paused`; then open **Apps > your app > your instance >
+Settings > Pause & Resume**, select **Resume app instance**, and retry the downgrade after it finishes. The downgrade
+error identifies each affected app and instance.
+
+If autoscaling is configured, the downgrade error identifies the affected app, instance, and service. Open each
+service from **Apps > your app > your instance > Services > your service > Configure**, turn **Autoscaling** off, and
+select **Update** before retrying the downgrade.
 
 Disabling an app service is not enough: disabled services keep their autoscaling settings so those settings can be
 restored when the service is re-enabled. You can turn autoscaling off while the service remains disabled; deleting the
