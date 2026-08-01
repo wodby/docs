@@ -72,6 +72,9 @@ overrides Wodby replaces with values from the latest stack revision.
 Auto-upgrade can run after supported automatic stack updates, including Git-backed stack auto-updates, automatic stack
 service revision updates, and automatic sync with origin.
 
+Use an [automation time window](../automation-time-windows.md) when an app instance should start automatic stack
+upgrades only during selected hours.
+
 Auto-upgrade is disabled by default. Enable it only for instances where it is acceptable to move to the latest stack
 revision without a manual review step. If the stack upgrade creates app services that need extra configuration, Wodby
 records warnings and waits for you to finish the service configuration before deployment, the same as a manual stack

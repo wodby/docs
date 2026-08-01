@@ -108,6 +108,9 @@ to a newer semantic version, and prerelease or non-semver targets are not select
 Each upgrade type has its own `Auto upgrade` switch. Disabling both switches disables automatic infrastructure upgrades
 for the cluster.
 
+Each upgrade type can also use its own [automation time window](../automation-time-windows.md), so cluster
+infrastructure version upgrades and infrastructure app stack upgrades can start during different selected hours.
+
 Version policy settings affect automatic upgrades only. You can still run a manual infrastructure or infrastructure app
 upgrade when the dashboard offers one.
 
