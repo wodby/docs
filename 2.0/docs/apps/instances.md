@@ -42,6 +42,26 @@ The instance machine name is permanent and must follow the [general Kubernetes n
 
 You add or remove instances from `Apps > [App] > Instances`.
 
+## Copying configuration to a new instance
+
+When you add an instance to an existing app, Step 4 shows `Copy configuration from`. Select another instance of the
+same app and confirm to prefill compatible configuration for the new instance:
+
+- CI and container registry selections
+- connected Git build sources
+- service settings and integrations
+- volume sizes
+- existing database selections for compatible external database services
+
+Only fields supported by the selected stack revision and integrations available to you are copied. Review every
+section before creating the instance. Imports, backups, volume data, and database data are not copied.
+
+!!! warning
+    This warning appears in the dashboard only when the stack has an enabled external database service. If the source
+    instance uses an existing database, copying its configuration can select that same database for the new instance.
+    Both instances would connect to one database; Wodby does not clone its data. To keep the instances isolated, review
+    the `Databases` section and select a different database server or choose `Create new` in the `DB` field.
+
 ## Pausing and resuming an instance
 
 Open an app instance's `Settings` tab. Settings opens on `Edit` by default; select `Pause & Resume`, then

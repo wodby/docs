@@ -91,6 +91,10 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
 
 ### Step 4
 
+When adding another instance to an existing app, you can use `Copy configuration from` to prefill compatible Step 4
+fields from another instance. See [Copying configuration to a new instance](instances.md#copying-configuration-to-a-new-instance)
+for what is copied and the database-sharing behavior to review.
+
 #### CI/CD
 
 If the stack has services with build configuration, choose your [CI system](../cicd/index.md) and
