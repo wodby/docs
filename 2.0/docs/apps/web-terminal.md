@@ -20,12 +20,18 @@ To start a session:
 - the app instance status must be `OK`
 - the app service status must be `OK`
 - the target service must have at least one workload container and a current pod to connect to
+- the cluster must have a current, available Wodby FRPC infrastructure proxy
 
 The dashboard disables `Connect via web terminal` when the organization does not have paid-plan access or when the app
 instance or app service is not `OK`. If paid-plan access is missing, hover over the disabled button to see the plan
 requirement.
 
 If Wodby cannot find a current pod for the selected workload, the session cannot start.
+
+Web-terminal connections use the cluster's Wodby infrastructure proxy; they do not connect directly to GKE, EKS, or
+another provider's Kubernetes API. Clusters created with older infrastructure may need an infrastructure upgrade before
+the web terminal is available. This upgrade updates Wodby infrastructure applications and does not move your workloads
+or data. Until the proxy is available, Wodby rejects the session instead of falling back to direct provider access.
 
 ## Target selection
 
