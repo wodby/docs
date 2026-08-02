@@ -48,13 +48,17 @@ When you add an instance to an existing app, Step 4 shows `Copy configuration fr
 same app and confirm to prefill compatible configuration for the new instance:
 
 - CI and container registry selections
-- connected Git build sources
+- public build boilerplate selections and connected Git repositories
 - service settings and integrations
 - volume sizes
 - existing database selections for compatible external database services
 
 Only fields supported by the selected stack revision and integrations available to you are copied. Review every
 section before creating the instance. Imports, backups, volume data, and database data are not copied.
+
+When the source instance was created by cloning a boilerplate into your Git account, the new instance connects to that
+resulting repository. It does not clone the boilerplate into another repository. A public boilerplate source remains a
+public boilerplate when the same boilerplate is available in the selected stack revision.
 
 !!! warning
     This warning appears in the dashboard only when the stack has an enabled external database service. If the source
