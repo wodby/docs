@@ -77,11 +77,11 @@ The ACL model supports ownership and sharing for:
 - services
 - stacks
 
-Dashboard screens may expose these controls in different places depending on the resource type.
+Dashboard screens may expose these controls in different places depending on the resource type. Container-based databases are app-owned and cannot be shared independently: change their ownership and project access from the owning app's `Sharing` page. Managed databases retain their own sharing controls.
 
 ## Dashboard workflow
 
-Open the resource and go to `Sharing`.
+Open the resource and go to `Sharing`. For a container-based database, open its owning app and use the app's `Sharing` page instead.
 
 The `Sharing settings` card has two areas:
 

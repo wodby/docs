@@ -209,7 +209,7 @@ Apps can be organization-owned or project-owned. In the dashboard, the app creat
 
 During app creation, referenced resources such as clusters, stacks, integrations, services, providers, and databases generally require read/use access, not modify access. This is why a shared cluster can be a valid deployment target without granting cluster write access.
 
-App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
+App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings. Container-based databases created for app services follow the same rule: their owner and project access list stay synchronized with the app and cannot be changed independently. Managed databases keep their own ownership and sharing settings.
 
 Changing an existing app, app instance, app service, deployment, build source, environment variables, tokens, annotations, routes, ports, auth settings, and similar app-owned configuration requires modify access to the app or app instance.
 

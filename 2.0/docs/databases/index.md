@@ -9,7 +9,10 @@ Databases are first-class resources in Wodby. They give you a shared place to ma
 - [backups](backups.md)
 - [imports](imports.md)
 
-A database can be project-owned or organization-owned. Use the database `Sharing` page to make it available to additional projects with either `Read/Use` or `Modify/Delete` access.
+Database ownership and sharing depend on how the database is deployed:
+
+- A container-based database belongs to an app. It always uses the owning app's owner and project access list. To change who can use or modify it, open the app's `Sharing` page.
+- A managed database is independent of an app. Use the database's `Sharing` page to change its owner or make it available to additional projects with either `Read/Use` or `Modify/Delete` access.
 
 A database also has an [environment](../apps/env.md). For container-based databases created from an app, the environment usually matches the app instance environment.
 
@@ -29,6 +32,8 @@ Wodby supports two main ways to run a database server:
 The database runs as part of your application stack in a container with attached persistent storage.
 
 Add one of the database [services](../services/index.md) to your stack and choose storage size in stack configuration or during app creation.
+
+Its ownership and project access stay synchronized with the owning app. Moving the app to another owner project or changing the app's project access updates the database automatically; the database cannot be shared separately.
 
 ### 2. [Managed](managed.md)
 
