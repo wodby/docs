@@ -15,7 +15,7 @@ Use a CI provider when:
 CI provider integrations are used for:
 
 - app build and deploy workflows
-- organization or app defaults for CI behavior
+- organization defaults and app-instance selections for CI behavior
 - provider-backed actions such as triggering or rerunning supported workflows
 
 Provider-backed actions are available only for CI providers that Wodby can call directly. [Custom CI](custom-ci.md)

@@ -40,7 +40,8 @@ The organization area in the dashboard includes these sections:
 - `Certificates` to review issued certificates used by application routes and supported database resources
 - `SSO` to configure organization-level Single Sign-On providers
 - `Billing` for subscription and plan-related operations
-- `Settings` to edit the organization itself
+- `Settings` to manage organization-wide defaults
+- `Edit` to review and edit the organization record or delete the organization
 
 ## Members
 
@@ -76,7 +77,26 @@ See [Billing](pricing.md) for the current plan model and Wodby Cloud billing not
 
 ## Settings
 
-`Organization > Settings` is the page for editing the organization record itself.
+`Organization > Settings` manages defaults used when creating resources. From there you can change:
+
+- the default time zone
+- the default CI provider
+- the default container registry
+
+The CI and registry selectors include Wodby's built-in services and available organization-owned integrations of the
+corresponding type. Project-owned integrations cannot be used as organization defaults because they may not be
+available to apps in other projects.
+
+The selected CI and registry initialize new apps and new app instances. Each app instance stores its own effective
+selection, so changing an organization default does not change existing instances or historical builds. The selection
+is also retained when an instance has no enabled service with build configuration, allowing a buildable service to be
+enabled or added later without changing the intended provider.
+
+Choose `Wodby CI` or `Wodby US Docker Registry` to use the corresponding built-in service as the organization default.
+
+## Editing the organization
+
+`Organization > Edit` manages the organization record itself.
 
 From there you can:
 
@@ -84,7 +104,6 @@ From there you can:
 - review join date
 - review the machine name
 - change the organization title
-- change the default time zone
 - delete the organization
 
 ## Single Sign-On

@@ -27,6 +27,7 @@ Each instance has its own:
 - [Stack](stack.md) revision
 - [Endpoints](endpoints.md) to configure HTTP routes and published ports
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has services with build configuration
+- CI provider and container registry selections
 - [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
 - [App services](services.md) used to override stack configuration for this specific instance
 - [Metrics](observability.md#metrics), when cluster monitoring is enabled
@@ -41,6 +42,11 @@ App instances do not have a separate project owner. They belong to the app and u
 The instance machine name is permanent and must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). The generated namespace, `<app-name>-<instance-name>`, must be 63 characters or shorter.
 
 You add or remove instances from `Apps > [App] > Instances`.
+
+New instances start with the organization's [default CI provider and container registry](../org.md#settings). These
+values are copied at creation time rather than inherited dynamically: changing an organization default affects future
+instances only. An instance retains its selection even when it currently has no enabled service with build
+configuration, so the same provider is ready if a buildable service is enabled or added later.
 
 ## Copying configuration to a new instance
 

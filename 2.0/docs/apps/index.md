@@ -98,7 +98,10 @@ for what is copied and the database-sharing behavior to review.
 #### CI/CD
 
 If the stack has services with build configuration, choose your [CI system](../cicd/index.md) and
-[container registry](../cicd/index.md). Wodby CI and Wodby Registry are the defaults.
+[container registry](../cicd/index.md). The form starts with the
+[organization's configured defaults](../org.md#settings); if the organization has not selected external integrations,
+it uses Wodby CI and Wodby Registry. You can override either choice for the new app instance without changing the
+organization defaults or existing instances.
 
 #### Build sources
 

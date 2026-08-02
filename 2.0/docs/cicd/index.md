@@ -8,6 +8,20 @@ Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-c
 Wodby CI installs Wodby CLI during the `Setting up build environment` step. Third-party CI jobs must install Wodby CLI
 themselves before calling `wodby ci init`.
 
+## Organization defaults and app instances
+
+Organization owners and admins can select the default CI provider and container registry from
+[`Organization > Settings`](../org.md#settings). The selectors offer Wodby's built-in services and available
+organization-owned integrations of the corresponding type.
+
+New app and new app instance forms start with these defaults. You can override either selection while creating the
+instance without changing the organization setting. Each instance stores the resulting selection independently, so
+changing an organization default does not update existing instances or builds. The selection remains associated with
+the instance even when none of its currently enabled services requires a build.
+
+If no external default is configured, new instances use [Wodby CI](wodby-ci.md) and
+[Wodby Registry](wodby-registry.md).
+
 For app instances that use third-party CI, an app service with a build source does not have to link a Git repository in
 Wodby. The CI provider supplies the checkout, and Wodby CLI sends commit, ref, and build metadata when it creates the
 app build.

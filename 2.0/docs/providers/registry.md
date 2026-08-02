@@ -16,7 +16,7 @@ Registry provider integrations are used for:
 
 - app build and release workflows
 - organization defaults for container image storage
-- app-level registry selection when builds should use a specific external registry
+- app-instance registry selection when builds should use a specific external registry
 
 ## Supported options
 
