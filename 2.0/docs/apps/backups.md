@@ -94,13 +94,25 @@ Enable `Auto backups` in a preset when you want scheduled backups.
 
 Scheduled presets include:
 
-- start day
-- start time in UTC
-- duration in hours
-- enabled or disabled state
+- start and end times
+- an IANA time zone
+- one or more days of the week
+- a backup timeout in hours
 - `Override other presets`
 
+New presets default to an every-day `02:00` to `05:00` window in the organization's default time zone and a three-hour
+backup timeout. The window controls when the backup may start; the timeout limits how long a started backup may run.
+For details about day selection, overnight windows, time zones, and missed windows, see
+[Automation time windows](../automation-time-windows.md).
+
+Turning `Auto backups` off pauses an existing schedule while preserving its window, timeout, and override setting.
+Turning it on again resumes the saved schedule. A new preset saved with `Auto backups` off has no automatic schedule.
+
 Use override when one preset should win over other matching scheduled presets.
+
+Automatic schedules created by the previous dashboard used exact UTC launch times. Daily and single-weekday schedules
+are migrated to three-hour UTC windows beginning at the same time, without changing the selected day or backup
+timeout. Custom cron expressions remain on the legacy exact-time schedule.
 
 An automatic backup targeting an app instance, app service, or container-backed database runs only while its app
 instance is running. If the backup becomes due while the instance is `Pausing`, `Paused`, `Resuming`, or `Errored`,
