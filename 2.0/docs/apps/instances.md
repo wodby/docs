@@ -48,6 +48,11 @@ values are copied at creation time rather than inherited dynamically: changing a
 instances only. An instance retains its selection even when it currently has no enabled service with build
 configuration, so the same provider is ready if a buildable service is enabled or added later.
 
+To change an existing instance, open `Apps > [App] > [Instance] > Settings > CI/CD`. The tab remains available when
+the instance has no active buildable services, and saves the selection for services that are enabled or added later.
+Changes apply to future builds. Existing builds keep the CI provider, registry, and registry repository recorded when
+those builds were created.
+
 ## Copying configuration to a new instance
 
 When you add an instance to an existing app, Step 4 shows `Copy configuration from`. Select another instance of the

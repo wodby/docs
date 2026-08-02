@@ -19,6 +19,10 @@ instance without changing the organization setting. Each instance stores the res
 changing an organization default does not update existing instances or builds. The selection remains associated with
 the instance even when none of its currently enabled services requires a build.
 
+Change an existing instance from `Apps > [App] > [Instance] > Settings > CI/CD`. The saved providers apply to future
+builds, including builds for services enabled or added later. Historical builds retain their recorded CI provider,
+registry, and registry repository.
+
 If no external default is configured, new instances use [Wodby CI](wodby-ci.md) and
 [Wodby Registry](wodby-registry.md).
 
