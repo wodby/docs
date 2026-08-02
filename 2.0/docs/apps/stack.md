@@ -188,6 +188,11 @@ When enabled, Wodby recreates app-service tokens from the latest service and sta
 When the same token name and environment type is defined in multiple places, Wodby applies service-defined tokens first,
 then stack-wide tokens, then stack-service tokens.
 
+If the resulting definition generates a token that already exists with the same name and environment type, Wodby keeps
+its current generated value. Enabling this option therefore updates token definitions without implicitly rotating
+generated credentials. New generated tokens receive a new value, while literal token values follow the latest
+definition.
+
 If disabled, tokens are left unchanged. This avoids replacing secrets that may have been intentionally customized for
 one app instance.
 

@@ -16,3 +16,7 @@ From `Databases > [Database] > Users > [User]` you can:
 - delete the user
 
 For container-based app databases, Wodby usually creates an app-specific user automatically based on the service's `database` configuration.
+
+User creation is safe to retry. If a same-named database account already exists and accepts the requested password,
+Wodby keeps it and continues applying the selected database grants. If the account exists with different credentials,
+Wodby reports an error instead of deleting the account, changing its password, or taking ownership of it.

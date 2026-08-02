@@ -19,7 +19,10 @@ environment-specific token takes precedence over a token without an environment 
 
 After tokens are materialized on an app service, the app-service token records are the effective runtime values. During
 a stack upgrade, enabling `Override tokens` recreates those app-service tokens from the latest service and stack
-definitions; leaving it disabled keeps the existing app-service token values.
+definitions; leaving it disabled keeps the existing app-service token values. Existing generated values are preserved
+when the latest definition still generates the same token name for the same environment type. This prevents a stack
+upgrade from rotating database passwords and other generated credentials. Rotate such a credential explicitly when a
+new value is required.
 
 This page is the public reference for built-in runtime tokens resolved in app-service context.
 

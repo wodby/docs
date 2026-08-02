@@ -16,6 +16,13 @@ Wodby mounts the import archive into the init volume provided by the service, an
 
 This method is transactional. Wodby starts a copy of the app service with a new persistent volume. If the import succeeds, Wodby redeploys the service using the new volume that contains the imported data.
 
+For a container-based database service, Wodby provisions the app's database user on the replacement volume and
+reapplies its managed database grants before redeployment. A missing user is created, and an existing user is accepted
+when it already uses the expected credentials. If an uploaded dump creates a same-named user or role with different
+credentials, the import task reports a credential conflict instead of replacing that account. Database dumps intended
+for this workflow should normally contain the application database schema and data, not server-level user or role
+definitions.
+
 ## K3S storage capacity preflight
 
 Before an app-service import runs on K3S, its task checks the capacity of the destination volume.
