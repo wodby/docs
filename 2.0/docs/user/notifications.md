@@ -29,9 +29,27 @@ Examples include:
 - cluster creation or connection events
 - successful or failed automatic cluster infrastructure upgrades
 - automatic service updates, Git-backed stack updates, stack service revision updates, origin stack syncs, and app stack upgrades
-- failed cron jobs, backups, imports, certificate renewals, service actions, or integration installs
+- cron job and backup failures and recoveries, plus failed imports, certificate renewals, service actions, or integration installs
 - breached spending limits
 - weekly organization reports
+
+## Scheduled cron and backup notifications
+
+The `Cron job failures and recoveries` and `Backup failures and recoveries` settings control both failure and recovery
+emails for scheduled automation. Wodby emails organization admins when a schedule's latest conclusive result first
+changes to failed. Repeated failures are suppressed while that schedule remains in the failed state. The first later
+conclusive success sends a recovery email.
+
+An automatic backup preset can create several backup artifacts in one scheduled occurrence. Any failed artifact makes
+the occurrence fail, but recovery is reported only after every artifact in a later occurrence completes successfully.
+
+A failed manual cron job or backup still emails the user who started it.
+
+## Weekly organization report
+
+The weekly organization report includes an `Automation health` section with enabled cron schedules and automatic
+backup presets whose latest conclusive result is still failed. This keeps ongoing failures visible while repeated
+immediate failure emails are suppressed.
 
 ## Defaults
 

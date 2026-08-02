@@ -82,6 +82,16 @@ Automatic schedules created by the previous dashboard used exact UTC launch time
 are migrated to three-hour UTC windows beginning at the same time, without changing the selected day or backup
 timeout. Custom cron expressions remain on the legacy exact-time schedule.
 
+## Failure and recovery notifications
+
+Wodby groups all backup artifacts created by the same preset occurrence into one result. Any failed artifact makes the
+occurrence fail and sends one failure notification; repeated failures are suppressed until a later occurrence fully
+succeeds. Recovery is reported only after every artifact in that later occurrence completes successfully.
+
+Scheduled failure and recovery emails go to organization admins who have `Backup failures and recoveries` enabled
+under `User settings > Notifications`. A failed manual backup still emails the user who started it. Enabled presets
+that remain failed also appear in the weekly organization report's `Automation health` section.
+
 ## Related pages
 
 - [Application backups](../apps/backups.md)

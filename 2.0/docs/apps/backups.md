@@ -38,10 +38,6 @@ This task-time check is not continuous low-disk monitoring.
 K3S backup and import tasks share a cluster storage-operation slot so two preflights cannot approve competing work
 against the same local disk at the same time.
 
-If a scheduled backup fails, Wodby emails organization admins who have the `Backup failed` notification enabled. The
-notification is enabled by default and can be changed under `User settings > Notifications`. The email links to the
-backup task logs, where the `Check storage capacity` step shows the exact preflight error.
-
 ## Backup destination
 
 When configuring a backup or backup preset, select the destination bucket only. You no longer need to select a region separately.
@@ -118,6 +114,20 @@ An automatic backup targeting an app instance, app service, or container-backed 
 instance is running. If the backup becomes due while the instance is `Pausing`, `Paused`, `Resuming`, or `Errored`,
 Wodby skips that execution and advances the schedule. The missed backup is not queued or replayed when the instance
 becomes runnable again.
+
+## Failure and recovery notifications
+
+Wodby groups all backup artifacts created by the same preset occurrence into one result. Any failed artifact makes the
+occurrence fail and emails organization admins who have `Backup failures and recoveries` enabled under
+`User settings > Notifications`. Additional artifact failures and later failed occurrences are suppressed while the
+preset remains failed.
+
+Recovery is reported only after every artifact in a later preset occurrence completes successfully. A failed manual
+backup still emails the user who started it. Enabled presets that remain failed also appear in the weekly organization
+report's `Automation health` section.
+
+Failure emails link to the backup task logs. For a K3S storage preflight failure, the `Check storage capacity` step
+shows the exact error.
 
 ## Related pages
 
