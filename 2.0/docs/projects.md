@@ -83,6 +83,8 @@ Projects are also resource boundaries.
 - Direct resource update/delete operations still follow the resource owner scope.
 - Organization-owned resources are visible to regular project members only when shared to one of their projects.
 - For example, an app cannot use a cluster, database, integration, service, stack, or provider from another project unless that resource is visible in the app's project context.
+- On creation forms, the selected resource owner defines this context. If Project B owns the new resource, referenced resources must be owned by or shared with Project B. Selecting Project A in the dashboard header does not make Project A-only resources valid for a Project B-owned resource.
+- Changing a resource owner or removing project access is rejected when that change would leave an existing app, cluster, database, stack, integration, or backup preset with an inaccessible dependency. Update the dependent resource or share its dependency with the new owner project first.
 
 See [Sharing](sharing.md) for how cross-project visibility works in practice.
 

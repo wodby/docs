@@ -111,6 +111,27 @@ For resources that support ownership on creation, including apps, the dashboard 
 
 Projects are grouped under `Projects` in the selector.
 
+The selected owner also controls which existing resources can be referenced:
+
+- A project-owned app, managed cluster, or managed database can use only resources owned by or shared with its owner project. A backup preset's storage integration must be visible to the project that owns its target app or database.
+- An organization-owned resource can use compatible resources in the same organization that you can access.
+- Changing `Owner` clears selections that may belong to the previous project. Select the stack, cluster, integration, or database again from the refreshed options.
+- The project filter in the dashboard header controls your general working view; it does not override the owner project's resource boundary on a creation form.
+
+For example, if you own a new app with Project B, a stack or cluster visible only in Project A will not appear. Share it with Project B first, then return to the form.
+
+## Changing sharing with active references
+
+Sharing and ownership updates preserve the validity of existing resource relationships. An update is rejected when it would make a referenced stack, cluster, integration, database, or backup storage integration inaccessible to the resource that uses it.
+
+Before removing a project share or moving a resource to another owner project:
+
+1. Check which apps, managed clusters, managed databases, stacks, or backup presets use the resource.
+2. Share the dependency with the resource's new owner project, or change the dependent resource to use another compatible dependency.
+3. Save the sharing or ownership update again.
+
+This validation applies even when you personally have access to both projects. Your access allows you to perform the operation, but it does not merge the projects' resource boundaries.
+
 ## Where shared resources appear
 
 Shared resources appear in the target project's `Resources` view and in resource selectors where the workflow supports that resource type.
