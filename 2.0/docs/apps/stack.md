@@ -75,10 +75,12 @@ service revision updates, and automatic sync with origin.
 Use an [automation time window](../automation-time-windows.md) when an app instance should start automatic stack
 upgrades only during selected hours.
 
-Auto-upgrade is disabled by default. Enable it only for instances where it is acceptable to move to the latest stack
-revision without a manual review step. If the stack upgrade creates app services that need extra configuration, Wodby
-records warnings and waits for you to finish the service configuration before deployment, the same as a manual stack
-upgrade.
+The new app and new app instance forms enable auto-upgrade by default for development, staging, test, and feature
+environments, and disable it by default for production environments. You can override this suggested value during
+creation and change it later from the app instance stack settings. Enable auto-upgrade only where it is acceptable to
+move to the latest stack revision without a manual review step. If the stack upgrade creates app services that need
+extra configuration, Wodby records warnings and waits for you to finish the service configuration before deployment,
+the same as a manual stack upgrade.
 
 Manual stack updates, manual syncs, and manually published drafts do not force app instances forward. Use the manual
 upgrade flow when you want to control the rollout yourself.

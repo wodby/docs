@@ -56,9 +56,6 @@ There are 5 steps of creating a new application:
   - Choose `Organization <organization>` to create an organization-owned app.
   - Choose `Project <project>` to create a project-owned app.
 - Select a stack
-- Optionally, if the stack has services with build configuration:
-  - choose your [CI system](../cicd/index.md) ([Wodby CI](../cicd/wodby-ci.md) by default)
-  - choose your [container registry](../cicd/index.md) ([Wodby registry](../cicd/wodby-registry.md) by default) 
 - In the selected stack you can:
   - select a version (option) of a service 
   - enable/disable optional services and change their configuration
@@ -89,8 +86,15 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
   - The generated namespace, `<app-name>-<instance-name>`, must be 63 characters or shorter
 - Select the [environment](env.md) (_Development_ by default)   
 - Optionally, edit the root domain. By default it is `*.[instance-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose HTTP ports
+- Choose whether to enable stack auto-upgrade. It defaults to enabled for development, staging, test, and feature
+  environments, and disabled for production environments. You can override the suggested value before creating the app.
 
 ### Step 4
+
+#### CI/CD
+
+If the stack has services with build configuration, choose your [CI system](../cicd/index.md) and
+[container registry](../cicd/index.md). Wodby CI and Wodby Registry are the defaults.
 
 #### Build sources
 
