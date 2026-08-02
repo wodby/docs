@@ -20,19 +20,22 @@ to one of those revisions.
 
 ## Configure a window
 
-Enable `Time window` in the automation settings, then select a start time, end time, and time zone.
+Enable `Time window` in the automation settings, then select a start time, end time, time zone, and one or more days.
+All seven days are selected by default. The `Every day`, `Weekdays`, and `Weekends` shortcuts provide quick ways to
+change the selection.
 
 New app instances and clusters receive enabled `02:00` to `04:00` windows in the organization's default time zone for
 each applicable automatic upgrade. The organization creation form preselects the creator's browser time zone and lets
-them change it before creation; if browser detection is unavailable, Wodby uses `UTC`. Owners and admins can change it under
-`Organization > Settings`.
+them change it before creation; if browser detection is unavailable, Wodby uses `UTC`. Owners and admins can change it
+under `Organization > Settings`.
 
 The organization time zone is a creation default, not a live link. Changing it does not rewrite existing resource
 windows, and each resource window can use a different time zone or be disabled. Resources created before a default
 window was assigned keep their existing setting.
 
 The searchable selector lists available IANA time zone names and follows daylight-saving changes for the selected
-location. API clients that provide an explicit window without a time zone use `UTC`.
+location. API clients that provide an explicit window without a time zone use `UTC`; clients that omit the days use
+every day. Existing windows saved before day selection was introduced also continue to use every day.
 
 A valid window:
 
@@ -40,10 +43,15 @@ A valid window:
 - includes the start time and excludes the end time
 - is at least one hour long
 - has different start and end times
+- selects at least one day
 
 When the end time is later than the start time, the window is within one day. For example, `02:00` to `04:00` allows
 automation from 02:00 up to, but not including, 04:00. When the end time is earlier, the window crosses midnight. For
 example, `22:00` to `02:00` starts at 22:00 and ends at 02:00 the next day.
+
+For a window that crosses midnight, the selected day is the day on which the window starts. For example, a Monday
+`22:00` to `02:00` window remains open until 02:00 on Tuesday. Selecting Tuesday instead would open the next window at
+22:00 on Tuesday.
 
 ## What the window controls
 
@@ -62,5 +70,6 @@ infrastructure app window does not bypass a closed infrastructure version window
 
 Success and failure emails for automatic app stack upgrades, cluster infrastructure version upgrades, and cluster
 infrastructure app upgrades include the time when the upgrade task started. When a time window is configured, the email
-shows the start time in that window's time zone together with the configured daily interval. When no window is
-configured, the email shows the start time in UTC and explicitly notes that the upgrade could run at any time.
+shows the start time in that window's time zone together with the configured interval and selected days. When no
+window is configured, the email shows the start time in UTC and explicitly notes that the upgrade could run at any
+time.
