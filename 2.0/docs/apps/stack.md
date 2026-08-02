@@ -41,12 +41,17 @@ The usual model is one stack per application. When the stack changes, you upgrad
 When a new published stack revision is available, you can upgrade an app instance to it. Unpublished stack drafts are
 not available for app upgrades and do not mark app instances as outdated.
 
-Open `Apps`, select the app, select an app instance, and go to `Stack > Operations`. The `App instance stack` table
+Open `Apps`, select the app, select an app instance, and go to `Stack > Operations`. The `Manual stack upgrade` card
 shows the current stack revision, stack version, and status. The status is `Outdated` when a newer stack revision is
 available and `Up to date` when the instance already uses the latest revision.
 
-The `Upgrade stack` form is on the same subtab. The `Upgrade` button is enabled only when the app instance is outdated.
-If the instance already uses the latest stack revision, the button says `Stack is up to date`.
+When an upgrade is available, the card shows the target stack version and revision. Its `Service changes` table
+identifies stack services that will be added, removed, or moved to another service revision. The table shows the current
+and target service versions and revision numbers. Stack services that use the same service revision in both stack
+revisions are omitted.
+
+The `Upgrade` button is enabled only when the app instance is outdated. If the instance already uses the latest stack
+revision, the button says `Stack is up to date`.
 
 Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app-instance overrides.
 
@@ -59,6 +64,22 @@ The dashboard always upgrades to the latest stack revision. There is no revision
 
 All upgrade options are disabled by default. `Update versions to default` and `Update replicas` are shown directly in
 the form. The remaining options are under `Advanced settings`.
+
+### Review the upgrade changelog
+
+Select `Show changelog` in the `Manual stack upgrade` card to load published release notes for service revision changes.
+Wodby recalculates the latest published stack upgrade target when the changelog opens, so it can reflect an update that
+was published after the page initially loaded.
+
+For a newer semantic service version, the changelog includes stable release tags after the current version through the
+target version. For same-version revision changes and other version formats, Wodby can show the target tag's notes when
+the service is tag-backed. Added and removed services do not have release-note ranges. Release notes come from the Git
+provider, so some updated services show that no published release notes were found.
+
+The service-change table is not a complete configuration diff. A newer stack revision can change environment variables,
+Helm values, links, resources, or other stack configuration without adding, removing, or changing a service revision.
+When no service membership or revision changes are detected, the card and changelog call out that the revision may still
+contain configuration changes.
 
 ## Auto-upgrade
 
