@@ -6,7 +6,11 @@ An organization is the top-level scope for your users, teams, projects, shared d
 
 Day-to-day resources such as apps, Kubernetes clusters, databases, integrations, services, and providers are used through [projects](projects.md), while organization-level pages are used to manage the overall workspace.
 
-An organization has a title and a machine name. The machine name cannot be changed and may contain only lowercase letters `a-z`, numbers `0-9`, and a hyphen. It is used in technical domains for your application instances and Kubernetes clusters, and in the repository namespace of Wodby Registry.
+An organization has a title, a machine name, and a default time zone. The machine name cannot be changed and may contain only lowercase letters `a-z`, numbers `0-9`, and a hyphen. It is used in technical domains for your application instances and Kubernetes clusters, and in the repository namespace of Wodby Registry.
+
+When an organization is created, the dashboard preselects the creator's browser time zone and lets them change it before
+creation. If browser time zone detection is unavailable, Wodby uses `UTC`. The default supplies the time zone for new
+[automation time windows](automation-time-windows.md); changing it does not alter windows already stored on resources.
 
 ### Roles
 
@@ -80,6 +84,7 @@ From there you can:
 - review join date
 - review the machine name
 - change the organization title
+- change the default time zone
 - delete the organization
 
 ## Single Sign-On

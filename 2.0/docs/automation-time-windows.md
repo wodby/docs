@@ -1,7 +1,7 @@
 # Automation time windows
 
 Automation time windows let you restrict when Wodby may start automatic upgrades that change running workloads. A
-window is optional. When it is disabled or not configured, an automatic upgrade can start at any time.
+window can be disabled; when it is disabled or not configured, an automatic upgrade can start at any time.
 
 Time windows are available for:
 
@@ -22,10 +22,17 @@ to one of those revisions.
 
 Enable `Time window` in the automation settings, then select a start time, end time, and time zone.
 
-The dashboard proposes `02:00` to `04:00` in your browser's current time zone for a newly enabled window. If the browser
-time zone is unavailable, it uses `UTC`. This is only an editable starting value; time windows are disabled by default.
+New app instances and clusters receive enabled `02:00` to `04:00` windows in the organization's default time zone for
+each applicable automatic upgrade. The organization creation form preselects the creator's browser time zone and lets
+them change it before creation; if browser detection is unavailable, Wodby uses `UTC`. Owners and admins can change it under
+`Organization > Settings`.
+
+The organization time zone is a creation default, not a live link. Changing it does not rewrite existing resource
+windows, and each resource window can use a different time zone or be disabled. Resources created before a default
+window was assigned keep their existing setting.
+
 The searchable selector lists available IANA time zone names and follows daylight-saving changes for the selected
-location. API clients that provide a window without a time zone use `UTC`.
+location. API clients that provide an explicit window without a time zone use `UTC`.
 
 A valid window:
 
