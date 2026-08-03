@@ -7,6 +7,18 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.9
+
+- ⬆️ Vanilla WordPress 7.0.2
+- PHP:
+    - ⬆️ PHP 8.5.9, 8.4.24, 8.3.33, 8.2.33
+    - ⬆️ PECL/extensions updates: event 3.1.6, grpc 1.83.0
+- Adminer:
+    - ⬆️ Adminer 5.5.1
+    - 🐞 Fixed dark-only designs https://github.com/wodby/adminer/issues/11
+- 🐞Solr's init action is now idempotent and recoverable, with clearer API errors
+- ⬆️ Redis 8.4.5, 8.2.8, 7.4.10
+
 ## 6.2.8
 
 - ⬆️ Vanilla WordPress 7.0.1
