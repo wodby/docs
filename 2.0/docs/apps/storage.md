@@ -4,9 +4,10 @@ Persistent storage options depend on the type of cluster you run: [managed Kuber
 
 ## Choose a storage class
 
-When you create an app, each eligible persistent volume can use one of the selectable storage classes reported by the
-target cluster. A storage class determines which Kubernetes provisioner creates the volume and can affect performance,
-availability, expansion support, topology, and cost.
+When you create an app, or add a previously omitted optional volume to an existing app service, each eligible
+persistent volume can use one of the selectable storage classes reported by the target cluster. A storage class
+determines which Kubernetes provisioner creates the volume and can affect performance, availability, expansion
+support, topology, and cost.
 
 After selecting the destination cluster, open the `Volumes` section on the `Settings` step. Each eligible volume has a
 `Storage class` selector. The selector shows the class name and provisioner, and marks the cluster default. Classes that
@@ -32,6 +33,11 @@ A shared volume shows its linked storage service, such as an NFS service, in a d
 linked service's own volume settings control the underlying storage class. A volume that reuses another volume does not
 expose an independent storage-class choice.
 
+For an existing app service, open its `Volumes` tab and select `Add volume` on an omitted optional volume. The same
+storage-class rules apply. Adding the volume marks the app service and instance for redeploy; Kubernetes storage is
+provisioned by the subsequent deployment. Once added, the volume cannot be resized, removed, or moved to another class
+from app-service settings.
+
 When an app and its cluster are created together, the cluster inventory is not available yet. Wodby leaves the class
 unset so Kubernetes can apply the cluster default after the cluster becomes ready. The dashboard reports this in the
 disabled selector until the cluster is provisioned.
@@ -49,6 +55,9 @@ column shows:
 - the effective class currently observed on the Kubernetes claim when the volume is healthy
 - the selected and effective classes when they differ or cannot be verified
 - a warning status only when the state needs attention
+
+An optional volume that has not been added shows empty size and storage-class values with no diagnostic status. Its
+absence is valid and does not affect configuration health.
 
 Healthy volumes show the class once; the dashboard does not repeat matching values or display a `Current` badge.
 Diagnostic statuses are:
@@ -71,8 +80,9 @@ move any PVC data.
 
 ## Changing a storage class
 
-You can choose a class for a new volume, but Kubernetes does not allow changing `storageClassName` on an existing bound
-PVC. Updating an app or upgrading its stack therefore does not move existing volume data to another class.
+You can choose a class for a new volume during app creation or when adding an omitted optional volume later, but
+Kubernetes does not allow changing `storageClassName` on an existing bound PVC. Updating an app or upgrading its stack
+therefore does not move existing volume data to another class.
 
 Moving existing data requires a separate migration: provision replacement storage, copy or restore the data, verify the
 new workload, and only then remove the old claim. Wodby does not currently automate this migration.
@@ -93,15 +103,16 @@ Block storage is typically single-writer and attached to one node at a time.
 ### Local storage
 
 Local storage is typical for K3S clusters. By default, persistent volume claims use storage from the server where the
-app service is running. New app creation, initial deployments, app-service backups, and imports perform a
+app service is running. New app creation, deployments that can create persistent volume claims, app-service backups,
+and imports perform a
 [storage-capacity preflight](../clusters/k3s.md#disk-capacity-and-persistent-volumes) before storage work begins.
 
 For a new app on an existing K3S cluster, Wodby adds the requested sizes of enabled, physical local-path volumes and
 checks them against measured free space after keeping a 10% host-disk safety reserve. It also compares the combined
 size claimed by existing and requested local-path volumes with usable host capacity. Shared volumes, volumes that reuse
 another claim, disabled services, and unselected optional volumes do not add another allocation. Wodby repeats the
-check in the initial deployment task immediately before it can create claims; retries exclude claims that already
-exist.
+check in a deployment task immediately before it can create claims, including after an optional volume is added to an
+existing app service; retries exclude claims that already exist.
 
 When the requested allocation does not fit in measured free space after the safety reserve, or Kubernetes reports
 `DiskPressure`, Wodby stops creation or deployment with an error. If only the combined claimed volume sizes exceed

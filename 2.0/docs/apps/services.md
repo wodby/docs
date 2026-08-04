@@ -300,15 +300,20 @@ deploys the linked target first.
 
 ## Volumes tab
 
-The `Volumes` tab shows service volumes, their app-level values, and the effective storage class observed on the live
-Kubernetes claim. A healthy volume shows its effective class once. When the selected and effective classes differ or
-cannot be verified, the dashboard expands the value to show both and adds a `Mismatch`, `Mixed`, `Unknown`, or
-`Unavailable` status.
+The `Volumes` tab lists the volumes declared by the current service revision. Configured volumes show their app-level
+values and the effective storage class observed on the live Kubernetes claim. A healthy volume shows its effective
+class once. When the selected and effective classes differ or cannot be verified, the dashboard expands the value to
+show both and adds a `Mismatch`, `Mixed`, `Unknown`, or `Unavailable` status.
 
-Volume resize and storage-class changes are not supported for existing app instances. In practice, volume size and
-class are chosen during app creation and should not be treated as values you can change later from this screen. See
-[Current storage class](storage.md#current-storage-class) for the status definitions and
-[Choose a storage class](storage.md#choose-a-storage-class) for the creation workflow.
+An optional volume omitted during app creation remains in the table with an `Optional` label, empty size and storage
+class values, and an `Add volume` action. This is a valid configuration, not a warning or configuration issue. Adding
+the volume asks for a positive size and, when supported, a storage class. Shared volumes and volumes that reuse a
+linked claim inherit their storage configuration. Saving the volume marks the app service and instance for redeploy;
+the claim is created by the subsequent deployment.
+
+After a volume has been added, it cannot be resized or removed from app-service settings, and its storage class cannot
+be changed. See [Current storage class](storage.md#current-storage-class) for the status definitions and
+[Choose a storage class](storage.md#choose-a-storage-class) for storage-class selection.
 
 ## Settings tab
 

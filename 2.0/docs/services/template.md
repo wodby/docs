@@ -533,7 +533,8 @@ Each item supports:
 - `shared`: optional boolean.
 - `readOnly`: optional boolean.
 - `link`: optional link name associated with this volume.
-- `optional`: optional boolean.
+- `optional`: optional boolean. An optional volume may be omitted during app creation and added later from the app
+  service's `Volumes` tab. Once added, it cannot be removed or resized through app-service settings.
 - `path`: absolute mount path. Required when `shared` is `true` or `from` is set; optional for Helm-managed volumes that are not mounted directly by Wodby.
 - `from`: optional link name to reuse a volume from a linked service.
 - `size`: optional default size in GB. Minimum `1`.

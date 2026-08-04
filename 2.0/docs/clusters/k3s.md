@@ -171,14 +171,15 @@ The default K3S local-path storage class stores persistent-volume data on the se
 requirement is only a minimum for K3S and Wodby infrastructure; size production disks for application data, container
 images, logs, backups, imports, and operating-system growth.
 
-For new apps on an existing K3S cluster, Wodby checks storage twice:
+For new apps on an existing K3S cluster, Wodby checks storage before saving and again before deployment. The deployment
+check also applies when a configuration change, such as adding an omitted optional volume, can create a new claim:
 
 1. Before saving the app, it totals the requested sizes of enabled, physical local-path volumes and compares that
    allocation with the host filesystem's available bytes after keeping a 10% safety reserve. It also compares the
    total size claimed by existing and requested local-path volumes with the usable host capacity.
-2. Before the initial deployment creates persistent volume claims, it repeats the check inside the cluster's serialized
-   storage-operation queue. This catches capacity consumed after the form was submitted. A retry does not count claims
-   that already exist as new allocations.
+2. Before a deployment creates persistent volume claims, it repeats the check inside the cluster's serialized
+   storage-operation queue. This catches capacity consumed after the form was submitted or before a later volume was
+   added. A retry does not count claims that already exist as new allocations.
 
 The first check returns an error without creating app records when the requested allocation does not fit in the known
 available bytes after the safety reserve, or when the node reports `DiskPressure`. The second appears as

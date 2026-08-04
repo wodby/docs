@@ -125,6 +125,8 @@ Specify sizes and, when supported by the service revision, select a
 [storage class](storage.md#choose-a-storage-class) for each persistent volume. The selector lists classes from the
 chosen destination cluster, shows their provisioners, and marks and preselects the sole cluster default. Some services,
 such as Redis, may provide optional volumes. For those, specifying size `0` means no persistent storage will be created.
+The omitted volume remains available on the app service's `Volumes` tab and can be added later when persistent storage
+is needed. Leaving an optional volume omitted is a valid configuration and does not produce a warning.
 
 When a service-owned volume cannot apply an explicit class, the dashboard shows the safe cluster default in the same
 selector but disables the control. A shared volume instead shows its linked storage service in a disabled selector; use
