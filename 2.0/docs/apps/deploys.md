@@ -18,13 +18,13 @@ Deployments are usually triggered in the following ways:
 
 - first deployment after app creation
 - deployment of builds [requested from CI](../cicd/deploy.md)
-- automated partial deployments, for example after certificate renewal
+- automated partial deployments for service-level maintenance
 - manual deployment from the UI
 
 ## Automated redeployments
 
-Some platform operations automatically redeploy only the affected app services. Examples include certificate renewal,
-SSH authorized-key refreshes and completing an import.
+Some platform operations automatically redeploy only the affected app services. Examples include SSH authorized-key
+refreshes and completing an import.
 
 When an affected service uses a build image, Wodby prefers its last successfully deployed build. That known-good image
 can be reused after a stack upgrade even though it was built for the previous stack revision. The task log warns when
@@ -38,6 +38,29 @@ Wodby does not silently replace a missing reusable build with the service's defa
 successfully deployed build nor a compatible current-revision build is available, the automated operation stops before
 creating the deployment and its task log asks you to run and successfully deploy a new build. Selection logs use build
 numbers, service names, and stack revision numbers without exposing internal entity IDs.
+
+## Routing deployments
+
+On clusters with Wodby infrastructure version `4.0.0` or newer, HTTP routing has a deployment lifecycle separate from
+app-service workloads. Wodby can apply these changes without rebuilding images or redeploying app services:
+
+- adding, editing, retargeting, disabling, or deleting a route
+- changing app-level or route-specific route settings
+- changing HTTP authentication
+- issuing or renewing a route certificate
+
+Routing deployments update the complete routing configuration for one app instance. Repeated changes made while an
+update is running are combined and followed by another routing update when necessary.
+
+The app instance shows `Updating routing` while its desired routing configuration has not yet been applied. During the
+one-time upgrade from service-owned routing, it shows `Migrating routing`. These states are separate from `needs
+rebuild` and `needs redeploy`, which continue to describe app builds and service workloads.
+
+Automatic routing deployments, including deployments after certificate renewal, create background tasks for logs and
+failure tracking. You do not need to start an app-service deployment after a successful routing-only change.
+
+Clusters older than infrastructure version `4.0.0` continue to apply route, auth, and certificate changes through the
+affected app-service releases. Those apps may still show `needs redeploy` until the cluster infrastructure is upgraded.
 
 ## Build deployment
 
@@ -154,6 +177,5 @@ When app-service configuration changes, the app instance can be marked as `needs
 This means configuration has changed, but those changes have not yet been applied to the running deployment.
 
 !!! warning "Auto redeployment"
-    Some redeployments happen automatically. For example, when a route certificate is renewed successfully, the related
-    app services may be redeployed automatically. See [automated redeployments](#automated-redeployments) for build
-    selection and recovery behavior.
+    Some service-level redeployments happen automatically. Routing-only changes on infrastructure version `4.0.0` or
+    newer use a [routing deployment](#routing-deployments) instead and do not restart app-service workloads.

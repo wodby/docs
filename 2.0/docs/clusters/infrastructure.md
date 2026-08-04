@@ -68,9 +68,30 @@ marked as outdated solely because `3.0.0` exists.
 
 ### Changelog
 
-#### 3.0.0
+#### 4.0.0
 
+Version `4.0.0` separates HTTP routing deployment from app-service deployment.
 This is the current infrastructure version for new clusters.
+
+Envoy Gateway remains the single public load-balancer entrypoint for the cluster. Wodby gives each regular app instance
+its own routing release below that entrypoint. The routing release manages the app instance's Gateway API listeners,
+HTTP routes, TLS certificates, HTTP authentication, and route policies. App-service releases continue to manage
+application workloads and their internal Kubernetes Services.
+
+During an upgrade from an older infrastructure version, Wodby:
+
+- upgrades and verifies the Envoy Gateway infrastructure needed for the new routing model
+- performs a full deployment of eligible app instances to remove routing resources from service releases
+- creates the app-instance routing releases
+
+The upgrade excludes paused app instances. A paused instance migrates automatically during its next full deployment
+after it is resumed. Infrastructure apps are also excluded because the cluster-wide entrypoint remains part of the
+infrastructure release.
+
+After migration, route, route-setting, authentication, and certificate changes can be deployed without rebuilding or
+redeploying application services. See [routing deployments](../apps/deploys.md#routing-deployments).
+
+#### 3.0.0
 
 For K3S clusters, version `3.0.0` means Cilium is used for pod networking and NetworkPolicy enforcement.
 

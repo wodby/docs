@@ -96,7 +96,8 @@ Pausing cancels active work for the instance, then:
 Automatic cron jobs and backups that become due while the instance is `Pausing`, `Paused`, or `Resuming` are skipped.
 Wodby advances each schedule to its next run instead of queueing the missed execution for after resume. Managed
 technical-domain certificates can still renew through DNS validation while the instance is paused, but renewal does
-not restore or redeploy application workloads.
+not restore or redeploy application workloads. On infrastructure version `4.0.0` or newer, routing changes made while
+the instance is paused remain pending and are applied after its workloads are restored.
 
 The instance's endpoints do not respond while it is paused. Persistent volumes and their data remain provisioned so the
 instance can be resumed later. A pause has no automatic expiration.

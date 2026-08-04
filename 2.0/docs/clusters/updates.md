@@ -56,6 +56,14 @@ the changelog, current versions, and cluster-type-specific upgrade behavior.
 Run K3S infrastructure version upgrades during a maintenance window for production workloads, because pod networking can
 be briefly interrupted while K3S restarts and Cilium takes over.
 
+Infrastructure version `4.0.0` also performs a one-time routing ownership migration. Wodby first upgrades and verifies
+Envoy Gateway, then fully deploys eligible app instances and creates their independent routing releases. HTTP and HTTPS
+traffic can be briefly interrupted while an app instance is handed over from its service releases to its routing
+release. Run this upgrade during a maintenance window for production applications.
+
+Paused app instances are skipped during the cluster-wide 4.0 migration. They migrate automatically during their next
+full deployment after being resumed; you do not need to unpause every instance before upgrading the cluster.
+
 If both an infrastructure version upgrade and infrastructure app stack upgrade are pending, Wodby handles the
 infrastructure version upgrade first. Infrastructure app upgrades are checked again after the cluster is no longer
 outdated at the infrastructure version level.

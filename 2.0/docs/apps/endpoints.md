@@ -72,6 +72,10 @@ You can retarget an existing custom route to a public HTTP port on another enabl
 the hostname, path, TLS certificate, route settings, and route authentication. Wodby-generated technical routes cannot
 be retargeted from this form.
 
+On clusters with Wodby infrastructure version `4.0.0` or newer, route changes are applied through an app-instance
+[routing deployment](deploys.md#routing-deployments). They do not require the source or target app service to be
+redeployed. Older infrastructure versions continue to apply the change through an app-service deployment.
+
 ### Main and primary
 
 Wodby distinguishes between two default-route flags:
@@ -142,7 +146,9 @@ For new Envoy Gateway app instances, Wodby creates default route settings to mat
 - session affinity uses cookies by default
 - generated technical routes get `no_index` enabled by default
 
-Changing route settings marks the affected app service or app instance as needing redeploy.
+On infrastructure version `4.0.0` or newer, changing route settings starts a routing deployment and does not mark app
+services as needing redeploy. Older infrastructure versions continue to mark the affected service or app instance as
+needing redeploy.
 
 !!! note "Legacy ingress settings"
     Older clusters that still use Ingress Nginx may expose legacy ingress annotation settings. Envoy Gateway clusters use the route settings above. Kubernetes annotations are still available separately where service or stack templates support Kubernetes resource annotations.
@@ -172,7 +178,9 @@ Auth precedence is most-specific first:
 
 The edit screen can also reveal the current password for an existing auth entry.
 
-Changing auth settings marks the affected app services and app instance as needing redeploy.
+On infrastructure version `4.0.0` or newer, changing auth settings starts a routing deployment and does not mark app
+services as needing redeploy. Older infrastructure versions continue to mark the affected app services and app
+instance as needing redeploy.
 
 ## Ports
 
