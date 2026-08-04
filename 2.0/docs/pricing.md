@@ -88,7 +88,7 @@ In practice:
 - addon limits are configured separately per addon
 - operations that would exceed a limit can be blocked, and the billing UI shows that the limit was exceeded
 
-Only organization owners can change subscription settings, open the customer portal, downgrade, upgrade, or update spending limits. Organization admins and support users can view billing information but cannot modify it.
+Only organization owners can change subscription settings, open the customer portal, downgrade, upgrade, or update spending limits. Other roles with billing visibility have read-only access.
 
 On the free plan, usage above included addon amounts is not allowed. In that case you must either upgrade or wait for the next billing cycle when the addon is renewable.
 

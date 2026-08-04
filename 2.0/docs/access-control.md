@@ -23,7 +23,7 @@ Organization membership is the top-level access gate. A user must have an active
 | `Owner`   | Full access to organization resources and billing. Owners can manage other owners.                                                       |
 | `Admin`   | Full access to organization resources, projects, teams, and org-owned resources. Admins do not manage billing, owners, or other admins.  |
 | `Member`  | Works through project access. Members do not receive organization-wide resource access by default.                                       |
-| `Support` | View-only organization-wide support access. Support users can view billing but cannot modify resources, projects, teams, or memberships. |
+| `Support` | Read-only access across the organization.                                                                                       |
 | `Robot`   | Internal automation role. Robot users are not assigned to teams or projects and are not managed through normal membership workflows.     |
 
 Organization owners and admins have full resource access across the organization. Project roles matter most for organization members.
@@ -83,9 +83,8 @@ Team-derived project access is capped at `Write`. Even if older data contains an
 
 Project access is managed from `Organization > Projects > [Project] > Access`.
 
-From there, organization owners/admins and project admins can:
+Users with access to this page can see project memberships. Organization owners/admins and project admins can:
 
-- see project memberships
 - add organization members
 - add teams
 - assign direct user roles
@@ -196,12 +195,12 @@ Tasks inherit access from the resources and projects they reference.
 
 - Project-linked tasks are visible through their linked projects.
 - A task linked to several projects is visible if the user can access at least one linked project.
-- Project-linked tasks can be repeated by organization owners/admins and regular project users who can access at least one linked project. Support view-only access can read tasks but cannot repeat them.
+- Project-linked tasks can be repeated by organization owners/admins and project members who can access at least one linked project.
 - Project-linked tasks can be cancelled or otherwise modified only by organization owners and admins.
 - Project-linked tasks do not fall back to general organization membership if the user cannot access any linked project.
 - Tasks without project links are treated as organization-scoped tasks.
 
-Organization-scoped tasks can be read by organization owners, admins, and support users. They can be repeated, cancelled, or otherwise modified only by organization owners and admins.
+Organization-scoped tasks can be read by roles with organization-wide visibility. They can be repeated, cancelled, or otherwise modified only by organization owners and admins.
 
 ## Apps and app instances
 
