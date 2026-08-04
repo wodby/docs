@@ -207,9 +207,9 @@ env:
     envType: dev
 ```
 
-When a service inherits from another service, a child variable overrides only the parent variable with the same `name`
-and `envType`. Parent variants for other environment types remain inherited. At runtime, Wodby includes variables
-without `envType` and variables matching the app instance's environment type.
+When a service inherits from another service, a variable in the inherited service overrides only the base service
+variable with the same `name` and `envType`. Base service variants for other environment types remain inherited. At
+runtime, Wodby includes variables without `envType` and variables matching the app instance's environment type.
 
 Provider-specific integration env vars under `integrations[].providers[].env` are runtime-only. They must remain
 runtime-enabled and cannot use `build: true`.
@@ -278,9 +278,10 @@ Type: `string`.
 
 Inherit configuration from an existing service available to your organization.
 
-Inherited services must also set `fromVersion`. Set `fromVersionConstraint` when the child service should later be
-eligible for parent-version updates within a semantic-version range. Set `fromOptionVersionConstraint` when the child
-supports only a semantic-version range of the parent's runtime options.
+The service referenced by `from` is the base service. Inherited services must also set `fromVersion`. Set
+`fromVersionConstraint` when the inherited service should later be eligible for base service version updates within a
+semantic-version range. Set `fromOptionVersionConstraint` when the inherited service supports only a semantic-version
+range of the base service's runtime options.
 
 When overriding inherited workloads or containers, use only workload names and container names declared by the base
 service.
@@ -291,14 +292,14 @@ Type: `string`.
 
 Exact base service version used when Wodby imports and merges the inherited service.
 
-When `from` is set, Wodby finds the base service revision with this version and merges that revision into the child
-service. The imported child service keeps this value so future automation can see the current parent version.
+When `from` is set, Wodby finds the base service revision with this version and merges that revision into the inherited
+service. The imported inherited service keeps this value so future automation can see the current base service version.
 
 ### `fromVersionConstraint`
 
 Type: `string`.
 
-Optional semantic-version constraint for allowed future parent service updates, such as `^1.0.0`.
+Optional semantic-version constraint for allowed future base service updates, such as `^1.0.0`.
 
 When set, the current `fromVersion` must satisfy the constraint.
 
