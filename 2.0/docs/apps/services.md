@@ -192,6 +192,13 @@ When the app instance uses third-party CI, linking a Git repository is optional 
 can leave the repository unlinked and run the pipeline with `wodby ci init $WODBY_APP_SERVICE_ID`; Wodby CLI uses the
 app service ID and metadata from the CI checkout to create the build.
 
+To start builds from the dashboard, configure the provider-specific build source:
+
+- GitHub Actions requires a linked repository, branch or tag, and a `workflow_dispatch` workflow file name or ID.
+- GitLab CI requires a linked repository and branch or tag.
+- CircleCI requires a linked repository and a previously recorded workflow.
+- Custom CI builds always start in the external pipeline.
+
 The available options depend on your CI mode and Git integrations. Build source is chosen during app creation, but can also be changed later from the app service.
 
 ## Database tab

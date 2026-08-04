@@ -36,6 +36,7 @@ When using token authentication:
 
 Wodby supports GitLab CI as a third-party CI integration.
 
-- You can trigger a new build from Wodby by creating a new pipeline for the same ref as the last recorded build
+- You can trigger a fresh pipeline from Wodby without a previous build
+- Link the app service to the GitLab repository and configure the branch or tag used for new pipelines
 - You can re-run the last recorded build by retrying the associated GitLab job
 - Self-hosted GitLab is supported via token authentication

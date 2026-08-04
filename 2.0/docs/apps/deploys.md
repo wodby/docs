@@ -61,6 +61,11 @@ In that flow you can:
 - disable post-deployment scripts for services that provide them
 - use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment
 - choose which successful build to deploy for services with build sources, as long as the build belongs to the same stack revision as the current app instance
+- choose **New build** only when the app service's CI provider and build source support dashboard-triggered builds
+
+If **New build** is unavailable, the build selector explains whether the service needs a linked repository, branch or
+tag, GitHub workflow, or previous CircleCI workflow, or whether it uses external-only Custom CI. A compatible previous
+successful build remains selectable even when the dashboard cannot start a new one.
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set. Repository
 post-deployment scripts run only when the app service that owns the corresponding build is included in the selected

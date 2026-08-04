@@ -25,7 +25,22 @@ You can find the app service ID on the Overview page of the corresponding app se
 When the app instance uses third-party CI, an app service with a build source does not have to link a Git repository in
 Wodby. The CI provider checks out the code, and Wodby CLI creates the app build from the app service ID plus the git
 metadata it detects in the CI workspace. You can still link a Git repository when you want Wodby to show repository
-metadata or trigger supported provider rerun actions from existing builds.
+metadata or start supported provider builds from the dashboard.
+
+## Dashboard-triggered builds
+
+Dashboard build support is provider-specific:
+
+- **GitHub Actions** starts a fresh `workflow_dispatch` for the linked repository. Configure a branch or tag and the
+  workflow file name or numeric ID on the app service's build source. A previous build is not required.
+- **GitLab CI** creates a fresh pipeline for the linked repository and configured branch or tag. A previous build is not
+  required.
+- **CircleCI** reruns a previously recorded workflow for the linked repository and app service. Run the first workflow
+  outside Wodby so it can be recorded.
+- **Custom CI** cannot be started or rerun from the dashboard. Start it in the external CI system.
+
+When these requirements are not met, Wodby disables **New build** and shows the missing repository, ref, workflow, or
+provider capability. Existing successful builds remain available for deployment when otherwise compatible.
 
 ## Builds without a linked Git repository
 

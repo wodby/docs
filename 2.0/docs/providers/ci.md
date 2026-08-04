@@ -21,6 +21,22 @@ CI provider integrations are used for:
 Provider-backed actions are available only for CI providers that Wodby can call directly. [Custom CI](custom-ci.md)
 uses the same CLI build and deploy flow, but Wodby does not poll, trigger, or rerun the external CI provider.
 
+## Starting builds from the dashboard
+
+The dashboard's **New build** action, including the **New build** option in a new deployment, depends on the selected CI
+provider and the app service's build-source configuration:
+
+| CI mode | Dashboard requirements |
+| --- | --- |
+| Wodby CI | A linked Git repository and ref |
+| GitHub Actions | A linked Git repository, branch or tag, and a workflow file name or numeric ID; the workflow must support `workflow_dispatch` |
+| GitLab CI | A linked Git repository and branch or tag |
+| CircleCI | A linked Git repository and a previously recorded CircleCI workflow for the app service |
+| Custom CI | Not available; start the build in the external pipeline |
+
+GitHub Actions and GitLab CI can start a fresh workflow or pipeline from the stored configuration and do not require a
+previous Wodby build. CircleCI currently starts a dashboard build by rerunning a recorded workflow.
+
 ## Supported options
 
 | Option | Kind | Notes |

@@ -2,7 +2,9 @@
 
 ## New build
 
-The only way for us to run new builds on CircleCI from Wodby dashboard is to re-run the last workflow. However, if the last workflow build was more than 90 days, we won't be able to re-run the build.
+Wodby starts a CircleCI build from the dashboard by rerunning a previously recorded workflow. Link the app service's
+Git repository and run the first CircleCI workflow outside Wodby so the workflow can be recorded. If the recorded
+workflow is no longer rerunnable in CircleCI, start it again from CircleCI.
 
 ## Build examples with Wodby CLI 2.0
 
