@@ -14,5 +14,6 @@ Account deletion is handled from the same page and should be treated as a perman
 ## Related pages
 
 - [User settings](index.md)
+- [Preferences](preferences.md)
 - [Emails](emails.md)
 - [Identities](identities.md)

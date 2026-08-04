@@ -7,6 +7,7 @@ Open them from your avatar menu in the dashboard.
 ## Sections
 
 - [Account](account.md) for your profile and account deletion
+- [Preferences](preferences.md) for dashboard appearance and your default organization
 - [Emails](emails.md) for primary and secondary email addresses
 - [Notifications](notifications.md) for personal email notification preferences per organization
 - [Security](security.md) for password changes, two-factor authentication, and recovery codes
@@ -18,6 +19,7 @@ Open them from your avatar menu in the dashboard.
 
 Most user settings are personal. Some personal settings are also tied to an organization:
 
+- the default organization controls which organization opens after signing in or visiting the dashboard home page
 - notification preferences are personal email settings for one selected organization
 - every API key is created for one specific organization
 

@@ -335,6 +335,7 @@ nav:
   - User:
       - Overview: user/index.md
       - Account: user/account.md
+      - Preferences: user/preferences.md
       - Emails: user/emails.md
       - Notifications: user/notifications.md
       - Security: user/security.md
