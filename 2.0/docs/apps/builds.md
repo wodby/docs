@@ -7,9 +7,20 @@ Some app services have [build configuration](../services/build.md). For those se
 The two common patterns are:
 
 1. An app service has a build source and acts as the main service for the build. When the app instance uses Wodby CI, this is a connected Git repository. When the app instance uses third-party CI, it can also be an external source identified by the app service ID.
-2. Other app services are build image targets but do not have their own separate build source. They can produce images as part of the same build and deployment flow.
+2. Other app services are build image targets but do not have their own separate build source. Their service manifest
+   uses `build.link` to identify the linked app service that owns the source, so they can produce images as part of the
+   same build and deployment flow.
 
 For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you release them with `wodby ci release` and deploy them with `wodby ci deploy`.
+
+Wodby exports one source owner and its linked image targets to each CI build. A different app service with its own build
+source is excluded and receives a separate build. The service selected by `build.link` must accept connected builds and
+must have a build source configured on the app instance.
+
+Existing service revisions without `build.link` remain compatible. Wodby first looks for a single linked service with a
+build source. If none is linked and the app has exactly one build-source owner, Wodby uses that owner. When multiple
+owners are possible, Wodby excludes the image target instead of guessing; update the service manifest with `build.link`
+to make the relationship explicit.
 
 When the app instance uses third-party CI, linking the Git repository in Wodby is optional for app services with build
 sources. `wodby ci init $WODBY_APP_SERVICE_ID` creates the build from the app service ID and the git metadata detected

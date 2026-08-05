@@ -414,11 +414,15 @@ Each object supports:
 - `dockerfileContent`: inline Dockerfile content.
 - `dockerignoreContent`: inline `.dockerignore` content.
 - `connect`: whether the service supports a connected git repository.
+- `link`: service link whose target owns the build source for this image target.
 - `boilerplates`: starter repositories users can clone as a starting point.
 
 Set build image targets with `workloads[].containers[].build: true`. Services with build configuration must mark at least one container.
 
 Do not specify both `dockerfile` and `dockerfileContent`, or both `dockerignore` and `dockerignoreContent`.
+
+`build.link` must name an item from the service's `links` section. The resolved linked service must support connected
+builds. Do not combine `build.link` with `connect: true`, `boilerplates`, or the legacy `templates` alias.
 
 Docker build arguments are opt-in. Wodby passes only values marked with `build: true` from service env vars, service
 settings, or app-service env vars. Runtime-only values are not passed to builds.

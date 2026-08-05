@@ -13,6 +13,24 @@ The two common patterns are:
 
 A service with a build source starts the build flow. A build image target without its own build source can still be built by the same pipeline, but it does not have to be built every time. If no build image is attached during deployment, Wodby uses the service's configured image from the manifest or chart.
 
+For an image target, set `build.link` to the name of the service link that resolves to the build-source owner:
+
+```yaml
+build:
+  link: backend
+
+links:
+  - name: backend
+    title: Backend
+    required: true
+    selectors:
+      - type: service
+```
+
+The named link must be declared by the image-target service. In an app instance, its linked service must have build
+configuration with `connect: true` and an actual build source. An image target using `build.link` cannot also enable
+`build.connect` or define build boilerplates, because it does not own a separate source.
+
 Mark deployment targets explicitly with `workloads[].containers[].build: true`.
 
 - Services with build configuration must mark at least one container this way.
