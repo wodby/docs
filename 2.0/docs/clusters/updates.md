@@ -61,6 +61,13 @@ Envoy Gateway, then fully deploys eligible app instances and creates their indep
 traffic can be briefly interrupted while an app instance is handed over from its service releases to its routing
 release. Run this upgrade during a maintenance window for production applications.
 
+The upgrade verifies the provider's Gateway API resources before beginning the ownership migration. HTTP/HTTPS
+ListenerSet support is required. TCPRoute and UDPRoute support is optional, but the upgrade is blocked when an existing
+published port uses an unavailable protocol so no port is silently disconnected. When a protocol is unavailable, the
+cluster operations page and port page show the limitation and new ports of that protocol cannot be published. See
+[Gateway API compatibility](infrastructure.md#gateway-api-compatibility) for provider-specific ownership and upgrade
+behavior.
+
 Paused app instances are skipped during the cluster-wide 4.0 migration. They migrate automatically during their next
 full deployment after being resumed; you do not need to unpause every instance before upgrading the cluster.
 

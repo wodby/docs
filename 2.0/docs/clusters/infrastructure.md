@@ -19,8 +19,9 @@ Wodby tracks two separate kinds of cluster infrastructure updates:
 
 See [Kubernetes cluster updates](updates.md) for manual and automatic infrastructure upgrade behavior.
 
-New clusters use Envoy Gateway for public HTTP, HTTPS, TCP, and UDP entrypoints. New self-hosted K3S clusters also use
-Cilium for Kubernetes networking and NetworkPolicy enforcement.
+New clusters use Envoy Gateway for public HTTP and HTTPS entrypoints. TCP and UDP entrypoints are also available when the
+cluster's Gateway API bundle includes the corresponding experimental route types. New self-hosted K3S clusters include
+those route types and also use Cilium for Kubernetes networking and NetworkPolicy enforcement.
 
 Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
@@ -80,9 +81,42 @@ application workloads and their internal Kubernetes Services.
 
 During an upgrade from an older infrastructure version, Wodby:
 
-- upgrades and verifies the Envoy Gateway infrastructure needed for the new routing model
+- upgrades Envoy Gateway to the 1.8 generation and verifies the stable Gateway API ListenerSet resources needed for the
+  new routing model; Envoy Gateway `1.8.0` or newer is required
+- keeps compatible provider-managed Standard Gateway API resources in place; on DigitalOcean Kubernetes, Wodby can use
+  the provider's supported ownership handoff when the managed resources are too old
+- records whether TCP and UDP route types are available on the cluster
 - performs a full deployment of eligible app instances to remove routing resources from service releases
 - creates the app-instance routing releases
+
+##### Gateway API compatibility
+
+Wodby checks the Gateway API resources actually installed on the cluster instead of assuming their capabilities from
+the Kubernetes provider or a version label. A compatible provider-managed bundle remains under the provider's control;
+Wodby does not replace it merely to take ownership. A Wodby-managed bundle is upgraded together with the Envoy Gateway
+infrastructure app.
+
+Provider handling during the `4.0.0` upgrade is:
+
+| Existing Gateway API management | Upgrade behavior |
+| --- | --- |
+| DigitalOcean Kubernetes | A compatible provider-managed bundle is retained. If it is too old, Wodby uses DigitalOcean's supported handoff to stop provider management before upgrading it. |
+| GKE or AKS provider integration | A compatible provider-managed bundle is retained. An incompatible bundle is not overwritten; upgrade the cluster or its provider-managed Gateway API integration, then retry. |
+| Wodby-managed bundle, normally used on Wodby-created EKS, OVH, and K3S clusters | Wodby upgrades the bundle. |
+| Other externally managed bundle | A compatible bundle is retained. Its external owner must upgrade an incompatible bundle before the infrastructure upgrade can continue. |
+
+Imported or customized clusters can differ from their provider's usual setup, so the live ownership and capability
+check is authoritative.
+
+TCP and UDP route types are optional because they are not part of the Gateway API Standard channel. A cluster can use
+infrastructure `4.0.0` for HTTP and HTTPS while showing TCP or UDP port publishing as unavailable. Availability is
+tracked separately for each protocol. The upgrade stops before changing routing ownership if an existing published port
+depends on an unavailable route type; unpublish that port or make the corresponding Gateway API route type available
+before retrying.
+
+The `Wodby infrastructure` card shows the detected CRD channel, management, Envoy Gateway controller version, and TCP
+and UDP availability. Port pages explain unavailable protocols and prevent new ports of those protocols from being
+published. HTTP and HTTPS routing is unaffected when only TCP or UDP support is unavailable.
 
 The upgrade excludes paused app instances. A paused instance migrates automatically during its next full deployment
 after it is resumed. Infrastructure apps are also excluded because the cluster-wide entrypoint remains part of the

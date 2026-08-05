@@ -202,6 +202,13 @@ Manual port publishing is intended for non-HTTP ports such as SSH or other TCP o
 - only non-private, non-HTTP ports can be published or unpublished from this screen
 - publishing or unpublishing a port may redeploy the cluster gateway app before the public port becomes available
 
+On clusters with Wodby infrastructure version `4.0.0` or newer, TCP publishing requires the cluster's `TCPRoute`
+capability and UDP publishing requires its `UDPRoute` capability. Some provider-managed Gateway API installations use
+the Standard channel, which can support Wodby's HTTP/HTTPS routing without these optional route types. When a protocol
+is unavailable, the port page explains the limitation and prevents the port from being published. You can review the
+detected capabilities under `Clusters > [Cluster] > Infrastructure > Operations`; see
+[Gateway API compatibility](../clusters/infrastructure.md#gateway-api-compatibility) for details.
+
 Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`. The first available port in that range is used.
 
 On regular managed Kubernetes clusters, published ports are exposed through the cluster load balancer. In single-node managed clusters that use direct node traffic instead of a load balancer, Wodby manages the node firewall rules for this published-port range.
