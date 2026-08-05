@@ -112,8 +112,8 @@ Settings > Pause & Resume**, select **Resume app instance**, and retry the downg
 error identifies each affected app and instance.
 
 If autoscaling is configured, the downgrade error identifies the affected app, instance, and service. Open each
-service from **Apps > your app > your instance > Services > your service > Configure**, turn **Autoscaling** off, and
-select **Update** before retrying the downgrade.
+service from **Apps > your app > your instance > Stack > App services > your service > Configuration > General**, turn
+**Autoscaling** off, and select **Update** before retrying the downgrade.
 
 Disabling an app service is not enough: disabled services keep their autoscaling settings so those settings can be
 restored when the service is re-enabled. You can turn autoscaling off while the service remains disabled; deleting the

@@ -38,7 +38,7 @@ your current subscription does not include autoscaling, you cannot enable or inc
 existing rule off.
 
 When creating an app, you can define autoscaling rules for supported services. You can change the rule later from
-**Apps > your app > your instance > Stack > App services > your service > Configure**.
+**Apps > your app > your instance > Stack > App services > your service > Configuration > General**.
 
 Turn **Autoscaling** on to reveal:
 
@@ -71,7 +71,7 @@ The replica range works as follows:
 The autoscaling controls remain available when the app service is disabled. Disabling an app service preserves its
 autoscaling rule for a future re-enable; it does not turn autoscaling off or remove the service as a
 [subscription downgrade](../pricing.md#downgrading-a-paid-subscription) blocker. To remove the rule, open the disabled
-service's **Configure** page, turn **Autoscaling** off, and select **Update**.
+service's **Configuration > General** page, turn **Autoscaling** off, and select **Update**.
 
 ## Vertical scaling
 

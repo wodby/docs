@@ -70,32 +70,28 @@ This is the main place to customize how one environment behaves without changing
 
 ## App service menu
 
-Inside `Apps > [App] > [Instance] > Stack > App services > [Service]`, the dashboard can show:
+Inside `Apps > [App] > [Instance] > Stack > App services > [Service]`, the dashboard groups related pages under
+primary tabs:
 
 - `Overview`
-- `Metrics`
-- `Configure`
+- `Configuration`: `General`, `Variables`, `Helm`, `Settings`, `Configs`, `Tokens`, and `Annotations`
+- `Connections`: `Integrations`, `Links`, and `Database`
+- `Runtime`: `Resources` and `Volumes`
 - `Actions`
-- `Database`
-- `Integrations`
-- `Env vars`
-- `Helm`
-- `Resources`
-- `Links`
-- `Volumes`
-- `Settings`
-- `Configs`
-- `Tokens`
-- `Annotations`
+- `Metrics`
 
-Not every app service gets every tab. The menu depends on the service type and whether it is external or derivative.
+Selecting Configuration, Connections, or Runtime opens its subtabs in a second navigation row. Actions and Metrics
+remain direct tabs. Not every app service gets every tab or subtab; the menu depends on the service type and whether it
+is external or derivative.
+
+When an app service needs required configuration, the dashboard marks the affected subtab and its parent group.
 
 In general:
 
 - `Metrics` appears only when cluster monitoring is enabled and the app service is not external or disabled
 - `Actions` appears only when the service defines user-runnable actions
 - `Database` appears only for services with database support
-- `Env vars`, `Helm`, and `Resources` appear only for non-external services
+- `Variables`, `Helm`, and `Resources` appear only for non-external services
 - `Links`, `Volumes`, `Settings`, and `Configs` appear only when the service supports them
 - `Tokens` appear only for non-external top-level services
 - `Annotations` appear only for non-external services
@@ -150,9 +146,11 @@ inspect command output. `output` actions do not return output directly in the ru
 Actions can appear disabled when the app instance or app service is not in a healthy `OK` state. They are not available
 for external services or derivative app services.
 
-## Configure tab
+<a id="configure-tab"></a>
 
-The `Configure` tab is the main operational form for the service.
+## General configuration
+
+The `Configuration > General` subtab is the main operational form for the service.
 
 Depending on the service, you can:
 
@@ -185,7 +183,7 @@ mark it as needing rebuild instead.
 
 ### Build source
 
-If a service supports a build source, the app service includes build-source controls.
+If a service supports a build source, the General page shows a separate `Build source` card with its own update action.
 
 For Wodby CI, point the service to a Git repository and a reference such as:
 
@@ -208,7 +206,7 @@ The available options depend on your CI mode and Git integrations. Build source 
 
 ## Database tab
 
-The `Database` tab appears for services that can attach to a database resource.
+The `Connections > Database` subtab appears for services that can attach to a database resource.
 
 From there you can choose:
 
@@ -219,15 +217,18 @@ The available choices are filtered by databases visible in the current project c
 
 ## Integrations tab
 
-If a service supports integrations, the `Integrations` tab lets you attach compatible [integrations](../integrations/index.md) of the required [type](../integrations/types.md).
+If a service supports integrations, the `Connections > Integrations` subtab lets you attach compatible
+[integrations](../integrations/index.md) of the required [type](../integrations/types.md).
 
 This is commonly used for storage, mail, monitoring, or other provider-backed features exposed by the service.
 
 Variable integrations inject environment variables into runtime containers only. They are not passed to image builds.
 
-## Env vars tab
+<a id="env-vars-tab"></a>
 
-The `Env vars` tab lets you add, remove, or override environment variables for the app service.
+## Variables tab
+
+The `Configuration > Variables` subtab lets you add, remove, or override environment variables for the app service.
 
 Some values are inherited and cannot be deleted directly, but they can usually be overridden. Inherited variables can come from:
 
@@ -267,7 +268,7 @@ Wodby also adds runtime-only system variables to every container:
 
 ## Helm tab
 
-The `Helm` tab lets you add or override Helm values for the app service.
+The `Configuration > Helm` subtab lets you add or override Helm values for the app service.
 
 Use this when a specific environment needs a chart-level override without changing the stack for every other
 environment.
@@ -276,7 +277,7 @@ App-level Helm values override values coming from the service and stack. Helm va
 
 ## Resources tab
 
-The `Resources` tab lets you configure CPU and memory requests and limits per workload and container.
+The `Runtime > Resources` subtab lets you configure CPU and memory requests and limits per workload and container.
 
 CPU values are set in millicores, where `1000` means `1` CPU core. Memory values are set in megabytes in the dashboard UI.
 
@@ -286,7 +287,7 @@ Apps running on a demo cluster cannot change service resources.
 
 ### Replicas
 
-Replicas are configured from `Configure`, but they directly affect service scaling.
+Replicas are configured from `Configuration > General`, but they directly affect service scaling.
 
 Service revisions explicitly declare whether they support horizontal scaling. The service overview displays this
 capability. Scalable services can run multiple replicas for higher throughput and
@@ -296,7 +297,7 @@ service-specific topology, quorum, or failover is not represented as ordinary ap
 
 ## Links tab
 
-The `Links` tab lets you change [links](../services/networking.md#links) between app services.
+The `Connections > Links` subtab lets you change [links](../services/networking.md#links) between app services.
 
 Links are usually defined in the stack, but app services can override them per app instance.
 
@@ -305,7 +306,7 @@ deploys the linked target first.
 
 ## Volumes tab
 
-The `Volumes` tab lists the volumes declared by the current service revision. Configured volumes show their app-level
+The `Runtime > Volumes` subtab lists the volumes declared by the current service revision. Configured volumes show their app-level
 values and the effective storage class observed on the live Kubernetes claim. A healthy volume shows its effective
 class once. When the selected and effective classes differ or cannot be verified, the dashboard expands the value to
 show both and adds a `Mismatch`, `Mixed`, `Unknown`, or `Unavailable` status.
@@ -322,7 +323,8 @@ be changed. See [Current storage class](storage.md#current-storage-class) for th
 
 ## Settings tab
 
-The `Settings` tab lets you change values of [settings](../services/configuration.md#settings) exposed by the service.
+The `Configuration > Settings` subtab lets you change values of
+[settings](../services/configuration.md#settings) exposed by the service.
 
 These settings often flow into environment variables or runtime configuration generated by the service templates.
 The service template decides whether each setting is runtime-scoped, build-scoped, or both. Changing a build-scoped
@@ -330,7 +332,7 @@ setting marks the app service for rebuild; changing a runtime-only setting marks
 
 ## Configs tab
 
-The `Configs` tab lets you view default [configs](../services/configuration.md#configs) and override them for this app
+The `Configuration > Configs` subtab lets you view default [configs](../services/configuration.md#configs) and override them for this app
 service. The dashboard identifies whether a default comes from the service repository or from the selected service
 image and shows image source details when available.
 
@@ -340,13 +342,14 @@ image; Wodby does not save a copy of the image default as another override.
 
 ## Tokens tab
 
-The `Tokens` tab lets you add or remove [tokens](tokens.md) that can be used in environment variables and other generated configuration.
+The `Configuration > Tokens` subtab lets you add or remove [tokens](tokens.md) that can be used in environment
+variables and other generated configuration.
 
 Tokens can be plain or secret-backed. Secret-backed token values are revealed only on demand in the dashboard.
 
 ## Annotations tab
 
-The `Annotations` tab lets you add custom annotations to the app service.
+The `Configuration > Annotations` subtab lets you add custom annotations to the app service.
 
 Like env vars, annotations can come from several sources:
 
