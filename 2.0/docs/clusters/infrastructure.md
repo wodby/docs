@@ -82,12 +82,16 @@ application workloads and their internal Kubernetes Services.
 
 During an upgrade from an older infrastructure version, Wodby:
 
-- upgrades Envoy Gateway to the 1.8 generation and verifies the stable Gateway API ListenerSet resources needed for the
-  new routing model; Envoy Gateway `1.8.0` or newer is required
+- checks the Envoy Gateway infrastructure app and upgrades it to the required stack revision when necessary; this is
+  included in the infrastructure version upgrade, so you do not need to upgrade infrastructure app stacks separately
+  first
+- reconciles the cluster entrypoint and verifies the stable Gateway API ListenerSet resources needed for the new routing
+  model; Envoy Gateway `1.8.0` or newer is required
 - keeps compatible provider-managed Standard Gateway API resources in place; on DigitalOcean Kubernetes, Wodby can use
   the provider's supported ownership handoff when the managed resources are too old
 - records whether TCP and UDP route types are available on the cluster
-- performs a full deployment of eligible app instances to remove routing resources from service releases
+- reconciles existing app-service releases to remove their legacy routing resources without rebuilding or redeploying
+  application workloads
 - creates the app-instance routing releases
 
 ##### Gateway API compatibility

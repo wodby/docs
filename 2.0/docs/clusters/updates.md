@@ -50,16 +50,22 @@ the app list or open an individual infrastructure app page.
 Some changes affect the cluster-level infrastructure version rather than only an infrastructure app stack revision.
 These upgrades can change how Wodby wires cluster networking, routing, or platform controllers.
 
+An infrastructure version upgrade can include an upgrade of a required infrastructure app. This prerequisite is part
+of the infrastructure version workflow even though the dashboard tracks general infrastructure app stack updates
+separately; you do not need to run the separate infrastructure app stack upgrade first.
+
 See [Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions) for infrastructure version details,
 the changelog, current versions, and cluster-type-specific upgrade behavior.
 
 Run K3S infrastructure version upgrades during a maintenance window for production workloads, because pod networking can
 be briefly interrupted while K3S restarts and Cilium takes over.
 
-Infrastructure version `4.0.0` also performs a one-time routing ownership migration. Wodby first upgrades and verifies
-Envoy Gateway, then fully deploys eligible app instances and creates their independent routing releases. HTTP and HTTPS
-traffic can be briefly interrupted while an app instance is handed over from its service releases to its routing
-release. Run this upgrade during a maintenance window for production applications.
+Infrastructure version `4.0.0` also performs a one-time routing ownership migration. Wodby first upgrades the Envoy
+Gateway infrastructure app when required, reconciles the cluster entrypoint, and verifies Gateway API compatibility.
+It then removes legacy routing resources from eligible app-service releases and creates independent app routing
+releases without rebuilding or redeploying application workloads. HTTP and HTTPS traffic can be briefly interrupted
+while an app instance is handed over from its service releases to its routing release. Run this upgrade during a
+maintenance window for production applications.
 
 The upgrade verifies the provider's Gateway API resources before beginning the ownership migration. HTTP/HTTPS
 ListenerSet support is required. TCPRoute and UDPRoute support is optional, but the upgrade is blocked when an existing
