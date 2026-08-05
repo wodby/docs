@@ -30,6 +30,14 @@ For a successfully deployed app instance, you can stream live container logs fro
 You choose the app service first. If that service exposes more than one workload or container, you can select the
 target explicitly. Otherwise Wodby uses the primary workload and its first container automatically.
 
+Live logs follow the selected container across all current replicas by default, including replicas added while the
+stream is open. When a workload has multiple pods, you can keep **All replicas** selected or narrow the stream to one
+pod. All-replica streams prefix every line with its pod name so interleaved messages remain attributable to the replica
+that produced them. A stream narrowed to one pod does not add that prefix.
+
+If a selected pod is replaced, its stream stops instead of silently switching to the replacement pod. Choose the new
+pod or switch back to **All replicas** to continue following the workload through scaling and rolling updates.
+
 Logs for deployments, builds, cron jobs, and actions are available in the related tasks.
 
 ### Persistent storage
