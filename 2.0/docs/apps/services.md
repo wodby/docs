@@ -159,7 +159,10 @@ Depending on the service, you can:
 - enable or disable the service
 - mark it as the main service when its main endpoint exposes a public HTTP port
 - change the service version
-- change the number of replicas for non-external services; fixed services are limited to zero or one replica
+- change the number of replicas for non-external services when autoscaling is off; fixed services are limited to zero
+  or one replica
+- configure CPU-based autoscaling for supported services, including requested CPU, the minimum and maximum replica
+  counts, and the average CPU utilization target
 - change build source settings for services that support a build source
 
 The main app service owns the app instance's root Wodby technical hostname. Selecting a different main app service
@@ -176,7 +179,9 @@ An `EOL` flag next to a service version means that the app service currently use
 passed. If newer supported versions are not available in the selector, update the app instance to a stack revision that
 uses the latest service revision first, then choose a non-EOL service version.
 
-Changing app-service configuration can mark the app instance as needing rebuild, because some changes affect the build output or deployment manifests.
+Scaling and resource changes, including replicas, autoscaling rules, and requested CPU, mark the app instance as
+needing redeploy. Changes that affect a built image, such as changing the version of a service with a build source,
+mark it as needing rebuild instead.
 
 ### Build source
 

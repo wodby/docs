@@ -33,27 +33,45 @@ You can define resources at:
 
 ## Autoscaling rules
 
-Autoscaling requires an active paid subscription. Manual replica scaling remains available on all active plans.
+Autoscaling requires an active paid subscription. Manual replica scaling remains available on all active plans. If
+your current subscription does not include autoscaling, you cannot enable or increase a rule, but you can turn an
+existing rule off.
 
 When creating an app, you can define autoscaling rules for supported services. You can change the rule later from
-**Apps > your app > your instance > Services > your service > Configure**. Turn **Autoscaling** on to edit the CPU
-target and replica range, or turn it off to clear the saved rule. The controls remain available when the app service is
-disabled, so you do not need to re-enable or delete a service just to remove its autoscaling configuration.
+**Apps > your app > your instance > Stack > App services > your service > Configure**.
 
-The dashboard does not show autoscaling controls for fixed services, and the API rejects autoscaling settings for them.
+Turn **Autoscaling** on to reveal:
 
-The current autoscaling signal is average CPU utilization, so you must define a [CPU request](#resources-management) first.
+- **Requested CPU** for the primary container, in millicores
+- **Minimum replicas**
+- **Maximum replicas**
+- **Avg. CPU utilization**, as a percentage of requested CPU
 
-The target is expressed as a percentage of the configured CPU request. For example, if a service has a CPU request of `2000` millicores and an autoscaling target of `50%`, scaling starts when average CPU usage reaches `1000` millicores.
+**Requested CPU** must be at least `100` millicores. If the primary container already has a CPU request, the field is
+pre-filled with that value. Changing it here updates the same app-service resource override shown on the
+**Resources** tab before Wodby enables the autoscaling rule.
 
-You can also define minimum and maximum replica counts:
+While autoscaling is on, the manual **Replicas** field is disabled. Wodby controls the replica count between the
+configured minimum and maximum, using the minimum as the baseline. Turn **Autoscaling** off to clear the saved rule
+and manage **Replicas** manually again.
+
+The dashboard offers new autoscaling configuration only for eligible top-level, non-external services whose service
+revision supports horizontal scaling. If an existing rule becomes ineligible, its configuration remains visible so
+you can turn it off, but its settings cannot be increased. The API rejects enabling autoscaling for other services.
+
+The current autoscaling signal is average CPU utilization. The target is expressed as a percentage of the configured
+CPU request. For example, if a service has a CPU request of `2000` millicores and an autoscaling target of `50%`,
+scaling starts when average CPU usage reaches `1000` millicores.
+
+The replica range works as follows:
 
 - the minimum replica count is the baseline when CPU usage stays below the target
 - the maximum replica count is the upper limit autoscaling can grow to
 
-Disabling an app service preserves its autoscaling rule for a future re-enable. It does not turn autoscaling off or
-remove the service as a [subscription downgrade](../pricing.md#downgrading-a-paid-subscription) blocker. To remove the
-rule, open the disabled service's **Configure** page, turn **Autoscaling** off, and select **Update**.
+The autoscaling controls remain available when the app service is disabled. Disabling an app service preserves its
+autoscaling rule for a future re-enable; it does not turn autoscaling off or remove the service as a
+[subscription downgrade](../pricing.md#downgrading-a-paid-subscription) blocker. To remove the rule, open the disabled
+service's **Configure** page, turn **Autoscaling** off, and select **Update**.
 
 ## Vertical scaling
 
