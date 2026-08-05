@@ -30,7 +30,7 @@ show the newest EOL date metadata or the newest non-EOL replacement versions in 
 
 Update the stack service to the latest service revision before reviewing exact EOL dates or choosing a newer non-EOL
 option. For app instances, publish the updated stack revision and upgrade the app instance; if needed, enable
-`Update versions to default` during the app instance stack upgrade or change the app-service version afterward.
+`Versions` during the app instance stack upgrade or change the app-service version afterward.
 
 ## Settings
 

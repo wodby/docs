@@ -62,8 +62,8 @@ If the app instance has services with build sources, the upgrade triggers rebuil
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
-All upgrade options are disabled by default. `Update versions to default` and `Update replicas` are shown directly in
-the form. The remaining options are under `Advanced settings`.
+All upgrade options are disabled by default. Select `Show overrides configuration` to review them. The control stays
+collapsed by default and shows how many options are selected.
 
 ### Review the upgrade changelog
 
@@ -141,7 +141,7 @@ Deployments are blocked until the app instance reports complete service configur
 
 ### Update versions to default
 
-By default, Wodby keeps existing app-service versions during upgrade. Enable this option when you want top-level app
+By default, Wodby keeps existing app-service versions during upgrade. Enable `Versions` when you want top-level app
 services to move to the default versions defined by the latest stack revision.
 
 This does not stop the app service from moving to the latest service revision used by the stack. It controls the
@@ -153,13 +153,13 @@ version. If you want to choose a different supported version, upgrade the stack 
 
 ### Update replicas
 
-When enabled, Wodby updates app-service replica counts to match the latest stack revision.
+When `Replicas` is enabled, Wodby updates app-service replica counts to match the latest stack revision.
 
 Replicas are not applied to app services that remain disabled. If the same upgrade also enables a service through
-`Override enabled services`, replicas are applied after the service is enabled.
+`Enabled services`, replicas are applied after the service is enabled.
 
 An exception applies when Wodby must enable a disabled app service to make it the main service. If that service has
-zero replicas, Wodby restores the replica count from the target stack even when `Update replicas` is disabled, so the
+zero replicas, Wodby restores the replica count from the target stack even when `Replicas` is disabled, so the
 root technical route does not target a service with no running pods.
 
 ### Override resources
@@ -233,7 +233,7 @@ this setting is disabled.
 
 ### Override volumes
 
-This option is shown in the dashboard as `Override volumes (may cause data loss)`.
+The dashboard shows `May cause data loss` below the `Volumes` option.
 
 When enabled, Wodby deletes app-service volume records that no longer exist in the latest service manifest.
 
@@ -260,7 +260,7 @@ service cannot remain the technical-domain owner. This includes cases where it i
 exposes a public HTTP port on its main endpoint, or would be disabled by an enabled service override.
 
 If this automatic fallback selects an app service that is currently disabled by an app-level override, Wodby enables
-it even when `Override enabled services` is disabled. Enabling it can increase billable app-service usage, so Wodby
+it even when `Enabled services` is disabled. Enabling it can increase billable app-service usage, so Wodby
 performs the normal quota and billing checks before committing the upgrade.
 
 ## Related pages
