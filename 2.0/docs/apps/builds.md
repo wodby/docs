@@ -28,6 +28,15 @@ A build records:
 - commit and ref information, plus the related Git repository when one is linked in Wodby
 - the resulting container images intended for deployment
 
+The app instance's current CI and registry selections remain dependencies of that app. Historical builds also retain
+the selections recorded when they were created: pending and active builds retain their CI integration, while every
+non-voided service image retains its registry integration. Wodby rejects ownership or sharing changes that would make
+one of these live references invalid for the app's current owner scope.
+
+Before removing a required project share or changing ownership, update the app instance to another valid CI or
+registry selection, let active builds finish, and replace and void old images that still use the previous registry.
+See [Sharing](../sharing.md#changing-sharing-with-active-references) for the general rule.
+
 ## Roll back to a previous build
 
 Open a completed build that was deployed before and is older than the currently deployed build, then select **Roll back

@@ -24,6 +24,14 @@ when the provider requires it, and upload/read backup objects. For provider-spec
 
 If the provider supports object storage classes, the storage class override is optional. If you set it, Wodby will use it for uploaded backup objects. If you leave it empty, the bucket's default storage class will be used.
 
+The storage integration must also match the backup target's [ownership boundary](../sharing.md#creation-import-and-copy-forms):
+
+- for a project-owned database, the integration must be owned by or shared with the database's owner project
+- for an organization-owned database or an organization-wide preset, the integration must be organization-owned in the same organization
+
+Access to the integration through another project is not sufficient. These checks apply to one-off backups, presets,
+scheduled runs, restores, and downloads.
+
 ## Backup presets
 
 Backup presets save time when entering backup destination details, and they can also define automatic backups.

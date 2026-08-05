@@ -48,6 +48,14 @@ when the provider requires it, and upload/read backup objects. For provider-spec
 
 If the provider supports object storage classes, the storage class override is optional. If you set it, Wodby will use it for uploaded backup objects. If you leave it empty, the bucket's default storage class will be used.
 
+The storage integration must also match the backup target's [ownership boundary](../sharing.md#creation-import-and-copy-forms):
+
+- for a project-owned app, the integration must be owned by or shared with the app's owner project
+- for an organization-owned app or an organization-wide preset, the integration must be organization-owned in the same organization
+
+Access to the integration through another project is not sufficient. These checks apply to one-off backups, presets,
+scheduled runs, restores, and downloads.
+
 !!! note
     A backup destination's object storage class, such as an S3 archive class, is separate from the
     [Kubernetes storage class](storage.md) used by the app service's persistent volume.

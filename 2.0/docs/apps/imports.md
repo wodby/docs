@@ -4,6 +4,21 @@ If an application's stack includes services that provide [import functionality](
 
 There are two main import methods.
 
+The source can be an uploaded archive, a public URL, or a completed backup from a compatible app service. When the
+source app service has a usable backup preset, Wodby can also create a fresh backup to use for the import.
+
+## Importing from another app
+
+A backup-based import must stay within the destination app's [ownership boundary](../sharing.md#creation-import-and-copy-forms):
+
+- the source and destination apps must belong to the same organization
+- an organization-owned destination can import only from an organization-owned source
+- for a project-owned destination, the source app must be owned by or shared with the destination's owner project, including when the source app is organization-owned
+
+Your access to both apps through separate projects does not combine their resource boundaries. Share the source app
+with the destination project before starting the import. You also need permission to view an existing source backup or
+to create a fresh one.
+
 ## 1. Simple files import
 
 Wodby imports files directly into the running volume by unpacking the provided tar archive to the specified path.

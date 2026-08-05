@@ -79,10 +79,12 @@ Projects are also resource boundaries.
 
 - Resources from one project are not automatically available in another.
 - Cross-project references are not allowed unless the resource is explicitly shared to the target project.
+- Organization-owned dependencies that use project sharing must also be explicitly shared before a project-owned target can reference them.
+- An organization-owned target can reference only organization-owned resources in the same organization when the dependency uses organization/project ownership; access to a project-owned resource does not make it valid for that target.
 - Write-capable project-resource workflows require a `Modify/Delete` share and write-level access in the target project where that workflow supports shared-resource writes.
 - Direct resource update/delete operations still follow the resource owner scope.
 - Organization-owned resources are visible to regular project members only when shared to one of their projects.
-- For example, an app cannot use a cluster, database, integration, service, stack, or provider from another project unless that resource is visible in the app's project context.
+- For example, a project-owned app cannot use an organization/project-scoped cluster, database, integration, service, stack, or provider unless that resource is owned by or shared with the app's owner project.
 - On creation forms, the selected resource owner defines this context. If Project B owns the new resource, referenced resources must be owned by or shared with Project B. Selecting Project A in the dashboard header does not make Project A-only resources valid for a Project B-owned resource.
 - Changing a resource owner or removing project access is rejected when that change would leave an existing app, cluster, database, stack, integration, or backup preset with an inaccessible dependency. Update the dependent resource or share its dependency with the new owner project first.
 

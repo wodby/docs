@@ -111,22 +111,54 @@ For resources that support ownership on creation, including apps, the dashboard 
 
 Projects are grouped under `Projects` in the selector.
 
-The selected owner also controls which existing resources can be referenced:
+The selected owner also controls which existing organization/project-scoped resources can be referenced. This applies
+when selecting a stack or cluster for an app, attaching integrations or databases, choosing a backup destination,
+copying configuration, and using other resource-backed settings.
 
-- A project-owned app, managed cluster, or managed database can use only resources owned by or shared with its owner project. A backup preset's storage integration must be visible to the project that owns its target app or database.
-- An organization-owned resource can use compatible resources in the same organization that you can access.
-- Changing `Owner` clears selections that may belong to the previous project. Select the stack, cluster, integration, or database again from the refreshed options.
-- The project filter in the dashboard header controls your general working view; it does not override the owner project's resource boundary on a creation form.
+| Target owner | Resources the target can reference |
+| --- | --- |
+| Organization | Organization-owned resources in the same organization |
+| Project | Resources in the same organization that are owned by or explicitly shared with the target's owner project |
+
+For a project-owned target, an organization-owned resource must still be shared with the owner project. Your personal
+access to the resource through organization administration or another project does not replace that share. `Read/Use`
+access is sufficient unless the workflow specifically requires a write-capable relationship.
+
+For an organization-owned target, a project-owned resource is not valid even when an organization owner or admin can
+access both. Move the dependency to organization ownership or choose another organization-owned dependency first.
+
+Organizations do not need a project for organization-owned resources to work together. If an organization has no
+projects, its organization-owned targets can reference organization-owned resources in the same organization without
+creating project shares.
+
+Public catalog resources and built-in Wodby services that do not use organization/project ownership continue to follow
+their own availability and compatibility rules.
+
+- Changing `Owner` clears selections that may belong to the previous scope. Select the stack, cluster, integration, or database again from the refreshed options.
+- The project filter in the dashboard header controls your general working view; it does not override the target's ownership boundary on a creation form.
 
 For example, if you own a new app with Project B, a stack or cluster visible only in Project A will not appear. Share it with Project B first, then return to the form.
 
 ## Changing sharing with active references
 
-Sharing and ownership updates preserve the validity of existing resource relationships. An update is rejected when it would make a referenced stack, cluster, integration, database, or backup storage integration inaccessible to the resource that uses it.
+Sharing and ownership updates preserve the validity of existing resource relationships. An update is rejected when it
+would make a referenced stack, cluster, integration, database, backup storage integration, or active CI/CD reference
+invalid for the resource that uses it.
+
+For example, Wodby rejects an update that would:
+
+- remove the target owner project's access to a dependency
+- move a target to organization ownership while it still uses a project-owned dependency
+- move a dependency to project ownership while an organization-owned target still uses it
+- move a project-owned target to a project where its dependency is not shared
+
+App-instance CI and registry selections are references too. A pending or active build retains its CI reference, and a
+non-voided build image retains its registry reference. Backup presets and backup records retain their
+storage-integration reference until those records are removed.
 
 Before removing a project share or moving a resource to another owner project:
 
-1. Check which apps, managed clusters, managed databases, stacks, or backup presets use the resource.
+1. Check which apps, managed clusters, managed databases, stacks, backup presets, backups, or builds use the resource.
 2. Share the dependency with the resource's new owner project, or change the dependent resource to use another compatible dependency.
 3. Save the sharing or ownership update again.
 

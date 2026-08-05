@@ -125,6 +125,11 @@ The user still needs write access to the target object they are creating or modi
 
 Resource-specific checks still apply. A resource may need to be in an `OK` status, belong to the same organization, provide the right integration type, or satisfy stack/service compatibility rules.
 
+Read/use access for the user is necessary but does not by itself make an organization/project-scoped resource a valid
+dependency. A project-owned target can reference resources owned by or shared with its owner project. An
+organization-owned target can reference only organization-owned resources in the same organization. See
+[Sharing](sharing.md#creation-import-and-copy-forms).
+
 ## Resource ownership
 
 Resources can be owned at either organization scope or project scope.
@@ -206,7 +211,11 @@ Organization-scoped tasks can be read by roles with organization-wide visibility
 
 Apps can be organization-owned or project-owned. In the dashboard, the app creation `Owner` field accepts either `Organization <organization>` or `Project <project>`. Creating an organization-owned app requires organization owner/admin access. Creating a project-owned app requires write/admin access in the owner project, or organization owner/admin access.
 
-During app creation, referenced resources such as clusters, stacks, integrations, services, providers, and databases generally require read/use access, not modify access. This is why a shared cluster can be a valid deployment target without granting cluster write access.
+During app creation, referenced resources such as clusters, stacks, integrations, services, providers, and databases
+generally require read/use access, not modify access. A shared cluster can therefore be a valid deployment target for a
+project-owned app without granting cluster write access, provided the cluster is shared with the app's owner project.
+Organization/project-scoped dependencies for an organization-owned app must be organization-owned in the same
+organization.
 
 App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings. Container-based databases created for app services follow the same rule: their owner and project access list stay synchronized with the app and cannot be changed independently. Managed databases keep their own ownership and sharing settings.
 
