@@ -105,11 +105,12 @@ You can manually move app services back to versions produced by earlier builds i
 - open an earlier deployment and select **Roll back to this deployment** when it restores older, previously deployed
   builds; otherwise the action remains **Redeploy**
 
-The build selector distinguishes images that are currently deployed, images built for the current stack revision, and
-previously deployed images from another stack revision. A completed, non-voided image from the current stack revision
-can be selected even if it has never been deployed before. An image from another stack revision is selectable only when
-that exact app-service image completed a deployment previously. Missing, voided, or incomplete images remain visible in
-history but cannot be deployed. The selector groups these choices under **Older builds**.
+The build selector lists only eligible images. It marks an image that is in use as **Currently deployed** and shows an
+**Older stack revision** warning on selectable images built for an earlier stack revision. A completed, non-voided
+image from the current stack revision can be selected even if it has never been deployed before. An image from an older
+stack revision is selectable only when that exact app-service image completed a deployment previously. Missing, voided,
+incomplete, and ineligible cross-revision images remain visible in build history but are omitted from the selector. The
+selector groups eligible previous choices under **Older builds**.
 
 !!! warning "A build rollback uses the current stack"
     Rolling back to a previous build—or deploying an older build that was never deployed—does not downgrade the app
@@ -132,7 +133,7 @@ Deployment history keeps the original build transition visible after the selecte
   successfully before.
 - **Includes build rollback** means only some selected services rolled back to previously deployed builds.
 - **Older build** means an older selected build had never been deployed before, so it is not labeled as a rollback.
-- **Different stack revision** means at least one selected build was created for another stack revision.
+- **Older stack revision** means at least one selected build was created for an earlier stack revision.
 
 Deployment details show the tags per app service together with the previous and selected build numbers, for example
 `Build #7 → #5`. These build-selection tags describe the intentional version change; they are separate from automatic

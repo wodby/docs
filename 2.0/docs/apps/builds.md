@@ -37,7 +37,8 @@ Deploys > New Deployment`.
 
 Wodby allows a completed, non-voided image from the app instance's current stack revision even if that image has never
 been deployed. For an image built against another stack revision, the exact app-service image must have completed a
-deployment previously. A cross-revision build is unavailable when any image it would deploy does not meet that rule.
+deployment previously. Builds that do not meet this cross-revision rule remain in build history but are not offered as
+deployment choices.
 
 Rolling back to a previous build changes only the container images produced by that build. The app instance continues
 to use its current stack revision, configuration, secrets, volumes, linked services, databases, and persistent data. The
