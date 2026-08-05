@@ -36,6 +36,7 @@ cluster setup:
 
 - self-hosted K3S clusters on infrastructure version `3.0.0` or newer
 - AWS EKS clusters
+- Azure AKS clusters created by Wodby with Azure CNI Overlay and the AKS-managed Cilium dataplane
 - DigitalOcean Kubernetes clusters, including single-node clusters
 - Google Kubernetes Engine clusters
 - OVH Managed Kubernetes clusters
@@ -44,7 +45,7 @@ Wodby does not install these policies for:
 
 - cluster and infrastructure apps
 - self-hosted K3S clusters with infrastructure version older than `3.0.0`
-- Azure AKS clusters, because NetworkPolicy enforcement is not enabled in the current Wodby AKS template
+- legacy or imported Azure AKS clusters whose NetworkPolicy capability is not tracked by Wodby
 - clusters where the provider or NetworkPolicy enforcement capability is unknown
 
 For each supported app instance namespace, Wodby manages these ingress policies:
