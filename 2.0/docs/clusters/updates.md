@@ -70,7 +70,8 @@ maintenance window for production applications.
 The upgrade verifies the provider's Gateway API resources before beginning the ownership migration. HTTP/HTTPS
 ListenerSet support is required. TCPRoute and UDPRoute support is optional, but the upgrade is blocked when an existing
 published port uses an unavailable protocol so no port is silently disconnected. When a protocol is unavailable, the
-cluster operations page and port page show the limitation and new ports of that protocol cannot be published. See
+cluster `Infrastructure > Overview` page and port page show the limitation and new ports of that protocol cannot be
+published. See
 [Gateway API compatibility](infrastructure.md#gateway-api-compatibility) for provider-specific ownership and upgrade
 behavior.
 

@@ -119,9 +119,10 @@ tracked separately for each protocol. The upgrade stops before changing routing 
 depends on an unavailable route type; unpublish that port or make the corresponding Gateway API route type available
 before retrying.
 
-The `Wodby infrastructure` card shows the detected CRD channel, management, Envoy Gateway controller version, and TCP
-and UDP availability. Port pages explain unavailable protocols and prevent new ports of those protocols from being
-published. HTTP and HTTPS routing is unaffected when only TCP or UDP support is unavailable.
+Open `Infrastructure > Overview` on the cluster to see the detected CRD channel and management, Envoy Gateway
+controller version, HTTP/HTTPS and ListenerSet readiness, and TCP and UDP availability in a dedicated Gateway API
+section. Port pages explain unavailable protocols and prevent new ports of those protocols from being published. HTTP
+and HTTPS routing is unaffected when only TCP or UDP support is unavailable.
 
 The upgrade excludes paused app instances. A paused instance migrates automatically during its next full deployment
 after it is resumed. Infrastructure apps are also excluded because the cluster-wide entrypoint remains part of the
