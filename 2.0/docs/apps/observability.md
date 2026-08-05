@@ -25,7 +25,8 @@ You can also monitor your app with third-party services. For example, you can at
 
 ### Live logs
 
-For a successfully deployed app instance, you can stream live container logs from `Apps > [App] > [Instance] > Logs`.
+For a deployed app instance, you can stream live container logs from `Apps > [App] > [Instance] > Logs`. Live logs
+remain available while a deployment is in progress, including as pods are added or replaced during a rollout.
 
 You choose the app service first. If that service exposes more than one workload or container, you can select the
 target explicitly. Otherwise Wodby uses the primary workload and its first container automatically.
