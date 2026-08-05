@@ -28,6 +28,25 @@ A build records:
 - commit and ref information, plus the related Git repository when one is linked in Wodby
 - the resulting container images intended for deployment
 
+## Roll back to a previous build
+
+Open a completed build that was deployed before and is older than the currently deployed build, then select **Roll back
+to this build** to deploy its available application versions again. If an older same-revision build has never been
+deployed, the action is instead **Deploy this older build**. You can also choose builds per app service from `CI/CD >
+Deploys > New Deployment`.
+
+Wodby allows a completed, non-voided image from the app instance's current stack revision even if that image has never
+been deployed. For an image built against another stack revision, the exact app-service image must have completed a
+deployment previously. A cross-revision build is unavailable when any image it would deploy does not meet that rule.
+
+Rolling back to a previous build changes only the container images produced by that build. The app instance continues
+to use its current stack revision, configuration, secrets, volumes, linked services, databases, and persistent data. The
+dashboard therefore shows a risk warning and requires confirmation when a build is older than the currently deployed
+build or belongs to another stack revision. Post-deployment scripts are skipped by default for this shortcut.
+
+For per-service selection, compatibility risks, and how to intentionally enable post-deployment scripts, see
+[Roll back to previous builds and deployments](deploys.md#roll-back-to-previous-builds-and-deployments).
+
 ## Void build images
 
 You can void build images when you want to remove old image outputs from future deployment use without deleting the

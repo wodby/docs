@@ -30,9 +30,10 @@ When an affected service uses a build image, Wodby prefers its last successfully
 can be reused after a stack upgrade even though it was built for the previous stack revision. The task log warns when
 this happens and shows the selected build and both revision numbers.
 
-Once a newer build is successfully deployed, the previous build is no longer considered the last known-good image and
-cannot be reused across stack revisions. Any other selected build must be successful, non-voided, and built for the app
-instance's current stack revision.
+Automatic selection does not search arbitrary build history. Once a newer build is successfully deployed, the previous
+build is no longer considered the last known-good image and is not selected automatically across stack revisions. Any
+other automatically selected build must be successful, non-voided, and built for the app instance's current stack
+revision.
 
 Wodby does not silently replace a missing reusable build with the service's default image. If neither the last
 successfully deployed build nor a compatible current-revision build is available, the automated operation stops before
@@ -83,7 +84,7 @@ In that flow you can:
 - force deployment even when manifests have not changed
 - disable post-deployment scripts for services that provide them
 - use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment
-- choose which successful build to deploy for services with build sources, as long as the build belongs to the same stack revision as the current app instance
+- choose from available successful builds for services with build sources, including eligible older builds
 - choose **New build** only when the app service's CI provider and build source support dashboard-triggered builds
 
 If **New build** is unavailable, the build selector explains whether the service needs a linked repository, branch or
@@ -93,6 +94,57 @@ successful build remains selectable even when the dashboard cannot start a new o
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set. Repository
 post-deployment scripts run only when the app service that owns the corresponding build is included in the selected
 deployment. Reusing that build for another selected service does not make the build owner's scripts applicable.
+
+### Roll back to previous builds and deployments
+
+You can manually move app services back to versions produced by earlier builds in three places:
+
+- select an older build for one or more services in **New Deployment**
+- open a build that was deployed before and is older than the currently deployed build, then select **Roll back to this
+  build**; an older build that was never deployed instead uses **Deploy this older build**
+- open an earlier deployment and select **Roll back to this deployment** when it restores older, previously deployed
+  builds; otherwise the action remains **Redeploy**
+
+The build selector distinguishes images that are currently deployed, images built for the current stack revision, and
+previously deployed images from another stack revision. A completed, non-voided image from the current stack revision
+can be selected even if it has never been deployed before. An image from another stack revision is selectable only when
+that exact app-service image completed a deployment previously. Missing, voided, or incomplete images remain visible in
+history but cannot be deployed. The selector groups these choices under **Older builds**.
+
+!!! warning "A build rollback uses the current stack"
+    Rolling back to a previous build—or deploying an older build that was never deployed—does not downgrade the app
+    instance's stack. Wodby renders the deployment with the current stack revision, configuration, secrets, volumes,
+    and linked services. It also does not restore databases or other persistent data.
+
+    An older image can be incompatible with the current database schema, stored data, environment variables, service
+    versions, or stack configuration. This risk exists even when the image was built for the current stack revision;
+    using an image from another revision adds stack-compatibility risk.
+
+Before starting a build rollback or older-build deployment, the dashboard lists the affected services, build numbers,
+and build stack revisions and requires an acknowledgment checkbox. Post-deployment scripts are turned off by default for
+older builds because they can run migrations or other data-changing operations. In **New Deployment**, you can
+explicitly turn a service's scripts back on after reviewing them. The build and deployment detail shortcuts keep those
+scripts off; use **New Deployment** if you intentionally need to run them.
+
+Deployment history keeps the original build transition visible after the selected build becomes current:
+
+- **Build rollback** means the deployment replaced newer builds entirely with older builds that had been deployed
+  successfully before.
+- **Includes build rollback** means only some selected services rolled back to previously deployed builds.
+- **Older build** means an older selected build had never been deployed before, so it is not labeled as a rollback.
+- **Different stack revision** means at least one selected build was created for another stack revision.
+
+Deployment details show the tags per app service together with the previous and selected build numbers, for example
+`Build #7 → #5`. These build-selection tags describe the intentional version change; they are separate from automatic
+[rollback on rollout failure](#deployment-rollback).
+
+Automatic rollback on rollout failure remains enabled unless you select **Skip rollback on failure**. That rollback can
+restore the previous Kubernetes release after a rollout failure, but it still does not restore application data or
+downgrade the stack.
+
+The generic task **Repeat** action remains limited to the latest deployment. To restore an earlier deployment, open its
+deployment details and use its **Roll back to this deployment** or **Redeploy** action, which applies the older-build
+eligibility checks and confirmation.
 
 ### Post-deployment scripts
 
