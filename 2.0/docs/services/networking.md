@@ -18,11 +18,13 @@ Supported port protocols are:
 3. `udp` for UDP traffic
 
 Ports can also be marked as `private` to keep them internal-only. A private port remains available to Kubernetes
-services inside the cluster, but it cannot be published through a public route. When private networking is configured,
-Wodby can create a private HTTP route for the port through the linked VPN integration.
+services inside the cluster, but Wodby does not generate a technical route for it and it cannot be used by a public
+custom route or published as a public TCP or UDP port.
 
 `private` is a service-template policy, not the current publication state of a port. A non-private port that has no
-route is still public-capable and can be published later; a private port cannot.
+route is still public-capable and can be exposed later; a private port cannot. Private-access providers may add their
+own address for an eligible private HTTP port, but that is an explicit provider integration rather than an automatic
+effect of the `private` flag. See [VPN providers](../providers/vpn.md).
 
 One port per endpoint can be marked as main. If no port is marked as main, the first port becomes main automatically.
 

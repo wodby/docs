@@ -30,7 +30,8 @@ Redirect routes are supported on clusters that use Envoy Gateway. A redirect rou
 
 ### Technical routes
 
-By default, Wodby generates technical routes for app services that expose HTTP endpoints.
+By default, Wodby generates technical routes for app services that expose public HTTP endpoints. Ports marked
+`private` do not receive Wodby technical routes.
 
 The default hostname pattern is:
 
@@ -119,7 +120,13 @@ Custom certificate upload is coming soon. The planned model is organization-leve
 
 The route list shows status, certificate issuer, and whether a route is main or primary.
 
-You may also see private routes generated for internal use. Those are not managed the same way as regular public custom routes.
+You may also see a private route when a supported private-access provider gives an eligible private HTTP port its own
+address. Private routes are provider-owned: Wodby does not publish them through the cluster's public HTTP gateway, and
+they cannot be selected as the app instance's public `Main` route. A private route may remain `Primary` for its endpoint
+so applications can use the provider hostname as their canonical service address.
+
+The `private` flag on a port does not create one of these routes by itself. Private ports without an explicit supported
+provider path remain reachable only through internal Kubernetes networking.
 
 ## Route Settings
 
@@ -192,6 +199,7 @@ Each port has:
 - endpoint name
 - protocol
 - internal port number
+- whether the service template marks it as private
 - optional public port
 
 ### Publishing ports

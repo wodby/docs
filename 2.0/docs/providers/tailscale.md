@@ -23,3 +23,16 @@ Before creating the integration in Wodby:
 ## Usage
 
 Wodby uses these permissions to create auth keys for app services served through Tailscale. Those auth keys are deleted when the corresponding app service is removed.
+
+The current Tailscale integration creates a private provider route only when all of the following are true:
+
+- an enabled Tailscale VPN app service links to the target app service
+- the target service's main endpoint has a main HTTP port marked `private`
+- the VPN app service uses a configured Tailscale integration
+
+The resulting hostname belongs to the tailnet and is not published through Wodby's public HTTP gateway. It can be the
+target endpoint's `Primary` route, but it cannot be the app instance's public `Main` route.
+
+A non-main private port does not receive a Tailscale hostname merely because it is marked `private`. For example, an
+internal metrics port remains available through Kubernetes service networking without appearing as a public or
+Tailscale route.

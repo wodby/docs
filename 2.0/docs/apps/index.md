@@ -85,7 +85,7 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
   - Application and instance machine names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names)
   - The generated namespace, `<app-name>-<instance-name>`, must be 63 characters or shorter
 - Select the [environment](env.md) (_Development_ by default)   
-- Optionally, edit the root domain. By default it is `*.[instance-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose HTTP ports
+- Optionally, edit the root domain. By default it is `*.[instance-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose public HTTP ports; ports marked `private` do not receive technical domains
 - Choose whether to enable stack auto-upgrade. It defaults to enabled for development, staging, test, and feature
   environments, and disabled for production environments. You can override the suggested value before creating the app.
 

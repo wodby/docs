@@ -17,6 +17,11 @@ VPN provider integrations are used for:
 - app services that should join a Tailscale tailnet
 - private-network access patterns where the service should not rely only on public endpoints
 
+Marking a service port as `private` does not automatically expose it through a VPN provider. It only prevents public
+Wodby routing and port publishing. A provider address is created only for a port and service relationship explicitly
+supported by that provider integration; other private ports remain available only through internal Kubernetes
+networking.
+
 ## Supported providers
 
 | Provider | Notes |
