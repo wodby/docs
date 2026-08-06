@@ -58,6 +58,15 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cert_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cicd-settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cicd-settings_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_cicd-settings_update.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_create.html</loc>
   </url>
   <url>
@@ -773,6 +782,15 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cert_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cicd-settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cicd-settings_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_cicd-settings_update.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_create.html</loc>
