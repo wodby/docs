@@ -73,5 +73,7 @@ This ordering follows the current app-service links for that app instance, not o
 practice, changing a link at the app level can also change the deployment order for future deployments of that instance.
 
 Required links remain configured when their source service is disabled. An enabled source cannot use a disabled target
-for a required link; both services may be disabled together. The combined dependency graph formed by service links and
-explicit stack dependencies must not contain cycles, including cycles involving disabled services.
+for a required link; enabling the source also enables its configured required-link targets and their required
+dependencies. Both services may be disabled together. Wodby never chooses a missing target automatically. The combined
+dependency graph formed by service links and explicit stack dependencies must not contain cycles, including cycles
+involving disabled services.

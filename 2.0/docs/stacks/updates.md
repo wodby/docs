@@ -2,8 +2,8 @@
 
 Stacks are versioned. Dashboard-managed stack configuration edits create or update an unpublished draft revision first.
 The currently published revision remains active for running app instances until you publish the draft.
-Stack service revision updates, Git updates, sync with origin, and automatic stack updates create a new stack revision
-directly after the update task succeeds.
+Manual stack service revision updates also create or update an unpublished draft. Git updates, sync with origin, and
+automatic stack updates create a new published stack revision directly after the update task succeeds.
 
 Publishing a draft or completing a stack update does not automatically change running app instances. Automatic stack
 updates can also auto-upgrade app instances when auto-upgrade is enabled for those instances. After a new revision
@@ -27,8 +27,8 @@ includes stable release tags after the current version through the target versio
 version formats, Wodby can show the target tag's notes when the service is tag-backed. Release notes come from the Git
 provider, so services without published tag or release descriptions show that no release notes were found.
 
-When a service used by the stack has a newer service revision, Wodby can update the stack services to point to the
-latest service revisions in a new stack revision.
+When a service used by the stack has a newer service revision, Wodby can update the stack services in a new or existing
+draft. Review the task warnings and publish the draft when it is ready.
 
 This is also the path to refresh service option metadata used for EOL review. If a stack shows an `EOL` flag, update the
 stack services to the latest service revisions before checking exact EOL dates or selecting newly available non-EOL
@@ -47,6 +47,11 @@ When Wodby chooses a safe fallback during the update, the update task can finish
 review what changed. Warnings can include removed invalid overrides or derivative stack services created with a fallback
 name because the expected name was already taken.
 
+If a new service revision introduces a required link, Wodby preserves any existing compatible target but does not guess
+a new one. A missing or incompatible target remains an unresolved draft issue and blocks publication. Configure the
+link target on the affected stack service, then publish the draft. If a required link already selects a compatible
+disabled stack service, Wodby enables that target and its required dependencies automatically.
+
 This workflow can be used for dashboard-managed and Git-backed stacks. For Git-backed stacks, it does not fetch the
 stack repository or apply `stack.yml` changes. Use `Update from Git` when the stack manifest itself changed, or when you
 want to change a pinned/versioned service reference from Git.
@@ -56,8 +61,13 @@ want to change a pinned/versioned service reference from Git.
 Use this for stacks that should follow newer service revisions without a manual stack update step.
 
 When auto-update is enabled for stack service revisions, Wodby can create a new stack revision after a service used by
-the stack gets a newer revision. This uses the same reconciliation as the manual `Update services to latest version`
-workflow, including task logs and warnings for removed invalid overrides.
+the stack gets a newer revision. Before creating the revision, Wodby checks the eligible service updates against the
+stack's complete link graph. A service revision that would introduce an unresolved required link is skipped and the
+update outcome reports why. Other safe service revision updates can continue in the same run.
+
+Automatic reconciliation preserves compatible mappings and removes invalid optional mappings. When an existing
+compatible mapping becomes required, its target and required dependencies are enabled automatically. Wodby never
+chooses a target for a missing required mapping.
 
 For custom stacks, auto-update is disabled by default. Git-backed stacks can use this setting for service revision
 updates; Wodby updates stack service rows in a new stack revision without fetching the stack repository.
@@ -110,6 +120,9 @@ current repository, ref type, and Git ref. Select the Git tag or branch to impor
 
 Wodby imports the stack definition from the selected Git ref, finds the same stack by name, and creates a new stack
 revision from the updated `stack.yml`.
+
+If an updated service revision adds a required link, `stack.yml` must include a compatible target for that link. Git
+updates fail instead of selecting a target or publishing an unresolved revision.
 
 Use this workflow when the stack manifest itself changed in Git, for example when services were added or removed,
 stack-level defaults changed, or stack service configuration changed.
@@ -191,6 +204,9 @@ changes such as newly introduced services, newly introduced stack service defaul
 deletion options only when you are comfortable removing local stack customizations that are no longer present in the
 origin.
 
+After merging, Wodby enables explicitly configured required-link targets and validates the complete link graph. Sync
+does not publish a revision with a missing or incompatible required link.
+
 ## Auto-sync with origin
 
 Use this for copied catalog stacks that should follow their origin stack automatically.
@@ -246,6 +262,10 @@ After any stack configuration edit creates a draft, the stack shows an unpublish
 
 Use `Publish draft` when you are ready to release the draft as a real stack revision. Publishing is the point where app
 instances using older stack revisions can become outdated.
+
+Every required service link must have a compatible target before publication. A configured target is enabled
+automatically when an enabled source requires it, but Wodby does not select missing targets. Resolve every required-link
+issue on the affected stack service before retrying publication.
 
 Use `Discard` to delete the draft and abandon the unpublished changes. After discard, the stack returns to its current
 published revision and app instances are unaffected.

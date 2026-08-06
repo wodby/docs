@@ -129,8 +129,8 @@ stack upgrade. Wodby records them as warnings on the upgrade task, creates the a
 the service configuration before deploying.
 
 Required service links are structural rather than post-upgrade configuration. The upgrade stops without committing if
-a required link is missing, has an incompatible or disabled target while its source is enabled, or creates a dependency
-cycle.
+a required link is missing, has an incompatible target, or creates a dependency cycle. If the target is compatible but
+disabled, Wodby enables it and its configured required-link dependencies automatically instead of leaving a broken app.
 
 If a newly added service supports build boilerplates, Wodby uses the default build boilerplate automatically. If no
 boilerplate is marked as default, the first boilerplate is used. If the default boilerplate cannot be applied, Wodby
@@ -184,7 +184,8 @@ If disabled, existing app-service enabled or disabled state is kept for services
 option does not keep obsolete app services when their stack service was removed.
 
 The preserved state must still satisfy required-service and required-link rules. Required services cannot be disabled.
-A required-link target may be disabled only while its source is also disabled.
+A required-link target may be disabled only while its source is also disabled. When an enabled source requires a
+configured disabled target, Wodby enables the target even if `Enabled services` is disabled.
 
 ### Override service settings
 
