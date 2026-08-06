@@ -670,6 +670,49 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /app-instances/cicd-settings/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-instances
+      summary: Get app instance CI/CD settings
+      description: Returns the CI and registry integrations used by future app instance builds. Integration ID 0 identifies the built-in Wodby service.
+      operationId: getAppInstanceCICDSettings
+      responses:
+        '200':
+          description: App instance CI/CD settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstanceCICDSettings'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - app-instances
+      summary: Update app instance CI/CD settings
+      description: Updates the CI and registry integrations used by future app instance builds. Integration ID 0 selects the built-in Wodby service.
+      operationId: updateAppInstanceCICDSettings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppInstanceCICDSettingsInput'
+      responses:
+        '200':
+          description: Updated app instance CI/CD settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppInstanceCICDSettings'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-instances/{id}/actions/upgrade-stack:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -877,7 +920,7 @@ paths:
       tags:
         - app-services
       summary: Create app service log stream
-      description: Creates a log stream for an app service container and returns the stream id.
+      description: Creates a log stream for an app service container across all replicas or for one selected pod and returns the stream id. Log streams are available while the app instance status is ok or deploying.
       operationId: createAppServiceLogStream
       requestBody:
         content:
@@ -1997,7 +2040,7 @@ paths:
       tags:
         - app-builds
       summary: Get build config
-      description: Returns CI build configuration for the app build.
+      description: Returns CI build configuration for the build source owner and image targets linked to that owner. Services with independent build sources are omitted.
       operationId: getAppBuildConfig
       security:
         - apiKeyHeader: []
@@ -4850,7 +4893,7 @@ paths:
             enum:
               - flat
               - tree
-          description: Return matching tasks as a flat page or as entity-scoped task trees
+          description: Return matching tasks as a flat page or as filter-scoped task trees. Tree responses support user, organization, project, and resource filters, keep paginated roots in items, and include all current-page tree nodes in treeItems.
         - name: withoutOrigin
           in: query
           deprecated: true
@@ -5604,6 +5647,76 @@ components:
         taskId:
           type: integer
           nullable: true
+    AutomationTimeWindow:
+      type: object
+      required:
+        - start
+        - end
+        - timeZone
+        - days
+      properties:
+        start:
+          type: string
+          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]$
+          example: '02:00'
+        end:
+          type: string
+          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]$
+          example: '04:00'
+        timeZone:
+          type: string
+          example: UTC
+        days:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - MONDAY
+              - TUESDAY
+              - WEDNESDAY
+              - THURSDAY
+              - FRIDAY
+              - SATURDAY
+              - SUNDAY
+    AutomationTimeWindowInput:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          type: boolean
+          description: Set to false to remove the configured time window.
+        start:
+          type: string
+          nullable: true
+          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]$
+          example: '02:00'
+        end:
+          type: string
+          nullable: true
+          pattern: ^([01][0-9]|2[0-3]):[0-5][0-9]$
+          example: '04:00'
+        timeZone:
+          type: string
+          nullable: true
+          default: UTC
+          example: UTC
+        days:
+          type: array
+          nullable: true
+          minItems: 1
+          description: Selected weekdays. Omit for every day. Overnight windows use the day on which the window starts.
+          items:
+            type: string
+            enum:
+              - MONDAY
+              - TUESDAY
+              - WEDNESDAY
+              - THURSDAY
+              - FRIDAY
+              - SATURDAY
+              - SUNDAY
     GitAutoUpdateSettings:
       type: object
       required:
@@ -5734,6 +5847,8 @@ components:
           type: boolean
         upgradeSettings:
           $ref: '#/components/schemas/AppInstanceStackUpgradeSettings'
+        timeWindow:
+          $ref: '#/components/schemas/AutomationTimeWindow'
     AppInstanceAutoStackUpgradeSettingsInput:
       type: object
       required:
@@ -5743,6 +5858,8 @@ components:
           type: boolean
         upgradeSettings:
           $ref: '#/components/schemas/AppInstanceStackUpgradeSettingsInput'
+        timeWindow:
+          $ref: '#/components/schemas/AutomationTimeWindowInput'
     AppInstanceSettings:
       type: object
       properties:
@@ -5753,6 +5870,36 @@ components:
       properties:
         autoStackUpgrade:
           $ref: '#/components/schemas/AppInstanceAutoStackUpgradeSettingsInput'
+    AppInstanceCICDSettingsInput:
+      type: object
+      required:
+        - ciIntegrationId
+        - registryIntegrationId
+      properties:
+        ciIntegrationId:
+          type: integer
+          description: CI integration ID. Set to zero to use the built-in Wodby CI service.
+        registryIntegrationId:
+          type: integer
+          description: Registry integration ID. Set to zero to use the built-in Wodby registry service.
+    AppInstanceCICDSettings:
+      type: object
+      required:
+        - appInstanceId
+        - ciIntegrationId
+        - registryIntegrationId
+        - registryRepository
+      properties:
+        appInstanceId:
+          type: integer
+        ciIntegrationId:
+          type: integer
+          description: Effective CI integration ID. Zero selects the built-in Wodby CI service.
+        registryIntegrationId:
+          type: integer
+          description: Effective registry integration ID. Zero selects the built-in Wodby registry service.
+        registryRepository:
+          type: string
     StackAutoUpdateVersionPolicy:
       type: object
       required:
@@ -5993,6 +6140,8 @@ components:
           type: boolean
         versionPolicy:
           $ref: '#/components/schemas/ClusterAutoUpgradeVersionPolicy'
+        timeWindow:
+          $ref: '#/components/schemas/AutomationTimeWindow'
     ClusterAutoInfrastructureComponentSettingsInput:
       type: object
       properties:
@@ -6001,6 +6150,8 @@ components:
           nullable: true
         versionPolicy:
           $ref: '#/components/schemas/ClusterAutoUpgradeVersionPolicyInput'
+        timeWindow:
+          $ref: '#/components/schemas/AutomationTimeWindowInput'
     ClusterAutoInfrastructureUpgradeSettings:
       type: object
       required:
@@ -6425,6 +6576,9 @@ components:
         - name
         - title
         - domain
+        - defaultTimeZone
+        - ciIntegrationId
+        - registryIntegrationId
         - createdAt
         - updatedAt
       properties:
@@ -6436,6 +6590,15 @@ components:
           type: string
         domain:
           type: string
+        defaultTimeZone:
+          type: string
+          example: America/New_York
+        ciIntegrationId:
+          type: integer
+          description: Effective default CI integration ID. Zero selects the built-in Wodby CI service.
+        registryIntegrationId:
+          type: integer
+          description: Effective default registry integration ID. Zero selects the built-in Wodby registry service.
         createdAt:
           type: string
           format: date-time
@@ -6833,6 +6996,7 @@ components:
           type: integer
         number:
           type: integer
+          description: App-instance build-launch number. Build records created by the same Wodby CI launch share this number.
         status:
           type: string
         appInstanceId:
@@ -7292,6 +7456,8 @@ components:
         crontab:
           type: string
           nullable: true
+        timeWindow:
+          $ref: '#/components/schemas/AutomationTimeWindow'
         duration:
           type: integer
           nullable: true
@@ -7453,6 +7619,7 @@ components:
       type: object
       required:
         - id
+        - position
         - name
         - status
         - logStatus
@@ -7460,6 +7627,9 @@ components:
       properties:
         id:
           type: integer
+        position:
+          type: integer
+          minimum: 1
         name:
           type: string
         status:
@@ -8095,6 +8265,11 @@ components:
           type: string
         replicas:
           type: integer
+        scalability:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/AppServiceScalability'
+          nullable: true
         version:
           type: string
         main:
@@ -8953,9 +9128,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Task'
+        treeItems:
+          type: array
+          nullable: true
+          description: Flat current-page roots and descendants for tree view, linked by parentId.
+          items:
+            $ref: '#/components/schemas/TaskTreeItem'
         totalCount:
           type: integer
         nextPage:
+          type: integer
+          nullable: true
+    TaskTreeItem:
+      type: object
+      required:
+        - task
+      properties:
+        task:
+          $ref: '#/components/schemas/Task'
+        parentId:
           type: integer
           nullable: true
     TaskStepLogs:
@@ -9085,6 +9276,9 @@ components:
       properties:
         title:
           type: string
+        defaultTimeZone:
+          type: string
+          example: America/New_York
         registryIntegrationId:
           type: integer
           nullable: true
@@ -9247,6 +9441,8 @@ components:
         replicas:
           type: integer
           nullable: true
+        scalability:
+          $ref: '#/components/schemas/AppServiceScalabilityUpdateInput'
         version:
           type: string
           nullable: true
@@ -9424,6 +9620,9 @@ components:
           type: string
           nullable: true
         container:
+          type: string
+          nullable: true
+        pod:
           type: string
           nullable: true
     AppInstanceStackUpgradeInput:
@@ -9901,6 +10100,9 @@ components:
         gitRefType:
           type: string
           nullable: true
+        ciWorkflow:
+          type: string
+          nullable: true
     ImportInput:
       type: object
       required:
@@ -10010,6 +10212,35 @@ components:
           type: integer
         maxReplicas:
           type: integer
+    AppServiceScalability:
+      type: object
+      required:
+        - averageCPU
+        - minReplicas
+        - maxReplicas
+      properties:
+        averageCPU:
+          type: integer
+        minReplicas:
+          type: integer
+        maxReplicas:
+          type: integer
+    AppServiceScalabilityUpdateInput:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          type: boolean
+        averageCPU:
+          type: integer
+          nullable: true
+        minReplicas:
+          type: integer
+          nullable: true
+        maxReplicas:
+          type: integer
+          nullable: true
     NewClusterInput:
       type: object
       required:
@@ -10300,6 +10531,8 @@ components:
         crontab:
           type: string
           nullable: true
+        timeWindow:
+          $ref: '#/components/schemas/AutomationTimeWindowInput'
         duration:
           type: integer
           nullable: true
@@ -10330,6 +10563,8 @@ components:
         crontab:
           type: string
           nullable: true
+        timeWindow:
+          $ref: '#/components/schemas/AutomationTimeWindowInput'
         duration:
           type: integer
           nullable: true
