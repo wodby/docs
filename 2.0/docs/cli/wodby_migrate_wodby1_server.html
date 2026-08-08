@@ -5,18 +5,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>wodby database options charsets | Wodby CLI</title>
-  <meta name="description" content="wodby database options charsets command reference for Wodby CLI. List database charsets.">
-  <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_database_options_charsets.html">
+  <title>wodby migrate wodby1 server | Wodby CLI</title>
+  <meta name="description" content="wodby migrate wodby1 server command reference for Wodby CLI. Plan or run every application migration from a Wodby 1 server.">
+  <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_migrate_wodby1_server.html">
   <link rel="icon" href="../assets/images/favicon.svg">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Wodby Documentation">
-  <meta property="og:title" content="wodby database options charsets | Wodby CLI">
-  <meta property="og:description" content="wodby database options charsets command reference for Wodby CLI. List database charsets.">
-  <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_database_options_charsets.html">
+  <meta property="og:title" content="wodby migrate wodby1 server | Wodby CLI">
+  <meta property="og:description" content="wodby migrate wodby1 server command reference for Wodby CLI. Plan or run every application migration from a Wodby 1 server.">
+  <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_migrate_wodby1_server.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="wodby database options charsets | Wodby CLI">
-  <meta name="twitter:description" content="wodby database options charsets command reference for Wodby CLI. List database charsets.">
+  <meta name="twitter:title" content="wodby migrate wodby1 server | Wodby CLI">
+  <meta name="twitter:description" content="wodby migrate wodby1 server command reference for Wodby CLI. Plan or run every application migration from a Wodby 1 server.">
   <link rel="sitemap" type="application/xml" href="https://wodby.com/docs/2.0/cli/sitemap.xml">
   <link rel="stylesheet" href="manual.css">
 </head>
@@ -2218,7 +2218,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby database" open>
+      <details class="nav-branch" data-nav-command="wodby database">
         <summary class="nav-summary">database</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_database.html">Overview</a>
@@ -2332,7 +2332,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby database options" open>
+      <details class="nav-branch" data-nav-command="wodby database options">
         <summary class="nav-summary">options</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_database_options.html">Overview</a>
@@ -2341,7 +2341,7 @@
   
   <div class="nav-item">
     
-      <a class="nav-link active" href="wodby_database_options_charsets.html">charsets</a>
+      <a class="nav-link " href="wodby_database_options_charsets.html">charsets</a>
     
   </div>
 
@@ -3985,7 +3985,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby migrate">
+      <details class="nav-branch" data-nav-command="wodby migrate" open>
         <summary class="nav-summary">migrate</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_migrate.html">Overview</a>
@@ -3994,7 +3994,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby migrate wodby1">
+      <details class="nav-branch" data-nav-command="wodby migrate wodby1" open>
         <summary class="nav-summary">wodby1</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_migrate_wodby1.html">Overview</a>
@@ -4012,7 +4012,7 @@
   
   <div class="nav-item">
     
-      <a class="nav-link " href="wodby_migrate_wodby1_server.html">server</a>
+      <a class="nav-link active" href="wodby_migrate_wodby1_server.html">server</a>
     
   </div>
 
@@ -5269,22 +5269,40 @@
   <article class="manual-page">
     <div class="breadcrumbs">
       <a href="index.html">Manual</a>
-      <span>/</span><a href="wodby_database_options.html">wodby database options</a>
+      <span>/</span><a href="wodby_migrate_wodby1.html">wodby migrate wodby1</a>
     </div>
 
-    <h1>wodby database options charsets</h1>
-    <p class="lead">List database charsets</p>
-    
+    <h1>wodby migrate wodby1 server</h1>
+    <p class="lead">Plan or run every application migration from a Wodby 1 server</p>
+    <p>Migrate every application hosted on one Wodby 1 server through one
+reviewed plan. Each application has an isolated resume-state file and is
+processed sequentially. If multiple source applications have repositories,
+use --target-repository-map once per app or intentionally use --skip-code.
+Before sync-data, enable maintenance mode and create fresh backups for every
+source instance. Change DNS only after validating the prepared target and
+syncing data; finalize then validates DNS and deploys the staged routes.</p>
 
     
 
     <section class="section">
       <h2>Usage</h2>
-      <pre><code>wodby database options charsets DATABASE_ID [flags]</code></pre>
+      <pre><code>wodby migrate wodby1 server SOURCE_SERVER_UUID [flags]</code></pre>
     </section>
 
     
 
+    
+      <section class="section">
+        <h2>Examples</h2>
+        <pre><code>export WODBY1_SOURCE_TOKEN=...
+  export WODBY_API_KEY=...
+
+  wodby migrate wodby1 server SERVER_UUID --phase plan --skip-code [target and mapping options]
+  wodby migrate wodby1 server SERVER_UUID --phase prepare --approve-plan PLAN_HASH [same options]
+  wodby migrate wodby1 server SERVER_UUID --phase sync-data --approve-plan PLAN_HASH [same options]
+  wodby migrate wodby1 server SERVER_UUID --phase finalize --approve-plan PLAN_HASH [same options]
+  wodby migrate wodby1 server SERVER_UUID --phase verify --approve-plan PLAN_HASH [same options]</code></pre>
+      </section>
     
 
     
@@ -5303,9 +5321,165 @@
       <tbody>
         
           <tr>
+            <td><code>--approve-plan string</code></td>
+            <td>Exact reviewed plan hash required by mutation phases</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
             <td><code>-h, --help</code></td>
-            <td>help for charsets</td>
+            <td>help for server</td>
             <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--max-backup-age duration</code></td>
+            <td>Maximum backup age accepted by sync-data</td>
+            <td><code>1h0m0s</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>-o, --output string</code></td>
+            <td>Output format: text or json</td>
+            <td><code>text</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--phase string</code></td>
+            <td>Migration phase: plan, prepare, sync-data, finalize, or verify</td>
+            <td><code>plan</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--plan-file string</code></td>
+            <td>Plan JSON path (defaults beside the current working directory)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--poll-interval duration</code></td>
+            <td>Target operation polling interval</td>
+            <td><code>2s</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--retry-ambiguous string</code></td>
+            <td>Retry exactly one inspected ambiguous operation ID</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--skip-code</code></td>
+            <td>Intentionally omit repository/build-source migration</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--skip-data</code></td>
+            <td>Intentionally omit database and files imports</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--source-base-url string</code></td>
+            <td>Wodby 1 API base URL</td>
+            <td><code>https://api.wodby.com</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--source-token string</code></td>
+            <td>Wodby 1 API token (defaults to WODBY1_SOURCE_TOKEN)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--state-file string</code></td>
+            <td>Base path for secure per-app resume-state files (defaults beside the plan)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-ci-integration-id int</code></td>
+            <td>Wodby 2 Git integration ID</td>
+            <td><code>0</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-cluster string</code></td>
+            <td>Wodby 2 cluster ID or exact name</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-code-service string</code></td>
+            <td>Target connect-build service name when the stack has more than one</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-env-map stringArray</code></td>
+            <td>Source-to-target environment mapping (SOURCE=TARGET)</td>
+            <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-git-ref string</code></td>
+            <td>Git branch, tag, or commit to build (defaults to the source ref)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-git-ref-type string</code></td>
+            <td>Git ref type: branch, tag, or commit</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-import-map stringArray</code></td>
+            <td>Backup-to-import mapping ([APP/][INSTANCE/]COMPONENT=SERVICE:IMPORT)</td>
+            <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-org string</code></td>
+            <td>Wodby 2 organization ID or exact name</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-project string</code></td>
+            <td>Wodby 2 project ID or exact name</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-remote-git-repo-id string</code></td>
+            <td>Repository ID in the selected Wodby 2 Git integration</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-repository-map stringArray</code></td>
+            <td>Per-app Git target (APP=CI_INTEGRATION_ID:REMOTE_GIT_REPO_ID[:SERVICE])</td>
+            <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-service-map stringArray</code></td>
+            <td>Source-to-target service mapping ([APP/][INSTANCE/]SOURCE=TARGET)</td>
+            <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-stack-map stringArray</code></td>
+            <td>Source-to-target stack mapping ([APP/][INSTANCE/]SOURCE=TARGET)</td>
+            <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--wait-timeout duration</code></td>
+            <td>Timeout for each target operation</td>
+            <td><code>30m0s</code></td>
           </tr>
         
       </tbody>
@@ -5355,12 +5529,6 @@
           </tr>
         
           <tr>
-            <td><code>-o, --output string</code></td>
-            <td>Output format: table, vertical, or json</td>
-            <td><code>table</code></td>
-          </tr>
-        
-          <tr>
             <td><code>--verbose</code></td>
             <td>Verbose output</td>
             <td><code>false</code></td>
@@ -5376,7 +5544,7 @@
     
       <section class="section">
         <h2>See also</h2>
-        <a href="wodby_database_options.html">wodby database options</a>
+        <a href="wodby_migrate_wodby1.html">wodby migrate wodby1</a>
       </section>
     
   </article>

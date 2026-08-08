@@ -4008,6 +4008,15 @@
   </div>
 
         
+          
+  
+  <div class="nav-item">
+    
+      <a class="nav-link " href="wodby_migrate_wodby1_server.html">server</a>
+    
+  </div>
+
+        
         </div>
       </details>
     
@@ -5285,7 +5294,10 @@ printed by the command.</p>
     
       <section class="section">
         <h2>Examples</h2>
-        <pre><code>wodby migrate wodby1 app APP_UUID --phase plan [target and mapping options]
+        <pre><code>export WODBY1_SOURCE_TOKEN=...
+  export WODBY_API_KEY=...
+
+  wodby migrate wodby1 app APP_UUID --phase plan [target and mapping options]
   wodby migrate wodby1 app APP_UUID --phase prepare --approve-plan PLAN_HASH [same options]
   wodby migrate wodby1 app APP_UUID --phase sync-data --approve-plan PLAN_HASH [same options]
   wodby migrate wodby1 app APP_UUID --phase finalize --approve-plan PLAN_HASH [same options]
@@ -5424,7 +5436,7 @@ printed by the command.</p>
         
           <tr>
             <td><code>--target-import-map stringArray</code></td>
-            <td>Backup-to-import mapping ([INSTANCE/]COMPONENT=SERVICE:IMPORT)</td>
+            <td>Backup-to-import mapping ([APP/][INSTANCE/]COMPONENT=SERVICE:IMPORT)</td>
             <td><code>[]</code></td>
           </tr>
         
@@ -5448,13 +5460,13 @@ printed by the command.</p>
         
           <tr>
             <td><code>--target-service-map stringArray</code></td>
-            <td>Source-to-target service mapping ([INSTANCE/]SOURCE=TARGET)</td>
+            <td>Source-to-target service mapping ([APP/][INSTANCE/]SOURCE=TARGET)</td>
             <td><code>[]</code></td>
           </tr>
         
           <tr>
             <td><code>--target-stack-map stringArray</code></td>
-            <td>Source-to-target stack mapping ([INSTANCE/]SOURCE=TARGET)</td>
+            <td>Source-to-target stack mapping ([APP/][INSTANCE/]SOURCE=TARGET)</td>
             <td><code>[]</code></td>
           </tr>
         
