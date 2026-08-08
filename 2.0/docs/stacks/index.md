@@ -14,6 +14,8 @@ Public Wodby stacks are listed in [`wodby/stacks`](https://github.com/wodby/stac
 repositories. To create a new stack in Git, start from the [`wodby/stack`](https://github.com/wodby/stack)
 boilerplate.
 
+For setup that is specific to a public stack, see the [catalog stack guides](catalog/index.md).
+
 ## Create
 
 You can create stacks from the dashboard catalog, from scratch in the dashboard, by duplicating an existing stack, from

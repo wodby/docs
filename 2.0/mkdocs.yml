@@ -245,6 +245,15 @@ nav:
       - Configuration: stacks/configuration.md
       - Stack services: stacks/services.md
       - Template: stacks/template.md
+      - Catalog guides:
+          - Overview: stacks/catalog/index.md
+          - Drupal:
+              - Overview: stacks/catalog/drupal/index.md
+              - Connect to Solr: stacks/catalog/drupal/solr.md
+          - WordPress: stacks/catalog/wordpress/index.md
+          - Matomo: stacks/catalog/matomo/index.md
+          - Solr: stacks/catalog/solr/index.md
+          - OpenSMTPD: stacks/catalog/opensmtpd/index.md
   - Services:
       - Overview: services/index.md
       - Create: services/create.md
