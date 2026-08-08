@@ -18,6 +18,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 
 - [Solr](solr/index.md): SolrCloud authentication, collections, and configsets
 - [OpenSMTPD](opensmtpd/index.md): outbound relay integrations and test messages
+- [FRP Server](frps/index.md): connect external FRPC clients through Wodby routes
 
 ## Shared operations
 

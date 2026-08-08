@@ -254,6 +254,7 @@ nav:
           - Matomo: stacks/catalog/matomo/index.md
           - Solr: stacks/catalog/solr/index.md
           - OpenSMTPD: stacks/catalog/opensmtpd/index.md
+          - FRP Server: stacks/catalog/frps/index.md
   - Services:
       - Overview: services/index.md
       - Create: services/create.md
