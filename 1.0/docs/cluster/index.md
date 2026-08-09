@@ -36,4 +36,4 @@ A fault-tolerant environment has no service interruption but a significantly hig
 
 ## Request cluster
 
-We no longer accept applications for cluster deployments. Deployment of scalable managed clusters is now part of [Wodby 2.0](https://wodby.com/blog/wodby-2), fully automated and available for everyone.
+We no longer accept applications for cluster deployments.

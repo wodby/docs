@@ -1,6 +1,6 @@
 # Getting started
 
-Wodby was designed to help developers deploy and manage application across their servers in the most simple fashion. Before you deploy your first application make sure you've connected at least one server and optionally a git repository. Or you can use our demo server and git server (all applications deployed to our demo server will be automatically destroyed after 12 hours).
+Wodby 1 helps developers deploy and manage applications across their own servers. Before deploying your first application, connect at least one server and, optionally, a Git repository.
 
 Key concepts:
 

@@ -2,15 +2,39 @@
 
 We constantly improve the infrastructure we deploy to our customers' servers. You can see the version of the infrastructure deployed to your server in the Dashboard on the servers list page. It's not always possible to update the infrastructure automatically so if you want update your infrastructure please [contact our support team](../support.md) to schedule the upgrade. 
 
-!!! success "Supported version"
-    Currently supported infrastructure version is [6.0.0+](#600)
+!!! success "Current Wodby 1 infrastructure lines"
+    Infrastructure 7.0.0 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
+
+!!! warning "No in-place 6 to 7 upgrade"
+    Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
 
 You will be notified each time a new version of the infrastructure is released.
 
 !!! tldr "Stacks and infrastructure maintained separately"
     For stacks maintenance see [this article](../stacks/maintenance.md) 
 
-## OS upgrade tips
+## Infrastructure 7 maintenance
+
+Infrastructure 7 installs exact versions of Docker, Kubernetes, containerd, cri-dockerd, and networking packages and places the apt packages on hold. Do not upgrade these components independently. Contact [Wodby support](../support.md) before changing a control-plane component or upgrading the host operating system.
+
+The current Infrastructure 7 profile is:
+
+| Component | Version |
+| --- | --- |
+| Infrastructure | 7.0.0 |
+| Installer | 2.0.4 |
+| Kubernetes | 1.36.3 |
+| Docker Engine | 29.7.2 |
+| containerd | 2.3.3 |
+| cri-dockerd | 0.4.4 |
+| Flannel | 0.28.4 |
+| etcd | 3.6.14, v3 API |
+| Wodby Agent | 5.4.2 |
+| Wodby Edge | 3.0.0 |
+
+Existing Infrastructure 7 servers do not automatically replace an already running Agent merely because the backend release profile changed. Follow a support instruction or use the [documented Agent update command](cli.md#updating-infrastructure-7-agent) when a patch release is required.
+
+## Infrastructure 6 OS upgrade tips
 
 !!! tip "Create snapshot of your VM first"
     Before performing the upgrade regardless of the method we strongly recommend creating a snapshot of your server if it's a VM.    
@@ -18,23 +42,36 @@ You will be notified each time a new version of the infrastructure is released.
 !!! warning "Test your upgrades with the dev server first"
     Make sure your prod and dev server are from the same cloud provider and have the same OS distribution/version. After successfully upgrading the dev server and testing all the hosted apps you should continue to upgrading your production server.
 
-When you're upgrading your OS to a new major version make sure to:
+These instructions apply only to existing Infrastructure 6 servers. They do not turn an Infrastructure 6 server into Infrastructure 7.
 
-1. [Stop kube and docker services at first](cli.md#restart-docker-and-kube-services)
+When upgrading an Infrastructure 6 host to a previously supported operating-system version:
+
+1. [Stop Kubernetes and Docker services first](cli.md#restart-docker-and-kubernetes-services)
 2. Perform the upgrade
 3. Reboot
 4. Make sure Docker was not installed from packages (we require a specific version that we manuall install during server connection)
 5. Check iptables version via `iptables --version`. If it's `1.8.2` or newer switch it to legacy mode: `update-alternatives --set iptables /usr/sbin/iptables-legacy`
-6. Make sure [cgroup2 disabled](#manual-update-to-os-with-cgroup2-enabled)
+6. Make sure [cgroup v2 is disabled](#infrastructure-6-cgroup2-workaround)
 
-## Manual update to OS with cgroup2 enabled
+## Infrastructure 6 cgroup2 workaround
 
-Some OS like Debian 11 have `cgroup2` enabled that not currently supported by the docker version we use, so if you upgrade to Debian 11, you should disable `cgroup2`:
+Some operating systems such as Debian 11 enable cgroup v2, which is not supported by the Docker version used by Infrastructure 6. To retain Infrastructure 6 compatibility:
 - Edit `/etc/default/grub` and add `systemd.unified_cgroup_hierarchy=0` to `GRUB_CMDLINE_LINUX_DEFAULT` (or `GRUB_CMDLINE_LINUX` if it's not present)
 - Run `update-grub`
 - Reboot the server
 
 ## Changelog
+
+### 7.0.0
+
+Fresh-server Infrastructure 7 release:
+
+* Added Ubuntu 26.04 and Debian 13 amd64 support.
+* Upgraded to Kubernetes 1.36.3 using kubeadm and current Kubernetes APIs.
+* Upgraded to Docker Engine 29.7.2 with containerd 2.3.3 and cri-dockerd 0.4.4.
+* Added Flannel 0.28.4 and etcd 3.6.14 using the direct v3 API.
+* Added Edge 3.0.0 and Agent 5.4.2. Agent 5.4.2 fixes Infrastructure 7 dashboard log streaming.
+* Added resumable Installer 2.x phases, root kubectl configuration, and Infrastructure 7 uninstall support.
 
 ### 6.0.4
 

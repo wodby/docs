@@ -4,13 +4,13 @@
 
 Currently, we don't have a native integration with Azure. But you still can connect your server by following these steps:
 
-0. Learn [requirements and recommendations](../infrastructure/connecting-server.md#requirements-and-recommendations)
+0. Review the [Infrastructure 7 requirements](../infrastructure/connecting-server.md#infrastructure-7-requirements)
 
 1. Login to Azure portal with your account
 
 2. Click `Virtual Machines > Add`
 
-3. Select OS from the list of [supported OS](../infrastructure/connecting-server.md#supported-os)
+3. Select an operating system from the [supported operating systems](../infrastructure/connecting-server.md#supported-operating-systems)
 
 4. Enter the host name and the user name for your virtual machine. You will use this username later to access your server by SSH
 
@@ -36,4 +36,3 @@ Currently, we don't have a native integration with Azure. But you still can conn
     ``` 
     
 11. Now it's all set on Azure's side. Now connect the server (`Servers > Connect > Microsoft Azure`) and follow the instructions
-

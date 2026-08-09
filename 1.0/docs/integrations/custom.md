@@ -25,14 +25,14 @@ chmod +X post-receive.sh
 
 ## Connecting custom server
 
-In case there's no native integration for your hosting provider, you can always connect your node (list of [supported OS](../infrastructure/connecting-server.md#supported-os) by using feature "Custom server" regardless what hosting you're using:
+If there is no native integration for your hosting provider, connect a fresh server using the `Custom server` option:
 
-0. Learn [requirements and recommendations](../infrastructure/connecting-server.md#requirements-and-recommendations)
+0. Review the [Infrastructure 7 requirements](../infrastructure/connecting-server.md#infrastructure-7-requirements) and [supported operating systems](../infrastructure/connecting-server.md#supported-operating-systems)
 
 1. Go to `My servers > Add`. Select `Custom server` and click proceed
 
 2. You will see the page with requirements and instructions. Make sure all requirements are met
  
-3. Connect to your server by SSH and execute the agent installation command as a root. This command will download our agent which sets up the infrastructure and connects your server to our platform
+3. Connect to the server by SSH and execute the generated Infrastructure installer command as root. The command installs the pinned runtime components and connects the server to Wodby 1
 
 4. Now you can deploy apps to this server

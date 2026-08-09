@@ -70,7 +70,7 @@ sudo swapon -s
 ```
 If not, follow [this guide](https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04") to add swap (Ubuntu).
 
-Also, the N/A status may be caused by a hanged wodby agent container, see [how you can restart it](infrastructure/cli.md#restarting-wodby-agent).
+The `N/A` status may also be caused by an unresponsive Wodby Agent. See [how to restart it](infrastructure/cli.md#restart-wodby-agent).
 
 If you still have the problem please contact Wodby support team.
 
@@ -78,13 +78,13 @@ If you still have the problem please contact Wodby support team.
 
 There are few known reasons for that:
 
-* Make sure your server satisfies [requirements and recommendations](infrastructure/index.md)
+* Make sure your server satisfies the [Infrastructure 7 requirements](infrastructure/connecting-server.md#infrastructure-7-requirements)
 * Wodby's script must be run as a root
 * A slow speed of Read/Write operations on a disk. See [the list](infrastructure/index.md) of recommended hosting providers
-* [Docker requirements](https://docs.docker.com/engine/installation/binaries/) are not met 
-* [ufw enabled](infrastructure/ufw.md)
+* Docker, Kubernetes, containerd, or CNI software is already installed
+* [UFW is enabled](infrastructure/ufw.md) during installation
 * Inbound / outbound external firewall
-* Non-compatible virtualization (virtuozza)
+* Unsupported virtualization such as OpenVZ
 
 ## Application deployment or other tasks fail
 

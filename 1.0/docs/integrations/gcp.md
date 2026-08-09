@@ -4,7 +4,7 @@
 
 Currently, we do not have a native integration with GCP. But you still can connect your server by following these steps:
 
-0. Learn [requirements and recommendations](../infrastructure/connecting-server.md#requirements-and-recommendations)
+0. Review the [Infrastructure 7 requirements](../infrastructure/connecting-server.md#infrastructure-7-requirements)
 
 1. Log in to GCP console with your account 
 
@@ -15,7 +15,7 @@ Currently, we do not have a native integration with GCP. But you still can conne
 
 4. Once GCP prepare Compute Engine for your project, create a new virtual machine instance
 
-5. Set VM instance attributes (list of [supported OS](../infrastructure/connecting-server.md#supported-os) and submit `Create` button
+5. Set the VM instance attributes using a [supported operating system](../infrastructure/connecting-server.md#supported-operating-systems), then click `Create`
 ![](../assets/gcp-create-instance.png)
 
 6. Navigate to a newly created instance page and find network link. Click on it

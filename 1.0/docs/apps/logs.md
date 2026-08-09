@@ -1,20 +1,28 @@
 # Logging
 
-Most of the containers used in stack managed by Wodby built in a way so all software running in containers stream their logs to the output of container and handled by Docker and Kubernetes. Logs are not persistent, if you restart a container (e.g. happens when you configure a service and redeploy stack) you will lose it.
+Most containers in Wodby-managed stacks send application logs to standard output and standard error, where Docker and Kubernetes collect them. Container logs are not persistent application storage and may be lost after Pod replacement, log rotation, or server maintenance.
 
-There 2 ways to get your applications logs:
+There are two ways to view application logs:
 
 ## Log streaming from dashboard
 
-Go to `Instance > Logs`, choose a service (container) and click Stream. Last N log messages will be fetched, plus all new messages will be shown in real-time.
+Go to `Instance > Logs`, choose a service, and click `Stream`. Wodby fetches recent messages and continues polling for new output.
+
+Infrastructure 7 dashboard log streaming requires Agent 5.4.2 or newer. See [infrastructure maintenance](../infrastructure/maintenance.md) if an Infrastructure 7 server still runs an earlier Agent.
 
 
 ![](../assets/logs-streaming.png)
 
 ## CLI with kubectl
 
-Go to `Instance > Stack > Service` and copy `Show logs command`. Connect to the host server as root and run the command. Adjust the value of tail param to specify how many messages to fetch. For more params see [kubectl logs reference](https://kubernetes.io/docs/user-guide/kubectl/v1.7/#logs).
+Go to `Instance > Stack > Service` and copy the `Show logs` command. Connect to the host server as root and run it. You can also use:
 
-Some software may additionally store their application logs in files inside of a container
+```shell
+kubectl -n INSTANCE_UUID logs deployment/SERVICE_NAME --since=30m --timestamps
+```
 
-In some cases you can stream application's logs (e.g. watchdog in Drupal stack) to an additional syslog container via modules/libraries like Monolog.
+Adjust `--since` or use `--tail` to control the returned history. See the current [kubectl logs reference](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_logs/).
+
+Infrastructure 7 configures root's default kubeconfig. If it is not available in the current shell, add `--kubeconfig=/etc/kubernetes/admin.conf` to the command.
+
+Some software additionally writes files inside its container. Those files are retained only when their path is backed by a persistent volume. Applications can also forward logs to an external logging service or a stack-provided syslog service.

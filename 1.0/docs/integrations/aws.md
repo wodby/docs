@@ -4,7 +4,7 @@
 
 Currently, we don't have a native integration with AWS. But you still can connect your server by following these steps: 
 
-0. Learn [requirements and recommendations](../infrastructure/connecting-server.md#requirements-and-recommendations)
+0. Review the [Infrastructure 7 requirements](../infrastructure/connecting-server.md#infrastructure-7-requirements)
 
 1. Login to your AWS Console
  
@@ -12,7 +12,7 @@ Currently, we don't have a native integration with AWS. But you still can connec
 
 3. Choose `Instances > Click "Launch Instance"`
 
-4. Choose an image (AMI) from the list of [supported OS](../infrastructure/connecting-server.md#supported-os)
+4. Choose an image (AMI) from the list of [supported operating systems](../infrastructure/connecting-server.md#supported-operating-systems)
 
 5. Choose an instance type. **Do not** use `t2` (burstable performance) instances unless you know what you're doing
 
