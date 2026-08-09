@@ -261,7 +261,6 @@ Allowed values:
 - `datastore`
 - `operator`
 - `search`
-- `vpn`
 - `storage`
 
 This value is also used in selectors.

@@ -149,7 +149,8 @@ plugins:
         'integrations/type-ci.md': 'providers/ci.md'
         'integrations/type-registry.md': 'providers/registry.md'
         'integrations/type-smtp.md': 'providers/smtp.md'
-        'integrations/type-vpn.md': 'providers/vpn.md'
+        'integrations/type-vpn.md': 'providers/access.md'
+        'providers/vpn.md': 'providers/access.md'
         'backups.md': 'apps/backups.md'
         'certs.md': 'apps/endpoints.md'
         'services/create-from-helm.md': 'services/create.md#create-from-a-helm-chart'
@@ -199,6 +200,7 @@ nav:
       - App services: apps/services.md
       - Web terminal: apps/web-terminal.md
       - Endpoints: apps/endpoints.md
+      - Access: apps/access.md
       - Builds: apps/builds.md
       - Deploys: apps/deploys.md
       - Backups: apps/backups.md
@@ -312,8 +314,9 @@ nav:
           - Overview: providers/smtp.md
           - Amazon Web Services: providers/aws.md
           - Brevo: providers/brevo.md
-      - VPN:
-          - Overview: providers/vpn.md
+      - Application Access:
+          - Overview: providers/access.md
+          - Cloudflare: providers/cloudflare.md
           - Tailscale: providers/tailscale.md
       - Variable providers:
           - Overview: providers/variable.md

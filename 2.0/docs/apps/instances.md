@@ -26,6 +26,7 @@ Each instance has its own:
 - [Environment](env.md), which is a named Env with a fixed type such as `prod`, `staging`, or `dev`
 - [Stack](stack.md) revision
 - [Endpoints](endpoints.md) to configure HTTP routes and published ports
+- [App Access](access.md) to choose public or provider-protected HTTP publication
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has services with build configuration
 - CI provider and container registry selections
 - [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
@@ -64,8 +65,9 @@ same app and confirm to prefill compatible configuration for the new instance:
 - volume sizes
 - existing database selections for compatible external database services
 
-Only fields supported by the selected stack revision and integrations available to you are copied. Review every
-section before creating the instance. Imports, backups, volume data, and database data are not copied.
+Only fields supported by the selected stack revision and integrations available to you are copied. Review both App
+settings and Services before creating the instance. App Access, imports, backups, volume data, and database data are
+not copied.
 
 When the source instance was created by cloning a boilerplate into your Git account, the new instance connects to that
 resulting repository. It does not clone the boilerplate into another repository. A public boilerplate source remains a

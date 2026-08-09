@@ -31,7 +31,6 @@ Every service has a type that defines how Wodby treats it and which template sec
 - `search`: search and indexing services
 - `operator`: services that manage other Kubernetes resources or workloads
 - `ssh`: SSH access services, usually used as derivatives
-- `vpn`: VPN and private connectivity services
 
 See [service types](types.md) for details.
 

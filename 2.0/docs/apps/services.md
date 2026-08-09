@@ -262,9 +262,12 @@ Wodby also adds runtime-only system variables to every container:
 | `WODBY_APP_SERVICE_NAME`    | Machine name of the app service                                                          |
 | `WODBY_ENV_NAME`            | Name of the environment                                                                  |
 | `WODBY_ENV_TYPE`            | Type of the environment                                                                  |
-| `WODBY_HOSTS`               | List of hostnames from enabled HTTP routes                                               |
-| `WODBY_PRIMARY_HOST`        | Hostname of the enabled `Main` route for the app instance                                |
-| `WODBY_PRIMARY_URL`         | URL of the enabled `Main` route (`https` when it has a certificate attached)             |
+| `WODBY_HOSTS`               | JSON list of accepted route and active App Access hostnames                              |
+| `WODBY_PRIMARY_HOST`        | Protected primary hostname when App Access is configured; otherwise the enabled `Main` route hostname |
+| `WODBY_PRIMARY_URL`         | URL for `WODBY_PRIMARY_HOST`; protected App Access URLs use `https`                      |
+
+During an App Access change, `WODBY_HOSTS` can temporarily contain both the current and desired hostnames so the
+workload accepts traffic throughout the transition. See [App access](access.md#primary-hostname).
 
 ## Helm tab
 

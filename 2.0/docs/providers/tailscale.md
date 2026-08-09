@@ -1,38 +1,49 @@
 # Tailscale
 
-Tailscale is available in Wodby as a `vpn` provider. Use it when you want Wodby-managed app services to join your Tailscale network.
-
-## Setup fields
-
-| Field | Required | Environment variable |
-| --- | --- | --- |
-| Client ID | Yes | `TAILSCALE_CLIENT_ID` |
-| Client Secret | Yes | `TAILSCALE_CLIENT_SECRET` |
-| Tailnet DNS name | Yes | `TAILSCALE_TAILNET` |
-
-`TAILSCALE_TAILNET` is collected as a finalization step during integration setup.
+Tailscale is an `application_access` provider. Use it to make an app or selected HTTP endpoints reachable through your
+tailnet instead of Wodby's public gateway.
 
 ## Tailscale-side setup
 
 Before creating the integration in Wodby:
 
-1. Create a tag named `wodby` in the Tailscale admin console.
-2. Enable both MagicDNS and HTTPS Certificates for the tailnet.
-3. Create OAuth credentials with write access to Auth Keys and the `wodby` tag.
+1. Create a tag named `wodby` under `Access Control > Tags` in the Tailscale admin console.
+2. Enable both MagicDNS and HTTPS Certificates under `DNS`.
+3. Create OAuth credentials under `Settings > Trust credentials`:
+   - give the credentials a recognizable description such as `wodby`
+   - grant Write access to both `Auth Keys` and `Devices`
+   - restrict the credentials to the `wodby` tag
 
-## Usage
+## Setup fields
 
-Wodby uses these permissions to create auth keys for app services served through Tailscale. Those auth keys are deleted when the corresponding app service is removed.
+| Field | Required | Purpose |
+| --- | --- | --- |
+| Client ID | Yes | OAuth client identity |
+| Client Secret | Yes | OAuth client credential |
+| Tailnet DNS name | Yes | DNS suffix used for app endpoint hostnames |
 
-The current Tailscale integration creates a private provider route only when all of the following are true:
+The Tailnet DNS name is collected in the final step of integration creation. You can find it on the Tailscale admin
+console's DNS page.
 
-- an enabled Tailscale VPN app service links to the target app service
-- the target service's main endpoint has a main HTTP port marked `private`
-- the VPN app service uses a configured Tailscale integration
+## Configure an app
 
-The resulting hostname belongs to the tailnet and is not published through Wodby's public HTTP gateway. It can be the
-target endpoint's `Primary` route, but it cannot be the app instance's public `Main` route.
+Select Protected mode during app creation, or open `Apps > [App] > [Instance] > Settings > Access`. Choose the
+Tailscale integration and either Entire app or Selected endpoints scope.
 
-A non-main private port does not receive a Tailscale hostname merely because it is marked `private`. For example, an
-internal metrics port remains available through Kubernetes service networking without appearing as a public or
-Tailscale route.
+Wodby assigns one endpoint hostname for each distinct enabled external HTTP destination from the app, service, port,
+and tailnet names. It creates and retires the tagged Tailscale devices and manages the connector credentials. There is
+no DNS-zone, policy, or primary-hostname input in Wodby because access is governed by your tailnet and Tailscale access
+controls.
+
+When access is removed or the app instance is deleted, Wodby removes each endpoint connector, tagged device, auth key,
+and Wodby-held auth-key secret. Wodby does not remove the `wodby` tag, MagicDNS settings, HTTPS certificate setting, or
+your tailnet access rules. Temporary cluster or Tailscale API failures are retained as retryable cleanup obligations on
+the integration page; keep the integration credentials available until cleanup finishes.
+
+Protected Tailscale endpoints are not published through Wodby's public gateway. A service port's `private` flag alone
+does not create a Tailscale hostname; configure App Access explicitly for the app instance.
+
+## Related pages
+
+- [App access](../apps/access.md)
+- [Application Access providers](access.md)

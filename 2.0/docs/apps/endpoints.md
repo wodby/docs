@@ -116,17 +116,18 @@ notification.
 
 Custom certificate upload is coming soon. The planned model is organization-level certificate management with endpoint-level selection.
 
-### Route status and private routes
+### Route status and App Access
 
 The route list shows status, certificate issuer, and whether a route is main or primary.
 
-You may also see a private route when a supported private-access provider gives an eligible private HTTP port its own
-address. Private routes are provider-owned: Wodby does not publish them through the cluster's public HTTP gateway, and
-they cannot be selected as the app instance's public `Main` route. A private route may remain `Primary` for its endpoint
-so applications can use the provider hostname as their canonical service address.
+When [App Access](access.md) is configured, the provider owns the protected external address. Wodby suppresses ordinary
+public routes in the selected scope and uses the protected primary hostname as the app instance's canonical address.
+The route list shows the effective provider hostname instead of a suppressed Wodby technical hostname; routes that
+target the same app port share one provider hostname. With Selected endpoints scope, routes for unselected endpoints
+remain public.
 
-The `private` flag on a port does not create one of these routes by itself. Private ports without an explicit supported
-provider path remain reachable only through internal Kubernetes networking.
+The `private` flag on a port does not create a Cloudflare or Tailscale endpoint by itself. Private ports without an
+explicit App Access configuration remain reachable only through internal Kubernetes networking.
 
 ## Route Settings
 

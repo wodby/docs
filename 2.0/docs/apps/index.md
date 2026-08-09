@@ -48,7 +48,7 @@ See [App vs app instance vs app service](app-vs-instance-vs-service.md) for the 
 
 ## Creating New Application
 
-There are 5 steps of creating a new application:
+There are 6 steps of creating a new application:
 
 ### Step 1
 
@@ -86,22 +86,47 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
   - The generated namespace, `<app-name>-<instance-name>`, must be 63 characters or shorter
 - Select the [environment](env.md) (_Development_ by default)   
 - Optionally, edit the root domain. By default it is `*.[instance-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose public HTTP ports; ports marked `private` do not receive technical domains
-- Choose whether to enable stack auto-upgrade. It defaults to enabled for development, staging, test, and feature
-  environments, and disabled for production environments. You can override the suggested value before creating the app.
 
 ### Step 4
 
-When adding another instance to an existing app, you can use `Copy configuration from` to prefill compatible Step 4
-fields from another instance. See [Copying configuration to a new instance](instances.md#copying-configuration-to-a-new-instance)
-for what is copied and the database-sharing behavior to review.
+Configure settings that apply to the whole app instance:
+
+- Choose whether to enable stack auto-upgrades.
+- Choose Public or Protected [App Access](access.md).
+- Select the CI system and container registry when the app has an enabled service with a build source.
+
+When adding another instance to an existing app, use `Copy configuration from` to prefill compatible app and service
+fields from another instance. See
+[Copying configuration to a new instance](instances.md#copying-configuration-to-a-new-instance) for what is copied and
+the database-sharing behavior to review.
+
+#### Auto-upgrades
+
+Stack auto-upgrades default to enabled for development, staging, test, and feature environments and disabled for
+production environments. You can override the suggested value before creating the app.
+
+#### Access
+
+`Public` is the default and uses ordinary Wodby routes. `Protected` publishes the app through an
+[Application Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select whether the provider
+covers the entire app or selected endpoints, then complete its provider-specific settings. Some stacks require
+Protected access.
+
+See [App access](access.md) for route behavior, primary hostnames, and provider requirements.
 
 #### CI/CD
 
-If the stack has services with build configuration, choose your [CI system](../cicd/index.md) and
-[container registry](../cicd/index.md). The form starts with the
+The CI and registry settings remain visible at the bottom of the step. They are enabled when the app has at least one
+enabled service with a build source and disabled otherwise.
+
+Choose your [CI system](../cicd/index.md) and [container registry](../cicd/index.md). The form starts with the
 [organization's configured defaults](../org.md#settings); if the organization has not selected external integrations,
 it uses Wodby CI and Wodby Registry. You can override either choice for the new app instance without changing the
 organization defaults or existing instances.
+
+### Step 5
+
+Configure individual app services. Sections only appear when the selected stack provides the corresponding capability.
 
 #### Build sources
 
@@ -148,7 +173,7 @@ For internal database services, Wodby creates a new database server. For externa
 
 Specify imports. For services that provide import functionality, such as database services, you can upload an archive or specify a public URL to import from.
 
-### Step 5
+### Step 6
 
 Review your application configuration and click _Create new app_.
 
@@ -156,5 +181,6 @@ Review your application configuration and click _Create new app_.
 
 - [App vs app instance vs app service](app-vs-instance-vs-service.md)
 - [Instances](instances.md)
+- [App access](access.md)
 - [App services](services.md)
 - [Web terminal](web-terminal.md)

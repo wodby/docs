@@ -8,6 +8,11 @@ The top-level application object in Wodby. All app instances of the same app sha
 
 One deployed copy of an app. Each app instance is assigned to an Environment (Env) and has its own services, routes, builds, and configuration.
 
+## Application Access
+
+An app-instance setting that publishes the entire app or selected HTTP endpoints through a supported access provider
+while suppressing the corresponding ordinary public routes.
+
 ## App service
 
 One service inside one app instance. An app service is the app-level representation of a stack service for that specific deployed app copy.

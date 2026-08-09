@@ -22,9 +22,8 @@ services inside the cluster, but Wodby does not generate a technical route for i
 custom route or published as a public TCP or UDP port.
 
 `private` is a service-template policy, not the current publication state of a port. A non-private port that has no
-route is still public-capable and can be exposed later; a private port cannot. Private-access providers may add their
-own address for an eligible private HTTP port, but that is an explicit provider integration rather than an automatic
-effect of the `private` flag. See [VPN providers](../providers/vpn.md).
+route is still public-capable and can be exposed later; a private port cannot. Provider-backed publication is an
+explicit app-instance [App Access](../apps/access.md) setting rather than an automatic effect of the `private` flag.
 
 One port per endpoint can be marked as main. If no port is marked as main, the first port becomes main automatically.
 

@@ -56,7 +56,3 @@ They are usually defined as [derivatives](derivatives.md) so they inherit the pa
 variables, and related configuration while exposing SSH access separately.
 
 Use this type when you need shell or file-access workflows around an existing application service.
-
-## `vpn`
-
-VPN and private connectivity services.
