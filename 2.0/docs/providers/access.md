@@ -18,11 +18,11 @@ cover the entire app or only selected HTTP endpoints.
 
 | Provider | Access model |
 | --- | --- |
-| [Cloudflare](cloudflare.md) | Cloudflare Tunnel with Cloudflare Access identity policies |
+| [Cloudflare](cloudflare.md) | Cloudflare Access identity policies or private-network routing through Cloudflare One |
 | [Tailscale](tailscale.md) | Private-network access through a Tailscale tailnet |
 
-The providers use one common Wodby workflow but keep their provider-specific settings. Cloudflare requires a DNS zone,
-customer hostname, and reusable Access policy. Tailscale assigns a tailnet hostname and does not require DNS-zone or
-policy selection in Wodby.
+The providers use one common Wodby workflow but keep their provider-specific access types and settings. Cloudflare
+Protected access requires a DNS zone, customer hostname, and reusable Access policy. Cloudflare Private network and
+Tailscale assign or reuse provider-routed hostnames and do not require DNS-zone or policy selection in Wodby.
 
 See [App access](../apps/access.md) for modes, scopes, endpoints, route suppression, and primary-hostname behavior.

@@ -109,7 +109,8 @@ production environments. You can override the suggested value before creating th
 
 `Public` is the default and uses ordinary Wodby routes. `Protected` publishes the app through an
 [Application Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select whether the provider
-covers the entire app or selected endpoints, then complete its provider-specific settings. Some stacks require
+uses protected publishing or private-network routing when it offers both, choose whether it covers the entire app or
+selected endpoints, then complete its provider-specific settings. Some stacks require
 Protected access.
 
 See [App access](access.md) for route behavior, primary hostnames, and provider requirements.

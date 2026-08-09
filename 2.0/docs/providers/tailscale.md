@@ -34,6 +34,7 @@ console's DNS page.
 
 Select Protected mode during app creation, or open `Apps > [App] > [Instance] > Settings > Access`. Choose the
 Tailscale integration and either Entire app or Selected endpoints scope.
+Tailscale provides the Private network access type automatically; there is no separate protected-publishing type.
 
 Wodby assigns one endpoint hostname for each distinct enabled external HTTP destination from the app, service, port,
 and tailnet names. It creates and retires the tagged Tailscale devices and manages the connector credentials. There is

@@ -120,11 +120,11 @@ Custom certificate upload is coming soon. The planned model is organization-leve
 
 The route list shows status, certificate issuer, and whether a route is main or primary.
 
-When [App Access](access.md) is configured, the provider owns the protected external address. Wodby suppresses ordinary
-public routes in the selected scope and uses the protected primary hostname as the app instance's canonical address.
-The route list shows the effective provider hostname instead of a suppressed Wodby technical hostname; routes that
-target the same app port share one provider hostname. With Selected endpoints scope, routes for unselected endpoints
-remain public.
+When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
+ordinary public routes in the selected scope and uses the Access primary hostname as the app instance's canonical
+address. The route list shows the effective Access hostname; Cloudflare Protected and Tailscale use provider-facing
+hostnames, while Cloudflare Private network reuses the suppressed Wodby technical hostname. Routes that target the same
+app port share one Access hostname. With Selected endpoints scope, routes for unselected endpoints remain public.
 
 The `private` flag on a port does not create a Cloudflare or Tailscale endpoint by itself. Private ports without an
 explicit App Access configuration remain reachable only through internal Kubernetes networking.

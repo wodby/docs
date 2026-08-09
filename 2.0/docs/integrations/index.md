@@ -35,7 +35,7 @@ Each integration exposes one or more [types](types.md). The type-specific overvi
 - [CI providers](../providers/ci.md) for build and deployment pipelines
 - [Registry providers](../providers/registry.md) for container image registries
 - [SMTP providers](../providers/smtp.md) for outbound mail relays
-- [Application Access providers](../providers/access.md) for protected or private HTTP publication
+- [Application Access providers](../providers/access.md) for identity-protected or private-network HTTP access
 - [VPN providers](../providers/vpn.md) for persistent service-managed private-network nodes
 - [Variable integrations](variable.md) for reusable provider-backed environment variables
 

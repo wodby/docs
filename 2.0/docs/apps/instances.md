@@ -26,7 +26,7 @@ Each instance has its own:
 - [Environment](env.md), which is a named Env with a fixed type such as `prod`, `staging`, or `dev`
 - [Stack](stack.md) revision
 - [Endpoints](endpoints.md) to configure HTTP routes and published ports
-- [App Access](access.md) to choose public or provider-protected HTTP publication
+- [App Access](access.md) to choose public, identity-protected, or private-network HTTP access
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has services with build configuration
 - CI provider and container registry selections
 - [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
