@@ -14,7 +14,7 @@ If you are choosing by task rather than by vendor, start with [Integration types
 ## How provider pages are organized
 
 In the documentation navigation, providers are grouped by the integration types they support, such as Kubernetes,
-databases, storage, Git, CI, registry, SMTP, and Application Access.
+databases, storage, Git, CI, registry, SMTP, Application Access, and VPN nodes.
 
 Each provider group starts with its own `Overview` page that explains what that group is for before listing individual providers.
 

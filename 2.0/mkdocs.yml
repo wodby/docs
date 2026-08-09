@@ -149,8 +149,7 @@ plugins:
         'integrations/type-ci.md': 'providers/ci.md'
         'integrations/type-registry.md': 'providers/registry.md'
         'integrations/type-smtp.md': 'providers/smtp.md'
-        'integrations/type-vpn.md': 'providers/access.md'
-        'providers/vpn.md': 'providers/access.md'
+        'integrations/type-vpn.md': 'providers/vpn.md'
         'backups.md': 'apps/backups.md'
         'certs.md': 'apps/endpoints.md'
         'services/create-from-helm.md': 'services/create.md#create-from-a-helm-chart'
@@ -317,6 +316,8 @@ nav:
       - Application Access:
           - Overview: providers/access.md
           - Cloudflare: providers/cloudflare.md
+      - VPN nodes:
+          - Overview: providers/vpn.md
           - Tailscale: providers/tailscale.md
       - Variable providers:
           - Overview: providers/variable.md

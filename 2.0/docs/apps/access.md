@@ -17,6 +17,9 @@ Application Access integration before creating the app.
 Protected mode requires an active Application Access integration, an enabled HTTP endpoint, and a cluster that uses
 managed app routing.
 
+A standalone Tailscale Node is not an Access mode. It remains an app service for cases where the node itself is the
+deployed workload; see [VPN providers](../providers/vpn.md).
+
 ## Configure access during app creation
 
 In Step 4, `App settings`, select `Protected` under `Access` and then configure:

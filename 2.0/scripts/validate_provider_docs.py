@@ -22,6 +22,7 @@ NON_PROVIDER_DOC_STEMS = {
     "registry",
     "smtp",
     "access",
+    "vpn",
     "variable",
 }
 

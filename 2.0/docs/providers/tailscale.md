@@ -1,7 +1,12 @@
 # Tailscale
 
-Tailscale is an `application_access` provider. Use it to make an app or selected HTTP endpoints reachable through your
-tailnet instead of Wodby's public gateway.
+Tailscale supports two separate integration types in Wodby:
+
+- `application_access` publishes an app or selected HTTP endpoints through a Wodby-managed connector.
+- `vpn` supplies credentials to a persistent Tailscale Node service deployed as part of an app stack.
+
+Both use the same Tailscale provider and OAuth setup, but they have different lifecycles. Application Access is managed
+from the app instance's Access settings; a Tailscale Node is an ordinary app service managed through its stack.
 
 ## Tailscale-side setup
 
@@ -25,7 +30,7 @@ Before creating the integration in Wodby:
 The Tailnet DNS name is collected in the final step of integration creation. You can find it on the Tailscale admin
 console's DNS page.
 
-## Configure an app
+## Application Access
 
 Select Protected mode during app creation, or open `Apps > [App] > [Instance] > Settings > Access`. Choose the
 Tailscale integration and either Entire app or Selected endpoints scope.
@@ -43,7 +48,21 @@ the integration page; keep the integration credentials available until cleanup f
 Protected Tailscale endpoints are not published through Wodby's public gateway. A service port's `private` flag alone
 does not create a Tailscale hostname; configure App Access explicitly for the app instance.
 
+## Tailscale Node
+
+Choose the `Tailscale Node` integration type when deploying the standalone Tailscale stack or a custom stack that
+contains the Tailscale service. Wodby creates a scoped auth key for that app service, and the resulting persistent
+workload joins your tailnet as a node.
+
+This is different from Application Access. The node is visible and configurable as part of the app's services and can
+exist without publishing one of the app's HTTP endpoints. Removing Application Access does not remove a standalone
+Tailscale Node, and deleting the node service does not change an app instance's Access setting.
+
+OpenClaw uses Application Access and no longer embeds the Tailscale service. The standalone Tailscale stack and custom
+node-oriented stacks continue using the `vpn` integration type.
+
 ## Related pages
 
 - [App access](../apps/access.md)
 - [Application Access providers](access.md)
+- [VPN providers](vpn.md)
