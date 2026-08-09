@@ -34,6 +34,6 @@ A fault-tolerant environment has no service interruption but a significantly hig
 * GCP GKE
 * Azure AKS
 
-## Request cluster
+## Wodby 2 clusters
 
-We no longer accept applications for cluster deployments.
+The Wodby 1 managed-cluster program no longer accepts applications. [Wodby 2 clusters](https://wodby.com/docs/2.0/clusters/) provide the current scalable platform, including managed Kubernetes, self-hosted K3s, Wodby Cloud, high availability, and application autoscaling.

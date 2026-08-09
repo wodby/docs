@@ -1,4 +1,4 @@
 # PHP stack documentation
 
 !!! info "IMPORTANT"
-    The PHP stack is not available for deployment through this platform. You can use it for local development with [Docker4PHP](local.md).
+    PHP stacks are available for deployment on [Wodby 2](https://wodby.com/docs/2.0/stacks/). For Wodby 1 local development, use [Docker4PHP](local.md).

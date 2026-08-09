@@ -1,4 +1,4 @@
 # Python stack documentation
 
 !!! info "IMPORTANT"
-    The Python stack is not available for deployment. You can use it for local development with [Docker4Python](local.md).
+    Python stacks are available for deployment on [Wodby 2](https://wodby.com/docs/2.0/stacks/). For Wodby 1 local development, use [Docker4Python](local.md).
