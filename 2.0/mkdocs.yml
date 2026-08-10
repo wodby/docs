@@ -316,6 +316,7 @@ nav:
       - Application Access:
           - Overview: providers/access.md
           - Cloudflare: providers/cloudflare.md
+          - Tailscale: providers/tailscale.md
       - VPN nodes:
           - Overview: providers/vpn.md
           - Tailscale: providers/tailscale.md

@@ -28,14 +28,15 @@ In Step 4, `App settings`, select `Protected` under `Access` and then configure:
 1. `Access provider`: the integration that will provide the app's protected or private connection path.
 2. `Access type`: Protected publishing or Private network when the selected provider offers both. Providers with one
    type select it automatically.
-3. `Scope`: whether access covers the entire app or selected endpoints.
+3. `Scope`: whether access covers the entire app or selected endpoints. With Selected endpoints, choose one or more
+   enabled HTTP destinations and mark one as primary.
 4. Provider-specific settings, such as a Cloudflare DNS zone and Access policy for Protected publishing.
 5. A primary hostname when the provider uses your own domain.
 
 For Entire app scope, Wodby automatically includes every enabled HTTP destination that normally has an external route.
-Routes and paths that target the same app port share one provider address. For Selected endpoints, Wodby starts with
-the main HTTP destination and you can change the selection later from
-`Apps > [App] > [Instance] > Settings > Access`.
+Routes and paths that target the same app port share one provider address. For Selected endpoints, the form lists the
+eligible HTTP destinations from the enabled stack services and starts with the main destination selected. You can
+change the selection before creation or later from `Apps > [App] > [Instance] > Settings > Access`.
 
 Wodby waits until the first successful workload deployment before creating the provider resources. Public routes in
 the selected scope are suppressed from the beginning, so the app is not temporarily published while provider access
