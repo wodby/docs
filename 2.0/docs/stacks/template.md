@@ -131,6 +131,33 @@ Type: `string`.
 
 Icon name shown in the Wodby dashboard.
 
+### `access`
+
+Type: `object`.
+
+Optional [App Access](../apps/access.md) requirement for app instances created from the stack. This policy describes
+the access outcome the stack needs. The app instance still stores the actual access configuration and the user selects
+an eligible Application Access integration.
+
+- `required`: required boolean. When `true`, App Access must be configured during app creation and cannot be removed
+  while the app instance uses this stack revision.
+- `provider`: optional provider machine name, such as `tailscale` or `cloudflare`. Omit it to accept any provider that
+  supports the required mode and scope. Set it only when the stack depends on provider-specific behavior.
+- `mode`: required access type. Allowed values are `protected` and `private_network`.
+- `scope`: required access scope. Allowed values are `entire_app` and `selected_endpoints`.
+
+For example, a stack that must be private but works with either Tailscale or Cloudflare can use a provider-neutral
+policy:
+
+```yaml
+access:
+  required: true
+  mode: private_network
+  scope: entire_app
+```
+
+Existing stack revisions that specify `provider` remain provider-specific.
+
 ### `services`
 
 Type: `array`. Required. Must contain at least one item.

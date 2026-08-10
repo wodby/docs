@@ -12,8 +12,9 @@ The app creation form offers two modes:
   publishing or private-network routing for the selected endpoints, and Wodby suppresses the corresponding public
   routes.
 
-Some stacks require Protected mode. In that case the mode cannot be changed and you must select a compatible
-Application Access integration before creating the app.
+Some stacks require Protected mode. The stack can also require an access type and scope, and can optionally restrict
+the provider. In that case the required choices cannot be changed and you must select a compatible Application Access
+integration before creating the app.
 
 Protected mode requires an active Application Access integration, an enabled HTTP endpoint, and a cluster that uses
 managed app routing.
