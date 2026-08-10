@@ -23,6 +23,10 @@ The request flow is:
 Pending requests expire after seven days. An owner of the requesting organization can cancel a pending request, and
 an owner of the source organization can revoke an accepted request.
 
+To change the requested integration name, owner, project, or integration types while a request is pending, cancel the
+request and start the connection again. Wodby does not change a pending request in place, so source-organization owners
+always approve the settings they reviewed.
+
 ### Privacy and credential security
 
 The requesting organization sees the GitHub provider, GitHub account scope, its requested settings, and the request
@@ -35,9 +39,9 @@ organization. The local integration is a credentialless handle, and Wodby checks
 whenever it uses the canonical installation. This means revocation takes effect immediately and disables the local
 integration. Existing app or CI references to that integration can no longer access GitHub until they are changed.
 
-Deleting the local shared integration does not uninstall the GitHub App or delete the canonical integration. Wodby
-prevents deletion or ownership changes of the canonical integration while it has active shared handles; revoke those
-shares first.
+Deleting the local shared integration immediately revokes its access and removes only that organization's handle. It
+does not uninstall the GitHub App or delete the canonical integration. Wodby prevents deletion or ownership changes of
+the canonical integration while it has active shared handles; revoke those shares first.
 
 ## Build boilerplate import
 
