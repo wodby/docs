@@ -36,13 +36,13 @@ Big picture:
 
 1. Deploy an app based on a managed stack that supports CI deployments or custom stack with at least one service having [`deployment.type=ci`](../stacks/template.md#deployment)
 2. [Get](#wodby-cli) Wodby CLI tool or its docker image
-3. [Initialize](#init) the build by providing your Wodby API key and UUID of your app instance
+3. [Initialize](#init) the build by providing an API key scoped to the app's organization and the UUID of your app instance
 4. [Build](#build) images with your codebase. Images will be based on the images from your stack
 5. Push ([release](#release)) images to a private docker registry we provide you (or any other registry)
 6. [Deploy](#deploy) the build (a set of images) to your app instance
 
 !!! caution "Do not store your Wodby API key in git repository"
-    Do not share your personal Wodby API key. Do not store it in git repository, instead add it as a secret environment variable in your CI settings.
+    Do not share your Wodby API key or store it in a git repository. Create a key scoped to the application's organization and add it as a secret environment variable in your CI settings. The dashboard shows the secret only once.
 
 #### Wodby CLI
 
@@ -65,7 +65,7 @@ Or you can use [`wodby/wodby-cli`](https://hub.docker.com/r/wodby/wodby-cli/) do
 wodby ci init [INSTANCE UUID]
 ```
 
-This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have your [Wodby API key](../dev.md#api-keys) exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is secured and not exposed to public. 
+This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have a [Wodby API key](../dev.md#api-keys) scoped to the instance's organization, exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is stored securely and is not publicly exposed.
 
 #### Build
 
