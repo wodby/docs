@@ -22,7 +22,7 @@ The current Infrastructure 7 profile is:
 | Component | Version |
 | --- | --- |
 | Infrastructure | 7.0.0 |
-| Installer | 2.0.4 |
+| Installer | 2.0.5 |
 | Kubernetes | 1.36.3 |
 | Docker Engine | 29.7.2 |
 | containerd | 2.3.3 |
@@ -30,9 +30,9 @@ The current Infrastructure 7 profile is:
 | Flannel | 0.28.4 |
 | etcd | 3.6.14, v3 API |
 | Wodby Agent | 5.4.2 |
-| Wodby Edge | 3.0.0 |
+| Wodby Edge | 3.0.1 |
 
-Existing Infrastructure 7 servers do not automatically replace an already running Agent merely because the backend release profile changed. Follow a support instruction or use the [documented Agent update command](cli.md#updating-infrastructure-7-agent) when a patch release is required.
+Existing Infrastructure 7 servers do not automatically replace an already running Agent or Edge merely because the backend release profile changed. Follow a support instruction or use the documented [Agent](cli.md#updating-infrastructure-7-agent) and [Edge](cli.md#updating-infrastructure-7-edge) update commands when a patch release is required. Edge 3.0.1 or newer is required for automatic HTTPS on technical `*.wodby.cloud` domains.
 
 ## Infrastructure 6 OS upgrade tips
 
@@ -71,6 +71,7 @@ Fresh-server Infrastructure 7 release:
 * Upgraded to Docker Engine 29.7.2 with containerd 2.3.3 and cri-dockerd 0.4.4.
 * Added Flannel 0.28.4 and etcd 3.6.14 using the direct v3 API.
 * Added Edge 3.0.0 and Agent 5.4.2. Agent 5.4.2 fixes Infrastructure 7 dashboard log streaming.
+* Updated the release profile to Installer 2.0.5 and Edge 3.0.1. Edge 3.0.1 adds managed root-and-wildcard certificates for technical domains.
 * Added resumable Installer 2.x phases, root kubectl configuration, and Infrastructure 7 uninstall support.
 
 ### 6.0.4

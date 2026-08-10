@@ -1,12 +1,23 @@
 # Domains
 
-## Technical .wodby.cloud domain name
+## Technical *.wodby.cloud domain name
 
-Wodby provides a technical *.wodby.cloud domain name to every application, it depends on the name of the application and the name of the organization. It looks like this: 
+Wodby provides a technical `*.wodby.cloud` domain name to every application. It depends on the instance, application, and organization names:
+
 ```
 [instance].[app name].[organization name].wodby.cloud
 ```
-you can find your technical domain from `Instance > Domains page`.
+
+You can find your technical domain under `Instance > Domains`.
+
+Infrastructure 7 automatically provisions a managed Let's Encrypt certificate for the technical domain and its one-level service subdomains. For example, one certificate covers both:
+
+* `dev.my-app.my-org.wodby.cloud`
+* `*.dev.my-app.my-org.wodby.cloud`
+
+No certificate request is required from the dashboard. HTTPS becomes available after the technical DNS records and application deployment finish. HTTP remains available and is not redirected to HTTPS by default.
+
+Existing Infrastructure 6 technical domains are unchanged and do not receive these automatic certificates. Infrastructure 7 servers must run Wodby Edge 3.0.1 or newer.
 
 You can restrict access to technical domains by:
 
@@ -40,7 +51,7 @@ All technical `*.wodby.cloud` domains not indexed by search engines (header X-Ro
 
 ### Let's Encrypt Certificates
 
-You can enable HTTPS for your custom domains by requesting a free SSL certificate from [Let's Encrypt](https://letsencrypt.org/). Navigate to `Domains` tab of your instance page and click on `Get certificate` in the list of domains (currently not available for *.wodby.cloud domains). Choose a provider "Let's encrypt" and submit the form. Before requesting the certificate make sure that your domain already attached to the server where the instance is currently deployed.
+You can enable HTTPS for your custom domains by requesting a free SSL certificate from [Let's Encrypt](https://letsencrypt.org/). Navigate to the `Domains` tab of your instance page and click `Get certificate` in the list of domains. Choose the "Let's encrypt" provider and submit the form. Before requesting the certificate, make sure that your domain is already attached to the server where the instance is currently deployed.
 
 Additionally, you can enable redirect for all HTTP requests to HTTPS from a domain edit page.
 

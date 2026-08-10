@@ -39,6 +39,21 @@ Verify the configured image:
 kubectl -n wodby get deployment agent -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}'
 ```
 
+### Updating Infrastructure 7 Edge
+
+Infrastructure 7 requires Edge 3.0.1 or newer for automatic HTTPS on technical `*.wodby.cloud` domains. Edge owns the server's public ports, so the update can cause a brief interruption:
+
+```shell
+kubectl -n wodby set image deployment/edge edge=wodby/edge-alpine:3.0.1
+kubectl -n wodby rollout status deployment/edge --timeout=5m
+```
+
+Verify the configured image:
+
+```shell
+kubectl -n wodby get deployment edge -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}'
+```
+
 ### Restart Edge
 
 Edge owns the server's public ports, so restarting it can cause a brief interruption:
