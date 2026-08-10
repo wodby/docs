@@ -10,27 +10,9 @@ We constantly improve the infrastructure we deploy to our customers' servers. Yo
 
 You will be notified each time a new version of the infrastructure is released.
 
-!!! tldr "Stacks and infrastructure maintained separately"
-    For stacks maintenance see [this article](../stacks/maintenance.md) 
-
 ## Infrastructure 7 maintenance
 
 Infrastructure 7 installs exact versions of Docker, Kubernetes, containerd, cri-dockerd, and networking packages and places the apt packages on hold. Do not upgrade these components independently. Contact [Wodby support](../support.md) before changing a control-plane component or upgrading the host operating system.
-
-The current Infrastructure 7 profile is:
-
-| Component | Version |
-| --- | --- |
-| Infrastructure | 7.0.0 |
-| Installer | 2.0.5 |
-| Kubernetes | 1.36.3 |
-| Docker Engine | 29.7.2 |
-| containerd | 2.3.3 |
-| cri-dockerd | 0.4.4 |
-| Flannel | 0.28.4 |
-| etcd | 3.6.14, v3 API |
-| Wodby Agent | 5.4.2 |
-| Wodby Edge | 3.0.1 |
 
 Existing Infrastructure 7 servers do not automatically replace an already running Agent merely because the backend release profile changed. Follow a support instruction or use the [documented Agent update command](cli.md#updating-infrastructure-7-agent) when a patch release is required.
 
