@@ -78,9 +78,9 @@ Private network access makes endpoints reachable only from devices connected to 
 does not display a public identity login page. Tailscale uses tailnet hostnames; Cloudflare uses the existing Wodby
 technical hostnames as private hostname routes for Cloudflare One Client devices.
 
-Cloudflare Private network requires the customer's Gateway proxy, device enrollment, Split Tunnels, and DNS routing to
-be configured before users can connect. Wodby manages the app tunnel and private hostname routes, not the customer's
-device or Gateway policies. See [Cloudflare](../providers/cloudflare.md#private-network-access).
+Cloudflare Private network requires the customer's Gateway TCP and UDP proxy, device enrollment, Split Tunnels, and
+DNS routing to be configured before users can connect. Wodby manages the app tunnel and private hostname routes, not
+the customer's device or Gateway policies. See [Cloudflare](../providers/cloudflare.md#private-network-access).
 
 Private network access controls how traffic reaches the app; it does not make the hostname itself secret. A Cloudflare
 private endpoint's Wodby technical hostname may still resolve outside WARP, but Wodby's public gateway does not serve

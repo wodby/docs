@@ -96,16 +96,22 @@ Before enabling it:
 
 1. Enroll user devices in the
    [Cloudflare One Client](https://developers.cloudflare.com/cloudflare-one/team-and-resources/devices/cloudflare-one-client/).
-2. In `Traffic policies > Traffic settings`, enable `Allow Secure Web Gateway to proxy traffic` for TCP. Cloudflare
-   also recommends UDP when private DNS resolvers are used.
+2. In `Traffic policies > Traffic settings`, enable `Allow Secure Web Gateway to proxy traffic` and select both TCP
+   and UDP. TCP carries the HTTPS connection to the app. UDP is required for the private DNS query that resolves the
+   hostname through the managed Tunnel connector.
 3. In the WARP device profile, make sure `100.80.0.0/16` and `2606:4700:0cf1:4000::/64` route through WARP. In Exclude
-   mode, remove the broader `100.64.0.0/10` exclusion; in Include mode, add the two ranges.
+   mode, remove the broader `100.64.0.0/10` exclusion. You can add back exclusions for unused CGNAT ranges, but
+   `100.80.0.0/16` must continue to route through WARP. In Include mode, add both required ranges.
 4. In Local Domain Fallback, ensure the Wodby technical-domain suffix is not sent to a local resolver. This lets
    Cloudflare Gateway answer DNS for Wodby's private hostname route.
 
 See Cloudflare's
 [private-hostname device connectivity guide](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/private-net/cloudflared/connect-private-hostname/#device-connectivity)
 for the current device-profile steps.
+
+These are connectivity requirements, not optional Gateway inspection settings. Without UDP proxying, the private
+hostname may return `NXDOMAIN`. Without TCP proxying or the required Split Tunnel routes, DNS may succeed but the HTTPS
+connection will not reach the managed Tunnel.
 
 Wodby reuses each endpoint's stable technical hostname, creates a private hostname route to the app's managed tunnel,
 and serves its existing Wodby-managed HTTPS certificate through the connector. The matching route remains disabled at
