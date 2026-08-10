@@ -114,6 +114,12 @@ the app. The hostname itself is not secret and may still resolve outside WARP; p
 public route and the Cloudflare One traffic path. Certificate renewals and endpoint changes are reconciled
 automatically after deployment.
 
+!!! note "HTTP endpoints only"
+    The Gateway TCP proxy setting above lets the Cloudflare One Client carry the HTTPS connection to Wodby's private
+    hostname route. It does not expose arbitrary app TCP or UDP ports through Application Access. Entire app scope
+    prevents public port publishing; with Selected endpoints scope, separately published TCP or UDP ports remain
+    public and outside Cloudflare Application Access.
+
 When access is removed or the app instance is deleted, Wodby removes the connector, tunnel connections, applicable
 managed DNS records or private hostname routes, the Tunnel, and the Access application. It does not delete the selected
 reusable Access policy, DNS zone, device settings, Gateway policies, or any customer-managed certificate. If a managed

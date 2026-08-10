@@ -135,6 +135,20 @@ The `private` flag in a service definition is different. It prevents a port from
 routing, but it does not create a Cloudflare or Tailscale address. Application Access is the explicit app-instance
 setting that asks a provider to publish an eligible HTTP endpoint.
 
+### Published TCP and UDP ports
+
+Published ports use the cluster's public gateway and are outside the Application Access connector. They do not receive
+a Cloudflare or Tailscale hostname or inherit an identity or private-network policy.
+
+- With Entire app scope, Wodby requires existing published ports to be unpublished and prevents publishing new ones
+  while Access is active.
+- With Selected endpoints scope, TCP and UDP ports can remain published, but they remain public and are not protected
+  by the Access provider.
+- An unpublished non-HTTP port remains reachable only through internal Kubernetes networking.
+
+Use [Publishing ports](endpoints.md#publishing-ports) for public TCP or UDP exposure. App Access endpoint selection
+contains HTTP destinations only.
+
 ## Providers
 
 | Provider | Access type | Hostname |

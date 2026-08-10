@@ -46,8 +46,20 @@ and Wodby-held auth-key secret. Wodby does not remove the `wodby` tag, MagicDNS 
 your tailnet access rules. Temporary cluster or Tailscale API failures are retained as retryable cleanup obligations on
 the integration page; keep the integration credentials available until cleanup finishes.
 
-Protected Tailscale endpoints are not published through Wodby's public gateway. A service port's `private` flag alone
-does not create a Tailscale hostname; configure App Access explicitly for the app instance.
+Tailscale Application Access endpoints are not published through Wodby's public gateway. A service port's `private`
+flag alone does not create a Tailscale hostname; configure App Access explicitly for the app instance.
+
+### HTTP endpoints and application ports
+
+Tailscale Application Access currently carries HTTP endpoints only. It does not advertise arbitrary app TCP or UDP
+ports, such as SSH, database, Redis, or custom-protocol ports, into the tailnet.
+
+Entire app scope prevents public TCP or UDP port publishing while Access is active. Selected endpoints scope can
+coexist with separately published TCP or UDP ports, but those ports remain public through Wodby's gateway and are not
+protected by Tailscale. Unpublished ports remain cluster-internal.
+
+The Tailscale Node integration below is a separate service-credential workflow. Deploying a node does not
+automatically expose other app services or change the App Access endpoint set.
 
 ## Tailscale Node
 

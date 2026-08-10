@@ -14,6 +14,10 @@ Use an Application Access provider when:
 Application Access is configured for an app instance, not attached to an individual service. The selected scope can
 cover the entire app or only selected HTTP endpoints.
 
+Application Access does not protect published TCP or UDP ports. Entire app scope requires those ports to be
+unpublished; Selected endpoints scope can coexist with them, but they remain public through Wodby's gateway. See
+[App access](../apps/access.md#published-tcp-and-udp-ports).
+
 ## Supported providers
 
 | Provider | Access model |
