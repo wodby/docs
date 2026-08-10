@@ -16,6 +16,13 @@ Services that send mail through an SMTP relay are modeled as regular services of
 [integrations](configuration.md#integrations) so customers can connect third-party SMTP providers such as Brevo or AWS
 SES.
 
+### Private-network node services
+
+Persistent private-network nodes such as Tailscale are also regular services of type `service`. Their network-specific
+credential lifecycle comes from a compatible `vpn` integration rather than a separate service type.
+
+Use [Application Access](../apps/access.md) instead when the goal is only to publish an app's HTTP endpoints privately.
+
 ## `db`
 
 Database services. These services define a [`database` section](template.md#database) that describes the engine,
@@ -56,11 +63,3 @@ They are usually defined as [derivatives](derivatives.md) so they inherit the pa
 variables, and related configuration while exposing SSH access separately.
 
 Use this type when you need shell or file-access workflows around an existing application service.
-
-## `vpn`
-
-Persistent private-network node services such as Tailscale. A VPN service is deployed and managed as part of the app
-stack and consumes a compatible `vpn` integration.
-
-Use [Application Access](../apps/access.md) instead when the goal is only to publish an app's HTTP endpoints privately.
-The VPN service type remains appropriate when the network node itself is the workload being deployed.
