@@ -17,7 +17,7 @@ Infrastructure 7 automatically provisions a managed Let's Encrypt certificate fo
 
 No certificate request is required from the dashboard. HTTPS becomes available after the technical DNS records and application deployment finish. HTTP remains available and is not redirected to HTTPS by default.
 
-Existing Infrastructure 6 technical domains are unchanged and do not receive these automatic certificates. Infrastructure 7 servers must run Wodby Edge 3.0.1 or newer.
+Existing Infrastructure 6 technical domains are unchanged and do not receive these automatic certificates.
 
 You can restrict access to technical domains by:
 

@@ -32,7 +32,7 @@ The current Infrastructure 7 profile is:
 | Wodby Agent | 5.4.2 |
 | Wodby Edge | 3.0.1 |
 
-Existing Infrastructure 7 servers do not automatically replace an already running Agent or Edge merely because the backend release profile changed. Follow a support instruction or use the documented [Agent](cli.md#updating-infrastructure-7-agent) and [Edge](cli.md#updating-infrastructure-7-edge) update commands when a patch release is required. Edge 3.0.1 or newer is required for automatic HTTPS on technical `*.wodby.cloud` domains.
+Existing Infrastructure 7 servers do not automatically replace an already running Agent merely because the backend release profile changed. Follow a support instruction or use the [documented Agent update command](cli.md#updating-infrastructure-7-agent) when a patch release is required.
 
 ## Infrastructure 6 OS upgrade tips
 
