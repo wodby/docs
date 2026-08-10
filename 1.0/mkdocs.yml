@@ -93,6 +93,7 @@ nav:
   - Status: status.md
   - Support: support.md
   - Troubleshooting: troubleshooting.md
+  - Account security: account-security.md
   - User roles: roles.md
 - Apps:
   - New app: apps/new.md

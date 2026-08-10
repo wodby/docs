@@ -75,6 +75,12 @@ If you have many low-traffic applications we recommend consider the following:
 
 You can delete your account from `Account > delete` page
 
+## How do I enable two-factor authentication?
+
+Open `Account > Security` in the Wodby dashboard. See
+[Account security](account-security.md) for setup, recovery-code, and
+account-recovery instructions.
+
 ## What's the origin of Wodby name?
 
 Wodby pronounced as wɔːdbi. Wodby is a name of a water spirit in a slavic mythology (https://en.wikipedia.org/wiki/Vodyanoy). Vodyanoy or Wodby in Upper Sorbian language.
