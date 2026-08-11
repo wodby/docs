@@ -3,7 +3,7 @@
 We constantly improve the infrastructure we deploy to our customers' servers. You can see the version of the infrastructure deployed to your server in the Dashboard on the servers list page. It's not always possible to update the infrastructure automatically so if you want update your infrastructure please [contact our support team](../support.md) to schedule the upgrade. 
 
 !!! success "Current Wodby 1 infrastructure lines"
-    Infrastructure 7.0.0 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
+    Infrastructure 7.0.0 is the default for fresh servers. Infrastructure 6.1.0 is the latest legacy release for existing Infrastructure 6 servers.
 
 !!! warning "No in-place 6 to 7 upgrade"
     Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
@@ -48,13 +48,16 @@ Some operating systems such as Debian 11 enable cgroup v2, which is not supporte
 
 Fresh-server Infrastructure 7 release:
 
-* Added Ubuntu 26.04 and Debian 13 amd64 support.
-* Upgraded to Kubernetes 1.36.3 using kubeadm and current Kubernetes APIs.
-* Upgraded to Docker Engine 29.7.2 with containerd 2.3.3 and cri-dockerd 0.4.4.
-* Added Flannel 0.28.4 and etcd 3.6.14 using the direct v3 API.
-* Added Edge 3.0.0 and Agent 5.4.2. Agent 5.4.2 fixes Infrastructure 7 dashboard log streaming.
-* Updated the release profile to Installer 2.0.5 and Edge 3.0.1. Edge 3.0.1 adds managed root-and-wildcard certificates for technical domains.
-* Added resumable Installer 2.x phases, root kubectl configuration, and Infrastructure 7 uninstall support.
+* Added Ubuntu 26.04 and Debian 13 amd64 support
+* Upgraded to Kubernetes 1.36
+* Upgraded to Docker Engine 29.7 with containerd 2 and cri-dockerd
+* Added Flannel and etcd 3 using the direct v3 API
+* Added Edge 3 with support certificates for technical domains 
+* Agent 5.4
+
+### 6.1.0
+
+Agent 5.4
 
 ### 6.0.4
 
