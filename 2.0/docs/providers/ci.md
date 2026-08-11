@@ -29,13 +29,14 @@ provider and the app service's build-source configuration:
 | CI mode | Dashboard requirements |
 | --- | --- |
 | Wodby CI | A linked Git repository and ref |
-| GitHub Actions | A linked Git repository, branch or tag, and a workflow file name or numeric ID; the workflow must support `workflow_dispatch` |
+| GitHub Actions | A linked Git repository and a previously recorded GitHub workflow for the app service; the workflow must support `workflow_dispatch` |
 | GitLab CI | A linked Git repository and branch or tag |
 | CircleCI | A linked Git repository and a previously recorded CircleCI workflow for the app service |
 | Custom CI | Not available; start the build in the external pipeline |
 
-GitHub Actions and GitLab CI can start a fresh workflow or pipeline from the stored configuration and do not require a
-previous Wodby build. CircleCI currently starts a dashboard build by rerunning a recorded workflow.
+GitHub Actions starts a fresh run using workflow identity and ref from a previously recorded build. GitLab CI starts a
+fresh pipeline from the stored repository ref without requiring a previous Wodby build. CircleCI starts a dashboard
+build by rerunning a recorded workflow.
 
 ## Supported options
 
