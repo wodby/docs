@@ -23,7 +23,7 @@ jobs:
 
       - name: Build docs
         run: |
-          wodby ci run -i wodby/mkdocs -- \
+          wodby ci run -e HOME=/home/wodby -i wodby/mkdocs -- \
             sh -c "mkdir sites && cd 1.0 && mkdocs build -d ../sites/1.0 && cd ../2.0 && mkdocs build -d ../sites/2.0"
 
       - name: Build image
