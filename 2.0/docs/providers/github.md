@@ -4,44 +4,18 @@ After connecting your GitHub account you can use your repositories as a build so
 
 ## Use one organization installation in multiple Wodby organizations
 
-A GitHub App installation belongs to one GitHub account, so Wodby keeps one canonical integration for that
-installation. If the same GitHub organization installation is already connected in another Wodby organization,
-connecting it again creates an access request instead of copying the installation credentials.
+A GitHub App installation can be connected to Wodby only once. If another Wodby organization needs the same
+installation, do not start the GitHub connection flow again: GitHub will show only `Configure` for an existing
+installation and does not send a new installation result to Wodby.
 
-Only Wodby organization owners can request, approve, decline, cancel, or revoke this access. Personal GitHub
-installations cannot be shared.
+Instead, an owner of the Wodby organization that already holds the GitHub integration opens its `Sharing` page and
+invites the other Wodby organization by its exact machine name. An owner of the invited organization then reviews the
+request under `Integrations > OAuth invitations` and chooses the local integration name and title.
 
-The request flow is:
-
-1. An owner in the requesting Wodby organization starts the normal GitHub integration connection and selects the
-   existing GitHub organization installation.
-2. Wodby verifies the installation and records the requested integration name, owner, project, and integration types.
-3. Owners of the Wodby organization that holds the canonical integration review the request and approve or decline it.
-4. After approval, Wodby creates a local integration in the requesting organization. It can be owned by that
-   organization or by the project selected in the request and can use the normal project-sharing settings there.
-
-Pending requests expire after seven days. An owner of the requesting organization can cancel a pending request, and
-an owner of the source organization can revoke an accepted request.
-
-To change the requested integration name, owner, project, or integration types while a request is pending, cancel the
-request and start the connection again. Wodby does not change a pending request in place, so source-organization owners
-always approve the settings they reviewed.
-
-### Privacy and credential security
-
-The requesting organization sees the GitHub provider, GitHub account scope, its requested settings, and the request
-status. It does not receive the name or identifier of the Wodby organization that owns the canonical integration.
-Source-organization owners see the requesting organization and requester so they can make an informed approval
-decision.
-
-Approval does not copy the GitHub App installation ID, OAuth token, or other credentials into the requesting
-organization. The local integration is a credentialless handle, and Wodby checks the accepted sharing relationship
-whenever it uses the canonical installation. This means revocation takes effect immediately and disables the local
-integration. Existing app or CI references to that integration can no longer access GitHub until they are changed.
-
-Deleting the local shared integration immediately revokes its access and removes only that organization's handle. It
-does not uninstall the GitHub App or delete the canonical integration. Wodby prevents deletion or ownership changes of
-the canonical integration while it has active shared handles; revoke those shares first.
+Wodby keeps the GitHub App installation and OAuth credentials only on the canonical integration. The accepted
+organization receives a credentialless local handle, and source owners can revoke it at any time. See
+[Share an OAuth integration with another organization](../integrations/organization-sharing.md) for the complete
+owner, privacy, expiration, and revocation rules.
 
 ## Build boilerplate import
 

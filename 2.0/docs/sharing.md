@@ -2,9 +2,9 @@
 
 Projects isolate resources by default. Sharing is how a resource becomes visible or usable outside its owner scope.
 
-The sharing controls on this page apply within one Wodby organization. GitHub organization installations have an
+The project-sharing controls on this page apply within one Wodby organization. Eligible OAuth integrations have an
 additional owner-approved flow for use across Wodby organizations; see
-[Use one organization installation in multiple Wodby organizations](providers/github.md#use-one-organization-installation-in-multiple-wodby-organizations).
+[Share an OAuth integration with another organization](integrations/organization-sharing.md).
 
 Sharing works together with [access control](access-control.md):
 
@@ -183,3 +183,4 @@ If a resource from Project A is missing while you work in Project B, check wheth
 
 - [Projects](projects.md)
 - [Access control](access-control.md)
+- [Share an OAuth integration with another organization](integrations/organization-sharing.md)

@@ -272,6 +272,7 @@ nav:
   - Integrations:
       - Overview: integrations/index.md
       - Types: integrations/types.md
+      - Organization sharing: integrations/organization-sharing.md
       - Variable integrations: integrations/variable.md
   - Providers:
       - Overview: providers/index.md
