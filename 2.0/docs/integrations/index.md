@@ -50,14 +50,14 @@ different credentials, or a different permission scope.
 The dashboard submits the integration details, selected kinds, and changed credential fields as one update. If any part
 is invalid, none of the changes are saved.
 
-Most new kinds become available immediately and start a read-only permission test. GCP and Azure OAuth integrations may
-instead start a provider setup task; only the new kinds remain in **Activating** state while that task runs. Existing
-kinds remain available. A failed activation is shown only on the affected new kind.
+Most new kinds become available immediately. AWS, GCP, and Azure integrations also start a read-only permission test.
+GCP and Azure OAuth integrations may first start a provider setup task; only the new kinds remain in **Activating**
+state while that task runs. Existing kinds remain available. A failed activation is shown only on the affected new kind.
 
 Permission findings do not undo the update or disable the integration. Review the task warnings before using a newly
 added kind. Some resource-creation permissions cannot be proven without changing provider resources and are therefore
-reported as unverifiable rather than treated as an update failure. You can rerun the permission test from the
-integration's **Edit** page.
+reported as unverifiable rather than treated as an update failure. For AWS, GCP, and Azure, you can rerun the permission
+test from the integration's **Edit** page.
 
 ## Where integrations are used
 
