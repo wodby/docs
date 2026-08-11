@@ -21,6 +21,17 @@ Deployments are usually triggered in the following ways:
 - automated partial deployments for service-level maintenance
 - manual deployment from the UI
 
+## Deferred initial deployment
+
+The API can create an app instance with its initial deployment deferred. This lets automation finish configuring the
+instance and its services before any application workloads are started. The instance remains `awaiting` until you
+explicitly start its first build or deployment.
+
+While the initial deployment is deferred, enabling a service saves the enabled state and marks the app instance as
+`needs redeploy`; it does not start an automatic partial deployment. This remains true until a deployment establishes
+the app's runtime and active route backends. Start a deployment that includes the app's required services after
+configuration is complete.
+
 ## Automated redeployments
 
 Some platform operations automatically redeploy only the affected app services. Examples include SSH authorized-key
@@ -59,6 +70,11 @@ rebuild` and `needs redeploy`, which continue to describe app builds and service
 
 Automatic routing deployments, including deployments after certificate renewal, create background tasks for logs and
 failure tracking. You do not need to start an app-service deployment after a successful routing-only change.
+
+When a partial workload deployment omits an active route backend that has never been deployed successfully,
+Wodby leaves the existing routing release unchanged instead of applying a route to a missing Kubernetes Service. The
+task log identifies the missing backend, the app instance returns to `awaiting`, and it remains marked `needs redeploy`.
+Start a workload deployment that includes the missing service to apply the waiting routing configuration.
 
 Clusters older than infrastructure version `4.0.0` continue to apply route, auth, and certificate changes through the
 affected app-service releases. Those apps may still show `needs redeploy` until the cluster infrastructure is upgraded.

@@ -173,6 +173,11 @@ replacement exists. Disabling a service also disables its routes, including cust
 customer routes to another service. Re-enabling the service re-enables routes that were disabled with the service, but
 leaves routes you had disabled individually disabled.
 
+For an app instance with an established runtime, re-enabling a service automatically starts a partial deployment of
+that service and any required dependencies. If the app has not established its initial runtime, Wodby saves the enabled
+state and marks the instance `needs redeploy` instead. Finish configuring the instance, then start its first deployment
+explicitly. See [deferred initial deployment](deploys.md#deferred-initial-deployment).
+
 An `EOL` flag next to a service version means that the app service currently uses a version whose end-of-life date has
 passed. If newer supported versions are not available in the selector, update the app instance to a stack revision that
 uses the latest service revision first, then choose a non-EOL service version.
