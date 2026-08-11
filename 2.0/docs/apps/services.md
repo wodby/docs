@@ -349,8 +349,8 @@ The `Configuration > Tokens` subtab lets you add or remove [tokens](tokens.md) t
 variables and other generated configuration.
 
 Tokens can be plain or secret-backed. Secret-backed token values are revealed only on demand in the dashboard. You
-need [runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent password
-confirmation to display a secret-backed value.
+need [runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent
+[secret reveal confirmation](../user/security.md#secret-reveal-confirmation) to display a secret-backed value.
 
 ## Annotations tab
 

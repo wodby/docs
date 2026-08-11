@@ -122,8 +122,9 @@ Existing `Write` assignments may initially have runtime reveal enabled to preser
 administrators should review those assignments from the project's `Access` page and disable the capability where it is
 not needed.
 
-Every direct reveal also requires an interactive user session with a recent password confirmation. See
-[Secret reveal confirmation](user/security.md#secret-reveal-confirmation).
+Every direct reveal also requires an interactive user session with a recent login or step-up confirmation. Depending
+on the account, Wodby asks for a password, authenticator/recovery code, or a code sent to the verified primary email.
+See [Secret reveal confirmation](user/security.md#secret-reveal-confirmation).
 
 !!! warning "Runtime access is broader than the reveal button"
     Secret reveal permission controls whether Wodby displays a stored value through its dashboard/API reveal operation.

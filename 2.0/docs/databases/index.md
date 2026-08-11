@@ -19,7 +19,8 @@ A database also has an [environment](../apps/env.md). For container-based databa
 The database details page also shows the current connection metadata and can reveal the current master password on
 demand. A master password is a
 [privileged secret](../access-control.md#secret-reveal-permissions), so only organization owners/admins and project
-admins can reveal it, and recent password confirmation is required.
+admins can reveal it, and recent [secret reveal confirmation](../user/security.md#secret-reveal-confirmation) is
+required.
 
 ## Deployment types
 
