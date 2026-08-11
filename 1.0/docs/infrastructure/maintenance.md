@@ -48,7 +48,7 @@ Some operating systems such as Debian 11 enable cgroup v2, which is not supporte
 
 Fresh-server Infrastructure 7 release:
 
-* Added Ubuntu 26.04 and Debian 13 amd64 support.
+* Added Ubuntu 26.04 and Debian 13 amd64 support
 * Upgraded to Kubernetes 1.36
 * Upgraded to Docker Engine 29.7 with containerd 2 and cri-dockerd
 * Added Flannel and etcd 3 using the direct v3 API
