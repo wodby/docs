@@ -77,6 +77,10 @@ On clusters with Wodby infrastructure version `4.0.0` or newer, route changes ar
 [routing deployment](deploys.md#routing-deployments). They do not require the source or target app service to be
 redeployed. Older infrastructure versions continue to apply the change through an app-service deployment.
 
+When you create a custom route with Let's Encrypt, certificate issuance runs separately from application deployment.
+An unattached or incorrectly routed hostname does not fail the deployment or change the app instance to an errored
+state. You can also delete a custom route while its app instance is errored, so a bad hostname never blocks cleanup.
+
 ### Main and primary
 
 Wodby distinguishes between two default-route flags:
@@ -104,9 +108,23 @@ preferred over generated technical routes only when such a replacement is necess
 
 Wodby can issue TLS certificates for endpoint routes. For public docs, treat [Let's Encrypt](https://letsencrypt.org/) as the supported issuer for managed certificate flows today. Wodby automatically renews Let's Encrypt certificates before they expire.
 
-For generated technical routes, Wodby validates certificates through managed DNS. For custom routes, make sure the
-hostname resolves to the target cluster before enabling Let's Encrypt; custom route certificates are validated through
-the public HTTP route.
+For generated technical routes, Wodby validates certificates through managed DNS. Custom route certificates are
+validated through the public HTTP route. Before contacting Let's Encrypt, Wodby publishes a temporary challenge and
+checks that the hostname returns its exact challenge response. DNS resolution by itself, or an unrelated successful
+HTTP response from another server, is not enough.
+
+A custom hostname can be proxied through Cloudflare or another reverse proxy. It is considered attached when requests
+to `/.well-known/acme-challenge/*` are forwarded to the Wodby route and return Wodby's challenge response. The public
+DNS record may therefore resolve to proxy addresses instead of directly to the cluster. If the proxy sends challenge
+requests to another origin, replaces the response, or redirects them somewhere that does not reach Wodby, certificate
+issuance remains pending. Adjust the proxy's origin or routing rules, or temporarily disable proxying while the initial
+certificate is issued.
+
+New managed certificates have a `Pending` status until Wodby verifies the route and Let's Encrypt issues the
+certificate. A requested issuer of `Let's Encrypt` does not by itself mean that a certificate has already been issued.
+If public DNS does not resolve, the route reports `Awaiting DNS`. If DNS resolves but the exact challenge does not reach
+Wodby, it reports `Not connected`. Wodby completes that issuance attempt with a warning and retries pending routes
+hourly. Infrastructure errors are reported separately as `Error`.
 
 Certificate renewals are scheduled automatically and spread over time. If Let's Encrypt is temporarily busy or rate
 limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
@@ -118,7 +136,10 @@ Custom certificate upload is coming soon. The planned model is organization-leve
 
 ### Route status and App Access
 
-The route list shows status, certificate issuer, and whether a route is main or primary.
+The route list shows route status, certificate issuer, and whether a route is main or primary. The issuer records the
+selected TLS mode; certificate status and route attachment status convey the actual issuance progress. Attachment
+status is independent from deployment status: a route can exist and the app can be healthy while its custom hostname
+is still waiting for DNS or points to another origin.
 
 When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
 ordinary public routes in the selected scope and uses the Access primary hostname as the app instance's canonical
