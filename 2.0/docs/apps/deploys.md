@@ -71,10 +71,11 @@ rebuild` and `needs redeploy`, which continue to describe app builds and service
 Automatic routing deployments, including deployments after certificate renewal, create background tasks for logs and
 failure tracking. You do not need to start an app-service deployment after a successful routing-only change.
 
-When a partial workload deployment omits an active route backend that has never been deployed successfully,
-Wodby leaves the existing routing release unchanged instead of applying a route to a missing Kubernetes Service. The
-task log identifies the missing backend, the app instance returns to `awaiting`, and it remains marked `needs redeploy`.
-Start a workload deployment that includes the missing service to apply the waiting routing configuration.
+After a partial workload deployment, Wodby applies routing for app services that currently have a successful deployed
+runtime. Routes to services that have not deployed successfully are omitted instead of being applied to missing
+Kubernetes Services; redirects remain available because they do not require a service backend. The task log identifies
+omitted backends, the app instance returns to `awaiting`, and it remains marked `needs redeploy`. A later workload
+deployment reevaluates every service and adds each route after its backend becomes available.
 
 Clusters older than infrastructure version `4.0.0` continue to apply route, auth, and certificate changes through the
 affected app-service releases. Those apps may still show `needs redeploy` until the cluster infrastructure is upgraded.
