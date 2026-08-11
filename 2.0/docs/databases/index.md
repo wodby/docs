@@ -16,7 +16,10 @@ Database ownership and sharing depend on how the database is deployed:
 
 A database also has an [environment](../apps/env.md). For container-based databases created from an app, the environment usually matches the app instance environment.
 
-The database details page also shows the current connection metadata and can reveal the current master password on demand.
+The database details page also shows the current connection metadata and can reveal the current master password on
+demand. A master password is a
+[privileged secret](../access-control.md#secret-reveal-permissions), so only organization owners/admins and project
+admins can reveal it, and recent password confirmation is required.
 
 ## Deployment types
 

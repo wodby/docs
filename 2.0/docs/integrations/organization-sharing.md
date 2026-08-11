@@ -13,9 +13,11 @@ source organization.
 An integration can be shared with another organization when it is:
 
 - authenticated through OAuth
-- owned by the organization, not by a project
 - in `OK` status
 - a canonical integration rather than an integration already shared from somewhere else
+
+The source can be organization-owned or project-owned. Cross-organization sharing is still managed by owners of the
+source organization; project membership alone does not authorize sending or revoking an invitation.
 
 Only organization owners can send, accept, decline, or revoke an organization-sharing invitation. Only an owner of
 the invited organization can delete the local shared integration because deletion also revokes the sharing
@@ -59,9 +61,14 @@ Wodby does not copy OAuth tokens, provider installation IDs, keys, or other cred
 organization. The new integration is a local handle, and Wodby validates the accepted relationship whenever it uses
 the source credentials.
 
-The source organization remains responsible for the provider connection. Reconnecting it or changing its provider
-account can therefore affect the invited organization. The invited owner should accept only when they trust the
-source organization to manage that connection.
+The source organization remains responsible for the provider connection. After an invitation is accepted, Wodby
+freezes user-driven changes to the canonical integration while another organization depends on it. Its metadata,
+capabilities, provider fields, ownership, in-organization sharing, and deletion cannot be changed until every active
+organization share is revoked. Routine OAuth token refresh and provider maintenance continue so an ordinary token
+renewal does not interrupt the invited organization.
+
+The invited owner should accept only when they trust the source organization to maintain the provider connection and
+coordinate any later change that requires revocation.
 
 Source owners can see accepted organizations on the canonical integration's `Sharing` page and revoke access at any
 time. Revocation takes effect immediately: the local integration is disabled and existing references can no longer
@@ -69,8 +76,8 @@ perform credential-backed operations. The invited organization keeps ownership o
 them with another integration.
 
 Deleting the invited organization's local integration also revokes the relationship, but it does not delete the
-canonical integration or disconnect the provider account. A canonical integration cannot be deleted while it still
-has active organization shares; revoke them first.
+canonical integration or disconnect the provider account. A canonical integration cannot be changed or deleted while
+it still has active organization shares; revoke them first.
 
 ## Privacy model
 

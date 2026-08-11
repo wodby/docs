@@ -184,7 +184,8 @@ Auth precedence is most-specific first:
 - route auth overrides service auth
 - service auth overrides app-level auth
 
-The edit screen can also reveal the current password for an existing auth entry.
+The edit screen can also reveal the current password for an existing auth entry. You need
+[runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent password confirmation.
 
 On infrastructure version `4.0.0` or newer, changing auth settings starts a routing deployment and does not mark app
 services as needing redeploy. Older infrastructure versions continue to mark the affected app services and app

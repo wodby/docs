@@ -15,6 +15,9 @@ From `Databases > [Database] > Users > [User]` you can:
 - change which DBs the user can access
 - delete the user
 
+Revealing the current password requires
+[runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent password confirmation.
+
 For container-based app databases, Wodby usually creates an app-specific user automatically based on the service's `database` configuration.
 
 User creation is safe to retry. If a same-named database account already exists and accepts the requested password,

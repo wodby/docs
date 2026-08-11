@@ -8,6 +8,21 @@ You can change your password from `User settings > Security`.
 
 Sensitive security actions are protected by password confirmation when required.
 
+## Secret reveal confirmation
+
+Displaying a stored app or database credential requires an interactive user session and the appropriate
+[secret reveal permission](../access-control.md#secret-reveal-permissions).
+
+When you click a reveal action, Wodby opens a dialog and checks whether you confirmed your current password during the
+last five minutes. If not, enter it in that dialog. After confirmation, the secret is displayed for 30 seconds and is
+then removed from the dialog. Closing the dialog removes it immediately.
+
+Secret reveal responses are not cached. API-key and token authentication cannot use direct reveal operations. An
+account without a Wodby password must set one before it can reveal secrets.
+
+Copying a value places it on your device's clipboard; Wodby cannot clear that copy automatically. Move long-lived
+credentials into an approved secrets manager and rotate any value that may have been exposed.
+
 ## Two-factor authentication
 
 Wodby supports two-factor authentication with a one-time password authenticator app.

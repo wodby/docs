@@ -42,6 +42,7 @@ When creating a project, you can:
 - optionally preselect organization members
 - optionally preselect teams
 - choose one initial role for those selected users or teams
+- when the initial role is `Write`, choose whether those memberships can reveal runtime secrets
 
 Project creation itself is an organization-level action, so it is typically handled by organization owners or admins.
 
@@ -70,6 +71,11 @@ Project roles are:
 - `Admin` to manage the project itself
 
 Teams can receive `Read` or `Write` project roles. Project `Admin` is granted directly to specific users.
+
+For `Write` memberships, project administrators can independently enable or disable `Reveal runtime secrets`. This
+controls direct display of app-service tokens, endpoint-auth passwords, and database-user passwords. Project `Admin`
+includes secret reveal, while `Read` cannot receive it. See
+[Secret reveal permissions](access-control.md#secret-reveal-permissions).
 
 See [Access control](access-control.md) for the full role model.
 

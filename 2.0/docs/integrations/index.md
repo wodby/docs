@@ -13,7 +13,7 @@ Use integrations when:
 - you want to reuse the same credentials or connection across multiple apps or projects
 - you want provider-backed environment variables instead of repeating raw values manually
 
-In the dashboard, the integration creation form has an `Owner` selector. Choose `Organization <organization>` for an organization-owned integration or `Project <project>` for a project-owned integration. Use the integration's `Sharing` page later when other projects need `Read/Use` or `Modify/Delete` access. Eligible organization-owned OAuth integrations can also be [shared with another Wodby organization](organization-sharing.md) through an owner-approved invitation.
+In the dashboard, the integration creation form has an `Owner` selector. Choose `Organization <organization>` for an organization-owned integration or `Project <project>` for a project-owned integration. Use the integration's `Sharing` page later when other projects need `Read/Use` or `Modify/Delete` access. Eligible canonical OAuth integrations can also be [shared with another Wodby organization](organization-sharing.md) through an owner-approved invitation.
 
 If you are unsure about the difference between providers and integrations, start with [Provider vs integration](providers-vs-integrations.md).
 

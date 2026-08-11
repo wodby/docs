@@ -13,6 +13,7 @@ These layers answer different questions:
 - Can the user administer organization-wide settings?
 - Can the user see, create, or change resources in a project?
 - Can the user use a resource that belongs to another project or to the organization?
+- Can the user reveal a stored credential as readable text?
 
 ## Organization roles
 
@@ -91,6 +92,44 @@ Users with access to this page can see project memberships. Organization owners/
 - assign team roles
 - change roles later
 - remove project memberships
+
+## Secret reveal permissions
+
+Write access and permission to display a stored secret are separate. This lets a developer manage and deploy an app
+without automatically receiving every credential that Wodby stores for it.
+
+For project-owned resources, direct secret reveal follows this table:
+
+| Effective access | Runtime secrets | Privileged secrets |
+| --- | --- | --- |
+| Organization owner or admin | Allowed | Allowed |
+| Project `Admin` | Allowed | Allowed |
+| Project `Write` with `Reveal runtime secrets` enabled | Allowed | Not allowed |
+| Project `Write` without `Reveal runtime secrets` | Not allowed | Not allowed |
+| Project `Read` | Not allowed | Not allowed |
+
+Runtime secrets currently include app-service tokens, app endpoint-auth passwords, and database-user passwords.
+Privileged secrets currently include database master or root passwords. Organization-owned secrets can be revealed only
+by organization owners and admins.
+
+`Reveal runtime secrets` can be enabled for a direct `Write` membership or for a team with `Write` access. It is not
+available for `Read`; project `Admin` includes both reveal scopes automatically. If a user has several effective
+`Write` memberships, runtime reveal is enabled when at least one of those memberships enables it. Access through a
+project that merely shares the resource does not grant direct reveal—the permission is evaluated through the resource's
+owner project.
+
+Existing `Write` assignments may initially have runtime reveal enabled to preserve their previous access. Project
+administrators should review those assignments from the project's `Access` page and disable the capability where it is
+not needed.
+
+Every direct reveal also requires an interactive user session with a recent password confirmation. See
+[Secret reveal confirmation](user/security.md#secret-reveal-confirmation).
+
+!!! warning "Runtime access is broader than the reveal button"
+    Secret reveal permission controls whether Wodby displays a stored value through its dashboard/API reveal operation.
+    It does not prevent an authorized workload from receiving its configured credentials. A user with writable app and
+    [web-terminal access](apps/web-terminal.md) may be able to inspect credentials already injected into that runtime.
+    Treat project `Write` as trusted application-operator access even when direct secret reveal is disabled.
 
 ## Permission meanings
 

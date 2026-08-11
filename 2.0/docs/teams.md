@@ -23,6 +23,7 @@ Typical workflow:
 2. Add organization members to that team.
 3. Add the team to one or more [projects](projects.md).
 4. Choose the appropriate project role for that team, either `Read` or `Write`.
+5. For `Write`, choose whether team members can reveal runtime secrets in that project.
 
 A user can belong to multiple teams, and those teams can be added to different projects.
 
@@ -33,6 +34,9 @@ Teams cannot receive the project `Admin` role. Project administration is granted
 Projects can also grant access directly to individual organization members. You do not have to use teams for every case.
 
 If a user receives project access both directly and through one or more teams, Wodby applies the highest project role available to that user in that project.
+
+When several memberships give the same user project `Write`, `Reveal runtime secrets` is enabled if any one of those
+direct or team assignments enables it. See [Secret reveal permissions](access-control.md#secret-reveal-permissions).
 
 ## When to use teams
 

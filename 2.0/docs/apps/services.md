@@ -348,7 +348,9 @@ image; Wodby does not save a copy of the image default as another override.
 The `Configuration > Tokens` subtab lets you add or remove [tokens](tokens.md) that can be used in environment
 variables and other generated configuration.
 
-Tokens can be plain or secret-backed. Secret-backed token values are revealed only on demand in the dashboard.
+Tokens can be plain or secret-backed. Secret-backed token values are revealed only on demand in the dashboard. You
+need [runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent password
+confirmation to display a secret-backed value.
 
 ## Annotations tab
 
