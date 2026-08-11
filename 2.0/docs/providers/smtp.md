@@ -25,6 +25,9 @@ SMTP provider integrations are used for:
 | [Amazon Web Services](aws.md#ses) | SES |
 | [Brevo](brevo.md) | Brevo SMTP |
 
+For AWS SES, enter a raw IAM access key pair. Wodby derives the region-specific SMTP password at runtime. Existing AWS
+integrations that store legacy SES SMTP credentials remain supported; see [Amazon Web Services](aws.md#ses).
+
 ## Related pages
 
 - [Integration types](../integrations/types.md)

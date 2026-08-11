@@ -5,24 +5,26 @@ variables. Select only the integration kinds you need, and grant permissions for
 
 ## Auth
 
-For EKS, RDS, S3, and variables, use an IAM access key pair and an AWS region. The access key belongs to the AWS identity
-whose permissions are described below.
+Use an IAM access key pair and an AWS region for EKS, RDS, S3, SES, and variables. The access key belongs to the AWS
+identity whose permissions are described below. For SES, Wodby derives the region-specific SMTP password from the raw
+secret access key at runtime; no AWS API request is needed for this derivation. See [SES](#ses).
 
-SES is different: Wodby uses the Amazon SES SMTP interface, so SES integrations use Amazon SES SMTP credentials instead
-of regular AWS API access keys. See [SES](#ses).
+Existing integrations that store Amazon SES SMTP credentials remain supported. Those legacy credentials can relay mail,
+but they cannot authenticate AWS API operations such as EKS, RDS, or S3 until you replace them with a raw IAM access key
+pair.
 
 ## Required Permissions
 
-Required AWS permissions depend on the selected integration kind. If one AWS integration is used for multiple AWS API
-features, the IAM user needs the combined permissions for those features. Use separate integrations when credential types
-or permission scopes should differ, especially for SES.
+Required AWS permissions depend on the selected integration kinds. If one AWS integration is used for multiple features,
+the IAM user needs the combined permissions for those features. Use separate integrations when accounts or permission
+scopes should differ.
 
 | Integration kind | Credentials | Permissions |
 | --- | --- | --- |
 | EKS | IAM access key pair | Attach [AmazonEC2FullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2FullAccess.html), [AWSCloudFormationFullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSCloudFormationFullAccess.html), [IAMFullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/IAMFullAccess.html), and the [custom EKS policy](#custom-eks-policy). |
 | RDS | IAM access key pair | Attach [AmazonEC2FullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonEC2FullAccess.html), [AWSCloudFormationFullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AWSCloudFormationFullAccess.html), and the [custom RDS policy](#custom-rds-policy). |
 | S3 | IAM access key pair | Use the [custom S3 backup policy](#custom-s3-backup-policy). [AmazonS3FullAccess](https://docs.aws.amazon.com/aws-managed-policy/latest/reference/AmazonS3FullAccess.html) also works, but grants more access than Wodby needs for backups. |
-| SES | Amazon SES SMTP credentials | The IAM user behind the SMTP credentials must be allowed to send through SES. See the [SES send policy](#ses-send-policy). |
+| SES | IAM access key pair | The IAM user must be allowed to send through SES. See the [SES send policy](#ses-send-policy). |
 | Variables | IAM access key pair | No AWS API permissions are required by Wodby. The integration only exposes the configured values to apps or stacks. |
 
 AWS managed policy contents are maintained by AWS and can change over time. Attach AWS managed policies by name instead
@@ -82,15 +84,20 @@ before it can be read for a Wodby download or restore.
 Wodby provides a native integration with Amazon Simple Email Service. You can connect SMTP services such as OpenSMTPD to
 use SES as a relay for outbound emails.
 
-For SES, use Amazon SES SMTP credentials, not regular AWS API credentials. Amazon SES SMTP credentials are
-region-specific and are not the same as the AWS secret access key. In the Wodby AWS integration form:
+Use a raw IAM access key pair in the Wodby AWS integration form:
 
-- `Access Key ID` should be the SES SMTP user name.
-- `Secret Access Key` should be the SES SMTP password.
-- `Region` should match the SES SMTP credentials' region.
+- `Access Key ID` is the IAM access key ID.
+- `Secret Access Key` is the raw IAM secret access key.
+- `Region` is the AWS region where you use SES.
 
-If you also use AWS API features such as EKS, RDS, or S3, create a separate AWS integration for SES because the secret
-value for SES must be an SMTP password.
+Wodby derives the region-specific SES SMTP password when it builds the mail relay configuration. The raw secret remains
+available to other selected AWS kinds, so one integration can support SES together with EKS, RDS, S3, or variables when
+the IAM identity has their combined permissions.
+
+Existing SES integrations that already contain an SMTP username and password continue to work. If you add an API-based
+kind to one of these integrations, replace the stored values with a raw IAM access key pair. The update itself is not
+rolled back when a permission check finds insufficient access; review the resulting task warnings before using the new
+kind.
 
 You must also verify the sender identity in Amazon SES and make sure the AWS account is allowed to send to your intended
 recipients according to your SES sandbox or production sending status.
@@ -184,7 +191,7 @@ that permission is not required when you use a custom policy.
 
 ### SES Send Policy
 
-The IAM user behind the SES SMTP credentials must be allowed to send email through SES. The minimum send action for the
+The IAM user behind the configured access key must be allowed to send email through SES. The minimum send action for the
 SES SMTP interface is:
 
 ```json

@@ -41,6 +41,24 @@ Each integration exposes one or more [types](types.md). The type-specific overvi
 
 The selected type determines where the integration can be used in the dashboard.
 
+### Add kinds to an existing integration
+
+When a provider supports more than one kind, you can open the integration's **Edit** page and select additional kinds.
+Existing kinds stay selected and cannot be removed. Create another integration when you need a narrower set of kinds,
+different credentials, or a different permission scope.
+
+The dashboard submits the integration details, selected kinds, and changed credential fields as one update. If any part
+is invalid, none of the changes are saved.
+
+Most new kinds become available immediately and start a read-only permission test. GCP and Azure OAuth integrations may
+instead start a provider setup task; only the new kinds remain in **Activating** state while that task runs. Existing
+kinds remain available. A failed activation is shown only on the affected new kind.
+
+Permission findings do not undo the update or disable the integration. Review the task warnings before using a newly
+added kind. Some resource-creation permissions cannot be proven without changing provider resources and are therefore
+reported as unverifiable rather than treated as an update failure. You can rerun the permission test from the
+integration's **Edit** page.
+
 ## Where integrations are used
 
 Depending on the provider and type, integrations can be used for:
