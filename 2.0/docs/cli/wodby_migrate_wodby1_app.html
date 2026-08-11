@@ -6,17 +6,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>wodby migrate wodby1 app | Wodby CLI</title>
-  <meta name="description" content="wodby migrate wodby1 app command reference for Wodby CLI. Plan or run a resumable Wodby 1 application migration.">
+  <meta name="description" content="wodby migrate wodby1 app command reference for Wodby CLI. Preview, apply, or verify a Wodby 1 application migration.">
   <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_migrate_wodby1_app.html">
   <link rel="icon" href="../assets/images/favicon.svg">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Wodby Documentation">
   <meta property="og:title" content="wodby migrate wodby1 app | Wodby CLI">
-  <meta property="og:description" content="wodby migrate wodby1 app command reference for Wodby CLI. Plan or run a resumable Wodby 1 application migration.">
+  <meta property="og:description" content="wodby migrate wodby1 app command reference for Wodby CLI. Preview, apply, or verify a Wodby 1 application migration.">
   <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_migrate_wodby1_app.html">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="wodby migrate wodby1 app | Wodby CLI">
-  <meta name="twitter:description" content="wodby migrate wodby1 app command reference for Wodby CLI. Plan or run a resumable Wodby 1 application migration.">
+  <meta name="twitter:description" content="wodby migrate wodby1 app command reference for Wodby CLI. Preview, apply, or verify a Wodby 1 application migration.">
   <link rel="sitemap" type="application/xml" href="https://wodby.com/docs/2.0/cli/sitemap.xml">
   <link rel="stylesheet" href="manual.css">
 </head>
@@ -4012,6 +4012,15 @@
   
   <div class="nav-item">
     
+      <a class="nav-link " href="wodby_migrate_wodby1_instance.html">instance</a>
+    
+  </div>
+
+        
+          
+  
+  <div class="nav-item">
+    
       <a class="nav-link " href="wodby_migrate_wodby1_server.html">server</a>
     
   </div>
@@ -5273,14 +5282,17 @@
     </div>
 
     <h1>wodby migrate wodby1 app</h1>
-    <p class="lead">Plan or run a resumable Wodby 1 application migration</p>
-    <p>Migrate one Wodby 1 application through plan, prepare, sync-data,
-finalize, and verify. Reuse the same Wodby 1 token, Wodby 2 API key, mapping
-options, plan path, and state path for every phase. Before sync-data, enable
-maintenance mode and create a fresh backup in Wodby 1. Update DNS only after
-sync-data succeeds and before finalize. If a target mutation is ambiguous,
-inspect Wodby 2 and pass --retry-ambiguous only with the exact operation ID
-printed by the command.</p>
+    <p class="lead">Preview, apply, or verify a Wodby 1 application migration</p>
+    <p>Migrate one Wodby 1 application. The default command is a read-only
+preview. Add --apply to create and populate the target, test it using its
+technical route, and change DNS only after testing succeeds. Rerun the same
+command with --verify after DNS cutover. Before --apply, enable maintenance mode
+from [App instance] &gt; Stack &gt; Settings and create a fresh backup in Wodby 1.
+Use --force only to intentionally import an existing backup and exclude later
+writes. If a target mutation is ambiguous, inspect Wodby 2 and pass
+--retry-ambiguous only with the exact operation ID printed by the command. When
+state exists, --apply preserves the saved plan and continues completed work;
+--restart is allowed only before any target mutation.</p>
 
     
 
@@ -5297,11 +5309,9 @@ printed by the command.</p>
         <pre><code>export WODBY1_SOURCE_TOKEN=...
   export WODBY_API_KEY=...
 
-  wodby migrate wodby1 app APP_UUID --phase plan [target and mapping options]
-  wodby migrate wodby1 app APP_UUID --phase prepare --approve-plan PLAN_HASH [same options]
-  wodby migrate wodby1 app APP_UUID --phase sync-data --approve-plan PLAN_HASH [same options]
-  wodby migrate wodby1 app APP_UUID --phase finalize --approve-plan PLAN_HASH [same options]
-  wodby migrate wodby1 app APP_UUID --phase verify --approve-plan PLAN_HASH [same options]</code></pre>
+  wodby migrate wodby1 app APP_UUID --target-stack-id STACK_ID [target and mapping options]
+  wodby migrate wodby1 app APP_UUID --target-stack-id STACK_ID [same options] --apply
+  wodby migrate wodby1 app APP_UUID --target-stack-id STACK_ID [same options] --verify</code></pre>
       </section>
     
 
@@ -5321,9 +5331,15 @@ printed by the command.</p>
       <tbody>
         
           <tr>
-            <td><code>--approve-plan string</code></td>
-            <td>Exact reviewed plan hash required by mutation phases</td>
-            <td><span class="muted">-</span></td>
+            <td><code>--apply</code></td>
+            <td>Create the target and import data using the displayed plan</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--force</code></td>
+            <td>Import an existing backup without maintenance mode or an age limit; excludes later writes and does not bypass other blockers</td>
+            <td><code>false</code></td>
           </tr>
         
           <tr>
@@ -5334,7 +5350,7 @@ printed by the command.</p>
         
           <tr>
             <td><code>--max-backup-age duration</code></td>
-            <td>Maximum backup age accepted by sync-data</td>
+            <td>Maximum backup age accepted by --apply</td>
             <td><code>1h0m0s</code></td>
           </tr>
         
@@ -5345,21 +5361,15 @@ printed by the command.</p>
           </tr>
         
           <tr>
-            <td><code>--phase string</code></td>
-            <td>Migration phase: plan, prepare, sync-data, finalize, or verify</td>
-            <td><code>plan</code></td>
-          </tr>
-        
-          <tr>
-            <td><code>--plan-file string</code></td>
-            <td>Plan JSON path (defaults beside the current working directory)</td>
-            <td><span class="muted">-</span></td>
-          </tr>
-        
-          <tr>
             <td><code>--poll-interval duration</code></td>
             <td>Target operation polling interval</td>
             <td><code>2s</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--restart</code></td>
+            <td>Start a new applied plan only when saved state proves that no target mutation occurred (requires --apply)</td>
+            <td><code>false</code></td>
           </tr>
         
           <tr>
@@ -5394,13 +5404,13 @@ printed by the command.</p>
         
           <tr>
             <td><code>--state-file string</code></td>
-            <td>Secure resume-state path (defaults beside the plan)</td>
+            <td>Secure resume-state path (defaults to the system temporary directory)</td>
             <td><span class="muted">-</span></td>
           </tr>
         
           <tr>
             <td><code>--target-ci-integration-id int</code></td>
-            <td>Wodby 2 Git integration ID</td>
+            <td>Wodby 2 CI integration ID (defaults to 0 for built-in Wodby CI)</td>
             <td><code>0</code></td>
           </tr>
         
@@ -5423,6 +5433,12 @@ printed by the command.</p>
           </tr>
         
           <tr>
+            <td><code>--target-git-integration-id int</code></td>
+            <td>Wodby 2 Git integration ID used to resolve the source repository</td>
+            <td><code>0</code></td>
+          </tr>
+        
+          <tr>
             <td><code>--target-git-ref string</code></td>
             <td>Git branch, tag, or commit to build (defaults to the source ref)</td>
             <td><span class="muted">-</span></td>
@@ -5441,20 +5457,14 @@ printed by the command.</p>
           </tr>
         
           <tr>
-            <td><code>--target-org string</code></td>
-            <td>Wodby 2 organization ID or exact name</td>
-            <td><span class="muted">-</span></td>
-          </tr>
-        
-          <tr>
             <td><code>--target-project string</code></td>
-            <td>Wodby 2 project ID or exact name</td>
+            <td>Wodby 2 project ID or exact name (defaults to a project-owned cluster&#39;s owner; otherwise organization-owned)</td>
             <td><span class="muted">-</span></td>
           </tr>
         
           <tr>
-            <td><code>--target-remote-git-repo-id string</code></td>
-            <td>Repository ID in the selected Wodby 2 Git integration</td>
+            <td><code>--target-repository-name string</code></td>
+            <td>Exact repository name in the selected Wodby 2 Git integration (defaults to the name derived from the Wodby 1 repository URL)</td>
             <td><span class="muted">-</span></td>
           </tr>
         
@@ -5465,9 +5475,21 @@ printed by the command.</p>
           </tr>
         
           <tr>
+            <td><code>--target-stack-id int</code></td>
+            <td>Wodby 2 target stack ID (required unless every source stack has a scoped mapping)</td>
+            <td><code>0</code></td>
+          </tr>
+        
+          <tr>
             <td><code>--target-stack-map stringArray</code></td>
-            <td>Source-to-target stack mapping ([APP/][INSTANCE/]SOURCE=TARGET)</td>
+            <td>Source-to-target stack ID mapping ([APP/][INSTANCE/]SOURCE=TARGET_STACK_ID)</td>
             <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--verify</code></td>
+            <td>Verify the applied migration after testing and DNS cutover</td>
+            <td><code>false</code></td>
           </tr>
         
           <tr>
