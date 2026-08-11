@@ -5,4 +5,3 @@
 See https://wodby.com/docs
 
 Docs built using [mkdocs](http://www.mkdocs.org) with [material theme](https://github.com/squidfunk/mkdocs-material)
-
