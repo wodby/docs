@@ -24,7 +24,7 @@ Wodby stores backup archives in the selected bucket or container. It does not us
 
 | Provider | Storage product |
 | --- | --- |
-| [Wodby](index.md#built-in-providers) | Blob Storage |
+| [Wodby](wodby-blob-storage.md) | Blob Storage |
 | [Amazon Web Services](aws.md#s3) | S3 |
 | [Azure](azure.md#blob-storage) | Blob Storage |
 | [Google Cloud Platform](gcp.md#cloud-storage) | Cloud Storage |
@@ -34,5 +34,6 @@ Wodby stores backup archives in the selected bucket or container. It does not us
 
 - [Integration types](../integrations/types.md)
 - [Providers overview](index.md)
+- [Wodby Blob Storage](wodby-blob-storage.md)
 - [Application backups](../apps/backups.md)
 - [Database backups](../databases/backups.md)

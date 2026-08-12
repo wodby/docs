@@ -291,6 +291,7 @@ nav:
           - DigitalOcean: providers/digitalocean.md
       - Storage:
           - Overview: providers/storage.md
+          - Wodby Blob Storage: providers/wodby-blob-storage.md
           - Amazon Web Services: providers/aws.md
           - Azure: providers/azure.md
           - Google Cloud Platform: providers/gcp.md

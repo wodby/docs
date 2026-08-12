@@ -2,8 +2,10 @@
 
 From `Databases > [Database] > Backups` you can run one-off backups and manage backup presets.
 
-One-off manual backups are available on all active plans. Creating or editing any backup preset requires an active
-paid subscription, whether or not the preset includes an automatic schedule.
+One-off manual backups are available on all active plans when the selected destination is available to that plan.
+Wodby Blob Storage requires a paid subscription; free organizations can continue using their own supported storage
+integration. Creating or editing a backup preset normally requires an active paid subscription, whether or not the
+preset includes an automatic schedule.
 
 The database backup area has two tabs:
 
@@ -16,7 +18,11 @@ When preparing a new backup, you can select one of the backup presets for this d
 
 ## Backup destination
 
-When configuring a backup or backup preset, select the destination bucket only. You no longer need to select a region separately.
+Choose [Wodby Blob Storage](../providers/wodby-blob-storage.md) to let Wodby manage the object storage destination. It
+does not require a storage integration, bucket, region, or storage class.
+
+For a third-party destination, select the storage integration and destination bucket. You do not need to select a
+region separately.
 
 The connected storage provider credentials must allow Wodby to list/select buckets, check the selected bucket's location
 when the provider requires it, and upload/read backup objects. For provider-specific requirements, see
@@ -36,7 +42,12 @@ scheduled runs, restores, and downloads.
 
 Backup presets save time when entering backup destination details, and they can also define automatic backups.
 
-All backup presets are a paid feature. Turning `Auto backups` off does not make a preset available on the free plan.
+All backup presets are a paid feature. Turning `Auto backups` off does not normally make a preset available on the
+free plan.
+
+For Wodby 1 migrations, the REST API can save a Wodby Blob Storage preset on a free subscription only when it has an
+automatic schedule and is disabled. Enabling the preset requires a paid subscription. See
+[Wodby Blob Storage](../providers/wodby-blob-storage.md#availability) for the API representation.
 
 Database presets can be scoped to:
 
@@ -49,8 +60,8 @@ Create organization-wide presets from `Organization > Backups > Backup Presets` 
 
 An organization-wide preset stores:
 
-- the storage integration
-- the destination bucket
+- Wodby Blob Storage or a third-party storage integration
+- the destination bucket for a third-party integration
 - an optional storage class override
 - an optional environment filter
 - an optional automatic schedule
@@ -103,3 +114,4 @@ that remain failed also appear in the weekly organization report's `Automation h
 ## Related pages
 
 - [Application backups](../apps/backups.md)
+- [Wodby Blob Storage](../providers/wodby-blob-storage.md)

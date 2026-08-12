@@ -5,7 +5,7 @@
 If an application's stack has services that provide [backup functionality](../services/operations.md#backups), you can run backups for the corresponding app service. The backup process consists of three steps:
 
 - creating the backup archive in the container's ephemeral storage
-- mirroring the backup to third-party object storage, such as S3 or another supported provider
+- mirroring the backup to Wodby Blob Storage or a supported third-party object storage provider
 - cleaning up the backup from the container's ephemeral storage
 
 Backups are managed from `Apps > [App] > [Instance] > Data > Backups`.
@@ -18,8 +18,10 @@ The app instance `Data` area includes:
 
 Only app services that expose backup actions are available in the backup flow.
 
-One-off manual backups are available on all active plans. Creating or editing a backup preset requires an active paid
-subscription, including presets that do not enable an automatic schedule.
+One-off manual backups are available on all active plans when the selected destination is available to that plan.
+Wodby Blob Storage requires a paid subscription; free organizations can continue using their own supported storage
+integration. Creating or editing a backup preset normally requires an active paid subscription, including presets
+that do not enable an automatic schedule.
 
 ## K3S storage capacity preflight
 
@@ -40,7 +42,11 @@ against the same local disk at the same time.
 
 ## Backup destination
 
-When configuring a backup or backup preset, select the destination bucket only. You no longer need to select a region separately.
+Choose [Wodby Blob Storage](../providers/wodby-blob-storage.md) to let Wodby manage the object storage destination. It
+does not require a storage integration, bucket, region, or storage class.
+
+For a third-party destination, select the storage integration and destination bucket. You do not need to select a
+region separately.
 
 The connected storage provider credentials must allow Wodby to list/select buckets, check the selected bucket's location
 when the provider requires it, and upload/read backup objects. For provider-specific requirements, see
@@ -64,7 +70,12 @@ scheduled runs, restores, and downloads.
 
 Backup presets save time when entering backup destination details, and they can also define automatic backups.
 
-All backup presets are a paid feature. Turning `Auto backups` off does not make a preset available on the free plan.
+All backup presets are a paid feature. Turning `Auto backups` off does not normally make a preset available on the
+free plan.
+
+For Wodby 1 migrations, the REST API can save a Wodby Blob Storage preset on a free subscription only when it has an
+automatic schedule and is disabled. Enabling the preset requires a paid subscription. See
+[Wodby Blob Storage](../providers/wodby-blob-storage.md#availability) for the API representation.
 
 App presets can be scoped to:
 
@@ -77,8 +88,8 @@ Create organization-wide presets from `Organization > Backups > Backup Presets` 
 
 An organization-wide preset stores:
 
-- the storage integration
-- the destination bucket
+- Wodby Blob Storage or a third-party storage integration
+- the destination bucket for a third-party integration
 - an optional storage class override
 - an optional environment filter
 - an optional automatic schedule
@@ -140,3 +151,4 @@ shows the exact error.
 ## Related pages
 
 - [Database backups](../databases/backups.md)
+- [Wodby Blob Storage](../providers/wodby-blob-storage.md)

@@ -79,7 +79,7 @@ Addons let you extend included limits and pay for extra usage when needed.
 From `Organization > Billing > Subscription`, organization owners on paid subscriptions can set optional spending limits for:
 
 - the main app-service plan usage
-- individual addons such as Wodby CI minutes, registry storage, and Wodby Cloud usage
+- individual addons such as Wodby CI minutes, registry storage, Wodby Blob Storage, and Wodby Cloud usage
 
 In practice:
 
@@ -141,6 +141,15 @@ synchronization; it does not retroactively remove storage already used earlier i
 When you delete your app instance, we automatically delete all images associated with it.
 
 You can selectively void older build images to clean up docker images while keeping the build records.
+
+### Wodby Blob Storage
+
+[Wodby Blob Storage](providers/wodby-blob-storage.md) is the built-in destination for backup archives. It costs $0.05
+per stored GB and has no included free storage. Data transfer is not billed.
+
+Usage reflects the organization's current completed backup data stored by Wodby. Removing backup objects reduces the
+quantity after cleanup and the next usage synchronization; it does not retroactively remove storage billed earlier in
+the cycle.
 
 ### Wodby Cloud usage
 
