@@ -140,11 +140,12 @@ Custom certificate upload is coming soon. The planned model is organization-leve
 
 ### Route status and App Access
 
-The route list reports three independent states: `Routing` shows whether Wodby's route configuration is reconciled,
-`Attachment` shows the latest public challenge check, and `Certificate` shows both the requested issuer and the
-certificate's actual status. An issuer of `Let's Encrypt` with a `Pending` certificate is therefore not presented as an
-issued certificate. Attachment status is independent from deployment status: a route can exist and the app can be
-healthy while its custom hostname is still waiting for DNS or points to another origin.
+The route list has one `Status` column. It shows `OK` only when routing and any requested certificate are both ready;
+otherwise it identifies which state still needs attention. The `Certificate` column shows the selected issuer, while
+the route details show the certificate and latest attachment-check states separately. An issuer of `Let's Encrypt`
+therefore does not by itself mean that a certificate has been issued. Attachment status is independent from deployment
+status: a route can exist and the app can be healthy while its custom hostname is still waiting for DNS or points to
+another origin.
 
 When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
 ordinary public routes in the selected scope and uses the Access primary hostname as the app instance's canonical
