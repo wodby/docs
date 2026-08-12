@@ -505,6 +505,8 @@ Only one port per endpoint can be main. If no port is marked as main, the first 
 
 The endpoint backend service is resolved from the Helm chart based on the target workload and the endpoint ports. For
 multi-workload services, set `workload` explicitly when the endpoint should target a non-primary workload.
+Each endpoint must resolve to a distinct Kubernetes Service. Group all ports exposed by the same rendered Service under
+one endpoint.
 
 ### `links`
 

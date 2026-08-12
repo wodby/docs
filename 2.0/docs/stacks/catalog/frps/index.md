@@ -13,9 +13,9 @@ or require Kubernetes permissions.
 ## Deploy and expose FRPS
 
 1. Create an app from the **FRP Server** catalog stack and deploy it.
-2. Open **Apps > [App] > [Instance] > Endpoints > Ports** and publish the
-   `control` TCP port. Wodby assigns a public port in the cluster's published
-   port range.
+2. Open **Apps > [App] > [Instance] > Endpoints > Ports**, select the `proxy`
+   endpoint, and publish its `control` TCP port. Wodby assigns a public port in
+   the cluster's published port range.
 3. Record the public hostname and assigned port. Open the FRPS app service's
    **Configuration > Tokens** tab and reveal its generated `auth_token` value.
    Every FRPC client must use the same token.
@@ -23,9 +23,10 @@ or require Kubernetes permissions.
    `customDomains`. Target the FRPS service's `proxy` endpoint and
    `proxy-http` port.
 
-The `dashboard` endpoint has separate generated `dashboard_user` and
-`dashboard_password` token values. Its technical Wodby route is suitable for
-administration; do not reuse the dashboard password as the FRPC token.
+The `dashboard` port on the `proxy` endpoint has separate generated
+`dashboard_user` and `dashboard_password` token values. Its port-specific
+technical Wodby route is suitable for administration; do not reuse the
+dashboard password as the FRPC token.
 
 ## Configure an FRPC client
 

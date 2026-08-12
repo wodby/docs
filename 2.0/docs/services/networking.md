@@ -11,6 +11,10 @@ Services that expose network access can define endpoints. An endpoint groups tog
 the same exposed workload. Wodby resolves the concrete Kubernetes Service from the Helm chart later. HTTP routes are
 attached at the app level.
 
+Each endpoint must resolve to a distinct Kubernetes Service. When one rendered Service exposes several ports, define
+all of those ports under one endpoint even when they use different protocols or serve different purposes. Use multiple
+endpoints only when the chart renders separate Kubernetes Services for them.
+
 Supported port protocols are:
 
 1. `http` for web traffic and routes with TLS certificates
