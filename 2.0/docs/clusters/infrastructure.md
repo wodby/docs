@@ -70,10 +70,14 @@ marked as outdated solely because `3.0.0` exists.
 
 ### Changelog
 
+#### 4.0.1
+
+Version `4.0.1` strengthens network security for self-hosted K3S clusters. This is the current infrastructure version
+for new clusters.
+
 #### 4.0.0
 
 Version `4.0.0` separates HTTP routing deployment from app-service deployment.
-This is the current infrastructure version for new clusters.
 
 Envoy Gateway remains the single public load-balancer entrypoint for the cluster. Wodby gives each regular app instance
 its own routing release below that entrypoint. The routing release manages the app instance's Gateway API listeners,
