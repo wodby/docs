@@ -130,8 +130,9 @@ certificate is issued.
 New managed certificates have a `Pending` status until Wodby verifies the route and Let's Encrypt issues the
 certificate. A requested issuer of `Let's Encrypt` does not by itself mean that a certificate has already been issued.
 If public DNS does not resolve, the route reports `Awaiting DNS`. If DNS resolves but the exact challenge does not reach
-Wodby, it reports `Not connected`. Wodby completes that issuance attempt with a warning and retries pending routes
-hourly. Infrastructure errors are reported separately as `Error`.
+Wodby, it reports `Not connected`. The separate certificate task fails, while the certificate remains `Pending` and
+Wodby retries pending routes hourly. This does not fail an application deployment or change the app instance status.
+Infrastructure errors are reported separately as `Error`.
 
 After fixing DNS or proxy routing, open the route and select `Reconcile certificate` to check attachment immediately
 instead of waiting for the next automatic retry. This starts a certificate task, not an application deployment. If a
