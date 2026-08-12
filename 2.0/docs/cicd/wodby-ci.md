@@ -44,9 +44,9 @@ You can find more examples in [`wodby/wodby-ci`](https://github.com/wodby/wodby-
 
 If you need tooling that is not part of your stack, `wodby ci run` can use an explicit image, for example `wodby ci run -i wodby/node:24 -- npm ci`.
 
-`wodby ci run` automatically mounts npm, Composer, and uv download caches for supported images. Wodby runtime images
-declare their cache profile in image metadata, and derived application images inherit it. Use `--cache` to force a
-profile for another image or `--no-cache` to disable the automatic mount.
+`wodby ci run` automatically mounts npm, Composer, Bundler, and uv download caches for supported images. Wodby runtime
+images declare their cache profile in image metadata, and derived application images inherit it. Use `--cache` to force
+a profile for another image or `--no-cache` to disable the automatic mount.
 
 ### Reference
 
