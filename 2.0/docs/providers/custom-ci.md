@@ -36,7 +36,8 @@ Pass `--build-id` and `--build-num` when the CLI cannot detect a CI run ID and b
 
 ## Linked repositories
 
-A linked Git repository is optional for app services with build sources when the app instance uses Custom CI.
+A linked Git repository is optional for connected build sources that inherit Custom CI from the app instance. Public
+and cloned boilerplate sources use Wodby CI instead.
 
 If no repository is linked, Wodby trusts the git metadata sent by the CLI. If a repository is linked, Wodby can use it
 as repository metadata and validate submitted refs, but provider run, rerun, and polling actions remain unavailable for

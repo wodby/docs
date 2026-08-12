@@ -1,6 +1,10 @@
 # Git repository
 
-Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md), [GitLab](../providers/gitlab.md), or [Bitbucket](../providers/bitbucket.md). When the app instance uses Wodby CI, the selected repository is the build source for an app service with [build configuration](../services/build.md). When the app instance uses third-party CI, linking the repository in Wodby is optional because the CI provider performs the checkout.
+Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md),
+[GitLab](../providers/gitlab.md), or [Bitbucket](../providers/bitbucket.md). A connected build source inherits the app
+instance's Default CI. Under Wodby CI, its selected repository and ref are required. Under third-party CI, linking the
+repository in Wodby is optional because the CI provider performs the checkout. Public and cloned boilerplate sources
+use Wodby CI regardless of Default CI.
 
 ## Repository authentication
 

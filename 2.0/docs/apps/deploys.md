@@ -7,7 +7,12 @@ services. If two linked services are deployed together, the linked target servic
 
 Deployments use automatic rollback by default. Rollback is best-effort and applies to the app service release that fails.
 
-During the first deployment, Wodby deploys services without a build source immediately. Services with build sources usually leave the app instance in `awaiting` until a deployment is triggered with build information from a [CI system](../cicd/index.md). Optional build image targets without their own build source can still deploy with their configured service image when the build does not provide a custom image for them.
+During the first deployment, Wodby deploys services without a build source immediately. Services with build sources
+usually leave the app instance in `awaiting` until their [CI system](../cicd/index.md) supplies build information. If
+an app uses both Wodby CI and third-party CI sources, Wodby starts the built-in builds and keeps the deployment awaiting
+the external builds; deployment begins only after every source owner has a deployable build. Optional build image
+targets without their own build source can still deploy with their configured service image when the build does not
+provide a custom image for them.
 
 Every deployment is associated with a specific stack revision of the app instance.
 

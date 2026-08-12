@@ -8,27 +8,34 @@ Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-c
 Wodby CI installs Wodby CLI during the `Setting up build environment` step. Third-party CI jobs must install Wodby CLI
 themselves before calling `wodby ci init`.
 
-## Organization defaults and app instances
+## Organization defaults, app instances, and services
 
 Organization owners and admins can select the default CI provider and container registry from
 [`Organization > Settings`](../org.md#settings). The selectors offer Wodby's built-in services and available
 organization-owned integrations of the corresponding type.
 
 New app and new app instance forms start with these defaults. You can override either selection while creating the
-instance without changing the organization setting. Each instance stores the resulting selection independently, so
-changing an organization default does not update existing instances or builds. The selection remains associated with
-the instance even when none of its currently enabled services requires a build.
+instance without changing the organization setting. Each instance stores the resulting selections independently, so
+changing an organization default does not update existing instances or builds.
 
-Change an existing instance from `Apps > [App] > [Instance] > Settings > CI/CD`. The saved providers apply to future
-builds, including builds for services enabled or added later. Historical builds retain their recorded CI provider,
-registry, and registry repository.
+The instance CI selection is the **Default CI** for connected build sources. A service that uses a public boilerplate
+or clones a boilerplate into a new repository uses Wodby CI instead. This lets one app instance contain Wodby CI and
+third-party CI build sources at the same time. The container registry remains an instance-wide selection.
+
+Change an existing instance from `Apps > [App] > [Instance] > Settings > CI/CD`. Changing Default CI applies to future
+builds for connected sources that inherit it; boilerplate sources continue to use Wodby CI. Historical builds retain
+their recorded CI provider, registry, and registry repository.
 
 If no external default is configured, new instances use [Wodby CI](wodby-ci.md) and
 [Wodby Registry](wodby-registry.md).
 
-For app instances that use third-party CI, an app service with a build source does not have to link a Git repository in
-Wodby. The CI provider supplies the checkout, and Wodby CLI sends commit, ref, and build metadata when it creates the
-app build.
+For connected sources that inherit third-party CI, an app service does not have to link a Git repository in Wodby. The
+CI provider supplies the checkout, and Wodby CLI sends commit, ref, and build metadata when it creates the app build.
+Public and cloned boilerplate sources require their Wodby CI pipeline and Git source.
+
+When a build or deployment includes services using both CI paths, Wodby starts the Wodby CI builds and the supported
+third-party builds as one operation. Deployment waits until every service that owns a build source has provided a
+deployable build.
 
 `wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If the CI
 provider is not recognized, the CLI reads git metadata from the checkout and sends `provider: unknown`. Pass

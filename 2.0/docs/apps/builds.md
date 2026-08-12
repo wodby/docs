@@ -6,7 +6,9 @@ Some app services have [build configuration](../services/build.md). For those se
 
 The two common patterns are:
 
-1. An app service has a build source and acts as the main service for the build. When the app instance uses Wodby CI, this is a connected Git repository. When the app instance uses third-party CI, it can also be an external source identified by the app service ID.
+1. An app service has a build source and acts as the main service for the build. A connected source inherits the app
+   instance's Default CI. Under third-party CI it can be external and identified by the app service ID. Public and
+   cloned boilerplate sources use Wodby CI.
 2. Other app services are build image targets but do not have their own separate build source. Their service manifest
    uses `build.link` to identify the linked app service that owns the source, so they can produce images as part of the
    same build and deployment flow.
@@ -22,9 +24,12 @@ build source. If none is linked and the app has exactly one build-source owner, 
 owners are possible, Wodby excludes the image target instead of guessing; update the service manifest with `build.link`
 to make the relationship explicit.
 
-When the app instance uses third-party CI, linking the Git repository in Wodby is optional for app services with build
-sources. `wodby ci init $WODBY_APP_SERVICE_ID` creates the build from the app service ID and the git metadata detected
-in the CI workspace.
+When a connected source inherits third-party CI, linking its Git repository in Wodby is optional.
+`wodby ci init $WODBY_APP_SERVICE_ID` creates the build from the app service ID and the git metadata detected in the CI
+workspace. Boilerplate sources instead require the repository and pipeline used by Wodby CI.
+
+An app instance can include source owners using both CI paths. Wodby coordinates them in one build and deployment
+operation, but does not deploy until every source owner has supplied a deployable build.
 
 Build image targets without their own build source are optional. If a build does not produce an image for one of those services, Wodby deploys the service with the configured image from the service manifest or chart. This lets pipelines build `nginx` only when the app needs custom static assets, while still allowing `nginx` to deploy normally as part of the stack.
 
@@ -39,10 +44,10 @@ A build records:
 - commit and ref information, plus the related Git repository when one is linked in Wodby
 - the resulting container images intended for deployment
 
-The app instance's current CI and registry selections remain dependencies of that app. Historical builds also retain
-the selections recorded when they were created: pending and active builds retain their CI integration, while every
-non-voided service image retains its registry integration. Wodby rejects ownership or sharing changes that would make
-one of these live references invalid for the app's current owner scope.
+The app instance's Default CI and registry selections remain dependencies of that app. Historical builds retain the
+effective selections recorded when they were created: pending and active builds retain their CI integration, while
+every non-voided service image retains its registry integration. Wodby rejects ownership or sharing changes that would
+make one of these live references invalid for the app's current owner scope.
 
 Before removing a required project share or changing ownership, update the app instance to another valid CI or
 registry selection, let active builds finish, and replace and void old images that still use the previous registry.

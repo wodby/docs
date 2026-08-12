@@ -22,10 +22,14 @@ provider is not supported directly. With Custom CI, Wodby accepts the provider v
 
 You can find the app service ID on the Overview page of the corresponding app service.
 
-When the app instance uses third-party CI, an app service with a build source does not have to link a Git repository in
-Wodby. The CI provider checks out the code, and Wodby CLI creates the app build from the app service ID plus the git
-metadata it detects in the CI workspace. You can still link a Git repository when you want Wodby to show repository
-metadata or start supported provider builds from the dashboard.
+When a connected build source inherits third-party Default CI, it does not have to link a Git repository in Wodby. The
+CI provider checks out the code, and Wodby CLI creates the app build from the app service ID plus the git metadata it
+detects in the CI workspace. You can still link a Git repository when you want Wodby to show repository metadata or
+start supported provider builds from the dashboard.
+
+Public and cloned boilerplate sources use Wodby CI even when the instance's Default CI is third-party. They are not
+initialized with `WODBY_APP_SERVICE_ID`. An app may contain both kinds of source; its deployment waits for builds from
+all source owners before it starts.
 
 ## Dashboard-triggered builds
 

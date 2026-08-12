@@ -8,7 +8,8 @@ Use build settings when a service can receive a [CI/CD](../cicd/index.md) build 
 
 The two common patterns are:
 
-1. A service has a build source. When the app instance uses Wodby CI, the source is a connected Git repository. When the app instance uses third-party CI, the source can be external and identified by app service ID.
+1. A service has a build source. Connected sources inherit the app instance's Default CI. Under third-party CI the
+   source can be external and identified by app service ID. Public and cloned boilerplate sources use Wodby CI.
 2. A service is a build image target, but does not need its own repository connection.
 
 A service with a build source starts the build flow. A build image target without its own build source can still be built by the same pipeline, but it does not have to be built every time. If no build image is attached during deployment, Wodby uses the service's configured image from the manifest or chart.
@@ -48,6 +49,9 @@ selected boilerplate into a new GitHub or GitLab repository. A boilerplate can a
 
 One boilerplate can be marked as the default. When no boilerplate is marked as default, Wodby treats the first
 boilerplate in the service template as the default.
+
+Boilerplates must include a valid Wodby CI pipeline. Selecting a public boilerplate or cloning one into a new Git
+repository overrides the app instance's Default CI for that app service and uses Wodby CI.
 
 ### Dockerfile
 

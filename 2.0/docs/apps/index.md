@@ -93,7 +93,7 @@ Configure settings that apply to the whole app instance:
 
 - Choose whether to enable stack auto-upgrades.
 - Choose Public or Protected [App Access](access.md).
-- Select the CI system and container registry when the app has an enabled service with a build source.
+- Select the default CI system and container registry when the app has an enabled service with a build source.
 
 When adding another instance to an existing app, use `Copy configuration from` to prefill compatible app and service
 fields from another instance. See
@@ -117,13 +117,14 @@ See [App access](access.md) for route behavior, primary hostnames, and provider 
 
 #### CI/CD
 
-The CI and registry settings remain visible at the bottom of the step. They are enabled when the app has at least one
-enabled service with a build source and disabled otherwise.
+The Default CI and registry settings remain visible at the bottom of the step. They are enabled when the app has at
+least one enabled service with a build source and disabled otherwise.
 
-Choose your [CI system](../cicd/index.md) and [container registry](../cicd/index.md). The form starts with the
+Choose your [Default CI](../cicd/index.md) and [container registry](../cicd/index.md). The form starts with the
 [organization's configured defaults](../org.md#settings); if the organization has not selected external integrations,
 it uses Wodby CI and Wodby Registry. You can override either choice for the new app instance without changing the
-organization defaults or existing instances.
+organization defaults or existing instances. Connected build sources inherit Default CI. Public and cloned
+boilerplate sources use Wodby CI regardless of this selection.
 
 ### Step 5
 
@@ -131,15 +132,16 @@ Configure individual app services. Sections only appear when the selected stack 
 
 #### Build sources
 
-For services that support a build source, select how the source will be provided. When the app instance uses Wodby CI,
-the source is a Git repository that contains your application code and pipeline manifests. When the app instance uses
-third-party CI, the source can also be external, with builds created from `WODBY_APP_SERVICE_ID` and the provider
-checkout.
+For services that support a build source, select how the source will be provided. A connected source inherits the app
+instance's Default CI. With third-party Default CI it can be external, with builds created from
+`WODBY_APP_SERVICE_ID` and the provider checkout. With Wodby CI it must identify the Git repository and ref containing
+the application code and pipeline manifests.
 
 Services often provide a public build boilerplate that you can use directly. With [GitHub](../providers/github.md) and
 [GitLab](../providers/gitlab.md), Wodby can also create a new repository and import the boilerplate contents into it.
 For [Bitbucket](../providers/bitbucket.md), create or copy the boilerplate repository manually first, then select it as
-the build source.
+the build source. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
+is a third-party integration.
 
 #### Settings 
 

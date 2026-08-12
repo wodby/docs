@@ -191,15 +191,18 @@ mark it as needing rebuild instead.
 
 If a service supports a build source, the General page shows a separate `Build source` card with its own update action.
 
-For Wodby CI, point the service to a Git repository and a reference such as:
+The build source shows its effective CI. A connected source inherits the app instance's Default CI. Public and cloned
+boilerplate sources use Wodby CI.
+
+For Wodby CI, point a connected or cloned service to a Git repository and a reference such as:
 
 - branch
 - tag
 - commit SHA
 
-When the app instance uses third-party CI, linking a Git repository is optional for app services with build sources. You
-can leave the repository unlinked and run the pipeline with `wodby ci init $WODBY_APP_SERVICE_ID`; Wodby CLI uses the
-app service ID and metadata from the CI checkout to create the build.
+When a connected source inherits third-party CI, linking a Git repository is optional. You can leave the repository
+unlinked and run the pipeline with `wodby ci init $WODBY_APP_SERVICE_ID`; Wodby CLI uses the app service ID and metadata
+from the CI checkout to create the build.
 
 To start builds from the dashboard, meet the provider-specific requirements:
 
