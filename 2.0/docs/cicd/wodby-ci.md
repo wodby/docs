@@ -22,15 +22,15 @@ jobs:
       - clone
 
       - cache_restore:
-          path: ~/.composer
+          path: ~/.composer/cache
           key: 'composer-{{ hash "composer.lock" }}-v1'
 
       - run: wodby ci init $WODBY_BUILD_ID
-      - run: wodby ci run -v $HOME/.composer:/home/wodby/.composer -- composer install -n --no-ansi
+      - run: wodby ci run -- composer install -n --no-ansi
 
       - cache_save:
           key: 'composer-{{ hash "composer.lock" }}-v1'
-          path: ~/.composer
+          path: ~/.composer/cache
 
       - run: wodby ci build
       - run: wodby ci release
@@ -43,6 +43,10 @@ You can find more examples in [`wodby/wodby-ci`](https://github.com/wodby/wodby-
 - [Node Wodby CI pipeline](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/pipeline.yml)
 
 If you need tooling that is not part of your stack, `wodby ci run` can use an explicit image, for example `wodby ci run -i wodby/node:24 -- npm ci`.
+
+`wodby ci run` automatically mounts npm, Composer, and uv download caches for supported images. Wodby runtime images
+declare their cache profile in image metadata, and derived application images inherit it. Use `--cache` to force a
+profile for another image or `--no-cache` to disable the automatic mount.
 
 ### Reference
 

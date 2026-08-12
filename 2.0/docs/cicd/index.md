@@ -57,6 +57,15 @@ Use `--dind` when your CI provider builds through docker-in-docker. Use `--fix-p
 
 `wodby ci run` starts a one-off container from a service image in your stack or from an explicitly specified image. This is typically used for dependency installation or asset compilation before `wodby ci build`.
 
+When the CLI maps the CI runner's numeric user into a container, it supplies a writable temporary `HOME` unless you
+pass `HOME` explicitly. For supported Node.js, PHP, and Python images, it also mounts the host npm, Composer, or uv
+download cache and configures the package manager automatically. Cache support is declared by Wodby image metadata,
+with compatibility detection for older Wodby images and selected official images.
+
+Use `--cache npm`, `--cache composer`, or `--cache uv` to force a profile for another image. Use `--no-cache` to disable
+automatic caching. Set the host-side `WODBY_CI_CACHE_DIR` when a CI provider requires cache files beneath a particular
+directory, such as the GitLab project checkout.
+
 ## 3. [Build](build.md)
 
 `wodby ci build [SERVICE]...` builds all build image targets from the current app build config or only the services you specify. The CLI can use a Dockerfile from your repository, a Dockerfile from the Wodby service configuration, or a generated default Dockerfile. It also supports build arguments, custom copy paths, and buildx cache backends.
