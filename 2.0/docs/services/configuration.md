@@ -142,7 +142,7 @@ Services can define annotations that Wodby adds to Kubernetes resources when the
 
 Service annotations are defined under the [`annotations` section](template.md#annotations) in a service template.
 
-Annotations are Kubernetes resource metadata. They are not the same as app endpoint route settings. Use [route settings](../apps/endpoints.md#route-settings) for HTTP routing behavior such as HTTPS redirects, no-index headers, request body size, session affinity, and path rewrites.
+Annotations are Kubernetes resource metadata. They are not the same as app endpoint route settings. Use [route settings](../apps/endpoints.md#route-settings) for HTTP routing behavior such as HTTPS redirects, HSTS, no-index headers, request body size, session affinity, and path rewrites.
 
 ## Certificates
 

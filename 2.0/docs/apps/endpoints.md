@@ -12,9 +12,12 @@ From `Apps > [App] > [Instance] > Endpoints` you can manage:
 
 ## Routes
 
-Routes are used for HTTP and HTTPS traffic. A route matches a hostname and path, then either sends traffic to an app service endpoint or redirects the request.
+Routes are used for HTTP and HTTPS traffic. A route matches a hostname and path, then performs one of two actions:
 
-Each backend route has:
+- `Serve` sends the request to an app service endpoint. This is the default.
+- `Redirect` sends the client to another URL.
+
+Each route with the `Serve` action has:
 
 - app service
 - endpoint
@@ -26,7 +29,11 @@ Each backend route has:
 - whether the route should be `Main`
 - whether the route should be `Primary`
 
-Redirect routes are supported on clusters that use Envoy Gateway. A redirect route can set the target scheme, host, path, and status code. Supported redirect status codes are `301` and `302`.
+The dashboard automatically selects and hides the endpoint or port field when the selected app service has only one
+eligible choice. Only public HTTP ports can serve routes.
+
+The `Redirect` action is supported on clusters that use Envoy Gateway. A redirect route can set the target scheme,
+host, path, and status code. Supported redirect status codes are `301` and `302`.
 
 ### Technical routes
 
@@ -174,12 +181,32 @@ Supported route settings are:
 | `request_body_size` | size with `Ki`, `Mi`, or `Gi`, such as `64Mi` |
 | `session_affinity` | `cookie` or `header` |
 | `path_rewrite` | path starting with `/` |
+| `hsts` | `disabled`, `enabled`, or `include_subdomains` |
+
+### HSTS
+
+HTTP Strict Transport Security (HSTS) tells browsers to use HTTPS for future requests to a hostname. Wodby applies the
+setting only after the route has an active TLS certificate:
+
+- `disabled` does not add an HSTS response header. Use it as a route-specific override when an inherited HSTS setting
+  must be disabled.
+- `enabled` sends `Strict-Transport-Security: max-age=63072000`.
+- `include_subdomains` sends the same two-year policy with `includeSubDomains`.
+
+Use `include_subdomains` only when every subdomain of the route hostname supports HTTPS. Browsers remember HSTS policy,
+so disabling the setting later does not immediately remove policy already cached by visitors. Wodby does not add the
+`preload` directive automatically.
+
+Wodby enables the `enabled` policy on public Wodby-managed technical routes. Private App Access routes are excluded.
+On Envoy Gateway clusters, the New route form also enables HSTS by default for new backend routes; clear the checkbox
+when a route must remain accessible without an HSTS policy. Existing custom routes are not changed automatically.
 
 For new Envoy Gateway app instances, Wodby creates default route settings to match the previous ingress behavior:
 
 - HTTPS redirect is enabled by default
 - session affinity uses cookies by default
 - generated technical routes get `no_index` enabled by default
+- public generated technical routes get HSTS enabled by default
 
 On infrastructure version `4.0.0` or newer, changing route settings starts a routing deployment and does not mark app
 services as needing redeploy. Older infrastructure versions continue to mark the affected service or app instance as
