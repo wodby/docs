@@ -243,7 +243,9 @@ values are not passed to image builds.
 
 The `Configuration > Variables` subtab lets you add, remove, or override environment variables for the app service.
 
-Some values are inherited and cannot be deleted directly, but they can usually be overridden. Inherited variables can come from:
+Some values are inherited and cannot be deleted directly, but they can usually be overridden. The platform-managed
+names `WODBY`, `WODBY2`, and every name beginning with `WODBY_` are reserved and cannot be added or overridden.
+Inherited variables can come from:
 
 - the service manifest
 - the stack manifest
@@ -278,6 +280,9 @@ Wodby also adds runtime-only system variables to every container:
 | `WODBY_HOSTS`               | JSON list of accepted route and active App Access hostnames                              |
 | `WODBY_PRIMARY_HOST`        | Protected primary hostname when App Access is configured; otherwise the enabled `Main` route hostname |
 | `WODBY_PRIMARY_URL`         | URL for `WODBY_PRIMARY_HOST`; protected App Access URLs use `https`                      |
+
+These system variables are platform-owned. The reserved-name rule applies to app-service variables, stack variables,
+stack-service variables, and custom variable-provider mappings.
 
 During an App Access change, `WODBY_HOSTS` can temporarily contain both the current and desired hostnames so the
 workload accepts traffic throughout the transition. See [App access](access.md#primary-hostname).

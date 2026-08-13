@@ -69,7 +69,9 @@ during build.
 
 Wodby ships a growing set of built-in variable providers such as Sentry, OpenAI, Stripe, Algolia, and others.
 
-If a provider is missing, you can create your own variable provider from `Providers > New variable provider` and define the environment variable names yourself.
+If a provider is missing, you can create your own variable provider from `Providers > New variable provider` and define
+the environment variable names yourself. Custom mappings cannot use `WODBY`, `WODBY2`, or names beginning with
+`WODBY_`; those names are reserved for platform-managed runtime variables.
 
 ## Related pages
 

@@ -171,6 +171,7 @@ Type: `array`.
 Stack-wide environment variables. They are applied to app services created from this stack.
 
 Stack environment variables are runtime-only. They are not passed to Docker image builds.
+`WODBY`, `WODBY2`, and names beginning with `WODBY_` are reserved by the platform and cannot be defined here.
 
 ### `tokens`
 
@@ -201,6 +202,9 @@ Used by top-level `env`, `services[].env`, and `services[].workloads[].container
 - `value`: required string value. Use quoted strings in YAML.
 - `secret`: optional boolean. When `true`, the value is stored as a secret.
 - `envType`: optional environment type filter. Allowed values: `prod`, `dev`, `staging`, `test`, `feature`.
+
+The `name` cannot be `WODBY`, `WODBY2`, or begin with `WODBY_`. This applies to top-level stack variables,
+stack-service variables, and container-scoped stack variables.
 
 Stack env vars do not support build scope. Use a build-scoped service setting, service env var, or app-service env var
 when a Dockerfile needs a build argument.
@@ -342,6 +346,8 @@ If no option is marked as default, the first listed option becomes the default a
 Type: `array`.
 
 Service-specific environment variables.
+
+The platform-reserved names `WODBY`, `WODBY2`, and `WODBY_*` cannot be added or overridden.
 
 ### `services[].helm`
 
