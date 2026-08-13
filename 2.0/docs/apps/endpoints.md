@@ -25,7 +25,7 @@ Each route with the `Serve` action has:
 - hostname
 - path
 - path match type: `prefix` or `exact`
-- TLS mode: `Let's Encrypt` or `None`
+- TLS mode: `Let's Encrypt`, `Custom`, or `None`
 - whether the route should be `Main`
 - whether the route should be `Primary`
 
@@ -142,9 +142,61 @@ Certificate renewals are scheduled automatically and spread over time. If Let's 
 limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
 notification.
 
-`Organization > Certificates` shows issued certificates, issuer, key type, status, issue date, renewal date, expiry date, and where each certificate is used. The list can include certificates used by application routes and supported database resources.
+`Organization > Certificates` shows issued and uploaded certificates, issuer, key type, status, issue date, renewal
+date, expiry date, DNS names, fingerprint, and where each certificate is used. The list can include certificates used
+by application routes and supported database resources.
 
-Custom certificate upload is coming soon. The planned model is organization-level certificate management with endpoint-level selection.
+#### Upload a custom certificate
+
+Custom certificates are reusable organization-level assets. To add one, open `Organization > Certificates`, select
+`Add certificate`, and provide:
+
+- a title
+- the server certificate and intermediate certificates in PEM format
+- the matching unencrypted private key in PEM format
+
+The certificate input can contain the leaf certificate and its intermediate chain in one text value. The order does not
+matter: Wodby identifies the leaf by matching it to the private key and stores the chain in the correct order. You may
+include a self-signed root certificate, but Wodby removes it because TLS servers normally send the leaf and
+intermediates, not the trusted root.
+
+Accepted private keys are:
+
+- PKCS#8 PEM with a `BEGIN PRIVATE KEY` header
+- PKCS#1 RSA PEM with a `BEGIN RSA PRIVATE KEY` header, using at least 2048 bits
+- SEC1 EC PEM with a `BEGIN EC PRIVATE KEY` header, using P-256, P-384, or P-521
+
+Encrypted or password-protected private keys are not supported. Wodby also does not currently accept PFX/P12 files or
+ZIP archives. If your certificate authority supplies an archive, extract the PEM certificate, intermediate chain, and
+private key first. Certificate authorities commonly supply certificates and intermediates but do not supply the private
+key when you created the certificate signing request yourself; use the private key generated with that request.
+
+Before saving, Wodby verifies that:
+
+- the private key matches the server certificate
+- the certificate is currently valid and supports TLS server authentication
+- the leaf is not a CA certificate
+- the certificate contains at least one DNS Subject Alternative Name (SAN)
+- every included non-root certificate belongs to the selected chain
+
+The private key and certificate material are stored as secrets. Certificate listings expose metadata such as DNS names,
+validity, key type, and a SHA-256 fingerprint, but never return the private key.
+
+#### Apply a custom certificate to a route
+
+When creating or editing a custom route, select `Custom` as the TLS mode and choose an uploaded certificate. Wodby shows
+only active custom certificates whose DNS SANs cover the route hostname. Standard X.509 hostname rules apply: for
+example, `*.example.com` covers `www.example.com`, but not `example.com` or `shop.eu.example.com`.
+
+Wodby repeats the same checks when saving the route, so a certificate cannot be attached across organizations, after
+expiry, or to a hostname it does not cover. Changing the TLS mode to `Let's Encrypt` starts or reuses the managed
+certificate flow. Changing it to `None` removes TLS from the hostname.
+
+TLS is selected per hostname. If an app instance has multiple route paths for the same host, changing the certificate
+on one of them changes it for every path using that host. Uploaded certificates remain available for reuse after they
+are detached. You can delete an uploaded certificate only after it is no longer used by any route or other supported
+resource. Wodby does not renew uploaded certificates automatically; upload and select a replacement before the current
+certificate expires.
 
 ### Route status and App Access
 
