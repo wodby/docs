@@ -128,10 +128,10 @@ network access reuses stable Wodby technical hostnames. See
 ## Routes, technical domains, and private ports
 
 Protected endpoints are not served through Wodby's public gateway. Their matching public routes, including generated
-technical routes, are disabled while access is active. The route list displays the effective Cloudflare or Tailscale
-address for each protected destination. For Cloudflare Private network this is the same technical hostname, now routed
-privately through Cloudflare One instead of published by Wodby's public gateway. Routes that target one app port share
-that address. For Selected endpoints scope, routes for unselected endpoints remain public.
+technical routes, are disabled while access is active. The Domains and Redirects lists display the effective Cloudflare
+or Tailscale address for each protected destination. For Cloudflare Private network this is the same technical hostname,
+now routed privately through Cloudflare One instead of published by Wodby's public gateway. Routes that target one app
+port share that address. For Selected endpoints scope, routes for unselected endpoints remain public.
 
 The `private` flag in a service definition is different. It prevents a port from being published through public Wodby
 routing, but it does not create a Cloudflare or Tailscale address. Application Access is the explicit app-instance

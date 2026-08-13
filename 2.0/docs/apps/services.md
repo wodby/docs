@@ -169,9 +169,9 @@ instance's canonical `Main` route, which may be a customer-added custom route.
 
 Disabled, external, and derivative app services cannot be main. You can disable the current main app service: Wodby
 selects another eligible enabled service for the root technical hostname, or removes that technical route when no
-replacement exists. Disabling a service also disables its routes, including custom domains; it does not move those
-customer routes to another service. Re-enabling the service re-enables routes that were disabled with the service, but
-leaves routes you had disabled individually disabled.
+replacement exists. Disabling a service also disables all domains and redirects associated with it; it does not move
+those customer routes to another service. Re-enabling the service re-enables domains and redirects that were disabled
+with the service, but leaves items you had disabled individually disabled.
 
 For an app instance with an established runtime, re-enabling a service automatically starts a partial deployment of
 that service and any required dependencies. If the app remains `awaiting`—including after an explicit partial

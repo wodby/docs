@@ -1,23 +1,26 @@
 # Endpoints
 
-Endpoints are the public or private entry points to your app services. They consist of HTTP routes and/or published ports.
+Endpoints are the public or private entry points to your app services. They consist of HTTP domains, redirects, and
+published ports.
 
 From `Apps > [App] > [Instance] > Endpoints` you can manage:
 
-- `Routes`
+- `Domains`
+- `Redirects`
 - `Ports`
-- route settings
+- HTTP settings
 - port settings
 - `Auths`
 
-## Routes
+Domains and redirects are stored as routes behind the scenes, so API, CLI, task, and infrastructure documentation may
+still use the term _route_. The dashboard separates them by what users configure.
 
-Routes are used for HTTP and HTTPS traffic. A route matches a hostname and path, then performs one of two actions:
+## Domains
 
-- `Serve` sends the request to an app service endpoint. This is the default.
-- `Redirect` sends the client to another URL.
+Domains receive HTTP and HTTPS traffic for an app service. A domain matches a hostname and path, then serves the
+request from an app service endpoint.
 
-Each route with the `Serve` action has:
+Each domain has:
 
 - app service
 - endpoint
@@ -26,16 +29,34 @@ Each route with the `Serve` action has:
 - path
 - path match type: `prefix` or `exact`
 - TLS mode: `Let's Encrypt`, `Custom`, or `None`
-- whether the route should be `Main`
-- whether the route should be `Primary`
+- whether the domain should be `Main`
+- whether the domain should be `Primary`
 
 The dashboard automatically selects and hides the endpoint or port field when the selected app service has only one
-eligible choice. Only public HTTP ports can serve routes.
+eligible choice. Only public HTTP ports can serve domains.
 
-The `Redirect` action is supported on clusters that use Envoy Gateway. A redirect route can set the target scheme,
-host, path, and status code. Supported redirect status codes are `301` and `302`.
+## Redirects
 
-### Technical routes
+Redirects receive requests on a source hostname and path, then send the client to another URL. They are supported on
+clusters that use Envoy Gateway.
+
+Each redirect has:
+
+- source hostname and path
+- destination scheme, hostname, and optional replacement path
+- status code: `301 Permanent` or `302 Temporary`
+- TLS mode for the source hostname: `Let's Encrypt`, `Custom`, or `None`
+- an associated app service, endpoint, and public HTTP port
+
+Leave the destination hostname empty to keep the source hostname. Leave the destination path empty to preserve the
+requested path. The destination hostname, when provided, must be a hostname rather than a full URL.
+
+A redirect does not send traffic to its associated app service, but the association remains part of its lifecycle.
+Disabling the app service disables its redirects; re-enabling the service re-enables redirects that were disabled with
+the service. During a routing deployment, redirects can remain available even when the associated service has no
+successful runtime because a redirect does not need a service backend.
+
+## Technical domains
 
 By default, Wodby generates technical routes for app services that expose public HTTP endpoints. Ports marked
 `private` do not receive Wodby technical routes.
@@ -60,38 +81,48 @@ Technical routes are managed by Wodby. You can disable one to stop serving it, b
 generated hostname or path, or delete it. Wodby removes generated routes when the underlying endpoint structure no
 longer requires them.
 
-### Custom routes
+<a id="custom-routes"></a>
 
-From the dashboard you can add a custom route to an HTTP app service endpoint.
+## Custom domains and redirects
 
-Creating or editing custom routes and domains requires an active paid subscription. Wodby-managed technical routes and
-their SSL certificates remain available on all active plans.
+The dashboard presents custom serving routes as domains and redirect routes as redirects:
+
+- open `Endpoints > Domains` and select `New domain` to connect a hostname and path to an app service
+- open `Endpoints > Redirects` and select `Add redirect` to redirect a source hostname and path
+
+Creating or editing custom domains and redirects requires an active paid subscription. Wodby-managed technical routes
+and their SSL certificates remain available on all active plans.
 
 Use a custom route when you want to:
 
 - attach your own hostname
 - serve an app service under a specific path, such as `example.com/blog`
-- create an HTTP redirect
 - choose whether the route should become the main app instance route or the primary route for a service endpoint
+
+Use a redirect when you want to move traffic to another hostname, path, or scheme without serving an app backend.
 
 Only services with HTTP endpoints are available in this flow.
 
-Choose `Serve` to send matching requests to the selected app service. Choose `Redirect` to return an HTTP redirect
-instead. `Serve` is the default action for new routes.
+Domains and redirects have separate editors. To replace a domain with a redirect, or a redirect with a domain, delete
+the existing item and create the other type.
 
-You can retarget an existing custom route to a public HTTP port on another enabled app service. Retargeting preserves
-the hostname, path, TLS certificate, route settings, and route authentication. Wodby-generated technical routes cannot
-be retargeted from this form.
+You can retarget an existing custom domain or redirect association to a public HTTP port on another enabled app
+service. Retargeting preserves the hostname, path, TLS certificate, route settings, and route authentication.
+Wodby-generated technical routes cannot be retargeted from this form.
 
 On clusters with Wodby infrastructure version `4.0.0` or newer, route changes are applied through an app-instance
 [routing deployment](deploys.md#routing-deployments). They do not require the source or target app service to be
 redeployed. Older infrastructure versions continue to apply the change through an app-service deployment.
 
-When you create a custom route with Let's Encrypt, certificate issuance runs separately from application deployment.
-An unattached or incorrectly routed hostname does not fail the deployment or change the app instance to an errored
-state. You can also delete a custom route while its app instance is errored, so a bad hostname never blocks cleanup.
+When you create a custom domain or redirect with Let's Encrypt, certificate issuance runs separately from application
+deployment. An unattached or incorrectly routed hostname does not fail the deployment or change the app instance to an
+errored state. You can also delete a custom domain or redirect while its app instance is errored, so a bad hostname
+never blocks cleanup.
 
-### Main and primary
+Deleting a custom domain or redirect also removes its route-specific HTTP settings and authentication scope. Reusable
+organization-level custom certificates remain available until you delete them separately.
+
+## Main and primary
 
 Wodby distinguishes between two default-route flags:
 
@@ -114,7 +145,7 @@ instead of replacing it during routine reconciliation.
 When the selected main or primary route becomes unavailable, Wodby chooses a replacement. Enabled custom routes are
 preferred over generated technical routes only when such a replacement is necessary.
 
-### TLS certificates
+## TLS certificates
 
 Wodby can issue TLS certificates for endpoint routes. For public docs, treat [Let's Encrypt](https://letsencrypt.org/) as the supported issuer for managed certificate flows today. Wodby automatically renews Let's Encrypt certificates before they expire.
 
@@ -187,11 +218,12 @@ Before saving, Wodby verifies that:
 The private key and certificate material are stored as secrets. Certificate listings expose metadata such as DNS names,
 validity, key type, and a SHA-256 fingerprint, but never return the private key.
 
-#### Apply a custom certificate to a route
+#### Apply a custom certificate to a domain or redirect
 
-When creating or editing a custom route, select `Custom` as the TLS mode and choose an uploaded certificate. Wodby shows
-only active custom certificates whose DNS SANs cover the route hostname. Standard X.509 hostname rules apply: for
-example, `*.example.com` covers `www.example.com`, but not `example.com` or `shop.eu.example.com`.
+When creating or editing a custom domain or redirect, select `Custom` as the TLS mode and choose an uploaded
+certificate. Wodby shows only active custom certificates whose DNS SANs cover the source hostname. Standard X.509
+hostname rules apply: for example, `*.example.com` covers `www.example.com`, but not `example.com` or
+`shop.eu.example.com`.
 
 Wodby repeats the same checks when saving the route, so a certificate cannot be attached across organizations, after
 expiry, or to a hostname it does not cover. Changing the TLS mode to `Let's Encrypt` starts or reuses the managed
@@ -210,32 +242,37 @@ Before scheduling a downgrade to the free Developer plan, delete every uploaded 
 certificate from its routes is not sufficient because the reusable organization-level certificate remains a paid
 feature until it is deleted.
 
-### Route status and App Access
+## Domain and redirect status
 
-The route list has one `Status` column. It shows `OK` only when routing and any requested certificate are both ready;
-otherwise it identifies which state still needs attention. The `Certificate` column shows certificate status, while
-the issuer icon before the route hostname distinguishes managed and custom certificates. Route details show the issuer,
-certificate status, and latest attachment-check state separately. An issuer of `Let's Encrypt` therefore does not by
-itself mean that a certificate has been issued. Attachment status is independent from deployment status: a route can
-exist and the app can be healthy while its custom hostname is still waiting for DNS or points to another origin.
+The Domains and Redirects lists each have a `Status` column. It shows `OK` only when routing and any requested
+certificate are both ready; otherwise it identifies which state still needs attention. The `Certificate` column shows
+certificate status, while the issuer icon before the source hostname distinguishes managed and custom certificates.
+Domain and redirect details show the issuer, certificate status, and latest attachment-check state separately. An
+issuer of `Let's Encrypt` does not by itself mean that a certificate has been issued. Attachment status is independent
+from deployment status: a route can exist and the app can be healthy while its custom hostname is still waiting for
+DNS or points to another origin.
 
 When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
 ordinary public routes in the selected scope and uses the Access primary hostname as the app instance's canonical
-address. The route list shows the effective Access hostname; Cloudflare Protected and Tailscale use provider-facing
-hostnames, while Cloudflare Private network reuses the suppressed Wodby technical hostname. Routes that target the same
-app port share one Access hostname. With Selected endpoints scope, routes for unselected endpoints remain public.
+address. The Domains and Redirects lists show the effective Access hostname; Cloudflare Protected and Tailscale use
+provider-facing hostnames, while Cloudflare Private network reuses the suppressed Wodby technical hostname. Routes that
+target the same app port share one Access hostname. With Selected endpoints scope, routes for unselected endpoints
+remain public.
 
 The `private` flag on a port does not create a Cloudflare or Tailscale endpoint by itself. Private ports without an
 explicit App Access configuration remain reachable only through internal Kubernetes networking.
 
-## Route Settings
+<a id="route-settings"></a>
 
-Route settings control HTTP routing behavior for clusters that use Envoy Gateway. They are predefined settings rather than arbitrary Kubernetes annotations.
+## HTTP settings
+
+The dashboard's `HTTP settings` screen controls route settings for clusters that use Envoy Gateway. They are predefined
+settings rather than arbitrary Kubernetes annotations.
 
 Route settings can be configured at two scopes:
 
 - app instance defaults, inherited by serve routes in the app instance
-- route-specific settings, which override app instance defaults for one route
+- domain- or redirect-specific settings, which override app instance defaults for one item
 
 Supported route settings are:
 
@@ -247,6 +284,10 @@ Supported route settings are:
 | `session_affinity` | `cookie` or `header` |
 | `path_rewrite` | path starting with `/` |
 | `hsts` | `disabled`, `enabled`, or `include_subdomains` |
+
+Domains support every setting in this table. Redirects support `https_redirect`, `no_index`, and `hsts`; settings that
+depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
+when you select an override target.
 
 ### HSTS
 
@@ -263,8 +304,8 @@ so disabling the setting later does not immediately remove policy already cached
 `preload` directive automatically.
 
 Wodby enables the `enabled` policy on public Wodby-managed technical routes. Private App Access routes are excluded.
-On Envoy Gateway clusters, the New route form also enables HSTS by default for new serve routes; clear the checkbox
-when a route must remain accessible without an HSTS policy. Existing custom routes are not changed automatically.
+On Envoy Gateway clusters, the New domain form also enables HSTS by default; clear the checkbox when a domain must
+remain accessible without an HSTS policy. Existing custom domains are not changed automatically.
 
 For new Envoy Gateway app instances, Wodby creates default route settings to match the previous ingress behavior:
 
@@ -290,17 +331,17 @@ Each auth entry has:
 - password
 - optional realm
 - optional app service scope
-- optional route scope
+- optional domain or redirect scope
 
 This gives you three practical scopes:
 
 - app-level, when both service and route are left empty
 - service-level, when a service is selected and route is left empty
-- route-level, when a specific route is selected
+- domain- or redirect-level, when a specific item is selected
 
 Auth precedence is most-specific first:
 
-- route auth overrides service auth
+- domain or redirect auth overrides service auth
 - service auth overrides app-level auth
 
 The edit screen can also reveal the current password for an existing auth entry. You need
