@@ -5312,6 +5312,12 @@
       <tbody>
         
           <tr>
+            <td><code>--cache stringSlice</code></td>
+            <td>Cache profiles to enable instead of auto-detection (npm, composer, bundler, uv)</td>
+            <td><code>[]</code></td>
+          </tr>
+
+          <tr>
             <td><code>--entrypoint string</code></td>
             <td>Entrypoint</td>
             <td><span class="muted">-</span></td>
@@ -5342,6 +5348,12 @@
           </tr>
         
           <tr>
+            <td><code>--no-cache</code></td>
+            <td>Disable automatic cache mounts</td>
+            <td><code>false</code></td>
+          </tr>
+
+          <tr>
             <td><code>-p, --path string</code></td>
             <td>Working dir (relative path)</td>
             <td><span class="muted">-</span></td>
@@ -5355,7 +5367,7 @@
         
           <tr>
             <td><code>-u, --user string</code></td>
-            <td>User (defaults to current uid:gid for bind-mounted contexts, except 1000:1000)</td>
+            <td>User (defaults to the workspace uid:gid for bind-mounted contexts)</td>
             <td><span class="muted">-</span></td>
           </tr>
         
@@ -5438,4 +5450,3 @@
   </div>
 </body>
 </html>
-

@@ -87,22 +87,48 @@ Or specify a service name from your stack, the image of your current stack versi
 wodby ci run -s backend -- composer install -n
 ```
 
-You can use bind mounts on libraries cache directories to utilize caching capabilities of your CI tool (`.travis.yml` example):
+By default, commands using the bind-mounted build context run with the CI workspace's numeric user and group. This
+keeps files created by Composer, npm, and other tools owned by the checkout user without changing ownership of the
+existing codebase. When the CLI applies this numeric identity, it uses `HOME=/tmp` unless you pass `HOME` explicitly.
+
+`wodby ci init` does not change ownership of a bind-mounted checkout automatically. Use `--fix-permissions` only when
+you explicitly want it to recursively change codebase ownership to the default service image user. An explicit
+`wodby ci run --user` also overrides the workspace identity.
+
+##### Dependency caches
+
+`wodby ci run` automatically configures dependency caches for supported images:
+
+| Profile | Package manager variable | Path inside the container |
+| --- | --- | --- |
+| `npm` | `NPM_CONFIG_CACHE` | `/tmp/wodby-cache/npm` |
+| `composer` | `COMPOSER_CACHE_DIR` | `/tmp/wodby-cache/composer` |
+| `bundler` | `BUNDLE_USER_CACHE` | `/tmp/wodby-cache/bundler` |
+| `uv` | `UV_CACHE_DIR` | `/tmp/wodby-cache/uv` |
+
+The host-side cache root is `.wodby-ci-cache` under the build context. Configure your CI provider to persist this
+directory between jobs, and add `.wodby-ci-cache/` to `.gitignore` when CI runs against a normal Git checkout. For
+example:
 
 ```yml
 cache:
   directories:
-    - /home/travis/.composer
+    - .wodby-ci-cache
 
 script:
-  - wodby ci run -v $HOME/.composer:/home/wodby/.composer -s php -- composer install -n
+  - wodby ci run -s php -- composer install -n
 ```
 
-In some environments like CircleCI (where uid is different from `1000`) you also need to fix your cache directory permissions before mounting them in `wodby ci run` command:
+Use `--cache npm`, `--cache composer`, `--cache bundler`, or `--cache uv` to force a profile for another image. Use
+`--no-cache` to disable automatic caching, or set `WODBY_CI_CACHE_DIR` to place the host-side cache root elsewhere.
+Explicit package-manager cache environment variables and explicit volumes targeting the paths above take precedence.
+Specifying `--user` disables automatic profile detection; combine it with `--cache PROFILE` when both overrides are
+needed.
 
-```shell
-- run: wodby ci run -v $HOME/.composer:/home/wodby/.composer --user root -- chown -R 1000:1000 /home/wodby/.composer
-```
+For docker-in-docker builds, `wodby ci init` creates an internal cache volume at `/tmp/wodby-cache`. It imports any
+persisted host-side cache during initialization and exports updated profiles back to `.wodby-ci-cache` after each
+`wodby ci run`. Commands keep the image's default user and entrypoint in this mode, and only the internal data volumes
+are prepared for writing. No host cache-directory mount is required.
 
 If you need to access private repositories you should add a checkout ssh key to your environment (please refer to your CI provider documentation), then mount the key and `.known_hosts` file (to avoid interactive dialogues), example for CircleCI:
 
@@ -110,9 +136,8 @@ If you need to access private repositories you should add a checkout ssh key to 
 - run: 
     name: Install composer dependencies with private packages
     command: wodby ci run \
-        -v /home/circleci/.ssh/known_hosts:/home/wodby/.ssh/known_hosts \
-        -v /home/circleci/.ssh/id_rsa_[your-checkout-key-fingerprint]:/home/wodby/.ssh/id_rsa \
-        -v $HOME/.composer/cache:/home/wodby/.composer/cache \
+        -v /home/circleci/.ssh/known_hosts:/tmp/.ssh/known_hosts:ro \
+        -v /home/circleci/.ssh/id_rsa_[your-checkout-key-fingerprint]:/tmp/.ssh/id_rsa:ro \
         -s php -- composer install -n
 ```
 

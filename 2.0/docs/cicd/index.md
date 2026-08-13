@@ -58,20 +58,47 @@ wodby ci deploy
 
 `wodby ci init` creates or loads the app build, logs Docker in to the associated [registry](docker-registry.md), prepares the working directory, and reads `.wodby/post-deployment.yml` from the build context when present.
 
-Use `--dind` when your CI provider builds through docker-in-docker. Use `--fix-permissions` only when you explicitly want the CLI to change codebase ownership.
+Use `--dind` when your CI provider builds through docker-in-docker. In that mode the CLI prepares internal code and
+cache volumes; it does not depend on the Docker daemon being able to see host paths from inside the CLI container.
+
+For a normal bind-mounted build context, the CLI does not change checkout ownership automatically. Use
+`--fix-permissions` only when you explicitly want it to recursively change codebase ownership to the main service image
+user.
 
 ## 2. Run commands in the build environment
 
 `wodby ci run` starts a one-off container from a service image in your stack or from an explicitly specified image. This is typically used for dependency installation or asset compilation before `wodby ci build`.
 
-When the CLI maps the CI runner's numeric user into a container, it supplies a writable temporary `HOME` unless you
-pass `HOME` explicitly. For supported Node.js, PHP, Ruby, and Python images, it also mounts the host npm, Composer,
-Bundler, or uv download cache and configures the package manager automatically. Cache support is declared by Wodby
-image metadata, with compatibility detection for older Wodby images and selected official images.
+With a bind-mounted build context, the CLI runs the command as the workspace's numeric user and group. If the CLI
+itself runs as root in a container but the workspace has a non-root owner, it uses that workspace owner. This keeps
+generated files owned by the checkout user without recursively changing existing ownership. An automatically mapped
+numeric user clears the image entrypoint and receives `HOME=/tmp`; explicit `--user`, `--entrypoint`, and `HOME`
+values take precedence.
+
+For supported Node.js, PHP, Ruby, and Python images, the CLI configures npm, Composer, Bundler, or uv download caches
+automatically:
+
+| Profile | Package manager variable | Container path |
+| --- | --- | --- |
+| `npm` | `NPM_CONFIG_CACHE` | `/tmp/wodby-cache/npm` |
+| `composer` | `COMPOSER_CACHE_DIR` | `/tmp/wodby-cache/composer` |
+| `bundler` | `BUNDLE_USER_CACHE` | `/tmp/wodby-cache/bundler` |
+| `uv` | `UV_CACHE_DIR` | `/tmp/wodby-cache/uv` |
+
+For bind mounts, each profile is mounted from `.wodby-ci-cache/PROFILE` under the build context. Cache support is
+declared by Wodby image metadata, with compatibility detection for older Wodby images and selected official images.
+
+In docker-in-docker mode, commands keep the image's default user and entrypoint. The CLI uses a shared internal
+`/tmp/wodby-cache` volume, imports persisted cache contents during `wodby ci init`, and exports updated profiles back to
+`.wodby-ci-cache` after each `wodby ci run`. Configure the CI provider to persist `.wodby-ci-cache` between jobs in
+either mode, and add `.wodby-ci-cache/` to `.gitignore`. The cache directory is automatically excluded from Docker
+build contexts.
 
 Use `--cache npm`, `--cache composer`, `--cache bundler`, or `--cache uv` to force a profile for another image. Use
 `--no-cache` to disable automatic caching. Set the host-side `WODBY_CI_CACHE_DIR` when a CI provider requires cache
-files beneath a particular directory, such as the GitLab project checkout.
+files in a different location. Explicit package-manager cache environment variables and volumes targeting the
+container paths above take precedence. Specifying `--user` disables automatic profile detection; combine it with
+`--cache PROFILE` when both overrides are needed.
 
 ## 3. [Build](build.md)
 

@@ -12,7 +12,7 @@ workflow is no longer rerunnable in CircleCI, start it again from CircleCI.
 
 The following example:
 
-1. Installs your dependencies from composer.json (using circleci caching)
+1. Installs dependencies from `composer.json` using the automatic Wodby CLI cache persisted by CircleCI
 2. Builds images for php and nginx services (nginx image does not include composer dependencies because we only need static files)
 3. Releases image to the registry associated with the app instance
 4. Runs deployment of the build for the associated app instance
@@ -41,27 +41,23 @@ jobs:
 
     - run: wget -qO- https://api.wodby.com/v1/get/cli | sh
     - run: wodby ci init $WODBY_APP_SERVICE_ID
-    - run:
-        name: Fix .composer permissions
-        command: wodby ci run -v $HOME/.composer:/home/wodby/.composer -s php --user root -- chown -R 1000:1000 /home/wodby/.composer
 
     - run:
         name: Install composer dependencies
-        command: wodby ci run -v $HOME/.composer:/home/wodby/.composer -s php -- composer install -n
+        command: wodby ci run -s php -- composer install -n
 
     ## When you need to use a checkout key for private repositories:
     #       - run: 
     #           name: Install composer dependencies with private packages
     #           command: wodby ci run \
-    #             -v /home/circleci/.ssh/known_hosts:/home/wodby/.ssh/known_hosts \
-    #             -v /home/circleci/.ssh/id_rsa_[your-checkout-key-fingerprint]:/home/wodby/.ssh/id_rsa \
-    #             -v $HOME/.composer:/home/wodby/.composer \
+    #             -v /home/circleci/.ssh/known_hosts:/tmp/.ssh/known_hosts:ro \
+    #             -v /home/circleci/.ssh/id_rsa_[your-checkout-key-fingerprint]:/tmp/.ssh/id_rsa:ro \
     #             -s php -- composer install -n
 
     - save_cache:
         key: composer-v1-{{ checksum "composer.lock" }}
         paths:
-        - ~/.composer
+        - .wodby-ci-cache/composer
 
     - run: wodby ci build php
     - run: wodby ci build nginx --from web --to /var/www/html/web
