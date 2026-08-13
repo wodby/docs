@@ -72,11 +72,12 @@ user.
 
 `wodby ci run` starts a one-off container from a service image in your stack or from an explicitly specified image. This is typically used for dependency installation or asset compilation before `wodby ci build`.
 
-With a bind-mounted build context, the CLI runs the command as the workspace's numeric user and group. If the CLI
+With a bind-mounted build context, the CLI resolves the workspace's numeric user and group. If the workspace UID
+matches the selected image's default UID, the CLI keeps the image's default user and entrypoint. If the UIDs differ,
+the CLI runs the command as the workspace user and group, clears the image entrypoint, and sets `HOME=/tmp`. If the CLI
 itself runs as root in a container but the workspace has a non-root owner, it uses that workspace owner. This keeps
-generated files owned by the checkout user without recursively changing existing ownership. An automatically mapped
-numeric user clears the image entrypoint and receives `HOME=/tmp`; explicit `--user`, `--entrypoint`, and `HOME`
-values take precedence.
+generated files owned by the checkout user without recursively changing existing ownership. Explicit `--user`,
+`--entrypoint`, and `HOME` values take precedence.
 
 For supported Node.js, PHP, Ruby, and Python images, the CLI configures npm, Composer, Bundler, or uv download caches
 automatically:
@@ -91,7 +92,9 @@ automatically:
 When the CLI runs natively against the host Docker daemon, it bind-mounts each profile from the package manager's
 conventional path under the current user's home directory. Configure the CI provider to persist the applicable native
 host path. Cache support is declared by Wodby image metadata, with compatibility detection for older Wodby images and
-selected official images.
+selected official images. Cache ownership is handled separately from the container runtime user: the CLI keeps using
+the resolved workspace user and group when preparing host cache directories, including when a matching image UID means
+that no Docker `--user` override is needed.
 
 In docker-in-docker mode, commands keep the image's default user and entrypoint. The CLI uses a shared internal
 `/tmp/wodby-cache` volume, imports persisted cache contents during `wodby ci init`, and exports updated profiles back to
