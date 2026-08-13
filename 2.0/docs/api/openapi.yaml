@@ -10602,8 +10602,10 @@ components:
           type: string
           nullable: true
           enum:
+            - SERVE
             - BACKEND
             - REDIRECT
+          description: SERVE sends requests to the selected app service. BACKEND is accepted for backwards compatibility.
         redirectScheme:
           type: string
           nullable: true
@@ -10702,8 +10704,10 @@ components:
           type: string
           nullable: true
           enum:
+            - SERVE
             - BACKEND
             - REDIRECT
+          description: SERVE sends requests to the selected app service. BACKEND is accepted for backwards compatibility.
         redirectScheme:
           type: string
           nullable: true

@@ -76,6 +76,9 @@ Use a custom route when you want to:
 
 Only services with HTTP endpoints are available in this flow.
 
+Choose `Serve` to send matching requests to the selected app service. Choose `Redirect` to return an HTTP redirect
+instead. `Serve` is the default action for new routes.
+
 You can retarget an existing custom route to a public HTTP port on another enabled app service. Retargeting preserves
 the hostname, path, TLS certificate, route settings, and route authentication. Wodby-generated technical routes cannot
 be retargeted from this form.
@@ -226,7 +229,7 @@ Route settings control HTTP routing behavior for clusters that use Envoy Gateway
 
 Route settings can be configured at two scopes:
 
-- app instance defaults, inherited by backend routes in the app instance
+- app instance defaults, inherited by serve routes in the app instance
 - route-specific settings, which override app instance defaults for one route
 
 Supported route settings are:
@@ -255,7 +258,7 @@ so disabling the setting later does not immediately remove policy already cached
 `preload` directive automatically.
 
 Wodby enables the `enabled` policy on public Wodby-managed technical routes. Private App Access routes are excluded.
-On Envoy Gateway clusters, the New route form also enables HSTS by default for new backend routes; clear the checkbox
+On Envoy Gateway clusters, the New route form also enables HSTS by default for new serve routes; clear the checkbox
 when a route must remain accessible without an HSTS policy. Existing custom routes are not changed automatically.
 
 For new Envoy Gateway app instances, Wodby creates default route settings to match the previous ingress behavior:
