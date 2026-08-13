@@ -142,14 +142,16 @@ Certificate renewals are scheduled automatically and spread over time. If Let's 
 limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
 notification.
 
-`Organization > Certificates` shows issued and uploaded certificates, issuer, key type, status, issue date, renewal
-date, expiry date, DNS names, fingerprint, and where each certificate is used. The list can include certificates used
-by application routes and supported database resources.
+`Organization > Certificates` shows issued and uploaded certificates by hostname, issuer, key type, status, issue date,
+renewal date, expiry date, and where each certificate is used. Use the issuer filter to show all certificates, Let's
+Encrypt certificates, or certificates from a detected custom certificate authority. The list is paginated and can
+include certificates used by application routes and supported database resources. Select a hostname to see all DNS
+names, the SHA-256 fingerprint, validity dates, and individual route usages.
 
 #### Upload a custom certificate
 
 Custom certificates are reusable organization-level assets. To add one, open `Organization > Certificates`, select
-`Add certificate`, and provide:
+`Add custom certificate`, and provide:
 
 - a title
 - the server certificate and intermediate certificates in PEM format
@@ -195,8 +197,9 @@ certificate flow. Changing it to `None` removes TLS from the hostname.
 TLS is selected per hostname. If an app instance has multiple route paths for the same host, changing the certificate
 on one of them changes it for every path using that host. Uploaded certificates remain available for reuse after they
 are detached. You can delete an uploaded certificate only after it is no longer used by any route or other supported
-resource. Wodby does not renew uploaded certificates automatically; upload and select a replacement before the current
-certificate expires.
+resource. To remove one, select its hostname in `Organization > Certificates`, then select `Delete certificate`. The
+delete action remains unavailable until every usage shown on the certificate page has been detached. Wodby does not
+renew uploaded certificates automatically; upload and select a replacement before the current certificate expires.
 
 ### Route status and App Access
 
