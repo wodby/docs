@@ -211,6 +211,9 @@ When a service inherits from another service, a variable in the inherited servic
 variable with the same `name` and `envType`. Base service variants for other environment types remain inherited. At
 runtime, Wodby includes variables without `envType` and variables matching the app instance's environment type.
 
+Environment-variable names must follow the
+[platform naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables).
+
 Provider-specific integration env vars under `integrations[].providers[].env` are runtime-only. They must remain
 runtime-enabled and cannot use `build: true`.
 

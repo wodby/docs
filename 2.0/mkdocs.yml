@@ -197,6 +197,7 @@ nav:
       - Instances: apps/instances.md
       - Stack: apps/stack.md
       - App services: apps/services.md
+      - Environment variables: apps/environment-variables.md
       - Web terminal: apps/web-terminal.md
       - Endpoints: apps/endpoints.md
       - Access: apps/access.md

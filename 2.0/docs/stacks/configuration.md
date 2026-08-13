@@ -22,9 +22,9 @@ applies immediately.
 Add stack-wide environment variables from `Stack > Configuration > Variables`. These values apply to app services
 deployed from that stack revision.
 
-An environment variable can be marked as secret. Secret values are stored in a Kubernetes secret and are not shown in the Wodby dashboard.
-
-You can also limit a variable to a specific environment type.
+Variables can be marked as secrets and limited to a specific environment type. See
+[Environment variables](../apps/environment-variables.md) for scope, inheritance, secret handling, and reserved-name
+rules.
 
 ## Annotations
 
@@ -114,9 +114,9 @@ service.
 Variables can be global for the whole service or scoped to a specific workload and container. If no target is set, the
 variable applies to all containers in that app service.
 
-An environment variable can be marked as secret. Secret values are stored in a Kubernetes secret and are not shown in the Wodby dashboard.
-
-You can also limit a variable to a specific environment type.
+Variables can be marked as secrets and limited to a specific environment type. See
+[Environment variables](../apps/environment-variables.md) for scope, inheritance, secret handling, and reserved-name
+rules.
 
 ### Helm values
 

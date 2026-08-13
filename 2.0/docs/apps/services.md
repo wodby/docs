@@ -243,49 +243,9 @@ values are not passed to image builds.
 
 The `Configuration > Variables` subtab lets you add, remove, or override environment variables for the app service.
 
-Some values are inherited and cannot be deleted directly, but they can usually be overridden. The platform-managed
-names `WODBY`, `WODBY2`, and every name beginning with `WODBY_` are reserved and cannot be added or overridden.
-Inherited variables can come from:
-
-- the service manifest
-- the stack manifest
-- linked services such as databases
-- [settings](#settings-tab)
-
-Env vars can be global for the whole service or scoped to a specific workload and container. If you do not specify a
-target, the variable is applied to all containers in the service.
-
-App-service env vars can be runtime-scoped, build-scoped, or both:
-
-- runtime-scoped variables are injected into deployed containers
-- build-scoped variables are passed to CI builds as Docker build arguments when the Dockerfile declares a matching `ARG`
-
-If neither scope is selected, Wodby rejects the variable. Build-scoped app-service env vars are supported only for app
-services with build configuration.
-
-Changing a runtime-only env var marks the app service for redeploy. Changing a build-scoped env var marks it for
-rebuild.
-
-Wodby also adds runtime-only system variables to every container:
-
-| Variable                    | Description                                                                              |
-|-----------------------------|------------------------------------------------------------------------------------------|
-| `WODBY`                     | Set to `true` inside Wodby-managed runtime containers                                    |
-| `WODBY2`                    | Set to `true` inside Wodby-managed runtime containers                                    |
-| `WODBY_APP_NAME`            | Machine name of the application                                                          |
-| `WODBY_APP_INSTANCE_NAME`   | Machine name of the application instance                                                 |
-| `WODBY_APP_SERVICE_NAME`    | Machine name of the app service                                                          |
-| `WODBY_ENV_NAME`            | Name of the environment                                                                  |
-| `WODBY_ENV_TYPE`            | Type of the environment                                                                  |
-| `WODBY_HOSTS`               | JSON list of accepted route and active App Access hostnames                              |
-| `WODBY_PRIMARY_HOST`        | Protected primary hostname when App Access is configured; otherwise the enabled `Main` route hostname |
-| `WODBY_PRIMARY_URL`         | URL for `WODBY_PRIMARY_HOST`; protected App Access URLs use `https`                      |
-
-These system variables are platform-owned. The reserved-name rule applies to app-service variables, stack variables,
-stack-service variables, and custom variable-provider mappings.
-
-During an App Access change, `WODBY_HOSTS` can temporarily contain both the current and desired hostnames so the
-workload accepts traffic throughout the transition. See [App access](access.md#primary-hostname).
+Some values are inherited and cannot be deleted directly, but they can usually be overridden. See
+[Environment variables](environment-variables.md) for sources, precedence, runtime and build scope, secrets,
+environment-type targeting, reserved names, and the platform-provided `WODBY_*` variables.
 
 ## Helm tab
 

@@ -46,8 +46,9 @@ Variable provider integrations are typically attached to:
 ## Custom variable providers
 
 If a built-in provider is missing, you can create your own variable provider from `Providers > New variable provider`
-and define the environment variable names yourself. Custom mappings cannot use `WODBY`, `WODBY2`, or names beginning
-with `WODBY_`; those names are reserved for platform-managed runtime variables.
+and define the environment variable names yourself. The standard
+[environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
+apply to custom mappings.
 
 Variables exposed by variable providers are injected into runtime containers only. They are not passed to Docker image
 builds. Use build-scoped app-service environment variables or service settings for Dockerfile build arguments.
@@ -57,4 +58,5 @@ builds. Use build-scoped app-service environment variables or service settings f
 - [Integrations overview](../integrations/index.md)
 - [Integration types](../integrations/types.md)
 - [Variable integration](../integrations/variable.md)
+- [Environment variables](../apps/environment-variables.md)
 - [Providers overview](index.md)
