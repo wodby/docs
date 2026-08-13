@@ -95,7 +95,8 @@ paths automatically when it detects a supported lockfile.
 Docker-in-docker examples, such as GitLab CI with the `docker:dind` service, instead persist project-local
 `.wodby-ci-cache/<profile>` staging directories. The CLI imports them into its internal cache volume during
 `wodby ci init` and exports updated contents after cache-enabled commands. Set `WODBY_CI_CACHE_DIR` only when an
-environment requires a different root.
+environment requires a different root. This persistence is optional: the directory does not need to exist before the
+job, and an automatic cache import, setup, or export failure only produces a warning.
 
 ## Post-deployment scripts
 

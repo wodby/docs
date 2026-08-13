@@ -60,6 +60,9 @@ wodby ci deploy
 
 Use `--dind` when your CI provider builds through docker-in-docker. In that mode the CLI prepares internal code and
 cache volumes; it does not depend on the Docker daemon being able to see host paths from inside the CLI container.
+The CLI resolves the main service image user to a numeric user and group, then prepares the code volume with its
+utility image. The application image does not need to provide `chown`, a shell, or a special entrypoint, and subsequent
+commands continue to use the selected image's default user and entrypoint.
 
 For a normal bind-mounted build context, the CLI does not change checkout ownership automatically. Use
 `--fix-permissions` only when you explicitly want it to recursively change codebase ownership to the main service image
@@ -95,6 +98,10 @@ In docker-in-docker mode, commands keep the image's default user and entrypoint.
 project-local `.wodby-ci-cache/<profile>` staging directories after each cache-enabled `wodby ci run`. Configure the CI
 provider to persist the applicable staging directory and add `.wodby-ci-cache/` to `.gitignore`. The staging directory
 is automatically excluded from Docker build contexts.
+
+Cache persistence is optional. Missing staging directories require no setup, and failures while importing, preparing,
+or exporting automatically detected caches produce a warning instead of failing initialization or the command. A
+profile explicitly requested with `--cache PROFILE` remains strict during command setup and export.
 
 Use `--cache npm`, `--cache composer`, `--cache bundler`, or `--cache uv` to force a profile for another image. Use
 `--no-cache` to disable automatic caching. Setting `WODBY_CI_CACHE_DIR` explicitly replaces the default native home

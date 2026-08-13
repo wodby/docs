@@ -95,6 +95,11 @@ existing codebase. When the CLI applies this numeric identity, it uses `HOME=/tm
 you explicitly want it to recursively change codebase ownership to the default service image user. An explicit
 `wodby ci run --user` also overrides the workspace identity.
 
+In docker-in-docker mode, the checkout is stored in a Docker-managed data volume. During initialization, the CLI
+resolves the default service image user to a numeric user and group and prepares that volume with its utility image.
+The application image therefore does not need to provide `chown`, a shell, or a special entrypoint. Subsequent
+`wodby ci run` commands still use the selected image's default user and entrypoint.
+
 ##### Dependency caches
 
 `wodby ci run` automatically configures dependency caches for supported images:
@@ -124,6 +129,10 @@ project-local `.wodby-ci-cache/<profile>` staging directories during initializat
 each cache-enabled `wodby ci run`. Configure the CI provider to persist the applicable staging directory and add
 `.wodby-ci-cache/` to `.gitignore`. Commands keep the image's default user and entrypoint in this mode, and only the
 internal data volumes are prepared for writing. No host cache-directory mount is required.
+
+Cache persistence is optional. Missing staging directories require no setup, and failures while importing, preparing,
+or exporting automatically detected caches produce a warning instead of failing initialization or the command. A
+profile explicitly requested with `--cache PROFILE` remains strict during command setup and export.
 
 Use `--cache npm`, `--cache composer`, `--cache bundler`, or `--cache uv` to force a profile for another image. Use
 `--no-cache` to disable automatic caching. Setting `WODBY_CI_CACHE_DIR` explicitly replaces the default native home
