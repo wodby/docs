@@ -91,14 +91,16 @@ By default, commands using the bind-mounted build context run with the CI worksp
 keeps files created by Composer, npm, and other tools owned by the checkout user without changing ownership of the
 existing codebase. When the CLI applies this numeric identity, it uses `HOME=/tmp` unless you pass `HOME` explicitly.
 
-`wodby ci init` does not change ownership of a bind-mounted checkout automatically. Use `--fix-permissions` only when
-you explicitly want it to recursively change codebase ownership to the default service image user. An explicit
-`wodby ci run --user` also overrides the workspace identity.
+For a managed stack in a recognized native CI provider, `wodby ci init` recursively prepares the bind-mounted checkout
+for the default service image user before running the stack initializer. Custom stacks and unrecognized environments
+leave bind-mounted ownership unchanged unless you pass `--fix-permissions`. The managed initializer keeps the image's
+default user and entrypoint so image-provided actions such as `init-drupal` remain available. An explicit
+`wodby ci run --user` overrides the workspace identity used by subsequent commands.
 
 In docker-in-docker mode, the checkout is stored in a Docker-managed data volume. During initialization, the CLI
 resolves the default service image user to a numeric user and group and prepares that volume with its utility image.
-The application image therefore does not need to provide `chown`, a shell, or a special entrypoint. Subsequent
-`wodby ci run` commands still use the selected image's default user and entrypoint.
+The application image therefore does not need to provide `chown` or a shell for ownership preparation. The managed
+initializer and subsequent `wodby ci run` commands keep the selected image's default user and entrypoint.
 
 ##### Dependency caches
 
