@@ -6,11 +6,10 @@ published ports.
 From `Apps > [App] > [Instance] > Endpoints` you can manage:
 
 - `Domains`
-- `Redirects`
 - `Ports`
-- HTTP settings
-- port settings
+- `Settings` for HTTP routes and published ports
 - `Auths`
+- `Redirects`
 
 Domains and redirects are stored as routes behind the scenes, so API, CLI, task, and infrastructure documentation may
 still use the term _route_. The dashboard separates them by what users configure.
@@ -45,11 +44,16 @@ Each redirect has:
 - source hostname and path
 - destination scheme, hostname, and optional replacement path
 - status code: `301 Permanent` or `302 Temporary`
-- TLS mode for the source hostname: `Let's Encrypt`, `Custom`, or `None`
+- TLS for the source hostname
 - an associated app service, endpoint, and public HTTP port
 
 Leave the destination hostname empty to keep the source hostname. Leave the destination path empty to preserve the
 requested path. The destination hostname, when provided, must be a hostname rather than a full URL.
+
+When adding a redirect, the source hostname field suggests existing custom hostnames but also accepts a new hostname.
+If you select an existing hostname, the redirect inherits that hostname's current TLS certificate. If you enter a new
+hostname, choose its TLS mode: `Let's Encrypt`, `Custom`, or `None`. A certificate is needed for the source only when
+clients will reach the redirect over HTTPS; the redirect destination manages its own TLS separately.
 
 A redirect does not send traffic to its associated app service, but the association remains part of its lifecycle.
 Disabling the app service disables its redirects; re-enabling the service re-enables redirects that were disabled with
@@ -103,8 +107,9 @@ Use a redirect when you want to move traffic to another hostname, path, or schem
 
 Only services with HTTP endpoints are available in this flow.
 
-Domains and redirects have separate editors. To replace a domain with a redirect, or a redirect with a domain, delete
-the existing item and create the other type.
+Domains and redirects have separate editors. A domain and redirect cannot use the same hostname, path, and path match
+type at the same time. To replace a domain with a redirect, or a redirect with a domain, delete the existing item and
+create the other type.
 
 You can retarget an existing custom domain or redirect association to a public HTTP port on another enabled app
 service. Retargeting preserves the hostname, path, TLS certificate, route settings, and route authentication.
