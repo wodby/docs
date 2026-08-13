@@ -29,7 +29,7 @@ Examples include:
 - cluster creation or connection events
 - successful or failed automatic cluster infrastructure upgrades
 - automatic service updates, Git-backed stack updates, stack service revision updates, origin stack syncs, and app stack upgrades
-- cron job and backup failures and recoveries, plus failed imports, certificate renewals, service actions, or integration installs
+- cron job and backup failures and recoveries, plus failed imports, certificate renewals, custom certificate expiration, service actions, or integration installs
 - breached spending limits
 - weekly organization reports
 
@@ -44,6 +44,12 @@ An automatic backup preset can create several backup artifacts in one scheduled 
 the occurrence fail, but recovery is reported only after every artifact in a later occurrence completes successfully.
 
 A failed manual cron job or backup still emails the user who started it.
+
+## Custom certificate expiration notifications
+
+The `Custom certificate expiration` setting controls warnings for uploaded TLS certificates, which Wodby does not
+renew automatically. Wodby emails organization admins 30, 14, 7, and 1 day before expiration and once after the
+certificate expires. Each stage is sent once for a certificate's current expiration date.
 
 ## Weekly organization report
 

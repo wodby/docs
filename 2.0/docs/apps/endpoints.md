@@ -142,18 +142,17 @@ Certificate renewals are scheduled automatically and spread over time. If Let's 
 limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
 notification.
 
-`Organization > Certificates` shows issued and uploaded certificates by hostname, issuer, key type, status, issue date,
-renewal date, expiry date, and where each certificate is used. Use the issuer filter to show all certificates, Let's
-Encrypt certificates, or certificates from a detected custom certificate authority. The list is paginated and can
-include certificates used by application routes and supported database resources. Select a hostname to see all DNS
-names, the SHA-256 fingerprint, validity dates, and individual route usages.
+`Organization > Certificates` shows issued and uploaded certificates by issuer, hostname, status, issue date, renewal
+date, expiry date, and where each certificate is used. Use the issuer filter to show all certificates, Let's Encrypt
+certificates, or certificates from a detected custom certificate authority. The list is paginated and can include
+certificates used by application routes and supported database resources. Select a certificate row to see its key
+details, all DNS names, SHA-256 fingerprint, validity dates, and individual route usages.
 
 #### Upload a custom certificate
 
 Custom certificates are reusable organization-level assets. To add one, open `Organization > Certificates`, select
 `Add custom certificate`, and provide:
 
-- a title
 - the server certificate and intermediate certificates in PEM format
 - the matching unencrypted private key in PEM format
 
@@ -200,15 +199,17 @@ are detached. You can delete an uploaded certificate only after it is no longer 
 resource. To remove one, select its hostname in `Organization > Certificates`, then select `Delete certificate`. The
 delete action remains unavailable until every usage shown on the certificate page has been detached. Wodby does not
 renew uploaded certificates automatically; upload and select a replacement before the current certificate expires.
+Organization admins receive staged expiration warnings 30, 14, 7, and 1 day before expiry, plus an expired
+notification. Each user can control these emails with the `Custom certificate expiration` notification setting.
 
 ### Route status and App Access
 
 The route list has one `Status` column. It shows `OK` only when routing and any requested certificate are both ready;
-otherwise it identifies which state still needs attention. The `Certificate` column shows the selected issuer, while
-the route details show the certificate and latest attachment-check states separately. An issuer of `Let's Encrypt`
-therefore does not by itself mean that a certificate has been issued. Attachment status is independent from deployment
-status: a route can exist and the app can be healthy while its custom hostname is still waiting for DNS or points to
-another origin.
+otherwise it identifies which state still needs attention. The `Certificate` column shows certificate status, while
+the issuer icon before the route hostname distinguishes managed and custom certificates. Route details show the issuer,
+certificate status, and latest attachment-check state separately. An issuer of `Let's Encrypt` therefore does not by
+itself mean that a certificate has been issued. Attachment status is independent from deployment status: a route can
+exist and the app can be healthy while its custom hostname is still waiting for DNS or points to another origin.
 
 When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
 ordinary public routes in the selected scope and uses the Access primary hostname as the app instance's canonical
