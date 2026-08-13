@@ -19,10 +19,26 @@ configs, links, integrations, volumes, cron schedules, or other manifest section
 The update form is available only on the latest service revision. Older service revisions can be viewed, but they
 cannot be updated from Git.
 
+## Updates to inherited services
+
+An inherited service uses the base service revision selected by `fromVersion`. Wodby resolves that exact version from
+the base service's revision history, so the inherited service can remain on an older base revision after a newer one is
+published.
+
+When an update uses an older base revision, the update still succeeds and its task log warns which base revision was
+used and which revision is current. The service page also shows this difference. Wodby does not move the inherited
+service automatically unless its template includes a compatible `fromVersionConstraint` and the update source supports
+compatible base revision updates.
+
+If the exact `fromVersion` is absent from the available base service revision history, the update fails instead of
+silently substituting another version.
+
 ## Delete a Git-backed service
 
 Open `Services`, select the service, and go to `Edit`. Git-backed services show the delete action on the `Edit` tab,
 not on the `Operations` tab. The delete action is available only on the latest service revision.
+
+A base service cannot be deleted while inherited service revisions reference its revision history.
 
 ## Auto-update from Git
 

@@ -297,6 +297,12 @@ Exact base service version used when Wodby imports and merges the inherited serv
 When `from` is set, Wodby finds the base service revision with this version and merges that revision into the inherited
 service. The imported inherited service keeps this value so future automation can see the current base service version.
 
+Wodby searches the base service's revision history, not only its current revision. An exact version therefore remains
+usable after the base service publishes a newer revision. When the selected revision is older than the current base
+service revision, the service page shows both versions and service update logs include a warning. The warning does not
+change the selected revision or fail the update. If the exact version does not exist in the available revision history,
+the import or update fails.
+
 ### `fromVersionConstraint`
 
 Type: `string`.
