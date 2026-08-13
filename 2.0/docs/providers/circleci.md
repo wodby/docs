@@ -29,7 +29,7 @@ jobs:
   build:
     machine:
       # Make sure the image is up-to-date.
-      image: ubuntu-2204:2023.10.1
+      image: ubuntu-2404:current
 
     steps:
     - checkout
@@ -57,7 +57,7 @@ jobs:
     - save_cache:
         key: composer-v1-{{ checksum "composer.lock" }}
         paths:
-        - .wodby-ci-cache/composer
+        - ~/.composer/cache
 
     - run: wodby ci build php
     - run: wodby ci build nginx --from web --to /var/www/html/web

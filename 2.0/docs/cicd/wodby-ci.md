@@ -22,7 +22,7 @@ jobs:
       - clone
 
       - cache_restore:
-          path: .wodby-ci-cache/composer
+          path: ~/.composer/cache
           key: 'composer-{{ hash "composer.lock" }}-v1'
 
       - run: wodby ci init $WODBY_BUILD_ID
@@ -30,7 +30,7 @@ jobs:
 
       - cache_save:
           key: 'composer-{{ hash "composer.lock" }}-v1'
-          path: .wodby-ci-cache/composer
+          path: ~/.composer/cache
 
       - run: wodby ci build
       - run: wodby ci release
@@ -44,10 +44,11 @@ You can find more examples in [`wodby/wodby-ci`](https://github.com/wodby/wodby-
 
 If you need tooling that is not part of your stack, `wodby ci run` can use an explicit image, for example `wodby ci run -i wodby/node:24 -- npm ci`.
 
-`wodby ci run` automatically mounts npm, Composer, Bundler, and uv download caches for supported images under
-`.wodby-ci-cache`. Wodby runtime images declare their cache profile in image metadata, and derived application images
-inherit it. Persist the applicable profile directory with `cache_restore` and `cache_save`, as shown above. Use
-`--cache` to force a profile for another image or `--no-cache` to disable automatic caching. See the
+Wodby CI runs the CLI natively against its local Docker daemon. For supported images, `wodby ci run` automatically
+mounts npm, Composer, Bundler, and uv download caches from `~/.npm`, `~/.composer/cache`, `~/.bundle/cache`, and
+`~/.cache/uv`. Wodby runtime images declare their cache profile in image metadata, and derived application images
+inherit it. Persist the applicable home path with `cache_restore` and `cache_save`, as shown above. Use `--cache` to
+force a profile for another image or `--no-cache` to disable automatic caching. See the
 [CI/CD overview](index.md#2-run-commands-in-the-build-environment) for ownership, override, and docker-in-docker
 behavior.
 

@@ -87,10 +87,15 @@ The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository co
 
 For providers that support both VM-based and docker-based execution, prefer VM-based runners because Docker image builds are more straightforward without docker-in-docker. The CircleCI examples use the machine executor for that reason.
 
-The CLI mounts recognized dependency caches automatically under `.wodby-ci-cache` in the build context. Configure the
-provider to persist that directory between jobs; no manual `wodby ci run` cache volume is required. Set
-`WODBY_CI_CACHE_DIR` only when the provider requires a different cache location. The same host-side directory is used
-to import and export caches when the job runs through docker-in-docker.
+On native runners, such as the CircleCI machine executor, the CLI mounts recognized caches from the package managers'
+conventional home paths: `~/.npm`, `~/.composer/cache`, `~/.bundle/cache`, and `~/.cache/uv`. Configure the provider to
+persist the applicable path; no manual `wodby ci run` cache volume is required. The GitHub setup action handles these
+paths automatically when it detects a supported lockfile.
+
+Docker-in-docker examples, such as GitLab CI with the `docker:dind` service, instead persist project-local
+`.wodby-ci-cache/<profile>` staging directories. The CLI imports them into its internal cache volume during
+`wodby ci init` and exports updated contents after cache-enabled commands. Set `WODBY_CI_CACHE_DIR` only when an
+environment requires a different root.
 
 ## Post-deployment scripts
 

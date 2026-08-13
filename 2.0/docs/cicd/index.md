@@ -78,27 +78,29 @@ values take precedence.
 For supported Node.js, PHP, Ruby, and Python images, the CLI configures npm, Composer, Bundler, or uv download caches
 automatically:
 
-| Profile | Package manager variable | Container path |
-| --- | --- | --- |
-| `npm` | `NPM_CONFIG_CACHE` | `/tmp/wodby-cache/npm` |
-| `composer` | `COMPOSER_CACHE_DIR` | `/tmp/wodby-cache/composer` |
-| `bundler` | `BUNDLE_USER_CACHE` | `/tmp/wodby-cache/bundler` |
-| `uv` | `UV_CACHE_DIR` | `/tmp/wodby-cache/uv` |
+| Profile | Package manager variable | Container path | Native host path |
+| --- | --- | --- | --- |
+| `npm` | `NPM_CONFIG_CACHE` | `/tmp/wodby-cache/npm` | `~/.npm` |
+| `composer` | `COMPOSER_CACHE_DIR` | `/tmp/wodby-cache/composer` | `~/.composer/cache` |
+| `bundler` | `BUNDLE_USER_CACHE` | `/tmp/wodby-cache/bundler` | `~/.bundle/cache` |
+| `uv` | `UV_CACHE_DIR` | `/tmp/wodby-cache/uv` | `~/.cache/uv` |
 
-For bind mounts, each profile is mounted from `.wodby-ci-cache/PROFILE` under the build context. Cache support is
-declared by Wodby image metadata, with compatibility detection for older Wodby images and selected official images.
+When the CLI runs natively against the host Docker daemon, it bind-mounts each profile from the package manager's
+conventional path under the current user's home directory. Configure the CI provider to persist the applicable native
+host path. Cache support is declared by Wodby image metadata, with compatibility detection for older Wodby images and
+selected official images.
 
 In docker-in-docker mode, commands keep the image's default user and entrypoint. The CLI uses a shared internal
 `/tmp/wodby-cache` volume, imports persisted cache contents during `wodby ci init`, and exports updated profiles back to
-`.wodby-ci-cache` after each `wodby ci run`. Configure the CI provider to persist `.wodby-ci-cache` between jobs in
-either mode, and add `.wodby-ci-cache/` to `.gitignore`. The cache directory is automatically excluded from Docker
-build contexts.
+project-local `.wodby-ci-cache/<profile>` staging directories after each cache-enabled `wodby ci run`. Configure the CI
+provider to persist the applicable staging directory and add `.wodby-ci-cache/` to `.gitignore`. The staging directory
+is automatically excluded from Docker build contexts.
 
 Use `--cache npm`, `--cache composer`, `--cache bundler`, or `--cache uv` to force a profile for another image. Use
-`--no-cache` to disable automatic caching. Set the host-side `WODBY_CI_CACHE_DIR` when a CI provider requires cache
-files in a different location. Explicit package-manager cache environment variables and volumes targeting the
-container paths above take precedence. Specifying `--user` disables automatic profile detection; combine it with
-`--cache PROFILE` when both overrides are needed.
+`--no-cache` to disable automatic caching. Setting `WODBY_CI_CACHE_DIR` explicitly replaces the default native home
+paths or docker-in-docker staging root with a `ROOT/<profile>` layout. Explicit package-manager cache environment
+variables and volumes targeting the container paths above take precedence. Specifying `--user` disables automatic
+profile detection; combine it with `--cache PROFILE` when both overrides are needed.
 
 ## 3. [Build](build.md)
 
