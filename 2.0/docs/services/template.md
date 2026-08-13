@@ -602,8 +602,16 @@ Each item supports:
 - `type`: required integration type.
 - `required`: optional boolean.
 - `multiple`: optional boolean.
-- `labels`: optional labels used to filter compatible integrations.
+- `labels`: optional labels used to filter compatible provider kinds.
 - `providers`: optional provider-specific overrides.
+
+An attached integration is compatible only when one of its selected provider kinds has the required `type` and every
+required label. Labels cannot be combined across different kinds, and an unselected kind does not make the integration
+compatible. When a service is imported, Wodby also verifies that at least one current public or organization provider
+kind can satisfy every declared integration requirement.
+
+For a variable integration, Wodby injects provider-wide fields plus fields belonging to the matching selected kinds.
+Fields belonging only to another selected kind are not exposed through that service integration slot.
 
 Each `integrations[].providers[]` item supports:
 

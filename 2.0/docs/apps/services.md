@@ -227,11 +227,15 @@ The available choices are filtered by databases visible in the current project c
 ## Integrations tab
 
 If a service supports integrations, the `Connections > Integrations` subtab lets you attach compatible
-[integrations](../integrations/index.md) of the required [type](../integrations/types.md).
+[integrations](../integrations/index.md) of the required [type](../integrations/types.md). When the service requirement
+also specifies provider labels, Wodby lists only integrations with a selected provider kind that has the required type
+and every label. The matching kind is shown with the integration so you can see which capability the service will use.
 
 This is commonly used for storage, mail, monitoring, or other provider-backed features exposed by the service.
 
-Variable integrations inject environment variables into runtime containers only. They are not passed to image builds.
+Variable integrations inject provider-wide fields and fields from the matching selected kind into runtime containers
+only. Fields owned by other provider kinds are not injected through that service requirement. Variable integration
+values are not passed to image builds.
 
 <a id="env-vars-tab"></a>
 

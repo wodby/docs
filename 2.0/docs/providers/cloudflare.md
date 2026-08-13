@@ -1,13 +1,14 @@
 # Cloudflare
 
-Cloudflare supports two integration types in Wodby:
+Cloudflare exposes two integration kinds in Wodby:
 
-- `application_access` provides protected publishing through Cloudflare Access or private-network access through
-  Cloudflare One
-- `variable` injects Cloudflare Turnstile keys into app services or stacks
+- **Application Access** (`application_access`) provides protected publishing through Cloudflare Access or
+  private-network access through Cloudflare One.
+- **Turnstile** (`variable`) injects Cloudflare Turnstile keys into app services or stacks.
 
-Create separate integrations when you need both types. Each integration has one selected type and only asks for the
-fields required by that use case.
+Select either or both kinds when creating the integration. Wodby asks only for fields belonging to the selected kinds.
+You can also create separate integrations when the credentials should have different owners, sharing, or permission
+scope.
 
 ## Application Access
 
@@ -153,17 +154,20 @@ Cloudflare One Client is connected, TCP proxying is enabled, the private-hostnam
 and Local Domain Fallback does not capture the technical-domain suffix. Then review the app's Access task and status in
 Wodby.
 
-## Turnstile variables
+## Turnstile
 
-The Variable integration exposes:
+Create a Cloudflare integration with the **Turnstile** kind selected, then copy the site and secret keys from the
+corresponding widget in the Cloudflare dashboard. The kind exposes:
 
-| Field | Required | Environment variable |
-| --- | --- | --- |
-| Site Key | Yes | `CLOUDFLARE_SITE_KEY` |
-| Secret Key | Yes | `CLOUDFLARE_SECRET_KEY` |
+| Field      | Required | Environment variable   |
+| ---------- | -------- | ---------------------- |
+| Site Key   | Yes      | `TURNSTILE_SITE_KEY`   |
+| Secret Key | Yes      | `TURNSTILE_SECRET_KEY` |
 
-Attach the integration to an app service or stack to inject these variables. The application must implement and verify
-Turnstile; adding the variables does not add a challenge to the app automatically.
+Attach the integration to an app service or stack that supports the Cloudflare Turnstile kind. Wodby injects only the
+Turnstile fields for that service requirement; fields from a separately selected Application Access kind are not
+included. The application must implement and verify Turnstile—attaching the integration does not add a challenge to
+the app automatically.
 
 ## Related pages
 

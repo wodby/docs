@@ -34,13 +34,13 @@ Variable integrations are typically attached to:
 ### Multi-type providers
 
 - [Amazon Web Services variables](../providers/aws.md#variables)
+- [Cloudflare Turnstile](../providers/cloudflare.md#turnstile)
 
 ### Variable-only built-in providers
 
 - [Algolia](../providers/algolia.md)
 - [Anthropic](../providers/anthropic.md)
 - [Auth0](../providers/auth0.md)
-- [Cloudflare](../providers/cloudflare.md)
 - [Discord](../providers/discord.md)
 - [Gemini](../providers/gemini.md)
 - [Intercom](../providers/intercom.md)
