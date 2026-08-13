@@ -30,6 +30,7 @@ Team includes everything in Developer, plus production-focused features such as:
 
 - custom domains
 - auto-renewed SSL certificates
+- uploaded custom TLS certificates
 - autoscaling tools
 - app instance pausing
 - backup presets and automatic backups
@@ -110,6 +111,10 @@ features. App instance pausing is a paid feature, so no instance can be `Pausing
 scheduled. If an instance is `Pausing`, wait for it to reach `Paused`; then open **Apps > your app > your instance >
 Settings > Pause & Resume**, select **Resume app instance**, and retry the downgrade after it finishes. The downgrade
 error identifies each affected app and instance.
+
+Uploaded custom TLS certificates are also paid-only organization resources. Detach them from every route and delete
+them from **Organization > Certificates** before scheduling a downgrade. An uploaded certificate blocks downgrade even
+when it is currently unused because it remains stored for later reuse.
 
 If autoscaling is configured, the downgrade error identifies the affected app, instance, and service. Open each
 service from **Apps > your app > your instance > Stack > App services > your service > Configuration > General**, turn

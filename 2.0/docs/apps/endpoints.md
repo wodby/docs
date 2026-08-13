@@ -153,8 +153,9 @@ details, all DNS names, SHA-256 fingerprint, validity dates, and individual rout
 
 #### Upload a custom certificate
 
-Custom certificates are reusable organization-level assets. To add one, open `Organization > Certificates`, select
-`Add custom certificate`, and provide:
+Uploading and applying custom TLS certificates requires an active paid subscription. Custom certificates are reusable
+organization-level assets. To add one, open `Organization > Certificates`, select `Add custom certificate`, and
+provide:
 
 - the server certificate and intermediate certificates in PEM format
 - the matching unencrypted private key in PEM format
@@ -204,6 +205,10 @@ delete action remains unavailable until every usage shown on the certificate pag
 renew uploaded certificates automatically; upload and select a replacement before the current certificate expires.
 Organization admins receive staged expiration warnings 30, 14, 7, and 1 day before expiry, plus an expired
 notification. Each user can control these emails with the `Custom certificate expiration` notification setting.
+
+Before scheduling a downgrade to the free Developer plan, delete every uploaded custom certificate. Detaching a
+certificate from its routes is not sufficient because the reusable organization-level certificate remains a paid
+feature until it is deleted.
 
 ### Route status and App Access
 
