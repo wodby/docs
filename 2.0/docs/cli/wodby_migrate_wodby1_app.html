@@ -5595,9 +5595,10 @@
     <p>Migrate one Wodby 1 application. The default command is a read-only
 preview. Add --apply to create and populate the target, test it using its
 technical route, and change DNS only after testing succeeds. Rerun the same
-command with --verify after DNS cutover. By default, the latest successful
-backup of every instance is selected. Use repeatable --source-backup
-INSTANCE=BACKUP_UUID values to override snapshots, or --skip-data to omit data.
+command with --verify after DNS cutover. By default, the newest successful file
+for each required backup component is selected. Use repeatable --source-backup
+INSTANCE=BACKUP_UUID values to pin all components to explicit complete
+snapshots, or --skip-data to omit data.
 Changes after each selected backup completed are not migrated. If a target mutation is ambiguous, inspect Wodby 2 and pass
 --retry-ambiguous only with the exact operation ID printed by the command. When
 state exists, --apply preserves the saved plan and continues completed work;
@@ -5731,7 +5732,7 @@ state exists, --apply preserves the saved plan and continues completed work;
         
           <tr>
             <td><code>--target-ci-integration-id int</code></td>
-            <td>Wodby 2 CI integration ID (defaults to 0 for built-in Wodby CI)</td>
+            <td>Wodby 2 CI integration ID override (otherwise Wodby CI with a linked repository, or automatic Custom CI fallback)</td>
             <td><code>0</code></td>
           </tr>
         
@@ -5755,7 +5756,7 @@ state exists, --apply preserves the saved plan and continues completed work;
         
           <tr>
             <td><code>--target-git-integration-id int</code></td>
-            <td>Wodby 2 Git integration ID used to resolve the source repository</td>
+            <td>Optional Wodby 2 Git integration ID used to find and link the source repository</td>
             <td><code>0</code></td>
           </tr>
         

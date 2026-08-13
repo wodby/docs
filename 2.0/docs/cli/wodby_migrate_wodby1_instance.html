@@ -5599,8 +5599,9 @@ and rerun the same command with --verify to validate the completed migration.
 
 The migration exports only the selected
 instance and its parent app metadata, then creates a new Wodby 2 app containing
-that instance. By default it imports the latest successful backup shown in the
-preview. Use --source-backup BACKUP_UUID to select a different snapshot, or
+that instance. By default it imports the newest successful backup file for each
+required component shown in the preview. Use --source-backup BACKUP_UUID to pin
+all components to a different complete snapshot, or
 --skip-data to omit data. Changes made after the selected backup completed are
 not migrated. Apply is resumable and stores its plan and state in the system
 temporary directory. When state exists, the same --apply command preserves the saved plan
@@ -5729,7 +5730,7 @@ no target mutation occurred.</p>
         
           <tr>
             <td><code>--target-ci-integration-id int</code></td>
-            <td>Wodby 2 CI integration ID (defaults to 0 for built-in Wodby CI)</td>
+            <td>Wodby 2 CI integration ID override (otherwise Wodby CI with a linked repository, or automatic Custom CI fallback)</td>
             <td><code>0</code></td>
           </tr>
         
@@ -5753,7 +5754,7 @@ no target mutation occurred.</p>
         
           <tr>
             <td><code>--target-git-integration-id int</code></td>
-            <td>Wodby 2 Git integration ID used to resolve the source repository</td>
+            <td>Optional Wodby 2 Git integration ID used to find and link the source repository</td>
             <td><code>0</code></td>
           </tr>
         

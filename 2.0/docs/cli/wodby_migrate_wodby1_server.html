@@ -5595,11 +5595,13 @@
     <p>Migrate every application hosted on one Wodby 1 server. The default
 command is a read-only preview; --apply performs the resumable migrations and
 --verify validates them after testing and DNS cutover. Each application has an
-isolated resume-state file and is
-processed sequentially. A shared --target-git-integration-id searches that
-integration for every source repository by name; use --target-repository-map
-for per-app integrations or repository-name overrides, or intentionally use --skip-code.
-By default, the latest successful backup of every included instance is selected.
+isolated resume-state file and is processed sequentially. Runtime failures are
+reported per app while remaining apps continue. A shared
+--target-git-integration-id searches that integration for every source
+repository by name; use --target-repository-map for per-app integrations or
+repository-name overrides. A missing repository match falls back to unlinked
+Custom CI. Use --skip-code only to omit code migration intentionally.
+By default, the newest successful file for each required backup component is selected.
 Use repeatable --source-backup APP/INSTANCE=BACKUP_UUID values to override
 individual snapshots, or --skip-data to omit data. Changes after each selected
 backup completed are not migrated. Test the
@@ -5622,9 +5624,9 @@ migrated apps before changing DNS, then use --verify. When per-app state exists,
         <pre><code>export WODBY1_SOURCE_TOKEN=...
   export WODBY_API_KEY=...
 
-  wodby migrate wodby1 server SERVER_UUID --target-cluster CLUSTER --skip-code [target and mapping options]
-  wodby migrate wodby1 server SERVER_UUID --target-cluster CLUSTER --skip-code [same options] --apply
-  wodby migrate wodby1 server SERVER_UUID --target-cluster CLUSTER --skip-code [same options] --verify</code></pre>
+  wodby migrate wodby1 server SERVER_UUID --target-cluster CLUSTER [target and mapping options]
+  wodby migrate wodby1 server SERVER_UUID --target-cluster CLUSTER [same options] --apply
+  wodby migrate wodby1 server SERVER_UUID --target-cluster CLUSTER [same options] --verify</code></pre>
       </section>
     
 
@@ -5741,7 +5743,7 @@ migrated apps before changing DNS, then use --verify. When per-app state exists,
         
           <tr>
             <td><code>--target-ci-integration-id int</code></td>
-            <td>Wodby 2 CI integration ID (defaults to 0 for built-in Wodby CI)</td>
+            <td>Wodby 2 CI integration ID override (otherwise Wodby CI with a linked repository, or automatic Custom CI fallback)</td>
             <td><code>0</code></td>
           </tr>
         
@@ -5765,7 +5767,7 @@ migrated apps before changing DNS, then use --verify. When per-app state exists,
         
           <tr>
             <td><code>--target-git-integration-id int</code></td>
-            <td>Wodby 2 Git integration ID used to resolve the source repository</td>
+            <td>Optional Wodby 2 Git integration ID used to find and link the source repository</td>
             <td><code>0</code></td>
           </tr>
         
