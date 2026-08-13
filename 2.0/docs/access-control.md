@@ -22,7 +22,7 @@ Organization membership is the top-level access gate. A user must have an active
 | Role      | Meaning                                                                                                                                  |
 |-----------|------------------------------------------------------------------------------------------------------------------------------------------|
 | `Owner`   | Full access to organization resources and billing. Owners can manage other owners.                                                       |
-| `Admin`   | Full access to organization resources, projects, teams, and org-owned resources. Admins do not manage billing, owners, or other admins.  |
+| `Admin`   | Full access to organization resources, projects, teams, and org-owned resources. Admins do not manage billing, termination protection, owners, or other admins.  |
 | `Member`  | Works through project access. Members do not receive organization-wide resource access by default.                                       |
 | `Support` | Read-only access across the organization.                                                                                       |
 | `Robot`   | Internal automation role. Robot users are not assigned to teams or projects and are not managed through normal membership workflows.     |
@@ -145,6 +145,7 @@ Wodby uses the same basic permission meanings across resource types.
 | Ownership & sharing      | Change the resource owner or project access list                       | See [Resource ownership](#resource-ownership). The requirement depends on whether the resource is organization-owned or project-owned                 |
 | Manage project           | Rename, delete, or manage project access                               | Project `Admin`, or organization owner/admin                                                                                                        |
 | Manage organization/team | Manage org settings, teams, team members, and team leaders              | Organization owner/admin                                                                                                                           |
+| Manage termination protection | Change organization-wide deletion safeguards                       | Organization owners only                                                                                                                           |
 | Manage org members       | Invite, change roles, or remove organization members                   | Owners can manage owners/admins/members. Admins can manage members only                                                                             |
 | Manage billing           | Change subscription, billing details, invoices, or spending limits      | Organization owners only                                                                                                                           |
 

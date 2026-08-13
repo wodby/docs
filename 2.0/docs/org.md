@@ -82,6 +82,7 @@ See [Billing](pricing.md) for the current plan model and Wodby Cloud billing not
 - the default time zone
 - the default CI provider
 - the default container registry
+- organization-wide termination protection
 
 The CI and registry selectors include Wodby's built-in services and available organization-owned integrations of the
 corresponding type. Project-owned integrations cannot be used as organization defaults because they may not be
@@ -94,6 +95,35 @@ of Default CI. The selections are retained when an instance has no enabled servi
 a buildable service to be enabled or added later without changing the intended providers.
 
 Choose `Wodby CI` or `Wodby US Docker Registry` to use the corresponding built-in service as the organization default.
+
+### Termination protection
+
+Termination protection adds an organization-wide safeguard against destructive operations. It applies after the usual
+access and dependency checks, so disabling it does not grant anyone permission to delete resources.
+
+Only an organization owner can change the setting. Enabling, changing, or disabling it requires a recent interactive
+security confirmation. Depending on the account, Wodby asks for a password, an authenticator or recovery code, or a
+code sent to the verified primary email address. A successful login or step-up confirmation remains recent for 5
+minutes. API keys and other non-interactive credentials cannot change the setting. Wodby sends the organization's
+owners a security notification after it changes.
+
+| Mode | Apps and clusters | Databases | Integrations and catalog resources |
+| --- | --- | --- | --- |
+| `Disabled` | No additional deletion blocks | No additional deletion blocks | No additional deletion blocks |
+| `Production` | Blocks deleting a non-infrastructure app instance in a `prod` environment. It also blocks deleting an app or cluster when that operation would delete such an instance. | Blocks deleting a database server in a `prod` environment or an individual DB inside it. | No additional deletion blocks |
+| `All` | Blocks deleting every cluster and every non-infrastructure app instance. It also blocks deleting an app when that operation would delete one or more such instances. | Blocks deleting every database server and every individual DB. | Blocks deleting integrations, services, stacks, and providers. |
+
+The `Production` mode uses the environment's type, not its display name. An environment that is named “Production”
+but has another type is not protected by this mode. Wodby also prevents changing the type of an environment while an
+app instance or database references it, so a protected resource cannot be reclassified before deletion.
+
+Protection applies to deletion requests from both the dashboard and API, and a force-delete option does not bypass it.
+It also applies when another operation would delete a protected resource, such as a stack upgrade that removes an
+app-owned database. Deletion workflows that already started before protection was enabled can finish.
+
+!!! note "Demo clusters still expire"
+    Temporary Wodby Cloud demo clusters are deleted automatically after 24 hours, together with their applications,
+    even when termination protection is set to `All`.
 
 ## Editing the organization
 
