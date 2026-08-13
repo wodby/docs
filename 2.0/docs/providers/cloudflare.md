@@ -1,14 +1,29 @@
 # Cloudflare
 
-Cloudflare exposes two integration kinds in Wodby:
+Cloudflare exposes three integration kinds in Wodby:
 
+- **API** (`variable`) injects an Account ID and API token into compatible app services or stacks.
 - **Application Access** (`application_access`) provides protected publishing through Cloudflare Access or
   private-network access through Cloudflare One.
 - **Turnstile** (`variable`) injects Cloudflare Turnstile keys into app services or stacks.
 
-Select either or both kinds when creating the integration. Wodby asks only for fields belonging to the selected kinds.
-You can also create separate integrations when the credentials should have different owners, sharing, or permission
-scope.
+Select any combination of kinds when creating the integration. Wodby asks only for fields belonging to the selected
+kinds. You can also create separate integrations when the credentials should have different owners, sharing, or
+permission scope.
+
+## API
+
+Create a Cloudflare integration with the **API** kind when application code needs to call Cloudflare APIs directly.
+The kind exposes:
+
+| Field      | Required | Environment variable     |
+| ---------- | -------- | ------------------------ |
+| Account ID | Yes      | `CLOUDFLARE_ACCOUNT_ID`  |
+| API Token  | Yes      | `CLOUDFLARE_API_TOKEN`   |
+
+Create a token with the permissions and resource scope required by the consuming application. The API and Application
+Access kinds use the same Account ID and API token fields, so selecting both asks for those credentials only once.
+Turnstile widget keys are created separately and are not Cloudflare API credentials.
 
 ## Application Access
 
