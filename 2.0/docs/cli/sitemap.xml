@@ -25,6 +25,30 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access_cleanups.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access_create.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access_preflight.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access_retry-cleanup.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_access_update.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_backup.html</loc>
   </url>
   <url>
@@ -313,7 +337,13 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_service_volume.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_service_volume_add.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_service_volume_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_service_volume_storage-classes.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_settings.html</loc>
@@ -329,6 +359,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_upgrade-stack.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_upgrade-stack-changelog.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_list.html</loc>
@@ -514,7 +547,13 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_volume.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_volume_add.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_volume_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_volume_storage-classes.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_backup.html</loc>
@@ -590,6 +629,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_get-by-name.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_infra-app-upgrade-changelog.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_list.html</loc>
@@ -749,6 +791,30 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access_cleanups.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access_create.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access_preflight.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access_retry-cleanup.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_access_update.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_backup.html</loc>
@@ -1039,7 +1105,13 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_service_volume.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_service_volume_add.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_service_volume_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_service_volume_storage-classes.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_settings.html</loc>
@@ -1057,7 +1129,13 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_upgrade-stack.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_upgrade-stack-changelog.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_configure.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_create.html</loc>
@@ -1078,6 +1156,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options_app-access.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options_kube-machine-types.html</loc>
   </url>
   <url>
@@ -1096,6 +1177,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options_remote-git-repo-branches.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options_remote-git-repo-file.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options_remote-git-repo-tags.html</loc>
   </url>
   <url>
@@ -1111,7 +1195,13 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options_storage-classes.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_test-permissions.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_validate-app-access-hostname.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration-kind.html</loc>
@@ -1285,6 +1375,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_origin-sync-changelog.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_publish-draft.html</loc>
   </url>
   <url>
@@ -1441,6 +1534,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_service_volume_set.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_service-update-changelog.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_settings.html</loc>
   </url>
   <url>
@@ -1451,6 +1547,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_update-from-git.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_update-service-revisions.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_validate-manifest.html</loc>
