@@ -41,30 +41,28 @@ One Cloudflare Application Access integration supports both Wodby access types:
 2. Open `My Profile > API Tokens` and create a custom **User API Token**. Do not use
    `Manage Account > Account API Tokens`; its account-scoped policy editor does not expose the required zone
    permission rows.
-3. Under `Permissions`, use `Add more` for each Account permission row:
-   - `Cloudflare One Connector: cloudflared`: Edit
-   - `Access: Apps`: Edit
-   - `Access: Policies`: Edit
-4. Use `Add more` again for each Zone permission row:
-   - `Zone`: Read
-   - `DNS`: Edit
-5. Under `Account Resources`, include the intended Cloudflare account. Under `Zone Resources`, include only the zones
-   Wodby may publish.
-6. If you plan to use Protected access, open `Zero Trust > Access controls > Policies` and create at least one reusable
-   `Allow` policy. Wodby lists reusable policies; the per-application policy editor is not used for this selection.
+3. Under `Permissions`, add the Account permission `Cloudflare One Connector: cloudflared`: Edit. This shared
+   permission is required for both access modes.
+4. Under `Account Resources`, include the intended Cloudflare account.
+5. For Protected access, add the Account permissions `Access: Apps`: Edit and `Access: Policies`: Edit, then add the
+   Zone permissions `Zone`: Read and `DNS`: Edit. Under `Zone Resources`, include only the zones Wodby may publish.
+6. For Protected access, open `Zero Trust > Access controls > Policies` and create at least one reusable `Allow`
+   policy. Wodby lists reusable policies; the per-application policy editor is not used for this selection.
+7. For Private network access, add the Account permission `Cloudflare One Networks`: Edit. No Zone, DNS, or Access
+   policy permission is required for this mode.
 
 The `Cloudflare One Connector: cloudflared` permission covers both managed Tunnels and private hostname routes.
 
-!!! note "One credential for both access types"
+!!! note "Grant only the permissions you need"
 
-    Wodby validates the complete Application Access permission set when the integration is created. Include every
-    permission above even if you initially plan to use only Private network access. Private network access does not
-    create zone DNS records, an Access application, or an Access policy attachment, but the complete credential keeps
-    the same integration usable for either access type.
+    Saving the integration validates the API token and the shared cloudflared connector access. Missing permissions
+    for an access mode you did not configure are reported as a notice and do not block the integration. When you
+    create an app, Wodby validates every permission required by the selected mode and prevents app creation if the
+    token or resource scope is insufficient.
 
-The integration form asks for the Account ID and API token. Wodby checks authentication and each required permission
-when you create the integration, and reports whether the token is invalid or a particular permission is missing. Wodby
-does not request certificate permissions.
+The integration form asks for the Account ID and API token. When you save it, Wodby checks authentication and the
+shared cloudflared connector permission. The integration page reports mode-specific readiness notices; the selected
+mode's full permission check runs when you create an app. Wodby does not request certificate permissions.
 
 ### Configure an app
 
