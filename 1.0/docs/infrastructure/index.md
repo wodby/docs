@@ -18,7 +18,7 @@ The infrastructure is powered by Docker and Kubernetes. The Wodby Agent applies 
 
 ### Infrastructure 7
 
-Infrastructure 7 is the default for newly connected servers. It supports fresh Ubuntu 26.04 and Debian 13 amd64 hosts and uses current Docker, Kubernetes, etcd v3, Agent, and Edge components.
+Infrastructure 7 is the default for newly connected servers. It supports fresh Ubuntu 26.04 and Debian 13 amd64 hosts and modernizes the container, Kubernetes, networking, Agent, and Edge platform. It improves application security through safer credential and configuration handling, tighter platform permissions, and inbound network isolation between applications while preserving normal outbound connectivity.
 
 Infrastructure 7 is not an in-place upgrade for Infrastructure 6. To move an existing server to Infrastructure 7, connect a fresh supported host and migrate or redeploy the applications to it.
 
