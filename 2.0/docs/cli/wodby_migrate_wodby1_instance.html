@@ -5599,7 +5599,9 @@ and rerun the same command with --verify to validate the completed migration.
 
 The migration exports only the selected
 instance and its parent app metadata, then creates a new Wodby 2 app containing
-that instance. By default it imports the newest successful backup file for each
+that instance. Pass --target-app to add it to an existing Wodby 2 app instead;
+the CLI infers the app&#39;s shared stack when unambiguous and never adopts or
+overwrites an existing app instance. By default it imports the newest successful backup file for each
 required component shown in the preview. Use --source-backup BACKUP_UUID to pin
 all components to a different complete snapshot, or
 --skip-data to omit data. Changes made after the selected backup completed are
@@ -5624,6 +5626,7 @@ no target mutation occurred.</p>
   export WODBY_API_KEY=...
 
   wodby migrate wodby1 instance INSTANCE_UUID --target-cluster CLUSTER [target and mapping options]
+  wodby migrate wodby1 instance INSTANCE_UUID --target-app APP --target-cluster CLUSTER [target and mapping options]
   wodby migrate wodby1 instance INSTANCE_UUID --target-cluster CLUSTER [same options] --apply
   wodby migrate wodby1 instance INSTANCE_UUID --target-cluster CLUSTER [same options] --verify</code></pre>
       </section>
@@ -5725,6 +5728,12 @@ no target mutation occurred.</p>
           <tr>
             <td><code>--state-file string</code></td>
             <td>Secure resume-state path (defaults to the system temporary directory)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-app string</code></td>
+            <td>Existing Wodby 2 app ID or exact name to receive this instance</td>
             <td><span class="muted">-</span></td>
           </tr>
         
