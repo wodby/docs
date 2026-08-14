@@ -78,9 +78,11 @@ build config.
 
 ## Provider examples
 
-The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository contains complete examples for PHP and Node apps:
+The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository contains complete provider examples for
+common PHP, Node.js, Python, Ruby, Go, and static application patterns:
 
 - GitHub Actions examples use [`wodby/actions/setup-wodby-cli@v1`](https://github.com/wodby/actions/tree/main/setup-wodby-cli), which restores dependency caches detected from lockfiles, installs the CLI, exports `WODBY_API_KEY`, and runs `wodby ci init` automatically when `app-service-id` is provided.
+- CircleCI examples use [`wodby/setup-wodby-cli@1`](https://circleci.com/developer/orbs/orb/wodby/setup-wodby-cli), which installs the latest Wodby 2 CLI and runs `wodby ci init` when `app-service-id` is provided.
 - GitHub Actions: [PHP](https://github.com/wodby/wodby-ci/blob/2.0/php/github-actions/wodby.yml), [Node](https://github.com/wodby/wodby-ci/blob/2.0/node/github-actions/wodby.yml)
 - GitLab CI: [PHP](https://github.com/wodby/wodby-ci/blob/2.0/php/gitlab-ci/.gitlab-ci.yml), [Node](https://github.com/wodby/wodby-ci/blob/2.0/node/gitlab-ci/.gitlab-ci.yml)
 - CircleCI: [PHP](https://github.com/wodby/wodby-ci/blob/2.0/php/circleci/config.yml), [Node](https://github.com/wodby/wodby-ci/blob/2.0/node/circleci/config.yml)
@@ -90,7 +92,8 @@ For providers that support both VM-based and docker-based execution, prefer VM-b
 On native runners, such as the CircleCI machine executor, the CLI mounts recognized caches from the package managers'
 conventional home paths: `~/.npm`, `~/.composer/cache`, `~/.bundle/cache`, and `~/.cache/uv`. Configure the provider to
 persist the applicable path; no manual `wodby ci run` cache volume is required. The GitHub setup action handles these
-paths automatically when it detects a supported lockfile.
+paths automatically when it detects a supported lockfile. The CircleCI examples restore and save the applicable path
+in their configuration.
 
 Docker-in-docker examples, such as GitLab CI with the `docker:dind` service, instead persist project-local
 `.wodby-ci-cache/<profile>` staging directories. The CLI imports them into its internal cache volume during
