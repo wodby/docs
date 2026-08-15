@@ -72,8 +72,9 @@ Each listed directory must contain its own `service.yml`. See the [service templ
    If the service uses private container images, also create a registry integration for the image registry.
 2. Open `Services`.
 3. Select `New service from Git`.
-4. Select the organization or project, Git integration, repository, ref type, and ref. For private images, select the
-   optional `Registry integration` that matches the image registry host.
+4. Select the organization or project, Git integration, repository, ref type, and ref. Image access defaults to
+   `Public`. For private images, select `Private`, then select the `Registry integration` that matches the image
+   registry host.
 5. Create the service.
 
 Wodby checks service images anonymously first. It uses the selected registry integration only when the registry denies
