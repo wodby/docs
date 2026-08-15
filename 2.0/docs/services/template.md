@@ -642,12 +642,35 @@ Each item supports:
 - `default`: optional default value.
 - `from`: optional link name to reuse the same setting from a linked service.
 - `required`: optional boolean.
+- `secret`: optional boolean. Defaults to `false`. Encrypts submitted values and makes the setting write-only.
 - `var`: required environment variable name created from this setting.
 - `runtime`: optional boolean. Defaults to `true`. When `false`, Wodby does not inject the setting-derived variable into runtime containers.
 - `build`: optional boolean. Defaults to `false`. When `true`, Wodby can pass the setting-derived variable to CI builds as a Docker build argument when the Dockerfile declares a matching `ARG`.
 
 At least one of `runtime` or `build` must be enabled. Use `build: true` for settings such as document root paths that
 must be available while building an image.
+
+A secret setting cannot define `default`, and a stack template cannot embed its override value. Configure the value
+after import. A setting inherited with `from` must have the same `secret` value as the matching setting on the linked
+service. Runtime secret settings require the primary container's list-based `helm.env` mapping; `helm.envKV` is not
+supported because it would place the decrypted value in Helm values.
+
+Example:
+
+```yaml
+settings:
+  - name: api_token
+    title: API token
+    description: Token used to authenticate outbound API requests
+    placeholder: Enter a token
+    var: API_TOKEN
+    required: true
+    secret: true
+```
+
+Wodby never returns the configured value for a secret setting. API responses retain an empty `value` for compatibility
+and expose `secret` and `hasValue` so clients can render a password control and configured state without revealing the
+credential.
 
 ### `imports`
 
