@@ -54,6 +54,26 @@ For example, a `docroot` setting with `var: DOCROOT_SUBDIR` should use `build: t
 Changing a runtime-scoped setting marks the app service for redeploy. Changing a build-scoped setting marks it for
 rebuild.
 
+### Secret settings
+
+A service template can set `secret: true` on a setting that contains a password, token, credential-bearing URL, key,
+salt, or other sensitive value. Wodby encrypts a submitted secret setting and treats it as write-only: API responses
+report whether the value is configured but do not return the stored value. Entering a new value replaces the
+existing secret; clearing it removes the configured value.
+
+Secret settings cannot define `default`, because service templates are not secret storage. Stack templates likewise
+cannot embed an override value for a secret setting. Configure the value on the stack service or app service after the
+service has been imported.
+
+A setting that uses `from` must have the same secret classification as the matching setting on the linked service.
+The consuming setting keeps a link to the source setting rather than storing another copy of its value.
+
+Runtime secret settings require the primary workload container to use the list-based `helm.env` mapping. The
+map-style `helm.envKV` mapping places values directly in Helm values and therefore cannot be used for secret settings.
+
+Build-scoped secret settings use the CI secret-argument path and are redacted from API responses. The Dockerfile must
+still handle its matching `ARG` safely: copying a build argument into an image layer, file, or build log can expose it.
+
 ## Configs
 
 Services can define configs that represent configuration files or config payloads overridden at stack or app level.
