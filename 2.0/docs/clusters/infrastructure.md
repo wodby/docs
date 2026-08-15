@@ -70,10 +70,14 @@ marked as outdated solely because `3.0.0` exists.
 
 ### Changelog
 
+#### 4.1.0
+
+Version `4.1.0` enables Kubernetes Secret encryption at rest for new and existing self-hosted K3S clusters, improving
+protection for Secret values stored in the cluster datastore.
+
 #### 4.0.1
 
-Version `4.0.1` strengthens network security for self-hosted K3S clusters. This is the current infrastructure version
-for new clusters.
+Version `4.0.1` strengthens network security for self-hosted K3S clusters.
 
 #### 4.0.0
 
