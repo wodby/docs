@@ -98,6 +98,7 @@ nav:
 - Apps:
   - New app: apps/new.md
   - Instances: apps/instances.md
+  - Server migration: apps/server-migration.md
   - Deployment: apps/deploy.md
   - Domains: apps/domains.md
   - Backups: apps/backups.md
