@@ -135,6 +135,20 @@ Accessed as `configs.[name].[token]`.
 
 - `configs.[name].configMap`: generated Kubernetes ConfigMap name for the named config
 
+## `keys`
+
+Available to a service that declares a generated key in its
+[`service.yml`](../services/template.md#keys). Accessed as `keys.[name].[field]`:
+
+- `keys.[name].privateKey`: PKCS#8 private-key PEM
+- `keys.[name].privateKeyBase64`: base64-encoded PKCS#8 private-key PEM
+- `keys.[name].publicKey`: PKIX public-key PEM
+- `keys.[name].publicKeyBase64`: base64-encoded PKIX public-key PEM
+- `keys.[name].fingerprint`: unpadded base64url-encoded SHA-256 fingerprint of the PKIX public key
+
+The `keys` namespace is available only in the owning app-service context and is not exposed under `links`. Environment
+variables that use a private-key field must be marked `secret: true`.
+
 ## `volumes`
 
 Accessed as `volumes.[name].[token]`.
