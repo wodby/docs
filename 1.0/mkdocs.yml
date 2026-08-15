@@ -124,6 +124,7 @@ nav:
   - Maintenance: stacks/maintenance.md
   - Drupal:
     - Overview: stacks/drupal/index.md
+    - Stack migration: stacks/drupal/migration.md
     - Containers: stacks/drupal/containers.md
     - Local environment: stacks/drupal/local.md
     - Changelog: stacks/drupal/changelog.md
