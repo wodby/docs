@@ -2,6 +2,8 @@
 
 Stack pages:
 
+* [Drupal 11](https://cloud.wodby.com/stacks/drupal11)
+* [Drupal 10](https://cloud.wodby.com/stacks/drupal10)
 * [Drupal 9](https://cloud.wodby.com/stacks/drupal9)
 * [Drupal 8](https://cloud.wodby.com/stacks/drupal8)
 * [Drupal 7](https://cloud.wodby.com/stacks/drupal7)
@@ -14,13 +16,22 @@ Stack pages:
 
 See [main code deployment article](../../apps/deploy.md) to learn about code deployment options on Wodby. 
 
-### Upgrading Drupal 9 to 10
+### Upgrading Drupal to a new major version
 
-During the upgrade from Drupal 9 to 10 with _Drupal 9_ stack you should add the following environment variable to your nginx service, otherwise you might notice issues with aggregated css/js:
+Upgrade Drupal code and its database before changing the app's stack generation.
+See [Migrate a Drupal stack to a newer major version](migration.md) for the
+supported transitions, preflight requirements, and app-wide migration steps.
+
+While running Drupal 10 code temporarily on a _Drupal 9_ stack, add the
+following environment variable to the Nginx service to avoid issues with
+aggregated CSS and JavaScript:
 
 ```
 NGINX_VHOST_PRESET=drupal10
 ```
+
+The app-level stack migration removes this override when it matches the selected
+target stack.
 
 ### Vanilla Drupal
 
