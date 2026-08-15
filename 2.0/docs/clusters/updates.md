@@ -57,10 +57,8 @@ separately; you do not need to run the separate infrastructure app stack upgrade
 See [Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions) for infrastructure version details,
 the changelog, current versions, and cluster-type-specific upgrade behavior.
 
-Run K3S infrastructure version upgrades during a maintenance window for production workloads. Depending on the target
-version, the Kubernetes API or pod networking can be briefly interrupted while K3S restarts and the infrastructure
-change takes effect. The `4.1.0` upgrade also rotates the K3S Secret encryption key and re-encrypts existing Secrets; see
-[K3S Secret encryption at rest](k3s.md#secret-encryption-at-rest) for compatibility, verification, and backup guidance.
+Run K3S infrastructure version upgrades during a maintenance window for production workloads, because pod networking can
+be briefly interrupted while K3S restarts and Cilium takes over.
 
 Infrastructure version `4.0.0` also performs a one-time routing ownership migration. Wodby first upgrades the Envoy
 Gateway infrastructure app when required, reconciles the cluster entrypoint, and verifies Gateway API compatibility.

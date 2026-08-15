@@ -72,16 +72,8 @@ marked as outdated solely because `3.0.0` exists.
 
 #### 4.1.0
 
-Version `4.1.0` enables Kubernetes Secret encryption at rest for self-hosted K3S clusters. New K3S clusters use the
-`secretbox` provider from their first server start. Existing supported K3S clusters use a staged infrastructure upgrade
-that restarts K3S, rotates the encryption key, and rewrites the current version of every Secret with `secretbox` before
-the version is recorded as complete.
-
-Managed Kubernetes providers own control-plane datastore encryption. Version `4.1.0` does not change provider-managed
-control-plane settings or restart managed cluster nodes.
-
-See [K3S Secret encryption at rest](k3s.md#secret-encryption-at-rest) for compatibility, verification, backup, and
-datastore-history details.
+Version `4.1.0` enables Kubernetes Secret encryption at rest for new and existing self-hosted K3S clusters, improving
+protection for Secret values stored in the cluster datastore.
 
 #### 4.0.1
 
