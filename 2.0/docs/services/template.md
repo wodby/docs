@@ -174,7 +174,7 @@ actions:
 - Only services of type `service` can use the `build` section.
 - Only services of type `db` can use the `database` section.
 - `external: true` is for services managed outside Wodby. External services cannot define `workloads`, `build`,
-  `links`, `volumes`, `settings`, `env`, `configs`, `actions`, `certs`, `cron`, or `derivatives`.
+  `links`, `volumes`, `settings`, `env`, `configs`, `actions`, `certs`, `keys`, `cron`, or `derivatives`.
 - Infrastructure services cannot be external and do not use `options`, `tokens`, or `imports`.
 - Kubernetes-facing names are validated during import and deployment. See [Naming rules](../naming.md) for service, workload, endpoint, port, volume, config, and generated resource name constraints.
 
@@ -712,6 +712,51 @@ Each item supports:
 - `envType`: optional environment type filter.
 
 Generated tokens are always treated as secrets. Exactly one of `value` or `generate.regex` must be set.
+
+### `keys`
+
+Type: `array`.
+
+Stable asymmetric key pairs generated for an app service. Use these for application signing protocols such as OpenID
+Connect; use `certs` instead when the application needs an X.509 certificate or CA bundle.
+
+Each item supports:
+
+- `name`: required key name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
+- `type`: required key type. The supported value is `rsa`.
+- `length`: required key length. Supported values are `2048`, `3072`, and `4096`.
+
+Wodby generates a named key once per app service. The private key is encoded as PKCS#8 PEM and stored as an encrypted
+secret; the public key is encoded as PKIX PEM. Ordinary deployments and service or stack upgrades preserve the pair.
+Changing the type or length of an existing named key fails deployment instead of rotating it. Key rotation is an
+explicit migration, not a manifest side effect; automatic rotation is not currently supported.
+
+```yaml
+keys:
+  - name: app-signing
+    type: rsa
+    length: 4096
+
+env:
+  - name: APP_SIGNING_PRIVATE_KEY
+    value: "{{keys.app-signing.privateKeyBase64}}"
+    secret: true
+  - name: APP_SIGNING_PUBLIC_KEY
+    value: "{{keys.app-signing.publicKeyBase64}}"
+```
+
+Reference generated material with these owner-only tokens:
+
+- `keys.[name].privateKey`
+- `keys.[name].privateKeyBase64`
+- `keys.[name].publicKey`
+- `keys.[name].publicKeyBase64`
+- `keys.[name].fingerprint`
+
+The `Base64` variants encode the complete PEM value. The fingerprint is the unpadded base64url-encoded SHA-256 digest
+of the PKIX public-key DER. Key tokens resolve only for the app service that owns the key, and the `keys` namespace is
+not available through service links. An environment variable that exposes `privateKey` or `privateKeyBase64` must set
+`secret: true`.
 
 ### `actions`
 
