@@ -209,15 +209,71 @@ New K3S clusters use the current Wodby cluster infrastructure version. Existing 
 when Wodby releases a K3S-specific infrastructure upgrade.
 
 The current K3S-specific upgrade path is described in
-[Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions). It replaces the default K3S
-flannel/kube-router networking setup with Cilium.
+[Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions). Depending on the current version, an
+upgrade can replace the default K3S flannel/kube-router networking setup with Cilium, strengthen host networking, or
+enable [Secret encryption at rest](#secret-encryption-at-rest).
 
-The upgrade can briefly interrupt pod networking while K3S restarts and Cilium takes over. Run it during a maintenance
-window for production workloads.
+An upgrade can briefly interrupt the Kubernetes API or pod networking while K3S restarts and infrastructure changes
+take effect. Run it during a maintenance window for production workloads.
 
 Automatic infrastructure upgrades are available for K3S clusters and are enabled by default for new clusters. Disable
 them when automatic maintenance is not acceptable for that cluster. See
 [Kubernetes cluster updates](updates.md#automatic-infrastructure-upgrades) for the automatic upgrade settings.
+
+## Secret encryption at rest
+
+New K3S clusters enable Kubernetes Secret encryption at rest before K3S starts for the first time. Wodby uses K3S's
+`secretbox` provider, which reports its active key type as `XSalsa20-POLY1305`. See the official K3S
+[Secrets Encryption](https://docs.k3s.io/security/secrets-encryption) documentation for the underlying K3S feature.
+
+Existing K3S clusters receive encryption through infrastructure version `4.1.0`. The upgrade is available only when the
+installed K3S release supports enabling encryption on an existing server:
+
+- `v1.33.10+k3s1` or newer in the `1.33` series
+- `v1.34.6+k3s1` or newer in the `1.34` series
+- `v1.35.3+k3s1` or newer
+
+The upgrade creates the initial transition configuration, writes the `secretbox` server setting, restarts K3S, rotates
+the encryption key, rewrites the current version of every existing Secret, and restarts K3S again. Wodby records the
+new infrastructure version only after K3S reports that re-encryption finished and the active provider is
+`XSalsa20-POLY1305`. A failed or interrupted upgrade remains retryable from the failed task.
+
+Run this upgrade during a maintenance window. The Kubernetes API is temporarily unavailable during each K3S restart,
+and the complete task can take longer on clusters with many Secrets.
+
+### Verify encryption
+
+Run the following command on the K3S server:
+
+```sh
+sudo k3s secrets-encrypt status
+```
+
+The K3S [`secrets-encrypt` command](https://docs.k3s.io/cli/secrets-encrypt) reports the active provider, rotation
+stage, and server encryption hash agreement without displaying raw encryption key material.
+
+After an existing-cluster upgrade, verify that the output shows:
+
+- `Encryption Status: Enabled`
+- `Current Rotation Stage: reencrypt_finished`
+- `Server Encryption Hashes: All hashes match`
+- an active `XSalsa20-POLY1305` key
+
+Kubernetes API behavior does not change. An authorized `kubectl get secret` request still returns base64-encoded Secret
+data, and anyone with permission to read the Secret can decode it. Encryption at rest protects Secret values from
+direct datastore access; it is not an additional Kubernetes API authorization layer.
+
+### Backups and retained history
+
+Preserve both the K3S datastore backup and the matching K3S server token. K3S protects encryption configuration and key
+material in datastore bootstrap data using the server token, so a backup without its matching token may not be
+recoverable. Treat retained snapshots and server tokens as sensitive data and store them separately.
+
+Re-encryption rewrites the current version of every Secret. A datastore can still retain superseded plaintext Secret
+revisions until its own history is compacted and its storage is physically reclaimed. A snapshot created shortly after
+the upgrade can include that retained history even though live Secret records are encrypted. Installations that require
+byte-for-byte removal must use and verify the maintenance procedure appropriate for their K3S datastore; Wodby's generic
+infrastructure upgrade does not perform destructive compaction, defragmentation, or vacuum operations.
 
 ## Single server model
 
