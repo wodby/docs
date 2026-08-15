@@ -69,10 +69,20 @@ Each listed directory must contain its own `service.yml`. See the [service templ
 ### Dashboard
 
 1. Connect a Git provider integration if the repository is not already available. See [Git provider](../providers/git.md).
+   If the service uses private container images, also create a registry integration for the image registry.
 2. Open `Services`.
 3. Select `New service from Git`.
-4. Select the organization or project, Git integration, repository, ref type, and ref.
+4. Select the organization or project, Git integration, repository, ref type, and ref. For private images, select the
+   optional `Registry integration` that matches the image registry host.
 5. Create the service.
+
+Wodby checks service images anonymously first. It uses the selected registry integration only when the registry denies
+anonymous access, and records this choice for future Git updates and deployments. If the integration has pull-only
+credentials, Wodby prefers them over credentials that can also push. A Kubernetes image pull secret is created during
+deployment only when the image actually requires authentication.
+
+The integration must match the image registry host. If anonymous image access is denied and no matching integration is
+selected, the import log tells you to select one and retry.
 
 Git-backed services can later be updated from the same repository manually or automatically. See
 [Service updates](updates.md).
