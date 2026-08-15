@@ -7333,6 +7333,7 @@ components:
         - status
         - clusterApp
         - orgId
+        - ownershipScope
         - createdAt
         - updatedAt
       properties:
@@ -7348,6 +7349,14 @@ components:
           type: boolean
         orgId:
           type: integer
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+        ownerProjectId:
+          type: integer
+          nullable: true
         createdAt:
           type: string
           format: date-time
@@ -9036,7 +9045,6 @@ components:
       type: object
       required:
         - id
-        - title
         - custom
         - issuer
         - domain
@@ -9050,8 +9058,6 @@ components:
       properties:
         id:
           type: integer
-        title:
-          type: string
         custom:
           type: boolean
         issuer:
@@ -9802,6 +9808,8 @@ components:
         - appServiceId
         - name
         - value
+        - secret
+        - hasValue
         - var
         - runtime
         - build
@@ -9814,6 +9822,10 @@ components:
           type: string
         value:
           type: string
+        secret:
+          type: boolean
+        hasValue:
+          type: boolean
         var:
           type: string
         runtime:
@@ -9943,6 +9955,8 @@ components:
         - stackServiceId
         - name
         - value
+        - secret
+        - hasValue
       properties:
         id:
           type: integer
@@ -9952,6 +9966,10 @@ components:
           type: string
         value:
           type: string
+        secret:
+          type: boolean
+        hasValue:
+          type: boolean
     AppServiceVolume:
       type: object
       required:
