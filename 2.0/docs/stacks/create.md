@@ -88,7 +88,7 @@ Each listed directory must contain its own `stack.yml`. See the [stack template 
 
 1. Connect a Git provider integration if the repository is not already available. See [Git provider](../providers/git.md).
 2. Open `Stacks`.
-3. Select `New stack from Git`.
+3. Select `Import from git`.
 4. Select the organization or project, Git integration, repository, ref type, and ref.
 5. Create the stack.
 
@@ -130,7 +130,7 @@ Use manifest creation when you have a `stack.yml` file and do not need Wodby to 
 ### Dashboard
 
 1. Open `Stacks`.
-2. Select `New stack from manifest`.
+2. Select `New from manifest`.
 3. Select the organization or project that should own the stack.
 4. Paste the manifest YAML, or read it from a local `stack.yml` file.
 5. Enter the stack version.
