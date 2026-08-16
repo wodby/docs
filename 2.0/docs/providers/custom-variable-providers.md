@@ -11,7 +11,7 @@ permission audits, or infrastructure resources.
 
 | Method | Use when |
 | --- | --- |
-| Quick create | You want to define a small set of environment variables in the dashboard. |
+| New variable provider | You want to define a small set of environment variables in the dashboard. |
 | From manifest | You have a local `provider.yml` and do not need Wodby to track a Git repository. |
 | Import from Git | You want Git to remain the source of truth, use automatic updates, or keep several providers in one repository. |
 
@@ -27,12 +27,12 @@ without colliding.
 Use the full namespaced name when a workflow asks for the provider machine name. The manifest itself keeps the local
 slug. Existing custom providers also appear under their organization namespace.
 
-## Quick create
+## Create a variable provider in the dashboard
 
 Use quick create when you do not need to write a manifest first:
 
 1. Open `Providers`.
-2. Select `Quick create`.
+2. Select `New variable provider`.
 3. Select the owner and enter the provider name and title.
 4. Add the fields and environment-variable names that integrations should expose.
 5. Create the provider.

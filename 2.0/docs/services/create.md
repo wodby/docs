@@ -71,7 +71,7 @@ Each listed directory must contain its own `service.yml`. See the [service templ
 1. Connect a Git provider integration if the repository is not already available. See [Git provider](../providers/git.md).
    If the service uses private container images, also create a registry integration for the image registry.
 2. Open `Services`.
-3. Select `New service from Git`.
+3. Select `Import from git`.
 4. Select the organization or project, Git integration, repository, ref type, and ref. For private images, select the
    optional `Registry integration` that matches the image registry host.
 5. Create the service.
