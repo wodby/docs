@@ -612,15 +612,50 @@ Each item supports:
 - `required`: optional boolean.
 - `multiple`: optional boolean.
 - `labels`: optional labels used to filter compatible provider kinds.
+- `variables`: optional environment-variable contract for a variable integration.
 - `providers`: optional provider-specific overrides.
 
 An attached integration is compatible only when one of its selected provider kinds has the required `type` and every
-required label. Labels cannot be combined across different kinds, and an unselected kind does not make the integration
-compatible. When a service is imported, Wodby also verifies that at least one current public or organization provider
-kind can satisfy every declared integration requirement.
+required label and variable. Requirements cannot be combined across different kinds, and an unselected kind does not
+make the integration compatible. A provider may expose additional variables without affecting compatibility.
 
-For a variable integration, Wodby injects provider-wide fields plus fields belonging to the matching selected kinds.
-Fields belonging only to another selected kind are not exposed through that service integration slot.
+`variables` is supported only when `type` is `variable`. Each item supports:
+
+- `name`: required environment variable name.
+- `secret`: optional boolean. Defaults to `false`. It must exactly match whether the provider stores the field as a
+  secret.
+- `optional`: optional boolean. Defaults to `false`. A required service variable matches only a required provider
+  field; an optional service variable matches either a required or optional provider field.
+
+For example, this contract can be satisfied by a built-in or custom variable provider with matching fields:
+
+```yaml
+integrations:
+  - name: billing
+    title: Billing API
+    type: variable
+    required: true
+    variables:
+      - name: BILLING_API_URL
+      - name: BILLING_API_TOKEN
+        secret: true
+      - name: BILLING_ACCOUNT_ID
+        optional: true
+```
+
+A variable contract without `labels` does not require a matching provider to exist in the service owner's organization
+when the service is imported. This allows a reusable service to declare its interface while each consuming organization
+creates its own [custom variable provider](../providers/variable.md#custom-variable-providers). If the requirement also
+uses `labels`, Wodby verifies during import that a current public or organization provider kind satisfies the complete
+contract.
+
+When `variables` is present, Wodby injects only the variables declared by the service. Deployment fails if a required
+value is missing, resolves more than once, or is not stored with the declared secret classification. Without
+`variables`, the existing behavior remains: Wodby injects provider-wide fields plus fields belonging to the matching
+selected kinds. Fields belonging only to another selected kind are not exposed through that service integration slot.
+
+Do not combine `variables` with `providers`. A native variable contract consumes provider environment variables by
+their declared names, while `providers` defines provider-specific projections to different environment variables.
 
 Each `integrations[].providers[]` item supports:
 
