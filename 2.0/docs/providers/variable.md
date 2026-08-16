@@ -53,6 +53,24 @@ apply to custom mappings.
 Variables exposed by variable providers are injected into runtime containers only. They are not passed to Docker image
 builds. Use build-scoped app-service environment variables or service settings for Dockerfile build arguments.
 
+### Matching service requirements
+
+A service can declare the exact environment variables it consumes under
+[`integrations[].variables`](../services/template.md#integrations). This lets the same service work with any built-in or
+custom variable provider whose selected kind exposes the required shape.
+
+For a custom provider to match:
+
+- every required variable name must be exposed by the same provider kind
+- a secret requirement must map to a secret provider field, and a non-secret requirement must map to a non-secret
+  field
+- a required service variable cannot map to an optional provider field
+- an optional service variable can map to either a required or optional provider field
+
+The provider can expose additional variables. They are not injected through a service integration that declares an
+explicit variable contract. The service does not need to name a specific provider, so each organization can create a
+provider with its own title and credentials while keeping the same environment-variable interface.
+
 ## Related pages
 
 - [Integrations overview](../integrations/index.md)

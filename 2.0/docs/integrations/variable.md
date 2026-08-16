@@ -74,6 +74,12 @@ the environment variable names yourself. The standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
 apply to custom mappings.
 
+Services can declare an exact variable contract instead of naming a particular provider. Wodby then accepts only
+integrations whose selected provider kind supplies the required names, secret classifications, and optionality. This is
+useful for reusable services that need credentials such as `BILLING_API_TOKEN` but should not depend on one globally
+defined provider. See the [`integrations[].variables` service template reference](../services/template.md#integrations)
+and [matching custom provider requirements](../providers/variable.md#matching-service-requirements).
+
 ## Related pages
 
 - [Integration types](types.md)
