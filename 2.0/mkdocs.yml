@@ -327,6 +327,7 @@ nav:
           - Tailscale: providers/tailscale.md
       - Variable providers:
           - Overview: providers/variable.md
+          - Custom providers: providers/custom-variable-providers.md
           - Amazon Web Services: providers/aws.md
           - Algolia: providers/algolia.md
           - Anthropic: providers/anthropic.md

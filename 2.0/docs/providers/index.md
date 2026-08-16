@@ -28,7 +28,9 @@ Most providers shown in the dashboard are built in and maintained by Wodby. Thei
 
 ## Custom variable providers
 
-If you only need to inject environment variables and there is no built-in provider for that service, you can create your own variable provider from `Providers > New variable provider` in the dashboard.
+If you only need to inject environment variables and there is no built-in provider for that service, you can create
+your own variable provider from the dashboard. Providers can be created interactively, from a local manifest, or from
+a Git repository containing one or several provider manifests.
 
 The new variable provider form has an `Owner` selector. Choose `Organization <organization>` for an organization-owned provider or `Project <project>` for a project-owned provider.
 
@@ -38,8 +40,13 @@ Custom variable providers are useful when:
 - you want to standardize a set of environment variables across multiple apps
 - you want to manage service credentials centrally instead of repeating them in each app
 
+Custom provider machine names are namespaced by organization. Git-backed providers can be updated manually or from
+matching branch and semantic-version tag events. See [Custom variable providers](custom-variable-providers.md) for the
+manifest, Git layout, update, task, and sharing workflows.
+
 ## Related pages
 
 - [Integrations overview](../integrations/index.md)
 - [Integration types](../integrations/types.md)
 - [Variable integration](../integrations/variable.md)
+- [Custom variable providers](custom-variable-providers.md)

@@ -45,10 +45,18 @@ Variable provider integrations are typically attached to:
 
 ## Custom variable providers
 
-If a built-in provider is missing, you can create your own variable provider from `Providers > New variable provider`
-and define the environment variable names yourself. The standard
+If a built-in provider is missing, you can create your own variable provider in the dashboard. Use `Quick create` for
+a small provider, `From manifest` for a local `provider.yml`, or `Import from Git` to track one or several versioned
+providers in a repository.
+
+Custom provider names are scoped to the organization, so their full machine name uses
+`<organization>/<provider-name>`. Git-backed providers support manual updates and configurable branch or semantic-tag
+auto updates. Every custom provider page also exposes its current manifest, task history, and project sharing settings.
+
+See [Custom variable providers](custom-variable-providers.md) for the manifest format, repository layout, update rules,
+and complete dashboard workflow. The standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
-apply to custom mappings.
+apply to all custom mappings.
 
 Variables exposed by variable providers are injected into runtime containers only. They are not passed to Docker image
 builds. Use build-scoped app-service environment variables or service settings for Dockerfile build arguments.
@@ -76,5 +84,6 @@ provider with its own title and credentials while keeping the same environment-v
 - [Integrations overview](../integrations/index.md)
 - [Integration types](../integrations/types.md)
 - [Variable integration](../integrations/variable.md)
+- [Custom variable providers](custom-variable-providers.md)
 - [Environment variables](../apps/environment-variables.md)
 - [Providers overview](index.md)

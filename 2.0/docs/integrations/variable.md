@@ -69,8 +69,9 @@ during build.
 
 Wodby ships a growing set of built-in variable providers such as Sentry, OpenAI, Stripe, Algolia, and others.
 
-If a provider is missing, you can create your own variable provider from `Providers > New variable provider` and define
-the environment variable names yourself. The standard
+If a provider is missing, you can [create a custom variable provider](../providers/custom-variable-providers.md)
+interactively, from a local manifest, or from a Git repository containing one or several provider manifests. The
+standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
 apply to custom mappings.
 
