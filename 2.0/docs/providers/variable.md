@@ -46,8 +46,8 @@ Variable provider integrations are typically attached to:
 ## Custom variable providers
 
 If a built-in provider is missing, you can create your own variable provider in the dashboard. Use
-`New variable provider` for a small provider, `From manifest` for a local `provider.yml`, or `Import from Git` to track
-one or several versioned providers in a repository.
+`New variable provider` for a small provider, `New from manifest` for a local `provider.yml`, or `Import from git` to
+track one or several provider manifests in a repository.
 
 Custom provider names are scoped to the organization, so their full machine name uses
 `<organization>/<provider-name>`. Git-backed providers support manual updates and configurable branch or semantic-tag
