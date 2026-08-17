@@ -28,8 +28,8 @@ When a connected build source inherits third-party Default CI, it does not have 
 CI provider checks out the code, and Wodby CLI creates the app build from the app service ID plus the git metadata it
 detects in the CI workspace. In this mode, source selection belongs entirely to the external pipeline.
 
-If you link a Git repository, you must also select a branch, tag, or commit. Wodby then accepts only CI builds that
-match that repository and selected source:
+When you link a Git repository or edit an existing linked source, you must also select a branch, tag, or commit. Wodby
+then accepts only CI builds that match that repository and selected source:
 
 - a branch or tag must match both the reported ref type and exact ref name
 - a commit source must match the reported commit SHA
@@ -40,6 +40,10 @@ pipeline should control which refs can build and deploy.
 
 Changing a linked repository or ref takes effect immediately. A build initialized for the previous source cannot later
 be deployed with `wodby ci deploy`; start a new workflow from the currently selected source instead.
+
+Existing linked sources saved before ref selection was required may have no selected ref. They continue accepting CI
+builds from the linked repository regardless of branch or tag until you edit the source. Dashboard-triggered builds
+remain unavailable for these sources; select a ref to enable matching and supported dashboard build actions.
 
 Public and cloned boilerplate sources use Wodby CI even when the instance's Default CI is third-party. They are not
 initialized with `WODBY_APP_SERVICE_ID`. An app may contain both kinds of source; its deployment waits for builds from
