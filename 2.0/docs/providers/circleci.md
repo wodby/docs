@@ -3,8 +3,8 @@
 ## New build
 
 Wodby starts a CircleCI build from the dashboard by rerunning a previously recorded workflow. Link the app service's
-Git repository and run the first CircleCI workflow outside Wodby so the workflow can be recorded. If the recorded
-workflow is no longer rerunnable in CircleCI, start it again from CircleCI.
+Git repository, select a branch or tag, and run the first CircleCI workflow on that ref outside Wodby so the workflow
+can be recorded. If the recorded workflow is no longer rerunnable in CircleCI, start it again from CircleCI.
 
 ## Build examples with Wodby CLI 2.0
 

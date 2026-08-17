@@ -22,10 +22,24 @@ provider is not supported directly. With Custom CI, Wodby accepts the provider v
 
 You can find the app service ID on the Overview page of the corresponding app service.
 
+## Source selection
+
 When a connected build source inherits third-party Default CI, it does not have to link a Git repository in Wodby. The
 CI provider checks out the code, and Wodby CLI creates the app build from the app service ID plus the git metadata it
-detects in the CI workspace. You can still link a Git repository when you want Wodby to show repository metadata or
-start supported provider builds from the dashboard.
+detects in the CI workspace. In this mode, source selection belongs entirely to the external pipeline.
+
+If you link a Git repository, you must also select a branch, tag, or commit. Wodby then accepts only CI builds that
+match that repository and selected source:
+
+- a branch or tag must match both the reported ref type and exact ref name
+- a commit source must match the reported commit SHA
+
+For example, if the linked source selects the `main` branch, a pull request workflow that checks out and reports a
+feature branch cannot create a Wodby build for that service. Leave the repository unlinked only when the external
+pipeline should control which refs can build and deploy.
+
+Changing a linked repository or ref takes effect immediately. A build initialized for the previous source cannot later
+be deployed with `wodby ci deploy`; start a new workflow from the currently selected source instead.
 
 Public and cloned boilerplate sources use Wodby CI even when the instance's Default CI is third-party. They are not
 initialized with `WODBY_APP_SERVICE_ID`. An app may contain both kinds of source; its deployment waits for builds from
@@ -36,11 +50,12 @@ all source owners before it starts.
 Dashboard build support is provider-specific:
 
 - **GitHub Actions** starts a fresh `workflow_dispatch` using a previously recorded workflow for the linked repository
-  and app service. Run the first workflow outside Wodby so its workflow ID and ref can be recorded.
+  and app service, and dispatches it against the selected ref. Run the first workflow on that ref outside Wodby so its
+  workflow ID can be recorded. Workflows recorded from other refs are not used.
 - **GitLab CI** creates a fresh pipeline for the linked repository and configured branch or tag. A previous build is not
   required.
-- **CircleCI** reruns a previously recorded workflow for the linked repository and app service. Run the first workflow
-  outside Wodby so it can be recorded.
+- **CircleCI** reruns a previously recorded workflow for the linked repository, selected ref, and app service. Run the
+  first workflow on that ref outside Wodby so it can be recorded.
 - **Custom CI** cannot be started or rerun from the dashboard. Start it in the external CI system.
 
 When these requirements are not met, Wodby disables **New build** and shows the missing repository, ref, previously
