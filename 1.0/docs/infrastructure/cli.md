@@ -24,21 +24,6 @@ kubectl -n wodby rollout restart deployment/agent
 kubectl -n wodby rollout status deployment/agent --timeout=5m
 ```
 
-### Updating Infrastructure 7 Agent
-
-Infrastructure 7 currently requires Agent 5.4.2 or newer for dashboard application-log polling. To update an existing Infrastructure 7 server:
-
-```shell
-kubectl -n wodby set image deployment/agent agent=wodbycloud/agent:5.4.2
-kubectl -n wodby rollout status deployment/agent --timeout=5m
-```
-
-Verify the configured image:
-
-```shell
-kubectl -n wodby get deployment agent -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}'
-```
-
 ### Restart Edge
 
 Edge owns the server's public ports, so restarting it can cause a brief interruption:
