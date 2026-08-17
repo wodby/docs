@@ -109,9 +109,9 @@ In that flow you can:
 - choose from available successful builds for services with build sources, including eligible older builds
 - choose **New build** only when the app service's CI provider and build source support dashboard-triggered builds
 
-If **New build** is unavailable, the build selector explains whether the service needs a linked repository, a GitLab
-branch or tag, a previously recorded GitHub Actions or CircleCI workflow, or whether it uses external-only Custom CI.
-A compatible previous successful build remains selectable even when the dashboard cannot start a new one.
+If **New build** is unavailable, the build selector explains whether the service needs a linked repository and ref, a
+previously recorded GitHub Actions or CircleCI workflow from the selected ref, or whether it uses external-only Custom
+CI. A compatible previous successful build remains selectable even when the dashboard cannot start a new one.
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set. Repository
 post-deployment scripts run only when the app service that owns the corresponding build is included in the selected

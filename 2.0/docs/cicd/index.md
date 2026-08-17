@@ -31,7 +31,9 @@ If no external default is configured, new instances use [Wodby CI](wodby-ci.md) 
 
 For connected sources that inherit third-party CI, an app service does not have to link a Git repository in Wodby. The
 CI provider supplies the checkout, and Wodby CLI sends commit, ref, and build metadata when it creates the app build.
-Public and cloned boilerplate sources require their Wodby CI pipeline and Git source.
+If you link a repository, select a branch, tag, or commit; Wodby registers only builds that match the linked source.
+Leave it unlinked when source selection belongs entirely to the external pipeline. Public and cloned boilerplate
+sources require their Wodby CI pipeline and Git source. See [third-party CI source selection](third-party.md#source-selection).
 
 When a build or deployment includes services using both CI paths, Wodby starts the Wodby CI builds and the supported
 third-party builds as one operation. Deployment waits until every service that owns a build source has provided a
