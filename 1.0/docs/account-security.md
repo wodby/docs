@@ -3,8 +3,8 @@
 Wodby 1 supports two-factor authentication (2FA) for individual user accounts.
 When 2FA is enabled, signing in requires both your password and a time-based
 code from a compatible TOTP authenticator app. You can enable it voluntarily,
-and an organization owner or administrator can require it for every active
-member of an organization.
+and an organization owner can require it for every active member of an
+organization.
 
 ## Enable two-factor authentication
 
@@ -59,8 +59,7 @@ Generating new codes immediately invalidates every previous recovery code.
 
 ## Require 2FA for an organization
 
-Organization owners and administrators can require every active member to use
-account-level 2FA:
+Organization owners can require every active member to use account-level 2FA:
 
 1. Enable 2FA for your own account under **Account > Security**.
 2. Open **Organization > Settings > Security**.
@@ -98,8 +97,8 @@ enter your current password plus either an authenticator code or an unused
 recovery code. Future logins will require only your password.
 
 You cannot disable account-level 2FA while you are an active member of any
-organization that requires it. An organization owner or administrator must
-first disable that policy or remove your active membership.
+organization that requires it. An organization owner must first disable that
+policy or remove your active membership.
 
 ## Lost authenticator access
 

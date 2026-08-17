@@ -19,7 +19,7 @@ Wodby provides a set of default roles with following permissions:
 | Delete apps            | ✓     | ✓             |             |           |              |
 | Manage team            | ✓     | ✓             |             |           |              |
 | Manage organization    | ✓     | ✓             |             |           |              |
-| Manage organization 2FA policy | ✓ | ✓           |             |           |              |
+| Manage organization 2FA policy | ✓ |             |             |           |              |
 | View member 2FA status | ✓     | ✓             |             |           |              |
 | Delete stage instance  | ✓     | ✓             |             |           |              |
 | Delete prod instance   | ✓     | ✓             |             |           |              |
