@@ -3,9 +3,10 @@
 Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md),
 [GitLab](../providers/gitlab.md), or [Bitbucket](../providers/bitbucket.md). A connected build source inherits the app
 instance's Default CI. Under Wodby CI, its selected repository and ref are required. Under third-party CI, linking the
-repository in Wodby is optional because the CI provider performs the checkout. If you link it, you must select a branch,
-tag, or commit; Wodby accepts only CI builds that match that source. Leave it unlinked when source selection should
-remain entirely in the external pipeline. Public and cloned boilerplate sources use Wodby CI regardless of Default CI.
+repository in Wodby is optional because the CI provider performs the checkout. When you link or edit it, you must select
+a branch, tag, or commit; Wodby accepts only CI builds that match that source. Leave it unlinked when source selection
+should remain entirely in the external pipeline. Public and cloned boilerplate sources use Wodby CI regardless of
+Default CI.
 
 ## Repository authentication
 

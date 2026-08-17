@@ -26,9 +26,9 @@ to make the relationship explicit.
 
 When a connected source inherits third-party CI, linking its Git repository in Wodby is optional.
 `wodby ci init $WODBY_APP_SERVICE_ID` creates the build from the app service ID and the git metadata detected in the CI
-workspace. If you link a repository, you must select a branch, tag, or commit, and the reported build source must match
-that selection. Leave it unlinked when the external pipeline should control source selection. Boilerplate sources
-instead require the repository and pipeline used by Wodby CI. See
+workspace. When you link or edit a repository, you must select a branch, tag, or commit, and the reported build source
+must match that selection. Leave it unlinked when the external pipeline should control source selection. Boilerplate
+sources instead require the repository and pipeline used by Wodby CI. See
 [third-party CI source selection](../cicd/third-party.md#source-selection).
 
 An app instance can include source owners using both CI paths. Wodby coordinates them in one build and deployment
