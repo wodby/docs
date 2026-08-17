@@ -87,15 +87,18 @@ Or specify a service name from your stack, the image of your current stack versi
 wodby ci run -s backend -- composer install -n
 ```
 
-By default, commands using the bind-mounted build context run with the CI workspace's numeric user and group. This
-keeps files created by Composer, npm, and other tools owned by the checkout user without changing ownership of the
-existing codebase. When the CLI applies this numeric identity, it uses `HOME=/tmp` unless you pass `HOME` explicitly.
+On platforms where numeric checkout ownership is available, `wodby ci init` temporarily prepares the bind-mounted
+checkout for the default service image user before running a managed stack initializer in a recognized native CI provider.
+This preserves the image's default user and entrypoint so image-provided actions such as `init-drupal` remain available.
+Before initialization exits, the CLI
+restores the checkout to the CI workspace's numeric user and group, including files created by the initializer. Custom
+stacks, managed stacks without an initializer, and unrecognized environments leave bind-mounted ownership unchanged
+unless you pass `--fix-permissions`; an explicit permission fix remains in place after initialization.
 
-For a managed stack in a recognized native CI provider, `wodby ci init` recursively prepares the bind-mounted checkout
-for the default service image user before running the stack initializer. Custom stacks and unrecognized environments
-leave bind-mounted ownership unchanged unless you pass `--fix-permissions`. The managed initializer keeps the image's
-default user and entrypoint so image-provided actions such as `init-drupal` remain available. An explicit
-`wodby ci run --user` overrides the workspace identity used by subsequent commands.
+Subsequent `wodby ci run` commands also protect native checkout ownership. If the image's default UID differs from the
+workspace UID, the command runs with the workspace's numeric user and group, clears the image's implicit entrypoint,
+and uses `HOME=/tmp` unless you pass `HOME` explicitly. If the UIDs already match, the image's default user and
+entrypoint remain unchanged. An explicit `--user` or `--entrypoint` overrides the corresponding default.
 
 In docker-in-docker mode, the checkout is stored in a Docker-managed data volume. During initialization, the CLI
 resolves the default service image user to a numeric user and group and prepares that volume with its utility image.
