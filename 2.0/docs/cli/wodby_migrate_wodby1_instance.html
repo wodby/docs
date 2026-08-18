@@ -5608,7 +5608,9 @@ all components to a different complete snapshot, or
 not migrated. Apply is resumable and stores its plan and state in the system
 temporary directory. When state exists, the same --apply command preserves the saved plan
 and continues completed work. --restart replaces it only when state proves that
-no target mutation occurred.</p>
+no target mutation occurred. --rollback deletes the Wodby 2 resources this
+migration created and discards its state; it refuses once --verify has
+succeeded, because DNS then points at Wodby 2.</p>
 
     
 
@@ -5693,6 +5695,12 @@ no target mutation occurred.</p>
             <td><code>--retry-ambiguous string</code></td>
             <td>Retry exactly one inspected ambiguous operation ID</td>
             <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--rollback</code></td>
+            <td>Delete the Wodby 2 resources this migration created and discard its resume state</td>
+            <td><code>false</code></td>
           </tr>
         
           <tr>
