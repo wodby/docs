@@ -31,8 +31,17 @@ must match that selection. Leave it unlinked when the external pipeline should c
 sources instead require the repository and pipeline used by Wodby CI. See
 [third-party CI source selection](../cicd/third-party.md#source-selection).
 
-An app instance can include source owners using both CI paths. Wodby coordinates them in one build and deployment
-operation, but does not deploy until every source owner has supplied a deployable build.
+An app instance can include source owners using both CI paths. Each build operation records the exact source owners it
+starts or expects. The resulting deployment waits for those owners only; another buildable service in the same app
+does not block the deployment unless it was selected for that operation.
+
+Selecting **New build** for multiple source owners creates one build group. Wodby starts every supported build in that
+group and begins the deployment after every selected owner supplies a deployable build. Selecting one owner creates a
+single-owner group, while an explicit full new-build operation includes every build-source owner. A source owner that
+is not selected keeps its current deployment, or remains undeployed, until its own build or a later full deployment.
+
+Linked image targets are part of their source owner's build; they are not separate source owners and do not add another
+build requirement to the group.
 
 Build image targets without their own build source are optional. If a build does not produce an image for one of those services, Wodby deploys the service with the configured image from the service manifest or chart. This lets pipelines build `nginx` only when the app needs custom static assets, while still allowing `nginx` to deploy normally as part of the stack.
 

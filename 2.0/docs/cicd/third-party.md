@@ -46,8 +46,8 @@ builds from the linked repository regardless of branch or tag until you edit the
 remain unavailable for these sources; select a ref to enable matching and supported dashboard build actions.
 
 Public and cloned boilerplate sources use Wodby CI even when the instance's Default CI is third-party. They are not
-initialized with `WODBY_APP_SERVICE_ID`. An app may contain both kinds of source; its deployment waits for builds from
-all source owners before it starts.
+initialized with `WODBY_APP_SERVICE_ID`. An app may contain both kinds of source. Each build or deployment operation
+waits only for the source owners selected for that operation rather than every source owner in the app.
 
 ## Dashboard-triggered builds
 
@@ -66,12 +66,34 @@ When these requirements are not met, Wodby disables **New build** and shows the 
 recorded workflow, or provider capability. Existing successful builds remain available for deployment when otherwise
 compatible.
 
+## Deployment grouping
+
+Selecting **New build** for multiple third-party CI source owners creates one deployment group. Wodby dispatches every
+supported provider build and keeps the deployment `awaiting` until exactly those selected owners report deployable
+builds. An unselected build-source owner does not block the group. If a multi-owner dispatch is only partly successful,
+repeating the task retries targets that returned a provider error without starting another run for targets whose
+dispatch was already attempted.
+
+Provider workflows do not currently return a Wodby launch identifier that can distinguish two unresolved dashboard
+requests for the same source owner. Wodby therefore allows only one awaiting dashboard build requirement per source
+owner. Finish or cancel that request before starting another deployment group containing the same owner.
+
+When an externally started workflow reports a build, Wodby uses it for an existing dashboard group only when that group
+is awaiting that source owner. Otherwise, `wodby ci deploy` creates a standalone deployment for the build's released
+service outputs and does not wait for unrelated source owners. Custom CI always starts externally and follows this
+handoff flow.
+
+For a newly created app whose build-source owners all use third-party CI, Wodby does not pre-create a passive full
+deployment. The app remains `awaiting` until the first external build is deployed. If the app mixes Wodby CI and
+third-party CI, its initial Wodby CI group can deploy without waiting for passive external owners. The app itself stays
+`awaiting` until every enabled service that requires a Wodby-managed runtime has a usable deployment.
+
 ## Builds without a linked Git repository
 
 Without a linked Git repository, Wodby cannot poll the CI provider for the build status. After `wodby ci init`, run
-`wodby ci deploy` within three hours. Otherwise, Wodby marks the build as errored and cancels its awaiting deployment.
-A later deploy attempt cannot reopen the expired build; restart the CI workflow so it initializes a new build and
-deployment.
+`wodby ci deploy` within three hours. Otherwise, Wodby marks the build as errored and cancels any awaiting deployment
+that expected it. A later deploy attempt cannot reopen the expired build; restart the CI workflow so it initializes a
+new build and deployment.
 
 ## Typical flow
 
