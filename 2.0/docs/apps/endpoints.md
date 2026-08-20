@@ -14,6 +14,9 @@ From `Apps > [App] > [Instance] > Endpoints` you can manage:
 Domains and redirects are stored as routes behind the scenes, so API, CLI, task, and infrastructure documentation may
 still use the term _route_. The dashboard separates them by what users configure.
 
+To temporarily replace enabled public HTTP and HTTPS routes with a fixed `503 Service Unavailable` response, use
+[app instance maintenance mode](maintenance.md).
+
 ## Domains
 
 Domains receive HTTP and HTTPS traffic for an app service. A domain matches a hostname and path, then serves the

@@ -26,6 +26,7 @@ Each instance has its own:
 - [Environment](env.md), which is a named Env with a fixed type such as `prod`, `staging`, or `dev`
 - [Stack](stack.md) revision
 - [Endpoints](endpoints.md) to configure HTTP routes and published ports
+- [Maintenance mode](maintenance.md) to temporarily replace public HTTP routes with a maintenance response
 - [App Access](access.md) to choose public, identity-protected, or private-network HTTP access
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has services with build configuration
 - CI provider and container registry selections
@@ -80,6 +81,10 @@ public boilerplate when the same boilerplate is available in the selected stack 
     the `Databases` section and select a different database server or choose `Create new` in the `DB` field.
 
 ## Pausing and resuming an instance
+
+Pausing and [maintenance mode](maintenance.md) serve different purposes. Maintenance mode keeps workloads running and
+temporarily replaces public HTTP routes with a maintenance response. Pause an instance when you want its application
+workloads and scheduled jobs to stop.
 
 Open an app instance's `Settings` tab. Settings opens on `Edit` by default; select `Pause & Resume`, then
 `Pause app instance`, when you want to stop the instance temporarily without deleting its configuration or data.
@@ -150,4 +155,5 @@ new one.
 
 - [Applications overview](index.md)
 - [App vs app instance vs app service](app-vs-instance-vs-service.md)
+- [Maintenance mode](maintenance.md)
 - [Application stack](stack.md)
