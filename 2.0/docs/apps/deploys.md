@@ -7,13 +7,6 @@ services. If two linked services are deployed together, the linked target servic
 
 Deployments use automatic rollback by default. Rollback is best-effort and applies to the app service release that fails.
 
-During the first deployment, Wodby deploys services without a build source immediately. Services with build sources
-usually leave the app instance in `awaiting` until their [CI system](../cicd/index.md) supplies build information. If
-an app uses both Wodby CI and third-party CI sources, Wodby starts the built-in builds and keeps the deployment awaiting
-the external builds; deployment begins only after every source owner has a deployable build. Optional build image
-targets without their own build source can still deploy with their configured service image when the build does not
-provide a custom image for them.
-
 Every deployment is associated with a specific stack revision of the app instance.
 
 Deployments require complete configuration for all enabled app services in the app instance. Wodby blocks deployment
@@ -21,10 +14,35 @@ when a service is missing a required build source, external database, integratio
 
 Deployments are usually triggered in the following ways:
 
-- first deployment after app creation
+- automatic first deployment after app creation when services can deploy immediately or build with Wodby CI
 - deployment of builds [requested from CI](../cicd/deploy.md)
 - automated partial deployments for service-level maintenance
 - manual deployment from the UI
+
+## First deployment
+
+App creation does not always pre-create a full deployment that waits for every buildable service. Initial behavior
+depends on the enabled services and who starts their builds:
+
+- An app without build-source owners starts its full deployment immediately.
+- An app whose build-source owners all use Wodby CI creates an initial build group and starts those builds. The
+  deployment waits for the Wodby CI owners in that group.
+- An app whose build-source owners all use third-party CI remains `awaiting`, but Wodby does not create a passive full
+  deployment record. The first external build reaches deployment through `wodby ci deploy`, which creates a deployment
+  for that build's released services.
+- For an app with both Wodby CI and third-party CI owners, the initial build group includes the Wodby CI owners and
+  enabled runtime services without build sources. Passive third-party owners do not block that group; their services
+  deploy when their own CI builds report back or when they are included in a later explicit operation.
+
+When an app has not yet established its runtime, a build-backed deployment also includes all enabled services without
+build sources if any of them has not deployed successfully, is unhealthy, or needs redeployment. This is an initial
+runtime safety rule, not an inferred companion relationship between independent build-source owners. Optional build
+image targets without their own source can use the image produced by their linked owner or their configured service
+image when that build does not provide one.
+
+A partial deployment can complete successfully while the app instance remains `awaiting`. The instance becomes `ok`
+only after every enabled service that requires a Wodby-managed runtime has a usable deployment. Services omitted from
+the first build group can be deployed by their own CI handoff or a later manual deployment.
 
 ## Deferred initial deployment
 
@@ -91,6 +109,11 @@ Deployments from CI are triggered with `wodby ci deploy`.
 
 Each build deployment creates a new deployment record associated with the selected build. One build can contain image outputs for multiple app services. CI-triggered deployments can also skip post-deployment scripts for the built services when needed.
 
+A CI build started outside an existing dashboard build group deploys its own released service outputs without waiting
+for unrelated build-source owners. On an app that has not established its runtime yet, Wodby also includes the enabled
+services without build sources required for that initial runtime. Other build owners remain independent and deploy
+when their own builds report back.
+
 Regular app builds can continue while the target cluster is undergoing an infrastructure upgrade. If all required
 builds become ready during the upgrade, the deployment remains `awaiting` without a deployment task. Wodby starts it
 automatically after the cluster returns to `ok`; you do not need to trigger the deployment again. If the infrastructure
@@ -112,6 +135,11 @@ In that flow you can:
 If **New build** is unavailable, the build selector explains whether the service needs a linked repository and ref, a
 previously recorded GitHub Actions or CircleCI workflow from the selected ref, or whether it uses external-only Custom
 CI. A compatible previous successful build remains selectable even when the dashboard cannot start a new one.
+
+When you select **New build** for multiple source owners, Wodby creates one awaiting deployment and starts the supported
+builds together. That deployment waits for exactly the selected owners. Selecting only one source owner does not wait
+for other buildable services in the app; a full new-build deployment includes every build-source owner and waits for
+all of them.
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set. Repository
 post-deployment scripts run only when the app service that owns the corresponding build is included in the selected

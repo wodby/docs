@@ -36,9 +36,11 @@ source. Leave it unlinked when source selection belongs entirely to the external
 boilerplate sources require their Wodby CI pipeline and Git source. See
 [third-party CI source selection](third-party.md#source-selection).
 
-When a build or deployment includes services using both CI paths, Wodby starts the Wodby CI builds and the supported
-third-party builds as one operation. Deployment waits until every service that owns a build source has provided a
-deployable build.
+When a build or deployment includes services using both CI paths, Wodby starts the selected Wodby CI builds and
+supported third-party builds as one operation. The deployment waits only for the source owners selected for that
+operation. Other buildable services do not block it and deploy through their own build or a later full operation. See
+[application builds](../apps/builds.md#build-sources-and-image-targets) and
+[third-party CI deployment grouping](third-party.md#deployment-grouping).
 
 `wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If the CI
 provider is not recognized, the CLI reads git metadata from the checkout and sends `provider: unknown`. Pass
