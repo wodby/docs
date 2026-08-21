@@ -5607,10 +5607,13 @@ all components to a different complete snapshot, or
 --skip-data to omit data. Changes made after the selected backup completed are
 not migrated. Apply is resumable and stores its plan and state in the system
 temporary directory. When state exists, the same --apply command preserves the saved plan
-and continues completed work. --restart replaces it only when state proves that
-no target mutation occurred. --rollback deletes the Wodby 2 resources this
-migration created and discards its state; it refuses once --verify has
-succeeded, because DNS then points at Wodby 2.</p>
+and continues completed work. --apply --restart replaces the saved plan. If the
+migration already changed Wodby 2, the CLI first shows and confirms removal of
+only the resources recorded as created by this migration; pre-existing target
+apps and reused resources are preserved. Restart is refused after successful
+verification or while any target operation remains ambiguous. --rollback
+deletes the Wodby 2 resources this migration created and discards its state; it
+refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
 
     
 
@@ -5687,7 +5690,7 @@ succeeded, because DNS then points at Wodby 2.</p>
         
           <tr>
             <td><code>--restart</code></td>
-            <td>Start a new applied plan only when saved state proves that no target mutation occurred (requires --apply)</td>
+            <td>Replace the saved plan, safely removing migration-created target resources first when necessary (requires --apply)</td>
             <td><code>false</code></td>
           </tr>
         

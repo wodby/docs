@@ -5607,9 +5607,12 @@ individual snapshots, or --skip-data to omit data. Changes after each selected
 backup completed are not migrated. Test the
 migrated apps before changing DNS, then use --verify. When per-app state exists,
 --apply preserves the aggregate saved plan and continues completed work;
---restart is allowed only before any target mutation. --rollback deletes the
-Wodby 2 resources this migration created and discards its state; it refuses
-once --verify has succeeded, because DNS then points at Wodby 2.</p>
+--apply --restart replaces the saved plan after showing and confirming removal
+of only resources recorded as created by these migrations. Pre-existing target
+apps and reused resources are preserved. Restart is refused after successful
+verification or while any target operation remains ambiguous. --rollback
+deletes the Wodby 2 resources this migration created and discards its state; it
+refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
 
     
 
@@ -5697,7 +5700,7 @@ once --verify has succeeded, because DNS then points at Wodby 2.</p>
         
           <tr>
             <td><code>--restart</code></td>
-            <td>Start a new applied plan only when saved state proves that no target mutation occurred (requires --apply)</td>
+            <td>Replace the saved plan, safely removing migration-created target resources first when necessary (requires --apply)</td>
             <td><code>false</code></td>
           </tr>
         
