@@ -421,6 +421,8 @@ Each object supports:
 - `dockerignore`: relative repository path to `.dockerignore` content. The file must exist.
 - `dockerfileContent`: inline Dockerfile content.
 - `dockerignoreContent`: inline `.dockerignore` content.
+- `copySubdir`: subdirectory of the repository this build copies, applied to both the source and the destination so the
+  path is preserved. May reference a service setting as `{{settings.<name>}}`. Leave unset to copy the whole context.
 - `connect`: whether the service supports a connected git repository.
 - `link`: service link whose target owns the build source for this image target.
 - `boilerplates`: starter repositories users can clone as a starting point.
@@ -434,6 +436,10 @@ builds. Do not combine `build.link` with `connect: true`, `boilerplates`, or the
 
 Docker build arguments are opt-in. Wodby passes only values marked with `build: true` from service env vars, service
 settings, or app-service env vars. Runtime-only values are not passed to builds.
+
+A `copySubdir` reference is resolved from the setting itself and does not require `build: true`. The referenced setting
+must be declared by the same manifest and must not be secret, and the value must be a relative path without `..`;
+import fails otherwise.
 
 Each `build.boilerplates[]` item supports:
 
