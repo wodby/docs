@@ -55,19 +55,49 @@ repository overrides the app instance's Default CI for that app service and uses
 
 ### Dockerfile
 
-Services can specify a custom Dockerfile in the service manifest. Use `build.dockerfile` for a path in the same
-repository; it is resolved relative to the directory containing `service.yml` and must exist. Use
-`build.dockerignore` for the matching ignore file. Wodby CI uses this configuration during
-`wodby ci build [service]`.
+Most services do not need one. Wodby CI generates a Dockerfile that builds from the service image and copies the
+codebase into it, which is all a typical service requires.
 
-Use `build.dockerfileContent` or `build.dockerignoreContent` when the content is defined inline in `service.yml`. Do not
+Provide one only when the image needs build steps the generated Dockerfile cannot express, such as compiling
+dependencies. Use `build.dockerfile` for a path in the same repository; it is resolved relative to the directory
+containing `service.yml` and must exist. Use `build.dockerignore` for the matching ignore file. Use
+`build.dockerfileContent` or `build.dockerignoreContent` when the content is defined inline in `service.yml`. Do not
 specify a path field and its corresponding content field together.
+
+Preparing the codebase for the image is not a reason to provide one. Service images apply their own init action when
+the container starts, so a Dockerfile does not have to run it. To narrow the build to part of the repository, use
+`build.copySubdir` below.
+
+### Copying part of the repository
+
+A service that needs only one directory of the repository, such as a web server that serves the docroot while the
+application runs in a linked service, sets `build.copySubdir`:
+
+```yaml
+build:
+  link: backend
+  copySubdir: "{{settings.docroot}}"
+```
+
+The value is a subdirectory, applied to both the source and the destination, so the path is preserved: the codebase at
+`web` in the repository lands at `web` under the image working directory. Both sides use the same value because a web
+server and the application it passes requests to must resolve the docroot to the same absolute path.
+
+It may reference a service setting as `{{settings.<name>}}`, so the value follows whatever the user configures rather
+than being fixed in the manifest. The setting must be declared by the same manifest and must not be secret; import
+fails otherwise, as it does for an absolute path or one containing `..`.
+
+Leave `copySubdir` unset to copy the whole build context, which is the default.
 
 ### Build arguments
 
-Docker build arguments are explicit. If a service Dockerfile declares an `ARG`, Wodby passes a value only when the
+Docker build arguments are explicit. If a Dockerfile declares an `ARG`, Wodby passes a value only when the
 corresponding service setting, service environment variable, or app-service environment variable is marked
-`build: true`.
+`build: true`. This applies to a Dockerfile provided by the service and to one provided by the app being built; the
+generated Dockerfile declares only `WODBY_BASE_IMAGE`, `COPY_FROM` and `COPY_TO`.
+
+An `ARG` with no matching build-scoped value is not an error. Docker expands it to an empty string, so a `COPY` written
+in terms of it silently copies a different path.
 
 Runtime values are not passed to image builds by default. This keeps deployment-only configuration and integration
 credentials out of the build environment unless a value is deliberately marked as a build input.

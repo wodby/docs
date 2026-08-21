@@ -23,7 +23,25 @@ ARG COPY_TO
 COPY --chown={{.DefaultUser}}:{{.DefaultUser}} ${COPY_FROM} ${COPY_TO}
 ```
 
-`WODBY_BASE_IMAGE` comes from the current stack definition. `COPY_FROM` and `COPY_TO` default to `.` and can be changed with `--from` and `--to`.
+`WODBY_BASE_IMAGE` comes from the current stack definition. `COPY_FROM` and `COPY_TO` default to `.` and can be changed with `--from` and `--to`. When a service sets `build.copySubdir`, that subdirectory is appended to both, so the flags give the roots and the service gives the path within them.
+
+## Building from your own Dockerfile
+
+A Dockerfile taken from the repository, whether by `--dockerfile` or as `<service>_Dockerfile` in the build context, must build from the service image:
+
+```dockerfile
+ARG WODBY_BASE_IMAGE
+FROM ${WODBY_BASE_IMAGE}
+```
+
+In a multi-stage build the final stage must be the one that uses it. After the build the CLI compares image layers to confirm this, and fails when the image is not derived from the service image. Such an image stops receiving service image updates while Wodby continues to report the app service as running the service image version.
+
+Pass `--allow-unmanaged-image` to build anyway. The build then warns, and the image is recorded as unmanaged so the app build view shows that it no longer tracks service image versions.
+
+Two things worth knowing when maintaining your own Dockerfile:
+
+- You do not need to run the service init action. Service images apply it on container start, so a `RUN make init-...` line is redundant, though harmless because the action is idempotent.
+- An `ARG` only receives a value when the matching service setting or environment variable is marked as a build argument. An `ARG` with no such value expands to an empty string rather than failing the build, so a `COPY` written in terms of it copies a different path.
 
 The matching ignore file is `<dockerfile>.dockerignore`. If it is not present in the build context, the CLI falls back to the `.dockerignore` from the Wodby service config or to a small default ignore list.
 
