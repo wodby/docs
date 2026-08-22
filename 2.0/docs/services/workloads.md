@@ -104,8 +104,12 @@ Each `workloads[]` item supports:
 - `selector`: required Kubernetes selector used by Wodby to find the rendered workload resource.
 - `kind`: required workload kind. Allowed values: `deployment`, `statefulset`, `daemonset`.
 - `primary`: optional boolean. Marks the default workload for runtime operations.
+- `deployment`: optional workload-specific rollout, readiness, and graceful-shutdown settings.
 - `helm`: optional workload-level Helm mappings.
 - `containers`: required list of containers for this workload.
+
+Workload deployment settings override service-wide defaults one field at a time. See
+[Deployment configuration](deployment.md) for supported settings and workload-kind restrictions.
 
 ### Workload names
 
@@ -202,8 +206,16 @@ See also: [Service build](build.md).
 - `annotations`
 - `volumes`
 - `sidecars`
+- `strategy`
+- `minReady`
+- `progressDeadline`
+- `shutdownGracePeriod`
 
 These are Helm value paths used when Wodby injects workload-scoped data.
+
+The four deployment paths are required for charts with multiple workloads when the corresponding setting needs to be
+passed to Helm. Service-level deployment mapping defaults apply only to single-workload services. See
+[Deployment value mappings](helm.md#deployment-value-mappings).
 
 ### Container-level Helm mappings
 

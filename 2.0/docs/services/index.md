@@ -48,6 +48,7 @@ Use these pages when creating or maintaining custom services:
 Use these pages to understand how a service deploys and connects inside an app:
 
 - [Workloads](workloads.md): Kubernetes workload mapping, selectors, containers, primary workloads, and build targets.
+- [Deployment](deployment.md): rollout strategy, readiness timing, graceful shutdown, inheritance, and workload overrides.
 - [Helm](helm.md): chart references, Helm values, and image mappings.
 - [Build](build.md): CI/CD build configuration for buildable services.
 - [Networking](networking.md): endpoints and service-to-service links.

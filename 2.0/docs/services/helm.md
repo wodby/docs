@@ -33,6 +33,10 @@ Wodby works best with charts that expose common values such as:
 - `serviceAccountName` or another value that sets `spec.template.spec.serviceAccountName`
 - `image.pullSecrets`
 - `image.pullPolicy`
+- `strategy` or `updateStrategy`
+- `minReadySeconds`
+- `progressDeadlineSeconds`
+- `terminationGracePeriodSeconds`
 - `autoscaling`
 - `image.repository`, `image.tag`, `image.registry`
 - `command`
@@ -45,7 +49,7 @@ multiple workloads, where each workload may have its own image values.
 
 Wodby injects several values that control the app service itself. The optional `helm.valueMappings` object maps those
 settings to paths exposed by the chart. Existing service manifests remain compatible because every omitted mapping
-uses the legacy default:
+uses its documented compatibility default:
 
 | App-service setting | Default Helm value path |
 | --- | --- |
@@ -53,6 +57,10 @@ uses the legacy default:
 | Full resource-name override | `fullnameOverride` |
 | Kubernetes service account name | `serviceAccountName` |
 | Disable chart-owned service account creation | No default; configure `serviceAccountCreate` when needed |
+| Rollout strategy | `strategy` for Deployments; `updateStrategy` for StatefulSets and DaemonSets |
+| Minimum ready duration | `minReadySeconds` |
+| Deployment progress deadline | `progressDeadlineSeconds` |
+| Pod shutdown grace period | `terminationGracePeriodSeconds` |
 
 Override only the paths that differ from these defaults. For example, a chart that nests its deployment values can
 define:
@@ -68,6 +76,10 @@ helm:
     fullnameOverride: workload.fullnameOverride
     serviceAccountName: serviceAccount.name
     serviceAccountCreate: serviceAccount.create
+    strategy: workload.strategy
+    minReady: workload.minReadySeconds
+    progressDeadline: workload.progressDeadlineSeconds
+    shutdownGracePeriod: workload.terminationGracePeriodSeconds
 ```
 
 An explicit `replicas` mapping replaces both legacy replica aliases with the configured path. Each other property is
@@ -94,6 +106,51 @@ that break the rendered workload contract are rejected by import validation.
 When a chart keeps the full image path inside one repository value and does not expose a separate registry field, set
 `workloads[].containers[].helm.image.registry: ""`. This disables separate registry injection and makes Wodby write the
 full repository path into the configured `repository` value instead.
+
+## Deployment value mappings
+
+Deployment configuration is optional. Wodby writes only the fields configured by the service, stack, or app service;
+an unset field remains absent from the generated Helm values so the chart can apply its own default.
+
+For a service with one workload, the compatibility defaults are:
+
+| Mapping | Deployment | StatefulSet | DaemonSet |
+| --- | --- | --- | --- |
+| `strategy` | `strategy` | `updateStrategy` | `updateStrategy` |
+| `minReady` | `minReadySeconds` | `minReadySeconds` | `minReadySeconds` |
+| `progressDeadline` | `progressDeadlineSeconds` | Not supported | Not supported |
+| `shutdownGracePeriod` | `terminationGracePeriodSeconds` | `terminationGracePeriodSeconds` | `terminationGracePeriodSeconds` |
+
+The configured `maxUnavailable` and `maxSurge` values are written below the strategy path as
+`rollingUpdate.maxUnavailable` and `rollingUpdate.maxSurge`.
+
+Override only paths that differ from these defaults:
+
+```yaml
+helm:
+  valueMappings:
+    strategy: controller.updateStrategy
+    minReady: controller.minReadySeconds
+    progressDeadline: controller.progressDeadlineSeconds
+    shutdownGracePeriod: controller.terminationGracePeriodSeconds
+```
+
+Service-level deployment mappings are resolved only for a service with one workload. A chart that renders multiple
+workloads must define each workload's paths explicitly:
+
+```yaml
+workloads:
+  - name: server
+    kind: deployment
+    helm:
+      strategy: server.strategy
+      minReady: server.minReadySeconds
+      progressDeadline: server.progressDeadlineSeconds
+      shutdownGracePeriod: server.terminationGracePeriodSeconds
+```
+
+See [Deployment configuration](deployment.md) for the supported settings, strategies, workload kinds, and inheritance
+rules.
 
 ## Import validation
 

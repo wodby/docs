@@ -91,6 +91,16 @@ service. Stacks without an eligible service can have no main service.
 You can set the number of replicas per service. This is not available for external services. Fixed services accept
 zero or one replica; services whose revision supports horizontal scaling can use higher replica counts.
 
+### Deployment
+
+Configure rollout strategy, readiness timing, and graceful shutdown from
+`Stack > Stack services > [Service] > Configuration > Deployment`. Use `All workloads` for service-wide settings and,
+for services with multiple workloads, use a workload card only where different behavior is needed.
+
+Unset fields inherit service-manifest defaults or remain controlled by the Helm chart. Saving changes updates the
+stack draft; publish the draft and upgrade app instances to apply them. See
+[Deployment configuration](../services/deployment.md) for supported values and precedence.
+
 ### Build source
 
 When a stack service supports a connected build source, `Configuration > General` also shows a separate `Build source`

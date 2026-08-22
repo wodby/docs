@@ -266,6 +266,7 @@ nav:
       - Template: services/template.md
       - Types: services/types.md
       - Workloads: services/workloads.md
+      - Deployment: services/deployment.md
       - Helm: services/helm.md
       - Build: services/build.md
       - Networking: services/networking.md
