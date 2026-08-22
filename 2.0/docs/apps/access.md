@@ -3,6 +3,15 @@
 App access controls whether an app instance is published through ordinary Wodby routes or through a supported access
 provider. It applies to HTTP endpoints and is configured independently for each app instance.
 
+## Availability
+
+Application Access requires an active paid subscription. Organizations on the free Developer plan can create apps in
+`Public` mode, but `Protected` mode is unavailable until the organization upgrades.
+
+Before scheduling a downgrade to Developer, remove Application Access from every app instance. If paid access becomes
+unavailable while an existing configuration remains, its protection stays active and readable, but it cannot be
+changed. You can still remove it, and Wodby can still finish provider cleanup.
+
 ## Modes
 
 The app creation form offers two modes:
