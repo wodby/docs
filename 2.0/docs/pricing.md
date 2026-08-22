@@ -36,6 +36,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - backup presets and automatic backups
 - scheduled and manually run cron jobs
 - web shell for containers
+- Application Access for protected or private-network HTTP endpoints
 - best-effort support
 - $30 of Wodby Cloud usage per month
 
@@ -107,7 +108,11 @@ After a downgrade is scheduled:
 - new paid-only features and capacity above the Developer plan limit are not available
 
 To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
-features. App instance pausing is a paid feature, so no instance can be `Pausing` or `Paused` when a downgrade is
+features. Application Access is a paid feature, so remove it from every app instance under **Apps > your app > your
+instance > Settings > Access** before scheduling a downgrade. The downgrade error identifies each affected app and
+instance.
+
+App instance pausing is also a paid feature, so no instance can be `Pausing` or `Paused` when a downgrade is
 scheduled. If an instance is `Pausing`, wait for it to reach `Paused`; then open **Apps > your app > your instance >
 Settings > Pause & Resume**, select **Resume app instance**, and retry the downgrade after it finishes. The downgrade
 error identifies each affected app and instance.
