@@ -74,7 +74,7 @@ Inside `Apps > [App] > [Instance] > Stack > App services > [Service]`, the dashb
 primary tabs:
 
 - `Overview`
-- `Configuration`: `General`, `Variables`, `Helm`, `Settings`, `Configs`, `Tokens`, and `Annotations`
+- `Configuration`: `General`, `Deployment`, `Variables`, `Helm`, `Settings`, `Configs`, `Tokens`, and `Annotations`
 - `Connections`: `Integrations`, `Links`, and `Database`
 - `Runtime`: `Resources` and `Volumes`
 - `Actions`
@@ -91,7 +91,7 @@ In general:
 - `Metrics` appears only when cluster monitoring is enabled and the app service is not external or disabled
 - `Actions` appears only when the service defines user-runnable actions
 - `Database` appears only for services with database support
-- `Variables`, `Helm`, and `Resources` appear only for non-external services
+- `Deployment`, `Variables`, `Helm`, and `Resources` appear only for non-external services
 - `Links`, `Volumes`, `Settings`, and `Configs` appear only when the service supports them
 - `Tokens` appear only for non-external top-level services
 - `Annotations` appear only for non-external services
@@ -236,6 +236,17 @@ This is commonly used for storage, mail, monitoring, or other provider-backed fe
 Variable integrations inject provider-wide fields and fields from the matching selected kind into runtime containers
 only. Fields owned by other provider kinds are not injected through that service requirement. Variable integration
 values are not passed to image builds.
+
+## Deployment tab
+
+The `Configuration > Deployment` subtab controls rollout strategy, readiness timing, and graceful shutdown for this app
+service. Use `All workloads` for service-wide settings. Services with multiple workloads also show workload cards for
+targeted overrides.
+
+Each unset field inherits independently from the stack service or service manifest. If no inherited value exists, the
+Helm chart keeps its default. Saving a deployment override marks the app instance as needing redeploy. See
+[Deployment configuration](../services/deployment.md) for supported settings, workload-kind restrictions, and the full
+precedence order.
 
 <a id="env-vars-tab"></a>
 

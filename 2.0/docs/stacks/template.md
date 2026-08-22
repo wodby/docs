@@ -302,6 +302,25 @@ Type: `integer`. Default: `1`.
 Default number of replicas for the stack service. Fixed service revisions accept `0` or `1`; service revisions that
 support horizontal scaling can use higher values.
 
+### `services[].deployment`
+
+Type: `object`.
+
+Service-wide deployment overrides for every app created from this stack revision. Each property overrides the matching
+service-manifest default independently.
+
+The object supports:
+
+- `strategy`
+- `maxUnavailable`
+- `maxSurge`
+- `minReady`
+- `progressDeadline`
+- `shutdownGracePeriod`
+
+For field formats, workload-kind restrictions, and precedence, see
+[Deployment configuration](../services/deployment.md).
+
 ### `services[].main`
 
 Type: `boolean`.
@@ -364,7 +383,11 @@ Per-workload overrides for workloads defined by the referenced service.
 Each item supports:
 
 - `name`: required workload name from the referenced service manifest. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
-- `containers`: required list of container overrides for that workload.
+- `deployment`: optional deployment override for this workload. It supports the same fields as
+  `services[].deployment`.
+- `containers`: optional list of container overrides for that workload.
+
+Each workload override must contain `deployment`, `containers`, or both.
 
 Each `services[].workloads[].containers[]` item supports:
 
@@ -466,6 +489,9 @@ Each item supports:
 - `required`: optional boolean.
 - `env`: optional environment variables.
 - `helm`: optional Helm values.
+- `deployment`: optional service-wide deployment overrides.
+- `workloads`: optional workload-specific deployment and container overrides, with the same shape as
+  `services[].workloads`.
 
 Only derivatives declared by the referenced service can be used here. Derivative stack service names follow the same
 [Kubernetes service name rules](../naming.md#kubernetes-service-names) as `services[].name`.

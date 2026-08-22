@@ -173,7 +173,7 @@ actions:
   base service.
 - Only services of type `service` can use the `build` section.
 - Only services of type `db` can use the `database` section.
-- `external: true` is for services managed outside Wodby. External services cannot define `workloads`, `build`,
+- `external: true` is for services managed outside Wodby. External services cannot define `deployment`, `workloads`, `build`,
   `links`, `volumes`, `settings`, `env`, `configs`, `actions`, `certs`, `keys`, `cron`, or `derivatives`.
 - Infrastructure services cannot be external and do not use `options`, `tokens`, or `imports`.
 - Kubernetes-facing names are validated during import and deployment. See [Naming rules](../naming.md) for service, workload, endpoint, port, volume, config, and generated resource name constraints.
@@ -358,6 +358,25 @@ has been explicitly integrated and validated.
 Wodby uses this flag for API validation, dashboard controls, Helm chart conformance, and backend-managed autoscaling.
 Fixed services accept zero or one replica; scalable services must render the requested replica count exactly.
 
+### `deployment`
+
+Type: `object`.
+
+Optional service-wide rollout, readiness, and graceful-shutdown defaults. Each field can be overridden for an individual
+workload, stack service, or app service.
+
+The object supports:
+
+- `strategy`: `rolling`, `recreate`, or `onDelete`, subject to the workload kind.
+- `maxUnavailable`: non-negative integer or percentage from `0%` through `100%`.
+- `maxSurge`: non-negative integer or percentage from `0%` through `100%`.
+- `minReady`: duration a pod must remain ready before it is considered available.
+- `progressDeadline`: maximum time a Deployment rollout may make no progress.
+- `shutdownGracePeriod`: time Kubernetes gives containers to stop before forcefully terminating them.
+
+Durations use Go duration syntax and must resolve to whole seconds. For workload-kind restrictions, precedence, and
+examples, see [Deployment configuration](deployment.md).
+
 ### `labels`
 
 Type: `array[string]`.
@@ -402,6 +421,7 @@ Each workload declares:
 - a rendered Kubernetes target selected by `selector.matchLabels`
 - a `kind`
 - one or more `containers`
+- optional workload-specific `deployment` settings
 - optional workload- and container-level Helm value mappings
 
 If the service has multiple workloads, mark one as `primary`. The primary workload is the default target used by
@@ -865,7 +885,8 @@ The object supports:
 - `chart`: required chart name.
 - `version`: required chart version.
 - `imagePullSecrets`: optional Helm value path for image pull secrets. Defaults to `image.pullSecrets`.
-- `valueMappings`: optional paths for backend-managed app-service values. Omitted mappings retain the legacy defaults.
+- `valueMappings`: optional paths for backend-managed app-service values. Omitted mappings retain the documented
+  compatibility defaults.
 - `crds`: optional CRD file list.
 - `values`: optional extra Helm values. `helm.values[].value` can use [built-in runtime tokens](../apps/tokens.md)
   and service-defined tokens.
@@ -892,12 +913,21 @@ The object supports:
 - `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
 - `serviceAccountCreate`: optional chart-owned service-account creation path. Wodby sets it to `false` when it supplies
   an annotated service account. There is no compatibility default because not every chart creates an account.
+- `strategy`: rollout-strategy path. Defaults to `strategy` for a Deployment and `updateStrategy` for a StatefulSet or
+  DaemonSet.
+- `minReady`: minimum-ready-seconds path. Defaults to `minReadySeconds`.
+- `progressDeadline`: Deployment progress-deadline-seconds path. Defaults to `progressDeadlineSeconds`.
+- `shutdownGracePeriod`: pod termination-grace-period-seconds path. Defaults to `terminationGracePeriodSeconds`.
 
 `serviceAccountName` must be explicit for service revisions that can use workload identity for an external database.
 If the chart creates the named account, `serviceAccountCreate` is required as well.
 
 Autoscaling paths are intentionally not part of `valueMappings`. Wodby owns the HorizontalPodAutoscaler and continues
 to pass the ordinary replica value to the chart.
+
+Deployment mappings at this level apply only to a service with one workload. Charts with multiple workloads define
+these mappings under `workloads[].helm`. Wodby writes only deployment fields that have an effective configured value;
+unset fields remain controlled by the chart. See [Deployment value mappings](helm.md#deployment-value-mappings).
 
 Example:
 
