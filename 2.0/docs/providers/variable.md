@@ -56,11 +56,11 @@ auto updates. Every custom provider page also exposes its current manifest, task
 See [Custom variable providers](custom-variable-providers.md) for the manifest format, repository layout, update rules,
 and complete dashboard workflow. The standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
-apply to all custom mappings.
+apply to all service-defined integration environment variables.
 
 Variables exposed by variable providers are injected into runtime containers only. By default they retain the names
-defined by the provider; a [service-owned integration mapping](../services/template.md#integrations) can expose only
-selected variables under application-facing names. They are not passed to Docker image builds. Use build-scoped
+defined by the provider; [service-defined integration environment variables](../services/template.md#integrations)
+can expose only selected variables under application-facing names. They are not passed to Docker image builds. Use build-scoped
 app-service environment variables or service settings for Dockerfile build arguments.
 
 ### Matching service requirements

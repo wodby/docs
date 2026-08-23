@@ -639,7 +639,7 @@ Each item supports:
 - `multiple`: optional boolean.
 - `labels`: optional labels used to filter compatible provider kinds.
 - `variables`: optional environment-variable contract for a variable integration.
-- `env`: optional provider-independent output mapping for a variable integration.
+- `env`: optional service-defined environment variables injected from a variable integration.
 - `providers`: optional provider-specific overrides.
 
 An attached integration is compatible only when one of its selected provider kinds has the required `type` and every
@@ -683,8 +683,8 @@ provider-wide fields plus fields belonging to the matching selected kinds. Field
 kind are not exposed through that service integration slot.
 
 Define `integrations[].env` when the service should own the final runtime names or add service-specific literal values.
-In this mode, `env` is the complete output mapping: raw provider variables are not injected automatically. Reference a
-declared input with `{{integration.variables.NAME}}`:
+In this mode, `env` is the complete set of environment variables Wodby injects for the integration: raw provider
+variables are not injected automatically. Reference a declared input with `{{integration.variables.NAME}}`:
 
 ```yaml
 integrations:
@@ -709,22 +709,22 @@ integrations:
         value: "{{integration.variables.BILLING_ACCOUNT_ID}}"
 ```
 
-Generic environment mappings follow these rules:
+Service-defined integration environment variables follow these rules:
 
 - They are supported only for `type: variable`, require `variables`, and cannot be combined with `multiple: true` or
   `providers`.
 - They can reference only variables declared by the same integration requirement. Provider field tokens are not
   available.
-- A secret input can be mapped only to an environment variable with `secret: true`.
+- A secret input can be injected only into an environment variable with `secret: true`.
 - An optional variable token must be the complete `value`. Wodby omits that environment variable when the selected
   integration does not supply the optional input; embedding an optional token in a larger string is invalid.
 - Literal values are allowed. Every output is runtime-only and is never passed to an image build.
 
-The mapping lets a service depend on a stable provider input shape while retaining control of the application-facing
+This lets a service depend on a stable provider input shape while retaining control of the application-facing
 environment names. Existing service manifests without `env` keep the direct-export behavior.
 
 Do not combine `variables` with `providers`. A native variable contract consumes provider environment variables by
-their declared names, while `providers` defines provider-specific projections to different environment variables.
+their declared names, while `providers` defines provider-specific environment variables.
 
 Each `integrations[].providers[]` item supports:
 
