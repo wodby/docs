@@ -59,11 +59,30 @@ Variable integrations are typically attached to:
 1. Create or choose a provider.
 2. Create an integration from that provider and fill in its fields.
 3. Attach the integration to an app service or stack.
-4. Wodby injects the provider's environment variables into the container.
+4. Wodby injects the provider's environment variables into the container. When the service defines integration
+   environment variables, Wodby injects those instead.
 
 Variable integration env vars are runtime-only. They are not passed to Docker image builds or exported as CI build
 arguments. Use a build-scoped app-service environment variable or service setting when a Dockerfile needs a value
 during build.
+
+## Service-defined environment variables
+
+By default, a variable integration exports matched provider variables under the names defined by the provider. A
+service author can instead declare the provider variables the service needs and define the application-facing runtime
+environment variables that Wodby injects. The service can also inject literal values it owns, such as a driver or mode
+name.
+
+With service-defined environment variables:
+
+- the integration still matches a provider by the declared variable contract rather than a hard-coded provider name
+- only the service-defined environment variables are injected, so extra provider variables are not exposed to the container
+- secret inputs must remain secret outputs
+- an environment variable that directly references a missing optional input is omitted
+- services without an `env` definition retain the default direct-export behavior
+
+See [`integrations` in the service template reference](../services/template.md#integrations) for the manifest syntax,
+validation rules, and a complete example.
 
 ## Built-in vs custom variable providers
 
@@ -73,7 +92,7 @@ If a provider is missing, you can [create a custom variable provider](../provide
 interactively, from a local manifest, or from a Git repository containing one or several provider manifests. The
 standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
-apply to custom mappings.
+apply to service-defined integration environment variables.
 
 Services can declare an exact variable contract instead of naming a particular provider. Wodby then accepts only
 integrations whose selected provider kind supplies the required names, secret classifications, and optionality. This is

@@ -182,8 +182,8 @@ actions:
 
 ### Environment variable object
 
-Used by `env`, `workloads[].containers[].env`, `links[].env`, `integrations[].providers[].env`, `imports[].init.env`, and
-`derivatives[].env`.
+Used by `env`, `workloads[].containers[].env`, `links[].env`, `integrations[].env`,
+`integrations[].providers[].env`, `imports[].init.env`, and `derivatives[].env`.
 
 - `name`: required environment variable name.
 - `value`: required string value.
@@ -214,7 +214,7 @@ runtime, Wodby includes variables without `envType` and variables matching the a
 Environment-variable names must follow the
 [platform naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables).
 
-Provider-specific integration env vars under `integrations[].providers[].env` are runtime-only. They must remain
+Integration env vars under `integrations[].env` and `integrations[].providers[].env` are runtime-only. They must remain
 runtime-enabled and cannot use `build: true`.
 
 ### Helm value object
@@ -639,6 +639,7 @@ Each item supports:
 - `multiple`: optional boolean.
 - `labels`: optional labels used to filter compatible provider kinds.
 - `variables`: optional environment-variable contract for a variable integration.
+- `env`: optional service-defined environment variables injected from a variable integration.
 - `providers`: optional provider-specific overrides.
 
 An attached integration is compatible only when one of its selected provider kinds has the required `type` and every
@@ -675,13 +676,55 @@ creates its own [custom variable provider](../providers/variable.md#custom-varia
 uses `labels`, Wodby verifies during import that a current public or organization provider kind satisfies the complete
 contract.
 
-When `variables` is present, Wodby injects only the variables declared by the service. Deployment fails if a required
-value is missing, resolves more than once, or is not stored with the declared secret classification. Without
-`variables`, the existing behavior remains: Wodby injects provider-wide fields plus fields belonging to the matching
-selected kinds. Fields belonging only to another selected kind are not exposed through that service integration slot.
+When `variables` is present without `env`, Wodby injects only the variables declared by the service, using their
+provider variable names. Deployment fails if a required value is missing, resolves more than once, or is not stored
+with the declared secret classification. Without `variables`, the existing behavior remains: Wodby injects
+provider-wide fields plus fields belonging to the matching selected kinds. Fields belonging only to another selected
+kind are not exposed through that service integration slot.
+
+Define `integrations[].env` when the service should own the final runtime names or add service-specific literal values.
+In this mode, `env` is the complete set of environment variables Wodby injects for the integration: raw provider
+variables are not injected automatically. Reference a declared input with `{{integration.variables.NAME}}`:
+
+```yaml
+integrations:
+  - name: billing
+    title: Billing API
+    type: variable
+    variables:
+      - name: BILLING_API_URL
+      - name: BILLING_API_TOKEN
+        secret: true
+      - name: BILLING_ACCOUNT_ID
+        optional: true
+    env:
+      - name: APP_BILLING_DRIVER
+        value: external
+      - name: APP_BILLING_ENDPOINT
+        value: "{{integration.variables.BILLING_API_URL}}"
+      - name: APP_BILLING_TOKEN
+        value: "{{integration.variables.BILLING_API_TOKEN}}"
+        secret: true
+      - name: APP_BILLING_ACCOUNT
+        value: "{{integration.variables.BILLING_ACCOUNT_ID}}"
+```
+
+Service-defined integration environment variables follow these rules:
+
+- They are supported only for `type: variable`, require `variables`, and cannot be combined with `multiple: true` or
+  `providers`.
+- They can reference only variables declared by the same integration requirement. Provider field tokens are not
+  available.
+- A secret input can be injected only into an environment variable with `secret: true`.
+- An optional variable token must be the complete `value`. Wodby omits that environment variable when the selected
+  integration does not supply the optional input; embedding an optional token in a larger string is invalid.
+- Literal values are allowed. Every output is runtime-only and is never passed to an image build.
+
+This lets a service depend on a stable provider input shape while retaining control of the application-facing
+environment names. Existing service manifests without `env` keep the direct-export behavior.
 
 Do not combine `variables` with `providers`. A native variable contract consumes provider environment variables by
-their declared names, while `providers` defines provider-specific projections to different environment variables.
+their declared names, while `providers` defines provider-specific environment variables.
 
 Each `integrations[].providers[]` item supports:
 
