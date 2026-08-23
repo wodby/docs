@@ -59,6 +59,14 @@ added kind. Some resource-creation permissions cannot be proven without changing
 reported as unverifiable rather than treated as an update failure. For AWS, GCP, and Azure, you can rerun the permission
 test from the integration's **Edit** page.
 
+## Provider revisions and updates
+
+Provider changes create new revisions. When an integration remains on the provider revision it was configured against,
+it is marked **Outdated** if a newer revision is available. Compatible integrations can be updated explicitly from
+their detail page; incompatible integrations remain pinned and show why a migration is required.
+
+See [Integration provider updates](updates.md) for the update workflow and compatibility rules.
+
 ## Where integrations are used
 
 Depending on the provider and type, integrations can be used for:
@@ -78,5 +86,6 @@ Depending on the provider and type, integrations can be used for:
 - [Provider vs integration](providers-vs-integrations.md)
 - [Providers overview](../providers/index.md)
 - [Integration types](types.md)
+- [Integration provider updates](updates.md)
 - [Share an OAuth integration with another organization](organization-sharing.md)
 - [Variable integration](variable.md)
