@@ -107,10 +107,10 @@ code sent to the verified primary email address. A successful login or step-up c
 minutes. API keys and other non-interactive credentials cannot change the setting. Wodby sends the organization's
 owners a security notification after it changes.
 
-| Mode | Apps and clusters | Databases | Integrations and catalog resources |
+| Mode | Apps and clusters | Databases | Integrations, services, stacks, and providers |
 | --- | --- | --- | --- |
 | `Disabled` | No additional deletion blocks | No additional deletion blocks | No additional deletion blocks |
-| `Production` | Blocks deleting a non-infrastructure app instance in a `prod` environment. It also blocks deleting an app or cluster when that operation would delete such an instance. | Blocks deleting a database server in a `prod` environment or an individual DB inside it. | No additional deletion blocks |
+| `Production` | Blocks deleting a non-infrastructure app instance in a `prod` environment. It also blocks deleting an app or cluster when that operation would delete such an instance. | Blocks deleting a database server in a `prod` environment or an individual DB inside it. | Blocks deleting integrations. Services, stacks, and providers remain deletable. |
 | `All` | Blocks deleting every cluster and every non-infrastructure app instance. It also blocks deleting an app when that operation would delete one or more such instances. | Blocks deleting every database server and every individual DB. | Blocks deleting integrations, services, stacks, and providers. |
 
 The `Production` mode uses the environment's type, not its display name. An environment that is named “Production”
