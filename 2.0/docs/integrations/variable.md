@@ -59,11 +59,29 @@ Variable integrations are typically attached to:
 1. Create or choose a provider.
 2. Create an integration from that provider and fill in its fields.
 3. Attach the integration to an app service or stack.
-4. Wodby injects the provider's environment variables into the container.
+4. Wodby injects the provider's environment variables into the container, using the service-defined output mapping
+   when the service declares one.
 
 Variable integration env vars are runtime-only. They are not passed to Docker image builds or exported as CI build
 arguments. Use a build-scoped app-service environment variable or service setting when a Dockerfile needs a value
 during build.
+
+## Service-owned environment mappings
+
+By default, a variable integration exports matched provider variables under the names defined by the provider. A
+service author can instead declare the provider variables the service needs and map them to application-facing runtime
+names. The mapping can also add literal values owned by the service, such as a driver or mode name.
+
+With a service-owned mapping:
+
+- the integration still matches a provider by the declared variable contract rather than a hard-coded provider name
+- only mapped outputs are injected, so extra provider variables are not exposed to the container
+- secret inputs must remain secret outputs
+- an exact mapping for a missing optional input is omitted
+- services without a mapping retain the default direct-export behavior
+
+See [`integrations` in the service template reference](../services/template.md#integrations) for the manifest syntax,
+validation rules, and a complete example.
 
 ## Built-in vs custom variable providers
 

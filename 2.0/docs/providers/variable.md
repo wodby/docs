@@ -58,8 +58,10 @@ and complete dashboard workflow. The standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
 apply to all custom mappings.
 
-Variables exposed by variable providers are injected into runtime containers only. They are not passed to Docker image
-builds. Use build-scoped app-service environment variables or service settings for Dockerfile build arguments.
+Variables exposed by variable providers are injected into runtime containers only. By default they retain the names
+defined by the provider; a [service-owned integration mapping](../services/template.md#integrations) can expose only
+selected variables under application-facing names. They are not passed to Docker image builds. Use build-scoped
+app-service environment variables or service settings for Dockerfile build arguments.
 
 ### Matching service requirements
 
