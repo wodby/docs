@@ -29,9 +29,14 @@ To update an integration:
 2. Review the current and target revisions in the provider update notice.
 3. Review any compatibility reasons shown by Wodby.
 4. If the update is compatible, select `Update provider`.
+5. If every incompatibility comes from fields removed by the new provider revision, select
+   `Drop fields and update`, review the fields, and confirm the permanent deletion.
 
 Wodby checks compatibility again when you submit the update. A successful update changes the integration's provider
-revision and related selected-kind metadata together.
+revision and related selected-kind metadata together. A confirmed destructive update also deletes the listed stored
+field values and any secrets owned by those fields in the same operation. Variables exported by those fields stop
+being available to resources that use the integration. Wodby marks affected app services for redeploy so their next
+deployment uses the new variable set.
 
 When a provider update leaves existing integrations pinned, update each compatible integration when you are ready to
 adopt the new contract.
@@ -53,8 +58,12 @@ or adding an optional field can remain compatible.
 
 ## Updates that require migration
 
-When Wodby cannot preserve the existing integration contract safely, the integration stays pinned and the dashboard
-shows the compatibility reasons instead of the update action. Examples include:
+When Wodby cannot preserve the existing integration contract safely, the dashboard shows the compatibility reasons.
+If deleting fields absent from the target revision resolves every reason, Wodby offers `Drop fields and update`. This
+action requires confirmation because the listed values and secrets cannot be recovered through the integration.
+
+Wodby does not offer the destructive action for unrelated contract changes. The integration stays pinned when another
+migration is required. Examples include:
 
 - removing a selected kind or required capability
 - removing a field for which the integration has a stored value
@@ -64,8 +73,8 @@ shows the compatibility reasons instead of the update action. Examples include:
 - adding validation that rejects the stored value
 - moving to an incompatible major provider version
 
-The provider's new revision remains available to new integrations. Existing incompatible integrations require a
-provider-specific migration or a replacement integration before they can leave the older revision.
+The provider's new revision remains available to new integrations. Existing integrations with unsupported changes
+require a provider-specific migration or a replacement integration before they can leave the older revision.
 
 ## Shared OAuth integrations
 
