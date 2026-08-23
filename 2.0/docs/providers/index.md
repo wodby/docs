@@ -9,6 +9,10 @@ Providers are Wodby's definitions for supported third-party services. A provider
 
 When you create a new integration, you first choose the provider and then fill in the fields required by that provider.
 
+Provider changes are published as new revisions. New integrations use the current revision. Existing integrations can
+be advanced by a compatible managed rollout or remain pinned until they are
+[updated explicitly](../integrations/updates.md).
+
 If you are choosing by task rather than by vendor, start with [Integration types](../integrations/types.md) and then jump to the matching provider group from there.
 
 ## How provider pages are organized
@@ -49,4 +53,5 @@ manifest, Git layout, update, task, and sharing workflows.
 - [Integrations overview](../integrations/index.md)
 - [Integration types](../integrations/types.md)
 - [Variable integration](../integrations/variable.md)
+- [Integration provider updates](../integrations/updates.md)
 - [Custom variable providers](custom-variable-providers.md)

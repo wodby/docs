@@ -174,13 +174,17 @@ connection, so changing them from one resource also changes them for the other r
 ### Revision and compatibility rules
 
 - Keep the manifest `name` unchanged.
-- If integrations already use the provider, an update must preserve the credential contract: kind names and options,
-  field names and types, environment-variable mappings, validation, optionality, and upload constraints.
-- Metadata-only changes, such as titles, instructions, and icons, can update existing integrations to the new provider
-  revision automatically.
+- Every valid content change creates a new provider revision, including credential-contract changes.
+- New integrations use the current provider revision.
+- Existing integrations remain pinned to the revision they were configured against and are marked **Outdated** when a
+  newer revision exists.
+- Compatible integrations can be updated explicitly from the integration detail page.
+- Incompatible integrations continue using their pinned revision until a migration or replacement path is available.
 
-Make a credential-contract change before creating integrations, or create a separate provider contract and move
-integrations deliberately.
+Before updating an integration, Wodby checks its selected kinds, authentication, scope, stored fields, environment
+variables, secret storage, and validation against the current provider revision. Removing a stored field, adding a
+required field without a value, or changing a field's type or variable mapping can require migration. See
+[Integration provider updates](../integrations/updates.md) for the full workflow.
 
 ## Automatic updates from Git
 
@@ -191,9 +195,9 @@ Git-backed providers can update when a supported Git integration receives a matc
 - commit-pinned sources cannot use automatic updates
 
 Configure this under `Operations > Git auto update settings`. Tag matching applies to Git refs and is independent of
-the provider manifest revision. Automatic updates use the same manifest validation and compatibility rules as manual
-updates. A rejected update leaves the current provider revision active; open the provider's `Tasks` tab to review the
-error.
+the provider manifest revision. Automatic updates use the same manifest validation rules as manual updates. A valid
+change publishes a new provider revision and leaves existing integrations pinned. A rejected manifest update leaves the
+current provider revision active; open the provider's `Tasks` tab to review the error.
 
 ## Sharing and deletion
 
@@ -208,6 +212,7 @@ disconnect a repository that is still used by another provider, service, or stac
 
 - [Variable providers](variable.md)
 - [Variable integrations](../integrations/variable.md)
+- [Integration provider updates](../integrations/updates.md)
 - [Provider vs integration](../integrations/providers-vs-integrations.md)
 - [Git providers](git.md)
 - [Sharing](../sharing.md)
