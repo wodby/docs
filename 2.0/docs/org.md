@@ -139,7 +139,8 @@ From there you can:
 
 ## Single Sign-On
 
-Organization owners and admins can configure Single Sign-On providers for the organization.
+Organization owners and admins can configure Single Sign-On providers for the organization. Enabling providers and
+signing in with organization SSO require an active paid subscription.
 
 SSO lets users sign in through your identity provider, such as Okta, Microsoft Entra ID, Google Workspace, GitHub, Auth0, ZITADEL, Keycloak, or a SAML identity provider. It is currently an additional sign-in option and does not disable existing sign-in methods or API keys.
 

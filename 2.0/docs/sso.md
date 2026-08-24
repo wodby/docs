@@ -4,6 +4,15 @@ Single Sign-On (SSO) lets users sign in to Wodby through your organization's ide
 
 SSO is configured at the organization level from `Organization > SSO`. It is currently an additional sign-in option and does not disable email/password sign-in, GitHub sign-in, Google sign-in, or API keys.
 
+## Subscription availability
+
+Enabling and using organization SSO requires an active paid subscription. On the free Developer plan, organization
+owners and admins can configure providers and verify domains, but providers remain disabled and cannot be used to sign
+in. After upgrading, enable each provider from `Organization > SSO`.
+
+Before scheduling a downgrade to Developer, disable every SSO provider. Disabled provider configuration and verified
+domains can remain in the organization and can be enabled again after upgrading.
+
 ## Supported providers
 
 Wodby supports multiple SSO providers per organization.
@@ -67,7 +76,9 @@ After the DNS record is published, click `Verify domain`.
 
 DNS propagation can take time. If verification fails, wait a few minutes and try again.
 
-When the last required domain for a provider is verified, Wodby enables that provider automatically. Providers that do not require domain verification, such as a GitHub Organization provider without domains, can be enabled immediately when they are created.
+After the last required domain for a provider is verified, the provider can be enabled when the organization has an
+active paid subscription. Providers that do not require domain verification, such as a GitHub Organization provider
+without domains, can be enabled immediately on a paid subscription.
 
 ## Configure an OIDC provider
 
@@ -119,7 +130,7 @@ To create the provider:
 6. Choose whether Just-in-Time provisioning should be enabled.
 7. Click `Create provider`.
 8. Verify every configured domain.
-9. After the last domain is verified, Wodby enables the provider automatically.
+9. After the last domain is verified, enable the provider.
 
 The OIDC client secret is write-only. When editing an OIDC provider, leave the client secret field blank to keep the existing secret.
 
@@ -139,7 +150,7 @@ To create the provider:
 6. Choose whether Just-in-Time provisioning should be enabled.
 7. Click `Create provider`.
 8. Verify every configured domain.
-9. After the last domain is verified, Wodby enables the provider automatically.
+9. After the last domain is verified, enable the provider.
 
 During sign-in, Wodby requires a Google verified email address and a hosted domain claim that matches one of the provider domains.
 
@@ -165,7 +176,8 @@ To create the provider:
 8. Click `Create provider`.
 9. Verify any configured domains.
 
-If no domains are configured, Wodby enables the provider immediately after it is created. If domains are configured, Wodby enables the provider after the last domain is verified.
+If no domains are configured, the provider can be enabled immediately after it is created. If domains are configured,
+verify every domain before enabling the provider. An active paid subscription is required in both cases.
 
 During sign-in, Wodby requires GitHub organization membership and a verified primary GitHub email. If the provider has no domains, users must select the provider from the organization's SSO provider list because email-domain discovery cannot identify it.
 
@@ -195,7 +207,7 @@ To create the provider:
 7. Choose whether Just-in-Time provisioning should be enabled.
 8. Click `Create provider`.
 9. Verify every configured domain.
-10. After the last domain is verified, Wodby enables the provider automatically.
+10. After the last domain is verified, enable the provider.
 
 After the provider is created, Wodby shows SAML setup values:
 
@@ -234,15 +246,20 @@ The SAML assertion must include a stable subject identifier and an email address
 
 Providers that require domain verification are created disabled.
 
-After every required domain is verified, Wodby enables the provider automatically.
+After every required domain is verified, organization owners and admins can enable the provider when the organization
+has an active paid subscription.
 
 Wodby does not enable an SSO provider while any configured domain is unverified. If you edit the domain list later, Wodby disables the provider until every configured domain is verified again.
+
+The free Developer plan keeps provider configuration and domain verification available for setup, but blocks enabling
+providers and all SSO sign-in attempts.
 
 ## Update SSO settings
 
 You can update the provider name, provider-specific settings, allowed domains, and Just-in-Time provisioning setting from `Organization > SSO`.
 
-If a provider is enabled and you add or change domains, Wodby disables that provider and enables it again after every configured domain is verified.
+If a provider is enabled and you add or change domains, Wodby disables that provider. Verify every configured domain,
+then enable the provider again.
 
 Provider kind cannot be changed after creation. Create a new provider when you need a different protocol or identity source.
 

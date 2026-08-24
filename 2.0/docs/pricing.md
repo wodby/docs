@@ -37,6 +37,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - scheduled and manually run cron jobs
 - web shell for containers
 - Application Access for protected or private-network HTTP endpoints
+- organization Single Sign-On (SSO)
 - best-effort support
 - $30 of Wodby Cloud usage per month
 
@@ -129,6 +130,10 @@ Disabling an app service is not enough: disabled services keep their autoscaling
 restored when the service is re-enabled. You can turn autoscaling off while the service remains disabled; deleting the
 service is not required. See [Application Scalability](apps/scalability.md#autoscaling-rules) for the configuration
 requirements and behavior.
+
+Organization SSO is also a paid feature. Disable every provider from **Organization > SSO** before scheduling a
+downgrade. Provider configuration and verified domains can remain in the organization while it uses the Developer
+plan, but the providers cannot be enabled or used for sign-in until the organization upgrades again.
 
 ### Wodby CI minutes
 
