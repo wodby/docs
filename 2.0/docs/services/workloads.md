@@ -138,10 +138,15 @@ Example:
 selector:
   matchLabels:
     app.kubernetes.io/instance: "{{helm.release}}"
-    app.kubernetes.io/name: php
+    wodby.workload: php
 ```
 
 Selectors are preferred over resource names because they survive chart naming differences and helper logic.
+
+Do not hard-code `app.kubernetes.io/name` to the service template name for a workload service. Wodby sets that label to
+the stack-local app-service name for new installations, so it can differ when a stack reuses the same service more than
+once. Select workloads with labels that remain stable when the application name changes, such as the Helm release and
+a workload or component label.
 
 For Wodby charts, use stable workload labels whenever possible. For third-party charts, use the labels that uniquely
 identify each workload in the rendered chart.

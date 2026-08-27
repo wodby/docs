@@ -29,7 +29,8 @@ content itself. If the config needs Wodby tokens, enable `configs[].processToken
 Wodby works best with charts that expose common values such as:
 
 - `replicas` or `replicaCount` for scalability
-- `fullnameOverride` to override hostnames
+- `nameOverride` to set the application name and `app.kubernetes.io/name` label
+- `fullnameOverride` to override generated Kubernetes resource names
 - `serviceAccountName` or another value that sets `spec.template.spec.serviceAccountName`
 - `image.pullSecrets`
 - `image.pullPolicy`
@@ -54,6 +55,7 @@ uses its documented compatibility default:
 | App-service setting | Default Helm value path |
 | --- | --- |
 | Replica count | Both `replicas` and `replicaCount` |
+| Application-name override | `nameOverride` |
 | Full resource-name override | `fullnameOverride` |
 | Kubernetes service account name | `serviceAccountName` |
 | Disable chart-owned service account creation | No default; configure `serviceAccountCreate` when needed |
@@ -73,6 +75,7 @@ helm:
   version: 1.2.3
   valueMappings:
     replicas: workload.replicaCount
+    nameOverride: workload.nameOverride
     fullnameOverride: workload.fullnameOverride
     serviceAccountName: serviceAccount.name
     serviceAccountCreate: serviceAccount.create
@@ -86,6 +89,19 @@ An explicit `replicas` mapping replaces both legacy replica aliases with the con
 resolved independently, so a partial `valueMappings` object continues to use the defaults for omitted properties.
 `serviceAccountCreate` has no default because not every chart creates a service account. When configured, Wodby sets it
 to `false` whenever it supplies an annotated service account and points the workload at that account.
+
+For every service type except `infrastructure` and `operator`, Wodby sets `nameOverride` to the stack-local app-service
+name when it creates a new app service. This makes two services based on the same chart distinguishable through
+`app.kubernetes.io/name`. The chart does not have to list the conventional root value in `values.yaml`, but it must use
+the value consistently in workload metadata labels, immutable selectors, and pod-template labels.
+
+Use `helm.valueMappings.nameOverride` only when the chart exposes this behavior at another path. Infrastructure and
+operator charts do not receive a managed application name by default because their label commonly identifies the
+controller product. They can opt in by mapping a supported path explicitly.
+
+The application name is selected when the app service is installed. Existing app services are not relabeled when this
+capability becomes available or when their stack is upgraded, because changing a Deployment or StatefulSet selector
+would require replacing the workload. Copies are new app services and select their own names.
 
 When an external database connection requires workload identity, `serviceAccountName` must be mapped explicitly in the
 selected service revision. Wodby stops the deployment with a user-facing compatibility error before running Helm if
@@ -101,7 +117,8 @@ render `spec.replicas` and do not expose chart-owned autoscaling values.
 
 Service-level `helm.values` are applied after the backend-managed defaults. Do not set the same paths there unless the
 service intentionally replaces the backend-managed value. Replica overrides and explicit service-account mappings
-that break the rendered workload contract are rejected by import validation.
+that break the rendered workload contract are rejected by import validation. A stored application-name override is
+reapplied after service, stack, and app Helm values, and a conflicting value is rejected.
 
 When a chart keeps the full image path inside one repository value and does not expose a separate registry field, set
 `workloads[].containers[].helm.image.registry: ""`. This disables separate registry injection and makes Wodby write the
@@ -165,6 +182,10 @@ enabled by default. DaemonSets do not have a replica-count check.
 
 Validation rejects any HorizontalPodAutoscaler rendered with the service manifest's Helm values. A chart may expose a
 dormant autoscaling option, but Wodby does not enable it because app-service autoscaling is managed by the backend.
+
+For services with managed application names, Wodby renders a sentinel `nameOverride` and verifies that
+`app.kubernetes.io/name` has that value in workload metadata labels, `spec.selector.matchLabels`, and pod-template
+labels. This checks the rendered behavior even when the conventional root value is not declared in `values.yaml`.
 
 When `helm.valueMappings.serviceAccountName` is explicit, Wodby also renders a sentinel service account and verifies
 that it reaches `spec.template.spec.serviceAccountName`. If `serviceAccountCreate` is configured, validation also

@@ -938,8 +938,8 @@ Workload- and container-specific Helm mappings are defined under `workloads[].he
 `workloads[].containers[].helm`.
 
 When a service is imported, Wodby validates configured Helm value paths against the chart's merged values and schema
-when they are available. It also performs semantic rendering checks for backend-managed replica and service-account
-values. See [Service Helm Integration](helm.md#backend-managed-value-mappings).
+when they are available. It also performs semantic rendering checks for backend-managed application names, replicas,
+and service-account values. See [Service Helm Integration](helm.md#backend-managed-value-mappings).
 
 #### `helm.valueMappings`
 
@@ -952,6 +952,10 @@ The object supports:
 
 - `replicas`: replica-count path. When omitted, Wodby writes both `replicas` and `replicaCount`. When configured, only
   the configured path is written.
+- `nameOverride`: application-name override path. Defaults to `nameOverride` for every service type except
+  `infrastructure` and `operator`; those controller-oriented types opt in by mapping this property explicitly. Wodby
+  uses the stack-local app-service name and verifies it reaches `app.kubernetes.io/name` in workload labels and
+  selectors.
 - `fullnameOverride`: resource-name override path. Defaults to `fullnameOverride`.
 - `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
 - `serviceAccountCreate`: optional chart-owned service-account creation path. Wodby sets it to `false` when it supplies
