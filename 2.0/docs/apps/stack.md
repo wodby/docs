@@ -62,8 +62,10 @@ If the app instance has services with build sources, the upgrade triggers rebuil
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
-All upgrade options are disabled by default. Select `Show overrides configuration` to review them. The control stays
-collapsed by default and shows how many options are selected.
+All upgrade options are disabled by default. This is a valid, non-destructive upgrade: Wodby adds configuration that
+the new stack requires but preserves existing app-instance choices where possible. Select `Show overrides
+configuration` to review the options that let the stack replace those existing choices. The control stays collapsed
+by default and shows how many options are selected.
 
 ### Review the upgrade changelog
 
@@ -120,13 +122,19 @@ the existing target and do not require retargeting.
 Service revision, title, type, icon, and required status are updated to match the new stack service. Required services
 must remain enabled.
 
-The upgrade task logs the changes it applies and also logs when it detects a stack change but skips it because the
-corresponding upgrade setting is disabled.
+Wodby always reconciles structural requirements introduced by the target stack. This includes missing app services,
+settings, configs, cron schedules, links, volumes, tokens, integrations, certificates, and generated keys. Existing
+app-instance choices are preserved unless an override option explicitly replaces them or preserving them would leave
+an invalid service. The upgrade task logs both the changes it applies and the existing values it preserves.
 
-New app services may need app-specific configuration that cannot be selected safely at stack-upgrade time, such as a
-build source, an external database, required integrations, or required settings. These gaps do not stop the
-stack upgrade. Wodby records them as warnings on the upgrade task, creates the app service, and waits for you to finish
-the service configuration before deploying.
+An existing app service cannot silently change into an unrelated service or switch between a primary service and a
+derivative during an upgrade. Wodby stops before committing such a change so the stack can be corrected. Renaming or
+moving a derivative under another compatible parent is reconciled safely.
+
+New or updated app services may need app-specific configuration that cannot be selected safely at stack-upgrade time,
+such as a build source, an external database, a compatible integration, or a required setting. These gaps do not stop
+the stack upgrade. Wodby records them as warnings on the upgrade task, creates or updates the app service, and waits for
+you to finish the service configuration before deploying.
 
 Required service links are structural rather than post-upgrade configuration. The upgrade stops without committing if
 a required link is missing, has an incompatible target, or creates a dependency cycle. If the target is compatible but
@@ -171,10 +179,18 @@ created when they did not exist before.
 
 ### Override integrations
 
-When enabled, Wodby creates integrations defined by the latest stack revision and removes app-service integrations that
-are no longer defined by the stack service.
+When enabled, Wodby replaces app-service integration selections with the defaults defined by the latest stack revision.
+Selections that are no longer defined by the stack service are removed.
 
-If disabled, existing app-service integration selections are kept.
+If disabled, existing app-service integration selections are kept. Wodby still adds a missing default integration when
+the target service introduces a new integration requirement. For an integration that accepts one selection, an existing
+compatible selection wins over the new default. For an integration that accepts multiple selections, Wodby adds any
+missing defaults without removing other selections.
+
+If no compatible integration can be selected, or a preserved selection is no longer compatible with the target
+service, the service reports an integration configuration warning. Complete the integration selection before
+deploying. Provider credentials generated for a newly attached integration are provisioned automatically and can be
+retried safely if the provider is temporarily unavailable.
 
 ### Override enabled services
 
@@ -205,7 +221,8 @@ because an override cannot preserve a missing or obsolete required target. Link 
 
 ### Override tokens
 
-When enabled, Wodby recreates app-service tokens from the latest service and stack definitions.
+When enabled, Wodby replaces app-service token definitions with the latest service and stack definitions. Tokens that
+are no longer defined are removed.
 
 When the same token name and environment type is defined in multiple places, Wodby applies service-defined tokens first,
 then stack-wide tokens, then stack-service tokens.
@@ -215,7 +232,8 @@ its current generated value. Enabling this option therefore updates token defini
 generated credentials. New generated tokens receive a new value, while literal token values follow the latest
 definition.
 
-If disabled, tokens are left unchanged. This avoids replacing secrets that may have been intentionally customized for
+If disabled, existing tokens are left unchanged, and missing tokens introduced by the target service or stack are
+added. This supplies new runtime requirements without replacing secrets that may have been intentionally customized for
 one app instance.
 
 ### Override configs
