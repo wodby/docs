@@ -258,7 +258,6 @@ workloads:
     selector:
       matchLabels:
         app.kubernetes.io/instance: "{{helm.release}}"
-        app.kubernetes.io/name: memcached
     containers:
       - name: memcached
         image: registry-1.docker.io/bitnami/memcached
@@ -282,6 +281,10 @@ Check the generated fields before creating the service:
 - `helm.source`, `helm.chart`, `helm.version`: chart reference Wodby uses for validation and deployment.
 - `workloads[].selector.matchLabels`: must match exactly one rendered Kubernetes workload.
 - `endpoints[]`: ports Wodby exposes for stack and app-service configuration.
+
+The scaffold omits `app.kubernetes.io/name` from workload selectors when Wodby manages that label from the app-service
+name. Add another stable workload or component label if the remaining selector does not uniquely identify the
+workload.
 
 After reviewing the generated `service.yml`, validate and create it with the same manifest workflow used for any custom
 service:
