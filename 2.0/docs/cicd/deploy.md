@@ -18,7 +18,12 @@ A post-deployment failure does not change the successful deployment or app statu
 Deployment details show a separate post-deployment warning and task log. You can retry only the failed
 post-deployment task without redeploying the application.
 
-`wodby ci deploy` queues the deployment and returns without waiting for the rollout or post-deployment task. Operational
-CLI commands that stream deployment logs or explicitly wait for a deployment follow both tasks and return a non-zero
-exit code when the post-deployment task fails. The error identifies that the rollout completed successfully and the
-failure came from post-deployment scripts.
+`wodby ci deploy` records the released build as deployable and returns without waiting for the rollout or
+post-deployment task. The deployment can remain `Awaiting` while other selected builds finish or the cluster completes
+infrastructure maintenance. When all inputs are ready, its normal deployment task becomes `Queued` behind any current
+deployment or post-deployment operation for that app instance. See
+[Deployment readiness and queueing](../apps/deploys.md#deployment-readiness-and-queueing).
+
+Operational CLI commands that stream deployment logs or explicitly wait for a deployment follow both tasks and return
+a non-zero exit code when the post-deployment task fails. The error identifies that the rollout completed successfully
+and the failure came from post-deployment scripts.

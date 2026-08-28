@@ -19,6 +19,25 @@ Deployments are usually triggered in the following ways:
 - automated partial deployments for service-level maintenance
 - manual deployment from the UI
 
+## Deployment readiness and queueing
+
+`Awaiting` and `Queued` describe different stages of a deployment:
+
+- `Awaiting` means Wodby cannot create the deployment task yet. For example, one or more selected new builds have not
+  supplied deployable images, or the target cluster is undergoing an infrastructure upgrade.
+- `Queued` means the deployment has everything it needs and its task is waiting for the app instance's current
+  deployment or post-deployment operation to finish.
+
+Wodby runs one app-service deployment or post-deployment operation at a time for each app instance. If several
+deployments are requested, each keeps its own service and build selections and joins that instance's task queue when it
+becomes ready. Builds can finish in a different order from the requests, so deployments are queued in readiness order,
+not necessarily deployment-number order.
+
+Wodby does not discard a deployment merely because another deployment or a higher-numbered build exists. Selecting an
+older build can be an intentional rollback, and one multi-service deployment can intentionally combine older and newer
+builds. If a pending request is no longer wanted, cancel that deployment or its task explicitly; starting another
+deployment does not replace it.
+
 ## First deployment
 
 App creation does not always pre-create a full deployment that waits for every buildable service. Initial behavior
@@ -35,10 +54,13 @@ depends on the enabled services and who starts their builds:
   deploy when their own CI builds report back or when they are included in a later explicit operation.
 
 When an app has not yet established its runtime, a build-backed deployment also includes all enabled services without
-build sources if any of them has not deployed successfully, is unhealthy, or needs redeployment. This is an initial
-runtime safety rule, not an inferred companion relationship between independent build-source owners. Optional build
-image targets without their own source can use the image produced by their linked owner or their configured service
-image when that build does not provide one.
+build sources while any of those services has never deployed successfully. This is an initial runtime safety rule, not
+an inferred companion relationship between independent build-source owners. After that bootstrap, a partial
+deployment includes an unrelated service without a build source only when it is marked `needs redeploy` and is not
+already covered by another active deployment. An unhealthy status by itself does not expand a deployment.
+
+Optional build image targets without their own source can use the image produced by their linked owner or their
+configured service image when that build does not provide one.
 
 A partial deployment can complete successfully while the app instance remains `awaiting`. The instance becomes `ok`
 only after every enabled service that requires a Wodby-managed runtime has a usable deployment. Services omitted from
@@ -140,6 +162,11 @@ When you select **New build** for multiple source owners, Wodby creates one awai
 builds together. That deployment waits for exactly the selected owners. Selecting only one source owner does not wait
 for other buildable services in the app; a full new-build deployment includes every build-source owner and waits for
 all of them.
+
+When a selected source owner uses **New build**, selected linked image targets and derivatives that consume its output
+follow that same new build. Wodby does not keep an older image selection for one of those consumers inside the same
+deployment. A previous successful build selected for another service is treated only as a reusable image: it does not
+satisfy a selected **New build**, keep the deployment waiting, or make that deployment depend on another CI run.
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set. Repository
 post-deployment scripts run only when the app service that owns the corresponding build is included in the selected
