@@ -43,6 +43,15 @@ is not selected keeps its current deployment, or remains undeployed, until its o
 Linked image targets are part of their source owner's build; they are not separate source owners and do not add another
 build requirement to the group.
 
+When a source owner is selected for a new build, every selected linked image target or derivative that consumes its
+artifact follows the new output. Wodby does not combine that new owner build with an older image selection for one of
+its consumers in the same deployment.
+
+A previous successful build can still be selected as the image for another service. That reused image records what
+will run, but Wodby does not wait for it again or count it as the result of a selected new source-owner build. If a
+required new build fails or finishes without reporting its expected output, Wodby cancels the deployment that was
+waiting for it; deployments that only reuse an already successful image from that build are unaffected.
+
 Build image targets without their own build source are optional. If a build does not produce an image for one of those services, Wodby deploys the service with the configured image from the service manifest or chart. This lets pipelines build `nginx` only when the app needs custom static assets, while still allowing `nginx` to deploy normally as part of the stack.
 
 ## Build info
