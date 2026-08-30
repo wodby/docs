@@ -542,6 +542,8 @@ Each `endpoints[].ports[]` item supports:
 - `protocol`: required protocol. Allowed values: `http`, `tcp`, `udp`.
 - `private`: optional boolean.
 - `main`: marks the main port within that endpoint.
+- `routeDefaults`: optional map of [HTTP route setting](../apps/endpoints.md#route-settings) names to default string
+  values. It is supported only when `protocol` is `http`.
 
 Only one endpoint can be main. If the service has a single endpoint, it becomes main automatically. If you define
 multiple endpoints, mark one of them as main.
@@ -552,6 +554,10 @@ The endpoint backend service is resolved from the Helm chart based on the target
 multi-workload services, set `workload` explicitly when the endpoint should target a non-primary workload.
 Each endpoint must resolve to a distinct Kubernetes Service. Group all ports exposed by the same rendered Service under
 one endpoint.
+
+Route defaults are service-owned defaults rather than stack restrictions. App instance defaults and explicit domain
+overrides remain available, and a domain override has the highest precedence. Inherited services merge route defaults
+by endpoint, port, and setting name; child values replace only matching base values.
 
 ### `links`
 
