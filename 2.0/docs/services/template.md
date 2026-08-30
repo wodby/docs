@@ -84,10 +84,8 @@ cron:
 env:
   - name: DRUPAL_FILES_SYNC_SALT
     value: "{{sync_salt}}"
-    secret: true
   - name: DRUPAL_HASH_SALT
     value: "{{hash_salt}}"
-    secret: true
   - name: DRUPAL_VERSION
     value: "11"
     build: true
@@ -187,12 +185,24 @@ Used by `env`, `workloads[].containers[].env`, `links[].env`, `integrations[].en
 
 - `name`: required environment variable name.
 - `value`: required string value.
-- `secret`: optional boolean. When `true`, the value is stored as a secret.
+- `secret`: optional boolean. When `true`, the value is stored as a secret. A direct named token reference also
+  inherits the effective token's secret classification.
 - `envType`: optional environment type filter. Allowed values: `prod`, `dev`, `staging`, `test`, `feature`.
 - `runtime`: optional boolean. Defaults to `true`. When `false`, Wodby does not inject the variable into runtime containers.
 - `build`: optional boolean. Defaults to `false`. When `true`, Wodby can pass the variable to CI builds as a Docker build argument when the Dockerfile declares a matching `ARG`.
 
 At least one of `runtime` or `build` must be enabled.
+
+When an environment-variable value directly references a named service, stack, or app-service token, Wodby carries
+that token's secret classification into the environment variable. This applies when the token is the complete value,
+such as `{{hash_salt}}`, and when it is embedded in a larger value. If any directly referenced named token is secret,
+Wodby stores the complete resolved environment-variable value in a Kubernetes Secret. Generated tokens are always
+secret; fixed-value tokens are secret when their effective definition uses `secret: true`.
+
+Do not repeat `secret: true` on an environment variable solely because it references a secret named token. Continue
+to set it explicitly for sensitive literal values and references from structured namespaces such as `links`,
+`integrations`, `database`, `certs`, and `keys`. Those sources do not automatically transfer their secret
+classification to the destination environment variable.
 
 Within each environment variable list, every `name` and `envType` pair must be unique. You can repeat a variable name
 when each definition targets a different environment type:

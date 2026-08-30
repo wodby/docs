@@ -148,6 +148,12 @@ They can either:
 
 Service tokens can be referenced from environment variables and other generated configuration.
 
+When a service environment variable directly references a named token, it inherits the effective token's secret
+classification. Generated tokens are always secret, and fixed-value tokens can be marked secret. The environment
+variable therefore does not need a duplicate secret flag solely for that named-token reference. Sensitive literals
+and structured references such as links, integrations, databases, certificates, and keys still require an explicit
+secret environment variable.
+
 Stacks can override service tokens. A stack-wide token overrides a service-defined token with the same name and
 environment type, and a stack-service token overrides both for that specific stack service.
 

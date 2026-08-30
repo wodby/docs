@@ -61,6 +61,15 @@ rebuild.
 Mark sensitive values as secret. Wodby stores secret environment-variable values in a Kubernetes Secret and does not
 show their plaintext values in the dashboard after they are saved.
 
+An environment variable that directly references a named service, stack, or app-service token automatically inherits
+the effective token's secret classification. This includes values that embed the named token in a larger string. If
+the token is secret, the complete resolved environment-variable value is stored in a Kubernetes Secret without also
+marking the environment variable as secret.
+
+This automatic classification does not apply to sensitive literal values or structured references such as linked
+service tokens, integration variables, database passwords, certificates, or keys. The service or stack author must
+mark those destination environment variables as secret explicitly.
+
 Variable integrations are useful when the same credentials or configuration must be reused across services, apps, or
 environments. See [Variable integrations](../integrations/variable.md).
 
