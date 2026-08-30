@@ -277,10 +277,15 @@ explicit App Access configuration remain reachable only through internal Kuberne
 The dashboard's `HTTP settings` screen controls route settings for clusters that use Envoy Gateway. They are predefined
 settings rather than arbitrary Kubernetes annotations.
 
-Route settings can be configured at two scopes:
+An effective domain setting can come from three layers, in this order:
 
 - app instance defaults, inherited by serve routes in the app instance
-- domain- or redirect-specific settings, which override app instance defaults for one item
+- defaults declared by the selected service endpoint port
+- domain-specific settings, which override both default layers for one domain
+
+Redirects use app instance defaults and redirect-specific overrides, but do not use service port defaults. The
+effective route-settings API reports which layer supplies each value. A service default does not prevent you from
+overriding the setting for an app instance or individual domain.
 
 Supported route settings are:
 
@@ -292,10 +297,21 @@ Supported route settings are:
 | `session_affinity` | `cookie` or `header` |
 | `path_rewrite` | path starting with `/` |
 | `hsts` | `disabled`, `enabled`, or `include_subdomains` |
+| `request_timeout` | Gateway API duration such as `30s`, `5m`, or `1h`; `0s` disables the timeout |
+| `backend_request_timeout` | Gateway API duration such as `30s`, `5m`, or `1h`; `0s` disables the timeout |
 
 Domains support every setting in this table. Redirects support `https_redirect`, `no_index`, and `hsts`; settings that
 depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
 when you select an override target.
+
+### Request timeouts
+
+`request_timeout` limits the complete client request, including the response sent back to the client.
+`backend_request_timeout` limits one request from the gateway to the selected app service. A finite backend request
+timeout cannot be longer than a finite request timeout.
+
+Use `0s` when a long-lived HTTP or WebSocket endpoint must not have that timeout. If a timeout is absent from every
+effective settings layer, Wodby leaves it unset and the gateway implementation's default behavior applies.
 
 ### HSTS
 

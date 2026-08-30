@@ -49,9 +49,23 @@ endpoints:
     number: 80
     protocol: http
     main: true
+    routeDefaults:
+      request_timeout: 5m
+      backend_request_timeout: 2m
 ```
 
 `workload` is optional. If omitted, the endpoint targets the primary workload.
+
+HTTP ports can define `routeDefaults` when the service normally needs specific
+[HTTP route settings](../apps/endpoints.md#route-settings). These are defaults, not restrictions. Wodby resolves the
+effective value from app instance defaults, then the active service revision's port defaults, then an explicit domain
+override. A service revision upgrade or rollback therefore selects the matching revision's defaults without copying
+them into every app route.
+
+`routeDefaults` is not supported on TCP or UDP ports. Service import validates setting names and values, including the
+relationship between request and backend request timeouts. Inherited services merge route defaults by endpoint name,
+port name, and setting name; a child value replaces the matching base value. Derivative endpoints use the same port
+format and behavior.
 
 Endpoint names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). Port names must follow the [port name rules](../naming.md#port-names).
 
