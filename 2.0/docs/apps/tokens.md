@@ -37,6 +37,20 @@ Tokens are commonly supported in:
 - config contents when `configs[].processTokens: true` is enabled
 - action arguments, database actions, backup actions, and similar generated runtime configuration
 
+## Secret tokens in environment variables
+
+Generated tokens are always secret. A fixed-value token is secret when its effective service, stack, stack-service, or
+app-service definition marks it as secret.
+
+When an environment variable directly references a named token, Wodby automatically carries that classification into
+the resolved environment variable. The destination becomes secret even when the token is embedded in a larger value,
+and the complete resolved value is stored in a Kubernetes Secret. The environment-variable definition does not need a
+duplicate secret flag.
+
+This propagation is intentionally limited to direct named tokens. References under structured namespaces such as
+`links`, `integrations`, `database`, `certs`, and `keys` still require the destination environment variable to be
+marked secret explicitly. See [Environment variables](environment-variables.md#secrets).
+
 ## `app`
 
 - `app.id`: application ID, not app-instance ID
