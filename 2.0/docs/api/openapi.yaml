@@ -8659,6 +8659,7 @@ components:
         - name
         - status
         - integrationId
+        - options
         - createdAt
         - updatedAt
       properties:
@@ -8687,6 +8688,10 @@ components:
         taskId:
           type: integer
           nullable: true
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackupOption'
         createdAt:
           type: string
           format: date-time
@@ -8707,6 +8712,7 @@ components:
         - id
         - integrationId
         - bucket
+        - options
         - override
         - auto
         - disabled
@@ -8743,6 +8749,10 @@ components:
         storageClass:
           type: string
           nullable: true
+        options:
+          type: array
+          items:
+            $ref: '#/components/schemas/BackupOption'
         override:
           type: boolean
         auto:
@@ -8769,6 +8779,18 @@ components:
         updatedAt:
           type: string
           format: date-time
+    BackupOption:
+      type: object
+      required:
+        - name
+        - values
+      properties:
+        name:
+          type: string
+        values:
+          type: array
+          items:
+            type: string
     Task:
       type: object
       required:
@@ -12928,6 +12950,11 @@ components:
         storageClass:
           type: string
           nullable: true
+        options:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/BackupOption'
     NewBackupPresetInput:
       type: object
       required:
@@ -12967,6 +12994,11 @@ components:
         storageClass:
           type: string
           nullable: true
+        options:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/BackupOption'
         disabled:
           type: boolean
         override:
@@ -13002,6 +13034,11 @@ components:
         storageClass:
           type: string
           nullable: true
+        options:
+          type: array
+          nullable: true
+          items:
+            $ref: '#/components/schemas/BackupOption'
         disabled:
           type: boolean
         override:
