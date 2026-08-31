@@ -23,6 +23,25 @@ Wodby Blob Storage requires a paid subscription; free organizations can continue
 integration. Creating or editing a backup preset normally requires an active paid subscription, including presets
 that do not enable an automatic schedule.
 
+## Excluding table contents
+
+When the selected service backup type supports it, the `New backup` form shows `Excluded table contents`. Add one table
+name or pattern per entry. The backup keeps each matching table's definition but omits its rows, so restoring the
+backup creates the table without its previous data.
+
+Container-based PostgreSQL and MariaDB backups support this option. PostgreSQL entries can use schema-qualified names
+and patterns such as `public.cache_*`. MariaDB entries can use table names and SQL `LIKE` patterns such as `cache_%`.
+Entries may contain letters, numbers, `_`, `.`, `-`, `*`, `?`, and `%`; unsupported characters are rejected before
+the backup starts.
+
+Leaving the field untouched uses the default exclusion list configured by the service. To include all table contents,
+edit the field and remove every entry before submitting; the resulting empty list overrides the service default. The
+selected values are stored with the backup record.
+
+An app backup preset can save table exclusions only when it selects one app service and one backup type. Scheduled
+backups created from that preset use the saved exclusions. Presets that apply to any service or backup type, and
+organization-wide presets, do not store table exclusions.
+
 ## K3S storage capacity preflight
 
 Before an app-service backup runs on K3S, its task includes a `Check storage capacity` step. For volumes using the

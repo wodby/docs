@@ -16,6 +16,25 @@ Backups are different from snapshots. A backup is created by the database or ser
 
 When preparing a new backup, you can select one of the backup presets for this database or an organization-wide backup preset.
 
+## Excluding table contents
+
+When the selected database backup type supports it, the `New backup` form shows `Excluded table contents`. Add one table
+name or pattern per entry. The backup keeps each matching table's definition but omits its rows, so restoring the
+backup creates the table without its previous data.
+
+Container-based PostgreSQL and MariaDB backups support this option. PostgreSQL entries can use schema-qualified names
+and patterns such as `public.cache_*`. MariaDB entries can use table names and SQL `LIKE` patterns such as `cache_%`.
+Entries may contain letters, numbers, `_`, `.`, `-`, `*`, `?`, and `%`; unsupported characters are rejected before
+the backup starts.
+
+Leaving the field untouched uses the default exclusion list configured by the database service. To include all table
+contents, edit the field and remove every entry before submitting; the resulting empty list overrides the service
+default. The selected values are stored with the backup record.
+
+A database backup preset can save table exclusions only when it selects one backup type for a container-based
+database. Scheduled backups created from that preset use the saved exclusions. Presets that apply to any backup type,
+and organization-wide presets, do not store table exclusions.
+
 ## Backup destination
 
 Choose [Wodby Blob Storage](../providers/wodby-blob-storage.md) to let Wodby manage the object storage destination. It
