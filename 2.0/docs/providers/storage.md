@@ -29,6 +29,7 @@ Wodby stores backup archives in the selected bucket or container. It does not us
 | [Azure](azure.md#blob-storage) | Blob Storage |
 | [Google Cloud Platform](gcp.md#cloud-storage) | Cloud Storage |
 | [DigitalOcean](digitalocean.md#spaces) | Spaces |
+| [Cloudflare](cloudflare.md#r2) | R2 |
 
 ## Related pages
 

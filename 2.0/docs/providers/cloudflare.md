@@ -1,10 +1,11 @@
 # Cloudflare
 
-Cloudflare exposes three integration kinds in Wodby:
+Cloudflare exposes four integration kinds in Wodby:
 
 - **API** (`variable`) injects an Account ID and API token into compatible app services or stacks.
 - **Application Access** (`application_access`) provides protected publishing through Cloudflare Access or
   private-network access through Cloudflare One.
+- **R2** (`storage`) stores app and database backups in customer-owned Cloudflare R2 buckets.
 - **Turnstile** (`variable`) injects Cloudflare Turnstile keys into app services or stacks.
 
 Select any combination of kinds when creating the integration. Wodby asks only for fields belonging to the selected
@@ -24,6 +25,39 @@ The kind exposes:
 Create a token with the permissions and resource scope required by the consuming application. The API and Application
 Access kinds use the same Account ID and API token fields, so selecting both asks for those credentials only once.
 Turnstile widget keys are created separately and are not Cloudflare API credentials.
+
+## R2
+
+Create a Cloudflare integration with the **R2** kind when you want Wodby to store app or database backups in your own
+Cloudflare R2 bucket.
+
+This is a customer-owned third-party backup destination. It is separate from
+[Wodby Blob Storage](wodby-blob-storage.md), which does not expose or require customer bucket credentials.
+
+### Before creating the integration
+
+1. Copy the 32-character `Account ID` from the Cloudflare dashboard. See
+   [Find account and zone IDs](https://developers.cloudflare.com/fundamentals/account/find-account-and-zone-ids/).
+2. Open `R2 Object Storage > Manage API Tokens` and create an R2 API token with **Object Read & Write** permission.
+3. Restrict the token to the buckets Wodby may use.
+4. Copy the token's `Access Key ID` and `Secret Access Key`. See
+   [R2 API tokens](https://developers.cloudflare.com/r2/api/s3/tokens/).
+
+The integration form requires:
+
+| Field | Required |
+| --- | --- |
+| Account ID | Yes |
+| Access Key ID | Yes |
+| Secret Access Key | Yes |
+
+When you save the integration, Wodby validates the Account ID and credentials against R2's S3-compatible API and
+checks that it can list the buckets visible to the token. The credentials must also allow object reads and writes in
+every bucket selected as a backup destination, including deleting backup objects during cleanup.
+
+When creating a backup or backup preset, select the Cloudflare R2 integration and then select its destination bucket.
+Wodby uploads, restores, and downloads backup objects through R2's S3-compatible API. Download and restore operations
+use expiring provider-signed URLs.
 
 ## Application Access
 
@@ -184,6 +218,9 @@ the app automatically.
 
 ## Related pages
 
+- [Storage providers](storage.md)
+- [Application backups](../apps/backups.md)
+- [Database backups](../databases/backups.md)
 - [App access](../apps/access.md)
 - [Application Access providers](access.md)
 - [Variable integrations](../integrations/variable.md)
