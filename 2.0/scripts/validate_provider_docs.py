@@ -24,6 +24,8 @@ NON_PROVIDER_DOC_STEMS = {
     "access",
     "vpn",
     "variable",
+    "custom-variable-providers",
+    "wodby-blob-storage",
 }
 
 

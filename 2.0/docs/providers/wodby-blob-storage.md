@@ -8,6 +8,18 @@ Unlike Amazon S3, Google Cloud Storage, Azure Blob Storage, or DigitalOcean Spac
 an integration, bucket, region, or storage class. Wodby manages the storage location and provides expiring download
 links for completed backups.
 
+## Download links
+
+Wodby manages the storage destination and may change its internal implementation without changing how you select, use,
+or pay for Wodby Blob Storage.
+
+The download action returns a time-limited signed URL. Its hostname is an implementation detail and is not guaranteed
+to remain on a `wodby.com` domain. Treat the signed URL as a temporary credential and do not share it.
+
+To store backups in a Cloudflare account and bucket that you manage, create a
+[Cloudflare R2 storage integration](cloudflare.md#r2) instead. That is a third-party backup destination and is not
+billed as Wodby Blob Storage.
+
 ## Availability
 
 Wodby Blob Storage is available on paid subscriptions. Manual backups and enabled automatic backup presets that use
@@ -29,4 +41,5 @@ backup objects stop contributing after storage cleanup and the next usage synchr
 - [Application backups](../apps/backups.md)
 - [Database backups](../databases/backups.md)
 - [Storage providers](storage.md)
+- [Cloudflare R2](cloudflare.md#r2)
 - [Billing](../pricing.md)

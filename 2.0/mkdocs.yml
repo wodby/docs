@@ -301,6 +301,7 @@ nav:
           - Azure: providers/azure.md
           - Google Cloud Platform: providers/gcp.md
           - DigitalOcean: providers/digitalocean.md
+          - Cloudflare: providers/cloudflare.md
       - Git:
           - Overview: providers/git.md
           - GitHub: providers/github.md
