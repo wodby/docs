@@ -10,6 +10,22 @@ Wodby can deploy your applications to managed Kubernetes clusters in supported c
 
 To create a managed cluster, first connect your cloud account to Wodby by creating an integration of type `Kubernetes`.
 
+## Kubernetes versions
+
+The minimum Kubernetes version for new managed clusters is 1.35. Versions below 1.35 are not shown during cluster
+creation and cannot be selected for a new cluster.
+
+Kubernetes 1.36 is the default version for new managed clusters and Wodby Cloud. When a provider publishes full patch
+or build versions, Wodby selects the latest available release in the 1.36 series. When a provider accepts only a minor
+version such as `1.36`, the provider selects and maintains the patch release.
+
+Newer Kubernetes versions remain available when the cloud provider offers them, but Wodby does not select them by
+default. If a provider does not offer Kubernetes 1.36, Wodby selects its newest available supported version below 1.36,
+but never a version below the 1.35 minimum.
+
+Existing clusters use a provider-specific upgrade plan based on their current version. A legacy cluster below the
+current creation minimum may need to install a provider-approved patch before it can upgrade to the next minor version.
+
 In the cluster creation form, choose an `Owner`:
 
 - `Organization <organization>` creates an organization-owned cluster
