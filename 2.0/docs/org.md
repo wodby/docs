@@ -111,12 +111,16 @@ notification after it changes.
 | Mode | Apps and clusters | Databases | Integrations, services, stacks, and providers |
 | --- | --- | --- | --- |
 | `Disabled` | No additional deletion blocks | No additional deletion blocks | No additional deletion blocks |
-| `Production` | Blocks deleting a non-infrastructure app instance in a `prod` environment. It also blocks deleting an app or cluster when that operation would delete such an instance. | Blocks deleting a database server in a `prod` environment or an individual DB inside it. | Blocks deleting an integration when its primary environment has the `prod` type. Integrations with another or no primary environment, plus services, stacks, and providers, remain deletable. |
+| `Production` | Blocks deleting a non-infrastructure app instance in a `prod` environment. It also blocks deleting an app when that operation would delete such an instance. A cluster is protected when its assigned environment has the `prod` type or when it hosts a non-infrastructure app instance in a `prod` environment. | Blocks deleting a database server in a `prod` environment or an individual DB inside it. | Blocks deleting an integration when its primary environment has the `prod` type. Integrations with another or no primary environment, plus services, stacks, and providers, remain deletable. |
 | `All` | Blocks deleting every cluster and every non-infrastructure app instance. It also blocks deleting an app when that operation would delete one or more such instances. | Blocks deleting every database server and every individual DB. | Blocks deleting integrations, services, stacks, and providers. |
 
 The `Production` mode uses the environment's type, not its display name. An environment that is named “Production”
 but has another type is not protected by this mode. Wodby also prevents changing the type of an environment while an
-app instance or database references it, so a protected resource cannot be reclassified before deletion.
+app instance, database, or cluster references it, so a protected resource cannot be reclassified before deletion.
+
+For clusters, the assigned environment is the visual classification selected on the cluster. Existing production
+workloads remain an independent protection signal, so changing the cluster's assigned environment away from `prod`
+does not make a cluster deletable while it still hosts a non-infrastructure app instance in a `prod` environment.
 
 For integrations, the primary environment is a descriptive association and determines the integration's current
 classification for `Production` protection. Changing that association or changing the environment's type changes the

@@ -23,7 +23,8 @@ flowchart TD
 
 An Environment (Env) is an organization-level object that defines deployment context.
 
-App instances, [databases](../databases/index.md), and some other resources are assigned to an Env. The Env itself is not the deployment. It is the label and matching context around that deployment.
+App instances, [databases](../databases/index.md), [clusters](../clusters/index.md), and some other resources are assigned
+to an Env. The Env itself is not the deployment. It is the label and matching context around that deployment.
 
 Each Env has:
 
@@ -36,6 +37,9 @@ Multiple Envs can share the same type. For example, `Production EU` and `Product
 This type matters because stack- and service-level configuration can target an environment type, not only a single named Env.
 
 Organizations start with default Envs for the standard types, and you can create additional named Envs as needed.
+
+A cluster can also restrict which exact Envs may deploy non-infrastructure app instances to it. See
+[Cluster environments](../clusters/index.md#cluster-environments).
 
 ## Environment types
 
