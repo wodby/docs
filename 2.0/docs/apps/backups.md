@@ -55,13 +55,15 @@ and patterns such as `public.cache_*`. MariaDB entries can use table names and S
 Entries may contain letters, numbers, `_`, `.`, `-`, `*`, `?`, and `%`; unsupported characters are rejected before
 the backup starts.
 
-Leaving the field untouched uses the default exclusion list configured by the service. To include all table contents,
-edit the field and remove every entry before submitting; the resulting empty list overrides the service default. The
-selected values are stored with the backup record.
+The form shows the service's resolved default exclusion list below the field. Leaving the field untouched uses that
+default. To include all table contents, edit the field and remove every entry before submitting; the resulting empty
+list overrides the service default. Each completed backup record shows the effective exclusions used for that backup,
+including exclusions inherited from the service default.
 
-An app backup preset can save table exclusions only when it selects one app service and one backup type. Scheduled
-backups created from that preset use the saved exclusions. Presets that apply to any service or backup type, and
-organization-wide presets, do not store table exclusions.
+An app backup preset can save explicit table exclusions only when it selects one app service and one backup type.
+Scheduled backups created from that preset use the saved exclusions. If the preset leaves the field untouched, each
+scheduled backup resolves the service default when it is created and stores that effective list with its own backup
+record. Presets that apply to any service or backup type, and organization-wide presets, do not store table exclusions.
 
 ## K3S storage capacity preflight
 
