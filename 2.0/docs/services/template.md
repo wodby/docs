@@ -944,9 +944,8 @@ Each item supports:
   action.
 
 A streamed backup must also define `create`, `upload.filepath`, and `upload.extension`. Wodby uses those definitions as
-the staged fallback for historical service revisions, versions omitted from `optionVersions`, and Wodby Blob Storage
-database destinations. Every `optionVersions` entry must match a version declared under the service's top-level
-`options` section.
+the staged fallback for historical service revisions and versions omitted from `optionVersions`. Every
+`optionVersions` entry must match a version declared under the service's top-level `options` section.
 
 `backups[].upload` supports:
 

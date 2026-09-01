@@ -82,13 +82,15 @@ object-storage bucket.
 ### Streamed backup through action
 
 For compatible service and image versions, Wodby runs the service's streaming action as a producer and sends its
-output directly to third-party object storage. The producer and uploader share only an in-memory stream and status
-file; they do not create a complete archive on the service's persistent volume.
+output directly to Wodby Blob Storage or supported third-party object storage. The producer and uploader share only an
+in-memory stream and status file; they do not create a complete archive on the service's persistent volume.
 
-The upload first uses a temporary object and is promoted to its final name only when the producer reports success.
+For third-party storage, the upload first uses a temporary object and is promoted to its final name only when the
+producer reports success. Wodby Blob Storage uses a backup-specific signed upload and removes its object if the
+producer or upload fails.
+
 Services declare exactly which option versions support this action. They must also retain the staged `create` and
-`upload.filepath` definitions so older service revisions, unsupported versions, and Wodby Blob Storage database
-destinations have a compatible fallback.
+`upload.filepath` definitions so older service revisions and unsupported versions have a compatible fallback.
 
 Service backups are defined under the [`backups` section](template.md#backups) in a service template.
 
