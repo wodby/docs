@@ -2,11 +2,17 @@
 
 ## Overview
 
-If an application's stack has services that provide [backup functionality](../services/operations.md#backups), you can run backups for the corresponding app service. The backup process consists of three steps:
+If an application's stack has services that provide [backup functionality](../services/operations.md#backups), you can
+run backups for the corresponding app service. Wodby runs the service's backup operation and writes the result to
+Wodby Blob Storage or a supported third-party object storage provider.
 
-- creating the backup archive in the container's ephemeral storage
-- mirroring the backup to Wodby Blob Storage or a supported third-party object storage provider
-- cleaning up the backup from the container's ephemeral storage
+File backups stream directly to their destination. A database backup also streams when its deployed service revision
+declares streaming support for the selected database version and the destination is third-party object storage. The
+complete archive is not staged on the source persistent volume.
+
+For a streamed upload to third-party object storage, Wodby first uses a temporary object. It publishes the final
+object name only after the backup producer reports success, and attempts to remove the temporary object when the
+producer or upload fails.
 
 Backups are managed from `Apps > [App] > [Instance] > Data > Backups`.
 
@@ -22,6 +28,21 @@ One-off manual backups are available on all active plans when the selected desti
 Wodby Blob Storage requires a paid subscription; free organizations can continue using their own supported storage
 integration. Creating or editing a backup preset normally requires an active paid subscription, including presets
 that do not enable an automatic schedule.
+
+## Streaming compatibility
+
+Streaming is selected from the app service's deployed service revision and selected version. Existing apps continue
+using their revision's behavior until they are updated to a service revision that declares streaming support. Wodby
+does not infer support from an image tag or attempt an unsupported command in an older container.
+
+Database backups use the established staged workflow when the deployed service revision is older, the selected
+version is not listed for streaming, or the destination is Wodby Blob Storage. In that workflow, the database action
+creates a complete archive at the service's configured volume path, Wodby uploads it, and a cleanup job removes the
+local archive.
+
+!!! note
+    Streaming removes the full backup archive from the source persistent-volume demand. It does not remove normal
+    database, network, memory, or object-storage resource usage during the backup.
 
 ## Excluding table contents
 
@@ -48,9 +69,14 @@ Before an app-service backup runs on K3S, its task includes a `Check storage cap
 default K3S local-path provisioner, Wodby checks the backing node for Kubernetes `DiskPressure` and reads available
 bytes reported by the kubelet.
 
-Known disk pressure stops the backup before the backup job is created. Existing service backup definitions do not
-declare their peak temporary-space requirement, so a byte-for-byte capacity comparison is usually not possible. Wodby
-shows the available capacity as a warning and continues unless Kubernetes reports disk pressure.
+Known disk pressure stops the backup before the backup job is created. For a file backup or a database backup selected
+for streaming, Wodby knows that the operation needs zero additional persistent-volume bytes because it does not stage
+an archive there. The preflight still checks the volume's node for `DiskPressure`, but it does not show the unknown
+peak-demand warning solely because of backup size.
+
+Staged database backup definitions do not declare their peak temporary-space requirement, so a byte-for-byte capacity
+comparison is not possible. For those backups, Wodby can show the available capacity as a warning and continue unless
+Kubernetes reports disk pressure.
 
 If Kubernetes does not expose volume statistics, the API permission is unavailable, or the storage provisioner does
 not have a capacity resolver, Wodby records that capacity could not be verified and allows the backup to continue.
