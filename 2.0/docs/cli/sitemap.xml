@@ -16,6 +16,45 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_delete.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_create.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_get-by-name.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_get-cicd-settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_maintenance-mode.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_reconcile-stack.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_update-cicd-settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_update-settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_upgrade-stack.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_get.html</loc>
   </url>
   <url>
@@ -100,6 +139,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_deployment.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_deployment_cancel.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_deployment_create.html</loc>
   </url>
   <url>
@@ -179,6 +221,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_service_annotation_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_service_backup-option-defaults.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_instance_service_config.html</loc>
@@ -391,6 +436,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_annotation_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_backup-option-defaults.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_config.html</loc>
   </url>
   <url>
@@ -568,6 +616,27 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_backup_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_backup-preset.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_backup-preset_backups.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_backup-preset_create.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_backup-preset_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_backup-preset_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_backup-preset_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_backup-preset_update.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_build.html</loc>
   </url>
   <url>
@@ -634,6 +703,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_infra-app-upgrade-changelog.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_kubernetes-version-upgrade-plan.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_list.html</loc>
   </url>
   <url>
@@ -644,6 +716,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_update-environment-policy.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_upgrade-infra.html</loc>
@@ -745,25 +820,43 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_deployment_wait.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_env.html</loc>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_env_create.html</loc>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_create.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_env_delete.html</loc>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_delete.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_env_get.html</loc>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_get.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_env_get-by-name.html</loc>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_get-by-name.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_env_list.html</loc>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_get-cicd-settings.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_env_update.html</loc>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_maintenance-mode.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_reconcile-stack.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_update-cicd-settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_update-settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_upgrade-stack.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_helm.html</loc>
@@ -868,6 +961,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_deployment.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_deployment_cancel.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_deployment_create.html</loc>
   </url>
   <url>
@@ -947,6 +1043,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_service_annotation_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_instance_service_backup-option-defaults.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_instance_service_config.html</loc>
@@ -1195,10 +1294,19 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_options_storage-classes.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_provider-revision-upgrade.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_test-permissions.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_update-environment-policy.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_upgrade-provider-revision.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_validate-app-access-hostname.html</loc>
