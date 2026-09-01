@@ -220,10 +220,10 @@ See [`wodby helm scaffold-stack`](../cli/wodby_helm_scaffold-stack.html) for all
 
 ## After creating the stack
 
-Use the stack to create an app or an app instance.
+Use the stack to create an app or an app environment.
 
 If you created a dashboard-managed stack, publish the draft before using it in apps. If you imported or created a stack
 from a manifest, Wodby creates a versioned stack revision from that manifest.
 
-When the stack changes later, app instances using older revisions can be upgraded. See [Application stack](../apps/stack.md)
+When the stack changes later, app environments using older revisions can be upgraded. See [Application stack](../apps/stack.md)
 and [Stack updates](updates.md).

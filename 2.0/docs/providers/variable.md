@@ -15,7 +15,7 @@ Use a variable provider when:
 Variable provider integrations are typically attached to:
 
 - app services that need provider-backed environment variables
-- stacks that should pass shared variables into every app instance created from that stack
+- stacks that should pass shared variables into every app environment created from that stack
 - reusable project-level workflows where the same credentials are needed in multiple places
 
 ## Providers in this group

@@ -6,7 +6,7 @@ An organization is the top-level scope for your users, teams, projects, shared d
 
 Day-to-day resources such as apps, Kubernetes clusters, databases, integrations, services, and providers are used through [projects](projects.md), while organization-level pages are used to manage the overall workspace.
 
-An organization has a title, a machine name, and a default time zone. The machine name cannot be changed and may contain only lowercase letters `a-z`, numbers `0-9`, and a hyphen. It is used in technical domains for your application instances and Kubernetes clusters, and in the repository namespace of Wodby Registry.
+An organization has a title, a machine name, and a default time zone. The machine name cannot be changed and may contain only lowercase letters `a-z`, numbers `0-9`, and a hyphen. It is used in technical domains for your app environments and Kubernetes clusters, and in the repository namespace of Wodby Registry.
 
 When an organization is created, the dashboard preselects the creator's browser time zone and lets them change it before
 creation. If browser time zone detection is unavailable, Wodby uses `UTC`. The default supplies the time zone for new
@@ -35,7 +35,6 @@ The organization area in the dashboard includes these sections:
 - `Members` to invite users, review membership status, and manage organization roles
 - `Projects` to create projects, review project resources, and manage project access
 - `Teams` to group users and reuse project access assignments
-- `Environments` to manage named environments used by apps and databases
 - `Backups` to create organization-wide backup presets reused in app and database backup flows
 - `Certificates` to review issued certificates used by application routes and supported database resources
 - `SSO` to configure organization-level Single Sign-On providers
@@ -63,12 +62,6 @@ Projects and teams are the main access-management tools inside an organization.
 - [Access control](access-control.md) explains how roles are evaluated
 - [Sharing](sharing.md) explains how resources can cross project boundaries safely
 
-## Environments
-
-Environments are managed from `Organization > Environments`.
-
-They are shared organization-level definitions that apps, databases, and other workflows can reference. See [Environment](apps/env.md) for details.
-
 ## Billing
 
 Billing is managed at the organization level.
@@ -88,10 +81,10 @@ The CI and registry selectors include Wodby's built-in services and available or
 corresponding type. Project-owned integrations cannot be used as organization defaults because they may not be
 available to apps in other projects.
 
-The selected CI and registry initialize new apps and new app instances. Each app instance stores CI as its Default CI
-for connected build sources and stores the registry as its instance-wide selection. Changing an organization default
-does not change existing instances or historical builds. Public and cloned boilerplate sources use Wodby CI regardless
-of Default CI. The selections are retained when an instance has no enabled service with build configuration, allowing
+The selected CI and registry initialize new apps and new app environments. Each app environment stores CI as its Default CI
+for connected build sources and stores the registry as its environment-wide selection. Changing an organization default
+does not change existing app environments or historical builds. Public and cloned boilerplate sources use Wodby CI regardless
+of Default CI. The selections are retained when an app environment has no enabled service with build configuration, allowing
 a buildable service to be enabled or added later without changing the intended providers.
 
 Choose `Wodby CI` or `Wodby US Docker Registry` to use the corresponding built-in service as the organization default.
@@ -111,20 +104,18 @@ notification after it changes.
 | Mode | Apps and clusters | Databases | Integrations, services, stacks, and providers |
 | --- | --- | --- | --- |
 | `Disabled` | No additional deletion blocks | No additional deletion blocks | No additional deletion blocks |
-| `Production` | Blocks deleting a non-infrastructure app instance in a `prod` environment. It also blocks deleting an app when that operation would delete such an instance. A cluster is protected when its assigned environment has the `prod` type or when it hosts a non-infrastructure app instance in a `prod` environment. | Blocks deleting a database server in a `prod` environment or an individual DB inside it. | Blocks deleting an integration when its primary environment has the `prod` type. Integrations with another or no primary environment, plus services, stacks, and providers, remain deletable. |
-| `All` | Blocks deleting every cluster and every non-infrastructure app instance. It also blocks deleting an app when that operation would delete one or more such instances. | Blocks deleting every database server and every individual DB. | Blocks deleting integrations, services, stacks, and providers. |
+| `Production` | Blocks deleting a non-infrastructure app environment with the `prod` type. It also blocks deleting an app when that operation would delete such an environment. A cluster is protected when its own type is `prod` or when it hosts a non-infrastructure `prod` app environment. | Blocks deleting a database server with the `prod` type or an individual DB inside it. | Blocks deleting an integration when its primary environment type is `prod`. Integrations with another or no primary type, plus services, stacks, and providers, remain deletable. |
+| `All` | Blocks deleting every cluster and every non-infrastructure app environment. It also blocks deleting an app when that operation would delete one or more such environments. | Blocks deleting every database server and every individual DB. | Blocks deleting integrations, services, stacks, and providers. |
 
-The `Production` mode uses the environment's type, not its display name. An environment that is named “Production”
-but has another type is not protected by this mode. Wodby also prevents changing the type of an environment while an
-app instance, database, or cluster references it, so a protected resource cannot be reclassified before deletion.
+The `Production` mode uses the resource's environment type, not its display name. Environment types are fixed and a
+resource cannot be reclassified as a way to bypass a protected deletion.
 
-For clusters, the assigned environment is the visual classification selected on the cluster. Existing production
-workloads remain an independent protection signal, so changing the cluster's assigned environment away from `prod`
-does not make a cluster deletable while it still hosts a non-infrastructure app instance in a `prod` environment.
+For clusters, the selected environment type is also its visual classification. Existing production workloads remain
+an independent protection signal, so changing the cluster away from `prod` does not make it deletable while it still
+hosts a non-infrastructure `prod` app environment.
 
-For integrations, the primary environment is a descriptive association and determines the integration's current
-classification for `Production` protection. Changing that association or changing the environment's type changes the
-classification. An integration reference by itself does not prevent changing the environment type.
+For integrations, the primary environment type is a descriptive classification and determines the integration's
+current `Production` protection.
 
 Protection applies to deletion requests from both the dashboard and API, and a force-delete option does not bypass it.
 It also applies when another operation would delete a protected resource, such as a stack upgrade that removes an

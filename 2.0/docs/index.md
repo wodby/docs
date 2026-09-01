@@ -1,7 +1,7 @@
 # Get Started
 
 Wodby helps developers deploy and manage scalable web applications on Kubernetes with a workflow centered around
-stacks, integrations, and application instances.
+stacks, integrations, and app environments.
 
 Start here if you are deciding where your app should run, how Wodby's app model is structured, or which core terms the dashboard is using.
 
@@ -28,7 +28,7 @@ Typical first steps:
    - connect your own server with [K3S](clusters/k3s.md)
    - create a [Wodby Cloud](clusters/wodby-cloud.md) cluster from the Clusters page or choose Wodby Cloud in the new application flow
 3. Create your first application from a [stack](stacks/index.md). Use a catalog stack, or [create a custom stack](stacks/create.md) when you need your own service composition.
-4. Configure the first [instance](apps/instances.md) and deploy it
+4. Configure the first [environment](apps/environments.md) and deploy it
 
 If the catalog does not include the component you need, [create or import a service](services/create.md), add it to a stack, and then create an application from that stack.
 
@@ -39,13 +39,13 @@ If you use Wodby Cloud, create a cluster from _Clusters > New Wodby Cloud cluste
 ## Decision guides
 
 - [Choose a cluster option](clusters/choose-platform.md)
-- [App vs app instance vs app service](apps/app-vs-instance-vs-service.md)
+- [App vs app environment vs app service](apps/app-vs-environment-vs-service.md)
 - [Provider vs integration](integrations/providers-vs-integrations.md)
 - [Glossary](glossary.md)
 
 Key concepts:
 
-- [Applications](apps/index.md) and [Instances](apps/instances.md)
+- [Applications](apps/index.md) and [App environments](apps/environments.md)
 - [Stacks](stacks/index.md) and [Services](services/index.md)
 - [Clusters](clusters/index.md)
 - [CI/CD](cicd/index.md)

@@ -8,25 +8,25 @@ Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-c
 Wodby CI installs Wodby CLI during the `Setting up build environment` step. Third-party CI jobs must install Wodby CLI
 themselves before calling `wodby ci init`.
 
-## Organization defaults, app instances, and services
+## Organization defaults, app environments, and services
 
 Organization owners and admins can select the default CI provider and container registry from
 [`Organization > Settings`](../org.md#settings). The selectors offer Wodby's built-in services and available
 organization-owned integrations of the corresponding type.
 
-New app and new app instance forms start with these defaults. You can override either selection while creating the
-instance without changing the organization setting. Each instance stores the resulting selections independently, so
-changing an organization default does not update existing instances or builds.
+New app and new app environment forms start with these defaults. You can override either selection while creating the
+environment without changing the organization setting. Each environment stores the resulting selections independently, so
+changing an organization default does not update existing environments or builds.
 
-The instance CI selection is the **Default CI** for connected build sources. A service that uses a public boilerplate
-or clones a boilerplate into a new repository uses Wodby CI instead. This lets one app instance contain Wodby CI and
-third-party CI build sources at the same time. The container registry remains an instance-wide selection.
+The environment CI selection is the **Default CI** for connected build sources. A service that uses a public boilerplate
+or clones a boilerplate into a new repository uses Wodby CI instead. This lets one app environment contain Wodby CI and
+third-party CI build sources at the same time. The container registry remains an environment-wide selection.
 
-Change an existing instance from `Apps > [App] > [Instance] > Settings > CI/CD`. Changing Default CI applies to future
+Change an existing environment from `Apps > [App] > [Environment] > Settings > CI/CD`. Changing Default CI applies to future
 builds for connected sources that inherit it; boilerplate sources continue to use Wodby CI. Historical builds retain
 their recorded CI provider, registry, and registry repository.
 
-If no external default is configured, new instances use [Wodby CI](wodby-ci.md) and
+If no external default is configured, new environments use [Wodby CI](wodby-ci.md) and
 [Wodby Registry](wodby-registry.md).
 
 For connected sources that inherit third-party CI, an app service does not have to link a Git repository in Wodby. The
@@ -44,7 +44,7 @@ operation. Other buildable services do not block it and deploy through their own
 
 `wodby ci init` automatically detects build and git metadata from GitHub Actions, GitLab CI, and CircleCI. If the CI
 provider is not recognized, the CLI reads git metadata from the checkout and sends `provider: unknown`. Pass
-`--provider` to override the detected provider value, for example when the app instance uses [Custom CI](../providers/custom-ci.md).
+`--provider` to override the detected provider value, for example when the app environment uses [Custom CI](../providers/custom-ci.md).
 Pass `--build-id` and `--build-num` when the CLI cannot detect a CI run ID and build number.
 
 Initialize the pipeline with `wodby ci init $WODBY_BUILD_ID` in Wodby CI or `wodby ci init $WODBY_APP_SERVICE_ID` in third-party CI. A typical flow then looks like this:

@@ -1,6 +1,6 @@
 # VPN providers
 
-VPN integrations supply credentials to services that run as persistent private-network nodes inside an app instance.
+VPN integrations supply credentials to services that run as persistent private-network nodes inside an app environment.
 
 Machine name: `vpn`
 
@@ -13,7 +13,7 @@ A VPN node and [Application Access](access.md) solve different problems:
 
 | Capability | VPN node | Application Access |
 | --- | --- | --- |
-| Managed as | An app service in the stack | An app-instance Access setting |
+| Managed as | An app service in the stack | An app environment Access setting |
 | Lifetime | Persists with the service | Reconciled with selected HTTP endpoints |
 | Primary use | Join the tailnet as a node | Make app endpoints reachable privately |
 | Requires an HTTP endpoint | No | Yes |

@@ -109,7 +109,7 @@ that mapping is absent. If assigning the mapped name makes the chart render its 
 map `serviceAccountCreate` so Wodby can disable that duplicate resource.
 
 Wodby supplies the effective replica count on every deployment, including `0` while an app service is disabled or its
-app instance is paused. A chart should therefore render `spec.replicas` from the mapped value for Deployments and
+app environment is paused. A chart should therefore render `spec.replicas` from the mapped value for Deployments and
 StatefulSets. Wodby does not enable chart autoscaling values. When autoscaling is configured, Wodby creates and
 reconciles the HorizontalPodAutoscaler while the chart continues to render its ordinary replica value. A chart-owned
 autoscaler must therefore remain disabled with the service manifest's Helm values. Wodby-maintained charts always

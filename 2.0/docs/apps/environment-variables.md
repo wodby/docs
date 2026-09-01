@@ -1,8 +1,8 @@
 # Environment variables
 
 Wodby compiles environment variables for each app service from its service and stack configuration, connected
-services and integrations, and app-instance overrides. The effective runtime variables are injected into the
-service's containers when the app instance is deployed.
+services and integrations, and app environment overrides. The effective runtime variables are injected into the
+service's containers when the app environment is deployed.
 
 ## Where variables come from
 
@@ -16,10 +16,10 @@ Environment variables can come from several layers:
 | Stack | Defaults shared by app services created from a stack revision |
 | Stack service | Defaults for one service in a stack revision |
 | Variable integration | Reusable provider credentials and configuration attached to a stack or app service |
-| App service | Overrides for one service in one app instance |
+| App service | Overrides for one service in one app environment |
 
 Configure app-service variables from
-`Apps > [App] > [Instance] > Stack > App services > [Service] > Configuration > Variables`. Configure reusable
+`Apps > [App] > [Environment] > Stack > App services > [Service] > Configuration > Variables`. Configure reusable
 stack and stack-service values from the corresponding `Configuration > Variables` page in the stack.
 
 App-service variables override inherited values with the same name and target. A variable scoped to a workload and
@@ -32,7 +32,7 @@ An app-service variable can apply to the whole service or to one workload and co
 every container in the app service.
 
 Stack, stack-service, and service-template variables can be limited to an environment type. Wodby applies an
-environment-specific variable only when the app instance uses a matching environment type:
+environment-specific variable only when the app environment uses a matching environment type:
 
 - `prod`
 - `staging`
@@ -82,17 +82,30 @@ Wodby adds the following runtime-only variables to every app-service container:
 | `WODBY` | `true`, indicating that the container runs on Wodby |
 | `WODBY2` | `true`, indicating the Wodby 2 runtime |
 | `WODBY_APP_NAME` | App machine name |
-| `WODBY_APP_INSTANCE_NAME` | App-instance machine name |
+| `WODBY_APP_ENVIRONMENT_ID` | App environment ID |
+| `WODBY_APP_ENVIRONMENT_NAME` | App environment machine name |
+| `WODBY_APP_ENVIRONMENT_TYPE` | Environment type: `prod`, `staging`, `test`, `dev`, or `feature` |
 | `WODBY_APP_SERVICE_NAME` | App-service machine name |
-| `WODBY_ENV_NAME` | Name of the environment assigned to the app instance |
-| `WODBY_ENV_TYPE` | Environment type: `prod`, `staging`, `test`, `dev`, or `feature` |
-| `WODBY_HOSTS` | JSON array of route and active App Access hostnames accepted by the app instance |
+| `WODBY_HOSTS` | JSON array of route and active App Access hostnames accepted by the app environment |
 | `WODBY_PRIMARY_HOST` | Protected primary hostname when App Access is configured; otherwise the enabled `Main` route hostname |
 | `WODBY_PRIMARY_URL` | URL for `WODBY_PRIMARY_HOST`; protected App Access URLs use `https` |
 
-`WODBY_PRIMARY_HOST` and `WODBY_PRIMARY_URL` are present only when the app instance has a primary hostname. During an
+`WODBY_PRIMARY_HOST` and `WODBY_PRIMARY_URL` are present only when the app environment has a primary hostname. During an
 [App Access](access.md#primary-hostname) change, `WODBY_HOSTS` can temporarily contain both current and desired
 hostnames so the workload continues accepting traffic throughout the transition.
+
+The following aliases remain available for compatibility with existing Wodby 2 applications and integrations:
+
+| Deprecated variable | Replacement or behavior |
+| --- | --- |
+| `WODBY_APP_INSTANCE_ID` | `WODBY_APP_ENVIRONMENT_ID` |
+| `WODBY_APP_INSTANCE_NAME` | `WODBY_APP_ENVIRONMENT_NAME` |
+| `WODBY_ENV_NAME` | Legacy environment-policy record name. It has no app-environment-name equivalent; use `WODBY_APP_ENVIRONMENT_TYPE` for type-aware behavior. |
+| `WODBY_ENV_TYPE` | `WODBY_APP_ENVIRONMENT_TYPE` |
+
+Use the canonical names for new code. The compatibility variables keep their previous values during the migration
+period so existing applications do not need to change in lockstep with the platform rollout. In particular,
+`WODBY_ENV_NAME` is not redefined to mean the app environment name.
 
 ## Names and reserved variables
 
@@ -109,10 +122,10 @@ this marker on migrated stacks so Wodby can expose compatibility aliases expecte
 
 | Wodby 1 compatibility variable | Wodby 2 source |
 | --- | --- |
-| `WODBY_INSTANCE_NAME` | `WODBY_APP_INSTANCE_NAME` |
-| `WODBY_ENVIRONMENT_NAME` | `WODBY_APP_INSTANCE_NAME` |
-| `WODBY_INSTANCE_TYPE` | `WODBY_ENV_TYPE`; `staging` is exposed as `stage` |
-| `WODBY_ENVIRONMENT_TYPE` | `WODBY_ENV_TYPE`; `staging` is exposed as `stage` |
+| `WODBY_INSTANCE_NAME` | `WODBY_APP_ENVIRONMENT_NAME` |
+| `WODBY_ENVIRONMENT_NAME` | `WODBY_APP_ENVIRONMENT_NAME` |
+| `WODBY_INSTANCE_TYPE` | `WODBY_APP_ENVIRONMENT_TYPE`; `staging` is exposed as `stage` |
+| `WODBY_ENVIRONMENT_TYPE` | `WODBY_APP_ENVIRONMENT_TYPE`; `staging` is exposed as `stage` |
 | `WODBY_HOST_PRIMARY` | `WODBY_PRIMARY_HOST` |
 | `WODBY_URL_PRIMARY` | `WODBY_PRIMARY_URL` |
 
@@ -122,7 +135,8 @@ they are updated to use the native Wodby 2 variables.
 ## Related pages
 
 - [App services](services.md)
-- [Application environments](env.md)
+- [App environments](environments.md)
+- [Environment types](environment-types.md)
 - [Stack configuration](../stacks/configuration.md)
 - [Service template environment variables](../services/template.md#environment-variable-object)
 - [Variable integrations](../integrations/variable.md)

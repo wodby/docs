@@ -21,9 +21,9 @@ Custom SMTP intentionally supports encrypted relay modes only. Use `smtp+tls` fo
 1. Open the project or organization **Integrations** page and create a **Custom SMTP** integration.
 2. Enter the relay host and any credentials required by the provider. Set the port and security mode when the provider
    does not use the defaults.
-3. Open the app instance containing OpenSMTPD and select its OpenSMTPD service.
+3. Open the app environment containing OpenSMTPD and select its OpenSMTPD service.
 4. Attach the integration to **Third-party SMTP server for Relay**.
-5. Redeploy the app instance so OpenSMTPD receives the relay configuration.
+5. Redeploy the app environment so OpenSMTPD receives the relay configuration.
 
 Applications continue to send mail to OpenSMTPD on its internal port `25`. OpenSMTPD then forwards the message to the
 configured upstream relay.

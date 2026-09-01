@@ -40,7 +40,7 @@ Same as `post_deploy`, but runs only during the first deployment. It can be limi
 
 #### `post_upgrade`
 
-Runs after an app instance is upgraded to a new stack revision.
+Runs after an app environment is upgraded to a new stack revision.
 
 #### `empty`
 
@@ -58,7 +58,7 @@ The dashboard does not derive runnable app-service actions from the raw service 
 service state and exposes only actions that can be considered for manual execution.
 
 An app-service action can be disabled even when it appears in the tab. Actions are disabled when the app service or app
-instance is not in a healthy `OK` state, and actions are not available for external or derivative app services.
+environment is not in a healthy `OK` state, and actions are not available for external or derivative app services.
 
 Service actions are defined under the [`actions` section](template.md#actions) in a service template.
 

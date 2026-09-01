@@ -13,7 +13,7 @@ Create an [SMTP provider integration](../../../providers/smtp.md), then attach i
 `Third-party SMTP server for Relay` integration. Wodby supplies the relay host, port, protocol, username, and password
 from the selected provider.
 
-Applications in the same app instance should connect through their stack link. The usual internal connection is the
+Applications in the same app environment should connect through their stack link. The usual internal connection is the
 OpenSMTPD app-service hostname on port `25`; linked PHP services receive that connection automatically through their
 mail-transfer-agent link.
 

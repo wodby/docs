@@ -8,17 +8,17 @@ Cron schedules can exist at several levels:
 
 - service level, provided by the service itself through the service template
 - stack level, created through stack configuration or a stack template
-- app level, created for a specific app instance
+- app level, created for a specific app environment
 
 Cron schedules can be defined for enabled, non-external app services using standard crontab syntax.
 
-Automatic cron schedules create jobs only while the app instance is running and the target app service has a usable
+Automatic cron schedules create jobs only while the app environment is running and the target app service has a usable
 runtime. The app service must be enabled, non-external, successfully deployed, and in the `OK` state. If a run becomes
-due before the first successful deployment, while the instance is not running, or while the target service is not
+due before the first successful deployment, while the environment is not running, or while the target service is not
 usable, Wodby skips that execution and advances the schedule. The missed run is not queued or replayed when the
-instance or service becomes runnable again.
+environment or service becomes runnable again.
 
-Manual cron-job runs use the same runtime checks. If the instance or target service is not ready, Wodby returns an
+Manual cron-job runs use the same runtime checks. If the environment or target service is not ready, Wodby returns an
 error without creating a cron-job task. Retry the manual run after both are running if the missed work is still needed.
 
 ## Failure and recovery notifications

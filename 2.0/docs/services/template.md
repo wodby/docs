@@ -219,7 +219,7 @@ env:
 
 When a service inherits from another service, a variable in the inherited service overrides only the base service
 variable with the same `name` and `envType`. Base service variants for other environment types remain inherited. At
-runtime, Wodby includes variables without `envType` and variables matching the app instance's environment type.
+runtime, Wodby includes variables without `envType` and variables matching the app environment's environment type.
 
 Environment-variable names must follow the
 [platform naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables).
@@ -563,7 +563,7 @@ multi-workload services, set `workload` explicitly when the endpoint should targ
 Each endpoint must resolve to a distinct Kubernetes Service. Group all ports exposed by the same rendered Service under
 one endpoint.
 
-Route defaults are service-owned defaults rather than stack restrictions. App instance defaults and explicit domain
+Route defaults are service-owned defaults rather than stack restrictions. App environment defaults and explicit domain
 overrides remain available, and a domain override has the highest precedence. Inherited services merge route defaults
 by endpoint, port, and setting name; child values replace only matching base values.
 
@@ -910,7 +910,7 @@ Allowed `type` values:
 
 - `button`: user-runnable action shown on the app service's `Actions` tab
 - `output`: user-runnable action shown on the app service's `Actions` tab; output is available through the task logs
-- `post_upgrade`: runs after an app instance is upgraded to a new stack revision
+- `post_upgrade`: runs after an app environment is upgraded to a new stack revision
 - `post_deploy`
 - `post_deploy_once`
 - `empty`: no-op placeholder action, not user-runnable

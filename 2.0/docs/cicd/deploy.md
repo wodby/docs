@@ -5,7 +5,7 @@ This page covers deployments triggered by CI. For more information about deploym
 Use `wodby ci deploy [SERVICE]...` to deploy previously released images. If you do not specify services, Wodby deploys all released services from the current build.
 
 Each CI deployment is associated with the Wodby build created during `wodby ci init`. You can review the deployment
-history, including failed deployments, from `Apps > [App] > [Instance] > CI/CD > Deploys`.
+history, including failed deployments, from `Apps > [App] > [Environment] > CI/CD > Deploys`.
 
 CI-triggered deployments use the same [rollback behavior](../apps/deploys.md#deployment-rollback) as manual deployments.
 
@@ -21,7 +21,7 @@ post-deployment task without redeploying the application.
 `wodby ci deploy` records the released build as deployable and returns without waiting for the rollout or
 post-deployment task. The deployment can remain `Awaiting` while other selected builds finish or the cluster completes
 infrastructure maintenance. When all inputs are ready, its normal deployment task becomes `Queued` behind any current
-deployment or post-deployment operation for that app instance. See
+deployment or post-deployment operation for that app environment. See
 [Deployment readiness and queueing](../apps/deploys.md#deployment-readiness-and-queueing).
 
 Operational CLI commands that stream deployment logs or explicitly wait for a deployment follow both tasks and return

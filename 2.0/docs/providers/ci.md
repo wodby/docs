@@ -15,7 +15,7 @@ Use a CI provider when:
 CI provider integrations are used for:
 
 - app build and deploy workflows
-- organization defaults and app-instance Default CI selections for connected build sources
+- organization defaults and app environment Default CI selections for connected build sources
 - provider-backed actions such as triggering or rerunning supported workflows
 
 Provider-backed actions are available only for CI providers that Wodby can call directly. [Custom CI](custom-ci.md)
@@ -24,7 +24,7 @@ uses the same CLI build and deploy flow, but Wodby does not poll, trigger, or re
 ## Starting builds from the dashboard
 
 The dashboard's **New build** action, including the **New build** option in a new deployment, depends on the app
-service's effective CI provider and build-source configuration. Connected sources inherit the app instance's Default
+service's effective CI provider and build-source configuration. Connected sources inherit the app environment's Default
 CI, while public and cloned boilerplate sources use Wodby CI.
 
 | CI mode | Dashboard requirements |

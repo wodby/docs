@@ -16,7 +16,7 @@ cannot be configured with multiple replicas.
 You can set replica counts:
 
 - in the stack configuration as the default
-- per app instance as an override
+- per app environment as an override
 
 ### Resources management
 
@@ -38,7 +38,7 @@ your current subscription does not include autoscaling, you cannot enable or inc
 existing rule off.
 
 When creating an app, you can define autoscaling rules for supported services. You can change the rule later from
-**Apps > your app > your instance > Stack > App services > your service > Configuration > General**.
+**Apps > your app > your environment > Stack > App services > your service > Configuration > General**.
 
 Turn **Autoscaling** on to reveal:
 

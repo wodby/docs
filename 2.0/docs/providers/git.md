@@ -16,7 +16,7 @@ Git provider integrations are used for:
 
 - selecting remote repositories during app build-source setup
 - browsing branches and tags for build configuration
-- connecting app instances to provider-hosted source code
+- connecting app environments to provider-hosted source code
 - updating Git-backed stacks and services from selected branches or tags
 
 ## Push events

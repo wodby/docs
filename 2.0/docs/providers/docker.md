@@ -14,12 +14,12 @@ Docker Hub is available in Wodby as a `registry` provider. Use it when you want 
 
 ## Usage
 
-Create a Docker Hub integration and select it as the registry when creating an app or app instance with buildable services.
+Create a Docker Hub integration and select it as the registry when creating an app or app environment with buildable services.
 
-Wodby publishes build images to Docker Hub under a repository path based on the app instance:
+Wodby publishes build images to Docker Hub under a repository path based on the app environment:
 
 ```text
-[namespace]/[app-name]_[app-instance-name]-[suffix]
+[namespace]/[app-name]_[app-environment-name]-[suffix]
 ```
 
 The namespace is the optional `Namespace` field. If you leave it empty, Wodby uses the main Docker Hub username as the namespace.

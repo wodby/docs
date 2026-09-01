@@ -9,14 +9,14 @@ setting when your repository uses a different layout.
 
 ## Runtime configuration
 
-The Drupal PHP runtime generates `wodby.settings.php` from the app instance's current environment and linked services.
+The Drupal PHP runtime generates `wodby.settings.php` from the app environment's current environment and linked services.
 The runtime setup adds this file to the active Drupal site's `settings.php` when it initializes the site.
 
 The generated settings provide:
 
 - database connection values from the selected database link
 - public, private, temporary, and configuration-sync paths
-- trusted-host patterns from the app instance routes
+- trusted-host patterns from the app environment routes
 - generated hash and file-sync salts
 - optional Valkey or Redis cache configuration when the Drupal Redis module is present
 - the password override used by the [Drupal Solr integration](solr.md)
@@ -42,8 +42,8 @@ running container.
 
 ## Cron and application actions
 
-The Drupal PHP service defines an hourly Drush cron schedule using the app instance's primary URL. You can change the
-schedule or run it manually from the app instance's [Cron](../../../apps/cron.md) page.
+The Drupal PHP service defines an hourly Drush cron schedule using the app environment's primary URL. You can change the
+schedule or run it manually from the app environment's [Cron](../../../apps/cron.md) page.
 
 The service also exposes actions to:
 

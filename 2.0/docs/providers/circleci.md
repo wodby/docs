@@ -14,8 +14,8 @@ The following example:
 
 1. Installs dependencies from `composer.json` using the automatic Wodby CLI cache persisted by CircleCI
 2. Builds the service images configured for the app
-3. Releases image to the registry associated with the app instance
-4. Runs deployment of the build for the associated app instance
+3. Releases image to the registry associated with the app environment
+4. Runs deployment of the build for the associated app environment
 
 Make sure you've:
 

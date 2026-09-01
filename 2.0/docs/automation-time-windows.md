@@ -5,18 +5,18 @@ workloads, while backup windows restrict when an automatic backup may begin.
 
 Time windows are available for:
 
-- automatic app instance stack upgrades
+- automatic app environment stack upgrades
 - automatic cluster infrastructure version upgrades
 - automatic cluster infrastructure app stack upgrades
 - automatic backups from app, database, and organization-wide backup presets
 
 Each supported upgrade setting has its own window. For example, a cluster can use different windows for infrastructure
-version upgrades and infrastructure app upgrades, and app instances that share a stack can use different upgrade
+version upgrades and infrastructure app upgrades, and app environments that share a stack can use different upgrade
 windows.
 
 Catalog operations that do not change running workloads do not use time windows. Git auto-updates of services and
 stacks, automatic stack service revision updates, and automatic sync of copied stacks with their origin can create new
-catalog revisions at any time. An app instance's time window still controls when its running workload may be upgraded
+catalog revisions at any time. An app environment's time window still controls when its running workload may be upgraded
 to one of those revisions.
 
 ## Configure a window
@@ -25,7 +25,7 @@ For an automatic upgrade, enable `Time window` in its automation settings. For a
 Then select a start time, end time, time zone, and one or more days. All seven days are selected by default. The
 `Every day`, `Weekdays`, and `Weekends` shortcuts provide quick ways to change the selection.
 
-New app instances and clusters receive enabled `02:00` to `04:00` windows in the organization's default time zone for
+New app environments and clusters receive enabled `02:00` to `04:00` windows in the organization's default time zone for
 each applicable automatic upgrade. The organization creation form preselects the creator's browser time zone and lets
 them change it before creation; if browser detection is unavailable, Wodby uses `UTC`. Owners and admins can change it
 under `Organization > Settings`.

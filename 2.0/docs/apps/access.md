@@ -1,14 +1,14 @@
 # App access
 
-App access controls whether an app instance is published through ordinary Wodby routes or through a supported access
-provider. It applies to HTTP endpoints and is configured independently for each app instance.
+App access controls whether an app environment is published through ordinary Wodby routes or through a supported access
+provider. It applies to HTTP endpoints and is configured independently for each app environment.
 
 ## Availability
 
 Application Access requires an active paid subscription. Organizations on the free Developer plan can create apps in
 `Public` mode, but `Protected` mode is unavailable until the organization upgrades.
 
-Before scheduling a downgrade to Developer, remove Application Access from every app instance. If paid access becomes
+Before scheduling a downgrade to Developer, remove Application Access from every app environment. If paid access becomes
 unavailable while an existing configuration remains, its protection stays active and readable, but it cannot be
 changed. You can still remove it, and Wodby can still finish provider cleanup.
 
@@ -46,7 +46,7 @@ In Step 4, `App settings`, select `Protected` under `Access` and then configure:
 For Entire app scope, Wodby automatically includes every enabled HTTP destination that normally has an external route.
 Routes and paths that target the same app port share one provider address. For Selected endpoints, the form lists the
 eligible HTTP destinations from the enabled stack services and starts with the main destination selected. You can
-change the selection before creation or later from `Apps > [App] > [Instance] > Settings > Access`.
+change the selection before creation or later from `Apps > [App] > [Environment] > Settings > Access`.
 
 Wodby waits until the first successful workload deployment before creating the provider resources. Public routes in
 the selected scope are suppressed from the beginning, so the app is not temporarily published while provider access
@@ -56,8 +56,8 @@ is being prepared.
 
 ### Entire app
 
-The access provider becomes the publication path for the app instance. Wodby creates a provider address for every
-distinct enabled external HTTP destination and suppresses all ordinary public HTTP routes for the instance. Enabling
+The access provider becomes the publication path for the app environment. Wodby creates a provider address for every
+distinct enabled external HTTP destination and suppresses all ordinary public HTTP routes for the environment. Enabling
 or disabling an app service automatically reconciles this address inventory after deployment.
 
 For example, a Drupal stack can receive one Access address for Drupal and another for Mailpit when both expose external
@@ -97,9 +97,9 @@ the suppressed route.
 
 ## Primary hostname
 
-The primary hostname is the canonical protected address of the app instance. Wodby uses it as:
+The primary hostname is the canonical protected address of the app environment. Wodby uses it as:
 
-- the primary domain shown for the app instance
+- the primary domain shown for the app environment
 - the provider's primary application domain
 - `WODBY_PRIMARY_HOST` and `WODBY_PRIMARY_URL` inside app services
 - part of `WODBY_HOSTS`, which applications can use for allowed-host configuration
@@ -143,7 +143,7 @@ now routed privately through Cloudflare One instead of published by Wodby's publ
 port share that address. For Selected endpoints scope, routes for unselected endpoints remain public.
 
 The `private` flag in a service definition is different. It prevents a port from being published through public Wodby
-routing, but it does not create a Cloudflare or Tailscale address. Application Access is the explicit app-instance
+routing, but it does not create a Cloudflare or Tailscale address. Application Access is the explicit app environment
 setting that asks a provider to publish an eligible HTTP endpoint.
 
 ### Published TCP and UDP ports
@@ -169,19 +169,19 @@ contains HTTP destinations only.
 | [Tailscale](../providers/tailscale.md) | Private network: a tailnet endpoint reachable by authorized Tailscale users and devices | Assigned from the app and tailnet names |
 
 Wodby creates and reconciles provider resources when access is enabled or changed, and removes them when access is
-removed or the app instance is deleted. Removing access restores the matching ordinary public routes unless the stack
+removed or the app environment is deleted. Removing access restores the matching ordinary public routes unless the stack
 requires Protected mode.
 
-The access type is fixed while Access is enabled. To move an existing app instance between Protected publishing and
+The access type is fixed while Access is enabled. To move an existing app environment between Protected publishing and
 Private network access, remove Access and enable it again with the other type. Wodby finishes the old provider cleanup
 before creating the replacement resources.
 
 ## Resource cleanup
 
-Wodby records the provider resources it creates so cleanup can continue even after App Access or the app instance has
+Wodby records the provider resources it creates so cleanup can continue even after App Access or the app environment has
 been removed. Cleanup also runs after an initial access setup fails, before that configuration can be retried.
 
-Removing App Access restores the matching Wodby public routes first. Deleting an app instance removes its workloads
+Removing App Access restores the matching Wodby public routes first. Deleting an app environment removes its workloads
 first so an access connector cannot continue reaching the app while provider policy is being removed. Wodby then
 removes its connector resources, provider endpoints, credentials, and other managed resources.
 
@@ -189,8 +189,8 @@ A temporary provider or cluster API failure does not prevent app deletion or lea
 task finishes with a warning, Wodby retains a cleanup obligation, and a separate cleanup task is attempted. You can
 review the warning and select `Retry cleanup` from either:
 
-- `Apps > [App] > [Instance] > Settings > Access`, while the app instance still exists
-- the access integration page, including after the app instance has been deleted
+- `Apps > [App] > [Environment] > Settings > Access`, while the app environment still exists
+- the access integration page, including after the app environment has been deleted
 
 The integration cannot be deleted while cleanup is outstanding because Wodby still needs its credentials. Correct an
 expired credential or missing provider permission on the integration, then retry cleanup.
@@ -203,6 +203,6 @@ customer-managed Tailscale tags and access rules, are never deleted.
 ## Related pages
 
 - [Endpoints](endpoints.md)
-- [App instances](instances.md)
+- [App environments](environments.md)
 - [Application Access providers](../providers/access.md)
 - [Integration types](../integrations/types.md)

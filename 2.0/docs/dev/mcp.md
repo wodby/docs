@@ -199,7 +199,7 @@ Use Wodby to list my organizations and projects.
 
 A practical workflow is:
 
-1. Start with names where possible: organization, project, app, app instance, app service, cluster, stack, and
+1. Start with names where possible: organization, project, app, app environment, app service, cluster, stack, and
    environment names are easier for an assistant to use than numeric IDs.
 2. Ask for a read-only summary or diagnosis before making changes.
 3. Ask the assistant to explain the intended operation.
@@ -230,19 +230,19 @@ Use Wodby to show the status of app example in organization acme.
 ```
 
 ```text
-Find the production instance for app example in organization acme.
+Find the production app environment for app example in organization acme.
 ```
 
 ```text
-List app instances in project storefront that are not deployed or have a failed latest deployment.
+List app environments in project storefront that are not deployed or have a failed latest deployment.
 ```
 
 ```text
-List services for the production instance of app example in organization acme.
+List services for the production app environment of app example in organization acme.
 ```
 
 ```text
-List cron schedules for the php service in the production instance of app example.
+List cron schedules for the php service in the production app environment of app example.
 ```
 
 ### Diagnostics examples
@@ -252,37 +252,37 @@ Use Wodby to explain why deployment 789 failed and include the failed task step 
 ```
 
 ```text
-Show pods and current service metrics for the php service in the production instance of app example, then summarize anything unhealthy.
+Show pods and current service metrics for the php service in the production app environment of app example, then summarize anything unhealthy.
 ```
 
 ```text
-Check the latest builds and deployments for the production instance of app example and tell me what changed most recently.
+Check the latest builds and deployments for the production app environment of app example and tell me what changed most recently.
 ```
 
 ```text
-Get current metrics for the php and nginx services in the production instance of app example.
+Get current metrics for the php and nginx services in the production app environment of app example.
 ```
 
 ### Operation examples
 
 ```text
-Create builds for the php and node app services in the production instance of app example, then show the task status.
+Create builds for the php and node app services in the production app environment of app example, then show the task status.
 ```
 
 ```text
-Create a build for the php service in the production instance of app example, wait for the build task, then follow the deployment task if Wodby creates one for that build.
+Create a build for the php service in the production app environment of app example, wait for the build task, then follow the deployment task if Wodby creates one for that build.
 ```
 
 ```text
-Create a deployment for the php and nginx app services in the production instance of app example, then wait for the task and include logs if it fails.
+Create a deployment for the php and nginx app services in the production app environment of app example, then wait for the task and include logs if it fails.
 ```
 
 ```text
-Run the clear-cache action on the php app service in the production instance of app example.
+Run the clear-cache action on the php app service in the production app environment of app example.
 ```
 
 ```text
-Run the Nightly cleanup cron schedule on the php service in the production instance of app example and follow the created task until it finishes.
+Run the Nightly cleanup cron schedule on the php service in the production app environment of app example and follow the created task until it finishes.
 ```
 
 ```text
@@ -316,7 +316,7 @@ Create an app from stack drupal11 in organization acme. Use defaults where safe 
 ```
 
 ```text
-Add a staging instance to app example. Use the app's current stack by default and ask where it should be deployed.
+Add a staging app environment to app example. Use the app's current stack by default and ask where it should be deployed.
 ```
 
 ```text
@@ -363,22 +363,22 @@ These tools require `mcp:read` when using OAuth.
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
-| `list_envs` | List environments in an organization for app and app-instance creation. |
+| `list_envs` | List environments in an organization for app and app environment creation. |
 | `list_integrations` | List integrations, optionally filtered by type, status, project, or provider labels. |
 | `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
-| `show_app_status` | Return a dashboard-style app summary with instances, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
+| `show_app_status` | Return a dashboard-style app summary with app environments, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
 | `get_app` | Get an app by ID. |
-| `find_environment` | Find an app instance by organization, app name, and instance name. |
-| `list_app_instances` | List app instances with optional project, app, cluster, and status filters by names or IDs. |
-| `get_app_instance` | Get an app instance by ID. |
-| `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app instance. This does not create anything. |
-| `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app instance in an existing app. This does not create anything. |
-| `list_app_services` | List services for an app instance by app instance ID or organization/app/instance names. |
+| `find_environment` | Find an app environment by organization, app name, and the legacy `instanceName` argument. |
+| `list_app_instances` | List app environments with optional project, app, cluster, and status filters by names or IDs. |
+| `get_app_instance` | Get an app environment by ID. |
+| `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
+| `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
+| `list_app_services` | List services for an app environment by app environment ID or the legacy organization/app/instance-name arguments. |
 | `get_app_service` | Get an app service by ID. |
-| `list_app_service_cron_schedules` | List cron schedules for an app instance or app service by IDs or by organization/app/instance/service names. |
-| `list_app_builds` | List recent builds for an app instance by ID or organization/app/instance names. |
+| `list_app_service_cron_schedules` | List cron schedules for an app environment or app service by IDs or by the legacy organization/app/instance-name/service arguments. |
+| `list_app_builds` | List recent builds for an app environment by ID or the legacy organization/app/instance-name arguments. |
 | `get_app_build` | Get an app build by ID. |
-| `list_recent_deployments` | List recent deployments for an app instance by ID or organization/app/instance names. |
+| `list_recent_deployments` | List recent deployments for an app environment by ID or the legacy organization/app/instance-name arguments. |
 | `get_deployment` | Get deployment status, task, and service deployment details. |
 | `get_task` | Get task jobs and steps, with follow-up suggestions when task results point to builds or deployments. |
 | `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs and follow-up suggestions. |
@@ -408,9 +408,9 @@ These tools require `mcp:read` when using OAuth.
 | `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
 | `get_stack_examples` | Get concise Wodby stack manifest examples. |
 | `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
-| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app instance selector. |
-| `get_app_services_metrics` | Get current metrics for one or more app services selected by IDs or by service names with an app instance selector. |
-| `get_app_instances_metrics` | Get current metrics for one or more app instances. |
+| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector. |
+| `get_app_services_metrics` | Get current metrics for one or more app services selected by IDs or by service names with an app environment selector. |
+| `get_app_instances_metrics` | Get current metrics for one or more app environments. |
 
 ### Operation tools
 
@@ -418,11 +418,11 @@ These tools require `mcp:operate` when using OAuth.
 
 | Tool | Use |
 | --- | --- |
-| `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app instance selector, and suggest waiting for its task. |
+| `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app environment selector, and suggest waiting for its task. |
 | `redeploy_deployment` | Redeploy from an existing deployment. |
 | `deploy_build` | Deploy a completed app build. |
-| `create_builds` | Create builds for one or more app services selected by IDs or by service names with an app instance selector, and suggest waiting for the build task. |
-| `run_app_service_action` | Run a named action on an app service selected by ID or by service name with an app instance selector. |
+| `create_builds` | Create builds for one or more app services selected by IDs or by service names with an app environment selector, and suggest waiting for the build task. |
+| `run_app_service_action` | Run a named action on an app service selected by ID or by service name with an app environment selector. |
 | `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
@@ -454,8 +454,8 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `create_k3s_cluster` | Create a self-hosted k3s cluster record. |
 | `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. If demo or sizing choices are unresolved, they are returned as questions. |
 | `scale_cluster` | Scale a cluster node pool. |
-| `create_app_from_stack` | Create an app and initial app instance from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
-| `create_app_instance_from_stack` | Create an app instance in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_from_stack` | Create an app and initial app environment from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_instance_from_stack` | Create an app environment in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
 | `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
@@ -483,10 +483,10 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `delete_database` | Delete a database. |
 | `delete_database_db` | Delete a DB inside a database. |
 | `delete_database_user` | Delete a database user. |
-| `update_app_instance_settings` | Update app-instance settings such as automatic stack upgrades. |
+| `update_app_instance_settings` | Update app environment settings such as automatic stack upgrades. |
 | `update_stack_service` | Update selected stack-service settings. |
 | `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
-| `upgrade_app_instance_stack` | Upgrade selected app-instance stack sections. |
+| `upgrade_app_instance_stack` | Upgrade selected app environment stack sections. |
 | `upgrade_cluster_infra` | Upgrade cluster infrastructure. |
 | `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |
 

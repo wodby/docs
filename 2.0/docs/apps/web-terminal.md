@@ -9,21 +9,21 @@ use [SSH services](../services/types.md#ssh) and, when needed, [published ports]
 
 ## Where to find it
 
-From `Apps > [App] > [Instance] > Stack > App services > [Service] > Overview`, click `Connect via web terminal`.
+From `Apps > [App] > [Environment] > Stack > App services > [Service] > Overview`, click `Connect via web terminal`.
 
 ## Requirements
 
 To start a session:
 
 - the organization must have an active paid subscription
-- you need writable access to the app instance
-- the app instance status must be `OK`
+- you need writable access to the app environment
+- the app environment status must be `OK`
 - the app service status must be `OK`
 - the target service must have at least one workload container and a current pod to connect to
 - the cluster must have a current, available Wodby FRPC infrastructure proxy
 
 The dashboard disables `Connect via web terminal` when the organization does not have paid-plan access or when the app
-instance or app service is not `OK`. If paid-plan access is missing, hover over the disabled button to see the plan
+environment or app service is not `OK`. If paid-plan access is missing, hover over the disabled button to see the plan
 requirement.
 
 If Wodby cannot find a current pod for the selected workload, the session cannot start.

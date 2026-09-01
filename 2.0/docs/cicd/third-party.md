@@ -45,7 +45,7 @@ Existing linked sources saved before ref selection was required may have no sele
 builds from the linked repository regardless of branch or tag until you edit the source. Dashboard-triggered builds
 remain unavailable for these sources; select a ref to enable matching and supported dashboard build actions.
 
-Public and cloned boilerplate sources use Wodby CI even when the instance's Default CI is third-party. They are not
+Public and cloned boilerplate sources use Wodby CI even when the environment's Default CI is third-party. They are not
 initialized with `WODBY_APP_SERVICE_ID`. An app may contain both kinds of source. Each build or deployment operation
 waits only for the source owners selected for that operation rather than every source owner in the app.
 
@@ -106,7 +106,7 @@ new build and deployment.
 
 Use `wodby ci init --dind $WODBY_APP_SERVICE_ID` when your provider builds through docker-in-docker, as in the GitLab CI examples.
 
-If your app instance uses Custom CI but the job runs in a known provider such as GitHub Actions or GitLab CI, either let
+If your app environment uses Custom CI but the job runs in a known provider such as GitHub Actions or GitLab CI, either let
 the CLI send the detected provider value or force a generic value:
 
 ```bash

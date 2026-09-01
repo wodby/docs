@@ -15,12 +15,12 @@ Distribution Registry is available in Wodby as a `registry` provider. Use it to 
 
 ## Usage
 
-Create a Distribution Registry integration and select it as the registry when creating an app or app instance with buildable services.
+Create a Distribution Registry integration and select it as the registry when creating an app or app environment with buildable services.
 
-Wodby publishes build images under a repository path based on the configured prefix and app instance:
+Wodby publishes build images under a repository path based on the configured prefix and app environment:
 
 ```text
-[prefix]/[app-name]_[app-instance-name]-[suffix]
+[prefix]/[app-name]_[app-environment-name]-[suffix]
 ```
 
 If `Repository prefix` is empty, Wodby uses your organization machine name as the prefix.

@@ -7,7 +7,7 @@ Some app services have [build configuration](../services/build.md). For those se
 The two common patterns are:
 
 1. An app service has a build source and acts as the main service for the build. A connected source inherits the app
-   instance's Default CI. Under third-party CI it can be external and identified by the app service ID. Public and
+   environment's Default CI. Under third-party CI it can be external and identified by the app service ID. Public and
    cloned boilerplate sources use Wodby CI.
 2. Other app services are build image targets but do not have their own separate build source. Their service manifest
    uses `build.link` to identify the linked app service that owns the source, so they can produce images as part of the
@@ -17,7 +17,7 @@ For example, an app may have `php` and `nginx` services while a single Git repos
 
 Wodby exports one source owner and its linked image targets to each CI build. A different app service with its own build
 source is excluded and receives a separate build. The service selected by `build.link` must accept connected builds and
-must have a build source configured on the app instance.
+must have a build source configured on the app environment.
 
 Existing service revisions without `build.link` remain compatible. Wodby first looks for a single linked service with a
 build source. If none is linked and the app has exactly one build-source owner, Wodby uses that owner. When multiple
@@ -31,7 +31,7 @@ must match that selection. Leave it unlinked when the external pipeline should c
 sources instead require the repository and pipeline used by Wodby CI. See
 [third-party CI source selection](../cicd/third-party.md#source-selection).
 
-An app instance can include source owners using both CI paths. Each build operation records the exact source owners it
+An app environment can include source owners using both CI paths. Each build operation records the exact source owners it
 starts or expects. The resulting deployment waits for those owners only; another buildable service in the same app
 does not block the deployment unless it was selected for that operation.
 
@@ -65,12 +65,12 @@ A build records:
 - commit and ref information, plus the related Git repository when one is linked in Wodby
 - the resulting container images intended for deployment
 
-The app instance's Default CI and registry selections remain dependencies of that app. Historical builds retain the
+The app environment's Default CI and registry selections remain dependencies of that app. Historical builds retain the
 effective selections recorded when they were created: pending and active builds retain their CI integration, while
 every non-voided service image retains its registry integration. Wodby rejects ownership or sharing changes that would
 make one of these live references invalid for the app's current owner scope.
 
-Before removing a required project share or changing ownership, update the app instance to another valid CI or
+Before removing a required project share or changing ownership, update the app environment to another valid CI or
 registry selection, let active builds finish, and replace and void old images that still use the previous registry.
 See [Sharing](../sharing.md#changing-sharing-with-active-references) for the general rule.
 
@@ -81,12 +81,12 @@ to this build** to deploy its available application versions again. If an older 
 deployed, the action is instead **Deploy this older build**. You can also choose builds per app service from `CI/CD >
 Deploys > New Deployment`.
 
-Wodby allows a completed, non-voided image from the app instance's current stack revision even if that image has never
+Wodby allows a completed, non-voided image from the app environment's current stack revision even if that image has never
 been deployed. For an image built against another stack revision, the exact app-service image must have completed a
 deployment previously. Builds that do not meet this cross-revision rule remain in build history but are not offered as
 deployment choices.
 
-Rolling back to a previous build changes only the container images produced by that build. The app instance continues
+Rolling back to a previous build changes only the container images produced by that build. The app environment continues
 to use its current stack revision, configuration, secrets, volumes, linked services, databases, and persistent data. The
 dashboard therefore shows a risk warning and requires confirmation when a build is older than the currently deployed
 build or belongs to another stack revision. Post-deployment scripts are skipped by default for this shortcut.
