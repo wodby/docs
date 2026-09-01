@@ -24,8 +24,6 @@ tags:
     description: Project containers within organizations.
   - name: apps
     description: Applications and app-level configuration.
-  - name: app-instances
-    description: Deprecated compatibility API for app environments.
   - name: app-environments
     description: Persistent, independently deployable application environments.
   - name: app-auths
@@ -841,306 +839,6 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
-  /app-instances:
-    get:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: List app instances
-      description: Returns app instances matching the request filters.
-      operationId: listAppInstances
-      parameters:
-        - $ref: '#/components/parameters/OrgId'
-        - $ref: '#/components/parameters/ProjectIds'
-        - $ref: '#/components/parameters/AppId'
-        - $ref: '#/components/parameters/ClusterId'
-        - $ref: '#/components/parameters/ClusterAppOptional'
-      responses:
-        '200':
-          description: List of app instances
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/AppInstance'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-    post:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Create app instance
-      description: Creates an app instance and returns the created resource.
-      operationId: createAppInstance
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NewAppInstanceInput'
-      responses:
-        '201':
-          description: Created app instance
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppInstance'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instances/by-name/{appName}/{instanceName}:
-    get:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Get app instance by app and instance name
-      description: Returns the app instance identified by app and instance name.
-      operationId: getAppInstanceByName
-      parameters:
-        - name: appName
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: instanceName
-          in: path
-          required: true
-          schema:
-            type: string
-        - $ref: '#/components/parameters/OrgId'
-      responses:
-        '200':
-          description: App instance
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppInstance'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instances/{id}:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    get:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Get app instance
-      description: Returns the app instance identified by the request path.
-      operationId: getAppInstance
-      responses:
-        '200':
-          description: App instance
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppInstance'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-    put:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Update app instance
-      description: Updates the app instance and returns the updated resource.
-      operationId: updateAppInstance
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateTitleRequest'
-      responses:
-        '200':
-          description: Updated app instance
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppInstance'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-    delete:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Delete app instance
-      description: Deletes the app instance and returns the operation result.
-      operationId: deleteAppInstance
-      parameters:
-        - $ref: '#/components/parameters/Force'
-      responses:
-        '200':
-          description: Delete result
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperationResult'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instances/settings/{id}:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    put:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Update app instance settings
-      description: Updates app instance settings and returns the updated app instance.
-      operationId: updateAppInstanceSettings
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AppInstanceSettingsInput'
-      responses:
-        '200':
-          description: Updated app instance
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppInstance'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instances/{id}/actions/maintenance-mode:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    put:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Update app instance maintenance mode
-      description: Enables or disables the fixed maintenance response on all public HTTP routes while application workloads continue running.
-      operationId: updateAppInstanceMaintenanceMode
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AppInstanceMaintenanceModeInput'
-      responses:
-        '200':
-          description: Maintenance mode update result
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperationResult'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instances/cicd-settings/{id}:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    get:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Get app instance CI/CD settings
-      description: Returns the CI and registry integrations used by future app instance builds. Integration ID 0 identifies the built-in Wodby service.
-      operationId: getAppInstanceCICDSettings
-      responses:
-        '200':
-          description: App instance CI/CD settings
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppInstanceCICDSettings'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-    put:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Update app instance CI/CD settings
-      description: Updates the CI and registry integrations used by future app instance builds. Integration ID 0 selects the built-in Wodby service.
-      operationId: updateAppInstanceCICDSettings
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AppInstanceCICDSettingsInput'
-      responses:
-        '200':
-          description: Updated app instance CI/CD settings
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AppInstanceCICDSettings'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instances/{id}/actions/upgrade-stack:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    post:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Upgrade app instance stack
-      description: Upgrades an app instance stack using the selected upgrade sections.
-      operationId: upgradeAppInstanceStack
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AppInstanceStackUpgradeInput'
-      responses:
-        '200':
-          description: Upgrade result
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperationResult'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instances/{id}/actions/reconcile-stack:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    post:
-      deprecated: true
-      tags:
-        - app-instances
-      summary: Reconcile app instance stack
-      description: Reapplies the app instance's assigned stack revision using the selected override sections without changing its stack revision.
-      operationId: reconcileAppInstanceStack
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AppInstanceStackReconciliationInput'
-      responses:
-        '200':
-          description: Reconciliation result
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperationResult'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
   /app-auths:
     get:
       tags:
@@ -1149,7 +847,7 @@ paths:
       description: Returns HTTP basic authentication entries for an app environment without exposing passwords or secret identifiers.
       operationId: listAppAuths
       parameters:
-        - $ref: '#/components/parameters/AppInstanceId'
+        - $ref: '#/components/parameters/AppEnvironmentId'
       responses:
         '200':
           description: List of app auths
@@ -1237,7 +935,7 @@ paths:
       description: Returns app services matching the request filters.
       operationId: listAppServices
       parameters:
-        - $ref: '#/components/parameters/AppInstanceId'
+        - $ref: '#/components/parameters/AppEnvironmentId'
       responses:
         '200':
           description: List of app services
@@ -2116,7 +1814,7 @@ paths:
       description: Returns app service cron jobs matching the request filters.
       operationId: listAppServiceCronJobs
       parameters:
-        - $ref: '#/components/parameters/AppInstanceIdOptional'
+        - $ref: '#/components/parameters/AppEnvironmentIdOptional'
         - $ref: '#/components/parameters/AppServiceIdOptional'
         - $ref: '#/components/parameters/ScheduleIdOptional'
         - $ref: '#/components/parameters/Page'
@@ -2220,7 +1918,7 @@ paths:
       description: Returns app ports matching the request filters.
       operationId: listAppPorts
       parameters:
-        - $ref: '#/components/parameters/AppInstanceId'
+        - $ref: '#/components/parameters/AppEnvironmentId'
       responses:
         '200':
           description: List of app ports
@@ -2262,7 +1960,7 @@ paths:
       description: Returns app deployments matching the request filters.
       operationId: listAppDeployments
       parameters:
-        - $ref: '#/components/parameters/AppInstanceId'
+        - $ref: '#/components/parameters/AppEnvironmentId'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
       responses:
@@ -2394,7 +2092,7 @@ paths:
       description: Returns app builds matching the request filters.
       operationId: listAppBuilds
       parameters:
-        - $ref: '#/components/parameters/AppInstanceId'
+        - $ref: '#/components/parameters/AppEnvironmentId'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
       responses:
@@ -5616,7 +5314,7 @@ paths:
       description: Returns backups matching the request filters.
       operationId: listBackups
       parameters:
-        - $ref: '#/components/parameters/AppInstanceIdOptional'
+        - $ref: '#/components/parameters/AppEnvironmentIdOptional'
         - $ref: '#/components/parameters/AppServiceIdOptional'
         - $ref: '#/components/parameters/DatabaseIdOptional'
         - $ref: '#/components/parameters/DatabaseDbIdOptional'
@@ -5688,7 +5386,7 @@ paths:
       description: Returns backup presets matching the request filters. At least one target filter is required for user-session requests; API-key requests default to the key's organization.
       operationId: listBackupPresets
       parameters:
-        - $ref: '#/components/parameters/AppInstanceIdOptional'
+        - $ref: '#/components/parameters/AppEnvironmentIdOptional'
         - $ref: '#/components/parameters/AppServiceIdOptional'
         - $ref: '#/components/parameters/DatabaseIdOptional'
         - $ref: '#/components/parameters/DatabaseDbIdOptional'
@@ -5837,7 +5535,7 @@ paths:
       description: Returns imports matching the request filters.
       operationId: listImports
       parameters:
-        - $ref: '#/components/parameters/AppInstanceIdOptional'
+        - $ref: '#/components/parameters/AppEnvironmentIdOptional'
         - $ref: '#/components/parameters/AppServiceIdOptional'
         - $ref: '#/components/parameters/DatabaseIdOptional'
         - $ref: '#/components/parameters/DatabaseDbIdOptional'
@@ -5947,7 +5645,7 @@ paths:
           description: Comma-separated exact task names
         - $ref: '#/components/parameters/Search'
         - $ref: '#/components/parameters/AppIdOptional'
-        - $ref: '#/components/parameters/AppInstanceIdOptional'
+        - $ref: '#/components/parameters/AppEnvironmentIdOptional'
         - name: stackId
           in: query
           schema:
@@ -6098,7 +5796,7 @@ paths:
       description: Returns app routes matching the request filters.
       operationId: listAppRoutes
       parameters:
-        - $ref: '#/components/parameters/AppInstanceId'
+        - $ref: '#/components/parameters/AppEnvironmentId'
       responses:
         '200':
           description: List of app routes
@@ -6373,167 +6071,35 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
-  /envs:
-    get:
-      tags:
-        - envs
-      summary: List envs
-      description: Returns envs matching the request filters.
-      operationId: listEnvs
-      deprecated: true
-      parameters:
-        - $ref: '#/components/parameters/OrgId'
-      responses:
-        '200':
-          description: List of envs
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Env'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-    post:
-      tags:
-        - envs
-      summary: Create env
-      description: Creates an env and returns the created resource.
-      operationId: createEnv
-      deprecated: true
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateEnvRequest'
-      responses:
-        '201':
-          description: Created env
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Env'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /envs/by-name/{name}:
-    get:
-      tags:
-        - envs
-      summary: Get env by name
-      description: Returns the env identified by name.
-      operationId: getEnvByName
-      deprecated: true
-      parameters:
-        - $ref: '#/components/parameters/Name'
-        - $ref: '#/components/parameters/OrgId'
-      responses:
-        '200':
-          description: Env
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Env'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /envs/{id}:
+  /app-environment-stack-upgrade-changelogs/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
-        - envs
-      summary: Get env
-      description: Returns the env identified by the request path.
-      operationId: getEnv
-      deprecated: true
-      responses:
-        '200':
-          description: Env
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Env'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-    put:
-      tags:
-        - envs
-      summary: Update env
-      description: Updates the env and returns the updated resource.
-      operationId: updateEnv
-      deprecated: true
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateEnvRequest'
-      responses:
-        '200':
-          description: Updated env
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Env'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-    delete:
-      tags:
-        - envs
-      summary: Delete env
-      description: Deletes the env and returns the operation result.
-      operationId: deleteEnv
-      deprecated: true
-      responses:
-        '200':
-          description: Delete result
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperationResult'
-        default:
-          $ref: '#/components/responses/Error'
-        4XX:
-          $ref: '#/components/responses/Error'
-  /app-instance-stack-upgrade-changelogs/{id}:
-    parameters:
-      - $ref: '#/components/parameters/Id'
-    get:
-      tags:
-        - app-instances
-      summary: Preview app instance stack upgrade
-      description: Returns the stack and service revision changes that an app instance stack upgrade would apply.
-      operationId: getAppInstanceStackUpgradeChangelog
+        - app-environments
+      summary: Preview app environment stack upgrade
+      description: Returns the stack and service revision changes that an app environment stack upgrade would apply.
+      operationId: getAppEnvironmentStackUpgradeChangelog
       responses:
         '200':
           description: Stack upgrade changelog
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AppInstanceStackUpgradeChangelog'
+                $ref: '#/components/schemas/AppEnvironmentStackUpgradeChangelog'
         default:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
-  /app-instance-accesses/{id}:
+  /app-environment-accesses/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
     get:
       tags:
-        - app-instances
-      summary: Get app instance access
-      description: Returns the external access configuration for the app instance identified by the path.
-      operationId: getAppInstanceAccess
+        - app-environments
+      summary: Get app environment access
+      description: Returns the external access configuration for the app environment identified by the path.
+      operationId: getAppEnvironmentAccess
       responses:
         '200':
           description: App access configuration
@@ -6547,9 +6113,9 @@ paths:
           $ref: '#/components/responses/Error'
     post:
       tags:
-        - app-instances
-      summary: Create app instance access
-      description: Creates external access for the app instance identified by the path. An active paid subscription is required.
+        - app-environments
+      summary: Create app environment access
+      description: Creates external access for the app environment identified by the path. An active paid subscription is required.
       operationId: createAppAccess
       requestBody:
         required: true
@@ -6571,16 +6137,16 @@ paths:
   /app-accesses/actions/preflight:
     post:
       tags:
-        - app-instances
-      summary: Preflight app instance access
-      description: Validates a proposed app-access configuration before an app instance or access resource is created. An active paid subscription is required.
+        - app-environments
+      summary: Preflight app environment access
+      description: Validates a proposed app-access configuration before an app environment or access resource is created. An active paid subscription is required.
       operationId: preflightAppAccess
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/NewAppInstanceAccessInput'
+              $ref: '#/components/schemas/NewAppEnvironmentAccessInput'
       responses:
         '200':
           description: Preflight result
@@ -6597,7 +6163,7 @@ paths:
       - $ref: '#/components/parameters/Id'
     put:
       tags:
-        - app-instances
+        - app-environments
       summary: Update app access
       description: Updates an existing app-access configuration and starts its reconciliation task. An active paid subscription is required.
       operationId: updateAppAccess
@@ -6620,7 +6186,7 @@ paths:
           $ref: '#/components/responses/Error'
     delete:
       tags:
-        - app-instances
+        - app-environments
       summary: Delete app access
       description: Removes app access and returns the cleanup task identifier.
       operationId: deleteAppAccess
@@ -6638,7 +6204,7 @@ paths:
   /app-access-cleanups:
     get:
       tags:
-        - app-instances
+        - app-environments
       summary: List app-access cleanups
       description: Returns cleanup records for exactly one app instance or integration.
       operationId: listAppAccessCleanups
@@ -6671,7 +6237,7 @@ paths:
       - $ref: '#/components/parameters/Id'
     post:
       tags:
-        - app-instances
+        - app-environments
       summary: Retry app-access cleanup
       description: Retries a failed app-access cleanup and returns its task identifier.
       operationId: retryAppAccessCleanup
@@ -7092,13 +6658,13 @@ components:
       schema:
         type: boolean
         default: false
-    AppInstanceId:
+    AppEnvironmentId:
       name: appInstanceId
       in: query
       required: true
       schema:
         type: integer
-    AppInstanceIdOptional:
+    AppEnvironmentIdOptional:
       name: appInstanceId
       in: query
       schema:
@@ -7393,7 +6959,7 @@ components:
       properties:
         gitAutoUpdate:
           $ref: '#/components/schemas/GitAutoUpdateSettingsInput'
-    AppInstanceStackUpgradeSettings:
+    AppEnvironmentStackUpgradeSettings:
       type: object
       required:
         - versions
@@ -7433,7 +6999,7 @@ components:
           type: boolean
         main:
           type: boolean
-    AppInstanceStackUpgradeSettingsInput:
+    AppEnvironmentStackUpgradeSettingsInput:
       type: object
       properties:
         versions:
@@ -7460,7 +7026,7 @@ components:
           type: boolean
         main:
           type: boolean
-    AppInstanceAutoStackUpgradeSettings:
+    AppEnvironmentAutoStackUpgradeSettings:
       type: object
       required:
         - enabled
@@ -7468,10 +7034,10 @@ components:
         enabled:
           type: boolean
         upgradeSettings:
-          $ref: '#/components/schemas/AppInstanceStackUpgradeSettings'
+          $ref: '#/components/schemas/AppEnvironmentStackUpgradeSettings'
         timeWindow:
           $ref: '#/components/schemas/AutomationTimeWindow'
-    AppInstanceAutoStackUpgradeSettingsInput:
+    AppEnvironmentAutoStackUpgradeSettingsInput:
       type: object
       required:
         - enabled
@@ -7479,36 +7045,27 @@ components:
         enabled:
           type: boolean
         upgradeSettings:
-          $ref: '#/components/schemas/AppInstanceStackUpgradeSettingsInput'
+          $ref: '#/components/schemas/AppEnvironmentStackUpgradeSettingsInput'
         timeWindow:
           $ref: '#/components/schemas/AutomationTimeWindowInput'
-    AppInstanceSettings:
-      type: object
-      properties:
-        autoStackUpgrade:
-          $ref: '#/components/schemas/AppInstanceAutoStackUpgradeSettings'
-    AppInstanceSettingsInput:
-      type: object
-      properties:
-        autoStackUpgrade:
-          $ref: '#/components/schemas/AppInstanceAutoStackUpgradeSettingsInput'
-    AppEnvironmentSettingsInput:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceSettingsInput'
     AppEnvironmentSettings:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceSettings'
-    AppInstanceMaintenanceModeInput:
+      type: object
+      properties:
+        autoStackUpgrade:
+          $ref: '#/components/schemas/AppEnvironmentAutoStackUpgradeSettings'
+    AppEnvironmentSettingsInput:
+      type: object
+      properties:
+        autoStackUpgrade:
+          $ref: '#/components/schemas/AppEnvironmentAutoStackUpgradeSettingsInput'
+    AppEnvironmentMaintenanceModeInput:
       type: object
       required:
         - enabled
       properties:
         enabled:
           type: boolean
-    AppEnvironmentMaintenanceModeInput:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceMaintenanceModeInput'
-    AppInstanceCICDSettingsInput:
+    AppEnvironmentCICDSettingsInput:
       type: object
       required:
         - ciIntegrationId
@@ -7520,27 +7077,6 @@ components:
         registryIntegrationId:
           type: integer
           description: Registry integration ID. Set to zero to use the built-in Wodby registry service.
-    AppInstanceCICDSettings:
-      type: object
-      required:
-        - appInstanceId
-        - ciIntegrationId
-        - registryIntegrationId
-        - registryRepository
-      properties:
-        appInstanceId:
-          type: integer
-        ciIntegrationId:
-          type: integer
-          description: Effective CI integration ID. Zero selects the built-in Wodby CI service.
-        registryIntegrationId:
-          type: integer
-          description: Effective registry integration ID. Zero selects the built-in Wodby registry service.
-        registryRepository:
-          type: string
-    AppEnvironmentCICDSettingsInput:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceCICDSettingsInput'
     AppEnvironmentCICDSettings:
       type: object
       required:
@@ -7559,12 +7095,6 @@ components:
           description: Effective registry integration ID. Zero selects the built-in Wodby registry service.
         registryRepository:
           type: string
-    AppEnvironmentMainRouteCert:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceMainRouteCert'
-    AppEnvironmentHealth:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceHealth'
     StackAutoUpdateVersionPolicy:
       type: object
       required:
@@ -8716,104 +8246,7 @@ components:
         updatedAt:
           type: string
           format: date-time
-    AppInstance:
-      type: object
-      deprecated: true
-      required:
-        - id
-        - name
-        - title
-        - status
-        - outdated
-        - mainRouteCert
-        - appId
-        - clusterId
-        - envId
-        - stackId
-        - stackRevId
-        - stackName
-        - stackTitle
-        - stackIcon
-        - stackRevNumber
-        - stackVersion
-        - routingMode
-        - routingPending
-        - maintenanceMode
-        - maintenanceModeActive
-        - configurationReady
-        - configurationIssues
-        - health
-        - createdAt
-        - updatedAt
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        title:
-          type: string
-        status:
-          type: string
-        outdated:
-          type: boolean
-        mainDomain:
-          type: string
-          nullable: true
-        mainRouteCert:
-          type: object
-          allOf:
-            - $ref: '#/components/schemas/AppInstanceMainRouteCert'
-          nullable: true
-        appId:
-          type: integer
-        clusterId:
-          type: integer
-        envId:
-          type: integer
-        stackId:
-          type: integer
-        stackRevId:
-          type: integer
-        stackName:
-          type: string
-        stackTitle:
-          type: string
-        stackIcon:
-          type: string
-        stackRevNumber:
-          type: integer
-        stackVersion:
-          type: string
-        access:
-          type: object
-          allOf:
-            - $ref: '#/components/schemas/AppAccess'
-          nullable: true
-        routingMode:
-          type: string
-        routingPending:
-          type: boolean
-        maintenanceMode:
-          type: boolean
-        maintenanceModeActive:
-          type: boolean
-        configurationReady:
-          type: boolean
-        configurationIssues:
-          type: array
-          items:
-            $ref: '#/components/schemas/AppServiceConfigurationIssue'
-        settings:
-          $ref: '#/components/schemas/AppInstanceSettings'
-        health:
-          $ref: '#/components/schemas/AppInstanceHealth'
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
-    AppInstanceMainRouteCert:
+    AppEnvironmentMainRouteCert:
       type: object
       required:
         - issuer
@@ -8823,17 +8256,17 @@ components:
           type: string
         custom:
           type: boolean
-    AppInstanceHealth:
+    AppEnvironmentHealth:
       type: object
       required:
         - cron
         - backups
       properties:
         cron:
-          $ref: '#/components/schemas/AppInstanceCronHealth'
+          $ref: '#/components/schemas/AppEnvironmentCronHealth'
         backups:
-          $ref: '#/components/schemas/AppInstanceBackupHealth'
-    AppInstanceCronHealth:
+          $ref: '#/components/schemas/AppEnvironmentBackupHealth'
+    AppEnvironmentCronHealth:
       type: object
       required:
         - failingSchedulesCount
@@ -8844,7 +8277,7 @@ components:
           type: string
           format: date-time
           nullable: true
-    AppInstanceBackupHealth:
+    AppEnvironmentBackupHealth:
       type: object
       required:
         - failingSchedulesCount
@@ -10461,7 +9894,7 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/StackServiceUpdateChangelogEntry'
-    AppInstanceStackUpgradeChangelog:
+    AppEnvironmentStackUpgradeChangelog:
       type: object
       required:
         - previousStackVersion
@@ -10733,33 +10166,6 @@ components:
           type: string
           format: date-time
           nullable: true
-    Env:
-      type: object
-      required:
-        - id
-        - name
-        - title
-        - type
-        - orgId
-        - createdAt
-        - updatedAt
-      properties:
-        id:
-          type: integer
-        name:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-        orgId:
-          type: integer
-        createdAt:
-          type: string
-          format: date-time
-        updatedAt:
-          type: string
-          format: date-time
     Provider:
       type: object
       required:
@@ -12499,35 +11905,6 @@ components:
       properties:
         title:
           type: string
-    CreateEnvRequest:
-      type: object
-      required:
-        - name
-        - title
-        - type
-      properties:
-        orgId:
-          type: integer
-          description: Optional for API-key requests; defaults to the API key's organization.
-        name:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
-    UpdateEnvRequest:
-      type: object
-      required:
-        - name
-        - title
-        - type
-      properties:
-        name:
-          type: string
-        title:
-          type: string
-        type:
-          type: string
     CreateDeploymentRequest:
       type: object
       required:
@@ -12934,7 +12311,7 @@ components:
         pod:
           type: string
           nullable: true
-    AppInstanceStackUpgradeInput:
+    AppEnvironmentStackUpgradeInput:
       type: object
       required:
         - versions
@@ -12978,10 +12355,7 @@ components:
           type: boolean
         main:
           type: boolean
-    AppEnvironmentStackUpgradeInput:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceStackUpgradeInput'
-    AppInstanceStackReconciliationInput:
+    AppEnvironmentStackReconciliationInput:
       type: object
       required:
         - versions
@@ -13021,9 +12395,6 @@ components:
           type: boolean
         main:
           type: boolean
-    AppEnvironmentStackReconciliationInput:
-      allOf:
-        - $ref: '#/components/schemas/AppInstanceStackReconciliationInput'
     NewStackServiceInput:
       type: object
       required:
@@ -13348,6 +12719,8 @@ components:
       type: object
       required:
         - name
+        - environmentName
+        - environmentType
         - stackRevId
       properties:
         orgId:
@@ -13373,17 +12746,9 @@ components:
             - dev
             - feature
           description: Required for the canonical app environment contract.
-        instanceName:
-          type: string
-          deprecated: true
-          description: Legacy alternative to environmentName. Requires envId and cannot be combined with canonical app environment fields.
-        instanceTitle:
-          type: string
-          deprecated: true
-          description: Legacy alternative to environmentTitle. Defaults to instanceName when omitted.
         domain:
           type: string
-          description: Defaults to environmentName.name.orgDomain for the canonical contract, or instanceName.name.orgDomain for the legacy contract.
+          description: Defaults to environmentName.name.orgDomain.
         projectId:
           type: integer
           nullable: true
@@ -13397,10 +12762,6 @@ components:
         clusterId:
           type: integer
           nullable: true
-        envId:
-          type: integer
-          deprecated: true
-          description: Legacy environment entity ID. Required with instanceName and cannot be combined with canonical app environment fields.
         ciIntegrationId:
           type: integer
           nullable: true
@@ -13466,54 +12827,7 @@ components:
           $ref: '#/components/schemas/AppEnvironmentSettingsInput'
         access:
           $ref: '#/components/schemas/NewAppEnvironmentAccessInput'
-    NewAppInstanceInput:
-      type: object
-      deprecated: true
-      required:
-        - appId
-        - instanceName
-        - stackRevId
-        - envId
-      properties:
-        appId:
-          type: integer
-        instanceName:
-          type: string
-        instanceTitle:
-          type: string
-          description: Defaults to instanceName when omitted.
-        domain:
-          type: string
-          description: Defaults to instanceName.appName.orgDomain when omitted.
-        stackRevId:
-          type: integer
-        services:
-          type: array
-          description: Defaults to the stack revision's service defaults when omitted.
-          items:
-            $ref: '#/components/schemas/NewAppServiceInput'
-        clusterId:
-          type: integer
-          nullable: true
-        envId:
-          type: integer
-        ciIntegrationId:
-          type: integer
-          nullable: true
-          description: Omit or use null to inherit the organization default, use 0 for the built-in CI service, or use an accessible CI integration ID. A project-owned integration must be shared with the app's project.
-        registryIntegrationId:
-          type: integer
-          nullable: true
-          description: Omit or use null to inherit the organization default, use 0 for the built-in registry, or use an accessible registry integration ID. A project-owned integration must be shared with the app's project.
-        deferInitialDeployment:
-          type: boolean
-          default: false
-          description: Defers the automatic initial build and deployment while preserving app instance initialization. Intended for automation that configures the instance before explicitly starting its first build.
-        settings:
-          $ref: '#/components/schemas/AppInstanceSettingsInput'
-        access:
-          $ref: '#/components/schemas/NewAppInstanceAccessInput'
-    NewAppInstanceAccessInput:
+    NewAppEnvironmentAccessInput:
       type: object
       required:
         - integrationId
@@ -13544,8 +12858,8 @@ components:
           type: array
           description: HTTP endpoints selected during creation. Used only with SELECTED_ENDPOINTS scope; older clients may omit it to select the main endpoint.
           items:
-            $ref: '#/components/schemas/NewAppInstanceAccessEndpointInput'
-    NewAppInstanceAccessEndpointInput:
+            $ref: '#/components/schemas/NewAppEnvironmentAccessEndpointInput'
+    NewAppEnvironmentAccessEndpointInput:
       type: object
       required:
         - appServiceName
@@ -13560,9 +12874,6 @@ components:
           description: Machine name of a public HTTP port from that service manifest.
         primary:
           type: boolean
-    NewAppEnvironmentAccessInput:
-      allOf:
-        - $ref: '#/components/schemas/NewAppInstanceAccessInput'
     AppAccessSettingInput:
       type: object
       required:
