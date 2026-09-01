@@ -3876,6 +3876,39 @@
         }
       }
     },
+    "/app-deployments/{id}/actions/cancel": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "post": {
+        "tags": [
+          "app-deployments"
+        ],
+        "summary": "Cancel deployment",
+        "description": "Cancels an active deployment and returns its updated state.",
+        "operationId": "cancelAppDeployment",
+        "responses": {
+          "200": {
+            "description": "Canceled deployment",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppDeployment"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
     "/app-builds": {
       "get": {
         "tags": [
@@ -4354,6 +4387,39 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/OperationResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/cluster-kubernetes-version-upgrade-plans/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "clusters"
+        ],
+        "summary": "Get Kubernetes version upgrade plan",
+        "description": "Returns supported Kubernetes upgrade targets, blockers, and warnings for a cluster.",
+        "operationId": "getKubernetesVersionUpgradePlan",
+        "responses": {
+          "200": {
+            "description": "Kubernetes version upgrade plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KubernetesVersionUpgradePlan"
                 }
               }
             }
@@ -5457,7 +5523,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CloudRegion"
+                    "$ref": "#/components/schemas/GenericObject"
                   }
                 }
               }
@@ -5493,7 +5559,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CloudZone"
+                    "$ref": "#/components/schemas/GenericObject"
                   }
                 }
               }
@@ -5532,7 +5598,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CloudMachineType"
+                    "$ref": "#/components/schemas/GenericObject"
                   }
                 }
               }
@@ -5605,7 +5671,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/KubeSettings"
+                  "$ref": "#/components/schemas/GenericObject"
                 }
               }
             }
@@ -5786,6 +5852,39 @@
         }
       }
     },
+    "/integration-provider-revision-upgrades/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "integrations"
+        ],
+        "summary": "Preview provider revision upgrade",
+        "description": "Returns the compatibility decision and revision details for upgrading an integration.",
+        "operationId": "getIntegrationProviderRevisionUpgrade",
+        "responses": {
+          "200": {
+            "description": "Provider revision upgrade preview",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IntegrationProviderRevisionUpgrade"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
     "/integrations/environment-policy/{id}": {
       "parameters": [
         {
@@ -5938,7 +6037,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CloudRegion"
+                    "$ref": "#/components/schemas/GenericObject"
                   }
                 }
               }
@@ -6036,7 +6135,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CloudMachineType"
+                    "$ref": "#/components/schemas/GenericObject"
                   }
                 }
               }
@@ -6073,7 +6172,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DatabaseSettings"
+                  "$ref": "#/components/schemas/GenericObject"
                 }
               }
             }
@@ -9422,6 +9521,47 @@
         }
       }
     },
+    "/backup-presets/{id}/backups": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "backups"
+        ],
+        "summary": "List backup preset backups",
+        "description": "Returns a paginated list of backups created from the preset.",
+        "operationId": "listBackupPresetBackups",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/Page"
+          },
+          {
+            "$ref": "#/components/parameters/PageSize"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated backups",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackupsResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
     "/imports": {
       "get": {
         "tags": [
@@ -10327,6 +10467,7 @@
         "summary": "List envs",
         "description": "Returns envs matching the request filters.",
         "operationId": "listEnvs",
+        "deprecated": true,
         "parameters": [
           {
             "$ref": "#/components/parameters/OrgId"
@@ -10361,6 +10502,7 @@
         "summary": "Create env",
         "description": "Creates an env and returns the created resource.",
         "operationId": "createEnv",
+        "deprecated": true,
         "requestBody": {
           "required": true,
           "content": {
@@ -10399,6 +10541,7 @@
         "summary": "Get env by name",
         "description": "Returns the env identified by name.",
         "operationId": "getEnvByName",
+        "deprecated": true,
         "parameters": [
           {
             "$ref": "#/components/parameters/Name"
@@ -10440,6 +10583,7 @@
         "summary": "Get env",
         "description": "Returns the env identified by the request path.",
         "operationId": "getEnv",
+        "deprecated": true,
         "responses": {
           "200": {
             "description": "Env",
@@ -10466,6 +10610,7 @@
         "summary": "Update env",
         "description": "Updates the env and returns the updated resource.",
         "operationId": "updateEnv",
+        "deprecated": true,
         "requestBody": {
           "required": true,
           "content": {
@@ -10502,6 +10647,7 @@
         "summary": "Delete env",
         "description": "Deletes the env and returns the operation result.",
         "operationId": "deleteEnv",
+        "deprecated": true,
         "responses": {
           "200": {
             "description": "Delete result",
@@ -10849,6 +10995,52 @@
         }
       }
     },
+    "/app-services/{id}/options/backup-option-defaults": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "get": {
+        "tags": [
+          "app-services"
+        ],
+        "summary": "List effective backup option defaults",
+        "description": "Returns the effective default option values for an app service backup definition.",
+        "operationId": "listAppServiceBackupOptionDefaults",
+        "parameters": [
+          {
+            "name": "backupName",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Effective backup options",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BackupOption"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
     "/cluster-infra-app-upgrade-changelogs/{id}": {
       "parameters": [
         {
@@ -11004,6 +11196,49 @@
         }
       }
     },
+    "/integrations/{id}/actions/upgrade-provider-revision": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/Id"
+        }
+      ],
+      "post": {
+        "tags": [
+          "integrations"
+        ],
+        "summary": "Upgrade integration provider revision",
+        "description": "Upgrades an integration to its eligible provider revision and optionally drops fields removed by the target contract.",
+        "operationId": "upgradeIntegrationProviderRevision",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpgradeIntegrationProviderRevisionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Upgrade task result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OperationResult"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
     "/stacks/{id}/actions/update-service-revisions": {
       "parameters": [
         {
@@ -11017,6 +11252,22 @@
         "summary": "Update stack service revisions",
         "description": "Starts a task that advances unpinned stack services to their eligible revisions.",
         "operationId": "updateStackServiceRevisions",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "required": false,
+            "description": "Limits the update to all services or stateless services. Defaults to all.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "all",
+                "stateless_only"
+              ],
+              "default": "all"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Stack update task result",
@@ -11455,6 +11706,94 @@
           "taskId": {
             "type": "integer",
             "nullable": true
+          }
+        }
+      },
+      "UpgradeIntegrationProviderRevisionInput": {
+        "type": "object",
+        "required": [
+          "dropRemovedFields"
+        ],
+        "properties": {
+          "dropRemovedFields": {
+            "type": "boolean",
+            "description": "Permanently deletes fields absent from the target revision when the preview allows it."
+          }
+        }
+      },
+      "KubernetesVersionUpgradeTarget": {
+        "type": "object",
+        "required": [
+          "version",
+          "title",
+          "kind",
+          "preview"
+        ],
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "patch",
+              "minor"
+            ]
+          },
+          "preview": {
+            "type": "boolean"
+          }
+        }
+      },
+      "KubernetesVersionUpgradePlan": {
+        "type": "object",
+        "required": [
+          "currentVersion",
+          "providerVersion",
+          "provider",
+          "supported",
+          "targets",
+          "blockers",
+          "warnings",
+          "observedAt"
+        ],
+        "properties": {
+          "currentVersion": {
+            "type": "string"
+          },
+          "providerVersion": {
+            "type": "string"
+          },
+          "provider": {
+            "type": "string"
+          },
+          "supported": {
+            "type": "boolean"
+          },
+          "targets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/KubernetesVersionUpgradeTarget"
+            }
+          },
+          "blockers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "observedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -13799,6 +14138,7 @@
           "rollbackStatus",
           "postDeploymentStatus",
           "skipRollback",
+          "canCancel",
           "appInstanceId",
           "builds",
           "appServiceDeployments",
@@ -13838,6 +14178,9 @@
             ]
           },
           "skipRollback": {
+            "type": "boolean"
+          },
+          "canCancel": {
             "type": "boolean"
           },
           "appInstanceId": {
@@ -14609,6 +14952,7 @@
           "id",
           "title",
           "status",
+          "outdated",
           "providerRevId",
           "orgId",
           "envScope",
@@ -14634,6 +14978,9 @@
           "auth": {
             "type": "string",
             "nullable": true
+          },
+          "outdated": {
+            "type": "boolean"
           },
           "providerRevId": {
             "type": "integer"
@@ -14702,6 +15049,7 @@
           "id",
           "name",
           "status",
+          "manual",
           "integrationId",
           "options",
           "createdAt",
@@ -14732,6 +15080,13 @@
           "databaseDbId": {
             "type": "integer",
             "nullable": true
+          },
+          "backupPresetId": {
+            "type": "integer",
+            "nullable": true
+          },
+          "manual": {
+            "type": "boolean"
           },
           "integrationId": {
             "type": "integer",
@@ -14771,6 +15126,28 @@
           "endedAt": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          }
+        }
+      },
+      "BackupsResponse": {
+        "type": "object",
+        "required": [
+          "items",
+          "totalCount"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Backup"
+            }
+          },
+          "totalCount": {
+            "type": "integer"
+          },
+          "nextPage": {
+            "type": "integer",
             "nullable": true
           }
         }
@@ -14902,6 +15279,7 @@
           "id",
           "name",
           "title",
+          "compactTitle",
           "executionScope",
           "status",
           "progress",
@@ -14920,6 +15298,9 @@
             "type": "string"
           },
           "title": {
+            "type": "string"
+          },
+          "compactTitle": {
             "type": "string"
           },
           "executionScope": {
@@ -14973,7 +15354,15 @@
             "type": "integer",
             "nullable": true
           },
+          "appServiceId": {
+            "type": "integer",
+            "nullable": true
+          },
           "clusterId": {
+            "type": "integer",
+            "nullable": true
+          },
+          "databaseId": {
             "type": "integer",
             "nullable": true
           },
@@ -16408,6 +16797,7 @@
         "required": [
           "id",
           "name",
+          "icon",
           "title",
           "number",
           "version",
@@ -16420,6 +16810,9 @@
             "type": "integer"
           },
           "name": {
+            "type": "string"
+          },
+          "icon": {
             "type": "string"
           },
           "title": {
@@ -16443,6 +16836,50 @@
           "createdAt": {
             "type": "string",
             "format": "date-time"
+          }
+        }
+      },
+      "IntegrationProviderRevisionUpgrade": {
+        "type": "object",
+        "required": [
+          "state",
+          "reasons",
+          "removedFields",
+          "canDropRemovedFields",
+          "currentRevision",
+          "targetRevision"
+        ],
+        "properties": {
+          "state": {
+            "type": "string",
+            "enum": [
+              "current",
+              "safe",
+              "blocked",
+              "migration_required",
+              "error"
+            ]
+          },
+          "reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "removedFields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "canDropRemovedFields": {
+            "type": "boolean"
+          },
+          "currentRevision": {
+            "$ref": "#/components/schemas/ProviderRevision"
+          },
+          "targetRevision": {
+            "$ref": "#/components/schemas/ProviderRevision"
           }
         }
       },
@@ -17057,6 +17494,7 @@
           "required",
           "needsRebuild",
           "needsRedeploy",
+          "stackState",
           "configurationReady",
           "ciPolicy",
           "configurationIssues",
@@ -17114,6 +17552,14 @@
           },
           "needsRedeploy": {
             "type": "boolean"
+          },
+          "stackState": {
+            "type": "string",
+            "enum": [
+              "current",
+              "needs_rebuild",
+              "needs_redeploy"
+            ]
           },
           "configurationReady": {
             "type": "boolean"
