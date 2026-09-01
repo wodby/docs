@@ -82,9 +82,9 @@ Wodby adds the following runtime-only variables to every app-service container:
 | `WODBY` | `true`, indicating that the container runs on Wodby |
 | `WODBY2` | `true`, indicating the Wodby 2 runtime |
 | `WODBY_APP_NAME` | App machine name |
-| `WODBY_APP_INSTANCE_NAME` | App environment machine name |
 | `WODBY_APP_SERVICE_NAME` | App-service machine name |
-| `WODBY_ENV_NAME` | Assigned environment record machine name |
+| `WODBY_ENV_ID` | App environment ID |
+| `WODBY_ENV_NAME` | App environment machine name |
 | `WODBY_ENV_TYPE` | Environment type: `prod`, `staging`, `test`, `dev`, or `feature` |
 | `WODBY_HOSTS` | JSON array of route and active App Access hostnames accepted by the app environment |
 | `WODBY_PRIMARY_HOST` | Protected primary hostname when App Access is configured; otherwise the enabled `Main` route hostname |
@@ -94,8 +94,20 @@ Wodby adds the following runtime-only variables to every app-service container:
 [App Access](access.md#primary-hostname) change, `WODBY_HOSTS` can temporarily contain both current and desired
 hostnames so the workload continues accepting traffic throughout the transition.
 
-The product term “app environment” does not rename the runtime-variable contract. Existing variable names and values
-remain unchanged so applications, builds, and integrations do not need to migrate their runtime configuration.
+Before the app-environment terminology change, `WODBY_ENV_NAME` contained the assigned organization environment record
+name. It now contains the app environment machine name. Code that needs deployment classification should use
+`WODBY_ENV_TYPE`, whose meaning is unchanged.
+
+### Legacy Wodby 2 variables
+
+The following deprecated names remain exported to runtime containers and CI builds during the compatibility period:
+
+| Legacy variable | Canonical replacement | Behavior |
+| --- | --- | --- |
+| `WODBY_APP_INSTANCE_ID` | `WODBY_ENV_ID` | Identical app environment ID |
+| `WODBY_APP_INSTANCE_NAME` | `WODBY_ENV_NAME` | Identical app environment machine name |
+
+Use the `WODBY_ENV_*` names for new application code and automation.
 
 ## Names and reserved variables
 
@@ -112,8 +124,8 @@ this marker on migrated stacks so Wodby can expose compatibility aliases expecte
 
 | Wodby 1 compatibility variable | Wodby 2 source |
 | --- | --- |
-| `WODBY_INSTANCE_NAME` | `WODBY_APP_INSTANCE_NAME` |
-| `WODBY_ENVIRONMENT_NAME` | `WODBY_APP_INSTANCE_NAME` |
+| `WODBY_INSTANCE_NAME` | `WODBY_ENV_NAME` |
+| `WODBY_ENVIRONMENT_NAME` | `WODBY_ENV_NAME` |
 | `WODBY_INSTANCE_TYPE` | `WODBY_ENV_TYPE`; `staging` is exposed as `stage` |
 | `WODBY_ENVIRONMENT_TYPE` | `WODBY_ENV_TYPE`; `staging` is exposed as `stage` |
 | `WODBY_HOST_PRIMARY` | `WODBY_PRIMARY_HOST` |

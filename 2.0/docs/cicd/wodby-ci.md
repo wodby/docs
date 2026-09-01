@@ -114,8 +114,11 @@ Wodby CI injects the following environment variables into every job:
 - `WODBY_CI` set to `true`
 - `WODBY_BUILD_NUMBER` with the Wodby build number
 - `WODBY_BUILD_ID` with the Wodby app build ID. This is the value passed to `wodby ci init`
-- `WODBY_APP_INSTANCE_ID` with the app environment ID; the existing variable name remains unchanged
 - `WODBY_APP_NAME` with the app name
+- `WODBY_ENV_ID` with the app environment ID
+- `WODBY_ENV_NAME` with the app environment machine name
+- `WODBY_ENV_TYPE` with the fixed app environment type
+- `WODBY_APP_INSTANCE_ID` and `WODBY_APP_INSTANCE_NAME` as deprecated aliases for the corresponding `WODBY_ENV_*` variables
 
 In addition to the predefined variables above, Wodby exports build-scoped app-service environment variables and
 build-scoped setting-derived variables for the main service container into the build environment. Runtime-only values,
