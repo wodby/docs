@@ -110,15 +110,34 @@ An organization-wide preset stores:
 - Wodby Blob Storage or a third-party storage integration
 - the destination bucket for a third-party integration
 - an optional storage class override
-- an optional environment filter
+- an environment scope: any environment, one exact environment, or one or more environment types
+- a backup category: any backup, files only, or databases only
 - an optional automatic schedule
+
+Use an exact environment when the preset should apply only to that environment. Use environment types when the preset
+should follow every current and future environment of the selected types. Available types are `Production`, `Staging`,
+`Testing`, `Development`, and `Feature`. You cannot combine an exact environment with environment types. Leaving both
+selections empty applies the preset to every environment.
+
+The backup category is based on the resource that owns the backup:
+
+- `Any` includes file and database backups
+- `Files only` includes backups from non-database app services
+- `Databases only` includes standalone database backups and backups from database-owning app services
+
+When a preset does not select one exact environment, including when it selects environment types, a third-party
+storage integration must be available in all environments.
 
 When you create a manual backup, the dashboard combines:
 
 - matching app-instance presets
-- matching organization-wide presets for the same environment
+- organization-wide presets that match the app instance's environment and the selected app service's backup category
 
 If only one preset matches the selected app service and backup type, the dashboard can prefill it automatically.
+
+Automatic organization-wide presets use the same environment and category filters when selecting resources. An
+organization-wide override suppresses another matching scheduled preset only when the override also applies to that
+resource's environment and backup category.
 
 Organization-wide presets are also available in [Database backups](../databases/backups.md).
 
