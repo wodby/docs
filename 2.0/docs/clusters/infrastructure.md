@@ -26,12 +26,12 @@ those route types and also use Cilium for Kubernetes networking and NetworkPolic
 Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
 
-## App instance network policies
+## App environment network policies
 
-When a regular app instance is deployed, Wodby creates or updates Kubernetes `NetworkPolicy` resources in the app
-instance namespace. These policies provide namespace-level ingress isolation for app workloads.
+When a regular app environment is deployed, Wodby creates or updates Kubernetes `NetworkPolicy` resources in the app
+environment namespace. These policies provide namespace-level ingress isolation for app workloads.
 
-Wodby installs app instance network policies on clusters where NetworkPolicy enforcement is supported in the Wodby
+Wodby installs app environment network policies on clusters where NetworkPolicy enforcement is supported in the Wodby
 cluster setup:
 
 - self-hosted K3S clusters on infrastructure version `3.0.0` or newer
@@ -48,12 +48,12 @@ Wodby does not install these policies for:
 - legacy or imported Azure AKS clusters whose NetworkPolicy capability is not tracked by Wodby
 - clusters where the provider or NetworkPolicy enforcement capability is unknown
 
-For each supported app instance namespace, Wodby manages these ingress policies:
+For each supported app environment namespace, Wodby manages these ingress policies:
 
 | Policy | Effect |
 | --- | --- |
-| `wodby-deny-ingress` | Selects all pods in the app instance namespace and denies ingress unless another policy allows it. |
-| `wodby-allow-same-namespace` | Allows ingress from other pods in the same app instance namespace. App services inside the same app instance can still communicate with each other. |
+| `wodby-deny-ingress` | Selects all pods in the app environment namespace and denies ingress unless another policy allows it. |
+| `wodby-allow-same-namespace` | Allows ingress from other pods in the same app environment namespace. App services inside the same app environment can still communicate with each other. |
 | `wodby-allow-edge` | Allows ingress from the `envoy-gateway` and `ingress-nginx` namespaces so Wodby's public edge components can reach app services. |
 
 These policies affect ingress only. Wodby does not restrict egress with these policies, and does not generate per-service
@@ -83,8 +83,8 @@ Version `4.0.1` strengthens network security for self-hosted K3S clusters.
 
 Version `4.0.0` separates HTTP routing deployment from app-service deployment.
 
-Envoy Gateway remains the single public load-balancer entrypoint for the cluster. Wodby gives each regular app instance
-its own routing release below that entrypoint. The routing release manages the app instance's Gateway API listeners,
+Envoy Gateway remains the single public load-balancer entrypoint for the cluster. Wodby gives each regular app environment
+its own routing release below that entrypoint. The routing release manages the app environment's Gateway API listeners,
 HTTP routes, TLS certificates, HTTP authentication, and route policies. App-service releases continue to manage
 application workloads and their internal Kubernetes Services.
 
@@ -100,7 +100,7 @@ During an upgrade from an older infrastructure version, Wodby:
 - records whether TCP and UDP route types are available on the cluster
 - reconciles existing app-service releases to remove their legacy routing resources without rebuilding or redeploying
   application workloads
-- creates the app-instance routing releases
+- creates the app environment routing releases
 
 ##### Gateway API compatibility
 
@@ -132,7 +132,7 @@ controller version, HTTP/HTTPS and ListenerSet readiness, and TCP and UDP availa
 section. Port pages explain unavailable protocols and prevent new ports of those protocols from being published. HTTP
 and HTTPS routing is unaffected when only TCP or UDP support is unavailable.
 
-The upgrade excludes paused app instances. A paused instance migrates automatically during its next full deployment
+The upgrade excludes paused app environments. A paused environment migrates automatically during its next full deployment
 after it is resumed. Infrastructure apps are also excluded because the cluster-wide entrypoint remains part of the
 infrastructure release.
 
@@ -153,7 +153,7 @@ For existing K3S clusters on version `2.0.0`, the infrastructure upgrade:
 - disables the built-in K3S network policy controller
 - removes stale kube-router network policy rules from the host
 - installs Cilium
-- redeploys user applications so app instance network policies are applied
+- redeploys user applications so app environment network policies are applied
 
 For managed Kubernetes clusters, version `3.0.0` does not replace the provider's CNI. It records that the cluster uses
 the current Wodby infrastructure model. This version does not introduce a required action for managed Kubernetes clusters

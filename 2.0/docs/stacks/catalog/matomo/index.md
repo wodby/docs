@@ -16,7 +16,7 @@ Wodby provisions an application database and injects its connection values into 
 | Database name | `MATOMO_DATABASE_DBNAME` |
 
 Open a [web terminal](../../../apps/web-terminal.md) for the Matomo app service and run the following command to display
-the values for the current app instance:
+the values for the current app environment:
 
 ```bash
 printenv MATOMO_DATABASE_HOST MATOMO_DATABASE_USERNAME MATOMO_DATABASE_PASSWORD MATOMO_DATABASE_DBNAME

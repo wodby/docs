@@ -8,13 +8,13 @@ When cluster monitoring is enabled, Wodby collects metrics at several levels:
 
 - Kubernetes cluster and node metrics
 - Kubernetes namespace metrics
-- app instance runtime metrics
+- app environment runtime metrics
 - app service runtime metrics
 - pod and container runtime metrics
 
 Cluster-level metrics are shown from `Clusters > [Cluster] > Metrics`.
 
-That page also includes namespace-level usage details, including namespace type, related app instance, pod and
+That page also includes namespace-level usage details, including namespace type, related app environment, pod and
 container counts, restart totals, CPU and memory usage, and persistent volume storage usage per namespace.
 
 ### Monitoring with third-party service
@@ -25,7 +25,7 @@ You can also monitor your app with third-party services. For example, you can at
 
 ### Live logs
 
-For a deployed app instance, you can stream live container logs from `Apps > [App] > [Instance] > Logs`. Live logs
+For a deployed app environment, you can stream live container logs from `Apps > [App] > [Environment] > Logs`. Live logs
 remain available while a deployment is in progress, including as pods are added or replaced during a rollout.
 
 You choose the app service first. If that service exposes more than one workload or container, you can select the
@@ -47,18 +47,18 @@ Coming soon...
 
 ## Metrics
 
-App instance metrics are available from `Apps > [App] > [Instance] > Metrics`.
+App environment metrics are available from `Apps > [App] > [Environment] > Metrics`.
 
 That page shows:
 
 - CPU and memory usage
 - CPU and memory requests and limits
-- persistent volume storage usage and capacity for the app instance namespace
+- persistent volume storage usage and capacity for the app environment namespace
 - pod and container readiness
 - restart counts
-- Kubernetes workload summaries for the instance, including service-level storage usage where available
+- Kubernetes workload summaries for the environment, including service-level storage usage where available
 
-App service metrics are available from `Apps > [App] > [Instance] > Stack > App services > [Service] > Metrics`.
+App service metrics are available from `Apps > [App] > [Environment] > Stack > App services > [Service] > Metrics`.
 
 That page shows:
 
@@ -67,8 +67,8 @@ That page shows:
 - pod readiness
 - per-pod and per-container metrics such as requests, limits, restarts, node placement, and lifecycle timestamps
 
-Storage metrics come from Kubernetes PVC stats. They are available at app instance, app service, and namespace levels.
+Storage metrics come from Kubernetes PVC stats. They are available at app environment, app service, and namespace levels.
 Per-pod and per-container tables do not show separate storage usage because PVC usage is reported for volumes rather
 than individual containers.
 
-If cluster monitoring is disabled, app-instance and app-service metrics pages are not available.
+If cluster monitoring is disabled, app environment and app-service metrics pages are not available.

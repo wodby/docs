@@ -2,7 +2,7 @@
 
 A service is a reusable definition of software or behavior that can be added to a [stack](../stacks/index.md). Creating
 a service makes it available to your organization or project, but it does not deploy anything by itself. To deploy it,
-add the service to a stack, publish the stack, and create or upgrade an app instance from that stack.
+add the service to a stack, publish the stack, and create or upgrade an app environment from that stack.
 
 For the stack step, see [Create a stack](../stacks/create.md).
 
@@ -320,6 +320,6 @@ A service must be referenced by a stack before it can be deployed by an app.
 1. Create or update a stack that includes the service. See [Create a stack](../stacks/create.md).
 2. Configure stack-service defaults such as options, env vars, volumes, links, settings, and Helm values.
 3. Publish the stack revision when needed.
-4. Create an app or app instance from the stack.
+4. Create an app or app environment from the stack.
 
 For ongoing service revisions and stack behavior, see [Service updates](updates.md) and [Stack updates](../stacks/updates.md).

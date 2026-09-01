@@ -2,21 +2,23 @@
 
 ## Overview
 
-An application in Wodby is built on a [stack](stack.md) and can contain multiple [instances](instances.md). Each instance is a deployed copy of the app assigned to an [environment](env.md). Environments are named objects with a fixed type such as `prod`, `staging`, or `dev`. Creating a new application automatically generates its first instance.
+An application in Wodby is built on a [stack](stack.md) and can contain multiple [app environments](environments.md).
+Each app environment is an isolated deployment with a fixed [environment type](environment-types.md), such as `prod`,
+`staging`, or `dev`. Creating a new application automatically creates its first app environment.
 
-- Every app can have an unlimited number of instances but at least one
-- You can deploy as many instances as you want
-- You can deploy instances of the same app across different [Kubernetes clusters](../clusters/index.md), including self-hosted K3S clusters on different servers
+- Every app can have an unlimited number of environments but at least one
+- You can deploy as many environments as you want
+- You can deploy environments of the same app across different [Kubernetes clusters](../clusters/index.md), including self-hosted K3S clusters on different servers
 - One stack per application
-- Different instances can have different revisions of the same stack
+- Different environments can have different revisions of the same stack
 
 ```mermaid
 flowchart TD
     subgraph App2["<div style='margin-top:10px; white-space: nowrap;'>Your app</div>"]
         subgraph group[ ]
-            Dev["Dev instance"]
-            Staging["Staging instance"]
-            Prod["Production Instance"]
+            Dev["Dev environment"]
+            Staging["Staging environment"]
+            Prod["Production Environment"]
         end
         style group fill:none,stroke:none,stroke-width:0px
     end   
@@ -34,17 +36,17 @@ flowchart TD
     Prod --> Rev2
 ```
 
-Use this section to create apps, understand how apps, instances, and app services relate, and deploy the same app across multiple environments.
+Use this section to create apps, understand how apps, environments, and app services relate, and deploy the same app across multiple environments.
 
 ## Quick model
 
 | Object | What it means |
 | --- | --- |
 | App | The top-level application record |
-| App instance | One deployed copy of that app, assigned to an Env |
-| App service | One service inside one app instance |
+| App environment | One deployed copy of that app with an environment type |
+| App service | One service inside one app environment |
 
-See [App vs app instance vs app service](app-vs-instance-vs-service.md) for the fuller explanation.
+See [App vs app environment vs app service](app-vs-environment-vs-service.md) for the fuller explanation.
 
 ## Creating New Application
 
@@ -64,7 +66,7 @@ There are 6 steps of creating a new application:
 
 ### Step 2
 
-Select where you want to run the first instance of your application. The form offers two destinations:
+Select where you want to run the first environment of your application. The form offers two destinations:
 
 1. **My clusters**
    - Choose one of your existing clusters
@@ -81,23 +83,23 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
 
 ### Step 3
 
-- Enter the name of your application and your instance. Application and instance names are used to generate machine names. Machine names are permanent and cannot be changed
-  - Application and instance machine names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names)
-  - The generated namespace, `<app-name>-<instance-name>`, must be 63 characters or shorter
-- Select the [environment](env.md) (_Development_ by default)   
-- Optionally, edit the root domain. By default it is `*.[instance-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose public HTTP ports; ports marked `private` do not receive technical domains
+- Enter the name of your application and your environment. Application and environment names are used to generate machine names. Machine names are permanent and cannot be changed
+  - Application and environment machine names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names)
+  - The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter
+- Select the [environment type](environment-types.md) (_Development_ by default)
+- Optionally, edit the root domain. By default it is `*.[environment-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose public HTTP ports; ports marked `private` do not receive technical domains
 
 ### Step 4
 
-Configure settings that apply to the whole app instance:
+Configure settings that apply to the whole app environment:
 
 - Choose whether to enable stack auto-upgrades.
 - Choose Public or Protected [App Access](access.md).
 - Select the default CI system and container registry when the app has an enabled service with a build source.
 
-When adding another instance to an existing app, use `Copy configuration from` to prefill compatible app and service
-fields from another instance. See
-[Copying configuration to a new instance](instances.md#copying-configuration-to-a-new-instance) for what is copied and
+When adding another environment to an existing app, use `Copy configuration from` to prefill compatible app and service
+fields from another environment. See
+[Copying configuration to a new environment](environments.md#copying-configuration-to-a-new-environment) for what is copied and
 the database-sharing behavior to review.
 
 #### Auto-upgrades
@@ -122,8 +124,8 @@ least one enabled service with a build source and disabled otherwise.
 
 Choose your [Default CI](../cicd/index.md) and [container registry](../cicd/index.md). The form starts with the
 [organization's configured defaults](../org.md#settings); if the organization has not selected external integrations,
-it uses Wodby CI and Wodby Registry. You can override either choice for the new app instance without changing the
-organization defaults or existing instances. Connected build sources inherit Default CI. Public and cloned
+it uses Wodby CI and Wodby Registry. You can override either choice for the new app environment without changing the
+organization defaults or existing environments. Connected build sources inherit Default CI. Public and cloned
 boilerplate sources use Wodby CI regardless of this selection.
 
 ### Step 5
@@ -133,7 +135,7 @@ Configure individual app services. Sections only appear when the selected stack 
 #### Build sources
 
 For services that support a build source, select how the source will be provided. A connected source inherits the app
-instance's Default CI. With third-party Default CI it can be external, with builds created from
+environment's Default CI. With third-party Default CI it can be external, with builds created from
 `WODBY_APP_SERVICE_ID` and the provider checkout. With Wodby CI it must identify the Git repository and ref containing
 the application code and pipeline manifests.
 
@@ -182,8 +184,8 @@ Review your application configuration and click _Create new app_.
 
 ## Related pages
 
-- [App vs app instance vs app service](app-vs-instance-vs-service.md)
-- [Instances](instances.md)
+- [App vs app environment vs app service](app-vs-environment-vs-service.md)
+- [Environments](environments.md)
 - [Maintenance mode](maintenance.md)
 - [App access](access.md)
 - [App services](services.md)

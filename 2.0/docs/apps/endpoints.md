@@ -3,7 +3,7 @@
 Endpoints are the public or private entry points to your app services. They consist of HTTP domains, redirects, and
 published ports.
 
-From `Apps > [App] > [Instance] > Endpoints` you can manage:
+From `Apps > [App] > [Environment] > Endpoints` you can manage:
 
 - `Domains`
 - `Ports`
@@ -15,7 +15,7 @@ Domains and redirects are stored as routes behind the scenes, so API, CLI, task,
 still use the term _route_. The dashboard separates them by what users configure.
 
 To temporarily replace enabled public HTTP and HTTPS routes with a fixed `503 Service Unavailable` response, use
-[app instance maintenance mode](maintenance.md).
+[app environment maintenance mode](maintenance.md).
 
 ## Domains
 
@@ -70,15 +70,15 @@ By default, Wodby generates technical routes for app services that expose public
 
 The default hostname pattern is:
 
-- `<service-name>.<instance-name>.<app-name>.<org-name>.wodby.app`
+- `<service-name>.<environment-name>.<app-name>.<org-name>.wodby.app`
 
 The main app service also owns the shorter root technical hostname:
 
-- `<instance-name>.<app-name>.<org-name>.wodby.app`
+- `<environment-name>.<app-name>.<org-name>.wodby.app`
 
 Changing the main app service retargets this existing root technical route to the new service's primary public HTTP
 endpoint. The hostname, certificate, and route settings stay with the route. This does not change which route is the
-app instance's `Main` route.
+app environment's `Main` route.
 
 Wodby automatically issues and renews Let's Encrypt certificates for these technical routes. Certificate validation for
 technical routes uses Wodby-managed DNS records, so the certificate can be issued before the app service itself is
@@ -104,7 +104,7 @@ Use a custom route when you want to:
 
 - attach your own hostname
 - serve an app service under a specific path, such as `example.com/blog`
-- choose whether the route should become the main app instance route or the primary route for a service endpoint
+- choose whether the route should become the main app environment route or the primary route for a service endpoint
 
 Use a redirect when you want to move traffic to another hostname, path, or scheme without serving an app backend.
 
@@ -118,13 +118,13 @@ You can retarget an existing custom domain or redirect association to a public H
 service. Retargeting preserves the hostname, path, TLS certificate, route settings, and route authentication.
 Wodby-generated technical routes cannot be retargeted from this form.
 
-On clusters with Wodby infrastructure version `4.0.0` or newer, route changes are applied through an app-instance
+On clusters with Wodby infrastructure version `4.0.0` or newer, route changes are applied through an app environment
 [routing deployment](deploys.md#routing-deployments). They do not require the source or target app service to be
 redeployed. Older infrastructure versions continue to apply the change through an app-service deployment.
 
 When you create a custom domain or redirect with Let's Encrypt, certificate issuance runs separately from application
-deployment. An unattached or incorrectly routed hostname does not fail the deployment or change the app instance to an
-errored state. You can also delete a custom domain or redirect while its app instance is errored, so a bad hostname
+deployment. An unattached or incorrectly routed hostname does not fail the deployment or change the app environment to an
+errored state. You can also delete a custom domain or redirect while its app environment is errored, so a bad hostname
 never blocks cleanup.
 
 Deleting a custom domain or redirect also removes its route-specific HTTP settings and authentication scope. Reusable
@@ -134,13 +134,13 @@ organization-level custom certificates remain available until you delete them se
 
 Wodby distinguishes between two default-route flags:
 
-- `Main` is the canonical route for the whole app instance
+- `Main` is the canonical route for the whole app environment
 - `Primary` is the default route for a specific endpoint
 
 The main route can be either a Wodby-generated technical route or a custom route. Main routes are always primary. In
 practice:
 
-- an app instance with enabled public routes has one main route
+- an app environment with enabled public routes has one main route
 - each endpoint can have its own primary route
 
 The main route and the main app service are separate choices. The main route determines the canonical hostname used by
@@ -173,7 +173,7 @@ New managed certificates have a `Pending` status until Wodby verifies the route 
 certificate. A requested issuer of `Let's Encrypt` does not by itself mean that a certificate has already been issued.
 If public DNS does not resolve, the route reports `Awaiting DNS`. If DNS resolves but the exact challenge does not reach
 Wodby, it reports `Not connected`. The separate certificate task fails, while the certificate remains `Pending` and
-Wodby retries pending routes hourly. This does not fail an application deployment or change the app instance status.
+Wodby retries pending routes hourly. This does not fail an application deployment or change the app environment status.
 Infrastructure errors are reported separately as `Error`.
 
 After fixing DNS or proxy routing, open the route and select `Reconcile certificate` to check attachment immediately
@@ -237,7 +237,7 @@ Wodby repeats the same checks when saving the route, so a certificate cannot be 
 expiry, or to a hostname it does not cover. Changing the TLS mode to `Let's Encrypt` starts or reuses the managed
 certificate flow. Changing it to `None` removes TLS from the hostname.
 
-TLS is selected per hostname. If an app instance has multiple route paths for the same host, changing the certificate
+TLS is selected per hostname. If an app environment has multiple route paths for the same host, changing the certificate
 on one of them changes it for every path using that host. Uploaded certificates remain available for reuse after they
 are detached. You can delete an uploaded certificate only after it is no longer used by any route or other supported
 resource. To remove one, select its hostname in `Organization > Certificates`, then select `Delete certificate`. The
@@ -261,7 +261,7 @@ from deployment status: a route can exist and the app can be healthy while its c
 DNS or points to another origin.
 
 When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
-ordinary public routes in the selected scope and uses the Access primary hostname as the app instance's canonical
+ordinary public routes in the selected scope and uses the Access primary hostname as the app environment's canonical
 address. The Domains and Redirects lists show the effective Access hostname; Cloudflare Protected and Tailscale use
 provider-facing hostnames, while Cloudflare Private network reuses the suppressed Wodby technical hostname. Routes that
 target the same app port share one Access hostname. With Selected endpoints scope, routes for unselected endpoints
@@ -279,13 +279,13 @@ settings rather than arbitrary Kubernetes annotations.
 
 An effective domain setting can come from three layers, in this order:
 
-- app instance defaults, inherited by serve routes in the app instance
+- app environment defaults, inherited by serve routes in the app environment
 - defaults declared by the selected service endpoint port
 - domain-specific settings, which override both default layers for one domain
 
-Redirects use app instance defaults and redirect-specific overrides, but do not use service port defaults. The
+Redirects use app environment defaults and redirect-specific overrides, but do not use service port defaults. The
 effective route-settings API reports which layer supplies each value. A service default does not prevent you from
-overriding the setting for an app instance or individual domain.
+overriding the setting for an app environment or individual domain.
 
 Supported route settings are:
 
@@ -331,7 +331,7 @@ Wodby enables the `enabled` policy on public Wodby-managed technical routes. Pri
 On Envoy Gateway clusters, the New domain form also enables HSTS by default; clear the checkbox when a domain must
 remain accessible without an HSTS policy. Existing custom domains are not changed automatically.
 
-For new Envoy Gateway app instances, Wodby creates default route settings to match the previous ingress behavior:
+For new Envoy Gateway app environments, Wodby creates default route settings to match the previous ingress behavior:
 
 - HTTPS redirect is enabled by default
 - session affinity uses cookies by default
@@ -339,7 +339,7 @@ For new Envoy Gateway app instances, Wodby creates default route settings to mat
 - public generated technical routes get HSTS enabled by default
 
 On infrastructure version `4.0.0` or newer, changing route settings starts a routing deployment and does not mark app
-services as needing redeploy. Older infrastructure versions continue to mark the affected service or app instance as
+services as needing redeploy. Older infrastructure versions continue to mark the affected service or app environment as
 needing redeploy.
 
 !!! note "Legacy ingress settings"
@@ -374,7 +374,7 @@ The edit screen can also reveal the current password for an existing auth entry.
 
 On infrastructure version `4.0.0` or newer, changing auth settings starts a routing deployment and does not mark app
 services as needing redeploy. Older infrastructure versions continue to mark the affected app services and app
-instance as needing redeploy.
+environment as needing redeploy.
 
 ## Ports
 
@@ -408,7 +408,7 @@ Wodby assigns the public port automatically from the cluster-wide range `31222`-
 
 On regular managed Kubernetes clusters, published ports are exposed through the cluster load balancer. In single-node managed clusters that use direct node traffic instead of a load balancer, Wodby manages the node firewall rules for this published-port range.
 
-When a port is published, the dashboard shows the assigned public port. For SSHD services, it also shows ready-to-use `ssh`, `sftp`, and `scp` command examples based on the app instance main route.
+When a port is published, the dashboard shows the assigned public port. For SSHD services, it also shows ready-to-use `ssh`, `sftp`, and `scp` command examples based on the app environment main route.
 
 If you plan to use published SSH ports, see [SSH keys](../user/ssh-keys.md).
 
@@ -424,4 +424,4 @@ Supported port settings are:
 | `connection_limit` | positive integer |
 | `tcp_keepalive` | `true` or `false` |
 
-Changing port settings marks the app instance as needing redeploy and redeploys the cluster gateway app.
+Changing port settings marks the app environment as needing redeploy and redeploys the cluster gateway app.

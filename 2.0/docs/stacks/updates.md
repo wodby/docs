@@ -1,13 +1,13 @@
 # Stack updates
 
 Stacks are versioned. Dashboard-managed stack configuration edits create or update an unpublished draft revision first.
-The currently published revision remains active for running app instances until you publish the draft.
+The currently published revision remains active for running app environments until you publish the draft.
 Manual stack service revision updates also create or update an unpublished draft. Git updates, sync with origin, and
 automatic stack updates create a new published stack revision directly after the update task succeeds.
 
-Publishing a draft or completing a stack update does not automatically change running app instances. Automatic stack
-updates can also auto-upgrade app instances when auto-upgrade is enabled for those instances. After a new revision
-exists, each app instance can still be upgraded separately from its current revision to the latest revision.
+Publishing a draft or completing a stack update does not automatically change running app environments. Automatic stack
+updates can also auto-upgrade app environments when auto-upgrade is enabled for those environments. After a new revision
+exists, each app environment can still be upgraded separately from its current revision to the latest revision.
 
 There are several common update paths.
 
@@ -261,19 +261,19 @@ stack has local customizations that should survive catalog changes.
 After any stack configuration edit creates a draft, the stack shows an unpublished draft notice.
 
 Use `Publish draft` when you are ready to release the draft as a real stack revision. Publishing is the point where app
-instances using older stack revisions can become outdated.
+environments using older stack revisions can become outdated.
 
 Every required service link must have a compatible target before publication. A configured target is enabled
 automatically when an enabled source requires it, but Wodby does not select missing targets. Resolve every required-link
 issue on the affected stack service before retrying publication.
 
 Use `Discard` to delete the draft and abandon the unpublished changes. After discard, the stack returns to its current
-published revision and app instances are unaffected.
+published revision and app environments are unaffected.
 
-## App instance upgrades
+## App environment upgrades
 
-After a draft is published as a new stack revision, app instances still run their current stack revision until you
+After a draft is published as a new stack revision, app environments still run their current stack revision until you
 upgrade them.
 
-Open `Apps`, select the app, select an app instance, and go to `Stack > Operations`. See
-[Application stack](../apps/stack.md#upgrade) for the app instance upgrade workflow and the available upgrade settings.
+Open `Apps`, select the app, select an app environment, and go to `Stack > Operations`. See
+[Application stack](../apps/stack.md#upgrade) for the app environment upgrade workflow and the available upgrade settings.

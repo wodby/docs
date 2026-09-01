@@ -41,6 +41,17 @@ Each integration exposes one or more [types](types.md). The type-specific overvi
 
 The selected type determines where the integration can be used in the dashboard.
 
+## Environment availability
+
+An integration can have a primary [environment type](../apps/environment-types.md) and an availability policy:
+
+- `Any environment type` allows the integration to be used by app environments and resources of every type.
+- `Restricted` allows only the selected environment types.
+
+The primary type is descriptive and must be included when a restricted policy is used. The same fixed type list is
+used for clusters, managed databases, backup presets, and app environments, so policies do not depend on custom
+organization-level environment records.
+
 ### Add kinds to an existing integration
 
 When a provider supports more than one kind, you can open the integration's **Edit** page and select additional kinds.

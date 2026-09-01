@@ -10,9 +10,9 @@ when your repository uses another layout.
 
 ## Runtime configuration
 
-The WordPress PHP runtime generates `wodby.wp-config.php` from the current app instance and linked services. It provides:
+The WordPress PHP runtime generates `wodby.wp-config.php` from the current app environment and linked services. It provides:
 
-- `WP_HOME` and `WP_SITEURL` from the app instance's primary URL
+- `WP_HOME` and `WP_SITEURL` from the app environment's primary URL
 - database credentials from the selected database link
 - stable generated WordPress authentication keys and salts
 - the table prefix from `WP_TABLE_PREFIX`, with `wp_` as the default
@@ -45,5 +45,5 @@ WordPress object-cache plugins.
 Mailpit is suitable for inspecting mail in non-production environments. For production delivery, enable OpenSMTPD and
 attach an [SMTP provider integration](../../../providers/smtp.md).
 
-The WordPress PHP service defines an hourly schedule for due WordPress cron events using the app instance's primary
-URL. Change the schedule or run it manually from the app instance's [Cron](../../../apps/cron.md) page.
+The WordPress PHP service defines an hourly schedule for due WordPress cron events using the app environment's primary
+URL. Change the schedule or run it manually from the app environment's [Cron](../../../apps/cron.md) page.

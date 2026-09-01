@@ -11,7 +11,7 @@ http://gotenberg:3000
 ```
 
 Keep this endpoint private unless an external client must call it. After testing, disable the Gotenberg technical route
-under **App instance → Endpoints → Routes**. Internal service-to-service requests continue to work.
+under **App environment → Endpoints → Routes**. Internal service-to-service requests continue to work.
 
 ## Migrate from AthenaPDF
 

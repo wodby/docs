@@ -34,7 +34,7 @@ linked service's own volume settings control the underlying storage class. A vol
 expose an independent storage-class choice.
 
 For an existing app service, open its `Volumes` tab and select `Add volume` on an omitted optional volume. The same
-storage-class rules apply. Adding the volume marks the app service and instance for redeploy; Kubernetes storage is
+storage-class rules apply. Adding the volume marks the app service and environment for redeploy; Kubernetes storage is
 provisioned by the subsequent deployment. Once added, the volume cannot be resized, removed, or moved to another class
 from app-service settings.
 
@@ -42,14 +42,14 @@ When an app and its cluster are created together, the cluster inventory is not a
 unset so Kubernetes can apply the cluster default after the cluster becomes ready. The dashboard reports this in the
 disabled selector until the cluster is provisioned.
 
-When you copy settings from another app instance, Wodby copies a volume's class only when that class is selectable on
+When you copy settings from another app environment, Wodby copies a volume's class only when that class is selectable on
 the destination cluster. Otherwise the dashboard uses the destination cluster's sole selectable default or requires a
 new explicit choice.
 
 ## Current storage class
 
 Wodby keeps the configured class separately from the class observed on live Kubernetes PVCs and PVs. The dashboard can
-therefore distinguish them. Open an app instance, select an app service, and open its `Volumes` tab. The `Storage class`
+therefore distinguish them. Open an app environment, select an app service, and open its `Volumes` tab. The `Storage class`
 column shows:
 
 - the effective class currently observed on the Kubernetes claim when the volume is healthy

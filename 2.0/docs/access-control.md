@@ -248,7 +248,7 @@ Tasks inherit access from the resources and projects they reference.
 
 Organization-scoped tasks can be read by roles with organization-wide visibility. They can be repeated, cancelled, or otherwise modified only by organization owners and admins.
 
-## Apps and app instances
+## Apps and app environments
 
 Apps can be organization-owned or project-owned. In the dashboard, the app creation `Owner` field accepts either `Organization <organization>` or `Project <project>`. Creating an organization-owned app requires organization owner/admin access. Creating a project-owned app requires write/admin access in the owner project, or organization owner/admin access.
 
@@ -258,9 +258,9 @@ project-owned app without granting cluster write access, provided the cluster is
 Organization/project-scoped dependencies for an organization-owned app must be organization-owned in the same
 organization.
 
-App instances do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings. Container-based databases created for app services follow the same rule: their owner and project access list stay synchronized with the app and cannot be changed independently. Managed databases keep their own ownership and sharing settings.
+App environments do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings. Container-based databases created for app services follow the same rule: their owner and project access list stay synchronized with the app and cannot be changed independently. Managed databases keep their own ownership and sharing settings.
 
-Changing an existing app, app instance, app service, deployment, build source, environment variables, tokens, annotations, routes, ports, auth settings, and similar app-owned configuration requires modify access to the app or app instance.
+Changing an existing app, app environment, app service, deployment, build source, environment variables, tokens, annotations, routes, ports, auth settings, and similar app-owned configuration requires modify access to the app or app environment.
 
 ## Practical examples
 

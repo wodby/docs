@@ -14,7 +14,8 @@ Database ownership and sharing depend on how the database is deployed:
 - A container-based database belongs to an app. It always uses the owning app's owner and project access list. To change who can use or modify it, open the app's `Sharing` page.
 - A managed database is independent of an app. Use the database's `Sharing` page to change its owner or make it available to additional projects with either `Read/Use` or `Modify/Delete` access.
 
-A database also has an [environment](../apps/env.md). For container-based databases created from an app, the environment usually matches the app instance environment.
+A database also has an [environment type](../apps/environment-types.md). For container-based databases created from
+an app, the type matches the owning app environment.
 
 The database details page also shows the current connection metadata and can reveal the current master password on
 demand. A master password is a

@@ -6,9 +6,9 @@ receiving updates from the services they include.
 ## Draft revisions
 
 Stack configuration changes are saved to an unpublished draft revision. The currently published revision remains active
-for existing app instances until you publish the draft.
+for existing app environments until you publish the draft.
 
-Use `Publish draft` when you want the draft to become a real stack revision. At that point, app instances using older
+Use `Publish draft` when you want the draft to become a real stack revision. At that point, app environments using older
 published revisions can become outdated and can be upgraded from `Stack > Operations`.
 
 Use `Discard` to delete the draft and abandon unpublished stack changes. If there is no draft, the stack has no
@@ -60,7 +60,7 @@ the same name and environment type overrides the stack-wide token for that speci
 A stack always includes specific service revisions. When a service publishes a new revision, the stack can be updated to
 use it.
 
-This is a stack update: Wodby updates the stack service revisions in a new stack revision. App instances that use the
+This is a stack update: Wodby updates the stack service revisions in a new stack revision. App environments that use the
 stack are upgraded to that published revision separately. See [Stack updates](updates.md) for update paths such as
 service revision updates, Git updates, and sync with origin.
 
@@ -79,8 +79,8 @@ From Wodby CLI, pass `--service-rev-pinned` when creating or updating a stack se
 `wodby stack service update ID --service-rev-pinned=false`.
 
 Only one service whose main endpoint exposes a public HTTP port can be marked as main. The main stack service controls
-which app service receives the app instance's main technical route. This technical-domain ownership is independent of
-the app instance's canonical `Main` route.
+which app service receives the app environment's main technical route. This technical-domain ownership is independent of
+the app environment's canonical `Main` route.
 
 If no service is marked as main and the stack has eligible services, Wodby uses the first eligible service in the
 stack. This fallback also applies when you add or sync an eligible service into a stack that currently has no main
@@ -98,7 +98,7 @@ Configure rollout strategy, readiness timing, and graceful shutdown from
 for services with multiple workloads, use a workload card only where different behavior is needed.
 
 Unset fields inherit service-manifest defaults or remain controlled by the Helm chart. Saving changes updates the
-stack draft; publish the draft and upgrade app instances to apply them. See
+stack draft; publish the draft and upgrade app environments to apply them. See
 [Deployment configuration](../services/deployment.md) for supported values and precedence.
 
 ### Build source
@@ -110,7 +110,7 @@ actions.
 ### Integrations
 
 If a service defines integrations in its template, you can preconnect compatible integrations from your project. For
-example, a mail service can be configured with an SMTP integration so new app instances already have the relay set up.
+example, a mail service can be configured with an SMTP integration so new app environments already have the relay set up.
 
 Additionally, all non-external services can use [Variable](../integrations/variable.md) integrations.
 Open integrations from `Stack > Stack services > [Service] > Connections > Integrations`.
@@ -183,14 +183,14 @@ comes from links cannot be edited.
 ### Configs
 
 If a service defines [configs](../services/configuration.md#configs), the stack can provide default overrides for them. These
-defaults apply to app instances created from the stack revision and can still be overridden later at the app level.
+defaults apply to app environments created from the stack revision and can still be overridden later at the app level.
 Open them from `Stack > Stack services > [Service] > Configuration > Configs`.
 Stack overrides replace only the config content or disable the config. The service template still defines whether the
 config is delivered via Helm, mounted from a generated ConfigMap, or exposed by filename only.
 
 The dashboard identifies whether the underlying service default comes from the service repository or the selected
 service image. Resetting a stack override deletes it instead of copying that displayed default into the stack. New app
-instances then inherit the service behavior; for an image-backed config with no other override, the container uses its
+app environments then inherit the service behavior; for an image-backed config with no other override, the container uses its
 native image file.
 
 ### Cron

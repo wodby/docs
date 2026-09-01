@@ -1,6 +1,6 @@
 # Custom CI
 
-Custom CI is a CI provider for app instances that build in an external pipeline without connecting that CI provider to
+Custom CI is a CI provider for app environments that build in an external pipeline without connecting that CI provider to
 Wodby. Use it for unsupported CI systems, self-managed pipelines, or cases where you want Wodby CLI to create and deploy
 builds without provider API access.
 
@@ -36,7 +36,7 @@ Pass `--build-id` and `--build-num` when the CLI cannot detect a CI run ID and b
 
 ## Linked repositories
 
-A linked Git repository is optional for connected build sources that inherit Custom CI from the app instance. Public
+A linked Git repository is optional for connected build sources that inherit Custom CI from the app environment. Public
 and cloned boilerplate sources use Wodby CI instead.
 
 If no repository is linked, Wodby trusts the git metadata sent by the CLI. If a repository is linked, Wodby can use it

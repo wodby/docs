@@ -2,20 +2,21 @@
 
 ## App
 
-The top-level application object in Wodby. All app instances of the same app share one stack and app identity, but the app itself is not the running deployment.
+The top-level application object in Wodby. All app environments of the same app share one stack and app identity, but the app itself is not the running deployment.
 
-## App instance
+## App environment
 
-One deployed copy of an app. Each app instance is assigned to an Environment (Env) and has its own services, routes, builds, and configuration.
+One isolated, deployed copy of an app. Each app environment has a fixed environment type and its own services, routes,
+builds, and configuration.
 
 ## Application Access
 
-An app-instance setting that publishes the entire app or selected HTTP endpoints through a supported access provider
+An app environment setting that publishes the entire app or selected HTTP endpoints through a supported access provider
 while suppressing the corresponding ordinary public routes.
 
 ## App service
 
-One service inside one app instance. An app service is the app-level representation of a stack service for that specific deployed app copy.
+One service inside one app environment. An app service is the app-level representation of a stack service for that specific deployed app copy.
 
 ## Backup preset
 
@@ -29,9 +30,10 @@ The temporary Wodby Cloud option for testing. Demo clusters are deleted automati
 
 A network entry point exposed by an app service. In practice, endpoints back HTTP routes and published ports.
 
-## Environment
+## Environment type
 
-A named Environment (Env) definition assigned to app instances and other resources. Each Env has a fixed type chosen from `prod`, `staging`, `test`, `dev`, or `feature`, and multiple Envs can share the same type.
+A fixed deployment classification chosen from `prod`, `staging`, `test`, `dev`, or `feature`. App environments,
+clusters, databases, integration policies, and backup presets use the same enum.
 
 ## Integration
 
@@ -43,7 +45,7 @@ A lightweight Kubernetes distribution used for self-hosted clusters connected fr
 
 ## Main route
 
-The main HTTP route for the whole app instance. The main route is always also primary.
+The main HTTP route for the whole app environment. The main route is always also primary.
 
 ## Managed Kubernetes
 
@@ -92,7 +94,7 @@ revision or discarded.
 
 ## Stack revision
 
-A published versioned snapshot of the stack configuration. App instances can be upgraded between stack revisions.
+A published versioned snapshot of the stack configuration. App environments can be upgraded between stack revisions.
 
 ## Stack service
 

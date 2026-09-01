@@ -4,7 +4,7 @@ A stack is the blueprint for an application.
 
 It defines which [services](../services/index.md) the app uses and the default configuration for those services. To create an app, you choose a stack first.
 
-All app instances of the same app share the same stack, but they can run different published stack revisions.
+All app environments of the same app share the same stack, but they can run different published stack revisions.
 
 Stacks are versioned. Changes made in the dashboard are saved to an unpublished draft revision first. Publishing the draft creates a new stack revision. Discarding the draft removes the unpublished changes.
 
@@ -30,11 +30,11 @@ See [Create a stack](create.md).
 
 ```mermaid
 flowchart TD
-    AppInstance["App instance (production)"] --> StackRevision["Stack revision"]
+    AppInstance["App environment (production)"] --> StackRevision["Stack revision"]
     StackRevision --> StackServices["Stack services"]
     StackServices --> ServiceRevisions["Service revisions"]
 
-    AppInstance --> AppServices["App services (instance overrides)"]
+    AppInstance --> AppServices["App services (environment overrides)"]
     AppServices -.-> StackServices
 
     classDef serviceRevision fill:#f0f0ff,stroke:#9370db,stroke-width:1px
@@ -61,12 +61,12 @@ the stack contains. Git-backed stacks can also update from Git, either manually 
 supported push event matches the stack source. Catalog-derived stacks can sync with their origin to pull in catalog-side
 manifest changes.
 
-Publishing the draft creates a new stack revision. Updating a stack does not automatically update all app instances
-using it unless the stack was updated automatically and auto-upgrade is enabled for those app instances. Each app
-instance can still be upgraded to the latest published stack revision separately.
+Publishing the draft creates a new stack revision. Updating a stack does not automatically update all app environments
+using it unless the stack was updated automatically and auto-upgrade is enabled for those app environments. Each app
+environment can still be upgraded to the latest published stack revision separately.
 
 See [Stack updates](updates.md) for the stack update workflows and [Application stack](../apps/stack.md#upgrade) for
-the app instance upgrade settings.
+the app environment upgrade settings.
 
 ## Sharing
 

@@ -159,7 +159,7 @@ The command does not remove NFS client packages and does not re-enable swap. Aft
 After the script completes successfully, Wodby initializes the cluster and deploys the required infrastructure components.
 
 - Envoy Gateway is deployed for public HTTP, HTTPS, TCP, and UDP entrypoints
-- Cilium enforces app instance network policies
+- Cilium enforces app environment network policies
 - Monitoring components are deployed if you left monitoring enabled
 - The cluster moves out of `Awaiting` and eventually becomes ready for app deployments
 

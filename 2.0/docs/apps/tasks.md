@@ -1,6 +1,6 @@
 # Application tasks
 
-Application tasks are the same task objects described in the global [Tasks](../tasks.md) page, but filtered to one specific app instance.
+Application tasks are the same task objects described in the global [Tasks](../tasks.md) page, but filtered to one specific app environment.
 
 You can find them at `Apps > [App] > Tasks`.
 

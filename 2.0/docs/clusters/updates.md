@@ -64,7 +64,7 @@ Infrastructure version `4.0.0` also performs a one-time routing ownership migrat
 Gateway infrastructure app when required, reconciles the cluster entrypoint, and verifies Gateway API compatibility.
 It then removes legacy routing resources from eligible app-service releases and creates independent app routing
 releases without rebuilding or redeploying application workloads. HTTP and HTTPS traffic can be briefly interrupted
-while an app instance is handed over from its service releases to its routing release. Run this upgrade during a
+while an app environment is handed over from its service releases to its routing release. Run this upgrade during a
 maintenance window for production applications.
 
 The upgrade verifies the provider's Gateway API resources before beginning the ownership migration. HTTP/HTTPS
@@ -75,8 +75,8 @@ published. See
 [Gateway API compatibility](infrastructure.md#gateway-api-compatibility) for provider-specific ownership and upgrade
 behavior.
 
-Paused app instances are skipped during the cluster-wide 4.0 migration. They migrate automatically during their next
-full deployment after being resumed; you do not need to unpause every instance before upgrading the cluster.
+Paused app environments are skipped during the cluster-wide 4.0 migration. They migrate automatically during their next
+full deployment after being resumed; you do not need to unpause every environment before upgrading the cluster.
 
 If both an infrastructure version upgrade and infrastructure app stack upgrade are pending, Wodby handles the
 infrastructure version upgrade first. Infrastructure app upgrades are checked again after the cluster is no longer
@@ -103,7 +103,7 @@ while the cluster is upgrading, the deployment remains `awaiting` and Wodby star
 returns to `ok`. If the infrastructure upgrade fails, the deployment continues waiting until the cluster recovers to
 `ok`.
 
-While an upgrade is running, new app instance creation or deletion, direct deployments, post-deployment script retries,
+While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
 and app stack upgrades cannot start on that cluster. Operations that are part of the infrastructure upgrade itself
 continue normally.
 

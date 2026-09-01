@@ -4,7 +4,7 @@ Machine names are permanent identifiers used in URLs, generated Kubernetes resou
 
 ## General Kubernetes names
 
-Use this rule for app names, app instance names, stack names, top-level service names in `service.yml`, workload names, container names, endpoint names, volume names, config names, and workload references.
+Use this rule for app names, app environment names, stack names, top-level service names in `service.yml`, workload names, container names, endpoint names, volume names, config names, and workload references.
 
 Names must:
 
@@ -12,13 +12,13 @@ Names must:
 - start and end with a lowercase letter or number
 - be 63 characters or shorter
 
-App instance Kubernetes namespaces are generated as:
+App environment Kubernetes namespaces are generated as:
 
 ```text
-<app-name>-<instance-name>
+<app-name>-<environment-name>
 ```
 
-The generated namespace must also be 63 characters or shorter, so keep app and instance names short enough for the combined value.
+The generated namespace must also be 63 characters or shorter, so keep app and environment names short enough for the combined value.
 
 Some dashboard route words are reserved, such as `new`, `settings`, and `clusters`, even if they otherwise match the character rules.
 
@@ -51,10 +51,10 @@ Service endpoint port names must:
 
 Wodby validates generated Kubernetes names before app services are created or deployed. This includes namespaces, app service names, generated PVC names, generated ConfigMap names, storage class names for shared storage, and additional Kubernetes manifests.
 
-If deployment fails because a generated name is too long, shorten the app, instance, stack service, storage service, volume, or config name that contributes to it.
+If deployment fails because a generated name is too long, shorten the app, environment, stack service, storage service, volume, or config name that contributes to it.
 
 ## Database names
 
-For app-created container databases, Wodby generates internal database entity names from the app, instance, and service names.
+For app-created container databases, Wodby generates internal database entity names from the app, environment, and service names.
 
 For managed provider databases, the provider-facing database name must use lowercase letters, numbers, and dashes, start with a letter, end with a letter or number, and be 3 to 32 characters long.

@@ -14,9 +14,9 @@ For a streamed upload to third-party object storage, Wodby first uses a temporar
 object name only after the backup producer reports success, and attempts to remove the temporary object when the
 producer or upload fails.
 
-Backups are managed from `Apps > [App] > [Instance] > Data > Backups`.
+Backups are managed from `Apps > [App] > [Environment] > Data > Backups`.
 
-The app instance `Data` area includes:
+The app environment `Data` area includes:
 
 - `Backups` for one-off backups
 - `Backup presets` for reusable destinations and automatic schedules
@@ -126,7 +126,7 @@ automatic schedule and is disabled. Enabling the preset requires a paid subscrip
 
 App presets can be scoped to:
 
-- any app service in the app instance, or one specific app service
+- any app service in the app environment, or one specific app service
 - any backup type exposed by that service, or one specific backup type
 
 ## Organization-wide presets
@@ -143,7 +143,7 @@ An organization-wide preset stores:
 
 When you create a manual backup, the dashboard combines:
 
-- matching app-instance presets
+- matching app environment presets
 - matching organization-wide presets for the same environment
 
 If only one preset matches the selected app service and backup type, the dashboard can prefill it automatically.
@@ -176,9 +176,9 @@ Automatic schedules created by the previous dashboard used exact UTC launch time
 are migrated to three-hour UTC windows beginning at the same time, without changing the selected day or backup
 timeout. Custom cron expressions remain on the legacy exact-time schedule.
 
-An automatic backup targeting an app instance, app service, or container-backed database runs only while its app
-instance is running. If the backup becomes due while the instance is `Pausing`, `Paused`, `Resuming`, or `Errored`,
-Wodby skips that execution and advances the schedule. The missed backup is not queued or replayed when the instance
+An automatic backup targeting an app environment, app service, or container-backed database runs only while its app
+environment is running. If the backup becomes due while the environment is `Pausing`, `Paused`, `Resuming`, or `Errored`,
+Wodby skips that execution and advances the schedule. The missed backup is not queued or replayed when the environment
 becomes runnable again.
 
 ## Failure and recovery notifications

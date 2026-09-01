@@ -4,7 +4,7 @@
 
 ```mermaid
 flowchart TD
-    subgraph APP["<div style='margin-top:10px; white-space: nowrap;'>App Instance (e.g. production)</div>"]
+    subgraph APP["<div style='margin-top:10px; white-space: nowrap;'>App environment (e.g. production)</div>"]
         subgraph sapp[ ]
             direction LR
             app1["app service"]
@@ -60,9 +60,9 @@ flowchart TD
     class stackEllipsis,appEllipsis,svcEllipsis ellipsis
 ```
 
-An application service is the per-app-instance representation of a [stack service](../stacks/services.md).
+An application service is the per-app environment representation of a [stack service](../stacks/services.md).
 
-When you create a new app, Wodby creates one app service for each relevant stack service. The app service starts with stack defaults, then lets you override behavior for that specific app instance.
+When you create a new app, Wodby creates one app service for each relevant stack service. The app service starts with stack defaults, then lets you override behavior for that specific app environment.
 
 The app service machine name comes from the stack service name and must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names).
 
@@ -70,7 +70,7 @@ This is the main place to customize how one environment behaves without changing
 
 ## App service menu
 
-Inside `Apps > [App] > [Instance] > Stack > App services > [Service]`, the dashboard groups related pages under
+Inside `Apps > [App] > [Environment] > Stack > App services > [Service]`, the dashboard groups related pages under
 primary tabs:
 
 - `Overview`
@@ -112,7 +112,7 @@ The `Overview` tab shows the current state of the app service, including:
 
 The same screen also exposes `Connect via web terminal`.
 
-The web terminal button is available only when both the app instance and the app service are in a healthy `OK` state.
+The web terminal button is available only when both the app environment and the app service are in a healthy `OK` state.
 It opens an interactive shell session in a separate window. If the service has multiple workloads or containers, you
 can target a specific one. Otherwise Wodby uses the primary workload and its first container automatically.
 
@@ -143,7 +143,7 @@ service. User-runnable actions are `button` and `output` actions.
 Running an action creates a background task for the app service. Use the task details and logs to follow progress and
 inspect command output. `output` actions do not return output directly in the run request.
 
-Actions can appear disabled when the app instance or app service is not in a healthy `OK` state. They are not available
+Actions can appear disabled when the app environment or app service is not in a healthy `OK` state. They are not available
 for external services or derivative app services.
 
 <a id="configure-tab"></a>
@@ -163,9 +163,9 @@ Depending on the service, you can:
   counts, and the average CPU utilization target
 - change build source settings for services that support a build source
 
-The main app service owns the app instance's root Wodby technical hostname. Selecting a different main app service
+The main app service owns the app environment's root Wodby technical hostname. Selecting a different main app service
 retargets that technical route to the new service's primary public HTTP endpoint. It does not replace the app
-instance's canonical `Main` route, which may be a customer-added custom route.
+environment's canonical `Main` route, which may be a customer-added custom route.
 
 Disabled, external, and derivative app services cannot be main. You can disable the current main app service: Wodby
 selects another eligible enabled service for the root technical hostname, or removes that technical route when no
@@ -173,17 +173,17 @@ replacement exists. Disabling a service also disables all domains and redirects 
 those customer routes to another service. Re-enabling the service re-enables domains and redirects that were disabled
 with the service, but leaves items you had disabled individually disabled.
 
-For an app instance with an established runtime, re-enabling a service automatically starts a partial deployment of
+For an app environment with an established runtime, re-enabling a service automatically starts a partial deployment of
 that service and any required dependencies. If the app remains `awaiting`—including after an explicit partial
-deployment initialized only some services—Wodby saves the enabled state and marks the instance `needs redeploy`
-instead. Finish configuring the instance, then start a deployment that includes the remaining services. See
+deployment initialized only some services—Wodby saves the enabled state and marks the environment `needs redeploy`
+instead. Finish configuring the environment, then start a deployment that includes the remaining services. See
 [deferred initial deployment](deploys.md#deferred-initial-deployment).
 
 An `EOL` flag next to a service version means that the app service currently uses a version whose end-of-life date has
-passed. If newer supported versions are not available in the selector, update the app instance to a stack revision that
+passed. If newer supported versions are not available in the selector, update the app environment to a stack revision that
 uses the latest service revision first, then choose a non-EOL service version.
 
-Scaling and resource changes, including replicas, autoscaling rules, and requested CPU, mark the app instance as
+Scaling and resource changes, including replicas, autoscaling rules, and requested CPU, mark the app environment as
 needing redeploy. Changes that affect a built image, such as changing the version of a service with a build source,
 mark it as needing rebuild instead.
 
@@ -191,7 +191,7 @@ mark it as needing rebuild instead.
 
 If a service supports a build source, the General page shows a separate `Build source` card with its own update action.
 
-The build source shows its effective CI. A connected source inherits the app instance's Default CI. Public and cloned
+The build source shows its effective CI. A connected source inherits the app environment's Default CI. Public and cloned
 boilerplate sources use Wodby CI.
 
 For Wodby CI, point a connected or cloned service to a Git repository and a reference such as:
@@ -244,7 +244,7 @@ service. Use `All workloads` for service-wide settings. Services with multiple w
 targeted overrides.
 
 Each unset field inherits independently from the stack service or service manifest. If no inherited value exists, the
-Helm chart keeps its default. Saving a deployment override marks the app instance as needing redeploy. See
+Helm chart keeps its default. Saving a deployment override marks the app environment as needing redeploy. See
 [Deployment configuration](../services/deployment.md) for supported settings, workload-kind restrictions, and the full
 precedence order.
 
@@ -291,9 +291,9 @@ service-specific topology, quorum, or failover is not represented as ordinary ap
 
 The `Connections > Links` subtab lets you change [links](../services/networking.md#links) between app services.
 
-Links are usually defined in the stack, but app services can override them per app instance.
+Links are usually defined in the stack, but app services can override them per app environment.
 
-Those overrides also affect deployment ordering for that app instance. If linked services are deployed together, Wodby
+Those overrides also affect deployment ordering for that app environment. If linked services are deployed together, Wodby
 deploys the linked target first.
 
 ## Volumes tab
@@ -306,7 +306,7 @@ show both and adds a `Mismatch`, `Mixed`, `Unknown`, or `Unavailable` status.
 An optional volume omitted during app creation remains in the table with an `Optional` label, empty size and storage
 class values, and an `Add volume` action. This is a valid configuration, not a warning or configuration issue. Adding
 the volume asks for a positive size and, when supported, a storage class. Shared volumes and volumes that reuse a
-linked claim inherit their storage configuration. Saving the volume marks the app service and instance for redeploy;
+linked claim inherit their storage configuration. Saving the volume marks the app service and environment for redeploy;
 the claim is created by the subsequent deployment.
 
 After a volume has been added, it cannot be resized or removed from app-service settings, and its storage class cannot
@@ -358,5 +358,5 @@ Inherited annotations are shown in the list, and app-level annotations can overr
 - [Endpoints](endpoints.md)
 - [Builds](builds.md)
 - [Deploys](deploys.md)
-- [Environment](env.md)
+- [Environment](environment-types.md)
 - [Tokens](tokens.md)

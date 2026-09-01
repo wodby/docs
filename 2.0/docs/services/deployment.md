@@ -14,8 +14,8 @@ For a stack service, open
 after the draft is published and an app is created or upgraded to that stack revision.
 
 For one app service, open
-`Apps > [App] > [Instance] > Stack > App services > [Service] > Configuration > Deployment`. Saving an override marks
-the app instance as needing redeploy.
+`Apps > [App] > [Environment] > Stack > App services > [Service] > Configuration > Deployment`. Saving an override marks
+the app environment as needing redeploy.
 
 Use `All workloads` for service-wide settings. Services with multiple workloads also show a card for each workload, so
 a setting can be overridden only for the workload that needs different behavior. Leaving a field empty inherits the

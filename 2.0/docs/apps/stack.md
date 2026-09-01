@@ -4,9 +4,9 @@
 flowchart TD
     subgraph App2["<div style='margin-top:10px; white-space: nowrap;'>Your app</div>"]
         subgraph group[ ]
-            Dev["Dev instance"]
-            Staging["Staging instance"]
-            Prod["Production Instance"]
+            Dev["Dev environment"]
+            Staging["Staging environment"]
+            Prod["Production Environment"]
         end
         style group fill:none,stroke:none,stroke-width:0px
     end   
@@ -32,38 +32,38 @@ Think of a stack as the blueprint for the app:
 - it defines default configuration for those services
 - each published stack change produces a new stack revision
 
-All [app instances](instances.md) of the same app share the same stack, but they can run different stack revisions.
+All [app environments](environments.md) of the same app share the same stack, but they can run different stack revisions.
 
-The usual model is one stack per application. When the stack changes, you upgrade instances revision by revision so environments can move forward at their own pace.
+The usual model is one stack per application. When the stack changes, you upgrade environments revision by revision so environments can move forward at their own pace.
 
 ## Upgrade
 
-When a new published stack revision is available, you can upgrade an app instance to it. Unpublished stack drafts are
-not available for app upgrades and do not mark app instances as outdated.
+When a new published stack revision is available, you can upgrade an app environment to it. Unpublished stack drafts are
+not available for app upgrades and do not mark app environments as outdated.
 
-Open `Apps`, select the app, select an app instance, and go to `Stack > Operations`. The `Manual stack upgrade` card
+Open `Apps`, select the app, select an app environment, and go to `Stack > Operations`. The `Manual stack upgrade` card
 shows the current stack revision, stack version, and status. The status is `Outdated` when a newer stack revision is
-available and `Up to date` when the instance already uses the latest revision.
+available and `Up to date` when the environment already uses the latest revision.
 
 When an upgrade is available, the card shows the target stack version and revision. Its `Service changes` table
 identifies stack services that will be added, removed, or moved to another service revision. The table shows the current
 and target service versions and revision numbers. Stack services that use the same service revision in both stack
 revisions are omitted.
 
-The `Upgrade` button is enabled only when the app instance is outdated. If the instance already uses the latest stack
+The `Upgrade` button is enabled only when the app environment is outdated. If the environment already uses the latest stack
 revision, the button says `Stack is up to date`.
 
-Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app-instance overrides.
+Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app environment overrides.
 
-The reason is that app services can be customized per instance. Wodby cannot always tell whether an app-level value was
+The reason is that app services can be customized per environment. Wodby cannot always tell whether an app-level value was
 changed intentionally or whether it simply has not received a newer stack default yet.
 
-If the app instance has services with build sources, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
+If the app environment has services with build sources, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
 All upgrade options are disabled by default. This is a valid, non-destructive upgrade: Wodby adds configuration that
-the new stack requires but preserves existing app-instance choices where possible. Select `Show overrides
+the new stack requires but preserves existing app environment choices where possible. Select `Show overrides
 configuration` to review the options that let the stack replace those existing choices. The control stays collapsed
 by default and shows how many options are selected.
 
@@ -85,27 +85,27 @@ contain configuration changes.
 
 ## Auto-upgrade
 
-An app instance can be configured to upgrade its stack automatically after the stack is automatically updated.
-This is an app-instance setting, so production, staging, and development instances can use different behavior even when
+An app environment can be configured to upgrade its stack automatically after the stack is automatically updated.
+This is an app environment setting, so production, staging, and development environments can use different behavior even when
 they belong to the same app.
 
-Auto-upgrade uses the same settings as the manual `Upgrade stack` form. The saved settings decide which app-instance
+Auto-upgrade uses the same settings as the manual `Upgrade stack` form. The saved settings decide which app environment
 overrides Wodby replaces with values from the latest stack revision.
 
 Auto-upgrade can run after supported automatic stack updates, including Git-backed stack auto-updates, automatic stack
 service revision updates, and automatic sync with origin.
 
-Use an [automation time window](../automation-time-windows.md) when an app instance should start automatic stack
+Use an [automation time window](../automation-time-windows.md) when an app environment should start automatic stack
 upgrades only during selected hours.
 
-The new app and new app instance forms enable auto-upgrade by default for development, staging, test, and feature
+The new app and new app environment forms enable auto-upgrade by default for development, staging, test, and feature
 environments, and disable it by default for production environments. You can override this suggested value during
-creation and change it later from the app instance stack settings. Enable auto-upgrade only where it is acceptable to
+creation and change it later from the app environment stack settings. Enable auto-upgrade only where it is acceptable to
 move to the latest stack revision without a manual review step. If the stack upgrade creates app services that need
 extra configuration, Wodby records warnings and waits for you to finish the service configuration before deployment,
 the same as a manual stack upgrade.
 
-Manual stack updates, manual syncs, and manually published drafts do not force app instances forward. Use the manual
+Manual stack updates, manual syncs, and manually published drafts do not force app environments forward. Use the manual
 upgrade flow when you want to control the rollout yourself.
 
 During upgrade, Wodby matches existing app services to stack services by stack service name.
@@ -124,7 +124,7 @@ must remain enabled.
 
 Wodby always reconciles structural requirements introduced by the target stack. This includes missing app services,
 settings, configs, cron schedules, links, volumes, tokens, integrations, certificates, and generated keys. Existing
-app-instance choices are preserved unless an override option explicitly replaces them or preserving them would leave
+app environment choices are preserved unless an override option explicitly replaces them or preserving them would leave
 an invalid service. The upgrade task logs both the changes it applies and the existing values it preserves.
 
 An existing app service cannot silently change into an unrelated service or switch between a primary service and a
@@ -145,7 +145,7 @@ boilerplate is marked as default, the first boilerplate is used. If the default 
 records a warning and asks you to select the build source after the upgrade.
 
 When a stack upgrade leaves unresolved service configuration, Wodby skips the automatic post-upgrade deployment.
-Deployments are blocked until the app instance reports complete service configuration.
+Deployments are blocked until the app environment reports complete service configuration.
 
 ### Update versions to default
 
@@ -234,7 +234,7 @@ definition.
 
 If disabled, existing tokens are left unchanged, and missing tokens introduced by the target service or stack are
 added. This supplies new runtime requirements without replacing secrets that may have been intentionally customized for
-one app instance.
+one app environment.
 
 ### Override configs
 
@@ -257,7 +257,7 @@ The dashboard shows `May cause data loss` below the `Volumes` option.
 When enabled, Wodby deletes app-service volume records that no longer exist in the latest service manifest.
 
 New volumes introduced by the service revision are created during upgrade. Existing volume sizes are not changed for
-running app instances.
+running app environments.
 
 Existing volume storage classes are also kept. For a new owned volume, Wodby refreshes the cluster's live
 storage-class inventory and reuses one class configured consistently across existing owned volumes when possible;
@@ -285,6 +285,6 @@ performs the normal quota and billing checks before committing the upgrade.
 ## Related pages
 
 - [Applications overview](index.md)
-- [Instances](instances.md)
+- [App environments](environments.md)
 - [App services](services.md)
 - [Stack updates](../stacks/updates.md)
