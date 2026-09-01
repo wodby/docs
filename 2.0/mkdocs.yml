@@ -116,6 +116,7 @@ plugins:
         'integrations/auth0.md': 'providers/auth0.md'
         'integrations/aws.md': 'providers/aws.md'
         'integrations/azure.md': 'providers/azure.md'
+        'integrations/backblaze.md': 'providers/backblaze.md'
         'integrations/bitbucket.md': 'providers/bitbucket.md'
         'integrations/brevo.md': 'providers/brevo.md'
         'integrations/circleci.md': 'providers/circleci.md'
@@ -302,6 +303,7 @@ nav:
           - Google Cloud Platform: providers/gcp.md
           - DigitalOcean: providers/digitalocean.md
           - Cloudflare: providers/cloudflare.md
+          - Backblaze: providers/backblaze.md
       - Git:
           - Overview: providers/git.md
           - GitHub: providers/github.md

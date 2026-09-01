@@ -43,6 +43,10 @@ This is a customer-owned third-party backup destination. It is separate from
 4. Copy the token's `Access Key ID` and `Secret Access Key`. See
    [R2 API tokens](https://developers.cloudflare.com/r2/api/s3/tokens/).
 
+**Object Read & Write** is sufficient when you enter the exact bucket name manually. To populate the bucket selector
+with existing buckets instead, create an account-wide token with **Admin Read & Write** permission. Bucket listing is
+optional and does not need to be added to a bucket-scoped token.
+
 The integration form requires:
 
 | Field | Required |
@@ -51,11 +55,12 @@ The integration form requires:
 | Access Key ID | Yes |
 | Secret Access Key | Yes |
 
-When you save the integration, Wodby validates the Account ID and credentials against R2's S3-compatible API and
-checks that it can list the buckets visible to the token. The credentials must also allow object reads and writes in
-every bucket selected as a backup destination, including deleting backup objects during cleanup.
+When you save the integration, Wodby validates the Account ID and credentials against R2's S3-compatible API. If the
+token cannot list buckets, enter the exact bucket name when creating a backup or backup preset. Wodby validates access
+to that destination separately. The credentials must allow object reads and writes in every bucket used as a backup
+destination, including deleting backup objects during cleanup.
 
-When creating a backup or backup preset, select the Cloudflare R2 integration and then select its destination bucket.
+When creating a backup or backup preset, select the Cloudflare R2 integration and then select or enter its destination bucket.
 Wodby uploads, restores, and downloads backup objects through R2's S3-compatible API. Download and restore operations
 use expiring provider-signed URLs.
 

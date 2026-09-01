@@ -59,7 +59,11 @@ Wodby provides native integration with Google Cloud SQL.
 
 Wodby provides a native integration with Google Cloud Storage. You can use it to store your applications' backups.
 
-- Wodby can list available buckets in the connected project
-- When configuring backups, select the bucket only. You no longer need to select a region separately
+- When configuring backups, select an available bucket or enter its exact name. You do not need to select a region
+  separately
+- For a manually supplied service account, grant `roles/storage.objectAdmin` on each bucket Wodby may use. Project-level
+  bucket listing is not required when you enter the bucket name manually
+- To populate the bucket selector for a manually supplied service account, also grant a project-level role containing
+  `storage.buckets.list`. OAuth integrations request bucket listing for this convenience
 - Supported storage classes: `STANDARD`, `NEARLINE`, `COLDLINE`, `ARCHIVE`
 - The storage class override is optional. If you leave it empty, the bucket's default storage class will be used

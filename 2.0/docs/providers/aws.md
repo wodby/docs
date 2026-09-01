@@ -68,8 +68,10 @@ Wodby provides a native integration with Amazon Relational Database Service.
 
 Wodby provides a native integration with Amazon Simple Storage Service. You can use S3 to store app and database backups.
 
-- Wodby can list available S3 buckets for the connected account.
-- When configuring backups, select the bucket only. Wodby resolves the selected bucket's region automatically.
+- When configuring backups, select an available bucket or enter its exact name. Wodby resolves the bucket's region
+  automatically.
+- Bucket listing is optional. Grant `s3:ListAllMyBuckets` if you want Wodby to populate the bucket selector; it is not
+  required when you enter the bucket name manually.
 - The storage class override is optional. If you leave it empty, the bucket's default storage class is used.
 - Supported storage classes are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER`,
   `GLACIER_IR`, and `DEEP_ARCHIVE`.
@@ -153,7 +155,6 @@ Create this policy and attach it to the IAM user used by Wodby for RDS integrati
 
 The connected AWS credentials must be able to:
 
-- list buckets for bucket selection: `s3:ListAllMyBuckets` on `*`
 - get the selected bucket location: `s3:GetBucketLocation` on `arn:aws:s3:::BUCKET_NAME`
 - upload backup objects: `s3:PutObject` on `arn:aws:s3:::BUCKET_NAME/*`
 - read backup objects for downloads and restores: `s3:GetObject` on `arn:aws:s3:::BUCKET_NAME/*`
@@ -162,11 +163,6 @@ The connected AWS credentials must be able to:
 {
   "Version": "2012-10-17",
   "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": "s3:ListAllMyBuckets",
-      "Resource": "*"
-    },
     {
       "Effect": "Allow",
       "Action": "s3:GetBucketLocation",
@@ -185,6 +181,16 @@ The connected AWS credentials must be able to:
 ```
 
 Replace `BUCKET_NAME` with each bucket used as a Wodby backup destination.
+
+To select an existing bucket in Wodby instead of entering its name manually, add this optional statement:
+
+```json
+{
+  "Effect": "Allow",
+  "Action": "s3:ListAllMyBuckets",
+  "Resource": "*"
+}
+```
 
 AWS's managed `AmazonS3FullAccess` policy includes `s3-object-lambda:*`. Wodby backups do not use S3 Object Lambda, so
 that permission is not required when you use a custom policy.
