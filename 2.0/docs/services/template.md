@@ -937,7 +937,8 @@ Each item supports:
 
 - `args`: required producer argument list.
 - `command`: optional producer command override.
-- `optionVersions`: required, non-empty list of service option versions whose images implement the streaming action.
+- `optionVersions`: required, non-empty list of unique service option versions whose images implement the streaming
+  action.
 
 A streamed backup must also define `create`, `upload.filepath`, and `upload.extension`. Wodby uses those definitions as
 the staged fallback for historical service revisions, versions omitted from `optionVersions`, and Wodby Blob Storage

@@ -11,8 +11,8 @@ declares streaming support for the selected database version and the destination
 complete archive is not staged on the source persistent volume.
 
 For a streamed upload to third-party object storage, Wodby first uses a temporary object. It publishes the final
-object name only after the backup producer reports success, and removes the temporary object when the producer or
-upload fails.
+object name only after the backup producer reports success, and attempts to remove the temporary object when the
+producer or upload fails.
 
 Backups are managed from `Apps > [App] > [Instance] > Data > Backups`.
 
