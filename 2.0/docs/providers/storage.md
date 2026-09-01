@@ -30,6 +30,11 @@ Wodby stores backup archives in the selected bucket or container. It does not us
 | [Google Cloud Platform](gcp.md#cloud-storage) | Cloud Storage |
 | [DigitalOcean](digitalocean.md#spaces) | Spaces |
 | [Cloudflare](cloudflare.md#r2) | R2 |
+| [Backblaze](backblaze.md#b2-cloud-storage) | B2 Cloud Storage |
+
+When a provider grants bucket-list permission, Wodby shows the available buckets as suggestions. Bucket discovery is a
+convenience rather than a requirement: you can enter the exact bucket or container name when credentials are scoped to
+a specific destination and cannot list the account's other buckets.
 
 ## Related pages
 

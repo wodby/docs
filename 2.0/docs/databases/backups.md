@@ -40,11 +40,11 @@ and organization-wide presets, do not store table exclusions.
 Choose [Wodby Blob Storage](../providers/wodby-blob-storage.md) to let Wodby manage the object storage destination. It
 does not require a storage integration, bucket, region, or storage class.
 
-For a third-party destination, select the storage integration and destination bucket. You do not need to select a
-region separately.
+For a third-party destination, select the storage integration, then select an available bucket or enter its exact name.
+You do not need to select a region separately.
 
-The connected storage provider credentials must allow Wodby to list/select buckets, check the selected bucket's location
-when the provider requires it, and upload/read backup objects. For provider-specific requirements, see
+The connected storage provider credentials must allow Wodby to access the exact bucket and upload/read backup objects.
+Bucket-list permission is optional and is used to populate the selector. For provider-specific requirements, see
 [Storage providers](../providers/storage.md).
 
 If the provider supports object storage classes, the storage class override is optional. If you set it, Wodby will use it for uploaded backup objects. If you leave it empty, the bucket's default storage class will be used.

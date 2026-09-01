@@ -84,8 +84,9 @@ Wodby provides a native integration with Azure Databases
 
 Wodby provides a native integration with Azure Blob Storage. You can use it to store your applications' backups.
 
-- Wodby can list available Blob containers from storage accounts in the selected subscription
-- When configuring backups, specify the bucket in the format `storage-account/container`
+- Wodby requests storage-account listing through OAuth so available Blob containers can be selected
+- When configuring backups, select an available container or enter it in the format `storage-account/container`. If
+  container discovery is unavailable, manual entry remains available
 - You do not need to select a region separately when configuring backups
 - Supported storage classes: `hot`, `cool`, `cold`, `archive`
 - The storage class override is optional. If you leave it empty, the bucket's default storage class will be used
