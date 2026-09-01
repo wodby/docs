@@ -927,10 +927,22 @@ Each item supports:
 - `title`: required backup title.
 - `upload`: required upload settings.
 - `create`: optional action-based backup creation settings.
+- `stream`: optional streamed action settings.
 
 `backups[].create` supports:
 
 - `args`: required argument list when `create` is used.
+
+`backups[].stream` supports:
+
+- `args`: required producer argument list.
+- `command`: optional producer command override.
+- `optionVersions`: required, non-empty list of service option versions whose images implement the streaming action.
+
+A streamed backup must also define `create`, `upload.filepath`, and `upload.extension`. Wodby uses those definitions as
+the staged fallback for historical service revisions, versions omitted from `optionVersions`, and Wodby Blob Storage
+database destinations. Every `optionVersions` entry must match a version declared under the service's top-level
+`options` section.
 
 `backups[].upload` supports:
 

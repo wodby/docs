@@ -64,19 +64,31 @@ Service actions are defined under the [`actions` section](template.md#actions) i
 
 ## Backups
 
-Services can define data-backup behavior. There are two main backup methods.
+Services can define data-backup behavior. There are three main backup methods.
 
 ### Simple files backup
 
-Wodby creates a tar archive from the specified directory. The archive can optionally be gzipped.
+Wodby creates a tar stream from the specified directory. The stream can optionally be gzipped.
 
-The resulting archive is uploaded to the object-storage bucket configured through a connected storage integration.
+The result is uploaded directly to the configured object-storage destination without staging a complete archive in
+the service's persistent volume.
 
-### Backup through action
+### Staged backup through action
 
 Wodby runs a Kubernetes job with the configured command or args override to create the backup archive. That job is
 expected to place the archive in the specified volume path, after which Wodby uploads it to the configured
 object-storage bucket.
+
+### Streamed backup through action
+
+For compatible service and image versions, Wodby runs the service's streaming action as a producer and sends its
+output directly to third-party object storage. The producer and uploader share only an in-memory stream and status
+file; they do not create a complete archive on the service's persistent volume.
+
+The upload first uses a temporary object and is promoted to its final name only when the producer reports success.
+Services declare exactly which option versions support this action. They must also retain the staged `create` and
+`upload.filepath` definitions so older service revisions, unsupported versions, and Wodby Blob Storage database
+destinations have a compatible fallback.
 
 Service backups are defined under the [`backups` section](template.md#backups) in a service template.
 
