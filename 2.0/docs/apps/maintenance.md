@@ -1,31 +1,31 @@
 # Maintenance mode
 
-App instance maintenance mode temporarily replaces enabled public HTTP and HTTPS routes with a Wodby maintenance
+App environment maintenance mode temporarily replaces enabled public HTTP and HTTPS routes with a Wodby maintenance
 response. Use it when visitors should see a consistent maintenance page while you continue running deployments,
 migrations, or other work inside the application.
 
-Maintenance mode changes routing only. It does not stop application workloads or change the app instance lifecycle
+Maintenance mode changes routing only. It does not stop application workloads or change the app environment lifecycle
 status.
 
 ## Enable maintenance mode
 
-1. Open `Apps > [App] > [Instance] > Settings > Maintenance`.
+1. Open `Apps > [App] > [Environment] > Settings > Maintenance`.
 2. Select `Enable maintenance mode`.
 3. Review the affected traffic and confirm.
 4. Follow the routing task if the dashboard opens it.
 
 The maintenance status moves from `Off` to `Enabling` while Wodby applies the routing change, then to `Active` after
-the public edge confirms it. The app instance keeps its normal lifecycle status, such as running, deploying, awaiting,
-or errored. Instance headers and lists show a separate maintenance badge.
+the public edge confirms it. The app environment keeps its normal lifecycle status, such as running, deploying, awaiting,
+or errored. Environment headers and lists show a separate maintenance badge.
 
-Enabling maintenance mode requires a non-infrastructure app instance with ready platform-managed routing. You can
-change maintenance mode while the instance is running, awaiting a deployment, errored, or deploying. The cluster must
+Enabling maintenance mode requires a non-infrastructure app environment with ready platform-managed routing. You can
+change maintenance mode while the environment is running, awaiting a deployment, errored, or deploying. The cluster must
 support the direct-response routing capability used for the fixed page. If the capability is unavailable, the
 dashboard leaves maintenance mode off and explains the requirement.
 
 ## Traffic behavior
 
-While maintenance mode is active, every enabled public Wodby HTTP or HTTPS route for the app instance returns the same
+While maintenance mode is active, every enabled public Wodby HTTP or HTTPS route for the app environment returns the same
 fixed page with:
 
 - HTTP status `503 Service Unavailable`
@@ -58,9 +58,9 @@ costs.
 A workload deployment and a maintenance request can overlap. When necessary, Wodby waits for the workload deployment
 before applying the pending routing change. Follow the routing task to see its progress or failure details.
 
-You cannot pause an app instance while maintenance mode is requested or active. Disable maintenance mode and wait for
+You cannot pause an app environment while maintenance mode is requested or active. Disable maintenance mode and wait for
 its status to return to `Off`, then use `Settings > Pause & Resume`. See
-[Pausing and resuming an instance](instances.md#pausing-and-resuming-an-instance).
+[Pausing and resuming an environment](environments.md#pausing-and-resuming-an-environment).
 
 ## Disable or reverse maintenance mode
 
@@ -78,7 +78,7 @@ retry the failed routing task.
 
 ## Maintenance mode compared with pausing
 
-| Behavior | Maintenance mode | Paused instance |
+| Behavior | Maintenance mode | Paused environment |
 | --- | --- | --- |
 | Public HTTP and HTTPS routes | Fixed `503` maintenance response | Do not respond |
 | Application workloads | Continue running | Stop |
@@ -89,11 +89,11 @@ retry the failed routing task.
 | TCP and UDP ports | Unchanged | Do not respond with the stopped workloads |
 
 Use maintenance mode when the application must keep running behind a temporary public response. Use pause when the
-instance is not needed and its workloads should release compute and memory.
+environment is not needed and its workloads should release compute and memory.
 
 ## Related pages
 
-- [App instances](instances.md)
+- [App environments](environments.md)
 - [Endpoints](endpoints.md)
 - [App access](access.md)
 - [Deploys and routing deployments](deploys.md#routing-deployments)

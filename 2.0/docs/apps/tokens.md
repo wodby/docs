@@ -5,7 +5,7 @@ Tokens are named text values that can be referenced from environment variables a
 A token can either:
 
 - have a fixed plain value
-- use a regular expression to generate a random secret value when the app instance or app service is created or updated
+- use a regular expression to generate a random secret value when the app environment or app service is created or updated
 
 In an app service, token definitions are composed across several levels. Later levels override earlier ones when they use
 the same token name and the same environment type:
@@ -53,16 +53,18 @@ marked secret explicitly. See [Environment variables](environment-variables.md#s
 
 ## `app`
 
-- `app.id`: application ID, not app-instance ID
+- `app.id`: application ID, not app environment ID
 - `app.name`: application machine name
 - `app.title`: application title
 
 ## `instance`
 
-- `instance.id`: [app instance](instances.md) ID
-- `instance.name`: app-instance machine name
-- `instance.namespace`: Kubernetes namespace for the app instance
-- `instance.title`: app-instance title
+`instance` is the legacy token namespace for an app environment. It remains available for template compatibility.
+
+- `instance.id`: [app environment](environments.md) ID
+- `instance.name`: app environment machine name
+- `instance.namespace`: Kubernetes namespace for the app environment
+- `instance.title`: app environment title
 
 ## `kubernetes`
 
@@ -76,7 +78,10 @@ subset is intentionally not documented here.
 
 ## `env`
 
-- `env.id`: [environment](env.md) ID
+`env` is the legacy token namespace backed by the internal environment-policy record. Prefer `instance` for app
+environment identity and `env.type` for behavior that depends on an environment type.
+
+- `env.id`: [environment](environment-types.md) ID
 - `env.name`: environment machine name
 - `env.title`: environment title
 - `env.type`: environment type
@@ -138,7 +143,7 @@ Accessed as `links.[name].[token]`.
 - `links.[name].host`: linked app-service hostname
 - `links.[name].port`: primary port of the linked app service's primary endpoint
 - `links.[name].service.*`: service token from the linked app service. See [`service`](#service)
-- `links.[name].instance.*`: app-instance token from the linked app service. See [`instance`](#instance)
+- `links.[name].instance.*`: app environment token from the linked app service. See [`instance`](#instance)
 - `links.[name].env.[env-var-name]`: environment-variable value from the linked app service
 - `links.[name].tokens.[token-name]`: token value from the linked app service
 - `links.[name].database.*`: database token from the linked app service. See [`database`](#database)

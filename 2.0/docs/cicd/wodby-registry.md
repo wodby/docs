@@ -6,14 +6,14 @@ You can authenticate to Wodby Registry using your Wodby account credentials.
 
 ## Repositories
 
-Wodby creates one repository per app instance, using this pattern:
+Wodby creates one repository per app environment, using this pattern:
 
 ```text
-[org-name]/[app-name]-[app-instance-name]
+[org-name]/[app-name]-[app-environment-name]
 ```
 
 !!! important
-    Docker images that are no longer associated with existing app instances or builds are cleaned up automatically.
+    Docker images that are no longer associated with existing app environments or builds are cleaned up automatically.
 
 ## Auth
 

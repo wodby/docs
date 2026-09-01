@@ -11,7 +11,7 @@ Use an Application Access provider when:
 - an admin or operational endpoint should be protected while the main site remains public
 - the access provider should own the external hostname and connection path
 
-Application Access is configured for an app instance, not attached to an individual service. The selected scope can
+Application Access is configured for an app environment, not attached to an individual service. The selected scope can
 cover the entire app or only selected HTTP endpoints.
 
 Application Access does not protect published TCP or UDP ports. Entire app scope requires those ports to be

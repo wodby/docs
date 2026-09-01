@@ -2,15 +2,21 @@
 
 ## Overview
 
-If an application's stack has services that provide [backup functionality](../services/operations.md#backups), you can run backups for the corresponding app service. The backup process consists of three steps:
+If an application's stack has services that provide [backup functionality](../services/operations.md#backups), you can
+run backups for the corresponding app service. Wodby runs the service's backup operation and writes the result to
+Wodby Blob Storage or a supported third-party object storage provider.
 
-- creating the backup archive in the container's ephemeral storage
-- mirroring the backup to Wodby Blob Storage or a supported third-party object storage provider
-- cleaning up the backup from the container's ephemeral storage
+File backups stream directly to their destination. A database backup also streams when its deployed service revision
+declares streaming support for the selected database version and the destination is third-party object storage. The
+complete archive is not staged on the source persistent volume.
 
-Backups are managed from `Apps > [App] > [Instance] > Data > Backups`.
+For a streamed upload to third-party object storage, Wodby first uses a temporary object. It publishes the final
+object name only after the backup producer reports success, and attempts to remove the temporary object when the
+producer or upload fails.
 
-The app instance `Data` area includes:
+Backups are managed from `Apps > [App] > [Environment] > Data > Backups`.
+
+The app environment `Data` area includes:
 
 - `Backups` for one-off backups
 - `Backup presets` for reusable destinations and automatic schedules
@@ -23,6 +29,21 @@ Wodby Blob Storage requires a paid subscription; free organizations can continue
 integration. Creating or editing a backup preset normally requires an active paid subscription, including presets
 that do not enable an automatic schedule.
 
+## Streaming compatibility
+
+Streaming is selected from the app service's deployed service revision and selected version. Existing apps continue
+using their revision's behavior until they are updated to a service revision that declares streaming support. Wodby
+does not infer support from an image tag or attempt an unsupported command in an older container.
+
+Database backups use the established staged workflow when the deployed service revision is older, the selected
+version is not listed for streaming, or the destination is Wodby Blob Storage. In that workflow, the database action
+creates a complete archive at the service's configured volume path, Wodby uploads it, and a cleanup job removes the
+local archive.
+
+!!! note
+    Streaming removes the full backup archive from the source persistent-volume demand. It does not remove normal
+    database, network, memory, or object-storage resource usage during the backup.
+
 ## Excluding table contents
 
 When the selected service backup type supports it, the `New backup` form shows `Excluded table contents`. Add one table
@@ -34,13 +55,15 @@ and patterns such as `public.cache_*`. MariaDB entries can use table names and S
 Entries may contain letters, numbers, `_`, `.`, `-`, `*`, `?`, and `%`; unsupported characters are rejected before
 the backup starts.
 
-Leaving the field untouched uses the default exclusion list configured by the service. To include all table contents,
-edit the field and remove every entry before submitting; the resulting empty list overrides the service default. The
-selected values are stored with the backup record.
+The form shows the service's resolved default exclusion list below the field. Leaving the field untouched uses that
+default. To include all table contents, edit the field and remove every entry before submitting; the resulting empty
+list overrides the service default. Each completed backup record shows the effective exclusions used for that backup,
+including exclusions inherited from the service default.
 
-An app backup preset can save table exclusions only when it selects one app service and one backup type. Scheduled
-backups created from that preset use the saved exclusions. Presets that apply to any service or backup type, and
-organization-wide presets, do not store table exclusions.
+An app backup preset can save explicit table exclusions only when it selects one app service and one backup type.
+Scheduled backups created from that preset use the saved exclusions. If the preset leaves the field untouched, each
+scheduled backup resolves the service default when it is created and stores that effective list with its own backup
+record. Presets that apply to any service or backup type, and organization-wide presets, do not store table exclusions.
 
 ## K3S storage capacity preflight
 
@@ -48,9 +71,14 @@ Before an app-service backup runs on K3S, its task includes a `Check storage cap
 default K3S local-path provisioner, Wodby checks the backing node for Kubernetes `DiskPressure` and reads available
 bytes reported by the kubelet.
 
-Known disk pressure stops the backup before the backup job is created. Existing service backup definitions do not
-declare their peak temporary-space requirement, so a byte-for-byte capacity comparison is usually not possible. Wodby
-shows the available capacity as a warning and continues unless Kubernetes reports disk pressure.
+Known disk pressure stops the backup before the backup job is created. For a file backup or a database backup selected
+for streaming, Wodby knows that the operation needs zero additional persistent-volume bytes because it does not stage
+an archive there. The preflight still checks the volume's node for `DiskPressure`, but it does not show the unknown
+peak-demand warning solely because of backup size.
+
+Staged database backup definitions do not declare their peak temporary-space requirement, so a byte-for-byte capacity
+comparison is not possible. For those backups, Wodby can show the available capacity as a warning and continue unless
+Kubernetes reports disk pressure.
 
 If Kubernetes does not expose volume statistics, the API permission is unavailable, or the storage provisioner does
 not have a capacity resolver, Wodby records that capacity could not be verified and allows the backup to continue.
@@ -98,7 +126,7 @@ automatic schedule and is disabled. Enabling the preset requires a paid subscrip
 
 App presets can be scoped to:
 
-- any app service in the app instance, or one specific app service
+- any app service in the app environment, or one specific app service
 - any backup type exposed by that service, or one specific backup type
 
 ## Organization-wide presets
@@ -130,8 +158,8 @@ storage integration must be available in all environments.
 
 When you create a manual backup, the dashboard combines:
 
-- matching app-instance presets
-- organization-wide presets that match the app instance's environment and the selected app service's backup category
+- matching app environment presets
+- organization-wide presets that match the app environment and the selected app service's backup category
 
 If only one preset matches the selected app service and backup type, the dashboard can prefill it automatically.
 
@@ -167,9 +195,9 @@ Automatic schedules created by the previous dashboard used exact UTC launch time
 are migrated to three-hour UTC windows beginning at the same time, without changing the selected day or backup
 timeout. Custom cron expressions remain on the legacy exact-time schedule.
 
-An automatic backup targeting an app instance, app service, or container-backed database runs only while its app
-instance is running. If the backup becomes due while the instance is `Pausing`, `Paused`, `Resuming`, or `Errored`,
-Wodby skips that execution and advances the schedule. The missed backup is not queued or replayed when the instance
+An automatic backup targeting an app environment, app service, or container-backed database runs only while its app
+environment is running. If the backup becomes due while the environment is `Pausing`, `Paused`, `Resuming`, or `Errored`,
+Wodby skips that execution and advances the schedule. The missed backup is not queued or replayed when the environment
 becomes runnable again.
 
 ## Failure and recovery notifications

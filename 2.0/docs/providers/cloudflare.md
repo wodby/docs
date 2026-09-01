@@ -105,7 +105,7 @@ mode's full permission check runs when you create an app. Wodby does not request
 
 ### Configure an app
 
-Select Protected mode during app creation, or open `Apps > [App] > [Instance] > Settings > Access`. Choose the
+Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
 Cloudflare Application Access integration, an access type, and whether the scope covers the Entire app or Selected
 endpoints.
 
@@ -179,7 +179,7 @@ automatically after deployment.
     prevents public port publishing; with Selected endpoints scope, separately published TCP or UDP ports remain
     public and outside Cloudflare Application Access.
 
-When access is removed or the app instance is deleted, Wodby removes the connector, tunnel connections, applicable
+When access is removed or the app environment is deleted, Wodby removes the connector, tunnel connections, applicable
 managed DNS records or private hostname routes, the Tunnel, and the Access application. It does not delete the selected
 reusable Access policy, DNS zone, device settings, Gateway policies, or any customer-managed certificate. If a managed
 DNS record or private hostname route no longer has Wodby's ownership marker and expected target, Wodby leaves it

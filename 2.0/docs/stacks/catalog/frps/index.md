@@ -13,7 +13,7 @@ or require Kubernetes permissions.
 ## Deploy and expose FRPS
 
 1. Create an app from the **FRP Server** catalog stack and deploy it.
-2. Open **Apps > [App] > [Instance] > Endpoints > Ports**, select the `proxy`
+2. Open **Apps > [App] > [Environment] > Endpoints > Ports**, select the `proxy`
    endpoint, and publish its `control` TCP port. Wodby assigns a public port in
    the cluster's published port range.
 3. Record the public hostname and assigned port. Open the FRPS app service's

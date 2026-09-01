@@ -6,7 +6,7 @@ Tailscale supports two separate integration types in Wodby:
 - `vpn` supplies credentials to a persistent Tailscale Node service deployed as part of an app stack.
 
 Both use the same Tailscale provider and OAuth setup, but they have different lifecycles. Application Access is managed
-from the app instance's Access settings; a Tailscale Node is an ordinary app service managed through its stack.
+from the app environment's Access settings; a Tailscale Node is an ordinary app service managed through its stack.
 
 ## Tailscale-side setup
 
@@ -32,7 +32,7 @@ console's DNS page.
 
 ## Application Access
 
-Select Protected mode during app creation, or open `Apps > [App] > [Instance] > Settings > Access`. Choose the
+Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
 Tailscale integration and either Entire app or Selected endpoints scope.
 Tailscale provides the Private network access type automatically; there is no separate protected-publishing type.
 
@@ -41,13 +41,13 @@ and tailnet names. It creates and retires the tagged Tailscale devices and manag
 no DNS-zone, policy, or primary-hostname input in Wodby because access is governed by your tailnet and Tailscale access
 controls.
 
-When access is removed or the app instance is deleted, Wodby removes each endpoint connector, tagged device, auth key,
+When access is removed or the app environment is deleted, Wodby removes each endpoint connector, tagged device, auth key,
 and Wodby-held auth-key secret. Wodby does not remove the `wodby` tag, MagicDNS settings, HTTPS certificate setting, or
 your tailnet access rules. Temporary cluster or Tailscale API failures are retained as retryable cleanup obligations on
 the integration page; keep the integration credentials available until cleanup finishes.
 
 Tailscale Application Access endpoints are not published through Wodby's public gateway. A service port's `private`
-flag alone does not create a Tailscale hostname; configure App Access explicitly for the app instance.
+flag alone does not create a Tailscale hostname; configure App Access explicitly for the app environment.
 
 ### HTTP endpoints and application ports
 
@@ -69,7 +69,7 @@ workload joins your tailnet as a node.
 
 This is different from Application Access. The node is visible and configurable as part of the app's services and can
 exist without publishing one of the app's HTTP endpoints. Removing Application Access does not remove a standalone
-Tailscale Node, and deleting the node service does not change an app instance's Access setting.
+Tailscale Node, and deleting the node service does not change an app environment's Access setting.
 
 OpenClaw uses Application Access and no longer embeds the Tailscale service. The standalone Tailscale stack and custom
 node-oriented stacks continue using the `vpn` integration type.

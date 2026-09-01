@@ -11,7 +11,7 @@ Typical use cases include:
 - API keys for third-party services
 - DSNs and license keys
 - shared credentials reused across multiple apps
-- stack-level defaults applied to all app instances created from that stack
+- stack-level defaults applied to all app environments created from that stack
 
 Variable integrations are a good fit when:
 
@@ -26,7 +26,7 @@ Use plain app-service environment variables instead when a value is one-off and 
 Variable integrations are typically attached to:
 
 - app services that need provider-backed environment variables
-- stacks that should pass shared variables into every app instance created from that stack
+- stacks that should pass shared variables into every app environment created from that stack
 - reusable project-level workflows where the same credentials are needed in multiple places
 
 ## Supported providers

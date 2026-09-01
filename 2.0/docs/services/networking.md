@@ -1,6 +1,6 @@
 # Service networking
 
-Service networking covers how a service exposes ports and how it connects to other services in the same app instance.
+Service networking covers how a service exposes ports and how it connects to other services in the same app environment.
 
 Use endpoints for network access exposed by the service. Use links for service-to-service dependencies and connection
 rules.
@@ -27,15 +27,15 @@ custom route or published as a public TCP or UDP port.
 
 `private` is a service-template policy, not the current publication state of a port. A non-private port that has no
 route is still public-capable and can be exposed later; a private port cannot. Provider-backed publication is an
-explicit app-instance [App Access](../apps/access.md) setting rather than an automatic effect of the `private` flag.
+explicit app environment [App Access](../apps/access.md) setting rather than an automatic effect of the `private` flag.
 
 One port per endpoint can be marked as main. If no port is marked as main, the first port becomes main automatically.
 
 If a service defines a single endpoint, that endpoint becomes main automatically. If it defines multiple endpoints,
 mark one of them as main.
 
-When an app service is main, Wodby attaches the app instance's root technical route to a public HTTP port on the
-service's main endpoint. This technical route is independent of the app instance's canonical `Main` route, which may be
+When an app service is main, Wodby attaches the app environment's root technical route to a public HTTP port on the
+service's main endpoint. This technical route is independent of the app environment's canonical `Main` route, which may be
 a custom domain.
 
 Service endpoints are defined under the [`endpoints` section](template.md#endpoints) in a service template.
@@ -58,7 +58,7 @@ endpoints:
 
 HTTP ports can define `routeDefaults` when the service normally needs specific
 [HTTP route settings](../apps/endpoints.md#route-settings). These are defaults, not restrictions. Wodby resolves the
-effective value from app instance defaults, then the active service revision's port defaults, then an explicit domain
+effective value from app environment defaults, then the active service revision's port defaults, then an explicit domain
 override. A service revision upgrade or rollback therefore selects the matching revision's defaults without copying
 them into every app route.
 
@@ -86,8 +86,8 @@ Service links are defined under the [`links` section](template.md#links) in a se
 Links also affect deployment ordering. When two linked app services are included in the same deployment, Wodby deploys
 the linked target service first and then deploys the service that depends on it.
 
-This ordering follows the current app-service links for that app instance, not only the original stack defaults. In
-practice, changing a link at the app level can also change the deployment order for future deployments of that instance.
+This ordering follows the current app-service links for that app environment, not only the original stack defaults. In
+practice, changing a link at the app level can also change the deployment order for future deployments of that environment.
 
 Required links remain configured when their source service is disabled. An enabled source cannot use a disabled target
 for a required link; enabling the source also enables its configured required-link targets and their required

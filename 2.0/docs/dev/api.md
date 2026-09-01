@@ -36,7 +36,7 @@ The current REST API covers a focused subset of resources. At the time of writin
 - organizations
 - projects
 - apps
-- app instances
+- app environments
 - app deployments
 - app builds
 - clusters
@@ -44,7 +44,27 @@ The current REST API covers a focused subset of resources. At the time of writin
 - integrations
 - backups
 - app routes
-- environments
+
+## App environment migration
+
+`App environment` is the canonical name for the resource previously called an `app instance`. New integrations should
+use the following contracts:
+
+| Canonical contract | Deprecated compatibility contract |
+| --- | --- |
+| REST `/v1/app-environments` | REST `/v1/app-instances` |
+| GraphQL `AppEnvironment` | GraphQL `AppInstance` |
+| `appEnvironment`, `appEnvironmentByName`, `appEnvironments` | `appInstance`, `appInstanceByName`, `appInstances` |
+| `newAppEnvironment` and `NewAppEnvironmentInput` | `newAppInstance` and `NewAppInstanceInput` |
+| `newApplication` and `NewApplicationInput` | `newApp` and `NewAppInput` |
+
+Environment classifications are now sent as the fixed `EnvType` enum instead of organization-level environment IDs.
+Use `environmentType`, `envType`, `primaryEnvType`, and `allowedEnvTypes` on the corresponding resources and policy
+inputs. Legacy environment-ID fields remain available during the compatibility period, but a request must not send
+both the legacy ID field and its type-based replacement.
+
+The app environment status enum and existing task and event identifiers retain their current wire values during this
+migration. Clients should treat those identifiers as compatibility details rather than user-facing terminology.
 
 Example:
 

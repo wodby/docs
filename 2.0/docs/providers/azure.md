@@ -22,12 +22,12 @@ New AKS clusters created by Wodby use Azure CNI Overlay. Pods receive addresses 
 than consuming IP addresses from the Azure virtual network subnet. The pod address range is `10.244.0.0/16`, while the
 Kubernetes service address range is `10.0.0.0/16`.
 
-AKS manages the Cilium dataplane and uses Cilium to enforce the app-instance network policies created by Wodby. This does
+AKS manages the Cilium dataplane and uses Cilium to enforce the app environment network policies created by Wodby. This does
 not install a separate Wodby-managed Cilium release in the cluster.
 
 This networking configuration applies to newly created clusters. Existing kubenet clusters are not migrated
 automatically because changing an AKS cluster's networking model is a separate, disruptive operation. Legacy or imported
-AKS clusters remain excluded from Wodby's app-instance network policies when their enforcement capability is unknown.
+AKS clusters remain excluded from Wodby's app environment network policies when their enforcement capability is unknown.
 
 We support the following regions:
 

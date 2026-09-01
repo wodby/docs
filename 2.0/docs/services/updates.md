@@ -37,22 +37,24 @@ version.
 Compatible base service revisions can also update an inherited service automatically. This applies only when all of
 the following are true:
 
+- `Base service auto update` is enabled for the inherited service.
 - The inherited service is Git-backed and tracks a branch.
-- Branch auto-update is enabled for its connected Git repository.
 - Its source template includes `fromVersionConstraint` without an exact `fromVersion` pin.
 - The new base service version satisfies the constraint.
 
 After a successful compatible base service revision is published, Wodby imports the inherited service from its tracked
-branch and creates a new inherited service revision. This can happen even when the inherited service's own Git commit
-has not changed. The base service itself does not have to be Git-backed.
+branch and creates a new inherited service revision. The setting is independent of `Auto update from Git`, so the
+inherited service does not need a new commit. Wodby rebuilds the effective service definition against the compatible
+base revision, and the base service itself does not have to be Git-backed.
 
-Tag-backed, commit-pinned, and non-Git-backed inherited services do not follow base service revisions automatically.
-An exact `fromVersion` also remains pinned. Update the inherited service's source or manifest explicitly when it should
-move to another base revision.
+Tag-backed, commit-pinned, non-Git-backed, and non-inherited services cannot enable base service auto-update. An exact
+`fromVersion` also remains pinned. Update the inherited service's source or manifest explicitly when it should move to
+another base revision.
 
 In the dashboard, the service page shows the base service version constraint. For eligible branch-backed services,
-`Operations > Auto update from git` explains that branch auto-update also applies compatible base service revisions.
-Stacks still control when they move to the newly created inherited service revision.
+enable `Operations > Base service auto update`. Organization administrators receive the existing automatic service
+update success and failure email notifications for these updates, subject to their notification preferences. Stacks
+still control when they move to the newly created inherited service revision.
 
 ## Delete a Git-backed service
 

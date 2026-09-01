@@ -17,21 +17,21 @@ See [Choose a cluster option](choose-platform.md) for the full decision guide.
 
 ## Cluster environments
 
-Every cluster has an [environment](../apps/env.md). This is a visual classification for the cluster itself; it does not
+Every cluster has an [environment type](../apps/environment-types.md). This is a visual classification for the cluster itself; it does not
 change Kubernetes configuration or automatically move workloads. Production clusters are marked in the Clusters list,
-and you can filter the list by environment.
+and you can filter the list by environment type.
 
 When you create or edit a cluster, choose how app environments may use it:
 
-- `Any environment` allows non-infrastructure app instances from every environment.
-- `Restricted` allows only the exact named environments you select. The cluster's own environment must be included.
+- `Any environment type` allows non-infrastructure app environments of every type.
+- `Restricted` allows only the environment types you select. The cluster's own type must be included.
 
-Restrictions use environment IDs, not environment types. If `Production EU` and `Production US` both have the `prod`
-type, allowing one does not allow the other. Infrastructure apps that operate the cluster are not restricted by this
-setting. Wodby rejects a restriction change if an existing app instance on the cluster would become disallowed.
+Restrictions use the same fixed environment types used by app environments, integrations, databases, and backup
+presets. Infrastructure apps that operate the cluster are not restricted by this setting. Wodby rejects a restriction
+change if an existing app environment on the cluster would become disallowed.
 
-Existing clusters are initially unrestricted. Their visual environment is classified as `prod` when at least one
-non-infrastructure app instance in a `prod` environment is deployed there; otherwise it is classified as `dev`.
+Existing clusters are initially unrestricted. Their visual type is classified as `prod` when at least one
+non-infrastructure `prod` app environment is deployed there; otherwise it is classified as `dev`.
 
 ## 1. [Managed Kubernetes](managed.md)
 
@@ -63,4 +63,5 @@ Demo clusters are deleted automatically after 24 hours. Applications deployed to
 - [Wodby Cloud](wodby-cloud.md)
 - [K3S](k3s.md)
 - [Cluster updates](updates.md)
-- [Application environments](../apps/env.md)
+- [App environments](../apps/environments.md)
+- [Environment types](../apps/environment-types.md)

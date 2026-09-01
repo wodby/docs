@@ -32,7 +32,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - auto-renewed SSL certificates
 - uploaded custom TLS certificates
 - autoscaling tools
-- app instance pausing
+- app environment pausing
 - backup presets and automatic backups
 - scheduled and manually run cron jobs
 - web shell for containers
@@ -109,21 +109,21 @@ After a downgrade is scheduled:
 - new paid-only features and capacity above the Developer plan limit are not available
 
 To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
-features. Application Access is a paid feature, so remove it from every app instance under **Apps > your app > your
-instance > Settings > Access** before scheduling a downgrade. The downgrade error identifies each affected app and
-instance.
+features. Application Access is a paid feature, so remove it from every app environment under **Apps > your app > your
+environment > Settings > Access** before scheduling a downgrade. The downgrade error identifies each affected app and
+environment.
 
-App instance pausing is also a paid feature, so no instance can be `Pausing` or `Paused` when a downgrade is
-scheduled. If an instance is `Pausing`, wait for it to reach `Paused`; then open **Apps > your app > your instance >
-Settings > Pause & Resume**, select **Resume app instance**, and retry the downgrade after it finishes. The downgrade
-error identifies each affected app and instance.
+App environment pausing is also a paid feature, so no environment can be `Pausing` or `Paused` when a downgrade is
+scheduled. If an environment is `Pausing`, wait for it to reach `Paused`; then open **Apps > your app > your environment >
+Settings > Pause & Resume**, select **Resume app environment**, and retry the downgrade after it finishes. The downgrade
+error identifies each affected app and environment.
 
 Uploaded custom TLS certificates are also paid-only organization resources. Detach them from every route and delete
 them from **Organization > Certificates** before scheduling a downgrade. An uploaded certificate blocks downgrade even
 when it is currently unused because it remains stored for later reuse.
 
-If autoscaling is configured, the downgrade error identifies the affected app, instance, and service. Open each
-service from **Apps > your app > your instance > Stack > App services > your service > Configuration > General**, turn
+If autoscaling is configured, the downgrade error identifies the affected app, environment, and service. Open each
+service from **Apps > your app > your environment > Stack > App services > your service > Configuration > General**, turn
 **Autoscaling** off, and select **Update** before retrying the downgrade.
 
 Disabling an app service is not enough: disabled services keep their autoscaling settings so those settings can be
@@ -153,7 +153,7 @@ When the stored quantity changes, the storage charge is prorated for the portion
 quantity applied. Deleting images can therefore reduce the remaining storage charge after the next usage
 synchronization; it does not retroactively remove storage already used earlier in the cycle.
 
-When you delete your app instance, we automatically delete all images associated with it.
+When you delete your app environment, we automatically delete all images associated with it.
 
 You can selectively void older build images to clean up docker images while keeping the build records.
 

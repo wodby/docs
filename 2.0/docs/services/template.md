@@ -165,6 +165,9 @@ actions:
 
 - `service.yml` defines one service.
 - `from` lets you inherit from an existing service and override only the parts you need.
+- An inherited service with `fromVersionConstraint` and no exact `fromVersion` can follow compatible base revisions
+  when `Base service auto update` is enabled in the service's Operations page. This is independent of Git source
+  auto-update and is available only to Git-backed services that track a branch.
 - Non-external services normally define `workloads` and `helm`. If the service inherits them from `from`, you do not
   need to repeat them.
 - If you override inherited workloads or containers, use workload names and container names that already exist in the
@@ -219,7 +222,7 @@ env:
 
 When a service inherits from another service, a variable in the inherited service overrides only the base service
 variable with the same `name` and `envType`. Base service variants for other environment types remain inherited. At
-runtime, Wodby includes variables without `envType` and variables matching the app instance's environment type.
+runtime, Wodby includes variables without `envType` and variables matching the app environment's environment type.
 
 Environment-variable names must follow the
 [platform naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables).
@@ -563,7 +566,7 @@ multi-workload services, set `workload` explicitly when the endpoint should targ
 Each endpoint must resolve to a distinct Kubernetes Service. Group all ports exposed by the same rendered Service under
 one endpoint.
 
-Route defaults are service-owned defaults rather than stack restrictions. App instance defaults and explicit domain
+Route defaults are service-owned defaults rather than stack restrictions. App environment defaults and explicit domain
 overrides remain available, and a domain override has the highest precedence. Inherited services merge route defaults
 by endpoint, port, and setting name; child values replace only matching base values.
 
@@ -910,7 +913,7 @@ Allowed `type` values:
 
 - `button`: user-runnable action shown on the app service's `Actions` tab
 - `output`: user-runnable action shown on the app service's `Actions` tab; output is available through the task logs
-- `post_upgrade`: runs after an app instance is upgraded to a new stack revision
+- `post_upgrade`: runs after an app environment is upgraded to a new stack revision
 - `post_deploy`
 - `post_deploy_once`
 - `empty`: no-op placeholder action, not user-runnable
@@ -927,10 +930,23 @@ Each item supports:
 - `title`: required backup title.
 - `upload`: required upload settings.
 - `create`: optional action-based backup creation settings.
+- `stream`: optional streamed action settings.
 
 `backups[].create` supports:
 
 - `args`: required argument list when `create` is used.
+
+`backups[].stream` supports:
+
+- `args`: required producer argument list.
+- `command`: optional producer command override.
+- `optionVersions`: required, non-empty list of unique service option versions whose images implement the streaming
+  action.
+
+A streamed backup must also define `create`, `upload.filepath`, and `upload.extension`. Wodby uses those definitions as
+the staged fallback for historical service revisions, versions omitted from `optionVersions`, and Wodby Blob Storage
+database destinations. Every `optionVersions` entry must match a version declared under the service's top-level
+`options` section.
 
 `backups[].upload` supports:
 

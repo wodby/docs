@@ -135,12 +135,12 @@ Icon name shown in the Wodby dashboard.
 
 Type: `object`.
 
-Optional [App Access](../apps/access.md) requirement for app instances created from the stack. This policy describes
-the access outcome the stack needs. The app instance still stores the actual access configuration and the user selects
+Optional [App Access](../apps/access.md) requirement for app environments created from the stack. This policy describes
+the access outcome the stack needs. The app environment still stores the actual access configuration and the user selects
 an eligible Application Access integration.
 
 - `required`: required boolean. When `true`, App Access must be configured during app creation and cannot be removed
-  while the app instance uses this stack revision.
+  while the app environment uses this stack revision.
 - `provider`: optional provider machine name, such as `tailscale` or `cloudflare`. Omit it to accept any provider that
   supports the required mode and scope. Set it only when the stack depends on provider-specific behavior.
 - `mode`: required access type. Allowed values are `protected` and `private_network`.
@@ -326,8 +326,8 @@ For field formats, workload-kind restrictions, and precedence, see
 Type: `boolean`.
 
 Marks the main service in the stack. Only one stack service can be main, and its main endpoint must expose a public HTTP
-port. The corresponding app service owns the app instance's root technical route. This is independent of the app
-instance's canonical `Main` route.
+port. The corresponding app service owns the app environment's root technical route. This is independent of the app
+app environment's canonical `Main` route.
 
 If no service is marked as main, Wodby will automatically pick the first eligible service. The same fallback applies
 when a stack without a main service later gains an eligible service through the dashboard or Git sync. If the stack has
@@ -341,7 +341,7 @@ List of stack service names that this service depends on. Every referenced name 
 
 This affects deployment order: a service is deployed after its dependencies and deleted before them.
 
-Wodby also derives deploy-time ordering from the current service links in an app instance. Use `depends` when you need
+Wodby also derives deploy-time ordering from the current service links in an app environment. Use `depends` when you need
 explicit ordering even when no link exists between the services.
 
 The combined graph formed by `depends` entries and service links must be acyclic. This also applies to disabled services,
@@ -437,7 +437,7 @@ omit required mappings while being edited, but they cannot be published or used 
 required links are valid.
 
 When both linked services are part of the same app deployment, Wodby deploys the linked target service first. App-level
-link overrides can change that order for a specific app instance. A link override cannot introduce a dependency cycle.
+link overrides can change that order for a specific app environment. A link override cannot introduce a dependency cycle.
 
 ### `services[].cron`
 
@@ -484,7 +484,7 @@ Overrides derivative services declared by the referenced service.
 
 Each item supports:
 
-- `name`: required stack service name for the derivative instance.
+- `name`: required stack service name for the derivative service.
 - `service`: required derivative name from the referenced service.
 - `required`: optional boolean.
 - `env`: optional environment variables.

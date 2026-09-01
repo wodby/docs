@@ -156,7 +156,7 @@ For example, Wodby rejects an update that would:
 - move a dependency to project ownership while an organization-owned target still uses it
 - move a project-owned target to a project where its dependency is not shared
 
-App-instance CI and registry selections are references too. A pending or active build retains its CI reference, and a
+App environment CI and registry selections are references too. A pending or active build retains its CI reference, and a
 non-voided build image retains its registry reference. Backup presets and backup records retain their
 storage-integration reference until those records are removed.
 

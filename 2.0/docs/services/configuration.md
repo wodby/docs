@@ -22,15 +22,15 @@ Wodby shows EOL flags in a few places:
 
 - service version selectors and app-service version rows, when the selected version is EOL
 - stack pages and stack lists, when an enabled stack service defaults to an EOL version
-- app instance pages and app instance lists, when an enabled app service currently uses an EOL version
+- app environment pages and app environment lists, when an enabled app service currently uses an EOL version
 
 EOL checks use the latest service revision metadata available to Wodby. If a stack service or app service still points
 to an older service revision, the dashboard can still mark the selected version as EOL, but the older revision may not
 show the newest EOL date metadata or the newest non-EOL replacement versions in its version selector.
 
 Update the stack service to the latest service revision before reviewing exact EOL dates or choosing a newer non-EOL
-option. For app instances, publish the updated stack revision and upgrade the app instance; if needed, enable
-`Versions` during the app instance stack upgrade or change the app-service version afterward.
+option. For app environments, publish the updated stack revision and upgrade the app environment; if needed, enable
+`Versions` during the app environment stack upgrade or change the app-service version afterward.
 
 ## Settings
 

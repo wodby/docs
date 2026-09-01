@@ -96,6 +96,9 @@ plugins:
   - search
   - redirects:
       redirect_maps:
+        'apps/instances.md': 'apps/environments.md'
+        'apps/app-vs-instance-vs-service.md': 'apps/app-vs-environment-vs-service.md'
+        'apps/env.md': 'apps/environment-types.md'
         'apps/monitoring.md': 'apps/observability.md'
         'apps/logs.md': 'apps/observability.md'
         'apps/resources.md': 'apps/scalability.md'
@@ -184,7 +187,7 @@ nav:
   - Get Started:
       - Overview: index.md
       - Choose a cluster option: clusters/choose-platform.md
-      - App model: apps/app-vs-instance-vs-service.md
+      - App model: apps/app-vs-environment-vs-service.md
       - Naming rules: naming.md
       - Provider vs integration: integrations/providers-vs-integrations.md
       - Glossary: glossary.md
@@ -195,7 +198,7 @@ nav:
       - Support: support.md
   - Apps:
       - Overview: apps/index.md
-      - Instances: apps/instances.md
+      - App environments: apps/environments.md
       - Maintenance mode: apps/maintenance.md
       - Stack: apps/stack.md
       - App services: apps/services.md
@@ -207,7 +210,7 @@ nav:
       - Deploys: apps/deploys.md
       - Backups: apps/backups.md
       - Imports: apps/imports.md
-      - Environment: apps/env.md
+      - Environment types: apps/environment-types.md
       - High availability: apps/high-availability.md
       - Scalability: apps/scalability.md
       - Storage: apps/storage.md
