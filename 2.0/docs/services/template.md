@@ -165,6 +165,9 @@ actions:
 
 - `service.yml` defines one service.
 - `from` lets you inherit from an existing service and override only the parts you need.
+- An inherited service with `fromVersionConstraint` and no exact `fromVersion` can follow compatible base revisions
+  when `Base service auto update` is enabled in the service's Operations page. This is independent of Git source
+  auto-update and is available only to Git-backed services that track a branch.
 - Non-external services normally define `workloads` and `helm`. If the service inherits them from `from`, you do not
   need to repeat them.
 - If you override inherited workloads or containers, use workload names and container names that already exist in the

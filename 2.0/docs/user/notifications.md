@@ -28,7 +28,8 @@ Examples include:
 - app creation results
 - cluster creation or connection events
 - successful or failed automatic cluster infrastructure upgrades
-- automatic service updates, Git-backed stack updates, stack service revision updates, origin stack syncs, and app stack upgrades
+- automatic service source updates, inherited-service base revision updates, Git-backed stack updates, stack service
+  revision updates, origin stack syncs, and app stack upgrades
 - cron job and backup failures and recoveries, plus failed imports, certificate renewals, custom certificate expiration, service actions, or integration installs
 - breached spending limits
 - weekly organization reports
