@@ -21,17 +21,38 @@ cannot be updated from Git.
 
 ## Updates to inherited services
 
-An inherited service uses the base service revision selected by `fromVersion`. Wodby resolves that exact version from
-the base service's revision history, so the inherited service can remain on an older base revision after a newer one is
-published.
+An inherited service can select its base service revision with an exact `fromVersion`, a compatible
+`fromVersionConstraint`, or both:
 
-When an update uses an older base revision, the update still succeeds and its task log warns which base revision was
-used and which revision is current. The service page also shows this difference. Wodby does not move the inherited
-service automatically unless its template includes a compatible `fromVersionConstraint` and the update source supports
-compatible base revision updates.
+- `fromVersion` pins the inherited service to that exact base service version.
+- `fromVersionConstraint` without `fromVersion` selects the greatest compatible semantic version from the base
+  service's available revision history whenever the inherited service is imported or updated.
+- When both are set, `fromVersion` selects the base version and must satisfy `fromVersionConstraint`.
 
-If the exact `fromVersion` is absent from the available base service revision history, the update fails instead of
-silently substituting another version.
+When an exact pin selects an older base revision, the update still succeeds and its task log warns which base revision
+was used and which revision is current. The service page also shows this difference. If the exact `fromVersion` is
+absent from the available base service revision history, the update fails instead of silently substituting another
+version.
+
+Compatible base service revisions can also update an inherited service automatically. This applies only when all of
+the following are true:
+
+- The inherited service is Git-backed and tracks a branch.
+- Branch auto-update is enabled for its connected Git repository.
+- Its source template includes `fromVersionConstraint` without an exact `fromVersion` pin.
+- The new base service version satisfies the constraint.
+
+After a successful compatible base service revision is published, Wodby imports the inherited service from its tracked
+branch and creates a new inherited service revision. This can happen even when the inherited service's own Git commit
+has not changed. The base service itself does not have to be Git-backed.
+
+Tag-backed, commit-pinned, and non-Git-backed inherited services do not follow base service revisions automatically.
+An exact `fromVersion` also remains pinned. Update the inherited service's source or manifest explicitly when it should
+move to another base revision.
+
+In the dashboard, the service page shows the base service version constraint. For eligible branch-backed services,
+`Operations > Auto update from git` explains that branch auto-update also applies compatible base service revisions.
+Stacks still control when they move to the newly created inherited service revision.
 
 ## Delete a Git-backed service
 

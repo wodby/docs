@@ -290,10 +290,11 @@ Type: `string`.
 
 Inherit configuration from an existing service available to your organization.
 
-The service referenced by `from` is the base service. Inherited services must also set `fromVersion`. Set
-`fromVersionConstraint` when the inherited service should later be eligible for base service version updates within a
-semantic-version range. Set `fromOptionVersionConstraint` when the inherited service supports only a semantic-version
-range of the base service's runtime options.
+The service referenced by `from` is the base service. Inherited services must also set `fromVersion`,
+`fromVersionConstraint`, or both. Use `fromVersion` for an exact base service version. Use
+`fromVersionConstraint` without `fromVersion` to select the greatest compatible base service version and allow eligible
+Git branch auto-updates to follow newer compatible revisions. Set `fromOptionVersionConstraint` when the inherited
+service supports only a semantic-version range of the base service's runtime options.
 
 When overriding inherited workloads or containers, use only workload names and container names declared by the base
 service.
@@ -319,7 +320,14 @@ Type: `string`.
 
 Optional semantic-version constraint for allowed future base service updates, such as `^1.0.0`.
 
-When set, the current `fromVersion` must satisfy the constraint.
+When `fromVersion` is omitted, Wodby selects the greatest compatible semantic version from the base service's available
+revision history whenever the inherited service is imported or updated. If `fromVersion` is also set, that exact version
+must satisfy the constraint.
+
+A Git-backed inherited service that tracks a branch can follow newer compatible base service revisions automatically
+when branch auto-update is enabled and its source template does not include an exact `fromVersion` pin. Tag-backed,
+commit-pinned, and non-Git-backed inherited services do not receive automatic base revision updates. See
+[Updates to inherited services](updates.md#updates-to-inherited-services).
 
 ### `fromOptionVersionConstraint`
 
