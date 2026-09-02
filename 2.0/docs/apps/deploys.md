@@ -86,6 +86,12 @@ When an affected service uses a build image, Wodby prefers its last successfully
 can be reused after a stack upgrade even though it was built for the previous stack revision. The task log warns when
 this happens and shows the selected build and both revision numbers.
 
+An automatic stack upgrade runs repository-defined `.wodby/post-deployment.yml` scripts for a build-source service only
+when the upgrade rebuilds that service. If the service needs only a runtime redeployment, Wodby reuses the existing
+build and records its post-deployment scripts as `skipped`. This prevents an unchanged build from automatically
+repeating migrations or other data-changing jobs. Service-manifest [`post_deploy`](../services/operations.md#post_deploy)
+actions are separate lifecycle hooks and are not disabled by this repository-script skip.
+
 Automatic selection does not search arbitrary build history. Once a newer build is successfully deployed, the previous
 build is no longer considered the last known-good image and is not selected automatically across stack revisions. Any
 other automatically selected build must be successful, non-voided, and built for the app environment's current stack

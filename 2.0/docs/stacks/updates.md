@@ -276,4 +276,5 @@ After a draft is published as a new stack revision, app environments still run t
 upgrade them.
 
 Open `Apps`, select the app, select an app environment, and go to `Stack > Operations`. See
-[Application stack](../apps/stack.md#upgrade) for the app environment upgrade workflow and the available upgrade settings.
+[Application stack](../apps/stack.md#upgrade) for the app environment upgrade workflow, available upgrade settings,
+selective deployment behavior, and the rules for repository post-deployment scripts.

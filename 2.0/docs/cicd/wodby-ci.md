@@ -128,7 +128,8 @@ Secret build-scoped values are injected as secret environment variables and are 
 
 ## Post-deployment scripts
 
-You can additionally create `.wodby/post-deployment.yml` to define post-deployment scripts that should run after all deployments in your app have completed.
+You can additionally create `.wodby/post-deployment.yml` to define post-deployment scripts that run after an eligible
+application rollout using that build has completed.
 
 The syntax is the same as the [Wodby CI pipeline](#pipeline) except it does not have workflows. All defined jobs run in parallel.
 
@@ -148,7 +149,9 @@ See also the example files in [`wodby/wodby-ci`](https://github.com/wodby/wodby-
 - [PHP post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/php/wodby/post-deployment.yml)
 - [Node post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/post-deployment.yml)
 
-You can skip execution of post-deployment scripts by passing `--skip-post-deploy` to `wodby ci deploy`.
+You can skip execution of post-deployment scripts by passing `--skip-post-deploy` to `wodby ci deploy`. Wodby also skips
+these scripts when some automated redeployments reuse an unchanged build, including a redeploy-only service after an
+app stack upgrade.
 
 Post-deployment scripts run as a separate task after a successful application rollout. A script failure is reported as a
 post-deployment warning with its own logs; it does not mark the deployment or app as failed and does not trigger

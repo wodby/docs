@@ -58,7 +58,15 @@ Wodby does not force every possible override during upgrade. Instead, the upgrad
 The reason is that app services can be customized per environment. Wodby cannot always tell whether an app-level value was
 changed intentionally or whether it simply has not received a newer stack default yet.
 
-If the app environment has services with build sources, the upgrade triggers rebuilds for those services because builds are tied to a specific stack revision.
+Stack upgrades deploy only the app services affected by the target revision and the configuration changes applied during
+the upgrade. Changes to a build-source service's build inputs or selected service revision require a new build.
+Runtime-only changes reuse the last safely deployable build and redeploy that image without rebuilding it. Unaffected
+services are omitted from the deployment.
+
+When an affected build-source service reuses an existing build, Wodby skips that build's repository-defined
+`.wodby/post-deployment.yml` scripts. If the upgrade creates a new build, its post-deployment scripts run normally after
+the rollout succeeds. This skip does not apply to service-manifest `post_deploy` actions. See
+[Automated redeployments](deploys.md#automated-redeployments) for details.
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
