@@ -5,12 +5,12 @@ you want Wodby to store backup archives without creating a third-party storage i
 bucket credentials.
 
 Unlike a third-party storage destination, Wodby Blob Storage does not require an integration, bucket, or storage class.
-Select **Europe** or **United States** as the storage region when creating a backup or backup preset. Wodby manages the
-storage location and provides expiring download links for completed backups.
+Choose **United States** or **Europe** in the **Region** field when creating a backup or backup preset. **United
+States** is selected by default. Wodby manages the storage location and provides expiring download links for completed
+backups.
 
 The selected region is saved with each backup. Changing a preset's region affects backups created from that preset in
-the future; it does not move or replace existing backups. Presets created before region selection was available remain
-in their original storage location until you explicitly choose Europe or United States.
+the future; it does not move or replace existing backups.
 
 ## Download links
 
