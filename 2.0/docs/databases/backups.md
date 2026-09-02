@@ -41,7 +41,8 @@ exclusions.
 ## Backup destination
 
 Choose [Wodby Blob Storage](../providers/wodby-blob-storage.md) to let Wodby manage the object storage destination. It
-does not require a storage integration, bucket, region, or storage class.
+does not require a storage integration, bucket, or storage class. Select **Europe** or **United States** as the storage
+region. The selected region is saved with each backup; changing a preset affects only backups created afterward.
 
 For a third-party destination, select the storage integration, then select an available bucket or enter its exact name.
 You do not need to select a region separately.

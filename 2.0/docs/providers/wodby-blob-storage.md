@@ -4,17 +4,21 @@ Wodby Blob Storage is the built-in object storage destination for application an
 you want Wodby to store backup archives without creating a third-party storage integration or managing your own
 bucket credentials.
 
-Unlike Amazon S3, Google Cloud Storage, Azure Blob Storage, or DigitalOcean Spaces, Wodby Blob Storage does not require
-an integration, bucket, region, or storage class. Wodby manages the storage location and provides expiring download
-links for completed backups.
+Unlike a third-party storage destination, Wodby Blob Storage does not require an integration, bucket, or storage class.
+Select **Europe** or **United States** as the storage region when creating a backup or backup preset. Wodby manages the
+storage location and provides expiring download links for completed backups.
+
+The selected region is saved with each backup. Changing a preset's region affects backups created from that preset in
+the future; it does not move or replace existing backups. Presets created before region selection was available remain
+in their original storage location until you explicitly choose Europe or United States.
 
 ## Download links
 
 Wodby manages the storage destination and may change its internal implementation without changing how you select, use,
 or pay for Wodby Blob Storage.
 
-The download action returns a time-limited signed URL. Its hostname is an implementation detail and is not guaranteed
-to remain on a `wodby.com` domain. Treat the signed URL as a temporary credential and do not share it.
+The download action returns a time-limited signed URL on `blob.wodby.com`. Treat the signed URL as a temporary
+credential and do not share it.
 
 To store backups in a Cloudflare account and bucket that you manage, create a
 [Cloudflare R2 storage integration](cloudflare.md#r2) instead. That is a third-party backup destination and is not
@@ -27,8 +31,8 @@ it are rejected on the free Developer plan.
 
 The REST API has one migration-only exception for moving Wodby 1 configurations: a free organization may create an
 automatic Wodby Blob Storage preset when the preset is disabled. Enabling that preset still requires a paid
-subscription. For this API representation, use `integrationId: 0`, an empty `bucket`, `auto: true`, and
-`disabled: true`.
+subscription. For this REST API representation, use `integrationId: 0`, an empty `bucket`, a `blobStorageRegion` of
+`eu` or `us`, `auto: true`, and `disabled: true`.
 
 ## Billing
 
