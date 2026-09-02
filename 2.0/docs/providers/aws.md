@@ -158,6 +158,8 @@ The connected AWS credentials must be able to:
 - get the selected bucket location: `s3:GetBucketLocation` on `arn:aws:s3:::BUCKET_NAME`
 - upload backup objects: `s3:PutObject` on `arn:aws:s3:::BUCKET_NAME/*`
 - read backup objects for downloads and restores: `s3:GetObject` on `arn:aws:s3:::BUCKET_NAME/*`
+- remove temporary objects after publication: `s3:DeleteObject` on `arn:aws:s3:::BUCKET_NAME/*`
+- clean up failed multipart uploads: `s3:AbortMultipartUpload` on `arn:aws:s3:::BUCKET_NAME/*`
 
 ```json
 {
@@ -172,7 +174,9 @@ The connected AWS credentials must be able to:
       "Effect": "Allow",
       "Action": [
         "s3:PutObject",
-        "s3:GetObject"
+        "s3:GetObject",
+        "s3:DeleteObject",
+        "s3:AbortMultipartUpload"
       ],
       "Resource": "arn:aws:s3:::BUCKET_NAME/*"
     }
