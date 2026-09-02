@@ -85,8 +85,9 @@ For compatible service and image versions, Wodby runs the service's streaming ac
 output directly to Wodby Blob Storage or supported third-party object storage. The producer and uploader share only an
 in-memory stream and status file; they do not create a complete archive on the service's persistent volume.
 
-For third-party storage, the upload first uses a temporary object and is promoted to its final name only when the
-producer reports success. Wodby Blob Storage uses a backup-specific signed upload and removes its object if the
+For third-party storage, Wodby streams to the final object name but keeps the multipart or resumable upload incomplete
+until the producer reports success. If the producer or upload fails, Wodby terminates the incomplete upload without
+publishing a completed object. Wodby Blob Storage uses a backup-specific signed upload and removes its object if the
 producer or upload fails.
 
 Services declare exactly which option versions support this action. They must also retain the staged `create` and

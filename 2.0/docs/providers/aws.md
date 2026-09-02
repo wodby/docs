@@ -75,7 +75,9 @@ Wodby provides a native integration with Amazon Simple Storage Service. You can 
 - The storage class override is optional. If you leave it empty, the bucket's default storage class is used.
 - Supported storage classes are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER`,
   `GLACIER_IR`, and `DEEP_ARCHIVE`.
-- Wodby creates pre-signed S3 URLs for backup upload, download, and restore operations.
+- Streaming backup jobs upload directly to the final object key but do not complete it until the backup producer
+  succeeds. Failed uploads are aborted instead of publishing and deleting a temporary object.
+- Wodby creates pre-signed S3 URLs when a backup must be downloaded by a client or restore job.
 - Wodby backups do not use AWS Lambda or S3 Object Lambda.
 
 If backups are stored in archive classes such as `GLACIER` or `DEEP_ARCHIVE`, AWS requires restoring the archived object
@@ -158,8 +160,9 @@ The connected AWS credentials must be able to:
 - get the selected bucket location: `s3:GetBucketLocation` on `arn:aws:s3:::BUCKET_NAME`
 - upload backup objects: `s3:PutObject` on `arn:aws:s3:::BUCKET_NAME/*`
 - read backup objects for downloads and restores: `s3:GetObject` on `arn:aws:s3:::BUCKET_NAME/*`
-- remove temporary objects after publication: `s3:DeleteObject` on `arn:aws:s3:::BUCKET_NAME/*`
 - clean up failed multipart uploads: `s3:AbortMultipartUpload` on `arn:aws:s3:::BUCKET_NAME/*`
+
+`s3:DeleteObject` is not required. Wodby does not create a completed temporary object when streaming a backup.
 
 ```json
 {
@@ -175,7 +178,6 @@ The connected AWS credentials must be able to:
       "Action": [
         "s3:PutObject",
         "s3:GetObject",
-        "s3:DeleteObject",
         "s3:AbortMultipartUpload"
       ],
       "Resource": "arn:aws:s3:::BUCKET_NAME/*"
