@@ -10,9 +10,8 @@ File backups stream directly to their destination. A database backup also stream
 declares streaming support for the selected database version. This applies to Wodby Blob Storage and supported
 third-party object storage destinations. The complete archive is not staged on the source persistent volume.
 
-For a streamed upload to third-party object storage, Wodby first uses a temporary object. It publishes the final
-object name only after the backup producer reports success, and attempts to remove the temporary object when the
-producer or upload fails.
+For a streamed upload to third-party object storage, Wodby publishes the final object only after the backup producer
+reports success. A failed or canceled backup does not leave a completed partial or temporary object.
 
 For Wodby Blob Storage, Wodby prepares a backup-specific signed upload and sends the stream directly to that endpoint.
 The backup job succeeds only after the producer reports success. If the producer or upload fails, Wodby removes the
@@ -42,6 +41,10 @@ does not infer support from an image tag or attempt an unsupported command in an
 Database backups use the established staged workflow when the deployed service revision is older or the selected
 version is not listed for streaming. In that workflow, the database action creates a complete archive at the service's
 configured volume path, Wodby uploads it, and a cleanup job removes the local archive.
+
+For external object storage, a streamed backup keeps its final multipart or resumable upload incomplete until the
+producer reports success. A producer failure or cancellation aborts the upload, so a failed backup does not publish a
+partial object and the storage integration does not need permission to delete completed objects.
 
 !!! note
     Streaming removes the full backup archive from the source persistent-volume demand. It does not remove normal
