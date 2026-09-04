@@ -143,7 +143,7 @@ Each billing cycle includes a free amount of build minutes. Additional usage is 
 
 ### Wodby registry storage
 
-Wodby Registry is the default private Docker registry for images built and released during CI. Storage usage is billed by stored GB above the included amount.
+Wodby Registry is the default private Docker registry for images built and released during CI. Storage usage is billed by stored GB above the included amount. It costs $0.15 per stored GB.
 
 The first 5 GB are included in each billing cycle. Wodby measures the organization's current total stored image data,
 converts it to GiB, and rounds a non-whole value up to the next whole unit for billing. For example, 5.1 GiB produces a
