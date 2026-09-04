@@ -21,11 +21,11 @@ Before creating the integration in Wodby:
 
 ## Setup fields
 
-| Field | Required | Purpose |
-| --- | --- | --- |
-| Client ID | Yes | OAuth client identity |
-| Client Secret | Yes | OAuth client credential |
-| Tailnet DNS name | Yes | DNS suffix used for app endpoint hostnames |
+| Field | Required | Provider variable | Purpose |
+| --- | --- | --- | --- |
+| Client ID | Yes | `TAILSCALE_CLIENT_ID` | OAuth client identity |
+| Client Secret | Yes | `TAILSCALE_CLIENT_SECRET` | OAuth client credential |
+| Tailnet DNS name | Yes | `TAILSCALE_TAILNET` | DNS suffix used for app endpoint hostnames |
 
 The Tailnet DNS name is collected in the final step of integration creation. You can find it on the Tailscale admin
 console's DNS page.

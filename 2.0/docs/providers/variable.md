@@ -23,13 +23,18 @@ Variable provider integrations are typically attached to:
 ### Multi-type providers with variable support
 
 - [Amazon Web Services](aws.md#variables)
+- [Brevo](brevo.md#api-variable)
+- [Cloudflare](cloudflare.md#api)
+- [Mailgun](mailgun.md#api-variable)
+- [Postmark](postmark.md#setup-field)
+- [Resend](resend.md#setup-field)
+- [SendGrid](sendgrid.md#setup-field)
 
 ### Variable-focused providers
 
 - [Algolia](algolia.md)
 - [Anthropic](anthropic.md)
 - [Auth0](auth0.md)
-- [Cloudflare](cloudflare.md)
 - [Discord](discord.md)
 - [Gemini](gemini.md)
 - [Intercom](intercom.md)

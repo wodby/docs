@@ -327,6 +327,11 @@ nav:
           - Overview: providers/smtp.md
           - Amazon Web Services: providers/aws.md
           - Brevo: providers/brevo.md
+          - Cloudflare: providers/cloudflare.md
+          - Mailgun: providers/mailgun.md
+          - Postmark: providers/postmark.md
+          - Resend: providers/resend.md
+          - SendGrid: providers/sendgrid.md
           - Custom SMTP: providers/custom-smtp.md
       - Application Access:
           - Overview: providers/access.md
@@ -342,14 +347,19 @@ nav:
           - Algolia: providers/algolia.md
           - Anthropic: providers/anthropic.md
           - Auth0: providers/auth0.md
+          - Brevo: providers/brevo.md
           - Cloudflare: providers/cloudflare.md
           - Discord: providers/discord.md
           - Gemini: providers/gemini.md
           - Intercom: providers/intercom.md
           - Mailchimp: providers/mailchimp.md
+          - Mailgun: providers/mailgun.md
           - New Relic: providers/newrelic.md
           - OpenAI: providers/openai.md
+          - Postmark: providers/postmark.md
           - Pusher: providers/pusher.md
+          - Resend: providers/resend.md
+          - SendGrid: providers/sendgrid.md
           - Sentry: providers/sentry.md
           - Slack: providers/slack.md
           - Stripe: providers/stripe.md

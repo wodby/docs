@@ -5,13 +5,13 @@ Use it with services such as OpenSMTPD when your mail provider is not listed sep
 
 ## Setup fields
 
-| Field | Required | Description |
-| --- | --- | --- |
-| Relay host | Yes | Relay hostname without a URL scheme or port, for example `smtp.example.com`. |
-| Relay port | No | Relay TCP port. The default is `587`. |
-| Relay security | No | `smtp+tls` for mandatory STARTTLS or `smtps` for implicit TLS. The default is `smtp+tls`. |
-| Username | No | Relay username. Omit it for relays that authenticate by network identity. |
-| Password | No | Relay password, stored as a secret. |
+| Field | Required | Relay variable | Description |
+| --- | --- | --- | --- |
+| Relay host | Yes | `RELAY_HOST` | Relay hostname without a URL scheme or port, for example `smtp.example.com`. |
+| Relay port | No | `RELAY_PORT` | Relay TCP port. The default is `587`. |
+| Relay security | No | `RELAY_PROTO` | `smtp+tls` for mandatory STARTTLS or `smtps` for implicit TLS. The default is `smtp+tls`. |
+| Username | No | `RELAY_USER` | Relay username. Omit it for relays that authenticate by network identity. |
+| Password | No | `RELAY_PASSWORD` | Relay password, stored as a secret. |
 
 Custom SMTP intentionally supports encrypted relay modes only. Use `smtp+tls` for the usual submission service on port
 `587`. Select `smtps` when the provider requires implicit TLS, commonly on port `465`.
