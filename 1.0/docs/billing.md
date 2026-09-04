@@ -26,6 +26,14 @@ Wodby uses recurring payment for all the subscriptions. The subscriptions automa
 
 If you cancel your subscription before the end of the current billing period your card won't be charged.
 
+## Container registry storage
+
+Wodby provides a private docker registry `registry.wodby.com` that stores the images built and released during your deployments. See [deployment](apps/deploy.md#release) for how images are pushed to it.
+
+Every organization includes 5 GB of registry storage. Storage above the included amount is billed at $0.15 per GB per month.
+
+Deleting images you no longer need reduces your stored amount. Images that belong to deleted applications and instances are cleaned up automatically.
+
 ## Invoices
 
 We send an invoice after every charge to an email address specified in the billing email field (`Billing > Settings`) or to an email of the user who added the bank card. Additionally, you can find all invoices and download them in PDF from `Billing > Invoices` tab. 

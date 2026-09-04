@@ -195,7 +195,7 @@ wodby ci build -t my-private-docker-hub/repository
 #### Release
 
 !!! tldr "Docker registry"
-    Wodby provides a private docker registry `registry.wodby.com` which used by default. You can use custom docker registry during the build but if it's a private one make sure to add the appropriate [docker registry integration](../integrations/docker-registry.md) so servers where you deploy instances can access your images.
+    Wodby provides a private docker registry `registry.wodby.com` which used by default. You can use custom docker registry during the build but if it's a private one make sure to add the appropriate [docker registry integration](../integrations/docker-registry.md) so servers where you deploy instances can access your images. Registry storage above the included amount is billed, see [billing](../billing.md#container-registry-storage).
 
 !!! question "How to download images?"
     Once you deployed your first build you can find images' URLs on `Instance > Stack` page. You can get those images locally by running `docker login registry.wodby.com` and entering your Wodby user's email/password.  
