@@ -1,5 +1,17 @@
 # CircleCI
 
+CircleCI is available in Wodby as a `ci` provider. Create a personal API token in CircleCI under **User settings >
+Personal API Tokens**, then enter it when creating the Wodby integration.
+
+| Field | Required | Provider credential name |
+| --- | --- | --- |
+| API token | Yes | `CIRCLECI_API_TOKEN` |
+
+Wodby stores the token as a secret and uses it to call the CircleCI API for pipeline and workflow operations. A
+CircleCI provider integration does not inject this token into application containers.
+
+See [Managing CircleCI API tokens](https://circleci.com/docs/guides/toolkit/managing-api-tokens/).
+
 ## New build
 
 Wodby starts a CircleCI build from the dashboard by rerunning a previously recorded workflow. Link the app service's

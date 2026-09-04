@@ -24,6 +24,11 @@ SMTP provider integrations are used for:
 | --- | --- |
 | [Amazon Web Services](aws.md#ses) | SES |
 | [Brevo](brevo.md) | Brevo SMTP |
+| [Cloudflare](cloudflare.md#smtp) | Email Service (beta) |
+| [Mailgun](mailgun.md) | Mailgun SMTP |
+| [Postmark](postmark.md) | Postmark transactional SMTP |
+| [Resend](resend.md) | Resend SMTP |
+| [SendGrid](sendgrid.md) | Twilio SendGrid SMTP |
 | [Custom SMTP](custom-smtp.md) | Any standards-compatible SMTP relay |
 
 For AWS SES, enter a raw IAM access key pair. Wodby derives the region-specific SMTP password at runtime. Existing AWS
@@ -31,6 +36,11 @@ integrations that store legacy SES SMTP credentials remain supported; see [Amazo
 
 Use [Custom SMTP](custom-smtp.md) when the relay is not represented by a provider-specific integration. It supports
 mandatory STARTTLS and implicit TLS and can be attached directly to OpenSMTPD.
+
+Brevo and Mailgun use SMTP credentials that are separate from their API credentials. Postmark, Resend, SendGrid, and
+Cloudflare reuse an API token or key for SMTP authentication. Cloudflare is the exception to the normal relay defaults:
+it uses implicit TLS on port `465`; the other built-in presets use STARTTLS on port `587` unless their provider page
+states otherwise.
 
 ## Related pages
 

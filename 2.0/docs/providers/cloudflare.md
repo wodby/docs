@@ -1,8 +1,9 @@
 # Cloudflare
 
-Cloudflare exposes four integration kinds in Wodby:
+Cloudflare exposes five integration kinds in Wodby:
 
 - **API** (`variable`) injects an Account ID and API token into compatible app services or stacks.
+- **SMTP (Beta)** (`smtp`) relays transactional email through Cloudflare Email Service.
 - **Application Access** (`application_access`) provides protected publishing through Cloudflare Access or
   private-network access through Cloudflare One.
 - **R2** (`storage`) stores app and database backups in customer-owned Cloudflare R2 buckets.
@@ -25,6 +26,40 @@ The kind exposes:
 Create a token with the permissions and resource scope required by the consuming application. The API and Application
 Access kinds use the same Account ID and API token fields, so selecting both asks for those credentials only once.
 Turnstile widget keys are created separately and are not Cloudflare API credentials.
+
+## SMTP
+
+Cloudflare Email Service SMTP submission is currently in beta. Before creating the integration:
+
+1. Enable Email Sending for the Cloudflare account.
+2. Onboard the sender domain under **Email Service > Email Sending**.
+3. Create an account-owned or user-owned API token with **Email Sending: Edit** for that account.
+
+The SMTP kind asks for one field:
+
+| Field | Required | Stored variable |
+| --- | --- | --- |
+| Email Sending API Token | Yes | `CLOUDFLARE_API_TOKEN` |
+
+Wodby resolves the token to this fixed relay configuration:
+
+| Setting | Value |
+| --- | --- |
+| Host | `smtp.mx.cloudflare.net` |
+| Port | `465` |
+| Security | Implicit TLS (`smtps`) |
+| Username | `api_token` |
+| Password | The Email Sending API token |
+
+Cloudflare does not support outbound submission on port `587` with STARTTLS. The sender address must use a domain
+onboarded for Email Sending in the account that owns the token.
+
+The API and SMTP kinds reuse the same `api_token` field. Select both kinds when the application also sends through the
+Cloudflare REST API; Wodby additionally asks for the Account ID and exposes `CLOUDFLARE_ACCOUNT_ID` with
+`CLOUDFLARE_API_TOKEN`. The token must have every permission needed by the selected use cases.
+
+See [Cloudflare Email Service SMTP](https://developers.cloudflare.com/email-service/api/send-emails/smtp/) and the
+[Email Sending REST API](https://developers.cloudflare.com/email-service/api/send-emails/rest-api/).
 
 ## R2
 
@@ -224,6 +259,7 @@ the app automatically.
 ## Related pages
 
 - [Storage providers](storage.md)
+- [SMTP providers](smtp.md)
 - [Application backups](../apps/backups.md)
 - [Database backups](../databases/backups.md)
 - [App access](../apps/access.md)

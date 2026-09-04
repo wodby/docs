@@ -8,6 +8,8 @@ We support two methods of authenticating your GCP account:
 
 This is the simplest method. After creating the integration and passing through the OAuth2 authentication flow you will be asked to select an appropriate GCP project. All resources we create will be created under the selected project.
 
+The selected project ID is stored as `GOOGLE_CLOUD_PROJECT` for provider operations.
+
 
 ### 2. Creating service account for GKE
 

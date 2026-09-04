@@ -32,6 +32,13 @@ When using token authentication:
 - For self-hosted GitLab, specify the GitLab base URL. Leave it empty for GitLab.com
 - If you want to run GitLab CI builds from Wodby, make sure the token's actor is allowed to run pipelines for protected branches such as `main`
 
+Token authentication asks for:
+
+| Field | Required | Description |
+| --- | --- | --- |
+| GitLab Base URL | No | Base URL of a self-hosted GitLab installation. Leave empty for GitLab.com. |
+| GitLab access token | Yes | Personal, group, or project access token with the scopes and role described above. |
+
 ## CI
 
 Wodby supports GitLab CI as a third-party CI integration.
