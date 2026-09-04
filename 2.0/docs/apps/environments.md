@@ -27,6 +27,7 @@ Each app environment has its own:
 - [Stack](stack.md) revision
 - [Endpoints](endpoints.md) to configure HTTP routes and published ports
 - [Maintenance mode](maintenance.md) to temporarily replace public HTTP routes with a maintenance response
+- [Cluster migration](migration.md) to move the environment and supported persistent data to another cluster
 - [App Access](access.md) to choose public, identity-protected, or private-network HTTP access
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has services with build configuration
 - CI provider and container registry selections
@@ -156,4 +157,5 @@ new one.
 - [Applications overview](index.md)
 - [App vs app environment vs app service](app-vs-environment-vs-service.md)
 - [Maintenance mode](maintenance.md)
+- [App environment cluster migration](migration.md)
 - [Application stack](stack.md)

@@ -186,6 +186,7 @@ Review your application configuration and click _Create new app_.
 
 - [App vs app environment vs app service](app-vs-environment-vs-service.md)
 - [Environments](environments.md)
+- [App environment cluster migration](migration.md)
 - [Maintenance mode](maintenance.md)
 - [App access](access.md)
 - [App services](services.md)
