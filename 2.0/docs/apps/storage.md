@@ -84,8 +84,13 @@ You can choose a class for a new volume during app creation or when adding an om
 Kubernetes does not allow changing `storageClassName` on an existing bound PVC. Updating an app or upgrading its stack
 therefore does not move existing volume data to another class.
 
-Moving existing data requires a separate migration: provision replacement storage, copy or restore the data, verify the
-new workload, and only then remove the old claim. Wodby does not currently automate this migration.
+Moving existing data to another class on the same cluster requires a separate migration: provision replacement storage,
+copy or restore the data, verify the new workload, and only then remove the old claim. Wodby does not currently automate
+an in-place storage-class migration.
+
+When moving the entire app environment to another cluster, Wodby's
+[app environment cluster migration](migration.md) restores supported root-volume data onto the storage classes selected
+for the target cluster.
 
 When a stack upgrade introduces a new volume, Wodby reuses one class already configured consistently across existing
 owned volumes when possible. Otherwise it uses the cluster's one selectable default. The upgrade stops before making

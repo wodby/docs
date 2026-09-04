@@ -199,6 +199,7 @@ nav:
   - Apps:
       - Overview: apps/index.md
       - App environments: apps/environments.md
+      - Cluster migration: apps/migration.md
       - Maintenance mode: apps/maintenance.md
       - Stack: apps/stack.md
       - App services: apps/services.md
