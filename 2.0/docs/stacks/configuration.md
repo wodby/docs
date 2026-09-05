@@ -75,6 +75,10 @@ You can pin a stack service to its current service revision. Pinned stack servic
 stack service revision updates, and they do not make the stack appear outdated when the underlying service publishes a
 new revision. Derivative stack services inherit the pin state from their parent service.
 
+To skip one offered target without pinning the service indefinitely, use `Ignore this version` in the stack's
+`Operations > Service update` card. That exact revision is excluded from suggestions and auto-update; a later service
+revision is offered again. Derivatives share the root stack service's ignore choice.
+
 From Wodby CLI, pass `--service-rev-pinned` when creating or updating a stack service. To unpin it, run
 `wodby stack service update ID --service-rev-pinned=false`.
 

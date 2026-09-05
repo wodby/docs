@@ -15,12 +15,21 @@ There are several common update paths.
 
 Use this when the stack should keep the same stack definition but move included services to newer service revisions.
 
-Open `Stacks`, select the stack, and go to `Operations`. Owned stacks show a `Service update` card with an
-`Update services to latest version` button.
+Open `Stacks`, select the stack, and go to `Operations`. Owned stacks show a `Service update` card with the available
+updates and actions to update all eligible services.
 
 When updates are available, the card lists the affected services and shows the current and latest service revision
 versions. When every unpinned service already uses the latest available service revision, the card shows an `Up to date`
 tag and the update button is disabled.
+
+Select `Ignore this version` on an update row when that exact target revision should not be used by this stack. Confirming
+the action removes it from the update suggestions and prevents service revision auto-update from selecting it. Ignoring
+does not create a stack draft or change running app environments. If the service later publishes another revision, that
+new revision is suggested again even when it has the same visible version label.
+
+An ignore applies to the named root stack service and its derivatives. If a stack includes the same underlying service
+under another root name, that other inclusion keeps its own update choice. Ignore choices are not copied when you create
+a new stack from an existing one.
 
 Select `Show changelog` to review published release notes before updating. For semantic-version updates, the changelog
 includes stable release tags after the current version through the target version and groups them by service. For other
@@ -85,7 +94,8 @@ Pinned stack services are skipped by manual and automatic service revision updat
 update the stack from Git with a different service reference.
 
 Disabled stack services are still considered by manual and automatic service revision updates. If a disabled service
-should stay on its current service revision, pin it.
+should stay on its current service revision, pin it. To skip only the update currently being offered, use `Ignore this
+version` in the `Service update` card instead.
 
 The stack auto-update policy controls which service revision changes are allowed. Choose the service update scope and
 one version mode: semantic-version updates, non-semver updates, or revision updates.
