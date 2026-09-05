@@ -104,6 +104,17 @@ environment identity and `env.type` for behavior that depends on an environment 
 - `service.replicas`: app-service replica count
 - `service.secrets.env`: generated Kubernetes Secret name used for secret environment variables
 
+Named endpoint ports are available as `service.endpoints.[endpoint-name].ports.[port-name].[field]`:
+
+- `number`: manifest-defined internal port number
+- `protocol`: port protocol
+- `publicPort`: assigned public port number, or an empty value while the port is unpublished
+- `effectivePort`: assigned public port number when published, otherwise the manifest-defined internal number
+
+Use `effectivePort` when a chart needs one usable value before and after publication. When a chart renders its
+Kubernetes Service port from this value, also configure the service port's
+[`redeployOnPublicPortChange` and `routeToPublicPort`](../services/networking.md#dynamic-public-backend-ports) fields.
+
 Legacy `service.helm.release` is still supported for backward compatibility.
 
 ## `helm`
