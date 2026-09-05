@@ -33,6 +33,11 @@ deployments are requested, each keeps its own service and build selections and j
 becomes ready. Builds can finish in a different order from the requests, so deployments are queued in readiness order,
 not necessarily deployment-number order.
 
+When a ready deployment has eligible repository post-deployment scripts, Wodby places the script task immediately after
+that deployment's rollout. A later rollout cannot overtake those scripts: deployment N rolls out first, its scripts run
+after a successful rollout, and only then can deployment N+1 begin. If deployment N fails or is canceled, its scripts do
+not run.
+
 Wodby does not discard a deployment merely because another deployment or a higher-numbered build exists. Selecting an
 older build can be an intentional rollback, and one multi-service deployment can intentionally combine older and newer
 builds. If a pending request is no longer wanted, cancel that deployment or its task explicitly; starting another
@@ -237,7 +242,12 @@ deployment and post-deployment task therefore have separate outcomes:
 
 - the deployment is `completed` when the selected app services roll out successfully
 - the post-deployment status separately shows whether scripts are pending, running, completed, failed, canceled,
-  skipped, or not applicable
+  skipped, not run, or not applicable
+
+Wodby reserves an eligible post-deployment task when the rollout is queued, while keeping it as a separate task with its
+own status and logs. This keeps the rollout and its scripts together in the app environment's queue, so a later rollout
+waits until both phases finish. If the rollout fails or is canceled, Wodby cancels the reserved script task and records
+the post-deployment phase as `not run`.
 
 If a post-deployment script fails, the completed deployment and app environment remain successful. Wodby shows a
 post-deployment warning with separate task logs and does not roll back the deployed app services. You can retry the
