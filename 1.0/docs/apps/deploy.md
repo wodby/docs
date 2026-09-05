@@ -228,8 +228,8 @@ wodby ci deploy -t my-private-docker-hub/repository
 
 CI build images remain in the registry after a newer build is deployed so you
 can [deploy a previous build](#deploy-a-previous-build). To limit how long
-unused images are retained, open `Instance > Builds > Settings` and choose
-**Clean build images after they have been unused for**. Available periods are
+unused images are retained, open `Instance > Builds > Settings` and configure
+**Auto-clean old builds**. Available periods are
 1 month, 3 months, 6 months, and 1 year. The default is **Never**.
 
 The retention period starts when Wodby first observes that a build is no longer
