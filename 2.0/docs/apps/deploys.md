@@ -25,13 +25,41 @@ Deployments are usually triggered in the following ways:
 
 - `Awaiting` means Wodby cannot create the deployment task yet. For example, one or more selected new builds have not
   supplied deployable images, or the target cluster is undergoing an infrastructure upgrade.
-- `Queued` means the deployment has everything it needs and its task is waiting for the app environment's current
-  deployment or post-deployment operation to finish.
+- `Queued` means the deployment has everything it needs and its task is waiting for execution capacity or for a
+  conflicting deployment or post-deployment operation to finish.
 
-Wodby runs one app-service deployment or post-deployment operation at a time for each app environment. If several
-deployments are requested, each keeps its own service and build selections and joins that environment's task queue when it
-becomes ready. Builds can finish in a different order from the requests, so deployments are queued in readiness order,
-not necessarily deployment-number order.
+Wodby keeps app-wide deployment operations serialized, but eligible partial deployments can roll out concurrently when
+they affect independent resources. If several deployments are requested, each keeps its own service and build selections
+and joins that environment's task queue when it becomes ready. Builds can finish in a different order from the requests,
+so deployments are queued in readiness order, not necessarily deployment-number order.
+
+### Parallel partial deployments
+
+An established app environment on Wodby infrastructure version `4.0.0` or newer can run up to two eligible partial
+deployment rollouts at the same time. This applies only after the environment has a working deployment and its routing
+has completed migration to the app-owned routing lifecycle.
+
+Before admitting a rollout in parallel, Wodby checks more than the selected service IDs. It also treats build owners,
+parent and derivative services, service links and dependencies, shared volumes, storage providers, and route
+certificates as affected resources. Deployments with any overlap remain ordered instead of running concurrently. Wodby
+also keeps a deployment serialized whenever it cannot prove that the affected resources are independent.
+
+Parallel service rollouts do not publish routing or DNS independently. They join one rollout group. When the first
+rollout settles, the group closes to new members; after every rollout in that group has settled, Wodby applies the
+complete routing configuration and synchronizes technical DNS once. Conflicting deployments and other app-wide
+operations wait behind this convergence phase.
+
+A single eligible partial deployment follows the same two-phase process. Its routing and DNS convergence starts as soon
+as its service rollout settles, so there is no wait for another deployment to join the group.
+
+The deployment and app environment remain in progress until convergence finishes. A failed or canceled service rollout
+keeps its own failed or canceled result, while an independent successful rollout can still complete if convergence
+succeeds. If the shared routing or DNS convergence fails, every deployment waiting on that convergence phase fails
+because Wodby cannot confirm the app-wide result.
+
+Wodby always uses the serialized path for first or full deployments, migrations, imports, repository post-deployment
+scripts, and deployments that directly target external, storage, infrastructure, or operator services. App environments
+on older routing infrastructure, or whose routing migration is still in progress, also remain serialized.
 
 When a ready deployment has eligible repository post-deployment scripts, Wodby places the script task immediately after
 that deployment's rollout. A later rollout cannot overtake those scripts: deployment N rolls out first, its scripts run
