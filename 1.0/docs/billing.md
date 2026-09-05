@@ -32,7 +32,7 @@ Every organization includes 5 GB of registry storage. Measured storage is rounde
 
 Registry storage is billed in advance as part of the organization's subscription. If the measured amount changes during a billing period, the difference is prorated from the measurement time and applied as a charge or credit on the next invoice.
 
-Deleting images you no longer need reduces your stored amount after registry usage is next measured. Images that belong to deleted applications and instances are cleaned up automatically.
+Deleting images you no longer need reduces your stored amount after registry usage is next measured. You can also [automatically clean unused CI build images](apps/deploy.md#automatically-clean-unused-build-images) after a retention period you choose. Images that belong to deleted applications and instances are cleaned up automatically.
 
 ## Invoices
 

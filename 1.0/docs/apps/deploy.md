@@ -224,6 +224,29 @@ wodby ci deploy php crond
 wodby ci deploy -t my-private-docker-hub/repository
 ```
 
+#### Automatically clean unused build images
+
+CI build images remain in the registry after a newer build is deployed so you
+can [deploy a previous build](#deploy-a-previous-build). To limit how long
+unused images are retained, open `Instance > Builds > Settings` and choose
+**Clean build images after they have been unused for**. Available periods are
+1 month, 3 months, 6 months, and 1 year. The default is **Never**.
+
+The retention period starts when Wodby first observes that a build is no longer
+used by any instance. It does not start from the build's original creation or
+deployment date. Cleanup runs in the background, so an eligible image may
+remain for a short time after its retention period ends.
+
+Wodby never automatically cleans images that are referenced by any instance's
+current build. If a previous build becomes current again before cleanup, its
+retention timer is cleared. Disabling automatic cleanup also clears the timers,
+so enabling it again starts a full new retention period.
+
+Cleanup removes managed image tags from Wodby's registry but preserves the
+build history. A historical build whose required images have been removed
+cannot be deployed again. Images stored in an external registry are not
+deleted by this setting.
+
 #### Deploy a previous build
 
 For an application instance that uses CI deployment, open `Instance > Builds`,
