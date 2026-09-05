@@ -224,6 +224,45 @@ wodby ci deploy php crond
 wodby ci deploy -t my-private-docker-hub/repository
 ```
 
+#### Deploy a previous build
+
+For an application instance that uses CI deployment, open `Instance > Builds`,
+select a non-current build, and click **Deploy this build**. Wodby shows a
+confirmation with the current and selected build numbers, the original build
+date and source, the stack version change, the recorded service images, and any
+eligibility warnings.
+
+The operation makes the selected build's saved service images current. If the
+build used an older revision of the same stack, that exact stack revision also
+becomes active. The newer revision remains pending, and the instance is marked
+as requiring a rebuild so you can return to the newer stack with a new CI
+build. Deploying the previous build does not modify its original build record
+or timestamp.
+
+!!! warning "A previous build is not a complete instance restore"
+    The database and persistent files are not rolled back. Current instance
+    settings still control whether post-deployment scripts run, and those
+    scripts can modify persistent data. Wodby does not automatically restore
+    the previous deployment if the task fails or only partially completes.
+
+Before confirming:
+
+1. Verify that recent database and file backups are available and restorable.
+2. Check that the selected application code and stack are compatible with the
+   current database schema and persistent data.
+3. Review every service image, its registry status, and all warnings in the
+   confirmation.
+4. Check the current post-deployment script setting and make sure those scripts
+   are safe to run with the selected build.
+5. Plan for service restarts or short downtime, then monitor the deployment
+   task logs and application health after confirmation.
+
+Deployment is blocked when the stack revision no longer exists, belongs to a
+different logical stack, or cannot be prepared; when a required image is
+missing, voided, or deleted; or when a Drupal stack migration is pending.
+Images stored in an external registry cannot be verified by Wodby, so their
+availability is shown as a warning instead.
+
 #### Examples
 
 You can find build examples for different CI services such as CircleCI, TravisCI, BitBucket pipelines and custom shell scripts at https://github.com/wodby/wodby-ci 
