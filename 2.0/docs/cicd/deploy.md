@@ -24,9 +24,11 @@ post-deployment task without redeploying the application.
 
 `wodby ci deploy` records the released build as deployable and returns without waiting for the rollout or
 post-deployment task. The deployment can remain `Awaiting` while other selected builds finish or the cluster completes
-infrastructure maintenance. When all inputs are ready, its normal deployment task becomes `Queued` behind any current
-deployment or post-deployment operation for that app environment. See
-[Deployment readiness and queueing](../apps/deploys.md#deployment-readiness-and-queueing).
+infrastructure maintenance. When all inputs are ready, its normal deployment task becomes `Queued` until execution
+capacity is available. Eligible independent partial deployments can roll out concurrently; conflicting deployments and
+deployments with post-deployment scripts remain ordered. See
+[Deployment readiness and queueing](../apps/deploys.md#deployment-readiness-and-queueing) and
+[parallel partial deployments](../apps/deploys.md#parallel-partial-deployments).
 
 Operational CLI commands that stream deployment logs or explicitly wait for a deployment follow both tasks and return
 a non-zero exit code when the post-deployment task fails. The error identifies that the rollout completed successfully
