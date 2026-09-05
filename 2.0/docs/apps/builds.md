@@ -74,21 +74,21 @@ Before removing a required project share or changing ownership, update the app e
 registry selection, let active builds finish, and replace and void old images that still use the previous registry.
 See [Sharing](../sharing.md#changing-sharing-with-active-references) for the general rule.
 
-## Automatically delete old build images
+## Automatically void old build images
 
 Build images remain available after newer builds are deployed so you can reuse or roll back to an older build. If the
-app environment uses [Wodby Registry](../cicd/wodby-registry.md), you can automatically delete images after a retention
+app environment uses [Wodby Registry](../cicd/wodby-registry.md), you can automatically void images after a retention
 period:
 
 1. Open the app environment and go to `CI/CD > Builds > Settings`.
-2. Under **Automatically delete build images after**, select **Never**, **1 month**, **3 months**, **6 months**, or
+2. Under **Auto-void images of unused builds older than**, select **Never**, **1 month**, **3 months**, **6 months**, or
    **1 year**.
 3. Select **Save settings**.
 
-**Never** is the default and disables automatic build-image deletion. The other periods are measured from the time the
-build ended. Wodby checks for eligible images hourly, so deletion may happen after the selected period rather than at
-the exact expiration time. Enabling cleanup or selecting a shorter period can make existing images eligible during the
-next check.
+**Never** is the default and disables automatic image voiding. The other periods are measured from the time the build
+ended. Wodby checks for eligible images hourly, so voiding may happen after the selected period rather than at the exact
+expiration time. Enabling cleanup or selecting a shorter period can make existing images eligible during the next
+check.
 
 Automatic cleanup considers only completed, canceled, and failed builds. Wodby keeps all images from a build when any
 of them is:
@@ -101,8 +101,8 @@ If an image is older than the selected period, it becomes eligible during a late
 gone. Cleanup removes the image from Wodby Registry and prevents future deployment or rollback from using it, but the
 build record remains in build history.
 
-This setting does not delete images from Docker Hub, Distribution Registry, or another customer-managed registry. Use
-that registry's retention policy instead.
+Automatic voiding does not apply to Docker Hub, Distribution Registry, or another customer-managed registry. Use that
+registry's retention policy instead.
 
 ## Roll back to a previous build
 
