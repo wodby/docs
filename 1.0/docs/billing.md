@@ -28,9 +28,11 @@ If you cancel a subscription, it remains active until the end of the current bil
 
 Wodby provides a private docker registry `registry.wodby.com` that stores the images built and released during your deployments. See [deployment](apps/deploy.md#release) for how images are pushed to it.
 
-Every organization includes 5 GB of registry storage. Storage above the included amount is billed at $0.15 per GB per month.
+Every organization includes 5 GB of registry storage. Measured storage is rounded up to the next whole GB, and storage above the included amount is billed at $0.15 per GB per month.
 
-Deleting images you no longer need reduces your stored amount. Images that belong to deleted applications and instances are cleaned up automatically.
+Registry storage is billed in advance as part of the organization's subscription. If the measured amount changes during a billing period, the difference is prorated from the measurement time and applied as a charge or credit on the next invoice.
+
+Deleting images you no longer need reduces your stored amount after registry usage is next measured. Images that belong to deleted applications and instances are cleaned up automatically.
 
 ## Invoices
 
