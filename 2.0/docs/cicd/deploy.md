@@ -14,6 +14,10 @@ CI-triggered deployments use the same [rollback behavior](../apps/deploys.md#dep
 If the build contains `.wodby/post-deployment.yml`, Wodby runs those jobs in a separate task after the application
 rollout completes. Pass `--skip-post-deploy` to `wodby ci deploy` when you want to skip them for a specific deployment.
 
+When the deployment becomes ready, Wodby places an eligible post-deployment task immediately after its rollout in the
+app environment's queue. A later rollout cannot run between the rollout and its scripts. If the rollout fails or is
+canceled, the scripts do not run and the post-deployment status is `not run`.
+
 A post-deployment failure does not change the successful deployment or app status and does not trigger rollback.
 Deployment details show a separate post-deployment warning and task log. You can retry only the failed
 post-deployment task without redeploying the application.
