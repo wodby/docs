@@ -299,10 +299,30 @@ Supported route settings are:
 | `hsts` | `disabled`, `enabled`, or `include_subdomains` |
 | `request_timeout` | Gateway API duration such as `30s`, `5m`, or `1h`; `0s` disables the timeout |
 | `backend_request_timeout` | Gateway API duration such as `30s`, `5m`, or `1h`; `0s` disables the timeout |
+| `rate_limit_per_ip` | positive request count per period, such as `300/minute`; each client IP has a separate limit |
+| `rate_limit_total` | positive request count per period, such as `1000/second`; all clients share the route limit |
 
 Domains support every setting in this table. Redirects support `https_redirect`, `no_index`, and `hsts`; settings that
 depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
 when you select an override target.
+
+### Request rate limits
+
+`rate_limit_per_ip` limits requests from one client IP, while `rate_limit_total` limits requests from all clients to the
+route. When both settings are present, a request must satisfy both limits. Requests over either limit receive
+`429 Too Many Requests` at the gateway instead of reaching the app service.
+
+Values use the form `<requests>/<period>`. The request count must be a positive integer. Supported periods are
+`second`, `minute`, `hour`, `day`, `month`, and `year`, written in lowercase and singular form.
+
+Non-cluster app environments default to `300/minute` per IP and `1000/second` total on every serve route. You can change
+the app environment defaults or add a domain-specific value when an endpoint needs a different limit. A service port
+can also declare a default for its routes.
+
+These are local Envoy Gateway limits. Each route and each Envoy data-plane replica maintains its own counters, so
+`rate_limit_total` is not one combined quota for the whole app environment or cluster. With multiple gateway replicas,
+the effective traffic capacity can be higher than the configured value. The per-IP limit uses the client address after
+the configured proxy chain is processed; clients sharing a NAT address also share one limit.
 
 ### Request timeouts
 
@@ -331,10 +351,12 @@ Wodby enables the `enabled` policy on public Wodby-managed technical routes. Pri
 On Envoy Gateway clusters, the New domain form also enables HSTS by default; clear the checkbox when a domain must
 remain accessible without an HSTS policy. Existing custom domains are not changed automatically.
 
-For new Envoy Gateway app environments, Wodby creates default route settings to match the previous ingress behavior:
+For Envoy Gateway app environments, Wodby creates default route settings for routing compatibility and baseline request
+protection:
 
 - HTTPS redirect is enabled by default
 - session affinity uses cookies by default
+- request rate limits default to `300/minute` per IP and `1000/second` total for each serve route
 - generated technical routes get `no_index` enabled by default
 - public generated technical routes get HSTS enabled by default
 
