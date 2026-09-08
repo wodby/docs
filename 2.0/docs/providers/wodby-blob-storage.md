@@ -20,6 +20,24 @@ or pay for Wodby Blob Storage.
 The download action returns a time-limited signed URL on `blob.wodby.com`. Treat the signed URL as a temporary
 credential and do not share it.
 
+## Voiding backup files
+
+You can permanently remove the stored file for a completed Wodby Blob Storage backup without deleting its backup
+record. Open the backup details and select **Void backup file**, then confirm the irreversible action.
+
+After the file is voided:
+
+- the backup record and its metadata remain available for history and auditing
+- the file cannot be downloaded or used as the source of an import
+- previously generated download links stop working
+- the action cannot be undone and the file cannot be recovered
+
+The action is disabled while a pending or running import is using the backup. Wait for the import to finish or cancel
+it before voiding the file.
+
+**Void backup file** is available only for Wodby Blob Storage. For a third-party storage destination, manage the
+object's lifecycle through that storage provider.
+
 To store backups in a Cloudflare account and bucket that you manage, create a
 [Cloudflare R2 storage integration](cloudflare.md#r2) instead. That is a third-party backup destination and is not
 billed as Wodby Blob Storage.
@@ -38,7 +56,8 @@ subscription. For this REST API representation, use `integrationId: 0`, an empty
 
 Wodby Blob Storage costs **$0.05 per stored GB**. There is no included free storage, and data transfer is not billed.
 Usage is based on the organization's current completed backup data stored by Wodby. Failed, expired, and deleted
-backup objects stop contributing after storage cleanup and the next usage synchronization.
+backup objects stop contributing after storage cleanup and the next usage synchronization. A successfully voided file
+also stops contributing after the next usage synchronization.
 
 ## Related pages
 
