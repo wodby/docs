@@ -47,7 +47,7 @@ You can enable basic auth from Instance > Domains > Basic auth. Only single basi
 
 All technical `*.wodby.cloud` domains not indexed by search engines (header X-Robots-Tag). Additionally, you can optionally prevent indexation for your custom domains on domain edit/add pages.
 
-## HTTPs
+## HTTPS
 
 ### Let's Encrypt Certificates
 
@@ -67,10 +67,16 @@ It's not currently possible to upload certificates from the dashboard. Please co
 
 ### HSTS
 
-Since infrastructure version >= 5.5.3 you can configure [HSTS](../infrastructure/hsts.md) per domain via three provided options:
+On infrastructure 5.5.3 or newer you can configure
+[HSTS](../infrastructure/hsts.md) independently for each HTTPS domain:
 
 * Disable
-* Enable for this domain (default)
+* Enable for this domain (the default for a newly added custom domain)
 * Enable for this domain and all subdomains
 
 Max age is `31536000` and cannot be changed.
+
+Technical domains and domains carried through a migration can use a different
+initial setting. Review the HSTS value for each domain instead of assuming that
+the application has one global policy. HSTS affects browsers only after they
+receive the header over a valid HTTPS connection.

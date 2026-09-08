@@ -1,149 +1,167 @@
 # Troubleshooting
 
-## Cannot connect by SSH 
+## Cannot connect by SSH
 
-There are few known reasons for that:
+Check the following:
 
-* You must have at least one SSH key added to your profile
-* Your ssh key not added to your SSH agent, try executing 
+- At least one SSH public key is added to your Wodby profile.
+- The corresponding private key is loaded in your SSH agent:
+
+    ```shell
+    ssh-add /path/to/private/key
+    ```
+
+- If you have several keys, select the expected key explicitly:
+
+    ```shell
+    ssh -i /path/to/private/key user@hostname
+    ```
+
+See the instance or server page for the current host, port, and username.
+
+## Remote host identification changed
+
+SSH stops when the key presented by a host no longer matches its entry in
+`known_hosts`. A legitimately recreated container or server can have a new key,
+but the same warning can also indicate that you reached the wrong host or that
+the connection is being intercepted.
+
+1. Confirm that the hostname and port still belong to the intended Wodby
+   instance or server.
+2. Verify the new fingerprint through a trusted channel, such as the server
+   provider's console or Wodby support.
+3. Remove only the stale entry:
+
+    ```shell
+    ssh-keygen -R hostname
+    ```
+
+   For a non-standard port, use:
+
+    ```shell
+    ssh-keygen -R '[hostname]:port'
+    ```
+
+4. Reconnect, compare the displayed fingerprint with the verified value, and
+   accept it only when they match.
+
+Do not disable strict host-key checking globally or discard all entries for
+`*.wodby.cloud`.
+
+## Email delivery fails
+
+Public-cloud IP addresses often have little or poor mail reputation, so direct
+mail can be rejected or classified as spam. Use OpenSMTPD in relay mode with a
+reputable SMTP provider:
+
+- [AWS Simple Email Service](integrations/aws.md)
+- [SendGrid](integrations/sendgrid.md)
+- another SMTP service supported by your OpenSMTPD configuration
+
+See [Mail delivery](infrastructure/mail-delivery.md).
+
+## Server status is unreachable
+
+Check host capacity and service health:
+
 ```shell
-ssh-add /path/to/private/key
+free -h
+df -h
+top
 ```
-* Try specify which key to use 
+
+Infrastructure 7 disables swap; adding swap is not a supported remedy for an
+unreachable server. Reduce resource pressure or increase the server's RAM or
+disk capacity instead.
+
+An unresponsive Wodby Agent can also produce an `N/A` status. Use the commands
+for your infrastructure generation under
+[Restart Wodby Agent](infrastructure/cli.md#restart-wodby-agent), then inspect
+its logs before restarting other services. If the server remains unreachable,
+contact [Wodby support](support.md).
+
+## Cannot connect a server
+
+Check the following before running the generated installer command again:
+
+- The host satisfies the
+  [Infrastructure 7 requirements](infrastructure/connecting-server.md#infrastructure-7-requirements).
+- The generated installer command is run as `root`.
+- Docker, Kubernetes, containerd, and CNI software are not already installed.
+- UFW was handled as described in [UFW](infrastructure/ufw.md).
+- External firewalls allow the required inbound and outbound traffic.
+- The host does not use unsupported virtualization such as OpenVZ.
+- Disk and network performance are sufficient for installation.
+
+## Deployment or another task times out
+
+`Operation exceeded timeout` means the backend did not receive a terminal
+result before its deadline. It does **not** prove that the server-side command
+or Kubernetes operation failed. The operation can still be running or may have
+completed after the connection was interrupted.
+
+Before retrying:
+
+1. Read the complete task log and note the last action sent to the server.
+2. Check [Wodby status](https://status.wodby.com/) and the connected server's
+   reachability, free disk, memory, CPU load, and network latency.
+3. Inspect the application's current external state. On Infrastructure 7:
+
+    ```shell
+    kubectl get pods -n INSTANCE_UUID -o wide
+    kubectl describe pod -n INSTANCE_UUID POD_NAME
+    kubectl logs -n INSTANCE_UUID POD_NAME --all-containers --tail=200
+    ```
+
+4. Retry only after establishing whether the previous operation took effect.
+   Repeating a create, restore, migration, or deployment blindly can duplicate
+   work or apply it to an already changed application.
+
+If the external state is unclear, preserve the task log and contact support
+instead of deleting Pods, purging queues, or restarting the whole server.
+
+Other common causes include insufficient disk or memory, high CPU or disk I/O,
+very high network latency, and reaching the recommended container capacity of
+the server.
+
+## Application reports "File not found"
+
+The HTTP service could not find the configured entry point, such as `index.php`
+for many PHP stacks. Verify that:
+
+- the application document root points to the directory containing the entry
+  point; and
+- the selected repository branch and latest deployment contain the expected
+  code.
+
+## Permission denied for static files
+
+This usually means the files are owned by a different UID/GID and are not
+readable by the HTTP-service user. Inspect the ownership and permissions before
+changing them. On a single-server installation, the following grants read and
+directory traversal permission to other users without making files writable:
+
 ```shell
-ssh user@hostname -i /path/to/private/key`
+chmod -R o=rX /srv/wodby/instances/INSTANCE_UUID/files/public/
 ```
 
-## Emails delivery from my application fails
+Apply it only to the verified instance path. If the stack expects a different
+ownership model, use its documented permission helper instead.
 
-If you're using a server from a public cloud there's 90% chance that its IP is already compromised and blacklisted by major mail services, hence your emails won't be delivered or will land in the spam folder.
+## Backup failures
 
-If your stack has mail transfer agent OpenSMTPD we recommend integrating it with a 3rd party email service (relay mode):
+Common causes include:
 
-* [AWS Simple Email Service](integrations/aws.md)
-* [SendGrid](integrations/sendgrid.md)
-* Any other SMTP server, see OpenSMTPD stack documentation
- 
-## Host identification has changed
+- insufficient free disk space for both the live data and archive;
+- less than approximately 256 MB of free memory;
+- high CPU or disk-I/O utilization;
+- an unreachable server or failed database/file service; and
+- invalid or expired mirror-storage credentials.
 
-If you see the following error:
+Inspect the failed task and the specific overdue component reported by Wodby.
+Schedule large automatic backups during a low-traffic period and see
+[Backups](apps/backups.md) for component schedules and retention behavior.
 
-```
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
-@ WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED! @ 
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 
-IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY! 
-Someone could be eavesdropping on you right now (man-in-the-middle attack)! 
-It is also possible that a host key has just been changed. 
-The fingerprint for the RSA key sent by the remote host is 
-SHA256:XXXXXXXXXXXXX/XXXX. 
-Please contact your system administrator. 
-Add correct host key in /Users/xxx/.ssh/known_hosts to get rid of this message. 
-Offending RSA key in /Users/xxx/.ssh/known_hosts:xx 
-RSA host key for [node-xxxxx.wodby.cloud]:xxxx has changed and you have requested strict checking. 
-Host key verification failed.
-```
+## Cannot update WordPress core, plugins, or themes
 
-This means that the container you're trying to connect to was recreated and RSA key has changed.
-
-To avoid this kind of errors you can disable strict host key checking for *.wodby.cloud host by adding the following lines to `~/.ssh/config` file: 
-
-```
-Host *.wodby.cloud
-    StrictHostKeyChecking no
-    UserKnownHostsFile=/dev/null
-```
-
-## My server status is unreachable
-
-This problem could be caused by the lack of memory on your server. Make sure you have enough memory:
-
-```shell
-free -m
-```
-
-If you don't have enough memory, you can use Linux Swap.
-
-Make sure you're using swap by executing:
-```shell
-sudo swapon -s
-```
-If not, follow [this guide](https://www.digitalocean.com/community/tutorials/how-to-add-swap-on-ubuntu-12-04") to add swap (Ubuntu).
-
-The `N/A` status may also be caused by an unresponsive Wodby Agent. See [how to restart it](infrastructure/cli.md#restart-wodby-agent).
-
-If you still have the problem please contact Wodby support team.
-
-## Cannot connect server
-
-There are few known reasons for that:
-
-* Make sure your server satisfies the [Infrastructure 7 requirements](infrastructure/connecting-server.md#infrastructure-7-requirements)
-* Wodby's script must be run as a root
-* A slow speed of Read/Write operations on a disk. See [the list](infrastructure/index.md) of recommended hosting providers
-* Docker, Kubernetes, containerd, or CNI software is already installed
-* [UFW is enabled](infrastructure/ufw.md) during installation
-* Inbound / outbound external firewall
-* Unsupported virtualization such as OpenVZ
-
-## Application deployment or other tasks fail
-
-This error means that one of the deployment steps exceeded its timeout. There are few known reasons for that:
-
-* There's something wrong on our side, see http://status.wodby.com/
-* Something wrong with your server, make sure you have enough [free disk space](infrastructure/disk.md)
-* Check your CPU load average by running top
-* Check you have enough free RAM by running free -h
-* Check your system log for extra errors journalctl -f 
-* You've reached containers limit per server (300), contact our support to increase the limit
-* A slow speed of Read/Write operations on a disk
-* Huge ping to your server due to global network issues
-
-## Application gives "File not found" error
-
-This error means that the HTTP server could not find the entrypoint (in case of PHP-based stacks it's usually `index.php`) in a container. This might happen for a few reasons:
-
-* You have your entrypoint (e.g. `index.php`) in a subdirectory of your git root and you did not specify it during the initial deployment of new application
-* Your codebase is missing, could be that you've selected a wrong branch during deployment/build
-
-## Cannot update WordPress core or its plugins/themes
-
-See [this article](stacks/wordpress/index.md#upgrading-wordpress)
-
-## Infrastructure 5.x known issues
-
-* Sometimes we can't get logs of a task with the error `Container not found`. Task may have been completed but we consider it as failed
-* Sometimes we can't get the size of a backup archive so we don't show it in the dashboard
-* If you update a [ rolling-update](stacks/template.md#deployment) container and it fails we will not be able to detect the failure. Despite the actual failure the deployment will be considered successful because the older version of the container is still intact
-* We can not handle errors of containers that failed to start, so the task will hang until it expires by timeout. Here's how you can manually check your deployment state in such cases:    
-    1. Access your server via SSH as root
-    2. Run the following command (replace `[INSTANCE UUID]`)
-        ```shell
-        kubectl get po -n [INSTANCE UUID]
-        ``` 
-    3. You will see statuses of pods (containers) of your application instance. You can get logs of the specific pod (container) either by running (if container is creating or running)
-        ```shell
-        kubectl logs [POD NAME] -n [INSTANCE UUID]
-        ```
-        or (if container is not currently running or in the error state)
-        ```shell
-        kubectl describe po [POD NAME] -n [INSTANCE UUID]
-        ```
-
-!!! info "Infrastructure 6.x"
-    All the known issues will be resolved in Infrastructure 6.x
-    
-## Permissions denied error on static files
-
-This usually happens when public files owned by a user with UID/GID different from an HTTP server user and have no reading permissions for others, e.g. `-rwxr-x---` or `750`. To give the writing permissions for others you'll have to executing the following commands from the host server as root (most likely you won't be able to do it from a different user):
-```
-chmod -R o=rX /srv/wodby/instances/[APP INSTANCE UUID]/files/public/
-```  
-
-## My backups are failing
-
-On of the following issues could cause backups failure:  
-
-* [Lack of free disk space](infrastructure/disk.md#freeing-disk-space). The amount of free space has to be no less than expected backup size, e.g. database + files backups size     
-* Low free memory (RAM). Backing up requires at least 256MB of free RAM. Lower value could slower backing up significantly or cause  backing up process cancelation by timeout of 3 hours 
-* Overutilized CPU. We recommend setting auto backups start time to a night period when your application has the lowest traffic
+See [Upgrading WordPress](stacks/wordpress/index.md#upgrading-wordpress).

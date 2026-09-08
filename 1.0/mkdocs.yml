@@ -87,6 +87,7 @@ nav:
 - Home:
   - Getting started: index.md
   - Billing: billing.md
+  - Organizations: organizations.md
   - Development: dev.md
   - Docker4X: docker4x.md
   - FAQ: faq.md
@@ -169,7 +170,7 @@ nav:
   - BitBucket: integrations/bitbucket.md
   - CloudFlare: integrations/cloudflare.md
   - DigitalOcean: integrations/digitalocean.md
-  - Docker registry: integrations/docker-registry.md
+  - Container registry: integrations/docker-registry.md
   - GCP: integrations/gcp.md
   - GitHub: integrations/github.md
   - GitLab: integrations/gitlab.md

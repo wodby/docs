@@ -1,28 +1,72 @@
 # Monitoring
 
-## Single-server infrastructure monitoring
+Wodby reports server reachability and task results, but it does not provide a
+complete host-monitoring and alerting service. Install a monitoring agent from
+your cloud provider or a service such as New Relic Infrastructure, Datadog, or
+your existing observability platform.
 
-As of infrastructure 5.x Wodby does not provide monitoring tools for your servers, we recommend connecting your server manually to [NewRelic Servers](https://docs.newrelic.com/docs/servers) or [NewRelic Infrastructure](https://newrelic.com/infrastructure) (or other 3rd party monitoring tool of your choice) to track essentials metrics like CPU / RAM / Disk consumption. Nothing specific required during the installation, just follow the official guide.
+At minimum, monitor:
 
-## Containers monitoring
+- CPU utilization and load average;
+- available memory and out-of-memory events;
+- filesystem bytes and inodes;
+- disk latency and throughput;
+- network availability and latency;
+- Docker, containerd, kubelet, and Kubernetes control-plane health; and
+- restarts and readiness of application and Wodby system workloads.
 
-Additionally, if you want to see resources consumption per container or per application, we recommend using  [`ctop`](https://github.com/bcicen/ctop). 
+Alert before the server exhausts disk or memory rather than relying only on a
+Wodby task failure.
 
-Installation:
+## Infrastructure 7
+
+Use Kubernetes to inspect node and workload state:
+
 ```shell
-sudo wget https://github.com/bcicen/ctop/releases/download/v0.6.1/ctop-0.6.1-linux-amd64 -O /usr/local/bin/ctop
-sudo chmod +x /usr/local/bin/ctop
+kubectl get nodes -o wide
+kubectl get pods --all-namespaces -o wide
+kubectl -n wodby get pods -o wide
 ```
 
-Show containers of a specific application instance:
-```shell
-ctop -f [INSTANCE UUID]
-``` 
-
-Press `s` to sort containers by CPU / RAM consumption. 
-
-You can identify which application a container belongs by copying a container ID (CID column) and executing:
+For one application instance:
 
 ```shell
-docker exec [CONTAINER_ID] sh -c 'echo $WODBY_APP_NAME'
+kubectl get pods -n INSTANCE_UUID -o wide
+kubectl describe pod -n INSTANCE_UUID POD_NAME
 ```
+
+If your monitoring setup provides the Kubernetes Metrics API, current resource
+usage is available through:
+
+```shell
+kubectl top node
+kubectl top pods -n INSTANCE_UUID --containers
+```
+
+`kubectl top` is not a historical monitoring system and will fail when no
+Metrics API provider is installed. Use your monitoring platform for retention,
+dashboards, and alerts.
+
+Host-level snapshots remain useful during an incident:
+
+```shell
+free -h
+df -hT
+vmstat 1
+docker stats --no-stream
+```
+
+See [CLI commands](cli.md#infrastructure-7) for system workload logs and
+component checks.
+
+## Infrastructure 6 and older
+
+Legacy single-server installations expose application containers directly
+through Docker. `docker stats` provides a live resource snapshot. If you choose
+to install a third-party terminal tool such as
+[`ctop`](https://github.com/bcicen/ctop), follow its current release and checksum
+instructions instead of using an old pinned binary from these docs.
+
+These tools show current container usage only. Continue to use a host-monitoring
+agent for history and alerts, and do not apply Infrastructure 7 kubeadm or
+namespace assumptions to a legacy server.

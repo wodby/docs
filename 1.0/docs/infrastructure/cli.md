@@ -26,10 +26,12 @@ kubectl -n wodby rollout status deployment/agent --timeout=5m
 
 ### Updating Infrastructure 7 Agent
 
-Infrastructure 7 currently requires Agent 5.4.2 or newer for dashboard application-log polling. To update an existing Infrastructure 7 server:
+Dashboard application-log polling requires Agent 5.4.2 or newer. The current
+Infrastructure 7 installer profile uses Agent 5.5.0. To update an existing
+Infrastructure 7 server to that profile:
 
 ```shell
-kubectl -n wodby set image deployment/agent agent=wodbycloud/agent:5.4.2
+kubectl -n wodby set image deployment/agent agent=wodbycloud/agent:5.5.0
 kubectl -n wodby rollout status deployment/agent --timeout=5m
 ```
 

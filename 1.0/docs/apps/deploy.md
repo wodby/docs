@@ -258,6 +258,14 @@ build history. A historical build whose required images have been removed
 cannot be deployed again. Images stored in an external registry are not
 deleted by this setting.
 
+To release registry storage immediately instead of waiting for retention, open
+`Instance > Builds`, select an unused historical build, and choose the action to
+delete its images. Wodby never offers this action for a build that is current on
+an instance. The build record remains in history, but it cannot be deployed
+again after its required managed tags are deleted. Registry deletion, usage
+measurement, and billing reconciliation run asynchronously, so the displayed
+storage total does not change immediately.
+
 #### Deploy a previous build
 
 For an application instance that uses CI deployment, open `Instance > Builds`,

@@ -1,218 +1,292 @@
-# Stack Template
+# Stack template
 
-You can create custom stacks by defining one via template or by forking stacks provided by Wodby. 
+Create a custom stack by writing a YAML template or by forking a stack provided
+by Wodby. The format is a deliberately limited deployment schema inspired by
+Docker Compose and Kubernetes; arbitrary fields from either format are not
+accepted.
 
-Stack template is a YML defining services, it's basically a simplified and limited version of kubernetes schema in a format very close to docker compose.
+!!! note "Managed-stack features"
+    Managed stacks and their forks can contain implementation catalog data and
+    upgrade behavior that cannot be expressed in a custom template.
 
-!!! warning "Managed stacks are more functional"
-    Stacks provided by Wodby (including forks) may have additional configurations not covered by templates. 
- 
-## Service Configuration Reference
+## Top-level sections
 
-This section contains a list of all configuration options supported by a service definition.
+| Name | Required | Description |
+| --- | --- | --- |
+| `services` | yes | Named container services. |
+| `variables` | no | Reusable literal or generated values. |
+| `volumes` | no | Named persistent host-path volumes. |
+| `service_types` | no | Display names for service categories referenced by a service's `type`. |
+| `metadata` | no | Stack metadata retained with the template. |
 
-| Name | Description | Mandatory | Schema | 
-| ---- | ----------- | -------- | ------ |
-| image | The image the container is running. | ✓ | string |
-| image_pull | *Always* - always pull the image; *IfNotPresent* - only pull the image if it does not already exist on the server.  | | string |
-| entrypoint | Entrypoint string or array. The docker image’s ENTRYPOINT is used if this is not provided. |  | string, string array |
-| command | Arguments to the entrypoint. The docker image’s CMD is used if this is not provided. |  | string, string array |
-| working_dir | Container’s working directory. If not specified, the container runtime’s default will be used, which might be configured in the container image. |  | string |
-| environment | List of environment variables to set in the container. |  | string array |
-| volumes | Volumes to mount into the container’s filesystem. |  | string array |
-| [memory](#memory) | Memory rules and limitations |  | int, string | 
-| [cpu](#cpu) | CPU resources rules and limitations |  | int, string |
-| [ports](#ports) | List of ports to expose from the container. |  | string array |
-| [check_ready](#check-ready) | Describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic. |  | string array |
-| [deployment](#deployment) | Deployment enables declarative updates for services. |  | string array |
-| [security_context](#securitycontext) | Security context holds security configuration that will be applied to a container. |  | string array |
+Names of services and volumes can contain lowercase letters, numbers, and
+hyphens. Variable names can contain lowercase letters, numbers, and
+underscores.
 
-### memory
+## Service reference
 
-You can specify memory limits and requests for a container in the following formats:   
+| Name | Type | Description |
+| --- | --- | --- |
+| `image` | string | Required container image reference. |
+| `image_pull` | string | `Always` or `IfNotPresent`; defaults to the runtime policy used by Wodby. |
+| `entrypoint` | string or string array | Replaces the image entrypoint. |
+| `command` | string or string array | Arguments passed to the entrypoint, replacing the image command. |
+| `working_dir` | string | Container working directory. |
+| `environment` | map | Environment variable names and string or numeric values. |
+| `volumes` | string array | Host or named-volume mounts. Add `:ro` for a read-only mount. |
+| [`memory`](#memory) | integer or string | Memory request and optional limit in MB. |
+| [`cpu`](#cpu) | integer or string | CPU request and optional limit in millicores. |
+| [`ports`](#ports) | string array | Internal and public port mappings. |
+| [`check_ready`](#readiness-and-liveness-checks) | map | Readiness probe used to decide when the service can receive traffic. |
+| [`check_alive`](#readiness-and-liveness-checks) | map | Liveness probe used to decide when a container should be restarted. |
+| [`deployment`](#deployment) | map | Replica, update-strategy, and deployment-source settings. |
+| [`security_context`](#security-context) | map | Container privilege and user settings. |
+| `annotations` | map | Annotations applied to the rendered workload. |
+| `metadata` | map | String or numeric service metadata. |
+| `title` | string | Human-readable service title. |
+| `type` | string | Service category, optionally declared under `service_types`. |
+| `enabled` | boolean | Whether the service is initially enabled; defaults to `true`. |
+| `required` | boolean | Prevents the service from being disabled when `true`; defaults to `false`. |
+| `scale` | integer | Legacy replica field. Prefer `deployment.replicas`. |
+| `privileged` | boolean | Legacy privilege field. Prefer `security_context.privileged`. |
 
-```
-128 - Request 128Mb of memory.
-512:1024 - Request 512Mb of memory. Limit 1Gb of memory.
-```
+### Memory
 
-Limit is a maximum memory (in megabytes) available for a container. When a container exceeds this limit, it will be terminated (and automatically started again). Request defines how much memory must be available on a server to start this container (used in clusters).    
+Specify a request alone or a request and limit separated by a colon:
 
-### cpu
-
-You can specify CPU limits and requests for a container in the following formats:
-
-```
-1000 - Request 1 Core.
-1500 - Request 1.5 Core.
-650 - Request 0.65 Core.
-200:250 - Request 0.2 Core. Limit 0.25 Core.
-```
-Minimum value is 100.
-
-Limit is a # of CPU cores (1000 for 1 core) available for a container. When a container exceeds this limit, it will be terminated (and automatically started again). Request defines how many CPU cores must be available on a server to start this container (used in clusters).
-
-### ports
-
-Expose ports for a container in the format `[PUBLIC_PORT::BUNDLE_PORT:CONTAINER_PORT]`. 
-
-Examples: 
-
-* Map container's port 8080 to 80 for other containers within a stack.
-```yml
-services:
-    backend:
-        image: example/backend
-        ports:
-            - "80:8080"
-``` 
-
-* Same as "8080:8080"
-```
-"8080"
-``` 
-
-* Map 8080 to a public port within the range 31222-32222.   
-```
-"auto::8080"
+```yaml
+memory: 128       # request 128 MB
+memory: 512:1024  # request 512 MB, limit 1024 MB
 ```
 
-* Map 8080 to a public port 80, `edge` is a reverse proxy handling 80 and 443 ports. A technical domain `*.wodby.cloud` will be generated for the first public port exposed via edge.
-```
-"edge::8080"
-```
+The limit cannot be lower than the request. A request reserves scheduling
+capacity; it is not a measurement of current use. Exceeding the memory limit
+can terminate the container with an out-of-memory error. Infrastructure 7 does
+not use swap.
 
-* Map 8080 to a public 32223. 
-```
-"32223::8080"
-```
-  
-* Map 8080 to 80 both public and within a stack.
-```
-"edge::80:8080"
-```
-    
-* Map 8080 to 80 within a stack, assign public port automatically.
-```
-"auto::80:8080"
+### CPU
+
+CPU values use millicores, where `1000` is one core. The minimum request is
+`100`:
+
+```yaml
+cpu: 1000      # request 1 core
+cpu: 650       # request 0.65 core
+cpu: 200:250   # request 0.2 core, limit 0.25 core
 ```
 
-* Map 8080 to 80 within a stack, assign a specific public port from range `31222-32222`
+The limit cannot be lower than the request. Kubernetes throttles a container
+that reaches its CPU limit; it does not terminate the container merely for
+using its full CPU allowance.
+
+### Ports
+
+Port entries use:
+
+```text
+[PUBLIC_PORT::][SERVICE_PORT:]CONTAINER_PORT[/tcp|udp]
 ```
-"32223::80:8080"
+
+TCP is used when the protocol is omitted.
+
+```yaml
+ports:
+  - "8080"               # service and container port 8080
+  - "80:8080"            # service port 80 to container port 8080
+  - "edge::80:8080"      # publish HTTP through Edge
+  - "auto::8080"         # allocate a stable node port
+  - "32223::80:8080"     # use an explicit unmanaged node port
+  - "32767::5353/udp"    # explicit UDP node port
 ```
 
-### check-ready
+`auto` allocates a port from Wodby's managed range, 31222–32222. An explicit
+node port must be in the separate unmanaged range, 32223–32767. Open the
+selected port in any external firewall. `edge` publishes the service through
+the Wodby edge proxy; the first Edge-published service receives a technical
+domain.
 
-| Name | Description | Mandatory | Schema | 
-| ---- | ----------- | --------- | ------ |
-| exec | Exec specifies the action to take. | ✓ | command - array of strings |
-| initial_delay_seconds | Number of seconds after the container has started before liveness probes are initiated. |  | int |
-| period_seconds | How often (in seconds) to perform the probe. Default to 10 seconds. Minimum value is 1. |  | int |
-| failure_threshold | Minimum consecutive failures for the probe to be considered failed after having succeeded. Defaults to 3. Minimum value is 1. | | int |
-| success_threshold | Minimum consecutive successes for the probe to be considered successful after having failed. Defaults to 1. Minimum value is 1.| | int |
-| timeout_seconds | Number of seconds after which the probe times out. Defaults to 1 second. Minimum value is 1. | | int |
+### Readiness and liveness checks
 
-### deployment
+Both `check_ready` and `check_alive` accept exactly one action: `exec` or
+`http`.
 
-| Name | Description | Mandatory | Schema | 
-| ---- | ----------- | --------- | ------ |
-| strategy | `rolling_update` or `recreate` (`rolling_update` by default). **Always use `recreate` strategy for stateful services like database and search engines.** |  | string |
-| replicas | Number of desired containers. This is a pointer to distinguish between explicit zero and not specified. Defaults to 1. |  | int |
-| min_ready_seconds | Minimum number of seconds for which a newly created service should be ready without any of its container crashing, for it to be considered available. Defaults to 0. |  | int |
-| progress_deadline_seconds | The maximum time in seconds for a deployment to make progress before it is considered to be failed, not set by default. | | int |
-| max_surge | The maximum number of containers that can be scheduled above the desired number of containers. Value must be an absolute number. Defaults to 1. | | int |
-| max_unavailable | The maximum number of containers that can be unavailable during the update. Value must be an absolute number. Defaults to 1. | | int |
-| type | If set to CI the service will be used for [CI deployments](../apps/deploy.md#cicd). CI services excluded from the initial deployment (replicas set to 0) until you deploy your first build to avoid deployment failures. |  | string |
+```yaml
+check_ready:
+  exec:
+    command: ["/bin/sh", "-c", "test -f /tmp/ready"]
+  initial_delay_seconds: 5
+  period_seconds: 10
+  timeout_seconds: 2
+  failure_threshold: 3
+  success_threshold: 1
+```
 
-### security_context
+For an HTTP probe:
 
-| Name | Description | Mandatory | Schema | 
-| ---- | ----------- | --------- | ------ |
-| privileged | Run container in privileged mode. Processes in privileged containers are essentially equivalent to root on the host. |  | boolean |
-| capabilities | The capabilities to add/drop when running containers. Defaults to the default set of capabilities granted by the container runtime. |  | array of strings |
-| read_only_root_filesystem | Whether this container has a read-only root filesystem. Default is false. |  | string |
-| run_as_non_root | Indicates that the container must run as a non-root user. If true, the Kubelet will validate the image at runtime to ensure that it does not run as UID 0 (root) and fail to start the container if it does. If unset or false, no such validation will be performed. |  | string |
-| run_as_user | The UID to run the entrypoint of the container process. Defaults to user specified in image metadata if unspecified. |  | int |
+```yaml
+check_alive:
+  http:
+    path: /health
+    port: 8080
+    scheme: HTTP
+    headers:
+      X-Health-Check: wodby
+  initial_delay_seconds: 10
+  period_seconds: 20
+```
 
-## Global Volumes
+HTTP `path` and `port` are required. `host`, `scheme`, and `headers` are
+optional. Probe timing fields use seconds; periods, thresholds, and timeouts
+must be positive, while the initial delay can be zero.
 
-You can define global volumes and use them in services under `volumes`. We recommend using `./` as a host path to mount volumes which is an equals `/srv/wodby/instances/<Instance UUID>`.
+### Deployment
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `strategy` | string | `rolling_update` (default) or `recreate`. |
+| `replicas` | integer | Desired replicas, including explicit zero; defaults to one. |
+| `min_ready_seconds` | integer | Time a new replica must remain ready before becoming available. |
+| `progress_deadline_seconds` | integer | Maximum time for a deployment to make progress. |
+| `max_surge` | integer | Replicas allowed above the desired count during a rolling update. |
+| `max_unavailable` | integer | Replicas allowed to be unavailable during a rolling update. |
+| `type` | string | `ci` for CI-built code or `git` for direct Git deployment. |
+
+Use `recreate` for stateful services such as databases and search engines.
+Rolling updates can run old and new replicas simultaneously and therefore
+require storage and application behavior designed for concurrent replicas.
+
+A service with `deployment.type: ci` starts with zero replicas until its first
+CI build is deployed. See [Code deployment](../apps/deploy.md#cicd).
+
+### Security context
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `privileged` | boolean | Gives the container host-equivalent privileges. Avoid unless required. |
+| `capabilities.add` | string array | Linux capabilities to add. |
+| `capabilities.drop` | string array | Linux capabilities to remove. |
+| `read_only_root_filesystem` | boolean | Mounts the container root filesystem read-only. |
+| `run_as_non_root` | boolean | Rejects an image that would run as UID 0. |
+| `run_as_user` | integer | UID used to run the container process. |
 
 Example:
 
-```yml
-services:
-    myapp:
-        image: example/myapp
-        ports:
-            - 'edge::80/tcp'
-        volumes:
-            - 'docroot:/var/www'
-            - 'db:/var/www'
+```yaml
+security_context:
+  run_as_non_root: true
+  run_as_user: 1000
+  read_only_root_filesystem: true
+  capabilities:
+    drop: ["ALL"]
+```
+
+## Volumes
+
+Define a host-path volume once and mount it into one or more services:
+
+```yaml
 volumes:
-    docroot:
-        path: ./docroot
-    db:
-        path: ./db
+  application-data:
+    path: ./data
+
+services:
+  application:
+    image: example/application:1
+    volumes:
+      - "application-data:/var/lib/application"
+      - "./configuration:/etc/application:ro"
 ```
 
-## Variable Substitution
+A relative host path is resolved beneath the instance data directory,
+`/srv/wodby/instances/INSTANCE_UUID`. The mount suffix `:ro` makes that service
+mount read-only.
 
-You can define variables and substitute them in services under `environment`. 
+Custom-template global volumes are currently materialized as host paths. Mount
+external storage such as NFS on the server first and reference its host path;
+do not rely on a template-level NFS driver.
 
-Example:
+Mounted host directories are commonly created as root. Make sure the image's
+runtime UID can read or write them as needed, preferably through an idempotent
+entrypoint permission check rather than running the main process as root.
 
-```yml
+## Variables and generated values
+
+Variables can be literal values or generated once when Wodby creates the stack
+revision:
+
+```yaml
+variables:
+  db_user: application
+  db_password: auto:password:64
+  application_key: auto:openssl_rand:32:base64
+  hex_key: auto:openssl_rand:32:hex
+```
+
+`auto:password:LENGTH` creates a password of the requested length.
+`auto:openssl_rand:LENGTH:ENCODING` creates random bytes encoded as `base64` or
+`hex`; the default length is 32 bytes and the default encoding is `base64`.
+
+Reference a variable with Mustache syntax:
+
+```yaml
 services:
-    backend:
-        image: example/backend
-        ports:
-            - 'edge::80/tcp'
-        environment:
-            username: '%user'
-            password: '%pass'
+  application:
+    image: example/application:1
+    environment:
+      DB_USER: "{{db_user}}"
+      DB_PASSWORD: "{{db_password}}"
+      APP_KEY: "base64:{{application_key}}"
+```
+
+The older `%db_password` form remains supported for compatibility, but new
+templates should use `{{db_password}}`. Write `%%` when a literal percent sign
+would otherwise be interpreted as a legacy variable token.
+
+Environment entries that still reference generated password material are
+protected by Wodby. See
+[Protected and generated values](config.md#protected-and-generated-values).
+
+## Complete example
+
+```yaml
+service_types:
+  database: Database
+  web: Web
 
 variables:
-    user: 'admin'
-    pass: 'auto:password:64'
-```
+  db_password: auto:password:64
 
-## Examples
+volumes:
+  database-data:
+    path: ./database
 
-```yml
 services:
-    db:
-        image: mysql
-        environment:
-            MYSQL_ROOT_PASSWORD: '%db_password'
-        volumes:
-            - './mysql:/var/lib/mysql'
-        deployment:
-            strategy: recreate            
-    php:
-        image: php
-        environment:
-            DB_USER: root
-            DB_PASSWORD: '%db_password'
-        memory: '512:1024'
-        cpu: '900'
-        deployment:
-            type: ci      
-        security_context: 
-            capabilities:
-                add:    
-                    - SYS_PTRACE
-                drop:
-                    - SYS_ADMIN
-    nginx:
-        image: nginx
-        ports:
-            - "edge::80:80"
-variables:
-    db_password: 'auto:password:64'
+  database:
+    title: Database
+    type: database
+    image: mariadb:11
+    required: true
+    environment:
+      MARIADB_ROOT_PASSWORD: "{{db_password}}"
+    volumes:
+      - "database-data:/var/lib/mysql"
+    deployment:
+      strategy: recreate
+    check_ready:
+      exec:
+        command: ["healthcheck.sh", "--connect"]
+
+  web:
+    title: Web
+    type: web
+    image: example/web:1
+    ports:
+      - "edge::80:8080"
+    environment:
+      DB_PASSWORD: "{{db_password}}"
+    memory: "256:512"
+    cpu: "200:500"
+    deployment:
+      strategy: rolling_update
+      replicas: 1
 ```
-
-## Permissions
-
-If you mount volumes from the server, the owner of the mounted directory in a container will be root (UID 0). This may cause issues because very often main process run from a different user. To avoid potential problems make sure you're either fixing volumes permissions in your container entrypoint script (recommended) or run the main process as root.  
