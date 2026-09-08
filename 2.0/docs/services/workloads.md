@@ -207,6 +207,8 @@ See also: [Service build](build.md).
 
 `workloads[].helm` supports:
 
+- `replicas`
+- `managedReplicas`
 - `labels`
 - `annotations`
 - `volumes`
@@ -217,6 +219,33 @@ See also: [Service build](build.md).
 - `shutdownGracePeriod`
 
 These are Helm value paths used when Wodby injects workload-scoped data.
+
+Use `replicas` to map the app service's effective replica count to a value path for this workload. This is useful for a
+multi-workload chart whose Deployments or StatefulSets have independent replica values:
+
+```yaml
+workloads:
+- name: web
+  kind: deployment
+  primary: true
+  helm:
+    replicas: web.replicas
+
+- name: worker
+  kind: deployment
+  helm:
+    replicas: worker.replicas
+```
+
+Wodby writes the same effective app-service replica count to every mapped path, including `0` while the app service is
+disabled or its app environment is paused. Import validation verifies each mapped workload at the supported replica
+counts. A workload can omit this mapping when its replica count intentionally remains controlled by the chart.
+
+Use `managedReplicas: true` only when the chart cannot expose an ordinary replica value without also creating its own
+HorizontalPodAutoscaler. Wodby then writes `spec.replicas` directly to the rendered Deployment or StatefulSet and
+removes only the chart HPA that targets that workload. Any unrelated chart HPA still fails import validation.
+
+`managedReplicas` cannot be combined with `replicas` on the same workload and is not supported for DaemonSets.
 
 The four deployment paths are required for charts with multiple workloads when the corresponding setting needs to be
 passed to Helm. Service-level deployment mapping defaults apply only to single-workload services. See
