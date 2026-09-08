@@ -92,9 +92,9 @@ Choose `Wodby CI` or `Wodby US Docker Registry` to use the corresponding built-i
 
 ### Build image retention
 
-In the **Builds settings** card, use **Auto-void images of unused builds for all apps older than** to set the default
-retention period for app environments. Choose **Never**, **1 month**, **3 months**, **6 months**, or **1 year**. The
-default is **Never**, which disables automatic cleanup.
+In the **Wodby container registry settings** card, use **Auto-void images of unused builds for all apps older than** to
+set the default retention period for app environments. Choose **Never**, **1 month**, **3 months**, **6 months**, or
+**1 year**. The default is **Never**, which disables automatic cleanup.
 
 Saving a different organization value updates existing app environments only when their current retention period
 matches the organization's previous value. An app environment with another value is treated as an override and remains
