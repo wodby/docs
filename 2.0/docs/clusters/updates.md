@@ -171,4 +171,50 @@ For [managed Kubernetes](managed.md) clusters, the simplest way to refresh worke
 
 ## Kubernetes version updates
 
-Coming soon...
+Kubernetes version updates are separate from Wodby infrastructure version and infrastructure app updates. Wodby reads
+the current cluster state and asks the provider for direct upgrade targets each time you open the upgrade operation.
+The plan is cluster-specific rather than a generic list of Kubernetes releases.
+
+Wodby supports this workflow for:
+
+- Amazon EKS
+- Azure AKS
+- Google GKE Standard clusters
+- DigitalOcean Kubernetes
+- OVH Managed Kubernetes
+- self-hosted K3S clusters
+
+GKE Autopilot and other serverless clusters do not use this workflow. Kubernetes versions for Wodby Cloud clusters are
+managed by Wodby and cannot be changed manually.
+
+### Upgrade policy
+
+Wodby filters the provider's direct targets to keep upgrades incremental and recoverable:
+
+- If a newer patch is available in the current Kubernetes minor, only the newest available patch is offered first.
+- After the current minor is patched, you can move to the immediately following minor version.
+- Skipping a minor or changing the Kubernetes major version is not offered as a direct upgrade.
+- Preview Kubernetes versions are excluded.
+
+The plan shows provider warnings and blockers before an upgrade starts. An upgrade is blocked when the cluster is not
+in `OK` status, when the provider integration is unavailable, or when the version reported by the provider does not
+match the version observed through the Kubernetes API. Resolve the reported condition and load the plan again.
+
+### Run an upgrade
+
+Open `Clusters`, select the cluster, and go to `Infrastructure > Operations`. Review the Kubernetes version operation,
+select one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window:
+the provider can rotate control-plane components and worker nodes, and the Kubernetes API can be temporarily
+unavailable.
+
+The upgrade runs as a task and puts the cluster into `Upgrading` status. Wodby:
+
+1. Records the source and target versions in the task.
+2. Starts or resumes the provider upgrade.
+3. Waits for the provider operation to complete.
+4. Verifies that the Kubernetes API reports the target and that every node is `Ready`.
+5. Records the observed version and returns the cluster to normal operation.
+
+Open the task to follow progress and review provider details. If an upgrade fails after the provider has applied it to
+the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes
+the remaining stages instead of trying to start an unrelated transition.

@@ -9,8 +9,11 @@ Deployments use automatic rollback by default. Rollback is best-effort and appli
 
 Every deployment is associated with a specific stack revision of the app environment.
 
-Deployments require complete configuration for all enabled app services in the app environment. Wodby blocks deployment
-when a service is missing a required build source, external database, integration, linked setting, or required setting.
+When a deployment starts, Wodby checks app-service configuration and writes relevant issues to the deployment task as
+warnings instead of rejecting the deployment. A full deployment reports issues from all enabled services. A partial
+deployment reports issues for its selected services, together with any environment-wide issues. Review these warnings:
+the deployment continues, but an affected workload may not operate correctly until its required build source, external
+database, integration, linked setting, or other required setting is configured.
 
 Deployments are usually triggered in the following ways:
 

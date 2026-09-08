@@ -12,4 +12,9 @@ Clusters created with `Single-node cluster` are not highly available. They have 
 
 ## Multi-regional deployment
 
-Coming soon...
+A Wodby app environment runs on one Kubernetes cluster. Wodby does not currently orchestrate one app environment across
+multiple regions.
+
+For a multi-region architecture, use separate app environments on clusters in the required regions and design the
+application's data replication, traffic failover, and consistency model explicitly. Wodby does not automatically
+synchronize application data or switch external traffic between those environments.

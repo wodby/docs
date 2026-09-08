@@ -41,9 +41,13 @@ pod or switch back to **All replicas** to continue following the workload throug
 
 Logs for deployments, builds, cron jobs, and actions are available in the related tasks.
 
-### Persistent storage
+### Persistent log storage
 
-Coming soon...
+Wodby streams container logs but does not retain them as searchable historical application logs. Use a logging service
+or cluster-level log collector when you need long-term retention, search, or alerting for container output.
+
+Task-step logs are stored separately and remain available from the related deployment, build, cron, action, or other
+task. Task logs are an operation history; they are not a persistent copy of the application's container logs.
 
 ## Metrics
 

@@ -153,7 +153,8 @@ boilerplate is marked as default, the first boilerplate is used. If the default 
 records a warning and asks you to select the build source after the upgrade.
 
 When a stack upgrade leaves unresolved service configuration, Wodby skips the automatic post-upgrade deployment.
-Deployments are blocked until the app environment reports complete service configuration.
+Finish the reported configuration before deploying when possible. If you start a deployment before resolving the
+issues, Wodby allows it to proceed and records the relevant issues as warnings in the deployment task.
 
 ### Update versions to default
 

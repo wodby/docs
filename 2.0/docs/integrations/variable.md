@@ -34,19 +34,31 @@ Variable integrations are typically attached to:
 ### Multi-type providers
 
 - [Amazon Web Services variables](../providers/aws.md#variables)
+- [Brevo API](../providers/brevo.md#api-variable)
+- [Cloudflare API](../providers/cloudflare.md#api)
 - [Cloudflare Turnstile](../providers/cloudflare.md#turnstile)
+- [Mailgun API](../providers/mailgun.md#api-variable)
+- [Postmark](../providers/postmark.md#setup-field)
+- [Resend](../providers/resend.md#setup-field)
+- [SendGrid](../providers/sendgrid.md#setup-field)
 
 ### Variable-only built-in providers
 
 - [Algolia](../providers/algolia.md)
 - [Anthropic](../providers/anthropic.md)
 - [Auth0](../providers/auth0.md)
+- [Datadog](../providers/datadog.md)
 - [Discord](../providers/discord.md)
 - [Gemini](../providers/gemini.md)
+- [Google Analytics](../providers/google-analytics.md)
+- [Google Tag Manager](../providers/google-tag-manager.md)
 - [Intercom](../providers/intercom.md)
+- [LaunchDarkly](../providers/launchdarkly.md)
 - [Mailchimp](../providers/mailchimp.md)
 - [New Relic](../providers/newrelic.md)
 - [OpenAI](../providers/openai.md)
+- [PagerDuty](../providers/pagerduty.md)
+- [PostHog](../providers/posthog.md)
 - [Pusher](../providers/pusher.md)
 - [Sentry](../providers/sentry.md)
 - [Slack](../providers/slack.md)
