@@ -75,6 +75,7 @@ See [Billing](pricing.md) for the current plan model and Wodby Cloud billing not
 - the default time zone
 - the default CI provider
 - the default container registry
+- the default build-image retention period
 - organization-wide termination protection
 
 The CI and registry selectors include Wodby's built-in services and available organization-owned integrations of the
@@ -88,6 +89,19 @@ of Default CI. The selections are retained when an app environment has no enable
 a buildable service to be enabled or added later without changing the intended providers.
 
 Choose `Wodby CI` or `Wodby US Docker Registry` to use the corresponding built-in service as the organization default.
+
+### Build image retention
+
+In the **Builds settings** card, use **Auto-void images of unused builds for all apps older than** to set the default
+retention period for app environments. Choose **Never**, **1 month**, **3 months**, **6 months**, or **1 year**. The
+default is **Never**, which disables automatic cleanup.
+
+Saving a different organization value updates existing app environments only when their current retention period
+matches the organization's previous value. An app environment with another value is treated as an override and remains
+unchanged. New app environments inherit the organization's current value.
+
+To set an override for one app environment, open `CI/CD > Builds > Settings` in that environment. See
+[Application Builds](apps/builds.md) for cleanup timing, image eligibility, deployment safeguards, and registry scope.
 
 ### Termination protection
 
