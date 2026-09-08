@@ -20,11 +20,11 @@ Wodby creates one repository per app environment, using this pattern:
 ## Build image retention
 
 Build images associated with an existing app environment remain available for reuse and rollback by default. To limit
-their retention, open `CI/CD > Builds > Settings` in the app environment and configure **Automatically delete build
-images after**.
+their retention, open `CI/CD > Builds > Settings` in the app environment and configure **Auto-void images of unused
+builds older than**.
 
 Automatic build-image cleanup applies only to Wodby Registry. It never removes an image that is used by the current
-runtime or referenced by an unfinished deployment. See [Application Builds](../apps/builds.md#automatically-delete-old-build-images)
+runtime or referenced by an unfinished deployment. See [Application Builds](../apps/builds.md#automatically-void-old-build-images)
 for the available periods, cleanup timing, and deployment safeguards.
 
 ## Auth
