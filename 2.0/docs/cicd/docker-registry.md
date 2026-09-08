@@ -1,4 +1,4 @@
-# Docker Registry
+# Container Registry
 
 `wodby ci init` requests registry credentials for the current build and logs Docker in to the registry associated with your application.
 

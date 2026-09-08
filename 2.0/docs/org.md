@@ -88,7 +88,7 @@ does not change existing app environments or historical builds. Public and clone
 of Default CI. The selections are retained when an app environment has no enabled service with build configuration, allowing
 a buildable service to be enabled or added later without changing the intended providers.
 
-Choose `Wodby CI` or `Wodby US Docker Registry` to use the corresponding built-in service as the organization default.
+Choose `Wodby CI` or `Wodby Container Registry (US)` to use the corresponding built-in service as the organization default.
 
 ### Build image retention
 
