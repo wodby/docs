@@ -2126,7 +2126,7 @@ Do not add trailing slashes for non-directory requests
 
 * PHP updated to 7.1.9, 7.0.23
 * PHPUnit updated to 6.3
-* New service Blackfire agent for profiling via blackfire.io, see [usage instructions](containers.md#blackfire)
+* New Blackfire agent service for profiling via blackfire.io
 * Environment varibles now cleared in PHP-FPM by default except for `WODBY_APP_NAME`, `WODBY_ENVIRONMENT_TYPE`,
   `WODBY_ENVIRONMENT_NAME`. You can disable it by adding environment variable `PHP_FPM_CLEAR_ENV` with
   `no` value to Drupal (PHP) container

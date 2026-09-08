@@ -14,7 +14,7 @@ If the latest version of stack does not yet have the latest version please conta
 
 Wodby's availability does not directly affect availability of your server(s) or applications. Although if Wodby becomes unavailable some tasks such as auto deployment won't be processed and auto backups will be postponed.
 
-You can always track our current status at http://status.wodby.com/
+You can always track our current status at [status.wodby.com](https://status.wodby.com/).
 
 ## Does Wodby move applications data outside my region?
 
@@ -73,7 +73,9 @@ If you have many low-traffic applications we recommend consider the following:
 
 ## How can I delete my account?
 
-You can delete your account from `Account > delete` page
+Open `Account > Delete` and enter your current password. Account deletion can
+be blocked by ownership and billing responsibilities; see
+[Delete your account](organizations.md#delete-your-account) before starting.
 
 ## How do I enable two-factor authentication?
 

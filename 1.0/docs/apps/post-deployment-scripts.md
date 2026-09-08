@@ -181,11 +181,16 @@ The files specified in pipeline configuration file need to have two blocks **nam
 
 ## Initializing git submodules
 
+For SSH submodules, obtain the host keys from the Git provider through a
+trusted channel, verify their fingerprints, and save the complete verified
+`known_hosts` lines in a protected `GIT_KNOWN_HOSTS` environment variable. Do
+not disable strict host-key checking.
+
 ```yaml
 pipeline:
-  - name: Ignore SSH host key check for github and bitbucket
+  - name: Configure verified SSH host keys
     type: command
-    command: 'printf "Host bitbucket.org github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config'
+    command: 'install -m 700 -d ~/.ssh && printf "%s\n" "$GIT_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts'
 
   - name: Git sub-modules setup
     type: command

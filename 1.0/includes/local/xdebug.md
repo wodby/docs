@@ -19,7 +19,7 @@ Make sure you have `PHP_EXTENSIONS_DISABLE` env var overridden in your compose f
     ```yml
     PHP_IDE_CONFIG: serverName=my-ide
     ```
-3. [Configure your IDE](#ide-configuration-to-debug-cli-requests)
+3. [Configure your IDE](#ide-configuration)
 4. Restart containers (`make`)
 
 Also, you might need to [update your hosts](https://github.com/wodby/docker4drupal/issues/193) file.

@@ -4,15 +4,31 @@
     Every application deployed via Wodby has at least one instance. In other words, when we say app what we really mean is [application instance](instances.md). 
 
 ## What is instance?
-ℹ️ This update requires server infrastructure at least 5.9.0
+
 Application instance is a single isolated environment of your application (dev, staging, prod, feature, etc). Every app can have an unlimited number of instances but at least one. By default we deploy development (or just dev) instance of your application. But you can deploy as many instances as you want. You can also deploy instances of the same applications across different servers/clusters.
 
 ![](../assets/instances.png)
 
 You can remove or add a new instance from the `Instances` page. To get there navigate to the instance page and click on a cogwheel in the header.
 
-!!! warning "Instances' data"
-    As for infrastructure 5.x when you delete an instance we do not delete its backups and files. See [this article](../infrastructure/disk.md#freeing-disk-space) to learn how to clean them up.
+## Deleting an instance
+
+Deleting an instance removes its Wodby control-plane record, domains, ports,
+properties, task history, stack assignment, and CI build records. Managed image
+tags for its CI builds are scheduled for deletion from Wodby's registry. The
+runtime workloads are undeployed and their namespace/state is cleared from the
+connected server.
+
+Persistent application and backup files can remain physically present on a
+single-server host even after their Wodby records are removed. This protects
+data from being silently destroyed, but it also means deleting an instance does
+not necessarily reclaim all server disk space. See
+[Application and backup data](../infrastructure/disk.md#application-and-backup-data)
+before removing retained data or decommissioning the server.
+
+!!! warning "Deleting the last instance"
+    Every application must have an instance. Deleting its last instance also
+    deletes the application and its application-level configuration.
     
 ## Instance type
 
