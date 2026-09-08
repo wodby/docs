@@ -124,7 +124,7 @@ plugins:
         'integrations/brevo.md': 'providers/brevo.md'
         'integrations/circleci.md': 'providers/circleci.md'
         'integrations/cloudflare.md': 'providers/cloudflare.md'
-        'integrations/datadog.md': 'providers/variable.md'
+        'integrations/datadog.md': 'providers/datadog.md'
         'integrations/digitalocean.md': 'providers/digitalocean.md'
         'integrations/discord.md': 'providers/discord.md'
         'integrations/distribution.md': 'providers/distribution.md'
@@ -349,13 +349,19 @@ nav:
           - Auth0: providers/auth0.md
           - Brevo: providers/brevo.md
           - Cloudflare: providers/cloudflare.md
+          - Datadog: providers/datadog.md
           - Discord: providers/discord.md
           - Gemini: providers/gemini.md
+          - Google Analytics: providers/google-analytics.md
+          - Google Tag Manager: providers/google-tag-manager.md
           - Intercom: providers/intercom.md
+          - LaunchDarkly: providers/launchdarkly.md
           - Mailchimp: providers/mailchimp.md
           - Mailgun: providers/mailgun.md
           - New Relic: providers/newrelic.md
           - OpenAI: providers/openai.md
+          - PagerDuty: providers/pagerduty.md
+          - PostHog: providers/posthog.md
           - Postmark: providers/postmark.md
           - Pusher: providers/pusher.md
           - Resend: providers/resend.md

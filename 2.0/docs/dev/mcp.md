@@ -323,14 +323,19 @@ Add a staging app environment to app example. Use the app's current stack by def
 Create a Wodby Cloud cluster for organization acme. Ask whether it should be demo or persistent before using confirm=true.
 ```
 
-### Service and stack manifest examples
+### Service, provider, and stack manifest examples
 
-Wodby MCP can help an assistant draft, validate, and create custom Wodby services and stacks from manifests. Ask the
-assistant to fetch the Wodby schema and examples first, validate the generated manifest, and show you the result before
-creating it. Creation requires `confirm: true`.
+Wodby MCP can help an assistant draft and validate custom Wodby service, provider, and stack manifests. It can also
+create services and stacks from validated manifests. Ask the assistant to fetch the relevant Wodby schema first,
+validate the generated manifest, and show you the result before creating or importing it. Service and stack creation
+requires `confirm: true`.
 
 ```text
 Generate a Wodby service manifest for this Helm chart URL, validate it with Wodby, and show the manifest before creating it in org 123.
+```
+
+```text
+Generate a custom variable-provider manifest for an application that needs BILLING_API_TOKEN, validate it with Wodby, and show me the result.
 ```
 
 ```text
@@ -402,6 +407,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_service_schema` | Get the Wodby service manifest JSON schema. |
 | `get_service_examples` | Get concise Wodby service manifest examples. |
 | `validate_service_manifest` | Validate a Wodby service manifest without creating it. |
+| `get_provider_schema` | Get the Wodby custom provider manifest JSON schema. |
+| `validate_provider_manifest` | Validate a Wodby custom provider manifest without creating it. |
 | `list_public_stacks` | List public stack catalog items. |
 | `list_stacks` | List stacks in an organization. |
 | `get_stack` | Get a stack by name and optional revision number. |
@@ -441,6 +448,7 @@ configuration changes.
 | `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
 | `update_database` | Update a database title. |
 | `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
+| `update_service_from_manifest` | Update an existing non-Git service from a Wodby service manifest. Requires `confirm: true`. |
 | `update_service_from_git` | Update a service from its Git source. Requires `confirm: true`. |
 | `update_stack_from_git` | Update a stack from its Git source. Requires `confirm: true`. |
 
@@ -486,6 +494,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `update_app_instance_settings` | Update app environment settings such as automatic stack upgrades. |
 | `update_stack_service` | Update selected stack-service settings. |
 | `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
+| `reconcile_app_instance_stack` | Reapply an app environment's assigned stack revision, optionally replace existing choices with stack defaults, and rebuild or redeploy all resulting services. |
 | `upgrade_app_instance_stack` | Upgrade selected app environment stack sections. |
 | `upgrade_cluster_infra` | Upgrade cluster infrastructure. |
 | `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |

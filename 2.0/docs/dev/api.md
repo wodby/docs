@@ -31,40 +31,21 @@ Authenticate public API requests with an [API key](api-keys.md) sent in the `X-A
 
 ## Covered resources
 
-The current REST API covers a focused subset of resources. At the time of writing, the backend exposes endpoints for:
+The public REST API includes:
 
-- organizations
-- projects
-- apps
-- app environments
-- app deployments
-- app builds
-- clusters
-- databases
-- integrations
-- backups
-- app routes
+- users, organizations, memberships, projects, and environment definitions
+- apps, app environments, app services, authentication, ports, routes, certificates, builds, and deployments
+- clusters and databases
+- integrations, integration kinds, providers, Git repositories, and Helm chart analysis
+- service and stack catalogs, including stack services
+- backups, imports, tasks, and task-step logs
 
-## App environment migration
+Use the [API reference](https://wodby.com/docs/2.0/api/) as the source of truth for the current endpoints and schemas.
 
-`App environment` is the canonical name for the resource previously called an `app instance`. New integrations should
-use the following contracts:
+## App environment terminology
 
-| Canonical contract | Deprecated compatibility contract |
-| --- | --- |
-| REST `/v1/app-environments` | REST `/v1/app-instances` |
-| GraphQL `AppEnvironment` | GraphQL `AppInstance` |
-| `appEnvironment`, `appEnvironmentByName`, `appEnvironments` | `appInstance`, `appInstanceByName`, `appInstances` |
-| `newAppEnvironment` and `NewAppEnvironmentInput` | `newAppInstance` and `NewAppInstanceInput` |
-| `newApplication` and `NewApplicationInput` | `newApp` and `NewAppInput` |
-
-Environment classifications are now sent as the fixed `EnvType` enum instead of organization-level environment IDs.
-Use `environmentType`, `envType`, `primaryEnvType`, and `allowedEnvTypes` on the corresponding resources and policy
-inputs. Legacy environment-ID fields remain available during the compatibility period, but a request must not send
-both the legacy ID field and its type-based replacement.
-
-The app environment status enum and existing task and event identifiers retain their current wire values during this
-migration. Clients should treat those identifiers as compatibility details rather than user-facing terminology.
+`App environment` is the canonical public name for the resource previously called an `app instance`. Public REST
+clients should use `/v1/app-environments`; the public API does not expose a `/v1/app-instances` compatibility route.
 
 Example:
 
@@ -76,7 +57,9 @@ curl -sS \
   "https://api.wodby.com/v1/orgs"
 ```
 
-REST errors are returned as regular JSON responses with an HTTP status code and a `message` field.
+REST errors use `application/problem+json` and an RFC 9457-style problem-details body. Responses include `type`,
+`title`, `status`, `detail`, a stable Wodby `code`, and a backward-compatible `message` alias that matches `detail`.
+Validation failures can also include an `errors` array with field-specific details.
 
 ## Limits
 
@@ -86,14 +69,8 @@ Wodby applies request limits to keep the API stable for all users. Current limit
 | --- | --- |
 | REST request body | `10 MB` |
 | REST rate limit | `120` requests per second per IP, with a burst of `240` |
-| GraphQL page size | Maximum `100` items per page |
-| GraphQL parser size | Maximum `15000` parser tokens |
-| GraphQL depth | Maximum depth `12` |
-| GraphQL complexity | Maximum complexity `1000` |
 
 Requests that exceed body-size limits can return `413 Request Entity Too Large`. Requests that exceed rate limits can return `429 Too Many Requests`.
-
-GraphQL clients should paginate large result sets instead of requesting page sizes above `100`. GraphQL validation errors are returned as GraphQL errors. Some authentication-related GraphQL operations have additional abuse-protection throttling and can return a `RATE_LIMITED` error code.
 
 ## Practical use
 
