@@ -242,15 +242,16 @@ To override the organization default for one app instance, open
 settings offer periods of 1 month, 3 months, 6 months, and 1 year. The initial
 default is **Never**.
 
-The retention period starts when Wodby first observes that a build is no longer
-used by any instance. It does not start from the build's original creation or
-deployment date. Cleanup runs in the background, so an eligible image may
-remain for a short time after its retention period ends.
+Retention is measured from the build's original creation date. When retention
+is enabled or shortened, existing unused builds that are already older than the
+selected period become eligible immediately. Cleanup runs in the background,
+so an eligible image may remain for a short time after reaching that age.
 
 Wodby never automatically cleans images that are referenced by any instance's
 current build. If a previous build becomes current again before cleanup, its
-retention timer is cleared. Disabling automatic cleanup also clears the timers,
-so enabling it again starts a full new retention period.
+images remain protected regardless of the build's age. Selecting **Never**
+disables automatic cleanup; enabling it again evaluates unused builds from
+their original creation dates.
 
 Cleanup removes managed image tags from Wodby's registry but preserves the
 build history. A historical build whose required images have been removed
