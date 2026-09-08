@@ -227,10 +227,20 @@ wodby ci deploy -t my-private-docker-hub/repository
 #### Automatically clean unused build images
 
 CI build images remain in the registry after a newer build is deployed so you
-can [deploy a previous build](#deploy-a-previous-build). To limit how long
-unused images are retained, open `Instance > Builds > Settings` and configure
-**Auto-clean images**. Available periods are
-1 month, 3 months, 6 months, and 1 year. The default is **Never**.
+can [deploy a previous build](#deploy-a-previous-build).
+
+To set the retention period for an organization, open
+`Organization > Settings > Builds` and configure **Auto-void images of unused
+builds for all apps older than**. When you save a new organization default,
+Wodby updates existing app instances only when their current setting matches
+the organization's previous default. Instance settings with a different value
+are treated as overrides and remain unchanged. New app instances inherit the
+current organization default.
+
+To override the organization default for one app instance, open
+`Instance > Builds > Settings` and configure **Auto-clean images**. Both
+settings offer periods of 1 month, 3 months, 6 months, and 1 year. The initial
+default is **Never**.
 
 The retention period starts when Wodby first observes that a build is no longer
 used by any instance. It does not start from the build's original creation or
