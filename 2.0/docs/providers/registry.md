@@ -30,5 +30,5 @@ Registry provider integrations are used for:
 
 - [Integration types](../integrations/types.md)
 - [Providers overview](index.md)
-- [Docker Registry in CI/CD](../cicd/docker-registry.md)
+- [Container Registry in CI/CD](../cicd/docker-registry.md)
 - [Wodby Registry](../cicd/wodby-registry.md)
