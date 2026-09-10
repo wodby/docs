@@ -79,6 +79,18 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.10
+
+- ⬆️ Nginx 1.31.5
+- ⬆️ Updated the gotpl template renderer in the Nginx image
+- ⬆️ MariaDB 10.11.19, 10.6.28
+- 📜 MariaDB initialization accepts common archives containing one SQL payload, ignores macOS metadata, and reports unsupported files clearly
+- 🐞 Fixed quoting of semicolon-delimited table exclusions in database backups
+- ⬆️ Redis 7.4.11
+- ⬆️ Updated the gotpl template renderer in the MariaDB and OpenSMTPD images
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
+
 ### 1.4.9
 
 Matomo 5.12.0

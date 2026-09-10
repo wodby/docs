@@ -40,6 +40,15 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+### 3.3.4
+
+- ⬆️ MariaDB 11.8.9, 11.4.13, 10.11.19, 10.6.28
+- 📜 MariaDB initialization accepts common archives containing one SQL payload, ignores macOS metadata, and reports unsupported files clearly
+- 🐞 Fixed quoting of semicolon-delimited table exclusions in database backups
+- ⬆️ Updated the gotpl template renderer in the MariaDB image
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
+
 ### 3.3.3
 
 ⬆️ MariaDB 11.8.8, 11.4.12, 10.11.18, 10.6.27

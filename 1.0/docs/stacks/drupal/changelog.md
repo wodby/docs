@@ -7,6 +7,27 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.10
+
+Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.2](#572-drupal-6).
+
+- ⬆️ Vanilla Drupal 11.4.6, 10.6.16
+- PHP:
+    - ⬆️ PHP 8.5.10, 8.4.25
+    - ⬆️ Extensions: Brotli 0.21.0, gRPC 1.83.1, MongoDB 2.5.2, Protobuf 5.36.1, and SQLSRV/PDO_SQLSRV 5.13.3 for PHP 8.3 and newer; PHP 8.2 keeps SQL Server driver 5.12.0
+    - 📜 Interactive shell prompts now use the container runtime hostname
+- ⬆️ Nginx 1.31.5
+- Adminer:
+    - ⬆️ Upgraded to Adminer 6.0.2, including the security fixes introduced in 6.0.0
+    - 🐞 Improved errors for unavailable plugins and corrected the multi-plugin example ([#12](https://github.com/wodby/adminer/issues/12))
+- MariaDB:
+    - ⬆️ MariaDB 11.8.9, 11.4.13, 10.11.19, 10.6.28
+    - 📜 Initialization accepts common archives containing one SQL payload, ignores macOS metadata, and reports unsupported files clearly
+    - 🐞 Fixed quoting of semicolon-delimited table exclusions in database backups
+- ⬆️ Redis 8.4.6, 8.2.9, 7.4.11
+- ⬆️ Updated the gotpl template renderer in the MariaDB, Nginx, OpenSMTPD, and Varnish images
+- ⬆️ Webgrind and XHProf rebuilt with PHP fixes and extension updates
+
 ## 6.2.9
 
 - ⬆️ Vanilla Drupal 10.6.14
@@ -636,6 +657,14 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - ⬆️ Apache 2.4.55
 - ⬆️ Redis 7.0.8, 6.2.10
 - 🏔 Alpine updated to 3.17 for MariaDB (10.5-10.9), OpenSMTPD and Nginx
+
+## 5.7.2 (Drupal 6)
+
+- ⬆️ Nginx 1.31.5
+- ⬆️ Updated the gotpl template renderer in the Nginx image
+- ⬆️ Refreshed the Apache 2.4 service image
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
 
 ## 5.7.1
 
