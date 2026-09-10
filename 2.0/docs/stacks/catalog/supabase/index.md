@@ -22,14 +22,13 @@ and optional custom endpoint settings before connecting it. Existing filesystem 
 
 ## Backup, restore and copies
 
-Establish a coordinated recovery point with application writers stopped. Preserve database dumps, database encryption
-material, all database/application source tokens, and the corresponding stored objects. The filesystem backup does
-not include objects stored in an external S3 bucket.
+The PostgreSQL service uses `wodby/supabase-postgres`. Its database backup includes non-template database dumps, roles and the pgsodium root encryption key in one checksummed archive. Database files and the key share one persistent volume.
 
-Restore into a fresh environment running the same supported bundle, following the database service's restore guide.
-Restore matching source tokens and objects before restarting the services. Copies retain token values; rotate
-client-facing credentials deliberately when the copy needs separate access, while preserving encryption keys needed
-to read copied data.
+Use the service's **Supabase database import** operation with a `.tar.gz` or `.tgz` backup from the same supported bundle. Import restores into a fresh replacement volume and finishes before PostgreSQL accepts connections. Invalid bundles and imports into a running database are rejected. Supabase-owned database passwords follow the target environment's database token; custom role passwords are preserved.
+
+Establish a coordinated recovery point with application writers stopped. Preserve database backups, matching application signing/encryption tokens and the corresponding stored objects. The filesystem backup does not include objects stored in an external S3 bucket. Database import does not restore application tokens or stored objects.
+
+Restore the corresponding objects and application tokens before resuming application writers. Copies retain token values; rotate client-facing credentials deliberately when the copy needs separate access, while preserving encryption tokens needed to read copied data.
 
 ## Upgrades and limitations
 
