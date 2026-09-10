@@ -260,6 +260,7 @@ nav:
               - Connect to Solr: stacks/catalog/drupal/solr.md
           - WordPress: stacks/catalog/wordpress/index.md
           - Matomo: stacks/catalog/matomo/index.md
+          - Supabase: stacks/catalog/supabase/index.md
           - Gotenberg: stacks/catalog/gotenberg/index.md
           - Solr: stacks/catalog/solr/index.md
           - OpenSMTPD: stacks/catalog/opensmtpd/index.md
