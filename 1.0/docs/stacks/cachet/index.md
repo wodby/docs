@@ -30,6 +30,13 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.1.1
+
+- ⬆️ Nginx 1.31.5
+- ⬆️ Updated the gotpl template renderer in the Nginx image
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
+
 ### 3.1.0
 
 - ℹ️ This update requires server infrastructure at least 5.9.0

@@ -9,6 +9,8 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 6.2.10
 
+Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.2](#572-drupal-6).
+
 - ⬆️ Vanilla Drupal 11.4.6, 10.6.16
 - PHP:
     - ⬆️ PHP 8.5.10, 8.4.25
@@ -655,6 +657,14 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - ⬆️ Apache 2.4.55
 - ⬆️ Redis 7.0.8, 6.2.10
 - 🏔 Alpine updated to 3.17 for MariaDB (10.5-10.9), OpenSMTPD and Nginx
+
+## 5.7.2 (Drupal 6)
+
+- ⬆️ Nginx 1.31.5
+- ⬆️ Updated the gotpl template renderer in the Nginx image
+- ⬆️ Refreshed the Apache 2.4 service image
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
 
 ## 5.7.1
 
