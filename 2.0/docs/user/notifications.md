@@ -62,8 +62,16 @@ uses **Certificate renewal failed**; later failures use **Certificate renewal st
 
 Retry delays increase with consecutive failures: **1 day, 2 days, 3 days, 4 days, 5 days, 6 days, then 7 days** between
 attempts. Further retries stay seven days apart. A small offset spreads attempts across certificates, and a longer
-certificate-authority retry delay takes precedence. This progression also applies near or after expiry. Successful
-renewal resets the failure history.
+certificate-authority retry delay takes precedence. Successful renewal resets the failure history.
+
+If a certificate expires before the next retry, Wodby schedules one additional renewal attempt at expiry, or when the
+app and cluster next become eligible. A later retry time required by the certificate authority still takes precedence.
+After this attempt, the ordinary backoff resumes.
+
+If the certificate is already expired when a failure email is prepared, its subject says
+**Certificate expired; renewal failed**. The Cloudflare action suffix remains when that attempt confirmed a browser
+challenge. Emails covering both expired and valid certificates explicitly identify that the batch includes expired
+certificates.
 
 Failure task logs and emails include the next scheduled retry time. The relative delay is measured when the message
 is generated; it is not a countdown that updates in your inbox. Correct external validation problems before expiry,
