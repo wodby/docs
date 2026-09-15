@@ -37,9 +37,18 @@ Examples include:
 ## Scheduled cron and backup notifications
 
 The `Cron job failures and recoveries` and `Backup failures and recoveries` settings control both failure and recovery
-emails for scheduled automation. Wodby emails organization admins when a schedule's latest conclusive result first
-changes to failed. Repeated failures are suppressed while that schedule remains in the failed state. The first later
-conclusive success sends a recovery email.
+emails for scheduled automation:
+
+- **Cron jobs:** Wodby emails organization admins on the first failure, then at most once every 24 hours when further
+  runs fail. Repeated-failure emails use **Scheduled cron job still failing**. A new failure after a successful run
+  sends an immediate email.
+- **Backups:** Each failed scheduled occurrence sends an email. Repeated-failure emails use
+  **Scheduled backup still failing**.
+- **Recovery:** The first later conclusive success sends a recovery email immediately.
+
+Cron and backup execution schedules stay as configured. Failure logs and emails include the next scheduled attempt
+when available; disabled or overdue schedules are identified separately. If you change the schedule afterward, the
+next run can differ from the time in an earlier message.
 
 An automatic backup preset can create several backup artifacts in one scheduled occurrence. Any failed artifact makes
 the occurrence fail, but recovery is reported only after every artifact in a later occurrence completes successfully.
@@ -48,9 +57,17 @@ A failed manual cron job or backup still emails the user who started it.
 
 ## Certificate renewal notifications
 
-For automatic Let's Encrypt renewal, Wodby notifies organization admins on the first failure and sends reminders
-roughly weekly while failures continue. Intermediate retries do not each send another failure email. The notification
-includes the next scheduled retry time.
+For automatic Let's Encrypt renewal, Wodby notifies organization admins after every failed attempt. The first email
+uses **Certificate renewal failed**; later failures use **Certificate renewal still failing**.
+
+Retry delays increase with consecutive failures: **1 day, 2 days, 3 days, 4 days, 5 days, 6 days, then 7 days** between
+attempts. Further retries stay seven days apart. A small offset spreads attempts across certificates, and a longer
+certificate-authority retry delay takes precedence. This progression also applies near or after expiry. Successful
+renewal resets the failure history.
+
+Failure task logs and emails include the next scheduled retry time. The relative delay is measured when the message
+is generated; it is not a countdown that updates in your inbox. Correct external validation problems before expiry,
+using the troubleshooting links below.
 
 The first successful automatic retry after previous failures sends a **Certificate renewal recovered** email. The
 certificate renewal notification preference controls both failure and recovery emails. If a task renews several
@@ -69,8 +86,8 @@ certificate expires. Each stage is sent once for a certificate's current expirat
 ## Weekly organization report
 
 The weekly organization report includes an `Automation health` section with enabled cron schedules and automatic
-backup presets whose latest conclusive result is still failed. This keeps ongoing failures visible while repeated
-immediate failure emails are suppressed.
+backup presets whose latest conclusive result is still failed. It also shows ongoing issues when a cron schedule has
+not produced another run eligible for a reminder.
 
 ## Defaults
 

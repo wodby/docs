@@ -46,6 +46,10 @@ If results differ, share the task link, hostname, UTC time, and any proxy reques
 
 ## Retry and recovery
 
+Failed renewal attempts are retried after increasing delays of one through seven days, then weekly. A longer delay
+requested by the certificate authority takes precedence. Each failed attempt sends an email with the next scheduled
+retry time, and the task log records it too. See [renewal notifications](../user/notifications.md#certificate-renewal-notifications).
+
 After correcting the cause:
 
 - For a new domain that is still pending, select `Reconcile certificate` on the route to check it again, as described
