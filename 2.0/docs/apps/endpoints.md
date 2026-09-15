@@ -184,6 +184,10 @@ Certificate renewals are scheduled automatically and spread over time. If Let's 
 limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
 notification.
 
+For failed issuance or renewal, see [certificate troubleshooting](../troubleshooting/certificates.md). Domains proxied
+through Cloudflare may need an exception for automated validation; see
+[certificate validation behind Cloudflare](../providers/cloudflare.md#certificate-validation-behind-cloudflare).
+
 `Organization > Certificates` shows issued and uploaded certificates by issuer, hostname, status, issue date, renewal
 date, expiry date, and where each certificate is used. Use the issuer filter to show all certificates, Let's Encrypt
 certificates, or certificates from a detected custom certificate authority. The list is paginated and can include
