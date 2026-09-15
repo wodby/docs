@@ -46,6 +46,20 @@ the occurrence fail, but recovery is reported only after every artifact in a lat
 
 A failed manual cron job or backup still emails the user who started it.
 
+## Certificate renewal notifications
+
+For automatic Let's Encrypt renewal, Wodby notifies organization admins on the first failure and sends reminders
+roughly weekly while failures continue. Intermediate retries do not each send another failure email. The notification
+includes the next scheduled retry time.
+
+The first successful automatic retry after previous failures sends a **Certificate renewal recovered** email. The
+certificate renewal notification preference controls both failure and recovery emails. If a task renews several
+certificates, recovery is reported for the certificates that recovered, even if others still failed.
+
+If a notification identifies a Cloudflare browser challenge, follow the
+[Cloudflare troubleshooting steps](../providers/cloudflare.md#certificate-validation-behind-cloudflare). See
+[certificate troubleshooting](../troubleshooting/certificates.md) for other validation errors.
+
 ## Custom certificate expiration notifications
 
 The `Custom certificate expiration` setting controls warnings for uploaded TLS certificates, which Wodby does not

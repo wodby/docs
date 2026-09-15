@@ -27,6 +27,63 @@ Create a token with the permissions and resource scope required by the consuming
 Access kinds use the same Account ID and API token fields, so selecting both asks for those credentials only once.
 Turnstile widget keys are created separately and are not Cloudflare API credentials.
 
+## Certificate validation behind Cloudflare
+
+This section applies to a custom public domain proxied through Cloudflare when Wodby manages its Let's Encrypt
+certificate. It also applies when you configured Cloudflare outside Wodby and have no Cloudflare integration in Wodby.
+
+Cloudflare's visitor-facing certificate and the certificate served by your Wodby origin have separate renewal flows.
+Cloudflare's automatic validation exceptions apply to certificates it manages and recognized validation tokens; they
+do not provide a blanket exemption for Wodby's origin-certificate renewal. See the
+[Cloudflare WAF FAQ](https://developers.cloudflare.com/waf/troubleshooting/faq/#why-are-some-rules-bypassed-when-i-did-not-create-an-exception).
+
+### Identify a browser challenge
+
+A response with `cf-mitigated: challenge` means Cloudflare returned a browser verification page instead of the expected
+response. Wodby's automated verification cannot complete that JavaScript/cookie challenge. A `403` or
+`Server: cloudflare` header alone is not proof that Cloudflare denied the request: the origin can return a `403` through
+Cloudflare too. See [Cloudflare's response marker](https://developers.cloudflare.com/cloudflare-challenges/challenge-types/challenge-pages/detect-response/).
+
+If a renewal notification or task log identifies a Cloudflare challenge, use its observation time and Ray ID to find
+the request in [Cloudflare Security Events](https://developers.cloudflare.com/waf/analytics/security-events/). Filter by
+the affected hostname and `/.well-known/acme-challenge/` path. Record the rule or security feature that issued the
+challenge before changing settings. A missing event alone does not rule out Cloudflare; event availability depends on
+the product and logging.
+
+### Allow certificate validation
+
+1. Ask the person managing the Cloudflare zone to review the matching event.
+2. Exclude the affected hostname's ACME validation path from the rule issuing the browser challenge. For example, this
+   expression matches only validation requests for `example.com`:
+
+   ```text
+   (http.host eq "example.com" and starts_with(http.request.uri.path, "/.well-known/acme-challenge/"))
+   ```
+
+3. If using a WAF **Skip** rule, place it before the relevant challenge rule and select the applicable skip options.
+   Skip only the protections causing the validation failure. A Skip action is not a universal bypass of every
+   Cloudflare security product. See [Skip rules](https://developers.cloudflare.com/waf/custom-rules/skip/) and
+   [available options](https://developers.cloudflare.com/waf/custom-rules/skip/options/).
+4. Confirm that redirects, Workers, and cache rules forward the challenge to the correct origin and preserve its
+   response. A successful validation response is `200` with the exact token proof, not an HTML page.
+5. Allow Wodby's next scheduled renewal attempt or contact support to verify a retry. Keep protection enabled for the
+   rest of the website.
+
+!!! note "Bot Fight Mode has different controls"
+
+    Standard Bot Fight Mode cannot be skipped with WAF custom rules or Page Rules. If the event identifies that
+    feature, review Cloudflare's [false-positive guidance](https://developers.cloudflare.com/bots/troubleshooting/false-positives/)
+    with the zone administrator to choose a configuration that permits automated validation. Adding a WAF Skip rule
+    alone will not resolve it.
+
+Allowing only traffic recognized as a certificate-authority bot is insufficient: Wodby also probes the challenge before
+submitting it for validation. Testing from your own browser can succeed while the automated request is challenged.
+
+For other errors and retry behavior, see [certificate troubleshooting](../troubleshooting/certificates.md). For
+Cloudflare Tunnel hostnames created through Application Access, use the certificate requirements in
+[Protected access](#protected-access); the public origin HTTP validation steps above describe a different certificate
+path.
+
 ## SMTP
 
 Cloudflare Email Service SMTP submission is currently in beta. Before creating the integration:

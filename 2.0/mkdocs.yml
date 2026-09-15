@@ -389,6 +389,8 @@ nav:
       - Identities: user/identities.md
       - SSH keys: user/ssh-keys.md
       - API keys: user/api-keys.md
+  - Troubleshooting:
+      - Certificates: troubleshooting/certificates.md
   - Development:
       - Overview: dev/index.md
       - API: dev/api.md
