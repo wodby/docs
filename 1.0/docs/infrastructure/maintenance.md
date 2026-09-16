@@ -47,7 +47,6 @@ Some operating systems such as Debian 11 enable cgroup v2, which is not supporte
 ### 7.0.1
 
 * Updated Edge to [3.0.9](https://github.com/wodby/edge-alpine/releases/tag/3.0.9), including NGINX **1.31.3 → 1.31.6**.
-* Updated the Go runtime used to build Edge’s certificate and configuration tools to **1.26.8**, with updated networking, cryptography, and gRPC dependencies.
 * Existing Infrastructure 7.0.0 servers can receive this patch without reinstalling the server. Contact [Wodby support](../support.md) to schedule the Edge update; running containers are not replaced automatically.
 
 ### 7.0.0
