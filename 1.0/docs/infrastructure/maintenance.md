@@ -3,7 +3,7 @@
 We constantly improve the infrastructure we deploy to our customers' servers. You can see the version of the infrastructure deployed to your server in the Dashboard on the servers list page. It's not always possible to update the infrastructure automatically so if you want update your infrastructure please [contact our support team](../support.md) to schedule the upgrade. 
 
 !!! success "Current Wodby 1 infrastructure lines"
-    Infrastructure 7.0.0 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
+    Infrastructure 7.0.1 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
 
 !!! warning "No in-place 6 to 7 upgrade"
     Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
@@ -43,6 +43,11 @@ Some operating systems such as Debian 11 enable cgroup v2, which is not supporte
 - Reboot the server
 
 ## Changelog
+
+### 7.0.1
+
+* Updated Edge to [3.0.9](https://github.com/wodby/edge-alpine/tree/3.0.9), removing the unused NGINX image-filter module and its TIFF dependency.
+* Existing Infrastructure 7.0.0 servers can receive this patch without reinstalling the server. Contact [Wodby support](../support.md) to schedule the Edge update; running containers are not replaced automatically.
 
 ### 7.0.0
 
