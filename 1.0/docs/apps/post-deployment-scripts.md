@@ -114,33 +114,6 @@ pipeline:
 
 Wodby with the above configuration outputs "hello world" twice, since the second stage (stage_2) flushes the standard output result of the first stage (stage_1).
 
-#### Upgrading to Walter 1.5.1
-
-These rules apply to Walter 1.5.1, included in PHP image stability tag `4.71.1`.
-Hosted stacks and derived images may still use an older version; check `walter -v`
-in your PHP container before using the new file variables. Publishing a PHP image
-tag does not upgrade an existing app's stack automatically.
-
-Commands and `only_if` conditions receive only the stage result variables they
-explicitly reference. The inline example above continues to work. Normal application
-environment variables are unaffected.
-
-If a script reads a result variable internally, pass it explicitly in the command
-that starts the script. For example, if `deploy.sh` reads `$__OUT__build__`, change:
-
-```yaml
-command: sh deploy.sh
-```
-
-to:
-
-```yaml
-command: __OUT__build__="$__OUT__build__" sh deploy.sh
-```
-
-This preserves the variable name expected by the script. Walter does not inspect
-script contents to discover result variables.
-
 #### Large or binary stage output
 
 In Walter 1.5.1, each raw result passed through the environment is limited to
