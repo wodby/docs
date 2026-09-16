@@ -31,6 +31,12 @@ pipeline:
 
 The pipeline is an automated manifestation of your deployment process. In other words, it's just a set of post-deployment actions to execute
 
+Post-deployment scripts use Walter in local mode and run against the deployed codebase.
+Walter's repository service mode, which fetches commits into temporary checkouts and
+locks a shared state file, is a separate feature. Those checkout and locking requirements
+do not apply to ordinary post-deployment scripts without a repository `service` configuration.
+If you configure that mode yourself, see the [Walter service-mode guidance](https://github.com/wodby/walter/tree/1.5.1#exact-revisions-in-service-mode).
+
 ##  Available environment variables
 
 See [Environment Variables article](../infrastructure/env-vars.md). 
@@ -87,14 +93,14 @@ In the above setting, parallel command 1, parallel command 2 and parallel comman
 
 ### Reusing the results from stages
 
-Wodby stores the results of preceding stages. The stages can make use of the results of finished stages using the three special variables (**\_\_OUT**, **\_\_ERR**, **\_\_COMBINED** and **\_\_RESULT**) in wodby.yml configuration files.
+Wodby stores the results of preceding stages. The stages can make use of the results of finished stages using the four special variables (**\_\_OUT**, **\_\_ERR**, **\_\_COMBINED** and **\_\_RESULT**) in wodby.yml configuration files.
                                                                                                                                           
 * **\_\_OUT** -  output flushed to standard output 
 * **\_\_ERR** - output flushed to standard error 
 * **\_\_COMBINED** - combined output of stdout and stderr
 * **\_\_RESULT** - execution result (true or false)
                                                                                                                                           
-The three variables are maps whose keys are stage names and the value are results of the stages. For example, we want the standard output result of the stage named "stage1", we write __OUT["stage1"].
+The four variables are maps whose keys are stage names and the value are results of the stages. For example, we want the standard output result of the stage named "stage1", we write __OUT["stage1"].
 
 The following is a sample configuration with a special value.
 
@@ -107,6 +113,56 @@ pipeline:
 ```
 
 Wodby with the above configuration outputs "hello world" twice, since the second stage (stage_2) flushes the standard output result of the first stage (stage_1).
+
+#### Upgrading to Walter 1.5.1
+
+These rules apply to Walter 1.5.1, included in PHP image stability tag `4.71.1`.
+Hosted stacks and derived images may still use an older version; check `walter -v`
+in your PHP container before using the new file variables. Publishing a PHP image
+tag does not upgrade an existing app's stack automatically.
+
+Commands and `only_if` conditions receive only the stage result variables they
+explicitly reference. The inline example above continues to work. Normal application
+environment variables are unaffected.
+
+If a script reads a result variable internally, pass it explicitly in the command
+that starts the script. For example, if `deploy.sh` reads `$__OUT__build__`, change:
+
+```yaml
+command: sh deploy.sh
+```
+
+to:
+
+```yaml
+command: __OUT__build__="$__OUT__build__" sh deploy.sh
+```
+
+This preserves the variable name expected by the script. Walter does not inspect
+script contents to discover result variables.
+
+#### Large or binary stage output
+
+In Walter 1.5.1, each raw result passed through the environment is limited to
+32 KiB, with a 64 KiB total budget per command including result variable names.
+Output containing NUL bytes cannot be passed this way. Exceeding these limits
+fails the command instead of truncating its input.
+
+Use `__OUT_FILE`, `__ERR_FILE`, or `__COMBINED_FILE` to read complete output from
+a private temporary file. For example, after a stage named `build`:
+
+```yaml
+- name: Read build output
+  command: cat "$__OUT_FILE__build__"
+```
+
+The variable contains a filename, not the output itself. The corresponding
+map-style syntax, such as `__OUT_FILE["build"]`, is also supported. Files remain
+available through cleanup stages and are removed after the pipeline and cleanup
+finish. Copy any output you need to retain to persistent storage before then.
+
+See the [Walter 1.5.1 release notes](https://github.com/wodby/walter/releases/tag/1.5.1)
+for the complete compatibility notes.
 
 ### Wait for running stages until the conditions are satisfied
 
