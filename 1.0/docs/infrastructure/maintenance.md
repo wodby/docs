@@ -14,7 +14,7 @@ You will be notified each time a new version of the infrastructure is released.
 
 Infrastructure 7 installs exact versions of Docker, Kubernetes, containerd, cri-dockerd, and networking packages and places the apt packages on hold. Do not upgrade these components independently. Contact [Wodby support](../support.md) before changing a control-plane component or upgrading the host operating system.
 
-Existing Infrastructure 7 servers do not automatically replace an already running Agent merely because the backend release profile changed. Follow a support instruction or use the [documented Agent update command](cli.md#updating-infrastructure-7-agent) when a patch release is required.
+Agent updates are not installed automatically. Apply available infrastructure updates from the Dashboard as described below. Use the [Agent update command](cli.md#updating-infrastructure-7-agent) when instructed by support.
 
 ### Updating from the Dashboard
 

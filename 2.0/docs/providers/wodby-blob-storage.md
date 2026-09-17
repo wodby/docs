@@ -14,9 +14,6 @@ the future; it does not move or replace existing backups.
 
 ## Download links
 
-Wodby manages the storage destination and may change its internal implementation without changing how you select, use,
-or pay for Wodby Blob Storage.
-
 The download action returns a time-limited signed URL on `blob.wodby.com`. Treat the signed URL as a temporary
 credential and do not share it.
 
@@ -47,10 +44,7 @@ billed as Wodby Blob Storage.
 Wodby Blob Storage is available on paid subscriptions. Manual backups and enabled automatic backup presets that use
 it are rejected on the free Developer plan.
 
-The REST API has one migration-only exception for moving Wodby 1 configurations: a free organization may create an
-automatic Wodby Blob Storage preset when the preset is disabled. Enabling that preset still requires a paid
-subscription. For this REST API representation, use `integrationId: 0`, an empty `bucket`, a `blobStorageRegion` of
-`eu` or `us`, `auto: true`, and `disabled: true`.
+Disabled presets imported from Wodby 1 require a paid subscription before you can enable them.
 
 ## Billing
 

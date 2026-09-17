@@ -24,10 +24,6 @@ when the latest definition still generates the same token name for the same envi
 upgrade from rotating database passwords and other generated credentials. Rotate such a credential explicitly when a
 new value is required.
 
-This page is the public reference for built-in runtime tokens resolved in app-service context.
-
-Some internal or infrastructure-only secret-bearing tokens are intentionally omitted from this public list.
-
 ## Where tokens are supported
 
 Tokens are commonly supported in:
@@ -73,13 +69,10 @@ marked secret explicitly. See [Environment variables](environment-variables.md#s
 - `kubernetes.name`: cluster machine name
 - `kubernetes.fullName`: cluster full name
 
-Infrastructure-oriented FRPC tokens are also supported under `kubernetes.frpc.*`, but the secret-bearing/internal
-subset is intentionally not documented here.
-
 ## `env`
 
-`env` is the legacy token namespace backed by the internal environment-policy record. Prefer `instance` for app
-environment identity and `env.type` for behavior that depends on an environment type.
+Use `env.type` for behavior that depends on an environment type. Use `instance` for app environment identity.
+The other `env` tokens remain available for template compatibility.
 
 - `env.id`: [environment](environment-types.md) ID
 - `env.name`: environment machine name

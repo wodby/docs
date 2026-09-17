@@ -48,7 +48,7 @@ You can stop containers by executing [`make stop`](#make-commands) or `docker co
 
 [Traefik](https://hub.docker.com/_/traefik) container used for routing. By default, we use port `8000` to avoid potential conflicts but if port `80` is free on your host machine just replace traefik's ports definition in the compose file.
 
-By default `BASE_URL` set to `wp.docker.localhost`, you can change it in `.env` file.
+By default, `PROJECT_BASE_URL` is set to `wp.docker.localhost`. You can change it in the `.env` file.
 
 Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
@@ -61,7 +61,7 @@ Add `127.0.0.1 wp.docker.localhost` to your `/etc/hosts` file (some browsers lik
 | `varnish`      | `http://varnish.wp.docker.localhost:8000`        |
 | `portainer`    | `http://portainer.wp.docker.localhost:8000`      |
 | `webgrind`     | `http://webgrind.wp.docker.localhost:8000`       |
-| `opensearch`   | `http://opensearch.drupal.docker.localhost:8000` |
+| `opensearch`   | `http://opensearch.wp.docker.localhost:8000` |
 
 ## Mail sending
 
