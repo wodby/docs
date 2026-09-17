@@ -190,6 +190,7 @@ nav:
 - Organization:
   - Overview: org.md
   - Access control: access-control.md
+  - Security: org/security.md
   - Settings: org/settings.md
   - Billing: billing.md
 - User:
