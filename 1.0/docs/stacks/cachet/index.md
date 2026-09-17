@@ -30,6 +30,15 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.2.0
+
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+
 ### 3.1.1
 
 - ⬆️ Nginx 1.31.5

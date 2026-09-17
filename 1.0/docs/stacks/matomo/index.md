@@ -79,6 +79,16 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.5.0
+
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+- ⬆️ Updated MariaDB and OpenSMTPD images
+
 ### 1.4.10
 
 - ⬆️ Nginx 1.31.5

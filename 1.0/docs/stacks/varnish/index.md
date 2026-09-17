@@ -57,6 +57,10 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.4.4
+
+⬆️ Updated Varnish 6 image
+
 ### 3.4.3
 
 - ⬆️ Updated the gotpl template renderer to 0.6.9 in the Varnish 6.0 image, incorporating the refreshed Go runtime

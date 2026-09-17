@@ -27,6 +27,12 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 1.2.0
+
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+
 ### 1.1.16
 
 - ⬆️ Nginx 1.31.5
