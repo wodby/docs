@@ -9,8 +9,6 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 6.2.11
 
-Applies to the Drupal 7–11 stacks.
-
 - ⬆️ Vanilla Drupal 11.4.7, 10.6.17
 - PHP:
     - ⬆️ PIE 1.4.10
