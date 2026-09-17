@@ -1,6 +1,6 @@
 # Infrastructure maintenance
 
-You can see your server's infrastructure version on the servers list in the Dashboard. Supported Infrastructure 7 component updates can be applied from the Dashboard when this feature is enabled. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
+You can see your server's infrastructure version on the servers list in the Dashboard. For Infrastructure 7, check for available updates in the server's settings. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
 
 !!! success "Current Wodby 1 infrastructure lines"
     Infrastructure 7.0.1 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
@@ -18,17 +18,12 @@ Existing Infrastructure 7 servers do not automatically replace an already runnin
 
 ### Updating from the Dashboard
 
-!!! info "Availability"
-    Dashboard infrastructure updates must be enabled before you can use this workflow. If the controls are unavailable or the Dashboard reports that updates are not enabled, contact [Wodby support](../support.md).
-
-The Dashboard offers approved updates for your server's current Infrastructure 7 version. Each release specifies which components it changes and which versions it supports. Updates follow these supported paths; you cannot select an arbitrary version or skip a required intermediate release. Review and confirm each update separately.
-
-The initial supported update is **7.0.0 → 7.0.1**, which updates Edge to **3.0.9** while preserving its configuration. It does not upgrade the operating system, Installer, Agent, Docker, Kubernetes, networking, or etcd. Those changes require separate maintenance. This workflow applies to supported standalone servers, not clusters, local environments, or Wodby public servers.
+The Dashboard shows updates available for your server. Review the release summary to see what will change. If you need an update that is not offered, contact [Wodby support](../support.md).
 
 !!! warning "Traffic interruption"
-    The 7.0.0 → 7.0.1 update briefly interrupts HTTP and HTTPS traffic to applications on the server while Edge restarts. Schedule a suitable maintenance window and review the warnings for every release before confirming.
+    Updates that restart Edge briefly interrupt HTTP and HTTPS traffic to applications on the server. Review the update warnings and schedule a suitable maintenance window before proceeding.
 
-You need permission to update the server. The server must be available, and active server and application tasks must finish before you start the update. The checks also verify that the installed components and server configuration support the offered release. Contact support if a configuration is not supported.
+You need permission to update the server. The server must be available, and active server and application tasks must finish before you start the update.
 
 1. Open the server's settings in the Dashboard and find **Infrastructure update**.
 2. Select **Check server for update**. Checking the server does not apply the update.
@@ -37,18 +32,17 @@ You need permission to update the server. The server must be available, and acti
 5. Select **View update task and logs** to follow progress. You can leave the page and return later.
 6. After the update completes, check that your applications are accessible over HTTP and HTTPS and behave as expected.
 
-A preview expires after 15 minutes and belongs to the user who requested it. Run the checks again if it expires, the server configuration changes, or you need a new preview. Starting an update rechecks the server against the reviewed release.
+A preview expires after 15 minutes. Run the checks again if it expires or the server configuration changes. Each user must run their own checks before confirming an update.
 
-During the update, the server is reserved for infrastructure maintenance. Other operations that change server resources, including deployments and server deletion, are blocked. Infrastructure update tasks cannot be canceled from the Dashboard. The displayed infrastructure version advances only after the new component rollout and required platform checks succeed.
+During the update, deployments and other changes to the server are blocked. You cannot cancel the update or delete the server while maintenance is in progress. The Dashboard shows the new infrastructure version once the update has been verified.
 
 ### If an update does not complete
 
-A failed task or lost connection does not necessarily mean the update was not applied. Reopen the server's settings and follow the recorded operation status before attempting another update.
+If an update fails or your connection is lost, reopen the server's settings and check the task status before retrying.
 
-- If the update stopped before applying a change, maintenance is released and the infrastructure version stays unchanged. Review the task log, resolve the problem, and run new checks before retrying.
-- If the outcome is uncertain, the Dashboard shows **Update outcome needs verification** and keeps the server reserved for maintenance. Wait until the displayed recovery time, then select **Check update status** when it becomes available.
-- A recovery check verifies the existing server state. It does not repeat the update or roll it back. A healthy target completes the update; an unchanged, healthy source releases maintenance so you can prepare a new attempt.
-- If the server cannot be verified in either state, maintenance remains reserved. Contact [Wodby support](../support.md) and include the update task link.
+If the Dashboard shows **Update outcome needs verification**, the server remains in maintenance. Wait until the displayed recovery time, then select **Check update status** when it becomes available. This checks whether the update completed; it does not repeat the update.
+
+If the update was not applied, review the task log, resolve any reported problem, and run new checks before retrying. If the server remains in maintenance after checking its status, contact [Wodby support](../support.md) and include the update task link.
 
 ## Infrastructure 6 OS upgrade tips
 
