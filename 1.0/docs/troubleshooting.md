@@ -58,7 +58,7 @@ reputable SMTP provider:
 - [SendGrid](integrations/sendgrid.md)
 - another SMTP service supported by your OpenSMTPD configuration
 
-See [Mail delivery](infrastructure/mail-delivery.md).
+See [Mail delivery](apps/mail-delivery.md).
 
 ## Server status is unreachable
 

@@ -91,6 +91,8 @@ plugins:
 - search
 - redirects:
     redirect_maps:
+      'infrastructure/env-vars.md': 'apps/env-vars.md'
+      'infrastructure/mail-delivery.md': 'apps/mail-delivery.md'
       'dev/api-keys.md': 'user/api-keys.md'
       'cicd/deploy.md': 'apps/deploy.md'
       'apps/post-deployment-scripts.md': 'cicd/post-deployment-scripts.md'
@@ -118,6 +120,8 @@ nav:
   - Domains: apps/domains.md
   - Backups: apps/backups.md
   - Logging: apps/logs.md
+  - Environment variables: apps/env-vars.md
+  - Mail delivery: apps/mail-delivery.md
 - CI/CD:
   - Overview: cicd/index.md
   - Direct Git: cicd/git.md
@@ -129,8 +133,6 @@ nav:
   - Connecting server: infrastructure/connecting-server.md
   - Containers: infrastructure/containers.md
   - Monitoring: infrastructure/monitoring.md
-  - Mail delivery: infrastructure/mail-delivery.md
-  - Environment variables: infrastructure/env-vars.md
   - Disk: infrastructure/disk.md
   - Maintenance: infrastructure/maintenance.md
   - Security: infrastructure/security.md
