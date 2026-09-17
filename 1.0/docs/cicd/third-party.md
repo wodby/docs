@@ -26,15 +26,20 @@ Big picture:
 !!! tldr "VM-based builds over docker-in-docker"
     If your CI tool can run builds both in Docker and Virtual Machine (docker daemon must be available) we recommend using the latter because it's faster
 
-You can install the latest stable Wodby CLI (Linux amd64) tool during the build like this:
+Use [Wodby CLI 1.x](../dev/cli.md) for Wodby 1. The `master` branch contains the Wodby 1 CLI; GitHub's **Latest** release targets Wodby 2.
+
+For Linux amd64 builds, install an explicit Wodby 1 release into a writable directory on your `PATH`:
 
 ```shell
-wget -qO- https://api.wodby.com/api/v1/get/cli | sh
+WODBY_CLI_VERSION=1.0.3
+curl -fsSL "https://github.com/wodby/wodby-cli/releases/download/${WODBY_CLI_VERSION}/wodby-linux-amd64.tar.gz" \
+  | tar xz -C /usr/local/bin
+wodby version
 ```
 
-If you want to install it locally for other systems such as macOS or Windows, or install a specific version follow the instructions at https://github.com/wodby/wodby-cli
+For other systems or architectures, follow the [Wodby 1 installation instructions](https://github.com/wodby/wodby-cli/blob/master/README.md#install).
 
-Or you can use [`wodby/wodby-cli`](https://hub.docker.com/r/wodby/wodby-cli/) docker image if your CI supports only docker-based builds
+If your CI supports only container-based builds, use a versioned 1.x tag of the [`wodby/wodby-cli` image](https://hub.docker.com/r/wodby/wodby-cli/tags), such as `wodby/wodby-cli:1.0.3`.
 
 ## Init
 
