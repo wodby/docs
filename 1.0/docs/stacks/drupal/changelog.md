@@ -835,7 +835,7 @@ Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.2](#572-drupal-6).
     - 🛠 Removed preload of libiconv https://github.com/docker-library/php/pull/1264
     - 🐞 Bugfix: mail delivery fails due to non-compliant RFC 2822 error
     - 🐞 Bugfix: mail delivery fails invalid sender address
-- ⭐️ Added Zookeeper service, you can now upload Search API Solr config sets via admin UI, see [instructions](https://wodby.com/docs/1.0/stacks/solr-drupal#solr-cloud-with-zookeeper-recommended)
+- ⭐️ Added Zookeeper service, you can now upload Search API Solr config sets via admin UI, see [instructions](../solr-drupal/index.md#solr-cloud-with-zookeeper-recommended)
 - ⭐️ Added Solr Cloud support for Solr
 - ⬆️ OpenSMTPD 1.11.0
 - ⬆️ Memcached 1.6.15
@@ -1641,7 +1641,7 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 
 ## 5.3.3
 
-* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/drupal/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/drupal/containers/#xhprof)
+* Added new profiler service [xhprof viewer](containers.md#xhprof-viewer) for analysis and graphical review of [xhprof traces](containers.md#xhprof)
 * Added Redis 5
 * Vanilla Drupal patch updates: 8.6.3, 7.61
 * PHP:
