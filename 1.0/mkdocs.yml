@@ -99,6 +99,8 @@ plugins:
 nav:
 - Get Started:
   - Overview: index.md
+  - App model: apps/app-vs-instance-vs-service.md
+  - Glossary: glossary.md
   - FAQ: faq.md
   - Status: status.md
   - Support: support.md
