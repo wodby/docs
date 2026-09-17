@@ -60,6 +60,25 @@ Durations use Go duration syntax, for example `10s`, `5m`, or `10m30s`, and must
 | `recreate` | Stops all old pods before creating new pods | Deployment |
 | `onDelete` | Replaces pods only when they are deleted manually | StatefulSet, DaemonSet |
 
+## Deployment wait times
+
+The settings above control different parts of a rollout. `minReady` allows Kubernetes to observe a pod's readiness
+before considering it available, `progressDeadline` limits a Deployment's lack of progress, and
+`shutdownGracePeriod` gives terminating containers time to stop. None is a total deployment-task timeout.
+
+Wodby extends the Helm wait timeout when necessary to accommodate the rendered workload's progress deadline,
+minimum-ready interval, and shutdown grace period, plus time for Kubernetes to report the result. The outer service
+deployment task also allows preparation time. Long graceful shutdowns can therefore make a deployment take longer
+than a typical startup. The derived Helm timeout also applies to install/upgrade hooks and automatic rollback.
+
+These longer waits do not suppress early failures. Image and container configuration errors, an exceeded Deployment
+progress deadline, or a crash loop that outlasts its one-minute recovery window can still fail the rollout earlier.
+See [Rollout health checks and failure logs](../apps/deploys.md#rollout-health-checks-and-failure-logs).
+
+With `onDelete`, Kubernetes does not automatically replace existing pods. Wodby still waits for the updated workload
+to become ready, so applying the new configuration alone may leave the deployment waiting until the old pods are
+manually replaced.
+
 ## Service manifest defaults
 
 Set defaults for a single-workload service at the top level:
