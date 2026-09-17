@@ -9,7 +9,6 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 6.2.11
 
-- 📜 Vanilla WordPress now uses PIE 1.4.10 to install PHP extensions
 - PHP:
     - ⬆️ PIE 1.4.10
     - ⬆️ OpenTelemetry 1.4.1
