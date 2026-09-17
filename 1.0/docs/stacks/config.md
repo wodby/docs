@@ -44,7 +44,7 @@ method, time, and hashes of limited request metadata. It never stores the
 secret, raw IP address, or raw user agent. Users who can currently update the
 instance can view its reveal history; entries are retained for one year.
 
-See [Account security](../account-security.md#confirm-sensitive-secret-reveals)
+See [Account security](../user/security.md#confirm-sensitive-secret-reveals)
 for the confirmation methods.
 
 ### Resources 

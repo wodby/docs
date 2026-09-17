@@ -79,7 +79,7 @@ the product and logging.
 Allowing only traffic recognized as a certificate-authority bot is insufficient: Wodby also probes the challenge before
 submitting it for validation. Testing from your own browser can succeed while the automated request is challenged.
 
-For other errors and retry behavior, see [certificate troubleshooting](../troubleshooting/certificates.md). For
+For other errors and retry behavior, see [certificate troubleshooting](../apps/certificate-troubleshooting.md). For
 Cloudflare Tunnel hostnames created through Application Access, use the certificate requirements in
 [Protected access](#protected-access); the public origin HTTP validation steps above describe a different certificate
 path.

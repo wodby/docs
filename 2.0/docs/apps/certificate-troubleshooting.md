@@ -16,7 +16,7 @@ Resolve the cause before that date; repeated attempts alone cannot fix a blocked
   a DNS-validation failure. Use the task's reported DNS or certificate-authority error when contacting support.
 - **Uploaded custom certificates:** These are not renewed automatically. Obtain and upload a replacement before expiry.
 
-See [TLS certificates](../apps/endpoints.md#tls-certificates) for certificate ownership and domain setup.
+See [TLS certificates](endpoints.md#tls-certificates) for certificate ownership and domain setup.
 
 ## Interpret the failure
 
@@ -54,7 +54,7 @@ expiry, subject to the certificate authority's retry delay and app/cluster avail
 After correcting the cause:
 
 - For a new domain that is still pending, select `Reconcile certificate` on the route to check it again, as described
-  under [custom domains](../apps/endpoints.md#tls-certificates).
+  under [custom domains](endpoints.md#tls-certificates).
 - For an existing certificate, allow the next scheduled renewal attempt shown in the failure notification, or contact
   support to verify a retry.
 - Check that the certificate expiry advances after renewal. Automatic renewal sends a recovery notification after a

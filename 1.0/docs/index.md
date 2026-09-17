@@ -5,11 +5,17 @@ Wodby 1 helps developers deploy and manage applications across their own servers
 Key concepts:
 
 * [Application Instances](apps/instances.md)
-* Infrastructure: [single-server](infrastructure/index.md) and [cluster](cluster/index.md)
+* [Single-server infrastructure](infrastructure/index.md)
 * [Stacks](stacks/index.md)
 
 How to:
 
 * [Deploy your first application](apps/new.md)
 * [Connect your server](infrastructure/connecting-server.md)
-* [Deploy code and CI/CD setup](apps/deploy.md)
+* [Set up CI/CD](cicd/index.md)
+
+Manage your workspace:
+
+* [Organizations, members, and billing](org.md)
+* [Your account and security](user/index.md)
+* [Development tools and API keys](dev/index.md)

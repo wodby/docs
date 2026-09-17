@@ -3,7 +3,7 @@
 An organization owns its applications, servers, repositories, integrations,
 stacks, API keys, billing information, and team memberships. Access to those
 resources is controlled by each member's organization role and, where
-configured, an application-specific role. See [Permissions](roles.md) for the
+configured, an application-specific role. See [Permissions](access-control.md) for the
 role hierarchy.
 
 ## Manage members
@@ -52,15 +52,5 @@ runs as a task rather than completing immediately.
 
 ## Delete your account
 
-Open `Account > Delete`, review the consequences, and enter your current
-password. Account deletion removes your memberships, API keys, integrations,
-authentication tokens, and other account-owned access records.
-
-Organizations for which you are the sole owner are deleted as part of the
-account-deletion task. Organizations with another owner remain active and your
-membership is removed. If you are the billing payer for an organization that
-will remain active, another active owner must be available to inherit billing;
-otherwise account deletion is blocked.
-
-Account deletion does not bypass an organization's
-[two-factor authentication policy](account-security.md#require-2fa-for-an-organization).
+See [Account deletion](user/account.md#delete-your-account) for the effects on
+your memberships, organizations, and billing responsibilities.
