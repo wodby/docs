@@ -91,7 +91,7 @@ plugins:
       'cicd/deploy.md': 'apps/deploy.md'
       'apps/post-deployment-scripts.md': 'cicd/post-deployment-scripts.md'
       'integrations/docker-registry.md': 'cicd/docker-registry.md'
-      'cluster/index.md': 'https://wodby.com/docs/2.0/clusters/'
+      'cluster/index.md': 'infrastructure/cluster.md'
       'organizations.md': 'org.md'
       'roles.md': 'access-control.md'
       'account-security.md': 'user/security.md'
@@ -132,6 +132,7 @@ nav:
   - HSTS: infrastructure/hsts.md
   - UFW: infrastructure/ufw.md
   - CLI: infrastructure/cli.md
+  - Cluster: infrastructure/cluster.md
 - Stacks:
   - Overview: stacks/index.md
   - Configuration: stacks/config.md

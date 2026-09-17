@@ -4,8 +4,7 @@
 
 When you connect a server to Wodby 1, Wodby installs a single-node, container-based infrastructure used to deploy your applications and stacks.
 
-!!! info "Wodby is not hosting provider"
-    Wodby is not a hosting provider. We believe that there are plenty of reliable providers on the market already. You can connect your own servers from any hosting provider. By connecting your server, you let Wodby install infrastructure that will be used to deploy your apps.
+Wodby 1 currently supports only single-node setups. For scalable clusters, we recommend Wodby 2. See [Cluster](cluster.md) for details.
 
 Infrastructure and stacks are versioned and maintained separately. Infrastructure updates can include operating-system compatibility, security fixes, and component upgrades.
 
