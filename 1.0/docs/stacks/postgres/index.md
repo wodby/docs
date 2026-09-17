@@ -33,6 +33,12 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 2.0.19
+
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+
 ### 2.0.18
 
 - ⬆️ PostgreSQL 15.19, 14.24

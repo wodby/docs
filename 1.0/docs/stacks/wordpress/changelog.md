@@ -7,6 +7,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.11
+
+- PHP:
+    - ⬆️ PIE 1.4.10
+    - ⬆️ OpenTelemetry 1.4.1
+    - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1
+    - 📜 Builds now select the latest compatible stable PHP gRPC extension
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+
 ## 6.2.10
 
 - ⬆️ Vanilla WordPress 7.1

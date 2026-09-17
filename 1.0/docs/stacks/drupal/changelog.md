@@ -7,6 +7,22 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.11
+
+- ⬆️ Vanilla Drupal 11.4.7, 10.6.17
+- PHP:
+    - ⬆️ PIE 1.4.10
+    - ⬆️ OpenTelemetry 1.4.1
+    - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1
+    - 📜 Builds now select the latest compatible stable PHP gRPC extension
+    - 🐞 Fixed Drupal CSS/JS aggregate directory permissions at startup and after imports
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+
 ## 6.2.10
 
 Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.2](#572-drupal-6).
