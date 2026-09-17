@@ -9,7 +9,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 ## 6.2.11
 
-Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.3](#573-drupal-6).
+Applies to the Drupal 7–11 stacks.
 
 - ⬆️ Vanilla Drupal 11.4.7, 10.6.17
 - PHP:
@@ -18,15 +18,6 @@ Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.3](#573-drupal-6).
     - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1
     - 📜 Builds now select the latest compatible stable PHP gRPC extension
     - 🐞 Fixed Drupal CSS/JS aggregate directory permissions at startup and after imports
-- Adminer:
-    - ⬆️ Adminer 6.1.0
-    - 🐞 Fixed default database host and database name not being applied in the login form
-- Nginx:
-    - ⬆️ Nginx 1.31.6, 1.30.5
-    - ⚠️ Removed the optional XSLT module
-
-## 5.7.3 (Drupal 6)
-
 - Adminer:
     - ⬆️ Adminer 6.1.0
     - 🐞 Fixed default database host and database name not being applied in the login form
