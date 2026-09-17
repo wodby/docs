@@ -16,4 +16,4 @@ Wodby 1 supports direct Git deployment and container-image builds through third-
 
 ## Manage builds
 
-See [build-image retention](../apps/deploy.md#automatically-clean-unused-build-images) to clean up unused images and [deploying a previous build](../apps/deploy.md#deploy-a-previous-build) to release saved service images again. Registry storage is covered under [Billing](../billing.md#container-registry-storage).
+See [build-image retention](../apps/builds.md#automatically-clean-unused-build-images) to clean up unused images and [deploying a previous build](../apps/builds.md#deploy-a-previous-build) to release saved service images again. Registry storage is covered under [Billing](../billing.md#container-registry-storage).

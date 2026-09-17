@@ -14,7 +14,7 @@ An archive of an instance's database, persistent files, or both, supported by it
 
 ## Build
 
-A recorded CI build with service images that can be deployed to an instance. Build history remains after image cleanup, but redeployment requires the images to remain available. See [Code deployment](apps/deploy.md).
+A recorded CI build with service images that can be deployed to an instance. Build history remains after image cleanup, but redeployment requires the images to remain available. See [Builds](apps/builds.md).
 
 ## Container
 

@@ -114,6 +114,7 @@ nav:
   - Instances: apps/instances.md
   - Server migration: apps/server-migration.md
   - Deployment: apps/deploy.md
+  - Builds: apps/builds.md
   - Domains: apps/domains.md
   - Backups: apps/backups.md
   - Logging: apps/logs.md

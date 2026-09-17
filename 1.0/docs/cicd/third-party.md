@@ -210,5 +210,5 @@ wodby ci deploy -t my-private-docker-hub/repository
 
 You can find build examples for different CI services such as CircleCI, TravisCI, BitBucket pipelines and custom shell scripts at https://github.com/wodby/wodby-ci
 
-See [build-image retention](../apps/deploy.md#automatically-clean-unused-build-images) and
-[deploying a previous build](../apps/deploy.md#deploy-a-previous-build) to manage builds after deployment.
+See [build-image retention](../apps/builds.md#automatically-clean-unused-build-images) and
+[deploying a previous build](../apps/builds.md#deploy-a-previous-build) to manage builds after deployment.
