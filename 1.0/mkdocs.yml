@@ -87,7 +87,7 @@ plugins:
 - search
 - redirects:
     redirect_maps:
-      'apps/deploy.md': 'cicd/deploy.md'
+      'cicd/deploy.md': 'apps/deploy.md'
       'apps/post-deployment-scripts.md': 'cicd/post-deployment-scripts.md'
       'integrations/docker-registry.md': 'cicd/docker-registry.md'
       'cluster/index.md': 'https://wodby.com/docs/2.0/clusters/'
@@ -106,12 +106,13 @@ nav:
   - New app: apps/new.md
   - Instances: apps/instances.md
   - Server migration: apps/server-migration.md
+  - Deployment: apps/deploy.md
   - Domains: apps/domains.md
   - Backups: apps/backups.md
   - Logging: apps/logs.md
 - CI/CD:
   - Overview: cicd/index.md
-  - Deployment: cicd/deploy.md
+  - Direct Git: cicd/git.md
   - Third-party CI: cicd/third-party.md
   - Post-deployment scripts: cicd/post-deployment-scripts.md
   - Container registry: cicd/docker-registry.md

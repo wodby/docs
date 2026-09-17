@@ -1,43 +1,32 @@
-# Code deployment 
+# Code deployment
+
+Choose a deployment workflow for your app instance, then manage its builds and stored images.
 
 <span id="direct-git-integration"></span>
 
 ## Direct git deployments
 
-!!! info "Only for Drupal and WP"
-    Direct git deployment is available only for [Drupal](../stacks/drupal/index.md) and [WordPress](../stacks/wordpress/index.md) stacks and their forks
-
-You can connect your git repository to Wodby and use it as a codebase source for your applications. On code deployment we will perform pull from the target branch and run [post-deployment scripts](post-deployment-scripts.md) (if enabled). 
-
-Additionally, you can run deployment automatically every time you push code to a git branch (all instances using this branch will be deployed):
-
-1. Configure git hooks for your git repository 
-2. Navigate to `Instance > Deployment > Settings` and check `Automatic deploy` option
-
-For details instructions how to connect a repository and configure hooks see the following articles:
-
-* [GitHub](../integrations/github.md) 
-* [BitBucket](../integrations/bitbucket.md) 
-* [GitLab](../integrations/gitlab.md) 
-* [Custom git provider](../integrations/custom.md) 
+Use [Direct Git deployment](../cicd/git.md) to pull code from a connected repository
+for Drupal or WordPress stacks and their forks. The guide covers repository setup,
+automatic deployment on pushes, and post-deployment scripts.
 
 ## CI/CD
 
-Use [third-party CI](third-party.md) when your application needs a build stage,
+Use [third-party CI](../cicd/third-party.md) when your application needs a build stage,
 dependency installation, tests, or a custom stack with CI-enabled services.
 The guide covers the complete Wodby CLI workflow and provider examples.
 
 ### Via third-party CI
 
-Follow the steps in the [third-party CI guide](third-party.md):
+Follow the steps in the [third-party CI guide](../cicd/third-party.md):
 
-- <span id="wodby-cli"></span>[Install Wodby CLI](third-party.md#wodby-cli).
-- <span id="init"></span>[Initialize the build](third-party.md#init) for your app instance.
-- <span id="build"></span>[Build service images](third-party.md#build).
-- <span id="dependency-caches"></span>[Configure dependency caches](third-party.md#dependency-caches).
-- <span id="release"></span>[Release images](third-party.md#release) to a container registry.
-- <span id="deploy"></span>[Deploy the build](third-party.md#deploy).
-- <span id="examples"></span>See [CI provider examples](third-party.md#examples).
+- <span id="wodby-cli"></span>[Install Wodby CLI](../cicd/third-party.md#wodby-cli).
+- <span id="init"></span>[Initialize the build](../cicd/third-party.md#init) for your app instance.
+- <span id="build"></span>[Build service images](../cicd/third-party.md#build).
+- <span id="dependency-caches"></span>[Configure dependency caches](../cicd/third-party.md#dependency-caches).
+- <span id="release"></span>[Release images](../cicd/third-party.md#release) to a container registry.
+- <span id="deploy"></span>[Deploy the build](../cicd/third-party.md#deploy).
+- <span id="examples"></span>See [CI provider examples](../cicd/third-party.md#examples).
 
 ## Automatically clean unused build images
 
