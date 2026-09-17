@@ -290,11 +290,43 @@ post-deployment task fails, the CLI returns a non-zero exit code with a message 
 from deployment failure. `wodby ci deploy` remains asynchronous: it queues the deployment and does not wait for either
 task to finish.
 
+### Rollout health checks and failure logs
+
+Applying the Kubernetes resources does not finish a deployment. Wodby waits for the selected workloads to complete
+their rollout: the requested replicas must be running the updated workload and pass its readiness checks. Deployments
+and DaemonSets must also report the replicas as available. A container can be running while its workload is still
+waiting for readiness or a configured minimum-ready interval.
+
+For workloads monitored by Wodby's Kubernetes watcher, failure handling depends on the condition:
+
+- **CrashLoopBackOff:** Wodby allows a one-minute recovery window from the first time it observes this state for a
+  container in a pod. This applies to both application and init containers. Restarts of that container do not reset
+  the window; a replacement pod gets its own window. If Wodby observes the container in `CrashLoopBackOff` after the
+  window expires, it fails the rollout. The first warning therefore does not immediately fail the deployment.
+- **Image or container startup errors:** states such as `ErrImagePull`, `ImagePullBackOff`, `InvalidImageName`, and
+  `CreateContainerConfigError` fail the rollout when detected, without the crash-loop recovery window.
+- **No rollout progress:** a Deployment reporting `ProgressDeadlineExceeded` fails the rollout. Increasing its
+  progress deadline does not extend the separate crash-loop recovery window.
+- **Pods cannot be scheduled:** Wodby applies a separate scheduling limit of seven minutes, or three minutes on
+  serverless clusters, measured from when it starts inspecting each pod. Another deployment limit can end the wait
+  sooner.
+
+The one-minute window is not a total deployment timeout or a guarantee that the task will finish exactly one minute
+after the first warning. Pod inspection, failure diagnostics, and automatic rollback can add time. See
+[Deployment wait times](../services/deployment.md#deployment-wait-times) for how rollout settings affect other waits.
+
+When a watched workload fails, Wodby attempts to add pod conditions, container states, warning events, and the previous
+container attempt's logs to the task log. Look for **Previous logs** when the current container is waiting in
+`CrashLoopBackOff`: the startup error may belong to its previous attempt. Diagnostic collection is bounded, so the
+task log may contain only a tail of the available output.
+
 ### Deployment rollback
 
 When an app service upgrade is applied and its workloads fail health checks, Wodby tries to roll that service release
 back to the latest previous successful release. The deployment still fails, but a successful rollback restores that
-service to the previous release.
+service to the previous release. The deployment task stays active while rollback runs and waits for the restored
+workloads to become ready. The final failure message can therefore appear after the rollback logs, even though the
+rollout failure was detected earlier.
 
 Rollback is per app service release. It does not undo other app services that were already deployed successfully during
 the same deployment.
@@ -306,6 +338,10 @@ Rollback is not always possible. Wodby does not attempt rollback when:
 - the service has no previous successful release
 - the failure happens before the Helm upgrade is applied
 - the deployment is canceled, interrupted, or times out while waiting for workloads
+
+Wodby also skips rollback when the current and previous release would apply the same Kubernetes resources and there
+are no rollback hooks to run. Reapplying that release would not correct the unhealthy workload; the task log explains
+why rollback was skipped.
 
 Failures in `.wodby/post-deployment.yml` happen after a successful rollout and never trigger deployment rollback.
 
