@@ -5725,9 +5725,9 @@ and rerun the same command with --verify to validate the completed migration.
 
 The migration exports only the selected
 instance and its parent app metadata, then creates a new Wodby 2 app containing
-that instance. Pass --target-app to add it to an existing Wodby 2 app instead;
+a matching app environment. Pass --target-app to add it to an existing Wodby 2 app instead;
 the CLI infers the app&#39;s shared stack when unambiguous and never adopts or
-overwrites an existing app instance. By default it imports the newest successful backup file for each
+overwrites an existing app environment. By default it imports the newest successful backup file for each
 required component shown in the preview. Use --source-backup BACKUP_UUID to pin
 all components to a different complete snapshot, or
 --skip-data to omit data. Changes made after the selected backup completed are
@@ -5870,7 +5870,7 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
         
           <tr>
             <td><code>--target-app string</code></td>
-            <td>Existing Wodby 2 app ID or exact name to receive this instance</td>
+            <td>Existing Wodby 2 app ID or exact name to receive the migrated app environment</td>
             <td><span class="muted">-</span></td>
           </tr>
         
@@ -5894,7 +5894,7 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
         
           <tr>
             <td><code>--target-env-map stringArray</code></td>
-            <td>Source-to-target environment mapping (SOURCE=TARGET)</td>
+            <td>Map a Wodby 1 instance type to a Wodby 2 environment type (SOURCE=prod|staging|test|dev|feature)</td>
             <td><code>[]</code></td>
           </tr>
         
