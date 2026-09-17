@@ -45,5 +45,5 @@ Organization administrators and owners can manage registry integrations. See
 
 This integration is for pulling service images from an external registry. CI
 images stored in `registry.wodby.com`, their retention, and their billing are
-described under [Code deployment](deploy.md#automatically-clean-unused-build-images)
+described under [Builds](../apps/builds.md#automatically-clean-unused-build-images)
 and [Container registry storage](../billing.md#container-registry-storage).

@@ -1,4 +1,4 @@
-site_name: Wodby 1 Docs
+site_name: Wodby Documentation
 site_description: Wodby 1.0 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/1.0
@@ -76,7 +76,11 @@ markdown_extensions:
 - pymdownx.magiclink
 - pymdownx.mark
 - pymdownx.smartsymbols
-- pymdownx.superfences
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.tilde
@@ -87,10 +91,13 @@ plugins:
 - search
 - redirects:
     redirect_maps:
-      'apps/deploy.md': 'cicd/deploy.md'
+      'infrastructure/env-vars.md': 'apps/env-vars.md'
+      'infrastructure/mail-delivery.md': 'apps/mail-delivery.md'
+      'dev/api-keys.md': 'user/api-keys.md'
+      'cicd/deploy.md': 'apps/deploy.md'
       'apps/post-deployment-scripts.md': 'cicd/post-deployment-scripts.md'
       'integrations/docker-registry.md': 'cicd/docker-registry.md'
-      'cluster/index.md': 'https://wodby.com/docs/2.0/clusters/'
+      'cluster/index.md': 'infrastructure/cluster.md'
       'organizations.md': 'org.md'
       'roles.md': 'access-control.md'
       'account-security.md': 'user/security.md'
@@ -98,6 +105,8 @@ plugins:
 nav:
 - Get Started:
   - Overview: index.md
+  - App model: apps/app-vs-instance-vs-service.md
+  - Glossary: glossary.md
   - FAQ: faq.md
   - Status: status.md
   - Support: support.md
@@ -106,12 +115,17 @@ nav:
   - New app: apps/new.md
   - Instances: apps/instances.md
   - Server migration: apps/server-migration.md
+  - Deployment: apps/deploy.md
+  - Builds: apps/builds.md
   - Domains: apps/domains.md
   - Backups: apps/backups.md
   - Logging: apps/logs.md
+  - Environment variables: apps/env-vars.md
+  - Mail delivery: apps/mail-delivery.md
 - CI/CD:
   - Overview: cicd/index.md
-  - Deployment: cicd/deploy.md
+  - Direct Git: cicd/git.md
+  - Third-party CI: cicd/third-party.md
   - Post-deployment scripts: cicd/post-deployment-scripts.md
   - Container registry: cicd/docker-registry.md
 - Infrastructure:
@@ -119,14 +133,13 @@ nav:
   - Connecting server: infrastructure/connecting-server.md
   - Containers: infrastructure/containers.md
   - Monitoring: infrastructure/monitoring.md
-  - Mail delivery: infrastructure/mail-delivery.md
-  - Environment variables: infrastructure/env-vars.md
   - Disk: infrastructure/disk.md
   - Maintenance: infrastructure/maintenance.md
   - Security: infrastructure/security.md
   - HSTS: infrastructure/hsts.md
   - UFW: infrastructure/ufw.md
   - CLI: infrastructure/cli.md
+  - Cluster: infrastructure/cluster.md
 - Stacks:
   - Overview: stacks/index.md
   - Configuration: stacks/config.md
@@ -187,14 +200,17 @@ nav:
 - Organization:
   - Overview: org.md
   - Access control: access-control.md
+  - Security: org/security.md
+  - Settings: org/settings.md
   - Billing: billing.md
 - User:
   - Overview: user/index.md
   - Account: user/account.md
   - Security: user/security.md
+  - API keys: user/api-keys.md
+  - SSH keys: user/ssh-keys.md
 - Development:
   - Overview: dev/index.md
   - API and SDKs: dev/api.md
-  - API keys: dev/api-keys.md
   - CLI: dev/cli.md
   - Local development: docker4x.md

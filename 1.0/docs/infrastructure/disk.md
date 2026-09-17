@@ -66,7 +66,7 @@ while kubelet or a container runtime is writing to them.
 
 Images stored in `registry.wodby.com` are managed from Wodby, not by deleting
 files on the connected server. Use
-[automatic build-image cleanup](../cicd/deploy.md#automatically-clean-unused-build-images)
+[automatic build-image cleanup](../apps/builds.md#automatically-clean-unused-build-images)
 or delete an eligible historical build's images from `Instance > Builds`.
 Registry usage and billing are updated asynchronously after deletion.
 

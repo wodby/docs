@@ -1,7 +1,6 @@
 # Instances
 
-!!! info "All apps have instances" 
-    Every application deployed via Wodby has at least one instance. In other words, when we say app what we really mean is [application instance](instances.md). 
+Every application has at least one instance. See [App model](app-vs-instance-vs-service.md) for how apps, instances, and services relate.
 
 ## What is instance?
 

@@ -21,4 +21,4 @@ Enter the name of your application and select the [instance type](instances.md) 
 
 ## Step 3 – stack configuration (optional)
 
-Some stacks like Drupal and WordPress provide additional configuration on step 3 such as a code [deployment workflow](../cicd/deploy.md) and import.
+Some stacks like Drupal and WordPress provide additional configuration on step 3 such as a code [deployment workflow](deploy.md) and import.

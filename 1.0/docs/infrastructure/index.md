@@ -4,8 +4,7 @@
 
 When you connect a server to Wodby 1, Wodby installs a single-node, container-based infrastructure used to deploy your applications and stacks.
 
-!!! info "Wodby is not hosting provider"
-    Wodby is not a hosting provider. We believe that there are plenty of reliable providers on the market already. You can connect your own servers from any hosting provider. By connecting your server, you let Wodby install infrastructure that will be used to deploy your apps.
+Wodby 1 currently supports only single-node setups. For scalable clusters, we recommend Wodby 2. See [Cluster](cluster.md) for details.
 
 Infrastructure and stacks are versioned and maintained separately. Infrastructure updates can include operating-system compatibility, security fixes, and component upgrades.
 
@@ -32,4 +31,36 @@ See [infrastructure maintenance](maintenance.md) for the current release profile
 
 Edge is a reverse proxy container based on nginx. It proxies requests to application instances, performs configured redirects, and terminates TLS.
 
-![](../assets/schema.png)
+The example below shows two apps with three isolated instances on one connected server. Edge routes incoming HTTP and HTTPS requests to the appropriate instance's services.
+
+```mermaid
+flowchart TD
+    Requests["Inbound HTTP / HTTPS requests"]
+
+    subgraph Server["Connected server (single node)"]
+        Edge["Edge: reverse proxy and TLS termination"]
+
+        subgraph AppA["App A"]
+            subgraph Dev["Development instance"]
+                DevContainers["Service containers"]
+            end
+            subgraph Prod["Production instance"]
+                ProdContainers["Service containers"]
+            end
+        end
+
+        subgraph AppB["App B"]
+            subgraph Staging["Staging instance"]
+                StagingContainers["Service containers"]
+            end
+        end
+
+        Edge --> DevContainers
+        Edge --> ProdContainers
+        Edge --> StagingContainers
+    end
+
+    Requests --> Edge
+```
+
+Instances of the same app can also run on different connected servers. See [App model](../apps/app-vs-instance-vs-service.md) for how apps, instances, and services relate.

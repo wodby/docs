@@ -6,7 +6,7 @@ Use the Wodby 1 API, SDKs, and CLI to automate application management and deploy
 
 ## API keys
 
-Create an [organization-scoped API key](api-keys.md) and store its secret securely before using it in an integration or CI pipeline.
+Create an [organization-scoped API key](../user/api-keys.md) and store its secret securely before using it in an integration or CI pipeline.
 
 ## Wodby API
 

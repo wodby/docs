@@ -14,7 +14,7 @@ Stack pages:
 
 ## Deployment
 
-See [main code deployment article](../../cicd/deploy.md) to learn about code deployment options on Wodby.
+See [main code deployment article](../../apps/deploy.md) to learn about code deployment options on Wodby.
 
 ### Upgrading Drupal to a new major version
 

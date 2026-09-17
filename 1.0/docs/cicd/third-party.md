@@ -1,27 +1,4 @@
-# Code deployment 
-
-<span id="direct-git-integration"></span>
-
-## Direct git deployments
-
-!!! info "Only for Drupal and WP"
-    Direct git deployment is available only for [Drupal](../stacks/drupal/index.md) and [WordPress](../stacks/wordpress/index.md) stacks and their forks
-
-You can connect your git repository to Wodby and use it as a codebase source for your applications. On code deployment we will perform pull from the target branch and run [post-deployment scripts](post-deployment-scripts.md) (if enabled). 
-
-Additionally, you can run deployment automatically every time you push code to a git branch (all instances using this branch will be deployed):
-
-1. Configure git hooks for your git repository 
-2. Navigate to `Instance > Deployment > Settings` and check `Automatic deploy` option
-
-For details instructions how to connect a repository and configure hooks see the following articles:
-
-* [GitHub](../integrations/github.md) 
-* [BitBucket](../integrations/bitbucket.md) 
-* [GitLab](../integrations/gitlab.md) 
-* [Custom git provider](../integrations/custom.md) 
-
-## CI/CD
+# Third-party CI
 
 Sometimes direct git integration may not be enough for a few reasons:
 
@@ -30,9 +7,7 @@ Sometimes direct git integration may not be enough for a few reasons:
 * Direct git deployment cannot be used for custom stacks and cluster deployments
 * With CI/CD you have build artifacts like docker images that you can download locally
 
-### Via third-party CI
-
-You can set up CI/CD workflow for your application by integrating Wodby with third-party CI tools. Build can be performed on any CI tools with Wodby CLI. 
+You can set up CI/CD workflow for your application by integrating Wodby with third-party CI tools. Build can be performed on any CI tools with Wodby CLI.
 
 Big picture:
 
@@ -46,35 +21,40 @@ Big picture:
 !!! caution "Do not store your Wodby API key in git repository"
     Do not share your Wodby API key or store it in a git repository. Create a key scoped to the application's organization and add it as a secret environment variable in your CI settings. The dashboard shows the secret only once.
 
-#### Wodby CLI
+## Wodby CLI
 
 !!! tldr "VM-based builds over docker-in-docker"
     If your CI tool can run builds both in Docker and Virtual Machine (docker daemon must be available) we recommend using the latter because it's faster
 
-You can install the latest stable Wodby CLI (Linux amd64) tool during the build like this:
+Use [Wodby CLI 1.x](../dev/cli.md) for Wodby 1. The `master` branch contains the Wodby 1 CLI; GitHub's **Latest** release targets Wodby 2.
+
+For Linux amd64 builds, install an explicit Wodby 1 release into a writable directory on your `PATH`:
 
 ```shell
-wget -qO- https://api.wodby.com/api/v1/get/cli | sh
+WODBY_CLI_VERSION=1.0.3
+curl -fsSL "https://github.com/wodby/wodby-cli/releases/download/${WODBY_CLI_VERSION}/wodby-linux-amd64.tar.gz" \
+  | tar xz -C /usr/local/bin
+wodby version
 ```
 
-If you want to install it locally for other systems such as macOS or Windows, or install a specific version follow the instructions at https://github.com/wodby/wodby-cli
+For other systems or architectures, follow the [Wodby 1 installation instructions](https://github.com/wodby/wodby-cli/blob/master/README.md#install).
 
-Or you can use [`wodby/wodby-cli`](https://hub.docker.com/r/wodby/wodby-cli/) docker image if your CI supports only docker-based builds
+If your CI supports only container-based builds, use a versioned 1.x tag of the [`wodby/wodby-cli` image](https://hub.docker.com/r/wodby/wodby-cli/tags), such as `wodby/wodby-cli:1.0.3`.
 
-#### Init
+## Init
 
 ```shell
 wodby ci init [INSTANCE UUID]
 ```
 
-This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have a [Wodby API key](../dev/api-keys.md) scoped to the instance's organization, exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is stored securely and is not publicly exposed.
+This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have a [Wodby API key](../user/api-keys.md) scoped to the instance's organization, exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is stored securely and is not publicly exposed.
 
-#### Build
+## Build
 
 !!! tldr "Services available during the build"
     If you're building a managed stack, the list of services eligible for the build is hardcoded and you can find it in [a stack documentation](../stacks/index.md). If you're building a custom stack, all services that have [`deployment.type=ci`](../stacks/template.md#deployment) will be available
-    
-During the build stage you can prepare your codebase for the build by running `wodby ci run` which is basically a wrapper of `docker run`. 
+
+During the build stage you can prepare your codebase for the build by running `wodby ci run` which is basically a wrapper of `docker run`.
 
 You can either specify a docker image that runs a command:
 
@@ -107,7 +87,7 @@ resolves the default service image user to a numeric user and group and prepares
 The application image therefore does not need to provide `chown` or a shell for ownership preparation. The managed
 initializer and subsequent `wodby ci run` commands keep the selected image's default user and entrypoint.
 
-##### Dependency caches
+### Dependency caches
 
 `wodby ci run` automatically configures dependency caches for supported images:
 
@@ -150,7 +130,7 @@ profile detection; combine it with `--cache PROFILE` when both overrides are nee
 If you need to access private repositories you should add a checkout ssh key to your environment (please refer to your CI provider documentation), then mount the key and `.known_hosts` file (to avoid interactive dialogues), example for CircleCI:
 
 ```yml
-- run: 
+- run:
     name: Install composer dependencies with private packages
     command: wodby ci run \
         -v /home/circleci/.ssh/known_hosts:/tmp/.ssh/known_hosts:ro \
@@ -162,16 +142,16 @@ Once the codebase is ready you can run the build via `wodby ci build` which is a
 
 ```shell
 # Build all ci services' images
-wodby ci build 
+wodby ci build
 # Same thing
 wodby ci build --from \.
-# Build php service image 
+# Build php service image
 wodby ci build php
 # Build all images of services starting with node-
 wodby ci build node-*
 # Build php service image with the contents from ./build directory
 wodby ci build php --from ./build
-# Build node service image with the contents from ./build directory to /usr/src/app directory inside node image 
+# Build node service image with the contents from ./build directory to /usr/src/app directory inside node image
 wodby ci build node --from ./build --to /usr/src/app
 ```
 
@@ -181,7 +161,7 @@ Or you can build from your own `Dockerfile`:
 wodby ci build --dockerfile /path/to/my/Dockerfile
 ```
 
-If you're using custom `Dockerfile` make sure it starts with the following lines to make sure it will be based on the image from your stack: 
+If you're using custom `Dockerfile` make sure it starts with the following lines to make sure it will be based on the image from your stack:
 
 ```
 ARG WODBY_BASE_IMAGE
@@ -192,30 +172,30 @@ By default we build images with the name (tag) of a private docker registry we p
 
 ```shell
 wodby ci build -t my-private-docker-hub/repository
-``` 
+```
 
-#### Release
+## Release
 
 !!! tldr "Docker registry"
     Wodby provides a private docker registry `registry.wodby.com` which used by default. You can use custom docker registry during the build but if it's a private one make sure to add the appropriate [docker registry integration](docker-registry.md) so servers where you deploy instances can access your images. Registry storage above the included amount is billed, see [billing](../billing.md#container-registry-storage).
 
 !!! question "How to download images?"
-    Once you deployed your first build you can find images' URLs on `Instance > Stack` page. You can get those images locally by running `docker login registry.wodby.com` and entering your Wodby user's email/password.  
+    Once you deployed your first build you can find images' URLs on `Instance > Stack` page. You can get those images locally by running `docker login registry.wodby.com` and entering your Wodby user's email/password.
 
 Once images are built, you can push them to a docker registry:
 
 ```shell
-# Push all images to the default docker registry 
+# Push all images to the default docker registry
 wodby ci release
-# Push images of specific services 
+# Push images of specific services
 wodby ci release php node
 # Push to a custom docker registry
 wodby ci release -t my-private-docker-hub/repository
-# Additionally push with the tag of the current git branch name 
+# Additionally push with the tag of the current git branch name
 wodby ci release -t my-private-docker-hub/repository -b
-``` 
+```
 
-#### Deploy
+## Deploy
 
 ```shell
 # Deploy all services from the default docker registry
@@ -226,87 +206,9 @@ wodby ci deploy php crond
 wodby ci deploy -t my-private-docker-hub/repository
 ```
 
-#### Automatically clean unused build images
+## Examples
 
-CI build images remain in the registry after a newer build is deployed so you
-can [deploy a previous build](#deploy-a-previous-build).
+You can find build examples for different CI services such as CircleCI, TravisCI, BitBucket pipelines and custom shell scripts at https://github.com/wodby/wodby-ci
 
-To set the retention period for an organization, open
-`Organization > Settings > Builds` and configure **Auto-void images of unused
-builds for all apps older than**. When you save a new organization default,
-Wodby updates existing app instances only when their current setting matches
-the organization's previous default. Instance settings with a different value
-are treated as overrides and remain unchanged. New app instances inherit the
-current organization default.
-
-To override the organization default for one app instance, open
-`Instance > Builds > Settings` and configure **Auto-clean images**. Both
-settings offer periods of 1 month, 3 months, 6 months, and 1 year. The initial
-default is **Never**.
-
-Retention is measured from the build's original creation date. When retention
-is enabled or shortened, existing unused builds that are already older than the
-selected period become eligible immediately. Cleanup runs in the background,
-so an eligible image may remain for a short time after reaching that age.
-
-Wodby never automatically cleans images that are referenced by any instance's
-current build. If a previous build becomes current again before cleanup, its
-images remain protected regardless of the build's age. Selecting **Never**
-disables automatic cleanup; enabling it again evaluates unused builds from
-their original creation dates.
-
-Cleanup removes managed image tags from Wodby's registry but preserves the
-build history. A historical build whose required images have been removed
-cannot be deployed again. Images stored in an external registry are not
-deleted by this setting.
-
-To release registry storage immediately instead of waiting for retention, open
-`Instance > Builds`, select an unused historical build, and choose the action to
-delete its images. Wodby never offers this action for a build that is current on
-an instance. The build record remains in history, but it cannot be deployed
-again after its required managed tags are deleted. Registry deletion, usage
-measurement, and billing reconciliation run asynchronously, so the displayed
-storage total does not change immediately.
-
-#### Deploy a previous build
-
-For an application instance that uses CI deployment, open `Instance > Builds`,
-select a non-current build, and click **Deploy this build**. Wodby shows a
-confirmation with the current and selected build numbers, the original build
-date and source, the stack version change, the recorded service images, and any
-eligibility warnings.
-
-The operation makes the selected build's saved service images current. If the
-build used an older revision of the same stack, that exact stack revision also
-becomes active. The newer revision remains pending, and the instance is marked
-as requiring a rebuild so you can return to the newer stack with a new CI
-build. Deploying the previous build does not modify its original build record
-or timestamp.
-
-!!! warning "A previous build is not a complete instance restore"
-    The database and persistent files are not rolled back. Current instance
-    settings still control whether post-deployment scripts run, and those
-    scripts can modify persistent data. Wodby does not automatically restore
-    the previous deployment if the task fails or only partially completes.
-
-Before confirming:
-
-1. Verify that recent database and file backups are available and restorable.
-2. Check that the selected application code and stack are compatible with the
-   current database schema and persistent data.
-3. Review every service image, its registry status, and all warnings in the
-   confirmation.
-4. Check the current post-deployment script setting and make sure those scripts
-   are safe to run with the selected build.
-5. Plan for service restarts or short downtime, then monitor the deployment
-   task logs and application health after confirmation.
-
-Deployment is blocked when the stack revision no longer exists, belongs to a
-different logical stack, or cannot be prepared; when a required image is
-missing, voided, or deleted; or when a Drupal stack migration is pending.
-Images stored in an external registry cannot be verified by Wodby, so their
-availability is shown as a warning instead.
-
-#### Examples
-
-You can find build examples for different CI services such as CircleCI, TravisCI, BitBucket pipelines and custom shell scripts at https://github.com/wodby/wodby-ci 
+See [build-image retention](../apps/builds.md#automatically-clean-unused-build-images) and
+[deploying a previous build](../apps/builds.md#deploy-a-previous-build) to manage builds after deployment.

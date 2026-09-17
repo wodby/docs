@@ -39,7 +39,7 @@ If you configure that mode yourself, see the [Walter service-mode guidance](http
 
 ##  Available environment variables
 
-See [Environment Variables article](../infrastructure/env-vars.md). 
+See [Environment Variables article](../apps/env-vars.md).
 
 ## Cleanup pipeline
 

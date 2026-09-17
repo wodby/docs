@@ -198,7 +198,7 @@ Minor Nginx fixes
 
 ### 1.0.1
 
-* Updated [Redis (1.0.2)](https://wodby.com/docs/stacks/redis#changelog) and [Postgres (1.0.1)](https://wodby.com/docs/postgres#changelog) services
+* Updated [Redis (1.0.2)](../redis/index.md#changelog) and [Postgres (1.0.1)](../postgres/index.md#changelog) services
 
 ### 1.0.0
 

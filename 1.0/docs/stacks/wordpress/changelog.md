@@ -1490,7 +1490,7 @@ Bugfix: varnish stripped known cookie preventing user login
 
 ## 5.3.2
 
-* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/wordpress/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/wordpress/containers/#xhprof)
+* Added new profiler service [xhprof viewer](containers.md#xhprof-viewer) for analysis and graphical review of [xhprof traces](containers.md#xhprof)
 * Added Redis 5
 * PHP:
     * ❗️imagick extension has been temporary disabled due to stability issues with ImageMagick library https://github.com/wodby/wordpress/issues/1

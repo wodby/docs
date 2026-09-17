@@ -156,7 +156,7 @@ Rolling updates can run old and new replicas simultaneously and therefore
 require storage and application behavior designed for concurrent replicas.
 
 A service with `deployment.type: ci` starts with zero replicas until its first
-CI build is deployed. See [Code deployment](../cicd/deploy.md#cicd).
+CI build is deployed. See [Code deployment](../cicd/third-party.md).
 
 ### Security context
 

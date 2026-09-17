@@ -4,6 +4,8 @@ Wodby 1 helps developers deploy and manage applications across their own servers
 
 Key concepts:
 
+* [App model](apps/app-vs-instance-vs-service.md)
+* [Glossary](glossary.md)
 * [Application Instances](apps/instances.md)
 * [Single-server infrastructure](infrastructure/index.md)
 * [Stacks](stacks/index.md)
