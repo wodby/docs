@@ -83,28 +83,37 @@ markdown_extensions:
 - markdown_include.include:
     base_path: includes
 
+plugins:
+- search
+- redirects:
+    redirect_maps:
+      'apps/deploy.md': 'cicd/deploy.md'
+      'apps/post-deployment-scripts.md': 'cicd/post-deployment-scripts.md'
+      'integrations/docker-registry.md': 'cicd/docker-registry.md'
+      'cluster/index.md': 'https://wodby.com/docs/2.0/clusters/'
+      'organizations.md': 'org.md'
+      'roles.md': 'access-control.md'
+      'account-security.md': 'user/security.md'
+
 nav:
-- Home:
-  - Getting started: index.md
-  - Billing: billing.md
-  - Organizations: organizations.md
-  - Development: dev.md
-  - Docker4X: docker4x.md
+- Get Started:
+  - Overview: index.md
   - FAQ: faq.md
   - Status: status.md
   - Support: support.md
   - Troubleshooting: troubleshooting.md
-  - Account security: account-security.md
-  - User roles: roles.md
 - Apps:
   - New app: apps/new.md
   - Instances: apps/instances.md
   - Server migration: apps/server-migration.md
-  - Deployment: apps/deploy.md
   - Domains: apps/domains.md
   - Backups: apps/backups.md
   - Logging: apps/logs.md
-  - Post-deployment scripts: apps/post-deployment-scripts.md
+- CI/CD:
+  - Overview: cicd/index.md
+  - Deployment: cicd/deploy.md
+  - Post-deployment scripts: cicd/post-deployment-scripts.md
+  - Container registry: cicd/docker-registry.md
 - Infrastructure:
   - Overview: infrastructure/index.md
   - Connecting server: infrastructure/connecting-server.md
@@ -170,11 +179,22 @@ nav:
   - BitBucket: integrations/bitbucket.md
   - CloudFlare: integrations/cloudflare.md
   - DigitalOcean: integrations/digitalocean.md
-  - Container registry: integrations/docker-registry.md
   - GCP: integrations/gcp.md
   - GitHub: integrations/github.md
   - GitLab: integrations/gitlab.md
   - SendGrid: integrations/sendgrid.md
   - Custom provider: integrations/custom.md
-- Cluster:
-  - Kubernetes cluster: cluster/index.md
+- Organization:
+  - Overview: org.md
+  - Access control: access-control.md
+  - Billing: billing.md
+- User:
+  - Overview: user/index.md
+  - Account: user/account.md
+  - Security: user/security.md
+- Development:
+  - Overview: dev/index.md
+  - API and SDKs: dev/api.md
+  - API keys: dev/api-keys.md
+  - CLI: dev/cli.md
+  - Local development: docker4x.md

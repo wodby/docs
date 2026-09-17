@@ -83,7 +83,7 @@ certificates, recovery is reported for the certificates that recovered, even if 
 
 If a notification identifies a Cloudflare browser challenge, follow the
 [Cloudflare troubleshooting steps](../providers/cloudflare.md#certificate-validation-behind-cloudflare). See
-[certificate troubleshooting](../troubleshooting/certificates.md) for other validation errors.
+[certificate troubleshooting](../apps/certificate-troubleshooting.md) for other validation errors.
 
 ## Custom certificate expiration notifications
 

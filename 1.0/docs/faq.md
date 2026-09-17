@@ -52,7 +52,7 @@ See [this article](stacks/wordpress/index.md#upgrading-wordpress)
 
 ## How can I build my frontend application with Node (npm)?
 
-You should use [CI/CD deployment](apps/deploy.md#cicd) 
+You should use [CI/CD deployment](cicd/deploy.md#cicd)
 
 ## How can I purchase a server?
 
@@ -75,12 +75,12 @@ If you have many low-traffic applications we recommend consider the following:
 
 Open `Account > Delete` and enter your current password. Account deletion can
 be blocked by ownership and billing responsibilities; see
-[Delete your account](organizations.md#delete-your-account) before starting.
+[Delete your account](user/account.md#delete-your-account) before starting.
 
 ## How do I enable two-factor authentication?
 
 Open `Account > Security` in the Wodby dashboard. See
-[Account security](account-security.md) for setup, recovery-code, and
+[Account security](user/security.md) for setup, recovery-code, and
 account-recovery instructions.
 
 ## What's the origin of Wodby name?

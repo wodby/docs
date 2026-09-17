@@ -66,5 +66,5 @@ owners. It has specific read access needed to handle support cases, does not
 inherit the normal role hierarchy, and does not receive ordinary write
 permissions.
 
-See [Organizations and membership](organizations.md) for owner, payer, and
+See [Organizations and membership](org.md) for owner, payer, and
 last-membership safeguards.

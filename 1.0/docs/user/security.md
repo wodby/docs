@@ -113,7 +113,7 @@ same code cannot complete both steps.
 Resetting your password does not disable 2FA.
 
 If you do not have enough unused recovery codes, contact
-[Wodby support](support.md). Be prepared to verify that you own the account.
+[Wodby support](../support.md). Be prepared to verify that you own the account.
 
 ## Confirm sensitive secret reveals
 
@@ -125,5 +125,5 @@ confirmation window in the current browser session; it does not authorize API
 keys or bearer tokens to reveal secrets.
 
 The value itself is shown for only 30 seconds. See
-[Protected and generated values](stacks/config.md#protected-and-generated-values)
+[Protected and generated values](../stacks/config.md#protected-and-generated-values)
 for eligibility, permissions, and audit-history details.

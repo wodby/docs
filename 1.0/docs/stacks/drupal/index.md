@@ -14,7 +14,7 @@ Stack pages:
 
 ## Deployment
 
-See [main code deployment article](../../apps/deploy.md) to learn about code deployment options on Wodby. 
+See [main code deployment article](../../cicd/deploy.md) to learn about code deployment options on Wodby.
 
 ### Upgrading Drupal to a new major version
 
@@ -39,7 +39,7 @@ For demo purposes and simple Drupal installations you can use Vanilla Drupal dep
 
 ### Direct git integration
 
-We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](../../apps/post-deployment-scripts.md):
+We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](../../cicd/post-deployment-scripts.md):
 
 1. Fork [drupal/recommended-project](https://github.com/drupal/recommended-project) (for Drupal 8) or [drupal-composer/drupal-project](https://github.com/drupal-composer/drupal-project) for Drupal 7
 2. Add `wodby.yml` in repository root with the following content:

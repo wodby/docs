@@ -1,5 +1,7 @@
 # Code deployment 
 
+<span id="direct-git-integration"></span>
+
 ## Direct git deployments
 
 !!! info "Only for Drupal and WP"
@@ -65,7 +67,7 @@ Or you can use [`wodby/wodby-cli`](https://hub.docker.com/r/wodby/wodby-cli/) do
 wodby ci init [INSTANCE UUID]
 ```
 
-This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have a [Wodby API key](../dev.md#api-keys) scoped to the instance's organization, exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is stored securely and is not publicly exposed.
+This command will gather build information about your instance such as services (images) that can be built and private docker registry credentials. All builds must start with the init. To perform this step you must have a [Wodby API key](../dev/api-keys.md) scoped to the instance's organization, exported as `$WODBY_API_KEY` or provided via `--api-key`. Make sure the key is stored securely and is not publicly exposed.
 
 #### Build
 
@@ -195,7 +197,7 @@ wodby ci build -t my-private-docker-hub/repository
 #### Release
 
 !!! tldr "Docker registry"
-    Wodby provides a private docker registry `registry.wodby.com` which used by default. You can use custom docker registry during the build but if it's a private one make sure to add the appropriate [docker registry integration](../integrations/docker-registry.md) so servers where you deploy instances can access your images. Registry storage above the included amount is billed, see [billing](../billing.md#container-registry-storage).
+    Wodby provides a private docker registry `registry.wodby.com` which used by default. You can use custom docker registry during the build but if it's a private one make sure to add the appropriate [docker registry integration](docker-registry.md) so servers where you deploy instances can access your images. Registry storage above the included amount is billed, see [billing](../billing.md#container-registry-storage).
 
 !!! question "How to download images?"
     Once you deployed your first build you can find images' URLs on `Instance > Stack` page. You can get those images locally by running `docker login registry.wodby.com` and entering your Wodby user's email/password.  

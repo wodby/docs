@@ -184,7 +184,7 @@ Certificate renewals are scheduled automatically and spread over time. If Let's 
 limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
 notification.
 
-For failed issuance or renewal, see [certificate troubleshooting](../troubleshooting/certificates.md). Domains proxied
+For failed issuance or renewal, see [certificate troubleshooting](certificate-troubleshooting.md). Domains proxied
 through Cloudflare may need an exception for automated validation; see
 [certificate validation behind Cloudflare](../providers/cloudflare.md#certificate-validation-behind-cloudflare).
 

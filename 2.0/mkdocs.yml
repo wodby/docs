@@ -96,6 +96,7 @@ plugins:
   - search
   - redirects:
       redirect_maps:
+        'troubleshooting/certificates.md': 'apps/certificate-troubleshooting.md'
         'apps/instances.md': 'apps/environments.md'
         'apps/app-vs-instance-vs-service.md': 'apps/app-vs-environment-vs-service.md'
         'apps/env.md': 'apps/environment-types.md'
@@ -206,6 +207,7 @@ nav:
       - Environment variables: apps/environment-variables.md
       - Web terminal: apps/web-terminal.md
       - Endpoints: apps/endpoints.md
+      - Certificate troubleshooting: apps/certificate-troubleshooting.md
       - Access: apps/access.md
       - Builds: apps/builds.md
       - Deploys: apps/deploys.md
@@ -389,8 +391,6 @@ nav:
       - Identities: user/identities.md
       - SSH keys: user/ssh-keys.md
       - API keys: user/api-keys.md
-  - Troubleshooting:
-      - Certificates: troubleshooting/certificates.md
   - Development:
       - Overview: dev/index.md
       - API: dev/api.md
