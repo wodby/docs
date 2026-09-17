@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Wodby API Reference",
-    "version": "3.1.0",
+    "version": "3.0",
     "description": "# Introduction\n\nThe Wodby API is organized around REST. Our API has predictable, resource-oriented URLs, and uses HTTP response codes to indicate API errors. We use built-in HTTP features, like HTTP authentication and HTTP verbs, which are understood by off-the-shelf HTTP clients.\n\nJSON is returned by all API responses, including errors.\n\n# Authentication\n\nAuthenticate your account by including your secret key in API requests. Create an organization-scoped API key under Account > API Keys in the Dashboard. New keys can access only their organization and inherit the permissions of their owner. The secret is shown once; keys may expire or be revoked. Existing legacy global keys remain compatible. Your API keys carry many privileges, so be sure to keep them secure! Do not share your secret API keys in publicly accessible areas such as GitHub, client-side code, and so forth.\n\nAll API requests must be made over HTTPS. Calls made over plain HTTP will fail. API requests without authentication will also fail.\n\nExample of authenticated request:\n```\ncurl https://api.wodby.com/api/v3/user -H 'X-API-KEY: YOUR_API_KEY'\n```\n",
     "termsOfService": "https://wodby.com/legal"
   },
@@ -1100,6 +1100,38 @@
             }
           }
         }
+      },
+      "post": {
+        "summary": "Create manual backup",
+        "description": "Create a manual instance backup",
+        "operationId": "createBackup",
+        "tags": [
+          "Backup"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RequestBackupCreate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResponseTask"
+            }
+          }
+        }
       }
     },
     "/backups/{id}": {
@@ -1130,6 +1162,37 @@
             "description": "",
             "schema": {
               "$ref": "#/definitions/Backup"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete backup",
+        "description": "Delete backup",
+        "operationId": "deleteBackup",
+        "tags": [
+          "Backup"
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Backup ID",
+            "type": "string",
+            "format": "uuid"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ResponseTask"
             }
           }
         }
@@ -1506,6 +1569,10 @@
           "title": "UUID",
           "type": "string"
         },
+        "build": {
+          "$ref": "#/definitions/Build",
+          "x-nullable": true
+        },
         "server_id": {
           "title": "UUID",
           "type": "string"
@@ -1832,6 +1899,59 @@
       },
       "additionalProperties": false
     },
+    "Build": {
+      "title": "Build",
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "title": "UUID",
+          "type": "string"
+        },
+        "provider": {
+          "type": "string"
+        },
+        "number": {
+          "type": "integer"
+        },
+        "url": {
+          "type": "string"
+        },
+        "repo_url": {
+          "type": "string"
+        },
+        "branch": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "deployed": {
+          "type": "integer"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "images": {
+          "type": "string"
+        },
+        "stack_ver": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
     "RequestStacksUpdate": {
       "type": "object",
       "properties": {
@@ -1946,6 +2066,44 @@
         "name",
         "stack_id",
         "server_id"
+      ],
+      "additionalProperties": false
+    },
+    "RequestBackupCreate": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "title": "UUID",
+          "type": "string"
+        },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "db",
+              "files"
+            ]
+          }
+        },
+        "mirror": {
+          "type": "boolean",
+          "default": false
+        },
+        "uuid": {
+          "title": "UUID",
+          "type": "string"
+        },
+        "comment": {
+          "type": "string",
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "instance_id",
+        "components"
       ],
       "additionalProperties": false
     },
