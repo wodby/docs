@@ -59,7 +59,7 @@ This changelog is for Varnish stack on Wodby, to see image changes see tags desc
 
 ### 3.4.4
 
-⬆️ Updated Varnish 6 image
+⬆️ OpenSSL 3.5.8
 
 ### 3.4.3
 

@@ -36,7 +36,7 @@ This changelog is for OpenSMTPD stack on Wodby, to see image changes see tags de
 
 ### 2.1.7
 
-⬆️ Updated OpenSMTPD image
+⬆️ OpenSSL 3.5.8
 
 ### 2.1.6
 

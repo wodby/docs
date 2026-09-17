@@ -45,7 +45,7 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 - Adminer:
     - ⬆️ Adminer 6.1.0
     - 🐞 Fixed default database host and database name not being applied in the login form
-- ⬆️ Updated MariaDB images
+- ⬆️ OpenSSL 3.5.8
 
 ### 3.3.4
 

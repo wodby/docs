@@ -87,7 +87,7 @@ This changelog is for Matomo stack on Wodby, to see image changes see tags descr
 - Adminer:
     - ⬆️ Adminer 6.1.0
     - 🐞 Fixed default database host and database name not being applied in the login form
-- ⬆️ Updated MariaDB and OpenSMTPD images
+- ⬆️ OpenSSL 3.5.8 in MariaDB and OpenSMTPD
 
 ### 1.4.10
 

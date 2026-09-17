@@ -9,7 +9,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 6.2.11
 
-- ⬆️ Vanilla WordPress image updated with the PHP changes below
+- 📜 Vanilla WordPress now uses PIE 1.4.10 to install PHP extensions
 - PHP:
     - ⬆️ PIE 1.4.10
     - ⬆️ OpenTelemetry 1.4.1
@@ -21,7 +21,10 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - Nginx:
     - ⬆️ Nginx 1.31.6, 1.30.5
     - ⚠️ Removed the optional XSLT module
-- ⬆️ Updated MariaDB, OpenSMTPD, Varnish, Webgrind and XHProf images
+- ⬆️ OpenSSL 3.5.8 in MariaDB, OpenSMTPD and Varnish
+- Webgrind and XHProf:
+    - ⬆️ OpenTelemetry 1.4.1
+    - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1
 
 ## 6.2.10
 
