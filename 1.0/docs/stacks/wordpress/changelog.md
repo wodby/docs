@@ -21,9 +21,6 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - Nginx:
     - ⬆️ Nginx 1.31.6, 1.30.5
     - ⚠️ Removed the optional XSLT module
-- Webgrind and XHProf:
-    - ⬆️ OpenTelemetry 1.4.1
-    - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1
 
 ## 6.2.10
 
