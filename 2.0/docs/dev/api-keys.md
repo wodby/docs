@@ -6,7 +6,6 @@ Each key belongs to a single organization and authenticates as the user who crea
 
 - the key is scoped to one organization
 - requests made with the key run with that user's permissions inside that organization
-- the backend resolves the organization context from the key itself
 
 Use API keys for external automation against the public REST API. Send the key in the `X-API-KEY` header.
 
@@ -21,7 +20,6 @@ Use API keys for external automation against the public REST API. Send the key i
 - The token value is shown only once after creation.
 - The list later shows metadata such as creation time, last use, and expiry, but not the token itself.
 - You can revoke keys at any time from the same user settings page.
-- The backend updates `last use` when the key is used successfully.
 
 ## Typical uses
 
@@ -41,7 +39,7 @@ curl -sS \
 ## Recommended practices
 
 - create separate keys per automation or CI system
-- set an expiration unless the workflow genuinely needs a long-lived key
+- set an expiration unless the workflow needs a long-lived key
 - store the value in your secrets manager, not in repository files
 - rotate keys instead of reusing one key everywhere
 - revoke keys that are no longer attached to an active workflow

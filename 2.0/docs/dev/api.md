@@ -4,7 +4,7 @@ Wodby exposes a public REST API for resource-oriented automation and OpenAPI-bas
 
 ## API reference
 
-The API reference is published as a separate OpenAPI reference site, not as a MkDocs page:
+Use the API reference for endpoints and request and response schemas:
 
 - [Wodby API reference](https://wodby.com/docs/2.0/api/)
 - [OpenAPI JSON](https://wodby.com/docs/2.0/api/openapi.json)

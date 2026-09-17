@@ -15,21 +15,6 @@ be advanced by a compatible managed rollout or remain pinned until they are
 
 If you are choosing by task rather than by vendor, start with [Integration types](../integrations/types.md) and then jump to the matching provider group from there.
 
-## How provider pages are organized
-
-In the documentation navigation, providers are grouped by the integration types they support, such as Kubernetes,
-databases, storage, Git, CI, registry, SMTP, Application Access, and VPN nodes.
-
-Each provider group starts with its own `Overview` page that explains what that group is for before listing individual providers.
-
-Variable providers have their own group because they are usually used to inject reusable environment variables rather than to create infrastructure resources.
-
-Some providers support more than one type. Those providers can appear in more than one navigation group.
-
-## Built-in providers
-
-Most providers shown in the dashboard are built in and maintained by Wodby. Their setup details are documented in the `Providers` section of this documentation.
-
 ## Custom variable providers
 
 If you only need to inject environment variables and there is no built-in provider for that service, you can create

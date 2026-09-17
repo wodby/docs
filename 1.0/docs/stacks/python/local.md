@@ -63,7 +63,7 @@ CACHES = {
 
 Docker4Python uses [traefik](https://hub.docker.com/_/traefik) container for routing. By default, we use port `8000` to avoid potential conflicts but if port `80` is free on your host machine just replace traefik's ports definition in the compose file.
 
-By default `BASE_URL` set to `python.docker.localhost`, you can change it in `.env` file.
+By default, `PROJECT_BASE_URL` is set to `python.docker.localhost`. You can change it in the `.env` file.
 
 Add `127.0.0.1 python.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
@@ -76,7 +76,7 @@ Add `127.0.0.1 python.docker.localhost` to your `/etc/hosts` file (some browsers
 | `node`       | `http://front.python.docker.localhost:8000`      |
 | `varnish`    | `http://varnish.python.docker.localhost:8000`    |
 | `portainer`  | `http://portainer.python.docker.localhost:8000`  |
-| `opensearch` | `http://opensearch.drupal.docker.localhost:8000` |
+| `opensearch` | `http://opensearch.python.docker.localhost:8000` |
 
 ## Database import and export
 
@@ -106,7 +106,7 @@ Commands:
     ps              List container for the current project (docker ps with filter by name)
     shell [service] Access a container via shell as a default user (by default [service] is python)
     logs [service]  Show containers logs, use [service] to show logs of specific service
-    mutagen         Startы mutagen-compose
+    mutagen         Starts mutagen-compose
 ```
 
 ## Docker for mac
@@ -115,7 +115,7 @@ Commands:
 
 ## Permissions issues
 
-You might have permissions issues caused by non-matching uid/gid on your host machine and the default user in php container.
+You might have permissions issues caused by non-matching uid/gid on your host machine and the default user in the python container.
 
 ### Linux
 

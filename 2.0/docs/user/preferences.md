@@ -9,8 +9,7 @@ stored in the current browser, so you can use a different theme on another brows
 
 ## Default organization
 
-Choose which organization Wodby opens after you sign in or visit the dashboard home page. Changing the default does
-not navigate away from the page you are currently viewing.
+Choose which organization Wodby opens after you sign in or visit the dashboard home page.
 
 Only organizations where you have an active membership are available. If that membership is removed, Wodby clears
 the default organization until you choose another one.

@@ -22,167 +22,6 @@ Deployments are usually triggered in the following ways:
 - automated partial deployments for service-level maintenance
 - manual deployment from the UI
 
-## Deployment readiness and queueing
-
-`Awaiting` and `Queued` describe different stages of a deployment:
-
-- `Awaiting` means Wodby cannot create the deployment task yet. For example, one or more selected new builds have not
-  supplied deployable images, or the target cluster is undergoing an infrastructure upgrade.
-- `Queued` means the deployment has everything it needs and its task is waiting for execution capacity or for a
-  conflicting deployment or post-deployment operation to finish.
-
-Wodby keeps app-wide deployment operations serialized, but eligible partial deployments can roll out concurrently when
-they affect independent resources. If several deployments are requested, each keeps its own service and build selections
-and joins that environment's task queue when it becomes ready. Builds can finish in a different order from the requests,
-so deployments are queued in readiness order, not necessarily deployment-number order.
-
-### Parallel partial deployments
-
-An established app environment on Wodby infrastructure version `4.0.0` or newer can run up to two eligible partial
-deployment rollouts at the same time. This applies only after the environment has a working deployment and its routing
-has completed migration to the app-owned routing lifecycle.
-
-Before admitting a rollout in parallel, Wodby checks more than the selected service IDs. It also treats build owners,
-parent and derivative services, service links and dependencies, shared volumes, storage providers, and route
-certificates as affected resources. Deployments with any overlap remain ordered instead of running concurrently. Wodby
-also keeps a deployment serialized whenever it cannot prove that the affected resources are independent.
-
-Parallel service rollouts do not publish routing or DNS independently. They join one rollout group. When the first
-rollout settles, the group closes to new members; after every rollout in that group has settled, Wodby applies the
-complete routing configuration and synchronizes technical DNS once. Conflicting deployments and other app-wide
-operations wait behind this convergence phase.
-
-A single eligible partial deployment follows the same two-phase process. Its routing and DNS convergence starts as soon
-as its service rollout settles, so there is no wait for another deployment to join the group.
-
-The deployment and app environment remain in progress until convergence finishes. A failed or canceled service rollout
-keeps its own failed or canceled result, while an independent successful rollout can still complete if convergence
-succeeds. If the shared routing or DNS convergence fails, every deployment waiting on that convergence phase fails
-because Wodby cannot confirm the app-wide result.
-
-Wodby always uses the serialized path for first or full deployments, migrations, imports, repository post-deployment
-scripts, and deployments that directly target external, storage, infrastructure, or operator services. App environments
-on older routing infrastructure, or whose routing migration is still in progress, also remain serialized.
-
-When a ready deployment has eligible repository post-deployment scripts, Wodby places the script task immediately after
-that deployment's rollout. A later rollout cannot overtake those scripts: deployment N rolls out first, its scripts run
-after a successful rollout, and only then can deployment N+1 begin. If deployment N fails or is canceled, its scripts do
-not run.
-
-Wodby does not discard a deployment merely because another deployment or a higher-numbered build exists. Selecting an
-older build can be an intentional rollback, and one multi-service deployment can intentionally combine older and newer
-builds. If a pending request is no longer wanted, cancel that deployment or its task explicitly; starting another
-deployment does not replace it.
-
-## First deployment
-
-App creation does not always pre-create a full deployment that waits for every buildable service. Initial behavior
-depends on the enabled services and who starts their builds:
-
-- An app without build-source owners starts its full deployment immediately.
-- An app whose build-source owners all use Wodby CI creates an initial build group and starts those builds. The
-  deployment waits for the Wodby CI owners in that group.
-- An app whose build-source owners all use third-party CI remains `awaiting`, but Wodby does not create a passive full
-  deployment record. The first external build reaches deployment through `wodby ci deploy`, which creates a deployment
-  for that build's released services.
-- For an app with both Wodby CI and third-party CI owners, the initial build group includes the Wodby CI owners and
-  enabled runtime services without build sources. Passive third-party owners do not block that group; their services
-  deploy when their own CI builds report back or when they are included in a later explicit operation.
-
-When an app has not yet established its runtime, a build-backed deployment also includes all enabled services without
-build sources while any of those services has never deployed successfully. This is an initial runtime safety rule, not
-an inferred companion relationship between independent build-source owners. After that bootstrap, a partial
-deployment includes an unrelated service without a build source only when it is marked `needs redeploy` and is not
-already covered by another active deployment. An unhealthy status by itself does not expand a deployment.
-
-Optional build image targets without their own source can use the image produced by their linked owner or their
-configured service image when that build does not provide one.
-
-A partial deployment can complete successfully while the app environment remains `awaiting`. The environment becomes `ok`
-only after every enabled service that requires a Wodby-managed runtime has a usable deployment. Services omitted from
-the first build group can be deployed by their own CI handoff or a later manual deployment.
-
-## Deferred initial deployment
-
-The API can create an app environment with its initial deployment deferred. This lets automation finish configuring the
-environment and its services before any application workloads are started. The environment remains `awaiting` until you
-explicitly start its first build or deployment.
-
-While the initial deployment is deferred, enabling a service saves the enabled state and marks the app environment as
-`needs redeploy`; it does not start an automatic partial deployment. This remains true until a deployment establishes
-the app's runtime and active route backends. Start a deployment that includes the app's required services after
-configuration is complete.
-
-## Automated redeployments
-
-Some platform operations automatically redeploy only the affected app services. Examples include SSH authorized-key
-refreshes and completing an import.
-
-When an affected service uses a build image, Wodby prefers its last successfully deployed build. That known-good image
-can be reused after a stack upgrade even though it was built for the previous stack revision. The task log warns when
-this happens and shows the selected build and both revision numbers.
-
-An automatic stack upgrade runs repository-defined `.wodby/post-deployment.yml` scripts for a build-source service only
-when the upgrade rebuilds that service. If the service needs only a runtime redeployment, Wodby reuses the existing
-build and records its post-deployment scripts as `skipped`. This prevents an unchanged build from automatically
-repeating migrations or other data-changing jobs. Service-manifest [`post_deploy`](../services/operations.md#post_deploy)
-actions are separate lifecycle hooks and are not disabled by this repository-script skip.
-
-Automatic selection does not search arbitrary build history. Once a newer build is successfully deployed, the previous
-build is no longer considered the last known-good image and is not selected automatically across stack revisions. Any
-other automatically selected build must be successful, non-voided, and built for the app environment's current stack
-revision.
-
-Wodby does not silently replace a missing reusable build with the service's default image. If neither the last
-successfully deployed build nor a compatible current-revision build is available, the automated operation stops before
-creating the deployment and its task log asks you to run and successfully deploy a new build. Selection logs use build
-numbers, service names, and stack revision numbers without exposing internal entity IDs.
-
-## Routing deployments
-
-On clusters with Wodby infrastructure version `4.0.0` or newer, HTTP routing has a deployment lifecycle separate from
-app-service workloads. Wodby can apply these changes without rebuilding images or redeploying app services:
-
-- adding, editing, retargeting, disabling, or deleting a route
-- changing app-level or route-specific route settings
-- changing HTTP authentication
-- issuing or renewing a route certificate
-
-Routing deployments update the complete routing configuration for one app environment. Repeated changes made while an
-update is running are combined and followed by another routing update when necessary.
-
-The app environment shows `Updating routing` while its desired routing configuration has not yet been applied. During the
-one-time upgrade from service-owned routing, it shows `Migrating routing`. These states are separate from `needs
-rebuild` and `needs redeploy`, which continue to describe app builds and service workloads.
-
-Automatic routing deployments, including deployments after certificate renewal, create background tasks for logs and
-failure tracking. You do not need to start an app-service deployment after a successful routing-only change.
-
-After a partial workload deployment, Wodby applies routing for app services that currently have a successful deployed
-runtime. Routes to services that have not deployed successfully are omitted instead of being applied to missing
-Kubernetes Services; redirects remain available because they do not require a service backend. The task log identifies
-omitted backends, the app environment returns to `awaiting`, and it remains marked `needs redeploy`. A later workload
-deployment reevaluates every service and adds each route after its backend becomes available.
-
-Clusters older than infrastructure version `4.0.0` continue to apply route, auth, and certificate changes through the
-affected app-service releases. Those apps may still show `needs redeploy` until the cluster infrastructure is upgraded.
-
-## Build deployment
-
-Deployments from CI are triggered with `wodby ci deploy`.
-
-Each build deployment creates a new deployment record associated with the selected build. One build can contain image outputs for multiple app services. CI-triggered deployments can also skip post-deployment scripts for the built services when needed.
-
-A CI build started outside an existing dashboard build group deploys its own released service outputs without waiting
-for unrelated build-source owners. On an app that has not established its runtime yet, Wodby also includes the enabled
-services without build sources required for that initial runtime. Other build owners remain independent and deploy
-when their own builds report back.
-
-Regular app builds can continue while the target cluster is undergoing an infrastructure upgrade. If all required
-builds become ready during the upgrade, the deployment remains `awaiting` without a deployment task. Wodby starts it
-automatically after the cluster returns to `ok`; you do not need to trigger the deployment again. If the infrastructure
-upgrade fails, the deployment continues waiting until the cluster recovers to `ok`.
-
 ## New deployment
 
 A new deployment can be started manually from `Apps > [App] > [Environment] > CI/CD > Deploys > New Deployment`.
@@ -275,10 +114,8 @@ deployment and post-deployment task therefore have separate outcomes:
 - the post-deployment status separately shows whether scripts are pending, running, completed, failed, canceled,
   skipped, not run, or not applicable
 
-Wodby reserves an eligible post-deployment task when the rollout is queued, while keeping it as a separate task with its
-own status and logs. This keeps the rollout and its scripts together in the app environment's queue, so a later rollout
-waits until both phases finish. If the rollout fails or is canceled, Wodby cancels the reserved script task and records
-the post-deployment phase as `not run`.
+A later rollout waits until the deployment and its post-deployment scripts finish. If the rollout fails or is canceled,
+the scripts do not run and their status is `not run`.
 
 If a post-deployment script fails, the completed deployment and app environment remain successful. Wodby shows a
 post-deployment warning with separate task logs and does not roll back the deployed app services. You can retry the
@@ -372,9 +209,8 @@ to clear the error, unless an automatic rollback already restored its previous h
 Use force deployment when you need Wodby to redeploy a selected app service even though the rendered Kubernetes
 manifests have not changed.
 
-For non-external services, Wodby runs the normal Helm upgrade and then updates the pod template of each resolved
-Deployment, StatefulSet, or DaemonSet with an internal redeploy annotation. Kubernetes treats the pod-template update as
-a new rollout, so the service pods are restarted with the same chart values and image references.
+For non-external services, force deployment restarts the service pods with the selected chart values and image
+references, even when those values have not changed.
 
 Force deployment does not create a new build or change which image is deployed. For services with build sources, choose the build
 you want to deploy in the same way as a regular manual deployment.
@@ -382,6 +218,143 @@ you want to deploy in the same way as a regular manual deployment.
 Force deployment requires the service to define resolvable workload selectors. If Wodby cannot resolve the workload
 selectors for a forced upgrade, the deployment is stopped before the Helm release is changed. External services do not
 have Kubernetes workloads to restart.
+
+## Deployment readiness and queueing
+
+`Awaiting` and `Queued` describe different stages of a deployment:
+
+- `Awaiting` means Wodby cannot create the deployment task yet. For example, one or more selected new builds have not
+  supplied deployable images, or the target cluster is undergoing an infrastructure upgrade.
+- `Queued` means the deployment has everything it needs and its task is waiting for execution capacity or for a
+  conflicting deployment or post-deployment operation to finish.
+
+Wodby keeps app-wide deployment operations serialized, but eligible partial deployments can roll out concurrently when
+they affect independent resources. If several deployments are requested, each keeps its own service and build selections
+and joins that environment's task queue when it becomes ready. Builds can finish in a different order from the requests,
+so deployments are queued in readiness order, not necessarily deployment-number order.
+
+### Parallel partial deployments
+
+On Wodby infrastructure version `4.0.0` or newer, an app environment with a working deployment and completed routing
+migration can run up to two independent partial deployments at a time. Deployments that share builds, dependencies,
+volumes, or certificates wait for one another. Wodby also queues deployments when it cannot establish that they are
+independent.
+
+Parallel deployments remain in progress until their shared routing and DNS update finishes. An independent deployment
+can succeed even if another fails or is canceled. If the shared routing or DNS update fails, all deployments waiting
+for that update fail. Check the task logs before retrying.
+
+First and full deployments, migrations, imports, repository post-deployment scripts, and deployments of external,
+storage, infrastructure, or operator services run one at a time. Environments on older routing infrastructure or with
+an unfinished routing migration also run deployments one at a time.
+
+A deployment's repository post-deployment scripts finish before a later rollout starts. If the deployment fails or is
+canceled, its scripts do not run.
+
+Starting another deployment does not replace a pending request. Cancel unwanted deployments or their tasks explicitly.
+
+## First deployment
+
+Initial deployment depends on how the app's services are built:
+
+| Build sources | What happens after app creation |
+| --- | --- |
+| No services need a build | Wodby starts a full deployment immediately. |
+| All builds use Wodby CI | Wodby starts the builds and deploys when they are ready. |
+| All builds use third-party CI | The app remains `awaiting`. Run your external pipeline and call `wodby ci deploy` to deploy its released services. |
+| Wodby CI and third-party CI | Wodby starts its CI builds and deploys their services without waiting for external pipelines. Run those pipelines to deploy the remaining services. |
+
+During initial setup, build-backed deployments also include all enabled services without build sources while any of
+those services has never deployed successfully. After initial setup, a partial deployment includes an unrelated service
+without a build source only when it is marked `needs redeploy` and is not already included in another active deployment.
+An unhealthy status alone does not add a service to a partial deployment.
+
+Optional build image targets without their own source can use the image produced by their linked owner or their
+configured service image when that build does not provide one.
+
+A partial deployment can complete successfully while the app environment remains `awaiting`. The environment becomes `ok`
+only after every enabled service that requires a Wodby-managed runtime has a usable deployment. Services omitted from
+the first build group can be deployed by their own CI handoff or a later manual deployment.
+
+## Deferred initial deployment
+
+The API can create an app environment with its initial deployment deferred. This lets automation finish configuring the
+environment and its services before any application workloads are started. The environment remains `awaiting` until you
+explicitly start its first build or deployment.
+
+While the initial deployment is deferred, enabling a service saves the enabled state and marks the app environment as
+`needs redeploy`; it does not start an automatic partial deployment. This remains true until a deployment establishes
+the app's runtime and active route backends. Start a deployment that includes the app's required services after
+configuration is complete.
+
+## Automated redeployments
+
+Some platform operations automatically redeploy only the affected app services. Examples include SSH authorized-key
+refreshes and completing an import.
+
+When an affected service uses a build image, Wodby prefers its last successfully deployed build. That known-good image
+can be reused after a stack upgrade even though it was built for the previous stack revision. The task log warns when
+this happens and shows the selected build and both revision numbers.
+
+An automatic stack upgrade runs repository-defined `.wodby/post-deployment.yml` scripts for a build-source service only
+when the upgrade rebuilds that service. If the service needs only a runtime redeployment, Wodby reuses the existing
+build and records its post-deployment scripts as `skipped`. This prevents an unchanged build from automatically
+repeating migrations or other data-changing jobs. Service-manifest [`post_deploy`](../services/operations.md#post_deploy)
+actions are separate lifecycle hooks and are not disabled by this repository-script skip.
+
+Automatic selection does not search arbitrary build history. Once a newer build is successfully deployed, the previous
+build is no longer considered the last known-good image and is not selected automatically across stack revisions. Any
+other automatically selected build must be successful, non-voided, and built for the app environment's current stack
+revision.
+
+Wodby does not silently replace a missing reusable build with the service's default image. If neither the last
+successfully deployed build nor a compatible current-revision build is available, the automated operation stops before
+creating the deployment and its task log asks you to run and successfully deploy a new build.
+
+## Routing deployments
+
+On clusters with Wodby infrastructure version `4.0.0` or newer, HTTP routing has a deployment lifecycle separate from
+app-service workloads. Wodby can apply these changes without rebuilding images or redeploying app services:
+
+- adding, editing, retargeting, disabling, or deleting a route
+- changing app-level or route-specific route settings
+- changing HTTP authentication
+- issuing or renewing a route certificate
+
+Routing deployments update the complete routing configuration for one app environment. Repeated changes made while an
+update is running are combined and followed by another routing update when necessary.
+
+The app environment shows `Updating routing` while its desired routing configuration has not yet been applied. During the
+one-time upgrade from service-owned routing, it shows `Migrating routing`. These states are separate from `needs
+rebuild` and `needs redeploy`, which continue to describe app builds and service workloads.
+
+Automatic routing deployments, including deployments after certificate renewal, create background tasks for logs and
+failure tracking. You do not need to start an app-service deployment after a successful routing-only change.
+
+After a partial workload deployment, Wodby applies routing for app services that currently have a successful deployed
+runtime. Routes to services that have not deployed successfully are omitted instead of being applied to missing
+Kubernetes Services; redirects remain available because they do not require a service backend. The task log identifies
+omitted backends, the app environment returns to `awaiting`, and it remains marked `needs redeploy`. A later workload
+deployment reevaluates every service and adds each route after its backend becomes available.
+
+Clusters older than infrastructure version `4.0.0` continue to apply route, auth, and certificate changes through the
+affected app-service releases. Those apps may still show `needs redeploy` until the cluster infrastructure is upgraded.
+
+## Build deployment
+
+Deployments from CI are triggered with `wodby ci deploy`.
+
+Each build deployment creates a new deployment record associated with the selected build. One build can contain image outputs for multiple app services. CI-triggered deployments can also skip post-deployment scripts for the built services when needed.
+
+A CI build started outside an existing dashboard build group deploys its own released service outputs without waiting
+for unrelated build-source owners. On an app that has not established its runtime yet, Wodby also includes the enabled
+services without build sources required for that initial runtime. Other build owners remain independent and deploy
+when their own builds report back.
+
+Regular app builds can continue while the target cluster is undergoing an infrastructure upgrade. If all required
+builds become ready during the upgrade, the deployment remains `awaiting` without a deployment task. Wodby starts it
+automatically after the cluster returns to `ok`; you do not need to trigger the deployment again. If the infrastructure
+upgrade fails, the deployment continues waiting until the cluster recovers to `ok`.
 
 ## Needs redeploy
 

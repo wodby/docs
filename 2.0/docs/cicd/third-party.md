@@ -74,9 +74,8 @@ builds. An unselected build-source owner does not block the group. If a multi-ow
 repeating the task retries targets that returned a provider error without starting another run for targets whose
 dispatch was already attempted.
 
-Provider workflows do not currently return a Wodby launch identifier that can distinguish two unresolved dashboard
-requests for the same source owner. Wodby therefore allows only one awaiting dashboard build requirement per source
-owner. Finish or cancel that request before starting another deployment group containing the same owner.
+Only one dashboard build request can await a build for a given source service at a time. Finish or cancel that request
+before starting another deployment group containing the same service.
 
 When an externally started workflow reports a build, Wodby uses it for an existing dashboard group only when that group
 is awaiting that source owner. Otherwise, `wodby ci deploy` creates a standalone deployment for the build's released
