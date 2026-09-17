@@ -24,7 +24,6 @@ Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.3](#573-drupal-6).
 - Nginx:
     - ⬆️ Nginx 1.31.6, 1.30.5
     - ⚠️ Removed the optional XSLT module
-- ⬆️ OpenSSL 3.5.8 in MariaDB, OpenSMTPD and Varnish
 - Webgrind and XHProf:
     - ⬆️ OpenTelemetry 1.4.1
     - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1

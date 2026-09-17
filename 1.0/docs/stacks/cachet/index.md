@@ -30,7 +30,7 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
-### 3.2.0
+### 3.1.2
 
 - Nginx:
     - ⬆️ Nginx 1.31.6, 1.30.5
