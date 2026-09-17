@@ -1,6 +1,6 @@
 # Infrastructure maintenance
 
-We constantly improve the infrastructure we deploy to our customers' servers. You can see the version of the infrastructure deployed to your server in the Dashboard on the servers list page. It's not always possible to update the infrastructure automatically so if you want update your infrastructure please [contact our support team](../support.md) to schedule the upgrade. 
+You can see your server's infrastructure version on the servers list in the Dashboard. Supported Infrastructure 7 component updates can be applied from the Dashboard when this feature is enabled. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
 
 !!! success "Current Wodby 1 infrastructure lines"
     Infrastructure 7.0.1 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
@@ -15,6 +15,40 @@ You will be notified each time a new version of the infrastructure is released.
 Infrastructure 7 installs exact versions of Docker, Kubernetes, containerd, cri-dockerd, and networking packages and places the apt packages on hold. Do not upgrade these components independently. Contact [Wodby support](../support.md) before changing a control-plane component or upgrading the host operating system.
 
 Existing Infrastructure 7 servers do not automatically replace an already running Agent merely because the backend release profile changed. Follow a support instruction or use the [documented Agent update command](cli.md#updating-infrastructure-7-agent) when a patch release is required.
+
+### Updating from the Dashboard
+
+!!! info "Availability"
+    Dashboard infrastructure updates must be enabled before you can use this workflow. If the controls are unavailable or the Dashboard reports that updates are not enabled, contact [Wodby support](../support.md).
+
+The Dashboard offers approved updates for your server's current Infrastructure 7 version. Each release specifies which components it changes and which versions it supports. Updates follow these supported paths; you cannot select an arbitrary version or skip a required intermediate release. Review and confirm each update separately.
+
+The initial supported update is **7.0.0 → 7.0.1**, which updates Edge to **3.0.9** while preserving its configuration. It does not upgrade the operating system, Installer, Agent, Docker, Kubernetes, networking, or etcd. Those changes require separate maintenance. This workflow applies to supported standalone servers, not clusters, local environments, or Wodby public servers.
+
+!!! warning "Traffic interruption"
+    The 7.0.0 → 7.0.1 update briefly interrupts HTTP and HTTPS traffic to applications on the server while Edge restarts. Schedule a suitable maintenance window and review the warnings for every release before confirming.
+
+You need permission to update the server. The server must be available, and active server and application tasks must finish before you start the update. The checks also verify that the installed components and server configuration support the offered release. Contact support if a configuration is not supported.
+
+1. Open the server's settings in the Dashboard and find **Infrastructure update**.
+2. Select **Check server for update**. Checking the server does not apply the update.
+3. Review the source and target versions, release summary, affected application instances, and warnings. Resolve any reported blockers before proceeding.
+4. Select the acknowledgement checkbox, then **Update infrastructure**.
+5. Select **View update task and logs** to follow progress. You can leave the page and return later.
+6. After the update completes, check that your applications are accessible over HTTP and HTTPS and behave as expected.
+
+A preview expires after 15 minutes and belongs to the user who requested it. Run the checks again if it expires, the server configuration changes, or you need a new preview. Starting an update rechecks the server against the reviewed release.
+
+During the update, the server is reserved for infrastructure maintenance. Other operations that change server resources, including deployments and server deletion, are blocked. Infrastructure update tasks cannot be canceled from the Dashboard. The displayed infrastructure version advances only after the new component rollout and required platform checks succeed.
+
+### If an update does not complete
+
+A failed task or lost connection does not necessarily mean the update was not applied. Reopen the server's settings and follow the recorded operation status before attempting another update.
+
+- If the update stopped before applying a change, maintenance is released and the infrastructure version stays unchanged. Review the task log, resolve the problem, and run new checks before retrying.
+- If the outcome is uncertain, the Dashboard shows **Update outcome needs verification** and keeps the server reserved for maintenance. Wait until the displayed recovery time, then select **Check update status** when it becomes available.
+- A recovery check verifies the existing server state. It does not repeat the update or roll it back. A healthy target completes the update; an unchanged, healthy source releases maintenance so you can prepare a new attempt.
+- If the server cannot be verified in either state, maintenance remains reserved. Contact [Wodby support](../support.md) and include the update task link.
 
 ## Infrastructure 6 OS upgrade tips
 
