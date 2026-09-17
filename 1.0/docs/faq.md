@@ -52,7 +52,7 @@ See [this article](stacks/wordpress/index.md#upgrading-wordpress)
 
 ## How can I build my frontend application with Node (npm)?
 
-You should use [CI/CD deployment](cicd/deploy.md#cicd)
+You should use [CI/CD deployment](cicd/third-party.md)
 
 ## How can I purchase a server?
 

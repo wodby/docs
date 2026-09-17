@@ -112,6 +112,7 @@ nav:
 - CI/CD:
   - Overview: cicd/index.md
   - Deployment: cicd/deploy.md
+  - Third-party CI: cicd/third-party.md
   - Post-deployment scripts: cicd/post-deployment-scripts.md
   - Container registry: cicd/docker-registry.md
 - Infrastructure:

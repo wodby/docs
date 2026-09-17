@@ -26,7 +26,7 @@ If you cancel a subscription, it remains active until the end of the current bil
 
 ## Container registry storage
 
-Wodby provides a private docker registry `registry.wodby.com` that stores the images built and released during your deployments. See [deployment](cicd/deploy.md#release) for how images are pushed to it.
+Wodby provides a private docker registry `registry.wodby.com` that stores the images built and released during your deployments. See [deployment](cicd/third-party.md#release) for how images are pushed to it.
 
 Every organization includes 5 GB of registry storage. Measured storage is rounded up to the next whole GB, and storage above the included amount is billed at $0.15 per GB per month.
 
