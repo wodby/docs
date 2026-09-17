@@ -38,10 +38,6 @@ Deleting images you no longer need reduces your stored amount after registry usa
 
 After every successful charge, Wodby sends an invoice to the billing email specified under `Billing > Settings`, or to the billing contact associated with the Stripe customer. You can also find all invoices and download them as PDF files under `Billing > Invoices`.
 
-## Billing address and VAT
-
-You can specify the required billing details under `Billing > Settings`. The details appear on your invoices. Stripe Checkout also collects the billing address needed to process a new subscription.
-
 ## Permissions
 
 Organization owners and administrators can view and manage the organization's

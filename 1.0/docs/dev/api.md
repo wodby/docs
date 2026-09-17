@@ -1,6 +1,6 @@
 # Wodby API
 
-We provide an API for common tasks such as creating applications and instances and deploying code. Create an [organization-scoped API key](api-keys.md) under `Account > API Keys` to authenticate requests.
+We provide an API for common tasks such as creating applications and instances and deploying code. Create an [organization-scoped API key](../user/api-keys.md) under `Account > API Keys` to authenticate requests.
 
 ## Version 3
 

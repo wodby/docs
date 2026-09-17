@@ -10,7 +10,7 @@ Wodby 1 supports direct Git deployment and container-image builds through third-
 ## Configure your pipeline
 
 1. Choose a [deployment workflow](../apps/deploy.md) for your app instance.
-2. For CI builds, create an [API key](../dev/api-keys.md) scoped to the app's organization and store it in your CI provider's secret settings.
+2. For CI builds, create an [API key](../user/api-keys.md) scoped to the app's organization and store it in your CI provider's secret settings.
 3. [Build](third-party.md#build) your service images and [release](third-party.md#release) them to Wodby's registry or an external registry. Add a [container registry integration](docker-registry.md) when deploying images from a private external registry.
 4. [Deploy](third-party.md#deploy) the build and configure [post-deployment scripts](post-deployment-scripts.md) if your PHP stack needs them.
 

@@ -87,6 +87,7 @@ plugins:
 - search
 - redirects:
     redirect_maps:
+      'dev/api-keys.md': 'user/api-keys.md'
       'cicd/deploy.md': 'apps/deploy.md'
       'apps/post-deployment-scripts.md': 'cicd/post-deployment-scripts.md'
       'integrations/docker-registry.md': 'cicd/docker-registry.md'
@@ -189,14 +190,16 @@ nav:
 - Organization:
   - Overview: org.md
   - Access control: access-control.md
+  - Settings: org/settings.md
   - Billing: billing.md
 - User:
   - Overview: user/index.md
   - Account: user/account.md
   - Security: user/security.md
+  - API keys: user/api-keys.md
+  - SSH keys: user/ssh-keys.md
 - Development:
   - Overview: dev/index.md
   - API and SDKs: dev/api.md
-  - API keys: dev/api-keys.md
   - CLI: dev/cli.md
   - Local development: docker4x.md

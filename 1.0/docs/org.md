@@ -6,6 +6,8 @@ resources is controlled by each member's organization role and, where
 configured, an application-specific role. See [Permissions](access-control.md) for the
 role hierarchy.
 
+Use [Organization settings](org/settings.md) to configure unused build image retention.
+
 ## Manage members
 
 Owners and administrators can invite people and manage active memberships from

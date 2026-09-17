@@ -33,7 +33,7 @@ Follow the steps in the [third-party CI guide](../cicd/third-party.md):
 CI build images remain in the registry after a newer build is deployed so you
 can [deploy a previous build](#deploy-a-previous-build).
 
-To set the retention period for an organization, open
+To set the retention period in [Organization settings](../org/settings.md), open
 `Organization > Settings > Builds` and configure **Auto-void images of unused
 builds for all apps older than**. When you save a new organization default,
 Wodby updates existing app instances only when their current setting matches
