@@ -445,6 +445,11 @@ Each workload declares:
 - optional workload-specific `deployment` settings
 - optional workload- and container-level Helm value mappings
 
+`workloads[].helm.replicas` maps the app service's effective replica count to a chart value for that workload.
+`workloads[].helm.managedReplicas` instead applies the count directly to the rendered workload and removes a chart HPA
+that targets it. The two fields are mutually exclusive, and `managedReplicas` is not supported for DaemonSets. See
+[Workload-level Helm mappings](workloads.md#workload-level-helm-mappings).
+
 If the service has multiple workloads, mark one as `primary`. The primary workload is the default target used by
 runtime features when no explicit workload is selected.
 
@@ -553,6 +558,10 @@ Each `endpoints[].ports[]` item supports:
 - `protocol`: required protocol. Allowed values: `http`, `tcp`, `udp`.
 - `private`: optional boolean.
 - `main`: marks the main port within that endpoint.
+- `redeployOnPublicPortChange`: redeploy the owning app service after this public TCP or UDP port is published or
+  unpublished. It is not supported for HTTP or private ports.
+- `routeToPublicPort`: target the assigned public port number on the rendered Kubernetes Service. It requires
+  `redeployOnPublicPortChange`.
 - `routeDefaults`: optional map of [HTTP route setting](../apps/endpoints.md#route-settings) names to default string
   values. It is supported only when `protocol` is `http`.
 
@@ -995,6 +1004,8 @@ The object supports:
   `infrastructure` and `operator`; those controller-oriented types opt in by mapping this property explicitly. Wodby
   uses the stack-local app-service name and verifies it reaches `app.kubernetes.io/name` in workload labels and
   selectors.
+- `disableNameOverride`: disable managed application-name injection and validation for a third-party workload chart
+  that does not implement the `nameOverride` label contract. It cannot be combined with `nameOverride`.
 - `fullnameOverride`: resource-name override path. Defaults to `fullnameOverride`.
 - `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
 - `serviceAccountCreate`: optional chart-owned service-account creation path. Wodby sets it to `false` when it supplies
