@@ -35,6 +35,16 @@ class AgentDocsTests(unittest.TestCase):
         self.assertLess(result.index('first'), result.index('Windows'))
         self.assertLess(result.index('Windows'), result.index('second'))
 
+    def test_collapsed_details_are_fully_exported(self):
+        html = '''<details><summary>Optional setup</summary><p>Keep this instruction.</p>
+        <pre><code>example-command</code></pre>
+        <details><summary>Nested details</summary><p>Keep the warning.</p></details></details>'''
+        result = agent_docs.clean_markdown(html, "https://wodby.com/docs/2.0/dev/mcp/")
+        for text in ['**Optional setup**', 'Keep this instruction.', 'example-command',
+                     '**Nested details**', 'Keep the warning.']:
+            self.assertIn(text, result)
+        self.assertNotIn('<details', result)
+
     def test_alternates_and_nested_urls(self):
         page = SimpleNamespace(file=SimpleNamespace(dest_uri="agents/clients/index.html"))
         self.assertEqual(agent_docs.markdown_uri(page), "agents/clients/index.md")

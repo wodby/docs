@@ -1,7 +1,8 @@
 # MCP tools
 
 Use the connected server's `tools/list` response for input schemas and currently available tools. Do not assume
-an operation exists because a newer skill mentions it. See the [MCP reference](../mcp.md) for connection and response handling.
+an operation exists because a newer skill mentions it. See [MCP setup](../mcp.md) and the
+[technical reference](reference.md) for connection and response handling.
 
 Wodby MCP tools are grouped by scope. Destructive and high-impact tools also require a `confirm: true` argument.
 

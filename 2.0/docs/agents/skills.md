@@ -30,32 +30,41 @@ Do not access the current host, create resources, transfer data, or change DNS.
 The [migration walkthrough](workflows/migrate.md) explains the expected output and next decisions without requiring
 you to read skill source files.
 
-## Optional local installation
+## Optional details
 
-The [public skill distribution](https://mcp.wodby.com/agent-skills) provides a versioned JSON index, individual
-`SKILL.md` files, and a downloadable archive. Download the archive linked from that index, inspect it, and extract it.
-Load it using your host's supported local-plugin or skill installation mechanism. It contains portable skill
-directories, a Codex-compatible plugin manifest, and HTTP MCP configuration; not every client accepts that plugin
-format. Configure MCP separately when necessary.
+Local installation is optional. Always check live tool schemas before acting; an installed skill may describe
+features unavailable on the connected server.
 
-Install from one source to avoid conflicting copies. Installing files neither connects an account nor authorizes
-operations. If the client cannot install skills, use `get_wodby_guidance` instead.
+<span id="optional-local-installation"></span>
 
-## Versions and upgrades
+??? note "Install skills locally (optional)"
 
-Three versions have different meanings:
+    The [public skill distribution](https://mcp.wodby.com/agent-skills) provides a versioned JSON index, individual
+    `SKILL.md` files, and a downloadable archive. Download the archive linked from that index, inspect it, and extract it.
+    Load it using your host's supported local-plugin or skill installation mechanism. It contains portable skill
+    directories, a Codex-compatible plugin manifest, and HTTP MCP configuration; not every client accepts that plugin
+    format. Configure MCP separately when necessary.
 
-- The skill bundle version identifies workflow text and packaged files.
-- The server implementation version identifies a Wodby MCP release.
-- The MCP protocol version is negotiated between client and server.
+    Install from one source to avoid conflicting copies. Installing files neither connects an account nor authorizes
+    operations. If the client cannot install skills, use `get_wodby_guidance` instead.
 
-They do not need to match. A newer bundle does not mean every server or client exposes every feature mentioned in it.
-Always discover available tools and read their schemas before execution. If a tool is unavailable, report the gap and
-use a documented fallback or a human handoff; do not invent a replacement operation.
+<span id="versions-and-upgrades"></span>
 
-For reproducible jobs, retain the versioned index URL and each skill's SHA-256 hash. Review changes before replacing
-a pinned bundle. Use the public distribution to discover the current version rather than assuming an old link is
-latest. These workflows target Wodby 2 only.
+??? note "Versions, pinning, and upgrades"
+
+    Three versions have different meanings:
+
+    - The skill bundle version identifies workflow text and packaged files.
+    - The server implementation version identifies a Wodby MCP release.
+    - The MCP protocol version is negotiated between client and server.
+
+    They do not need to match. A newer bundle does not mean every server or client exposes every feature mentioned in it.
+    Always discover available tools and read their schemas before execution. If a tool is unavailable, report the gap and
+    use a documented fallback or a human handoff; do not invent a replacement operation.
+
+    For reproducible jobs, retain the versioned index URL and each skill's SHA-256 hash. Review changes before replacing
+    a pinned bundle. Use the public distribution to discover the current version rather than assuming an old link is
+    latest. These workflows target Wodby 2 only.
 
 ## Reuse maintained definitions
 
@@ -66,3 +75,13 @@ composition and configuration requirements. They omit configuration values and a
 Wodby-maintained definitions can continue receiving [stack updates](../stacks/updates.md). Running environments
 upgrade separately according to their [auto-upgrade settings](../apps/stack.md#auto-upgrade). Using an agent does not
 remove the need to review production upgrades or maintain your application code and custom definitions.
+
+??? example "Draft a custom definition"
+
+    Fetch the relevant schema, validate the draft, and review it before creating or importing a resource.
+    For example:
+
+    ```text
+    Load wodby2-service. Check whether an existing service fits this application.
+    If not, draft and validate a service manifest. Show the result without creating or publishing it.
+    ```

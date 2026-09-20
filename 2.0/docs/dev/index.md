@@ -2,7 +2,7 @@
 
 Use these pages when you integrate external automation with Wodby.
 
-For agent-assisted work, start with the [agent quickstart](../agents/index.md). Use the MCP reference below when
+For agent-assisted work, start with the [MCP getting started](mcp.md). Use the [technical reference](mcp/reference.md) when
 building or troubleshooting the connection itself.
 
 ## API and SDKs

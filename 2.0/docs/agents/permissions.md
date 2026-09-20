@@ -10,7 +10,7 @@ Use a separate connection for each agent or automation, and grant only the acces
 3. **Approval for the job:** you decide which changes the agent may make. A tool's `confirm: true` argument must reflect
    your approval; the argument is not independent proof that a person reviewed the change.
 
-See the [scope reference](../dev/mcp.md#authentication). A client's approval dialog does not add a missing scope or
+See the [scope reference](../dev/mcp/reference.md#authentication). A client's approval dialog does not add a missing scope or
 grant access to another project. A read-only plan does not approve deployment, and a staging deployment does not
 approve production cutover.
 
@@ -41,7 +41,7 @@ Open `User settings > API keys` to review credentials. MCP OAuth credentials use
 
 ## API keys and unattended agents
 
-The [API-key fallback](clients.md#api-key-fallback) uses `X-API-KEY`. An ordinary API key runs with its owner's access
+The [API-key fallback](../dev/mcp.md#api-key-fallback) uses `X-API-KEY`. An ordinary API key runs with its owner's access
 in one organization; do not assume the OAuth scope restrictions apply to it. Use a dedicated key and an appropriately
 restricted user, set an expiration, store it in a secret manager, and plan rotation. Never commit a token into a client
 configuration or paste it into a conversation.
@@ -62,7 +62,7 @@ and version when supplied. Follow related build and deployment tasks, not just t
 - Task history records task-backed actions, not every read or the agent's complete conversation. Application-log
   reads and watches record access tasks; their success is not proof of application health.
 
-See [Tasks](../tasks.md) and the [diagnostic log reference](../dev/mcp.md#reading-diagnostic-logs).
+See [Tasks](../tasks.md) and the [diagnostic log reference](../dev/mcp/reference.md#reading-diagnostic-logs).
 
 ## Protect secrets and production
 

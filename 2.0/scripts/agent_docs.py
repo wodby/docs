@@ -10,13 +10,13 @@ from markdownify import markdownify
 
 # Curated entry points, not a second copy of the documentation navigation.
 INDEX_SECTIONS = {
-    "Start here": ["index.md", "agents/index.md", "apps/app-vs-environment-vs-service.md", "glossary.md"],
-    "Using agents": [
-        "agents/clients.md", "agents/permissions.md", "agents/skills.md",
+    "Start here": ["index.md", "dev/mcp.md", "apps/app-vs-environment-vs-service.md", "glossary.md"],
+    "Using MCP": [
+        "agents/permissions.md", "agents/skills.md",
         "agents/workflows/migrate.md", "agents/workflows/staging.md",
         "agents/workflows/troubleshoot.md", "agents/troubleshooting.md",
     ],
-    "Technical interfaces": ["dev/mcp.md", "dev/mcp/tools.md", "dev/api.md", "dev/sdks.md", "dev/cli.md"],
+    "Technical interfaces": ["dev/mcp/reference.md", "dev/mcp/tools.md", "dev/api.md", "dev/sdks.md", "dev/cli.md"],
     "Operate applications": [
         "tasks.md", "apps/deploys.md", "apps/observability.md", "apps/imports.md",
         "apps/backups.md", "apps/stack.md", "stacks/updates.md", "access-control.md",
@@ -28,7 +28,7 @@ _pages = {}
 
 INDEX_TITLES = {
     "index.md": "Wodby 2 overview",
-    "agents/index.md": "Agent quickstart",
+    "dev/mcp.md": "MCP: connect and get started",
     "services/index.md": "Services overview",
     "services/create.md": "Create a service",
     "stacks/create.md": "Create a stack",
@@ -53,6 +53,16 @@ def clean_markdown(content, canonical_url):
     soup = BeautifulSoup(content, "html.parser")
     for element in soup.select("a.headerlink, script, style, input, button"):
         element.decompose()
+    # Exports include optional details without requiring an interactive client.
+    for detail in soup.select("details"):
+        summary = detail.find("summary", recursive=False)
+        if summary:
+            label = soup.new_tag("p")
+            bold = soup.new_tag("strong")
+            bold.string = summary.get_text(" ", strip=True)
+            label.append(bold)
+            summary.replace_with(label)
+        detail.unwrap()
     # Keep tab names next to their content instead of a detached list of all tab labels.
     for group in soup.select(".tabbed-set"):
         labels = group.select(":scope > .tabbed-labels > label")
@@ -100,7 +110,7 @@ def build_index(pages, site_url):
     lines = [
         "# Wodby 2 documentation", "",
         "> Self-contained technical guidance for deploying and operating applications on Wodby 2.", "",
-        "These docs apply to Wodby 2, not Wodby 1. Start with the agent quickstart for agent-assisted work.",
+        "These docs apply to Wodby 2, not Wodby 1. Start with MCP to connect your client and verify access.",
         "Use live MCP tool schemas for available operations and inputs. Guidance does not authorize changes.",
         "Markdown links below contain the same page content as the HTML docs, without site navigation.",
         "",

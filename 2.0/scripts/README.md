@@ -15,7 +15,8 @@ mkdocs build --strict
 
 `agent_docs.py` generates clean Markdown from rendered page content, after includes and links are processed. It writes
 an `index.md` alongside each directory-style HTML page, adds alternate/discovery links to HTML, and generates the
-docs-only `llms.txt`. Output belongs in the build directory, not the source tree. Update `INDEX_SECTIONS` when curated
+docs-only `llms.txt`. Collapsible sections are expanded in Markdown, including their labels and nested content.
+Output belongs in the build directory, not the source tree. Update `INDEX_SECTIONS` when curated
 entry points move; the build fails for a missing entry. Wodby 1 has a separate build and is not included.
 
 Run `python3 2.0/scripts/check_agent_contract.py --live` to compare the skill table with the current public distribution,

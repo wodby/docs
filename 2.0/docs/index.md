@@ -19,7 +19,7 @@ If the catalog does not include what you need, [create a custom stack](stacks/cr
 
 ## Key concepts
 
-To work through an AI client, start with [Use Wodby with an agent](agents/index.md). It covers connection, read-only
+To work through an AI client, start with [MCP](dev/mcp.md). It covers connection, read-only
 verification, permissions, and migration, staging, and troubleshooting workflows.
 
 - [Apps, app environments, and app services](apps/app-vs-environment-vs-service.md)

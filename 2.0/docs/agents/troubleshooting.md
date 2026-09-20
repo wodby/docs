@@ -1,7 +1,7 @@
 # Agent connection troubleshooting
 
-Start with a read-only identity check from the [quickstart](index.md). Do not test connection problems by creating or
-deleting resources.
+Start with the [read-only connection check](../dev/mcp.md#verify-the-connection).
+Do not test connection problems by creating or deleting resources.
 
 | Symptom | What to check | Safe next step |
 | --- | --- | --- |
@@ -15,8 +15,8 @@ deleting resources.
 | Request timed out after a change | The operation may already have started | Inspect the target and related tasks before retrying. |
 | Watch ended or logs are empty | Target restart, retention/size limits, dropped entries, or no new output | Report incomplete coverage; rediscover the target before another bounded read. |
 
-See [client setup](clients.md), [credential management](permissions.md), and
-[MCP error handling](../dev/mcp.md#troubleshooting). Never post tokens, authorization URLs containing codes, or
+See [client setup](../dev/mcp.md#connect-your-client), [credential management](permissions.md), and
+[MCP error handling](../dev/mcp/reference.md#troubleshooting). Never post tokens, authorization URLs containing codes, or
 unredacted application secrets when asking for help.
 
 ## Information to include in a support request
