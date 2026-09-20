@@ -251,10 +251,10 @@ Client versions and organization policies can affect available features.
     The host connects to MCP and enforces its own tool-approval policy. Choosing a model through OpenRouter does not
     configure a Wodby connection; configure the MCP-capable host that uses that model.
 
-    For a client that only accepts marketplace plugins, such as a Grok Bot setup with that restriction, confirm an
-    appropriate Wodby plugin is actually available and permitted by your administrator. The downloadable Wodby skill
-    archive is not proof of a marketplace listing. If the host cannot accept the endpoint or a suitable plugin, use a
-    client with documented remote MCP support rather than guessing setup commands.
+    For a client that only accepts marketplace plugins, confirm an appropriate Wodby plugin is available and
+    permitted by your administrator. The downloadable Wodby skill archive is not proof of a marketplace listing.
+    If the host cannot accept the endpoint or a suitable plugin, use a client with documented remote MCP support
+    rather than guessing setup commands.
 
 ## Verify the connection
 
