@@ -5,6 +5,9 @@ Wodby exposes a Model Context Protocol (MCP) server for AI assistants and coding
 Use MCP when you want an AI client to inspect Wodby resources, summarize app and deployment state, create or operate
 apps, or diagnose failed operations without manually copying IDs, task logs, and deployment details between tools.
 
+For a first connection, use the [agent quickstart](../agents/index.md). This page documents the technical interface;
+client setup and operational walkthroughs are maintained separately within these docs.
+
 ## Endpoint
 
 Use the hosted Wodby MCP endpoint:
@@ -15,35 +18,39 @@ https://mcp.wodby.com/mcp
 
 The endpoint uses Streamable HTTP. Clients must send MCP JSON-RPC requests over `POST`.
 
+### Custom clients
+
+Use a maintained MCP client library where possible. Authenticate every request, initialize the connection, retain the
+negotiated protocol version, then discover tools with `tools/list`. Read each tool's input schema before calling it;
+names containing `instance` may refer to the public concept [app environment](../apps/app-vs-environment-vs-service.md).
+
+When initialization returns `Mcp-Session-Id`, send it on subsequent requests using the same credential. Reinitialize
+after an invalid or expired session response. Session metadata does not replace authentication. Send truthful
+`clientInfo` name/version fields; these are displayed as self-reported labels, not trusted identity claims.
+
+Wodby returns JSON responses to HTTP requests. A persistent SSE connection is not required; live application-log
+watching uses bounded tool calls and cursors rather than a permanent HTTP stream. Do not assume every optional MCP
+capability is implemented. Inspect the initialization response and current tool list.
+
+### Response handling
+
+A valid HTTP or JSON-RPC response does not necessarily mean an operation succeeded. Check protocol errors and tool
+results with `isError: true`. Execution errors can include `structuredContent.error` with `code`, `message`,
+`nextAction`, `retryable`, and `outcomeUnknown`. Preserve the error code and relevant task/request IDs for diagnosis.
+
+Follow returned task IDs and `suggestedCalls` within the authorized scope. A creation response is not proof of a
+completed deployment, and a completed deployment is not proof of application behavior. Inspect warnings and verify
+the target. See [staging verification](../agents/workflows/staging.md#3-verify-more-than-task-completion).
+
+Do not assume writes are idempotent. After a timeout, lost response, or `outcomeUnknown`, reconcile the target and
+related tasks before retrying. Respect rate-limit responses and back off rather than looping. For diagnostic bounds,
+see [log reads](#reading-diagnostic-logs) and [watches](#watching-a-live-reproduction); do not apply REST API limits to MCP.
+
 ## Agent workflows
 
-Start at [Wodby agent skills](https://mcp.wodby.com/agent-skills). The public page links to the current workflow
-index, individual skills, and a downloadable plugin. Reading or installing these files does not connect your account
-or authorize changes.
-
-| Skill | Use |
-| --- | --- |
-| `wodby2-get-started` | Check whether Wodby fits an application and identify the next workflow. |
-| `wodby2-deploy` | Prepare a deployment, resolve missing choices, and follow its tasks. |
-| `wodby2-troubleshoot` | Diagnose failures using task history, application logs, pod status, and metrics. |
-| `wodby2-service` | Draft and validate a reusable service manifest. |
-| `wodby2-stack` | Compose services into a stack and validate its manifest. |
-| `wodby2-provider` | Draft and validate a provider manifest. |
-
-For clients with local plugin support, download and extract the linked archive, then load it using the client's
-supported installation method. It contains portable `SKILL.md` directories, a Codex-compatible plugin manifest, and
-HTTP MCP configuration. Other clients may need separate MCP configuration as shown below.
-
-Installation is optional. A connected assistant can call `get_wodby_guidance` to discover workflows and load one by
-name. For example:
-
-```text
-Use Wodby guidance for troubleshooting, then explain why deployment 789 failed. Do not make changes.
-```
-
-The versioned index includes a SHA-256 hash for each skill. Keep the version and hash when pinning a workflow;
-previously published 0.1.0 links remain available. Skills must still check the connected server's available tools.
-These workflows apply to Wodby 2, not Wodby 1.
+Start with the [agent quickstart](../agents/index.md). Use [Skills and compatibility](../agents/skills.md) to choose
+and load guidance, including migration planning with `wodby2-migrate`. The public skill distribution is optional;
+connected agents can use `get_wodby_guidance`. Guidance does not authorize changes.
 
 ## Authentication
 
@@ -82,140 +89,19 @@ export WODBY_API_KEY=...
 
 ## Client configuration
 
-For MCP clients that run local server commands, use `mcp-remote` without custom headers. It discovers Wodby's OAuth
-metadata, opens the browser flow, and stores the returned MCP token locally:
-
-```json
-{
-  "mcpServers": {
-    "wodby": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@latest",
-        "https://mcp.wodby.com/mcp"
-      ]
-    }
-  }
-}
-```
-
-Restart your MCP client after changing its configuration.
-
-For clients or scripts that cannot complete OAuth, keep using `X-API-KEY`:
-
-```json
-{
-  "mcpServers": {
-    "wodby": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@latest",
-        "https://mcp.wodby.com/mcp",
-        "--header",
-        "X-API-KEY: ${WODBY_API_KEY}"
-      ]
-    }
-  }
-}
-```
+Follow [Connect your client](../agents/clients.md) for generic clients, API-key fallback, and additional hosts.
 
 ### Claude Desktop
 
-Open the Claude Desktop MCP configuration file and add the Wodby server:
-
-=== "macOS"
-
-    ```bash
-    code ~/Library/Application\ Support/Claude/claude_desktop_config.json
-    ```
-
-=== "Windows"
-
-    ```powershell
-    code "$env:APPDATA\Claude\claude_desktop_config.json"
-    ```
-
-```json
-{
-  "mcpServers": {
-    "wodby": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "mcp-remote@latest",
-        "https://mcp.wodby.com/mcp"
-      ]
-    }
-  }
-}
-```
-
-Save the file, restart Claude Desktop, and approve the Wodby browser authorization when prompted.
+See [Claude Desktop setup](../agents/clients.md#claude-desktop).
 
 ### Claude Code
 
-Claude Code can connect to remote HTTP MCP servers directly:
-
-```bash
-claude mcp add --transport http wodby https://mcp.wodby.com/mcp
-```
-
-Then run the OAuth login flow:
-
-```bash
-claude mcp login wodby
-```
+See [Claude Code setup](../agents/clients.md#claude-code).
 
 ### Codex
 
-Codex can add Wodby from the CLI:
-
-```bash
-codex mcp add wodby --url https://mcp.wodby.com/mcp
-```
-
-If Codex does not open the authorization flow during add, run:
-
-```bash
-codex mcp login wodby
-```
-
-For an authorized task that needs operational permissions, explicitly request them:
-
-```bash
-codex mcp login wodby --scopes mcp:read,mcp:operate
-```
-
-Review the new browser consent before approving. Other operations may require different scopes from the list above.
-
-Codex stores MCP servers in `~/.codex/config.toml`, or in `.codex/config.toml` for a trusted project. The equivalent
-manual configuration is:
-
-```toml
-[mcp_servers.wodby]
-url = "https://mcp.wodby.com/mcp"
-```
-
-In the Codex terminal UI, use `/mcp` to check connected MCP servers.
-
-See the [official Codex MCP guide](https://learn.chatgpt.com/docs/extend/mcp) for client configuration options.
-
-To use a manual API key instead of OAuth, configure `env_http_headers`:
-
-```toml
-[mcp_servers.wodby]
-url = "https://mcp.wodby.com/mcp"
-env_http_headers = { "X-API-KEY" = "WODBY_API_KEY" }
-```
-
-Set the key before starting Codex:
-
-```bash
-export WODBY_API_KEY=...
-codex
-```
+See [Codex setup](../agents/clients.md#codex).
 
 ## Using Wodby in your MCP client
 
@@ -446,7 +332,7 @@ Sensitive actions, such as creating a database user with a password, require the
 and other high-impact actions require `confirm: true` in the tool call.
 
 ```text
-Create database user app_rw for database db-abc with grants to DB app_prod. Request the password from me first and do not print it back.
+Prepare to create database user app_rw for database db-abc with grants to DB app_prod. Stop until I arrange secure password entry and approve creation; do not request or print the password in this conversation.
 ```
 
 ```text
@@ -455,157 +341,32 @@ Delete database DB old_test from database db-abc. Show exactly what will be dele
 
 ## Available tools
 
-Wodby MCP tools are grouped by scope. Destructive and high-impact tools also require a `confirm: true` argument.
+The [tool reference](mcp/tools.md) lists tools by scope. The connected server's schemas remain the source of truth
+for accepted arguments and current capabilities.
 
 ### Read tools
 
-These tools require `mcp:read` when using OAuth.
-
-| Tool | Use |
-| --- | --- |
-| `get_wodby_guidance` | Discover Wodby 2 workflow skills or load one by name. |
-| `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
-| `list_orgs` | List organizations available to the authenticated user. |
-| `list_projects` | List projects in an organization by organization name or ID. |
-| `list_envs` | List environments in an organization for app and app environment creation. |
-| `list_integrations` | List integrations, optionally filtered by type, status, project, or provider labels. |
-| `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
-| `show_app_status` | Return a dashboard-style app summary with app environments, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
-| `get_app` | Get an app by ID. |
-| `find_environment` | Find an app environment by organization, app name, and the legacy `instanceName` argument. |
-| `list_app_instances` | List app environments with optional project, app, cluster, and status filters by names or IDs. |
-| `get_app_instance` | Get an app environment by ID. |
-| `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
-| `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
-| `list_app_services` | List services for an app environment by app environment ID or the legacy organization/app/instance-name arguments. |
-| `get_app_service` | Get an app service by ID. |
-| `list_app_service_cron_schedules` | List cron schedules for an app environment or app service by IDs or by the legacy organization/app/instance-name/service arguments. |
-| `list_app_builds` | List recent builds for an app environment by ID or the legacy organization/app/instance-name arguments. |
-| `get_app_build` | Get an app build by ID. |
-| `list_recent_deployments` | List recent deployments for an app environment by ID or the legacy organization/app/instance-name arguments. |
-| `get_deployment` | Get deployment status, task, and service deployment details. |
-| `get_task` | Get task jobs and steps, with follow-up suggestions when task results point to builds or deployments. |
-| `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs and follow-up suggestions. |
-| `get_task_logs` | Get structured task job and step logs. |
-| `get_task_step_logs` | Read a bounded page of live or historical task-step logs with sequence cursors. |
-| `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
-| `list_clusters` | List clusters in an organization. |
-| `get_cluster` | Get a cluster by ID. |
-| `get_kubernetes_cluster_options` | Get provider-backed Kubernetes regions or zones, machine types, versions, and settings for a Kubernetes integration. |
-| `get_wodby_cloud_options` | Get Wodby Cloud regions, machine types, pricing, and creation notes. |
-| `prepare_cluster_creation` | Resolve defaults and return missing questions for creating managed, k3s, demo, or Wodby Cloud clusters. This does not create anything. |
-| `get_cluster_metrics` | Get a current cluster metrics summary. |
-| `list_cluster_node_metrics` | List node metrics for a cluster. |
-| `list_databases` | List databases in an organization. |
-| `get_database` | Get a database by ID. |
-| `list_database_dbs` | List DBs inside a database. |
-| `list_database_users` | List database users without returning passwords. |
-| `list_public_services` | List public service catalog items. |
-| `list_services` | List services in an organization. |
-| `get_service` | Get a service by name and optional revision number. |
-| `get_service_schema` | Get the Wodby service manifest JSON schema. |
-| `get_service_examples` | Get concise Wodby service manifest examples. |
-| `validate_service_manifest` | Validate a Wodby service manifest without creating it. |
-| `get_provider_schema` | Get the Wodby custom provider manifest JSON schema. |
-| `validate_provider_manifest` | Validate a Wodby custom provider manifest without creating it. |
-| `list_public_stacks` | List public stack catalog items. |
-| `list_stacks` | List stacks in an organization. |
-| `get_stack` | Get a stack by name and optional revision number. |
-| `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
-| `get_stack_examples` | Get concise Wodby stack manifest examples. |
-| `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
-| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector. |
-| `get_app_service_logs` | Read bounded current or previous-container logs and return a log-access task ID. |
-| `start_app_service_log_watch` | Open an audited, short-lived watch for new logs from one pod and container execution. |
-| `read_app_service_log_watch` | Read cursor-based batches, including dropped-entry counts and watch status. |
-| `stop_app_service_log_watch` | Stop a watch without changing the application. |
-| `get_app_services_metrics` | Get current metrics for one or more app services selected by IDs or by service names with an app environment selector. |
-| `get_app_instances_metrics` | Get current metrics for one or more app environments. |
+See [read tools](mcp/tools.md#read-tools).
 
 ### Operation tools
 
-These tools require `mcp:operate` when using OAuth.
-
-| Tool | Use |
-| --- | --- |
-| `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app environment selector, and suggest waiting for its task. |
-| `redeploy_deployment` | Redeploy from an existing deployment. |
-| `deploy_build` | Deploy a completed app build. |
-| `create_builds` | Create builds for one or more app services selected by IDs or by service names with an app environment selector, and suggest waiting for the build task. |
-| `run_app_service_action` | Run a named action on an app service selected by ID or by service name with an app environment selector. |
-| `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
-| `create_backup` | Create a backup for an app service or database DB. |
-| `repeat_task` | Rerun an existing task. |
-| `update_current_user` | Update the authenticated user's display name. |
-| `duplicate_stack` | Duplicate a stack into an organization and optional project. |
+See [operation tools](mcp/tools.md#operation-tools).
 
 ### Configuration tools
 
-These tools require `mcp:configure` when using OAuth. Tools marked here with `confirm: true` make high-impact
-configuration changes.
-
-| Tool | Use |
-| --- | --- |
-| `update_cluster` | Update a cluster title. |
-| `update_cluster_settings` | Update cluster settings such as automatic infrastructure upgrades. Requires `confirm: true`. |
-| `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
-| `update_database` | Update a database title. |
-| `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
-| `update_service_from_manifest` | Update an existing non-Git service from a Wodby service manifest. Requires `confirm: true`. |
-| `update_service_from_git` | Update a service from its Git source. Requires `confirm: true`. |
-| `update_stack_from_git` | Update a stack from its Git source. Requires `confirm: true`. |
+See [configuration tools](mcp/tools.md#configuration-tools).
 
 ### Provisioning tools
 
-These tools require `mcp:provision` when using OAuth and require `confirm: true`.
-
-| Tool | Use |
-| --- | --- |
-| `create_cluster` | Create a managed cluster. Minimal input is prepared with defaults; unresolved integration, location, sizing, or billing choices are returned as questions. |
-| `create_k3s_cluster` | Create a self-hosted k3s cluster record. |
-| `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. If demo or sizing choices are unresolved, they are returned as questions. |
-| `scale_cluster` | Scale a cluster node pool. |
-| `create_app_from_stack` | Create an app and initial app environment from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
-| `create_app_instance_from_stack` | Create an app environment in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
-| `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
-| `create_database_db` | Create a DB inside a database. |
-| `import_services` | Import services from a Git repository. |
-| `import_stacks` | Import stacks from a Git repository. |
-| `create_service_from_manifest` | Create a custom service from a Wodby service manifest. |
-| `create_stack_from_manifest` | Create a custom stack from a Wodby stack manifest. |
+See [provisioning tools](mcp/tools.md#provisioning-tools).
 
 ### Sensitive tools
 
-These tools require `mcp:sensitive` in addition to their other scope and require `confirm: true`.
-
-| Tool | Use |
-| --- | --- |
-| `create_database_user` | Create a database user by submitting a password. The password is not returned in the MCP response. |
+See [sensitive tools](mcp/tools.md#sensitive-tools).
 
 ### Destructive tools
 
-These tools require `mcp:destructive` when using OAuth and require `confirm: true`.
-
-| Tool | Use |
-| --- | --- |
-| `create_import` | Import data into an app service or database DB. |
-| `cancel_task` | Cancel a running task. |
-| `delete_cluster` | Delete a cluster. |
-| `delete_database` | Delete a database. |
-| `delete_database_db` | Delete a DB inside a database. |
-| `delete_database_user` | Delete a database user. |
-| `update_app_instance_settings` | Update app environment settings such as automatic stack upgrades. |
-| `update_stack_service` | Update selected stack-service settings. |
-| `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
-| `reconcile_app_instance_stack` | Reapply an app environment's assigned stack revision, optionally replace existing choices with stack defaults, and rebuild or redeploy all resulting services. |
-| `upgrade_app_instance_stack` | Upgrade selected app environment stack sections. |
-| `upgrade_cluster_infra` | Upgrade cluster infrastructure. |
-| `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |
-
-MCP responses are compact summaries designed for AI agents. Some operation and task responses include `suggestedCalls`,
-which are follow-up tool calls the client can use to continue the workflow, such as waiting for a build or deployment
-task. Resource summaries omit secret-bearing values such as environment variable values, service tokens, registry
-credentials, or integration credentials. Log text can still contain sensitive application output.
+See [destructive tools](mcp/tools.md#destructive-tools).
 
 ## Choosing MCP, API, SDKs, or CLI
 

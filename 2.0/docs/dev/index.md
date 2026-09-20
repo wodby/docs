@@ -2,6 +2,9 @@
 
 Use these pages when you integrate external automation with Wodby.
 
+For agent-assisted work, start with the [agent quickstart](../agents/index.md). Use the MCP reference below when
+building or troubleshooting the connection itself.
+
 ## API and SDKs
 
 - [Wodby API](api.md) documents the public `/v1` REST API, authentication, limits, and OpenAPI links.

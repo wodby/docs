@@ -180,6 +180,7 @@ plugins:
 
 hooks:
   - scripts/include_generated_reference_sitemap.py
+  - scripts/agent_docs.py
 
 not_in_nav: |
   cli/*.html
@@ -197,6 +198,16 @@ nav:
       - Open Source: oss.md
       - Status: status.md
       - Support: support.md
+  - AI agents:
+      - Quickstart: agents/index.md
+      - Connect your client: agents/clients.md
+      - Permissions and audit history: agents/permissions.md
+      - Skills and compatibility: agents/skills.md
+      - Workflows:
+          - Plan a migration: agents/workflows/migrate.md
+          - Deploy staging: agents/workflows/staging.md
+          - Diagnose failures: agents/workflows/troubleshoot.md
+      - Connection troubleshooting: agents/troubleshooting.md
   - Apps:
       - Overview: apps/index.md
       - App environments: apps/environments.md
@@ -397,4 +408,5 @@ nav:
       - SDKs: dev/sdks.md
       - API keys: dev/api-keys.md
       - MCP: dev/mcp.md
+      - MCP tools: dev/mcp/tools.md
       - CLI: dev/cli.md
