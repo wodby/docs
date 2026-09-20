@@ -42,39 +42,10 @@ The public REST API includes:
 
 Use the [API reference](https://wodby.com/docs/2.0/api/) as the source of truth for the current endpoints and schemas.
 
-## Cluster capability policy
+For [app environments](../apps/environments.md), use `/v1/app-environments`. The public API does not expose a
+`/v1/app-instances` compatibility route.
 
-!!! warning "Policy storage only"
-
-    The cluster settings contract includes `clusterCapabilities`, but automatic operator installation and deployment
-    dependency enforcement are not available yet. Saving `autoInstall: true` does not install operators or make a
-    capability-dependent application ready to deploy. Leave it disabled for normal use.
-
-The REST `clusterCapabilities` object contains:
-
-- `autoInstall`: required boolean when submitting the object; disabled by default.
-- `stackRevisionIds`: required array of up to 128 unique, positive integer IDs identifying approved, published stack
-  revisions. These are revision IDs, not stack IDs.
-
-Omitting `clusterCapabilities` preserves the existing policy. If the object is supplied, both fields must be present
-and non-null. An explicit empty array clears the approved revisions; an explicit `false` disables the flag.
-
-New approvals must reference revisions the caller can access. Private stacks must match the cluster's organization
-and ownership scope. Enabling the flag revalidates all retained approvals. Disabling it or removing stale approvals
-does not require renewed access to those revisions.
-
-GraphQL uses `stackRevisionIDs` with string-valued IDs. MCP update input uses
-`cluster_capabilities.auto_install` and `cluster_capabilities.stack_revision_ids`; its output uses the REST-style
-`clusterCapabilities`, `autoInstall`, and `stackRevisionIds` names.
-
-For service authors, see the [cluster capability declaration reference](../services/template.md#clustercapabilities).
-
-## App environment terminology
-
-`App environment` is the canonical public name for the resource previously called an `app instance`. Public REST
-clients should use `/v1/app-environments`; the public API does not expose a `/v1/app-instances` compatibility route.
-
-Example:
+## Request example
 
 ```bash
 export WODBY_API_KEY=...
@@ -83,6 +54,8 @@ curl -sS \
   -H "X-API-KEY: ${WODBY_API_KEY}" \
   "https://api.wodby.com/v1/orgs"
 ```
+
+## Errors
 
 REST errors use `application/problem+json` and an RFC 9457-style problem-details body. Responses include `type`,
 `title`, `status`, `detail`, a stable Wodby `code`, and a backward-compatible `message` alias that matches `detail`.

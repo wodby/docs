@@ -20,6 +20,7 @@ flowchart TD
 ```
 
 An app environment is one isolated deployment of your application on a [Kubernetes cluster](../clusters/index.md).
+It was previously called an *app instance*; both terms refer to the same resource.
 
 Each app environment has its own:
 
