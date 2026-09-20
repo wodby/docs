@@ -419,7 +419,8 @@ Use `build: true` when a service Dockerfile needs the value as a build argument.
 
 Type: `array`.
 
-Service versions or deployment variants. Services that do not inherit from another service usually define at least one option, unless they are infrastructure services.
+Application versions or deployment variants. Services that do not inherit from another service usually define at least
+one option, unless they are infrastructure services.
 
 Each item supports:
 
@@ -429,6 +430,22 @@ Each item supports:
 - `eol`: optional end-of-life date in ISO datetime format.
 
 Only one option can be default. If none is marked as default, the first option becomes the default automatically.
+
+The service release version, option version, and image tag identify different things. For example, a MariaDB service
+could use:
+
+| Value | Example | Identifies |
+| --- | --- | --- |
+| Service release version | `2.4.1` | The Wodby service definition |
+| `options[].version` | `11.4` | The MariaDB version line |
+| `options[].tag` | `11.4-r0` | A published MariaDB image revision |
+
+`11.4-r0` combines the upstream version with Wodby's image revision. Wodby's own tools, such as Backup, use semantic
+product versions. Previously published image tags remain available. See the
+[image tag policy](https://github.com/wodby/images#image-revisions) for supported formats and revision counters.
+
+Wodby-managed service and stack release tags keep semantic versions for compatibility and automatic updates. An image
+revision number does not indicate compatibility; review the image's release notes before changing its tag.
 
 ### `workloads`
 
