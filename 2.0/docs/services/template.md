@@ -358,6 +358,67 @@ Type: `string`. Required.
 
 Human-readable service title.
 
+### `clusterCapabilities`
+
+Type: `object`.
+
+Describes shared cluster controllers that the service requires or provides. These declarations are separate from
+app-service links.
+
+!!! warning "Declaration support only"
+
+    Wodby accepts and validates these declarations, but application deployment does not yet enforce them or
+    automatically install missing operators. Do not rely on this section to prepare a cluster for an application.
+
+External services cannot declare cluster capabilities. The object must contain `requires`, `provides`, or both.
+
+#### `clusterCapabilities.requires`
+
+Each requirement supports:
+
+- `name`: required capability identifier.
+- `version`: required semantic-version constraint for the controller implementation, not its Helm chart version.
+- `features`: optional list of required feature names.
+- `apis`: optional list of required custom Kubernetes APIs. Each entry requires `group`, `version`, and `resource`
+  (the plural resource name).
+
+Inherited requirements are retained. Declaring the same capability in a child service adds a constraint; it does not
+replace or relax the parent's requirements.
+
+#### `clusterCapabilities.provides`
+
+Only `infrastructure` and `operator` services can provide capabilities. Each declaration supports:
+
+- `name`: required capability identifier.
+- `version`: optional controller implementation version. Operator services default to the selected service option's
+  version. Infrastructure services must set it explicitly because they do not have selectable options.
+- `controller`: required controller detection profile, described below.
+- `apis`: optional list of provided custom APIs, using the same `group`, `version`, and `resource` fields as requirements.
+- `features`: optional feature detection rules, described below.
+
+`controller` supports:
+
+- `kind`: required, either `Deployment` or `DaemonSet` (case-sensitive).
+- `namespace`: optional namespace restriction. Omitting it allows detection across namespaces.
+- `matchLabels`: required, non-empty map of Kubernetes labels identifying the controller.
+- `versionLabel`: required label key from which to read the controller implementation version.
+- `checks`: optional configuration checks. Each has a non-empty `path` array of object keys or numeric array indexes
+  and a `value` to match. Strings, numbers, and booleans are compared without type conversion.
+
+Each `features` entry has a `name` and a non-empty `fields` list. Each field specifies an `api` that also appears in the
+provided `apis` list, and a non-empty `path` of property names in that API's CRD schema. Array-item schema traversal is
+not supported. All fields must be present to establish a feature.
+
+A child service declaration with the same provided capability name replaces the entire inherited declaration,
+including its controller detection profile. Other inherited provided capabilities are retained.
+
+Detection profiles describe existing controllers; they do not grant permission to adopt, upgrade, or delete an
+externally managed operator. Missing version information or ambiguous controller matches do not establish that an
+operator is absent.
+
+Adding a capability-providing operator to a stack requires a Wodby system administrator. See
+[Operator services](types.md#operator) for the permission rules and [CRD charts](helm.md#crd-charts) for chart support.
+
 ### `external`
 
 Type: `boolean`. Default: `false`.
@@ -970,6 +1031,9 @@ The object supports:
 - `valueMappings`: optional paths for backend-managed app-service values. Omitted mappings retain the documented
   compatibility defaults.
 - `crds`: optional CRD file list.
+- `crdCharts`: optional list of separate CRD charts. Each entry requires `name`, `chart`, and `version`, and can include
+  `source` and `values` using the same value-entry format as `helm.values`. Available only to infrastructure services
+  and capability-providing operators. See [CRD charts](helm.md#crd-charts).
 - `values`: optional extra Helm values. `helm.values[].value` can use [built-in runtime tokens](../apps/tokens.md)
   and service-defined tokens.
 

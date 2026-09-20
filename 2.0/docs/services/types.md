@@ -55,6 +55,14 @@ Search and indexing services such as Elasticsearch or Solr.
 
 Services that manage other Kubernetes resources or related workloads.
 
+An operator that declares [`clusterCapabilities.provides`](template.md#clustercapabilitiesprovides) can use
+[`helm.crdCharts`](helm.md#crd-charts). Adding such an operator to a stack, including through stack import, copy, or
+sync, requires a Wodby system administrator; organization administrator access alone is not sufficient.
+
+An update that first introduces this capability-providing status also requires a system administrator. Maintenance
+updates to the same already-capability-providing service continue to follow the usual revision-update permissions.
+Ordinary operators without provided capabilities retain their existing permissions.
+
 ## `ssh`
 
 SSH access services, usually defined as derivatives of another service.
