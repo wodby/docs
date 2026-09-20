@@ -46,6 +46,18 @@ Wodby works best with charts that expose common values such as:
 If a chart uses different paths, define them explicitly in the service manifest. This is common for charts that manage
 multiple workloads, where each workload may have its own image values.
 
+## CRD charts
+
+Use `helm.crdCharts` for separately packaged CustomResourceDefinition (CRD) charts. Each entry requires `name`, `chart`,
+and `version`; `source` and `values` are optional. See the [Helm template fields](template.md#helm).
+
+This field is supported only for `infrastructure` services and `operator` services that declare at least one
+[`clusterCapabilities.provides`](template.md#clustercapabilitiesprovides) entry. Other service types cannot use it.
+Capability-providing operators have additional [stack-composition permissions](types.md#operator).
+
+Declaring capabilities does not automatically install an operator for a dependent application. CRD chart support
+does not remove the need to review the chart's CRD upgrade and data-compatibility requirements.
+
 ## Backend-managed value mappings
 
 Wodby injects several values that control the app service itself. The optional `helm.valueMappings` object maps those

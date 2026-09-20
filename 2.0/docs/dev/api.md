@@ -42,12 +42,10 @@ The public REST API includes:
 
 Use the [API reference](https://wodby.com/docs/2.0/api/) as the source of truth for the current endpoints and schemas.
 
-## App environment terminology
+For [app environments](../apps/environments.md), use `/v1/app-environments`. The public API does not expose a
+`/v1/app-instances` compatibility route.
 
-`App environment` is the canonical public name for the resource previously called an `app instance`. Public REST
-clients should use `/v1/app-environments`; the public API does not expose a `/v1/app-instances` compatibility route.
-
-Example:
+## Request example
 
 ```bash
 export WODBY_API_KEY=...
@@ -56,6 +54,8 @@ curl -sS \
   -H "X-API-KEY: ${WODBY_API_KEY}" \
   "https://api.wodby.com/v1/orgs"
 ```
+
+## Errors
 
 REST errors use `application/problem+json` and an RFC 9457-style problem-details body. Responses include `type`,
 `title`, `status`, `detail`, a stable Wodby `code`, and a backward-compatible `message` alias that matches `detail`.
