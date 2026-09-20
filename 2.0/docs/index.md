@@ -19,6 +19,9 @@ If the catalog does not include what you need, [create a custom stack](stacks/cr
 
 ## Key concepts
 
+To work through an AI client, start with [MCP](dev/mcp.md). It covers connection, read-only
+verification, permissions, and migration, staging, and troubleshooting workflows.
+
 - [Apps, app environments, and app services](apps/app-vs-environment-vs-service.md)
 - [Stacks](stacks/index.md) and [services](services/index.md)
 - [Providers and integrations](integrations/providers-vs-integrations.md)

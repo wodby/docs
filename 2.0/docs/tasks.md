@@ -19,6 +19,16 @@ A task has the following information:
 - duration: executable tasks have a runtime and may be stopped by a hard timeout
 - project: tasks linked to project-scoped resources such as apps or clusters show the related project. Organization-level tasks do not.
 
+## MCP activity
+
+Tasks initiated through MCP show an `MCP` label. The `MCP only` filter narrows task history to those operations.
+Task details can include the authorizing user, credential ID, client labels, initiating tool, and request ID.
+Client names and versions are self-reported, not verified model identities. Missing attribution means unknown,
+not necessarily human activity.
+
+See [Permissions and audit history](agents/permissions.md#inspect-agent-activity) for the meaning and limits of this
+information. Application-log access tasks record reads and watches; their completion is not proof of application health.
+
 ## Types
 
 There are two types of tasks:

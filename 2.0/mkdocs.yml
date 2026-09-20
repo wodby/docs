@@ -96,6 +96,8 @@ plugins:
   - search
   - redirects:
       redirect_maps:
+        'agents/index.md': 'dev/mcp.md'
+        'agents/clients.md': 'dev/mcp.md'
         'troubleshooting/certificates.md': 'apps/certificate-troubleshooting.md'
         'apps/instances.md': 'apps/environments.md'
         'apps/app-vs-instance-vs-service.md': 'apps/app-vs-environment-vs-service.md'
@@ -180,6 +182,7 @@ plugins:
 
 hooks:
   - scripts/include_generated_reference_sitemap.py
+  - scripts/agent_docs.py
 
 not_in_nav: |
   cli/*.html
@@ -396,5 +399,15 @@ nav:
       - API: dev/api.md
       - SDKs: dev/sdks.md
       - API keys: dev/api-keys.md
-      - MCP: dev/mcp.md
+      - MCP:
+          - Connect and get started: dev/mcp.md
+          - Permissions and audit history: agents/permissions.md
+          - Skills and compatibility: agents/skills.md
+          - Workflows:
+              - Plan a migration: agents/workflows/migrate.md
+              - Deploy staging: agents/workflows/staging.md
+              - Diagnose failures: agents/workflows/troubleshoot.md
+          - Connection troubleshooting: agents/troubleshooting.md
+          - Technical reference: dev/mcp/reference.md
+          - Tool reference: dev/mcp/tools.md
       - CLI: dev/cli.md
