@@ -58,6 +58,10 @@ You can stop containers by executing [`make stop`](#make-commands) or `docker co
 !!! success "Get updates"
     We release updates to images from time to time, you can find detailed changelog and update instructions on GitHub under [releases page](https://github.com/wodby/docker4drupal/releases)      
 
+## Image tags
+
+{!local/image-tags.md!}
+
 ## Domains
 
 [Traefik](https://hub.docker.com/_/traefik) container used for routing. By default, we use port `8000` to avoid potential conflicts but if port `80` is free on your host machine just replace traefik's ports definition in the compose file.

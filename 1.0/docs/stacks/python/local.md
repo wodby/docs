@@ -59,6 +59,10 @@ CACHES = {
 !!! success "Get updates"
     We release updates to images from time to time, you can find detailed changelog and update instructions on GitHub under [releases page](https://github.com/wodby/docker4python/releases)  
     
+## Image tags
+
+{!local/image-tags.md!}
+
 ## Domains
 
 Docker4Python uses [traefik](https://hub.docker.com/_/traefik) container for routing. By default, we use port `8000` to avoid potential conflicts but if port `80` is free on your host machine just replace traefik's ports definition in the compose file.

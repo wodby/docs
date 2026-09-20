@@ -39,7 +39,7 @@ Password: [see below]
 ## Old approach
 
 !!! info
-    Starting with stability tag `5.0.0` Solr uses Cloud mode by default, the support of the standalone mode was returned in `5.3.0` and requires specifying any non-empty value for `$SOLR_STANDALONE` env var.
+    The Wodby Solr image uses Cloud mode by default starting with image release `5.0.0`. Standalone mode was restored in image release `5.3.0` and requires a non-empty value for `$SOLR_STANDALONE`.
 
 ### Drupal 8/9
 
