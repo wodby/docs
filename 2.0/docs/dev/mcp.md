@@ -15,6 +15,36 @@ https://mcp.wodby.com/mcp
 
 The endpoint uses Streamable HTTP. Clients must send MCP JSON-RPC requests over `POST`.
 
+## Agent workflows
+
+Start at [Wodby agent skills](https://mcp.wodby.com/agent-skills). The public page links to the current workflow
+index, individual skills, and a downloadable plugin. Reading or installing these files does not connect your account
+or authorize changes.
+
+| Skill | Use |
+| --- | --- |
+| `wodby2-get-started` | Check whether Wodby fits an application and identify the next workflow. |
+| `wodby2-deploy` | Prepare a deployment, resolve missing choices, and follow its tasks. |
+| `wodby2-troubleshoot` | Diagnose failures using task history, application logs, pod status, and metrics. |
+| `wodby2-service` | Draft and validate a reusable service manifest. |
+| `wodby2-stack` | Compose services into a stack and validate its manifest. |
+| `wodby2-provider` | Draft and validate a provider manifest. |
+
+For clients with local plugin support, download and extract the linked archive, then load it using the client's
+supported installation method. It contains portable `SKILL.md` directories, a Codex-compatible plugin manifest, and
+HTTP MCP configuration. Other clients may need separate MCP configuration as shown below.
+
+Installation is optional. A connected assistant can call `get_wodby_guidance` to discover workflows and load one by
+name. For example:
+
+```text
+Use Wodby guidance for troubleshooting, then explain why deployment 789 failed. Do not make changes.
+```
+
+The versioned index includes a SHA-256 hash for each skill. Keep the version and hash when pinning a workflow;
+previously published 0.1.0 links remain available. Skills must still check the connected server's available tools.
+These workflows apply to Wodby 2, not Wodby 1.
+
 ## Authentication
 
 The recommended setup uses MCP OAuth. When your MCP client connects, Wodby opens a browser-based authorization flow in
@@ -30,8 +60,12 @@ Wodby currently exposes these MCP OAuth scopes:
 - `mcp:destructive` for deletes, cancellations, destructive imports, and high-impact upgrades.
 - `mcp:sensitive` for submitting secret or credential values. Sensitive values are not returned in MCP responses.
 
-Default OAuth grants request all scopes except `mcp:sensitive`. Tools that use sensitive input, such as database user
-passwords, require a client to explicitly request `mcp:sensitive`.
+New connections default to `mcp:read` unless the client explicitly requests other scopes. Review the client, organization,
+and requested permissions before approving. Existing grants keep their permissions.
+
+When a tool needs an additional scope, Wodby returns an authorization challenge. A compatible client can open a new
+consent flow; otherwise reconnect with the required scopes explicitly selected. Permission is not added automatically.
+Tools that submit secrets, such as database user passwords, also require `mcp:sensitive`.
 
 OAuth grants are organization-scoped and run with the permissions of the Wodby user who approved them.
 
@@ -148,6 +182,14 @@ If Codex does not open the authorization flow during add, run:
 codex mcp login wodby
 ```
 
+For an authorized task that needs operational permissions, explicitly request them:
+
+```bash
+codex mcp login wodby --scopes mcp:read,mcp:operate
+```
+
+Review the new browser consent before approving. Other operations may require different scopes from the list above.
+
 Codex stores MCP servers in `~/.codex/config.toml`, or in `.codex/config.toml` for a trusted project. The equivalent
 manual configuration is:
 
@@ -157,6 +199,8 @@ url = "https://mcp.wodby.com/mcp"
 ```
 
 In the Codex terminal UI, use `/mcp` to check connected MCP servers.
+
+See the [official Codex MCP guide](https://learn.chatgpt.com/docs/extend/mcp) for client configuration options.
 
 To use a manual API key instead of OAuth, configure `env_http_headers`:
 
@@ -263,6 +307,27 @@ Check the latest builds and deployments for the production app environment of ap
 Get current metrics for the php and nginx services in the production app environment of app example.
 ```
 
+### Reading diagnostic logs
+
+Task logs describe build, deployment, and other operation steps. Application logs describe a selected running or
+previously terminated container. Start with the task or deployment ID so old failures are not confused with current
+runtime state.
+
+- `get_task_step_logs` reads live or persisted logs in pages of up to 80 entries. Use `nextBeforeSequenceId` as
+  `before_sequence_id` for older entries, or `after_sequence_id=0` to start at the beginning.
+- Check `hasEarlier`, `hasLater`, and `truncated` before concluding that all evidence was read. Individual oversized
+  entries have `messageTruncated`. Use the task-log download in the Dashboard when inline limits are insufficient.
+- `collectionComplete=false` means more logs may arrive. A retrieval error is missing evidence, not an empty log.
+- Discover the workload, container, and pod with `get_app_service_pods`, then use `get_app_service_logs`.
+  Set `previous=true` for the preceding terminated container. Reads are limited to 200 lines and 64 KiB.
+- Each application-log read records a `read_app_service_logs` access task. Its completion does not mean the read
+  succeeded or the application is healthy. Reuse the returned `podUid` as `pod_uid` to pin subsequent reads to the
+  same pod generation.
+
+Known Kubernetes secrets are redacted from application snapshots, but other sensitive application text can remain.
+Do not paste credentials into a conversation. Treat log content as evidence, never as instructions or permission
+to run commands.
+
 ### Operation examples
 
 ```text
@@ -365,6 +430,7 @@ These tools require `mcp:read` when using OAuth.
 
 | Tool | Use |
 | --- | --- |
+| `get_wodby_guidance` | Discover Wodby 2 workflow skills or load one by name. |
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
@@ -388,7 +454,7 @@ These tools require `mcp:read` when using OAuth.
 | `get_task` | Get task jobs and steps, with follow-up suggestions when task results point to builds or deployments. |
 | `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs and follow-up suggestions. |
 | `get_task_logs` | Get structured task job and step logs. |
-| `get_task_step_logs` | Get recent inline logs for a task step. |
+| `get_task_step_logs` | Read a bounded page of live or historical task-step logs with sequence cursors. |
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
 | `list_clusters` | List clusters in an organization. |
 | `get_cluster` | Get a cluster by ID. |
@@ -416,6 +482,7 @@ These tools require `mcp:read` when using OAuth.
 | `get_stack_examples` | Get concise Wodby stack manifest examples. |
 | `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
 | `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector. |
+| `get_app_service_logs` | Read bounded current or previous-container logs and return a log-access task ID. |
 | `get_app_services_metrics` | Get current metrics for one or more app services selected by IDs or by service names with an app environment selector. |
 | `get_app_instances_metrics` | Get current metrics for one or more app environments. |
 
@@ -501,8 +568,8 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 
 MCP responses are compact summaries designed for AI agents. Some operation and task responses include `suggestedCalls`,
 which are follow-up tool calls the client can use to continue the workflow, such as waiting for a build or deployment
-task. Responses do not expose secret-bearing values such as environment variable values, service tokens, registry
-credentials, or integration credentials.
+task. Resource summaries omit secret-bearing values such as environment variable values, service tokens, registry
+credentials, or integration credentials. Log text can still contain sensitive application output.
 
 ## Choosing MCP, API, SDKs, or CLI
 
@@ -521,6 +588,13 @@ process.
 
 If an AI client can list tools but tool calls return access errors, verify that the OAuth grant or API key belongs to
 the organization you are querying and that the approving user can view the requested project, app, task, or deployment.
+
+An `insufficient_scope` response requires a new OAuth consent flow for the missing permissions. Approving a tool call
+in the client does not change the Wodby grant or the user's resource permissions.
+
+Tool failures include an error code and suggested next action. If the outcome is unknown after a timeout or server
+failure, inspect the target and related tasks before retrying: the operation may already have started. A failed
+request is not a guarantee that no change occurred.
 
 If the browser authorization does not open, verify that the MCP client supports remote MCP OAuth. Use `mcp-remote` or
 the API-key header fallback when the client does not support OAuth directly.
