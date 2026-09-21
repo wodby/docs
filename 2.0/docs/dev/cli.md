@@ -1,6 +1,6 @@
 # Wodby CLI
 
-The official Wodby CLI provides command-line automation for Wodby 2.0 resources and CI workflows.
+The official Wodby CLI provides command-line automation for Wodby 2 resources and CI workflows.
 
 Repository: <https://github.com/wodby/wodby-cli>
 
