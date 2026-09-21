@@ -28,16 +28,45 @@ invalidated every earlier grant.
 
 ## Expiration and revocation
 
-Open `User settings > API keys` to review credentials. MCP OAuth credentials use descriptions beginning with
-`MCP OAuth:` followed by the registered client label. The list shows creation, last use, and expiration times.
+Open your organization's **Agents** page, also available from **Organization settings**, to review OAuth connections.
+Select a connection to see its authorizing user, granted permissions, expiration, and Wodby activity.
 
-- Delete the matching credential to revoke its access. Check its description and creation time carefully if there
-  are multiple connections for the same client.
+- Select **Revoke access** to prevent new authenticated requests. The connection and its recorded activity remain
+  available. Enable **Include expired and revoked connections** to find inactive connections.
+- Rename connections to distinguish installations, such as a laptop and a remote automation. Client labels can be
+  identical; check the authorizing user and creation date before revoking.
 - Remove the saved connection or credentials in the client too when decommissioning it. Removing local configuration
   alone is not a reliable substitute for revoking the Wodby credential.
-- When a credential expires, repeat browser authorization. Do not assume the client can refresh indefinitely.
+- When a credential expires, repeat browser authorization. This creates a separate connection; revoke older
+  credentials you no longer need. Do not assume the client can refresh indefinitely.
 - Revoking access prevents subsequent authenticated operations; it does not undo changes or necessarily cancel tasks
   already started. Inspect task history and handle any cancellation separately.
+
+You can also revoke your own credential from **User settings > API keys**, including after losing organization access.
+MCP OAuth credentials have descriptions beginning with `MCP OAuth:`. Deleting one also prevents its connection from
+authenticating.
+
+### Connection status
+
+| Status | Meaning |
+| --- | --- |
+| Authorized | The credential and account-level access are available. Individual resources still require permission. |
+| Expired | The credential expired. Authorize the client again. |
+| Revoked | Access was explicitly revoked. |
+| Unavailable | Access is no longer available, for example after membership removal. |
+
+**Authorized** does not mean the agent is running. **Last authenticated request** can include initialization without
+a successful tool call. Check **Last successful tool call** and the client's returned identity when verifying access.
+Older connections may have no recorded successful-tool timestamp.
+
+### Who can manage connections
+
+- Members can view, rename, and revoke their own connections.
+- Owners can view and manage all organization connections.
+- Admins can view all connections and manage their own and member-owned connections, not owner or other admin connections.
+- Support has read-only visibility.
+
+Viewing a connection does not grant access to additional tasks, applications, or logs.
 
 ## API keys and unattended agents
 
@@ -50,6 +79,9 @@ For a scheduled or remote agent, arrange credential provisioning and human appro
 requires a new consent decision, it should stop and hand that decision to a person, not bypass it.
 
 ## Inspect agent activity
+
+Open a connection's **Wodby activity** to see its task-backed operations. The **Activity** tab shows MCP tasks visible
+to you across the organization. Ordinary API keys are not automatically listed as agent connections.
 
 In task history, the `MCP` label identifies tasks initiated through Wodby's MCP interface. Use `MCP only` to narrow
 the list. Task details can include the authorizing user, credential ID, initiating tool, request ID, and client name

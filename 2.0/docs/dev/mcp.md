@@ -16,6 +16,9 @@ credentials into a conversation. Ordinary API keys do not have OAuth scope restr
 
 ## Connect your client
 
+For setup instructions in the dashboard, open your organization's **Agents > Connect an agent** page.
+After authorization, use **Agents** to [review access and activity](../agents/permissions.md).
+
 <span id="endpoint"></span>
 <span id="client-configuration"></span>
 

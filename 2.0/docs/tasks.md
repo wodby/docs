@@ -23,6 +23,7 @@ A task has the following information:
 
 Tasks initiated through MCP show an `MCP` label. The `MCP only` filter narrows task history to those operations.
 Task details can include the authorizing user, credential ID, client labels, initiating tool, and request ID.
+New OAuth-initiated tasks also link to their agent connection. Revoking the connection does not erase task history.
 Client names and versions are self-reported, not verified model identities. Missing attribution means unknown,
 not necessarily human activity.
 
