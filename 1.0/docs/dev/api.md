@@ -4,7 +4,7 @@ We provide an API for common tasks such as creating applications and instances a
 
 ## Version 3
 
-* [API reference](https://wodby.com/docs/1.0/api)
+* <a href="https://wodby.com/docs/1.0/api/" target="_self">API reference</a>
 * PHP SDK: [wodby/wodby-sdk-php](https://github.com/wodby/wodby-sdk-php)
 * Go SDK: [wodby/wodby-sdk-go](https://github.com/wodby/wodby-sdk-go)
 * Python SDK: [wodby/wodby-sdk-python](https://github.com/wodby/wodby-sdk-python)

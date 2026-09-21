@@ -6,7 +6,7 @@ Wodby exposes a public REST API for resource-oriented automation and OpenAPI-bas
 
 Use the API reference for endpoints and request and response schemas:
 
-- [Wodby API reference](https://wodby.com/docs/2.0/api/)
+- <a href="https://wodby.com/docs/2.0/api/" target="_self">Wodby API reference</a>
 - [OpenAPI JSON](https://wodby.com/docs/2.0/api/openapi.json)
 - [OpenAPI YAML](https://wodby.com/docs/2.0/api/openapi.yaml)
 
@@ -40,7 +40,7 @@ The public REST API includes:
 - service and stack catalogs, including stack services
 - backups, imports, tasks, and task-step logs
 
-Use the [API reference](https://wodby.com/docs/2.0/api/) as the source of truth for the current endpoints and schemas.
+Use the <a href="https://wodby.com/docs/2.0/api/" target="_self">API reference</a> as the source of truth for the current endpoints and schemas.
 
 For [app environments](../apps/environments.md), use `/v1/app-environments`. The public API does not expose a
 `/v1/app-instances` compatibility route.
