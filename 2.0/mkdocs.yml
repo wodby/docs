@@ -58,7 +58,7 @@ theme:
 
   custom_dir: 'theme'
 
-extra_css: [ "assets/wodby.css?v=20260923" ]
+extra_css: [ "assets/wodby.css" ]
 extra_javascript: [ "assets/intercom.js" ]
 
 markdown_extensions:
@@ -184,6 +184,7 @@ plugins:
         'services/volumes.md': 'services/configuration.md#volumes'
 
 hooks:
+  - ../scripts/version_assets.py
   - scripts/include_generated_reference_sitemap.py
   - scripts/agent_docs.py
 

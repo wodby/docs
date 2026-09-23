@@ -25,7 +25,7 @@ jobs:
         run: |
           # The build image enables pip user installs; --target needs that disabled.
           wodby ci run -e HOME=/home/wodby -i wodby/mkdocs -- \
-            sh -c "PIP_USER=false python3 -m pip install --target /tmp/wodby-docs-python -r 2.0/requirements-agent-docs.txt && export PYTHONPATH=/tmp/wodby-docs-python && mkdir sites && cd 1.0 && sh scripts/check-docs.sh -d ../sites/1.0 && cd ../2.0 && python3 -m unittest discover -s scripts -p test_agent_docs.py && python3 scripts/check_agent_contract.py && mkdocs build --strict -d ../sites/2.0"
+            sh -c "PIP_USER=false python3 -m pip install --target /tmp/wodby-docs-python -r 2.0/requirements-agent-docs.txt && export PYTHONPATH=/tmp/wodby-docs-python && python3 -m unittest discover -s scripts && mkdir sites && cd 1.0 && sh scripts/check-docs.sh -d ../sites/1.0 && cd ../2.0 && python3 -m unittest discover -s scripts -p test_agent_docs.py && python3 scripts/check_agent_contract.py && mkdocs build --strict -d ../sites/2.0"
 
       - name: Build image
         run: wodby ci build nginx -f Dockerfile
