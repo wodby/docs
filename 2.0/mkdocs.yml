@@ -29,6 +29,9 @@ theme:
   logo: assets/images/logo.svg
   favicon: assets/images/favicon.svg
   name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
   features:
     - navigation.tabs
     - navigation.instant
