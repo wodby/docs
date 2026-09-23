@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - '2.0/**'
+      - '1.0/mkdocs.yml'
+      - 'scripts/**'
       - '.github/workflows/agent-docs.yml'
   workflow_dispatch:
 
@@ -19,8 +21,9 @@ jobs:
         with:
           python-version: '3.11'
       - name: Install documentation tools
-        run: python -m pip install -r 2.0/requirements-agent-docs.txt
+        run: python -m pip install mkdocs-material -r 2.0/requirements-agent-docs.txt
       - name: Check Markdown exports and documentation contracts
         run: |
+          python -m unittest discover -s scripts
           python -m unittest discover -s 2.0/scripts -p 'test_agent_docs.py'
           python 2.0/scripts/check_agent_contract.py --live

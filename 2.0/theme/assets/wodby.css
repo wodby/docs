@@ -208,13 +208,13 @@ body { -webkit-font-smoothing: antialiased; }
 }
 
 /* The two-tone mark sits on white so its original colors work in either theme. */
-.md-header .md-logo:has(img[src$="/logo.svg"]),
-.md-nav--primary .md-nav__title .md-logo:has(img[src$="/logo.svg"]) {
+.md-header .md-logo:has(img[src*="/images/logo."]),
+.md-nav--primary .md-nav__title .md-logo:has(img[src*="/images/logo."]) {
   background: #ffffff;
   border: 1px solid var(--docs-border);
 }
-.md-header .md-logo img[src$="/logo.svg"],
-.md-nav--primary .md-nav__title .md-logo img[src$="/logo.svg"] {
+.md-header .md-logo img[src*="/images/logo."],
+.md-nav--primary .md-nav__title .md-logo img[src*="/images/logo."] {
   width: 2rem;
   height: 1.4rem;
   object-fit: contain;
