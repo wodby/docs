@@ -31,7 +31,7 @@ Use [Wodby CLI 1.x](../dev/cli.md) for Wodby 1. The `master` branch contains the
 For Linux amd64 builds, install an explicit Wodby 1 release into a writable directory on your `PATH`:
 
 ```shell
-WODBY_CLI_VERSION=1.0.3
+WODBY_CLI_VERSION=1.0.9
 curl -fsSL "https://github.com/wodby/wodby-cli/releases/download/${WODBY_CLI_VERSION}/wodby-linux-amd64.tar.gz" \
   | tar xz -C /usr/local/bin
 wodby version
@@ -39,7 +39,7 @@ wodby version
 
 For other systems or architectures, follow the [Wodby 1 installation instructions](https://github.com/wodby/wodby-cli/blob/master/README.md#install).
 
-If your CI supports only container-based builds, use a versioned 1.x tag of the [`wodby/wodby-cli` image](https://hub.docker.com/r/wodby/wodby-cli/tags), such as `wodby/wodby-cli:1.0.3`.
+If your CI supports only container-based builds, use a versioned 1.x tag of the [`wodby/wodby-cli` image](https://hub.docker.com/r/wodby/wodby-cli/tags), such as `wodby/wodby-cli:1.0.9`.
 
 ## Init
 

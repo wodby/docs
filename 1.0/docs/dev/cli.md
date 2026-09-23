@@ -13,9 +13,9 @@ The CLI major version must match your Wodby platform. GitHub's **Latest** releas
 
 ## Installation
 
-Download [Wodby CLI 1.0.3](https://github.com/wodby/wodby-cli/releases/tag/1.0.3) for your operating system and architecture. See the [Wodby 1 installation instructions](https://github.com/wodby/wodby-cli/blob/master/README.md#install) for Linux, macOS, and Windows.
+Download [Wodby CLI 1.0.9](https://github.com/wodby/wodby-cli/releases/tag/1.0.9) for your operating system and architecture. See the [Wodby 1 installation instructions](https://github.com/wodby/wodby-cli/blob/master/README.md#install) for Linux, macOS, and Windows.
 
-For container-based builds, use a versioned 1.x tag of the [`wodby/wodby-cli` image](https://hub.docker.com/r/wodby/wodby-cli/tags), such as `wodby/wodby-cli:1.0.3`.
+For container-based builds, use a versioned 1.x tag of the [`wodby/wodby-cli` image](https://hub.docker.com/r/wodby/wodby-cli/tags), such as `wodby/wodby-cli:1.0.9`.
 
 Check the installed version with:
 
