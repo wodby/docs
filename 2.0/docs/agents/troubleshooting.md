@@ -13,6 +13,8 @@ Do not test connection problems by creating or deleting resources.
 | Expected tool is missing | Client filtering or a server/client capability difference | Refresh discovery, inspect live schemas, and use a documented fallback or dashboard handoff. |
 | MCP session expired or invalid | A stale session or a session reused with different credentials | Initialize again with the current credential; do not reuse another agent's session ID. |
 | Request timed out after a change | The operation may already have started | Inspect the target and related tasks before retrying. |
+| Container command access is unavailable | OAuth `mcp:exec`, environment modify access, web-terminal entitlement, cluster requirements, and whether commands are enabled | Check [command requirements](../dev/mcp/reference.md#container-commands); ordinary API keys cannot bypass them. |
+| Container command timed out or has an unknown outcome | The process may have started or may still be running | Retrieve the same execution ID with the original credential. Do not prepare another execution as an automatic retry. |
 | Watch ended or logs are empty | Target restart, retention/size limits, dropped entries, or no new output | Report incomplete coverage; rediscover the target before another bounded read. |
 
 See [client setup](../dev/mcp.md#connect-your-client), [credential management](permissions.md), and

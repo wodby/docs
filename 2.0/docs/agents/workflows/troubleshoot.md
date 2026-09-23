@@ -41,6 +41,27 @@ does not prove health. If watch tools are unavailable, use bounded snapshots and
 
 See [Watching a live reproduction](../../dev/mcp/reference.md#watching-a-live-reproduction) for exact limits and stop conditions.
 
+## Run an authorized container command when needed
+
+If logs and runtime status leave a specific question unanswered, an agent can use a short container command where
+this capability is enabled. This requires separate [command access](../permissions.md#container-command-access)
+and explicit authorization for the target and command. Prefer an existing named service action when it fits.
+
+For example, after identifying the target container:
+
+```text
+Run id once in the selected staging pod and container to check the process user. Use only that command.
+Report the target, execution ID, exit code, and relevant output. If the result is uncertain, retrieve the same
+execution ID and report what remains unknown; do not start another execution.
+```
+
+The agent should prepare the exact arguments, check the resolved target, then execute once within the approved
+scope. Preparation itself starts no process. Follow the [command reference](../../dev/mcp/reference.md#container-commands)
+for time limits, output limits, and result states. Avoid credential dumps and inspect output before sharing it.
+
+A completed access task does not establish that the command succeeded. After a timeout, the process may still be
+running; use the retained result and application evidence before deciding on another operation.
+
 ## 4. Review the diagnosis and any fix separately
 
 Ask for evidence, likely cause, alternative explanations, missing checks, and the proposed fix with its risks.

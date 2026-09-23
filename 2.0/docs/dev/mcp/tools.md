@@ -90,6 +90,17 @@ These tools require `mcp:operate` when using OAuth.
 | `update_current_user` | Update the authenticated user's display name. |
 | `duplicate_stack` | Duplicate a stack into an organization and optional project. |
 
+## Container command tools
+
+These tools require OAuth with the separate `mcp:exec` scope, including result reads. Ordinary API keys cannot use
+them. Execution is available only in enabled, eligible environments; see [access, limits, and recovery](reference.md#container-commands).
+
+| Tool | Use |
+| --- | --- |
+| `prepare_app_service_command` | Prepare an exact command for one workload, container, and pod without starting it. |
+| `exec_app_service_command` | Consume a prepared execution ID once with identical arguments. Requires `confirm: true`. |
+| `get_app_service_command` | Retrieve retained state and output using the original credential, without executing again. |
+
 ## Configuration tools
 
 These tools require `mcp:configure` when using OAuth. Tools marked here with `confirm: true` make high-impact
@@ -156,4 +167,4 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 MCP responses are compact summaries designed for AI agents. Some operation and task responses include `suggestedCalls`,
 which are follow-up tool calls the client can use to continue the workflow, such as waiting for a build or deployment
 task. Resource summaries omit secret-bearing values such as environment variable values, service tokens, registry
-credentials, or integration credentials. Log text can still contain sensitive application output.
+credentials, or integration credentials. Logs and container command output can still contain sensitive application data.
