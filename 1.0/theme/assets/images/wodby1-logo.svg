@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" width="220" height="220">
+  <rect width="220" height="220" fill="#ffffff"/>
+
+  <!-- Cube faces -->
+  <path d="M34.5 61.5 L95 27 L184.5 52.5 L129 91.5 Z"
+        fill="#B8E3FF" stroke="#333333" stroke-width="10.5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M34.5 61.5 L129 91.5 L130 193.5 L34.5 157 Z"
+        fill="#B8E3FF" stroke="#333333" stroke-width="10.5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+  <path d="M129 91.5 L184.5 52.5 L184.5 155.5 L130 193.5 Z"
+        fill="#B8E3FF" stroke="#333333" stroke-width="10.5"
+        stroke-linejoin="round" stroke-linecap="round"/>
+
+  <!-- Top slats -->
+  <g fill="none" stroke="#333333" stroke-width="5.8" stroke-linecap="round">
+    <path d="M66.8 62.1 L104.1 40.8"/>
+    <path d="M82.8 66.7 L120.1 45.4"/>
+    <path d="M98.8 71.4 L136.1 50.1"/>
+    <path d="M114.8 76.0 L152.1 54.7"/>
+  </g>
+
+  <!-- Left face slats -->
+  <g fill="none" stroke="#333333" stroke-width="7.6" stroke-linecap="round">
+    <path d="M56 85.5 L56 149.5"/>
+    <path d="M72 89.5 L72 155.5"/>
+    <path d="M88 94.5 L88 162.5"/>
+    <path d="M104 99.0 L104 167.0"/>
+  </g>
+
+  <!-- Right face slats -->
+  <g fill="none" stroke="#333333" stroke-width="4.2" stroke-linecap="round">
+    <path d="M142 99.0 L142 165.0"/>
+    <path d="M151 93.0 L151 155.0"/>
+    <path d="M161.5 86.0 L161.5 147.5"/>
+    <path d="M171 79.0 L171 140.5"/>
+  </g>
+</svg>

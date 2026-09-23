@@ -26,7 +26,7 @@ extra:
     property: G-SQ2VLFFRNC
 
 theme:
-  logo: assets/images/wodby1-logo.png
+  logo: assets/images/wodby1-logo.svg
   favicon: assets/images/favicon.png
   name: material
   font:
