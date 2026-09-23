@@ -10,7 +10,7 @@ permissions, user approval, or checking the connected server's current input sch
 | `wodby2-get-started` | Assess fit and prerequisites, select resources, and choose the next workflow. |
 | `wodby2-migrate` | Plan a move from another host, rehearse on staging, and separate production cutover approval. |
 | `wodby2-deploy` | Prepare a deployment, follow tasks, and verify runtime state. |
-| `wodby2-troubleshoot` | Diagnose failures with task logs, application logs, pod status, and metrics. |
+| `wodby2-troubleshoot` | Diagnose failures with task logs, application logs, pod status, metrics, and explicitly authorized container commands where available. |
 | `wodby2-service` | Reuse or author and validate a service definition. |
 | `wodby2-stack` | Compose services into a stack and validate it. |
 | `wodby2-provider` | Reuse an integration contract or validate a custom variable-provider manifest. |

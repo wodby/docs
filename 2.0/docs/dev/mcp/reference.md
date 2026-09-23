@@ -50,6 +50,7 @@ Wodby currently exposes these MCP OAuth scopes:
 - `mcp:read` for discovery, diagnostics, deployment status, task status, bounded metrics, pod status, and logs.
 - `mcp:operate` for task-backed operations such as deployments, builds, backups, cron runs, app service actions, and
   task repeats.
+- `mcp:exec` for [container commands](#container-commands), where enabled. This is a separate, explicit OAuth grant.
 - `mcp:configure` for settings, metadata, stack configuration, and resource configuration.
 - `mcp:provision` for creating infrastructure and resource objects.
 - `mcp:destructive` for deletes, cancellations, destructive imports, and high-impact upgrades.
@@ -67,7 +68,8 @@ OAuth grants are organization-scoped and run with the permissions of the Wodby u
 You can also authenticate manually with a Wodby [API key](../api-keys.md) sent as the `X-API-KEY` header.
 
 Create an API key from [User settings > API keys](../../user/api-keys.md). Each key belongs to one organization and runs
-with the permissions of the user who created it.
+with the permissions of the user who created it. Container command tools require OAuth with `mcp:exec`; ordinary
+API keys cannot prepare, execute, or retrieve these commands.
 
 
 ## Resource selectors and execution
@@ -168,6 +170,75 @@ Watching logs does not authorize test requests, restarts, deployments, or other 
 
 Known Kubernetes secrets are redacted, but other sensitive application text can remain. Empty output or a completed
 log-access task does not prove health. If watch tools are unavailable, use bounded snapshots and report the limitation.
+
+## Container commands
+
+Where enabled, an agent can run a short command in a selected application container. Discover the tools and their
+schemas before use. These tools do not provide an interactive shell session or a general `kubectl` endpoint.
+Prefer a named [app service action](../../services/operations.md#actions) when one already performs the operation.
+
+### Access and approval
+
+All three command tools require an OAuth credential with `mcp:exec`, including result retrieval. Neither
+`mcp:operate` nor `mcp:sensitive` includes this permission, and existing grants do not gain it automatically.
+Ordinary API keys cannot be used instead.
+
+The authorizing user must have modify access to the app environment in the selected organization. New execution
+also requires the paid web-terminal entitlement, a cluster with the infrastructure proxy available, and an environment
+where container commands are enabled and runtime operations are allowed. A listed tool or granted scope alone does
+not establish eligibility. See [web terminal requirements](../../apps/web-terminal.md).
+
+Approve the target and exact command before execution. Commands can use the container's application credentials,
+files, and network access, including access to external databases. Environment restrictions do not isolate those
+resources. Do not treat a command as harmless because its intended purpose is diagnosis.
+
+### Prepare, execute, and retrieve
+
+1. Discover the target with `get_app_service_pods`. Choose the app service, workload, container, and running pod.
+2. Call `prepare_app_service_command` with the service selector, `workload`, `container`, `pod`, and `argv`.
+   Supply `pod_uid` when known. Preparation records the selected pod/container execution and exact arguments but
+   starts no process. Review the returned `target`, `executionId`, and `executeBefore`.
+3. Call `exec_app_service_command` with that ID as `execution_id`, the identical `argv`, and `confirm: true`
+   reflecting the user's authorization. The ID can be consumed only once; it cannot run the command again.
+4. Use `get_app_service_command` with `execution_id` to retrieve state and output. This call never starts or resumes
+   execution. Keep the original OAuth credential and current access to the environment.
+
+`argv` is an argument array, for example `["id"]`. Arguments are passed directly without an implicit shell;
+pipes, redirects, and variable expansion require an explicitly authorized shell invocation. There is no terminal
+or standard input. Do not use these tools for interactive, background, or long-running work.
+
+### Limits and results
+
+- Set `timeout_seconds` during preparation: 15 seconds by default, from 1 to 30 seconds.
+- Start within two minutes of preparation. State and output expire ten minutes after preparation, as shown by
+  `retainUntil`; executing or reading does not extend retention.
+- Commands accept at most 64 arguments and 8 KiB of argument data.
+- Combined stdout and stderr are limited to 64 KiB. If output exceeds the limit, observation stops, all output is
+  withheld, and the result reports `truncated` and an unknown outcome.
+
+| Status | Meaning |
+| --- | --- |
+| `prepared` | No process has started through this execution ID. |
+| `running` | Execution has been initiated; no final result is available yet. |
+| `completed` | A process exit result is available. Check `exitCode`; completion alone does not mean success. |
+| `not_started` | The execution attempt was rejected before starting the command. |
+| `expired` | The preparation expired before execution. |
+| `unknown` | Execution may have started, but its outcome could not be established. |
+
+Inspect `status`, `exitCode`, `stdout`, `stderr`, `truncated`, and `outcomeUnknown` together. An exit code of zero
+establishes command success, not application health. Target replacement or restart can prevent execution or leave
+its outcome unknown.
+
+After a timeout or lost response, retrieve the **same execution ID**. Do not prepare a new ID as an automatic retry:
+that would authorize another execution. Missing or expired retained state is not evidence that nothing ran.
+A timeout or disconnected client does not guarantee the remote process or its children stopped. Reconcile the
+application's state before deciding whether another command is appropriate.
+
+The returned `taskId` identifies the access audit task. Its completion records the access attempt, not the command's
+exit status or application health. Do not use `repeat_task` to retry a command.
+
+Known secret values are redacted before output is returned, but arbitrary application data can remain sensitive.
+Avoid commands that dump credentials, environment variables, or private data, and review output before sharing it.
 
 ## Troubleshooting
 

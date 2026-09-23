@@ -12,7 +12,8 @@ This guide applies to Wodby 2.
 
 Your client acts within your [Wodby permissions](../access-control.md). Connecting does not authorize changes.
 Review costs and data impact before approving operations. Logs may contain private application data; never paste
-credentials into a conversation. Ordinary API keys do not have OAuth scope restrictions.
+credentials into a conversation. Ordinary API keys do not have OAuth scope restrictions, but
+[container command tools](mcp/reference.md#container-commands) require OAuth with `mcp:exec`.
 
 ## Connect your client
 
