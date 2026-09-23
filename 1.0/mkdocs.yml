@@ -56,7 +56,7 @@ theme:
       name: Switch to light mode
   custom_dir: 'theme'
 
-extra_css: ["assets/wodby.css"]
+extra_css: ["assets/wodby.css?v=20260923"]
 extra_javascript: ["assets/intercom.js"]
 
 markdown_extensions:
