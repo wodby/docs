@@ -55,7 +55,7 @@ wodby ci run -- composer install -n --no-ansi
 
 # Build, push, and deploy images
 wodby ci build
-wodby ci release
+wodby ci push
 wodby ci deploy
 ```
 
@@ -121,10 +121,12 @@ profile detection; combine it with `--cache PROFILE` when both overrides are nee
 
 `wodby ci build [SERVICE]...` builds all build image targets from the current app build config or only the services you specify. The CLI can use a Dockerfile from your repository, a Dockerfile from the Wodby service configuration, or a generated default Dockerfile. It also supports build arguments, custom copy paths, and buildx cache backends.
 
-## 4. [Release](docker-registry.md)
+<span id="4-release"></span>
 
-`wodby ci release [SERVICE]...` pushes the built images to the registry configured for the build. By default this is [Wodby Registry](wodby-registry.md), but you can also use supported [registry providers](../providers/registry.md).
+## 4. [Push](docker-registry.md)
+
+`wodby ci push [SERVICE]...` pushes the built images to the registry configured for the build. By default this is [Wodby Registry](wodby-registry.md), but you can also use supported [registry providers](../providers/registry.md).
 
 ## 5. [Deploy](deploy.md)
 
-`wodby ci deploy [SERVICE]...` tells Wodby to deploy the released images. You can optionally skip post-deployment scripts with `--skip-post-deploy`.
+`wodby ci deploy [SERVICE]...` tells Wodby to deploy the pushed images. You can optionally skip post-deployment scripts with `--skip-post-deploy`.

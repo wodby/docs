@@ -2,7 +2,7 @@
 
 This page covers deployments triggered by CI. For more information about deployments in general see [app deploys](../apps/deploys.md).
 
-Use `wodby ci deploy [SERVICE]...` to deploy previously released images. If you do not specify services, Wodby deploys all released services from the current build.
+Use `wodby ci deploy [SERVICE]...` to deploy previously pushed images. If you do not specify services, Wodby deploys all services with pushed images from the current build.
 
 Each CI deployment is associated with the Wodby build created during `wodby ci init`. You can review the deployment
 history, including failed deployments, from `Apps > [App] > [Environment] > CI/CD > Deploys`.
@@ -22,7 +22,7 @@ A post-deployment failure does not change the successful deployment or app statu
 Deployment details show a separate post-deployment warning and task log. You can retry only the failed
 post-deployment task without redeploying the application.
 
-`wodby ci deploy` records the released build as deployable and returns without waiting for the rollout or
+`wodby ci deploy` records the build with pushed images as deployable and returns without waiting for the rollout or
 post-deployment task. The deployment can remain `Awaiting` while other selected builds finish or the cluster completes
 infrastructure maintenance. When all inputs are ready, its normal deployment task becomes `Queued` until execution
 capacity is available. Eligible independent partial deployments can roll out concurrently; conflicting deployments and

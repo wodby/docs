@@ -137,13 +137,13 @@ plan, but the providers cannot be enabled or used for sign-in until the organiza
 
 ### Wodby CI minutes
 
-[Wodby CI](cicd/wodby-ci.md) is the default CI system to build your applications, release artifacts, and run deployments.
+[Wodby CI](cicd/wodby-ci.md) is the default CI system to build your applications, push artifacts, and run deployments.
 
 Each billing cycle includes a free amount of build minutes. Additional usage is billed by total build minutes.
 
 ### Wodby registry storage
 
-Wodby Registry is the default private container registry for images built and released during CI. Storage usage is billed by stored GB above the included amount. It costs $0.15 per stored GB.
+Wodby Registry is the default private container registry for images built and pushed during CI. Storage usage is billed by stored GB above the included amount. It costs $0.15 per stored GB.
 
 The first 5 GB are included in each billing cycle. Wodby measures the organization's current total stored image data,
 converts it to GiB, and rounds a non-whole value up to the next whole unit for billing. For example, 5.1 GiB produces a

@@ -28,14 +28,14 @@ export WODBY_API_KEY=...
 
 ## CI workflow
 
-Wodby CI and third-party CI providers use the same CLI-driven workflow: initialize the build context, build images, release them to the registry, and deploy the released images.
+Wodby CI and third-party CI providers use the same CLI-driven workflow: initialize the build context, build images, push them to the registry, and deploy the pushed images.
 
 ```bash
 export WODBY_API_KEY=...
 
 wodby ci init 12345
 wodby ci build php nginx
-wodby ci release php nginx
+wodby ci push php nginx
 wodby ci deploy php nginx
 ```
 
