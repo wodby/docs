@@ -13,7 +13,7 @@ The two common patterns are:
    uses `build.link` to identify the linked app service that owns the source, so they can produce images as part of the
    same build and deployment flow.
 
-For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you release them with `wodby ci release` and deploy them with `wodby ci deploy`.
+For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you push them with `wodby ci push` and deploy them with `wodby ci deploy`.
 
 Wodby exports one source owner and its linked image targets to each CI build. A different app service with its own build
 source is excluded and receives a separate build. The service selected by `build.link` must accept connected builds and

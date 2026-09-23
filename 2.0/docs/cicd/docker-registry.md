@@ -2,7 +2,10 @@
 
 `wodby ci init` requests registry credentials for the current build and logs Docker in to the registry associated with your application.
 
-`wodby ci release [SERVICE]...` pushes the images built during `wodby ci build`. If you do not specify services, the CLI releases all built services from the current build.
+`wodby ci push [SERVICE]...` pushes the images built during `wodby ci build`. If you do not specify services, the CLI pushes images for all built services from the current build.
+
+`wodby ci release` remains an alias for `wodby ci push`, with the same arguments and flags.
+If your installed CLI does not recognize `push`, upgrade it or continue using `release`.
 
 By default, Wodby uses [Wodby Registry](wodby-registry.md), but you can also attach another registry integration such as [Docker Hub](../providers/docker.md) or [Distribution Registry](../providers/distribution.md).
 
@@ -28,7 +31,7 @@ For Distribution Registry integrations, the registry host is the normalized inte
 
 If the integration does not define a repository prefix, Wodby uses the organization machine name. Distribution Registry push operations use the integration's main credentials. Deployment image pulls use the optional pull-only credentials when both pull-only fields are set; otherwise they use the main credentials.
 
-`wodby ci release` can also publish additional tags:
+`wodby ci push` can also publish additional tags:
 
 - `--branch-tag` pushes a Docker-compatible tag based on the current git branch. Branch names that are already valid
   Docker tags are preserved. Invalid or overlong names are converted to a readable tag with a short hash suffix so

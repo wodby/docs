@@ -24,7 +24,7 @@ Follow the steps in the [third-party CI guide](../cicd/third-party.md):
 - <span id="init"></span>[Initialize the build](../cicd/third-party.md#init) for your app instance.
 - <span id="build"></span>[Build service images](../cicd/third-party.md#build).
 - <span id="dependency-caches"></span>[Configure dependency caches](../cicd/third-party.md#dependency-caches).
-- <span id="release"></span>[Release images](../cicd/third-party.md#release) to a container registry.
+- <span id="release"></span><span id="push"></span>[Push images](../cicd/third-party.md#push) to a container registry.
 - <span id="deploy"></span>[Deploy the build](../cicd/third-party.md#deploy).
 - <span id="examples"></span>See [CI provider examples](../cicd/third-party.md#examples).
 

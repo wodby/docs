@@ -14,7 +14,7 @@ Use a registry provider when:
 
 Registry provider integrations are used for:
 
-- app build and release workflows
+- app image build and push workflows
 - organization defaults for container image storage
 - app environment registry selection when builds should use a specific external registry
 

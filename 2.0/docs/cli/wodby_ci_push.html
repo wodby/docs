@@ -5,18 +5,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>wodby stack service cron-schedule delete | Wodby CLI</title>
-  <meta name="description" content="wodby stack service cron-schedule delete command reference for Wodby CLI. Delete stack service cron schedule.">
-  <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_stack_service_cron-schedule_delete.html">
+  <title>wodby ci push | Wodby CLI</title>
+  <meta name="description" content="wodby ci push command reference for Wodby CLI. Push images to the registry.">
+  <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_ci_push.html">
   <link rel="icon" href="../assets/images/favicon.svg">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Wodby Documentation">
-  <meta property="og:title" content="wodby stack service cron-schedule delete | Wodby CLI">
-  <meta property="og:description" content="wodby stack service cron-schedule delete command reference for Wodby CLI. Delete stack service cron schedule.">
-  <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_stack_service_cron-schedule_delete.html">
+  <meta property="og:title" content="wodby ci push | Wodby CLI">
+  <meta property="og:description" content="wodby ci push command reference for Wodby CLI. Push images to the registry.">
+  <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_ci_push.html">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="wodby stack service cron-schedule delete | Wodby CLI">
-  <meta name="twitter:description" content="wodby stack service cron-schedule delete command reference for Wodby CLI. Delete stack service cron schedule.">
+  <meta name="twitter:title" content="wodby ci push | Wodby CLI">
+  <meta name="twitter:description" content="wodby ci push command reference for Wodby CLI. Push images to the registry.">
   <link rel="sitemap" type="application/xml" href="https://wodby.com/docs/2.0/cli/sitemap.xml">
   <link rel="stylesheet" href="manual.css">
 </head>
@@ -2209,7 +2209,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby ci">
+      <details class="nav-branch" data-nav-command="wodby ci" open>
         <summary class="nav-summary">ci</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_ci.html">Overview</a>
@@ -2245,7 +2245,7 @@
   
   <div class="nav-item">
     
-      <a class="nav-link " href="wodby_ci_push.html">push</a>
+      <a class="nav-link active" href="wodby_ci_push.html">push</a>
     
   </div>
 
@@ -4831,7 +4831,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby stack" open>
+      <details class="nav-branch" data-nav-command="wodby stack">
         <summary class="nav-summary">stack</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_stack.html">Overview</a>
@@ -4990,7 +4990,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby stack service" open>
+      <details class="nav-branch" data-nav-command="wodby stack service">
         <summary class="nav-summary">service</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_stack_service.html">Overview</a>
@@ -5110,7 +5110,7 @@
   
   <div class="nav-item">
     
-      <details class="nav-branch" data-nav-command="wodby stack service cron-schedule" open>
+      <details class="nav-branch" data-nav-command="wodby stack service cron-schedule">
         <summary class="nav-summary">cron-schedule</summary>
         <div class="nav-children">
           <a class="nav-link nav-overview" href="wodby_stack_service_cron-schedule.html">Overview</a>
@@ -5128,7 +5128,7 @@
   
   <div class="nav-item">
     
-      <a class="nav-link active" href="wodby_stack_service_cron-schedule_delete.html">delete</a>
+      <a class="nav-link " href="wodby_stack_service_cron-schedule_delete.html">delete</a>
     
   </div>
 
@@ -5713,20 +5713,25 @@
   <article class="manual-page">
     <div class="breadcrumbs">
       <a href="index.html">Manual</a>
-      <span>/</span><a href="wodby_stack_service_cron-schedule.html">wodby stack service cron-schedule</a>
+      <span>/</span><a href="wodby_ci.html">wodby ci</a>
     </div>
 
-    <h1>wodby stack service cron-schedule delete</h1>
-    <p class="lead">Delete stack service cron schedule</p>
+    <h1>wodby ci push</h1>
+    <p class="lead">Push images to the registry</p>
     
 
     
 
     <section class="section">
       <h2>Usage</h2>
-      <pre><code>wodby stack service cron-schedule delete ID [flags]</code></pre>
+      <pre><code>wodby ci push [SERVICE...] [flags]</code></pre>
     </section>
 
+    
+      <section class="section">
+        <h2>Aliases</h2>
+        <p><code>release</code></p>
+      </section>
     
 
     
@@ -5747,15 +5752,21 @@
       <tbody>
         
           <tr>
-            <td><code>-h, --help</code></td>
-            <td>help for delete</td>
+            <td><code>-b, --branch-tag</code></td>
+            <td>Additionally push a safe tag derived from the current git branch name</td>
             <td><code>false</code></td>
           </tr>
         
           <tr>
-            <td><code>-y, --yes</code></td>
-            <td>Confirm without prompting</td>
+            <td><code>-h, --help</code></td>
+            <td>help for push</td>
             <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>-l, --latest-branch string</code></td>
+            <td>Update latest tag when built from this branch</td>
+            <td><code>master</code></td>
           </tr>
         
       </tbody>
@@ -5805,12 +5816,6 @@
           </tr>
         
           <tr>
-            <td><code>-o, --output string</code></td>
-            <td>Output format: table, vertical, or json</td>
-            <td><code>table</code></td>
-          </tr>
-        
-          <tr>
             <td><code>--verbose</code></td>
             <td>Verbose output</td>
             <td><code>false</code></td>
@@ -5826,7 +5831,7 @@
     
       <section class="section">
         <h2>See also</h2>
-        <a href="wodby_stack_service_cron-schedule.html">wodby stack service cron-schedule</a>
+        <a href="wodby_ci.html">wodby ci</a>
       </section>
     
   </article>

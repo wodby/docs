@@ -90,7 +90,7 @@ A generated domain in the form `[instance].[app name].[organization name].wodby.
 
 ## Third-party CI
 
-An external continuous integration system that uses the Wodby CLI to initialize, build, release, and deploy service images. See [Third-party CI](cicd/third-party.md).
+An external continuous integration system that uses the Wodby CLI to initialize, build, push, and deploy service images. See [Third-party CI](cicd/third-party.md).
 
 ## Related pages
 

@@ -33,7 +33,7 @@ jobs:
           path: ~/.composer/cache
 
       - run: wodby ci build
-      - run: wodby ci release
+      - run: wodby ci push
       - run: wodby ci deploy
 ```
 

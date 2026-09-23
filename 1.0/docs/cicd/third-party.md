@@ -15,7 +15,7 @@ Big picture:
 2. [Get](#wodby-cli) Wodby CLI tool or its docker image
 3. [Initialize](#init) the build by providing an API key scoped to the app's organization and the UUID of your app instance
 4. [Build](#build) images with your codebase. Images will be based on the images from your stack
-5. Push ([release](#release)) images to a private docker registry we provide you (or any other registry)
+5. [Push](#push) images to a private docker registry we provide you (or any other registry)
 6. [Deploy](#deploy) the build (a set of images) to your app instance
 
 !!! caution "Do not store your Wodby API key in git repository"
@@ -174,7 +174,9 @@ By default we build images with the name (tag) of a private docker registry we p
 wodby ci build -t my-private-docker-hub/repository
 ```
 
-## Release
+<span id="release"></span>
+
+## Push
 
 !!! tldr "Docker registry"
     Wodby provides a private docker registry `registry.wodby.com` which used by default. You can use custom docker registry during the build but if it's a private one make sure to add the appropriate [docker registry integration](docker-registry.md) so servers where you deploy instances can access your images. Registry storage above the included amount is billed, see [billing](../billing.md#container-registry-storage).
@@ -182,17 +184,20 @@ wodby ci build -t my-private-docker-hub/repository
 !!! question "How to download images?"
     Once you deployed your first build you can find images' URLs on `Instance > Stack` page. You can get those images locally by running `docker login registry.wodby.com` and entering your Wodby user's email/password.
 
+`wodby ci release` remains an alias for `wodby ci push`, with the same arguments and flags.
+If your installed CLI does not recognize `push`, upgrade it or continue using `release`.
+
 Once images are built, you can push them to a docker registry:
 
 ```shell
 # Push all images to the default docker registry
-wodby ci release
+wodby ci push
 # Push images of specific services
-wodby ci release php node
+wodby ci push php node
 # Push to a custom docker registry
-wodby ci release -t my-private-docker-hub/repository
+wodby ci push -t my-private-docker-hub/repository
 # Additionally push with the tag of the current git branch name
-wodby ci release -t my-private-docker-hub/repository -b
+wodby ci push -t my-private-docker-hub/repository -b
 ```
 
 ## Deploy

@@ -14,4 +14,4 @@ building or troubleshooting the connection itself.
 
 ## CLI
 
-- [Wodby CLI](cli.md) covers common CI build, release, deploy, and one-off run workflows, with links to the generated full CLI reference.
+- [Wodby CLI](cli.md) covers common CI build, push, deploy, and one-off run workflows, with links to the generated full CLI reference.

@@ -261,7 +261,7 @@ Initial deployment depends on how the app's services are built:
 | --- | --- |
 | No services need a build | Wodby starts a full deployment immediately. |
 | All builds use Wodby CI | Wodby starts the builds and deploys when they are ready. |
-| All builds use third-party CI | The app remains `awaiting`. Run your external pipeline and call `wodby ci deploy` to deploy its released services. |
+| All builds use third-party CI | The app remains `awaiting`. Run your external pipeline and call `wodby ci deploy` to deploy its services with pushed images. |
 | Wodby CI and third-party CI | Wodby starts its CI builds and deploys their services without waiting for external pipelines. Run those pipelines to deploy the remaining services. |
 
 During initial setup, build-backed deployments also include all enabled services without build sources while any of
@@ -346,7 +346,7 @@ Deployments from CI are triggered with `wodby ci deploy`.
 
 Each build deployment creates a new deployment record associated with the selected build. One build can contain image outputs for multiple app services. CI-triggered deployments can also skip post-deployment scripts for the built services when needed.
 
-A CI build started outside an existing dashboard build group deploys its own released service outputs without waiting
+A CI build started outside an existing dashboard build group deploys its own pushed service images without waiting
 for unrelated build-source owners. On an app that has not established its runtime yet, Wodby also includes the enabled
 services without build sources required for that initial runtime. Other build owners remain independent and deploy
 when their own builds report back.
