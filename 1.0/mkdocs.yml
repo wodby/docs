@@ -29,6 +29,9 @@ theme:
   logo: assets/images/wodby1-logo.png
   favicon: assets/images/favicon.png
   name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
   features:
   - navigation.tabs
   - navigation.instant
