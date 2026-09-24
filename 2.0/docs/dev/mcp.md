@@ -321,3 +321,9 @@ A plan does not approve deployment, and staging approval does not approve produc
 
 For custom clients and exact behavior, see the [protocol, authentication, task, and log reference](mcp/reference.md)
 and [tool catalog](mcp/tools.md). Use the connected server's schemas for current inputs and capabilities.
+
+## Development workspaces
+
+Use [workspace MCP controls](../apps/workspaces.md#mcp-controls) to inspect a development workspace, retrieve the owner's
+SSH connection details, rerun preparation, or pause and resume it. Connect your editor or agent over SSH separately to
+work on the checkout.
