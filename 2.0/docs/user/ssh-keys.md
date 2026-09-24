@@ -10,6 +10,12 @@ Wodby adds your SSH keys to SSHD app services with a published port in apps wher
 
 Changing your SSH keys triggers redeployment of those SSHD services so the updated authorized keys can be applied.
 
+## Development workspaces
+
+[Development workspaces](../apps/workspaces.md#connect-your-editor-or-agent) use the owner's registered keys for their
+personal SSH runner. Other users with writable app access do not receive workspace SSH access. Key changes refresh
+access and end active runner sessions; an unreachable cluster can delay that refresh.
+
 ## Supported key formats
 
 The dashboard accepts the following public key types:

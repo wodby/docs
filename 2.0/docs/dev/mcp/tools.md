@@ -23,6 +23,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_app` | Get an app by ID. |
 | `find_environment` | Find an app environment by organization, app name, and the legacy `instanceName` argument. |
 | `list_app_instances` | List app environments with optional project, app, cluster, and status filters by names or IDs. |
+| `get_workspace_context` | Read development workspace runtime, preview, preparation and initial Git information. |
+| `get_workspace_connection` | Get the owner’s SSH endpoint, fingerprint and connection guidance. |
 | `get_app_instance` | Get an app environment by ID. |
 | `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
 | `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
@@ -79,6 +81,9 @@ These tools require `mcp:operate` when using OAuth.
 
 | Tool | Use |
 | --- | --- |
+| `prepare_workspace` | Rerun workspace preparation, preserving the checkout. Requires `confirm: true`. |
+| `restart_workspace` | Restart the SSH runner, ending sessions; does not restart the application. Requires `confirm: true`. |
+| `pause_workspace` / `resume_workspace` | Pause or resume a workspace environment. Requires `confirm: true`. |
 | `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app environment selector, and suggest waiting for its task. |
 | `redeploy_deployment` | Redeploy from an existing deployment. |
 | `deploy_build` | Deploy a completed app build. |

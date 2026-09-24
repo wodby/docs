@@ -57,6 +57,12 @@ the environment has no active buildable services, and saves the selection for se
 Changes apply to future builds. Existing builds keep the CI provider, registry, and registry repository recorded when
 those builds were created.
 
+## Development workspaces
+
+For persistent code editing over SSH, choose [Development workspace](workspaces.md) when creating an environment.
+This mode is separate from the environment type and cannot be changed after creation. Workspace environments use a
+shared checkout instead of the normal image build and deployment workflow.
+
 ## Copying configuration to a new environment
 
 When you add an environment to an existing app, Step 4 shows `Copy configuration from`. Select another environment of the
