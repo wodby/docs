@@ -1,24 +1,28 @@
 # Development workspaces
 
 A development workspace is an app environment where you or a coding agent can edit a persistent Git checkout and test
-changes against the running application. Commit and push the result, then build and deploy it to a separate Standard
+changes against the running application. Commit and push the result, then build and deploy it in a separate CI/CD
 environment.
 
 !!! note "Availability"
-    Workspace creation must be enabled in Wodby, and the selected stack and cluster must support it. If the option is
-    unavailable, use a Standard environment. A service that supports Git builds does not necessarily support workspaces.
+    Workspace creation must be enabled in Wodby, and the selected stack and cluster must support it. If
+    **Development workspace** is unavailable, hover over it to see why, or use **CI/CD**. A service that supports Git
+    builds does not necessarily support workspaces.
 
-## Workspace or Standard?
+<span id="workspace-or-standard"></span>
 
-| | Development workspace | Standard environment |
+## Workspace or CI/CD?
+
+| | Development workspace | CI/CD environment |
 | --- | --- | --- |
 | Application code | Editable Git checkout on persistent storage | Code delivered in a built container image |
 | Updating code | Edit through SSH; reload or restart as the runtime requires | Build and deploy a new image |
 | Git updates | Pull, commit and push explicitly from the checkout | Use the environment's configured CI/CD workflow |
 | Purpose | Development and testing with your tools or agents | Reproducible staging and production deployments |
 
-Choose the execution mode when creating an environment. You cannot switch an existing environment between modes.
+Choose the **Deployment mode** when creating an environment. You cannot switch an existing environment between modes.
 The mode is separate from the [environment type](environment-types.md): selecting `dev` alone does not create a workspace.
+In the API and MCP tools, CI/CD is the `STANDARD` execution mode and a development workspace is `WORKSPACE`.
 
 A workspace belongs to the user who creates it. Only that owner, while retaining permission to modify the app, can
 connect to its personal SSH runner or change workspace configuration. Normal resource-management permissions still
@@ -26,11 +30,12 @@ apply to pausing and deleting the environment.
 
 ## Before you create one
 
-- Select an existing ready cluster that can publish a TCP endpoint for SSH.
-- Choose a stack with one supported source service connected to a Git repository. Any services that share its code,
-  such as a web server, must also support workspace mounts.
-- Provide shared storage that supports ReadWriteMany (RWX). A listed external storage class is not proof that it
-  supports RWX; check with your cluster administrator.
+- Deploy to Wodby Cloud, or select an existing ready cluster that can publish a TCP endpoint for SSH.
+- Choose a stack with one supported source service. Any services that share its code, such as a web server, must also
+  support workspace mounts.
+- Use your own Git repository, so you can push your work. Connect an existing repository, or clone the service's
+  boilerplate into a new repository with a [GitHub](../providers/github.md) or [GitLab](../providers/gitlab.md)
+  integration.
 - Add your public key in [User settings > SSH keys](../user/ssh-keys.md). Keep the private key on your computer.
 - Start with fresh application data. Attaching an existing database or selecting a data import during workspace
   creation is not supported.
@@ -41,13 +46,18 @@ service. Code and agent-home storage are also billed under normal storage rules.
 ## Create a workspace
 
 1. Start creating an app, or add an environment from `Apps > [App] > Environments`.
-2. Select the stack and an existing cluster. In the app settings, set **Execution mode** to **Development workspace**.
-   Resolve any eligibility message before continuing.
-3. Under **Workspace checkout**, choose a **Working branch**, **Shared storage**, **Code storage (GiB)** and
-   **Agent home (GiB)**.
-4. Connect the source repository and select the Git reference to start from. The starting reference and the workspace's
-   working branch are separate choices.
-5. Review the services, resource usage and access settings, then create the environment.
+2. Select the stack, then deploy to Wodby Cloud or select an existing cluster.
+3. In the app settings, set **Deployment mode** to **Development workspace**. If the option is unavailable, hover over
+   it to see why.
+4. In the services step, open the **Development workspace** section. For the source service, choose
+   **Clone boilerplate** to create a new repository from the boilerplate, or **Use my repository** and select the
+   repository and the Git reference to start from.
+5. Check **Storage**. The default storage class suits most workspaces. See [Storage](#storage).
+6. Optionally, change **Code, size (Gi)** and **Agent home, size (Gi)** in the **Workspace** group under **Volumes**.
+7. Review the services, resource usage and access settings, then create the environment.
+
+Wodby starts a new working branch named `wodby/workspace-<id>` from the starting reference. The
+**Development workspace** section shows its name. Commit and push your work to this branch, then open a pull request.
 
 Wodby clones the selected source once, prepares dependencies and application setup, then starts the code services.
 Open the environment's **Workspace** page to follow preparation and view participating services. Use its task logs if
@@ -55,6 +65,19 @@ preparation fails.
 
 The initial branch and commit shown there record creation. Use Git inside the workspace to see the current branch,
 HEAD and uncommitted changes.
+
+### Storage
+
+The code checkout and agent home live on persistent volumes. Choose where under **Storage**:
+
+- **One node** (default): the volumes use a storage class, and Wodby runs the code services, the SSH runner and
+  preparation jobs on the same node. Any listed storage class works. **Default storage class** uses the cluster's
+  default class. On an existing cluster without a single default class, select a class instead. A new Wodby Cloud
+  cluster always uses its default class.
+- **Shared across nodes**: select a storage service that is enabled in the stack. The code services can then run on
+  different nodes, but network storage is usually slower and file watchers may need polling.
+
+You cannot change the storage after creating the workspace.
 
 ## Connect your editor or agent
 
@@ -102,7 +125,8 @@ MCP tools do not edit files or report live Git status. Establish the remote conn
 
 Edits affect this environment's shared checkout. Whether a browser preview updates immediately depends on the service
 and your application. PHP can read changed source on subsequent requests, but application caches may need clearing.
-Development servers need a watcher that works with shared storage; custom Node commands may require polling.
+File watchers usually work with one-node storage. With a storage service, development servers need a watcher that
+works with network storage; custom Node commands may require polling.
 
 Use **Restart application** when the runtime does not reload changes. This preserves the checkout and does not pull
 Git updates or reinstall dependencies. **Restart SSH runner** only restarts your remote connection service and ends
@@ -121,15 +145,15 @@ For Drupal projects with a tracked settings file, include the required Wodby set
 project. Preparation will not rewrite tracked settings or replace tracked upload placeholders. Making a tracked file
 ignored does not remove it from Git.
 
-## Deliver changes to a Standard environment
+## Deliver changes to a CI/CD environment
 
 1. Inspect the current branch and diff inside the workspace. Run the project's tests and check its preview.
 2. Commit the intended source changes and push them to your Git provider.
 3. Open a pull request and complete your normal review process.
-4. Build and deploy the approved code in a separate Standard environment using your usual [CI/CD](../cicd/index.md).
+4. Build and deploy the approved code in a separate CI/CD environment using your usual [CI/CD](../cicd/index.md).
 
 Workspaces use development images and tools. A successful workspace preview does not prove the production image will
-build or run; the Standard environment's build and tests validate that. Local dependency installations, uncommitted
+build or run; the CI/CD environment's build and tests validate that. Local dependency installations, uncommitted
 files and workspace data are not transferred with a Git push. Wodby does not automatically create a PR or a preview
 environment as part of this workflow.
 
@@ -137,8 +161,10 @@ environment as part of this workflow.
 
 - Code services run one replica without autoscaling. Scheduled jobs remain disabled.
 - Code-service derivatives must be disabled; supporting-service derivatives can remain available.
-- Changing the repository or source links, upgrading the stack, deploying a built image into the workspace, and moving
-  it to another cluster are not supported. Create a new environment for those changes.
+- Changing the repository, source links or storage, upgrading the stack, deploying a built image into the workspace, and
+  moving it to another cluster are not supported. Create a new environment for those changes.
+- With one-node storage, the code services, the SSH runner and preparation jobs must fit on one node. With node-local
+  storage, such as the default K3S storage class, the workspace can only run on the node that holds its volumes.
 - To protect HTTP previews with [App Access](access.md), choose **Selected endpoints**. **Entire app** protection
   conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.
 - [Pausing](environments.md#pausing-and-resuming-an-environment) stops workloads and SSH access but preserves code and

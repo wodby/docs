@@ -93,6 +93,7 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
 
 Configure settings that apply to the whole app environment:
 
+- Choose the deployment mode: CI/CD or development workspace.
 - Choose whether to enable stack auto-upgrades.
 - Choose Public or Protected [App Access](access.md).
 - Select the default CI system and container registry when the app has an enabled service with a build source.
@@ -101,6 +102,12 @@ When adding another environment to an existing app, use `Copy configuration from
 fields from another environment. See
 [Copying configuration to a new environment](environments.md#copying-configuration-to-a-new-environment) for what is copied and
 the database-sharing behavior to review.
+
+#### Deployment mode
+
+Choose **CI/CD** to build and deploy the app through a CI pipeline. This is the right mode for production. Choose
+**Development workspace** to connect your editor or coding agent over SSH and preview changes live. You cannot change the mode after creating the environment. If **Development workspace** is unavailable, hover
+over it to see why. See [Development workspaces](workspaces.md).
 
 #### Auto-upgrades
 
@@ -145,6 +152,10 @@ For [Bitbucket](../providers/bitbucket.md), create or copy the boilerplate repos
 the build source. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
 is a third-party integration.
 
+In a development workspace, this section is called **Development workspace**. It offers only **Clone boilerplate** and
+**Use my repository**, and shows the working branch and storage. See
+[Create a workspace](workspaces.md#create-a-workspace).
+
 #### Settings 
 
 Configure [settings](../services/configuration.md#settings) for services that provide them.
@@ -157,6 +168,8 @@ chosen destination cluster, shows their provisioners, and marks and preselects t
 such as Redis, may provide optional volumes. For those, specifying size `0` means no persistent storage will be created.
 The omitted volume remains available on the app service's `Volumes` tab and can be added later when persistent storage
 is needed. Leaving an optional volume omitted is a valid configuration and does not produce a warning.
+
+In a development workspace, the **Workspace** group sets the sizes of the code checkout and the agent home.
 
 When a service-owned volume cannot apply an explicit class, the dashboard shows the safe cluster default in the same
 selector but disables the control. A shared volume instead shows its linked storage service in a disabled selector; use
