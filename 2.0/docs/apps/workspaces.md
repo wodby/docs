@@ -30,7 +30,8 @@ apply to pausing and deleting the environment.
 
 ## Before you create one
 
-- Deploy to Wodby Cloud, or select an existing ready cluster that can publish a TCP endpoint for SSH.
+- Deploy to Wodby Cloud, or select an existing ready cluster that can publish a TCP endpoint for SSH. An existing
+  cluster needs exactly one default storage class. See [Storage](#storage).
 - Choose a stack with one supported source service. Any services that share its code, such as a web server, must also
   support workspace mounts.
 - Use your own Git repository, so you can push your work. Connect an existing repository, or clone the service's
@@ -52,9 +53,8 @@ service. Code and agent-home storage are also billed under normal storage rules.
 4. In the services step, open the **Development workspace** section. For the source service, choose
    **Clone boilerplate** to create a new repository from the boilerplate, or **Use my repository** and select the
    repository and the Git reference to start from.
-5. Check **Storage**. The default storage class suits most workspaces. See [Storage](#storage).
-6. Optionally, change **Code, size (Gi)** and **Agent home, size (Gi)** in the **Workspace** group under **Volumes**.
-7. Review the services, resource usage and access settings, then create the environment.
+5. Optionally, change **Code, size (Gi)** and **Agent home, size (Gi)** in the **Workspace** group under **Volumes**.
+6. Review the services, resource usage and access settings, then create the environment.
 
 Wodby starts a new working branch named `wodby/workspace-<id>` from the starting reference. The
 **Development workspace** section shows its name. Commit and push your work to this branch, then open a pull request.
@@ -68,14 +68,14 @@ HEAD and uncommitted changes.
 
 ### Storage
 
-The code checkout and agent home live on persistent volumes. Choose where under **Storage**:
+Wodby keeps the code checkout and agent home on volumes of the cluster's default storage class, and runs the code
+services, the SSH runner and preparation jobs on the same node. Any storage class works; it doesn't need to support
+shared access across nodes. A new Wodby Cloud cluster always has a default class. On an existing cluster, the
+**Development workspace** option stays unavailable until the cluster has exactly one default storage class.
 
-- **One node** (default): the volumes use a storage class, and Wodby runs the code services, the SSH runner and
-  preparation jobs on the same node. Any listed storage class works. **Default storage class** uses the cluster's
-  default class. On an existing cluster without a single default class, select a class instead. A new Wodby Cloud
-  cluster always uses its default class.
-- **Shared across nodes**: select a storage service that is enabled in the stack. The code services can then run on
-  different nodes, but network storage is usually slower and file watchers may need polling.
+When you create a workspace through the [API](../dev/api.md) or [MCP](../dev/mcp.md), you can choose another storage
+class of an existing cluster instead, or an enabled storage service from the stack that shares the files across nodes.
+Network storage is usually slower, and file watchers may need polling.
 
 You cannot change the storage after creating the workspace.
 
@@ -125,8 +125,8 @@ MCP tools do not edit files or report live Git status. Establish the remote conn
 
 Edits affect this environment's shared checkout. Whether a browser preview updates immediately depends on the service
 and your application. PHP can read changed source on subsequent requests, but application caches may need clearing.
-File watchers usually work with one-node storage. With a storage service, development servers need a watcher that
-works with network storage; custom Node commands may require polling.
+File watchers usually work. If the workspace uses a storage service, development servers need a watcher that works
+with network storage; custom Node commands may require polling.
 
 Use **Restart application** when the runtime does not reload changes. This preserves the checkout and does not pull
 Git updates or reinstall dependencies. **Restart SSH runner** only restarts your remote connection service and ends
@@ -163,8 +163,9 @@ environment as part of this workflow.
 - Code-service derivatives must be disabled; supporting-service derivatives can remain available.
 - Changing the repository, source links or storage, upgrading the stack, deploying a built image into the workspace, and
   moving it to another cluster are not supported. Create a new environment for those changes.
-- With one-node storage, the code services, the SSH runner and preparation jobs must fit on one node. With node-local
-  storage, such as the default K3S storage class, the workspace can only run on the node that holds its volumes.
+- The code services, the SSH runner and preparation jobs run on one node, so that node needs room for all of them.
+  With node-local storage, such as the default K3S storage class, the workspace can only run on the node that holds
+  its volumes.
 - To protect HTTP previews with [App Access](access.md), choose **Selected endpoints**. **Entire app** protection
   conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.
 - [Pausing](environments.md#pausing-and-resuming-an-environment) stops workloads and SSH access but preserves code and
