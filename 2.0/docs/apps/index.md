@@ -153,7 +153,7 @@ the build source. Public and cloned boilerplates always use Wodby CI, so these c
 is a third-party integration.
 
 In a development workspace, this section is called **Development workspace**. It offers only **Clone boilerplate** and
-**Use my repository**, and shows the working branch and storage. See
+**Use my repository**, and shows the generated working branch. See
 [Create a workspace](workspaces.md#create-a-workspace).
 
 #### Settings 
