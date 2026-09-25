@@ -59,9 +59,9 @@ those builds were created.
 
 ## Development workspaces
 
-For persistent code editing over SSH, choose [Development workspace](workspaces.md) when creating an environment.
-This mode is separate from the environment type and cannot be changed after creation. Workspace environments use a
-shared checkout instead of the normal image build and deployment workflow.
+For persistent code editing over SSH, set **Deployment mode** to [Development workspace](workspaces.md) when creating
+an environment. This mode is separate from the environment type and cannot be changed after creation. Workspace
+environments use an editable Git checkout instead of the normal image build and deployment workflow.
 
 ## Copying configuration to a new environment
 
