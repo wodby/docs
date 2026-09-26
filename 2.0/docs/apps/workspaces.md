@@ -23,6 +23,7 @@ environment.
 Choose the **Deployment mode** when creating an environment. You cannot switch an existing environment between modes.
 The mode is separate from the [environment type](environment-types.md): selecting `dev` alone does not create a workspace.
 In the API and MCP tools, CI/CD is the `STANDARD` execution mode and a development workspace is `WORKSPACE`.
+App and environment lists mark workspaces with a **Workspace** tag.
 
 A workspace belongs to the user who creates it. Only that owner, while retaining permission to modify the app, can
 connect to its personal SSH runner or change workspace configuration. Normal resource-management permissions still
@@ -36,7 +37,9 @@ apply to pausing and deleting the environment.
 - Use your own Git repository, so you can push your work. Connect an existing repository, or clone the service's
   boilerplate into a new repository with a [GitHub](../providers/github.md) or [GitLab](../providers/gitlab.md)
   integration.
-- Add your public key in [User settings > SSH keys](../user/ssh-keys.md). Keep the private key on your computer.
+- Add your public key in [User settings > SSH keys](../user/ssh-keys.md). Keep the private key on your computer. Until
+  you add one, the app form and the **Workspace** page warn you and link to that page. A key you add later works
+  without restarting the workspace.
 - Start with fresh application data. Attaching an existing database or selecting a data import during workspace
   creation is not supported.
 
@@ -63,8 +66,9 @@ Wodby clones the selected source once, prepares dependencies and application set
 Open the environment's **Workspace** page to follow preparation and view participating services. Use its task logs if
 preparation fails.
 
-The initial branch and commit shown there record creation. Use Git inside the workspace to see the current branch,
-HEAD and uncommitted changes.
+The page also shows the checkout's live **Git status**: the current branch and whether it is pushed, the latest commit,
+and the uncommitted changes. Select **Refresh** to read it again. Only the workspace owner sees it. The initial branch
+and commit on the page record the state at creation.
 
 ### Storage
 
@@ -86,9 +90,18 @@ You cannot change the storage after creating the workspace.
 3. Run the supplied SSH command and compare the server fingerprint with the one shown in Wodby before accepting it.
 4. Open the working directory shown in the connection details.
 
-Use this SSH connection in a coding tool that supports remote work, or connect with a terminal and run your agent
-inside the workspace. Install and authenticate the agent as required by its provider. Wodby does not include a
-built-in dashboard coding agent.
+The **Connect** panel includes steps for common tools:
+
+- **VS Code or Cursor**: install the Remote - SSH extension, run **Remote-SSH: Connect to Host…**, choose the workspace
+  host and open the working directory.
+- **Claude Code**: install it in the workspace, sign in with your own account and run `claude` in the working
+  directory. To continue the session from the Claude app, run `claude remote-control` in a persistent terminal
+  session, such as tmux, and open the URL it prints. Remote Control requires an eligible account.
+- **Codex**: install and sign in to the Codex CLI in the workspace, then add the SSH host in the Codex app under
+  **Settings → Connections**.
+
+Any tool that works over SSH can use the workspace. Install and authenticate agents as their providers require. Wodby
+does not include a built-in dashboard coding agent.
 
 Agent tools and credentials stored in your private home persist across runner restarts and pauses. Application
 containers do not share that home. The agent can access the application's code and environment through the runner;
@@ -131,6 +144,9 @@ works with network storage; custom Node commands may require polling.
 Use **Restart application** when the runtime does not reload changes. This preserves the checkout and does not pull
 Git updates or reinstall dependencies. **Restart SSH runner** only restarts your remote connection service and ends
 SSH and agent sessions.
+
+To restart other services, for example after changing a database setting, create a deployment from **Deploys**. In a
+workspace, a deployment restarts the selected services from the checkout, without builds or post-deployment scripts.
 
 Use **Retry preparation** after correcting failed setup or when dependencies need preparing again. It stops code
 services while preparation runs; supporting services and an available SSH runner remain usable. Preparation may
