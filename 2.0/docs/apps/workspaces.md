@@ -69,7 +69,7 @@ HEAD and uncommitted changes.
 ### Storage
 
 Wodby keeps the code checkout and agent home on volumes of the cluster's default storage class, and runs the code
-services, the SSH runner and preparation jobs on the same node. Any storage class works; it doesn't need to support
+services, the SSH runner and setup jobs on the same node. Any storage class works; it doesn't need to support
 shared access across nodes. A new Wodby Cloud cluster always has a default class. On an existing cluster, the
 **Development workspace** option stays unavailable until the cluster has exactly one default storage class.
 
@@ -163,7 +163,7 @@ environment as part of this workflow.
 - Code-service derivatives must be disabled; supporting-service derivatives can remain available.
 - Changing the repository, source links or storage, upgrading the stack, deploying a built image into the workspace, and
   moving it to another cluster are not supported. Create a new environment for those changes.
-- The code services, the SSH runner and preparation jobs run on one node, so that node needs room for all of them.
+- The code services, the SSH runner and setup jobs run on one node, so that node needs room for all of them.
   With node-local storage, such as the default K3S storage class, the workspace can only run on the node that holds
   its volumes.
 - To protect HTTP previews with [App Access](access.md), choose **Selected endpoints**. **Entire app** protection
