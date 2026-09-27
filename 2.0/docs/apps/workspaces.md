@@ -62,9 +62,10 @@ service. Code and agent-home storage are also billed under normal storage rules.
 Wodby starts a new working branch named `wodby/workspace-<id>` from the starting reference. The
 **Development workspace** section shows its name. Commit and push your work to this branch, then open a pull request.
 
-Wodby clones the selected source once, prepares dependencies and application setup, then starts the code services.
-Open the environment's **Workspace** page to follow preparation and view participating services. Use its task logs if
-preparation fails.
+Wodby clones the selected source once, runs the source service's setup steps, such as installing dependencies, then
+starts the code services. Open the environment's **Workspace** page to follow **Setup** and view participating
+services. **Setup steps** lists the steps in the order they run; select one to view its command. If setup fails, check
+the environment's task logs.
 
 The page also shows the checkout's live **Git status**: the current branch and whether it is pushed, the latest commit,
 and the uncommitted changes. Select **Refresh** to read it again. Only the workspace owner sees it. The initial branch
@@ -87,6 +88,7 @@ You cannot change the storage after creating the workspace.
 
 1. As the owner, open **Workspace**, then **Connect**.
 2. Copy the supplied SSH configuration into `~/.ssh/config` and replace `YOUR_PRIVATE_KEY` with your private-key filename.
+   The host is named `wodby-workspace-<app>-<environment>`, the same name that MCP returns.
 3. Run the supplied SSH command and compare the server fingerprint with the one shown in Wodby before accepting it.
 4. Open the working directory shown in the connection details.
 
@@ -94,22 +96,41 @@ The **Connect** panel includes steps for common tools:
 
 - **VS Code or Cursor**: install the Remote - SSH extension, run **Remote-SSH: Connect to Host…**, choose the workspace
   host and open the working directory.
-- **Claude Code**: install it in the workspace, sign in with your own account and run `claude` in the working
-  directory. To continue the session from the Claude app, run `claude remote-control` in a persistent terminal
-  session, such as tmux, and open the URL it prints. Remote Control requires an eligible account.
-- **Codex**: install and sign in to the Codex CLI in the workspace, then add the SSH host in the Codex app under
-  **Settings → Connections**.
+- **Claude Code**: run `claude` in the working directory and sign in with your own account. The first run downloads
+  Claude Code from Anthropic into your private home. To continue the session from the Claude app, run
+  `claude remote-control` in a persistent terminal session, such as tmux, and open the URL it prints. Remote Control
+  requires an eligible account.
+- **Codex**: sign in with `codex login`, or `codex login --device-auth` without a browser, then add the SSH host in the
+  Codex app under **Settings → Connections**.
+- **opencode**: run `opencode` in the working directory and sign in to your model provider with `opencode auth login`.
+- **Hermes Agent**: it runs on your computer. Set its terminal backend to `ssh`, with the workspace host and the user
+  from the connection details.
 
-Any tool that works over SSH can use the workspace. Install and authenticate agents as their providers require. Wodby
-does not include a built-in dashboard coding agent.
+Claude Code, Codex and opencode come with the workspace, so you only sign in. They update with Wodby and don't update
+themselves; to manage versions yourself, install your own copy and put it first on your `PATH`. Claude Code and
+opencode need an Alpine-based runtime image, which Wodby's services use; on other images, install them yourself. A
+workspace created earlier gets these tools after **Restart SSH runner**.
+
+Any other tool that works over SSH can use the workspace too. Install and authenticate it as its provider requires.
+Wodby does not include a built-in dashboard coding agent.
 
 Agent tools and credentials stored in your private home persist across runner restarts and pauses. Application
 containers do not share that home. The agent can access the application's code and environment through the runner;
 use credentials and application data appropriate for development.
 
-Authenticate Git separately when you need to fetch or push. The credentials Wodby uses for the initial clone do not
-automatically authenticate your SSH session with the Git provider. Do not commit agent credentials or Git tokens.
-Coordinate multiple agents using the same checkout; they can otherwise overwrite each other's edits.
+`git push` and `git fetch` for the app's repository use the app's Git integration, so you don't set up Git credentials
+for it. Wodby renews the short-lived credential automatically. It removes the credential while the workspace is paused
+and when you lose access to the app or to the integration.
+
+- With GitHub, the credential only reaches the app's repository.
+- With GitLab and Bitbucket, it has the integration's access to your provider. A GitLab access token without write
+  access can't push.
+- Pushes use the integration's identity; commits keep the author from your Git configuration.
+- For other repositories, add your own credentials.
+- A workspace created earlier gets this after **Restart SSH runner**.
+
+Do not commit agent credentials or Git tokens. Coordinate multiple agents using the same checkout; they can otherwise
+overwrite each other's edits.
 
 Updating your registered SSH keys refreshes workspace access and ends existing runner sessions. Removing permission
 to modify the app also removes owner access. Revocation can be delayed if the cluster is unreachable.
@@ -121,9 +142,9 @@ tools from the connected server before using them.
 
 | Tool | What it does |
 | --- | --- |
-| `get_workspace_context` | Reads runtime and preview information, preparation state and initial Git details. |
-| `get_workspace_connection` | Returns the owner's SSH connection details and setup guidance. |
-| `prepare_workspace` | Reruns preparation while preserving the checkout. |
+| `get_workspace_context` | Reads runtime and preview information, setup state and initial Git details. |
+| `get_workspace_connection` | Returns the owner's SSH connection details, the agents ready in the workspace and connection guidance. |
+| `prepare_workspace` | Reruns setup while preserving the checkout. |
 | `restart_workspace` | Restarts the SSH runner and ends active sessions. It does not restart the application. |
 | `pause_workspace` / `resume_workspace` | Pauses or resumes the environment. |
 
@@ -134,7 +155,7 @@ guides the workflow but does not authorize operations.
 Connecting MCP does not connect your editor to SSH or move an existing agent session into the workspace. Workspace
 MCP tools do not edit files or report live Git status. Establish the remote connection separately.
 
-## Edit, reload and prepare
+## Edit, reload and rerun setup
 
 Edits affect this environment's shared checkout. Whether a browser preview updates immediately depends on the service
 and your application. PHP can read changed source on subsequent requests, but application caches may need clearing.
@@ -148,17 +169,17 @@ SSH and agent sessions.
 To restart other services, for example after changing a database setting, create a deployment from **Deploys**. In a
 workspace, a deployment restarts the selected services from the checkout, without builds or post-deployment scripts.
 
-Use **Retry preparation** after correcting failed setup or when dependencies need preparing again. It stops code
-services while preparation runs; supporting services and an available SSH runner remain usable. Preparation may
-change dependencies and generated files, so review your Git diff afterward. It never pulls, resets or reclones an
-initialized checkout.
+Use **Retry setup** after correcting a failed setup or when dependencies need installing again. It stops code services
+while the setup steps run; supporting services and an available SSH runner remain usable. Setup may change
+dependencies and generated files, so review your Git diff afterward. It never pulls, resets or reclones an initialized
+checkout.
 
-Workspace preparation is separate from ordinary post-deployment scripts. Those scripts do not run for workspace
-deployments. After pulling code yourself, decide whether to rerun preparation, run an application-specific command,
-or restart the application.
+Workspace setup is separate from ordinary post-deployment scripts. Those scripts do not run for workspace deployments.
+After pulling code yourself, decide whether to rerun setup, run an application-specific command, or restart the
+application.
 
 For Drupal projects with a tracked settings file, include the required Wodby settings bootstrap intentionally in your
-project. Preparation will not rewrite tracked settings or replace tracked upload placeholders. Making a tracked file
+project. Setup will not rewrite tracked settings or replace tracked upload placeholders. Making a tracked file
 ignored does not remove it from Git.
 
 ## Deliver changes to a CI/CD environment
@@ -185,10 +206,10 @@ environment as part of this workflow.
   conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.
 - [Pausing](environments.md#pausing-and-resuming-an-environment) stops workloads and SSH access but preserves code and
   agent-home storage. Storage remains provisioned and billable; pausing does not delete the cluster.
-- Resume does not pull code. It can retry preparation interrupted by a lifecycle operation, but an ordinary preparation
-  failure requires an explicit retry after you fix the cause.
-- Failed preparation leaves code services stopped. If the SSH runner is ready, connect to inspect and repair the
-  checkout, then retry preparation. A missing or inconsistent checkout needs recovery rather than an automatic reclone.
+- Resume does not pull code. It can retry setup interrupted by a lifecycle operation, but an ordinary setup failure
+  requires an explicit retry after you fix the cause.
+- Failed setup leaves code services stopped. If the SSH runner is ready, connect to inspect and repair the checkout,
+  then retry setup. A missing or inconsistent checkout needs recovery rather than an automatic reclone.
 
 Before deleting the environment, push any work you need and copy out important local data or agent settings.
 Persistent workspace storage is not a substitute for keeping your source in Git.
