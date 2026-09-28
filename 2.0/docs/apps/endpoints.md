@@ -310,6 +310,11 @@ Domains support every setting in this table. Redirects support `https_redirect`,
 depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
 when you select an override target.
 
+### HTTPS redirect
+
+With `https_redirect` set to `true`, the gateway redirects plain HTTP requests to HTTPS. With `false`, a domain that has
+a TLS certificate serves the app over both HTTP and HTTPS, with the same settings and basic authentication.
+
 ### Request rate limits
 
 `rate_limit_per_ip` limits requests from one client IP, while `rate_limit_total` limits requests from all clients to the
@@ -319,9 +324,9 @@ route. When both settings are present, a request must satisfy both limits. Reque
 Values use the form `<requests>/<period>`. The request count must be a positive integer. Supported periods are
 `second`, `minute`, `hour`, `day`, `month`, and `year`, written in lowercase and singular form.
 
-Non-cluster app environments default to `300/minute` per IP and `1000/second` total on every serve route. You can change
-the app environment defaults or add a domain-specific value when an endpoint needs a different limit. A service port
-can also declare a default for its routes.
+Routes have no rate limit unless you set one. Set a limit as an app environment default for every serve route, or as a
+domain-specific value when one endpoint needs a different limit. A service port can also declare a default for its
+routes.
 
 These are local Envoy Gateway limits. Each route and each Envoy data-plane replica maintains its own counters, so
 `rate_limit_total` is not one combined quota for the whole app environment or cluster. With multiple gateway replicas,
@@ -334,8 +339,14 @@ the configured proxy chain is processed; clients sharing a NAT address also shar
 `backend_request_timeout` limits one request from the gateway to the selected app service. A finite backend request
 timeout cannot be longer than a finite request timeout.
 
-Use `0s` when a long-lived HTTP or WebSocket endpoint must not have that timeout. If a timeout is absent from every
-effective settings layer, Wodby leaves it unset and the gateway implementation's default behavior applies.
+App environments use a `request_timeout` of `0s` by default, so requests have no total time limit. The gateway still
+closes requests that stop sending or receiving data. Existing app environments switch to it on their next deployment,
+unless you set a different app environment value.
+
+A finite `request_timeout` also covers the time the gateway takes to send the whole response, so it cuts off downloads
+and streamed responses that take longer, for example a large file sent to a slow connection. Use `0s` for long-lived
+HTTP or WebSocket endpoints. If a timeout is absent from every effective settings layer, Wodby leaves it unset and the
+gateway implementation's default behavior applies.
 
 ### HSTS
 
@@ -355,12 +366,11 @@ Wodby enables the `enabled` policy on public Wodby-managed technical routes. Pri
 On Envoy Gateway clusters, the New domain form also enables HSTS by default; clear the checkbox when a domain must
 remain accessible without an HSTS policy. Existing custom domains are not changed automatically.
 
-For Envoy Gateway app environments, Wodby creates default route settings for routing compatibility and baseline request
-protection:
+For Envoy Gateway app environments, Wodby creates these default route settings:
 
 - HTTPS redirect is enabled by default
 - session affinity uses cookies by default
-- request rate limits default to `300/minute` per IP and `1000/second` total for each serve route
+- the request timeout is `0s`, so requests have no total time limit
 - generated technical routes get `no_index` enabled by default
 - public generated technical routes get HSTS enabled by default
 
