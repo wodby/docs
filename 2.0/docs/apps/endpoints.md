@@ -319,9 +319,9 @@ route. When both settings are present, a request must satisfy both limits. Reque
 Values use the form `<requests>/<period>`. The request count must be a positive integer. Supported periods are
 `second`, `minute`, `hour`, `day`, `month`, and `year`, written in lowercase and singular form.
 
-Non-cluster app environments default to `300/minute` per IP and `1000/second` total on every serve route. You can change
-the app environment defaults or add a domain-specific value when an endpoint needs a different limit. A service port
-can also declare a default for its routes.
+Routes have no rate limit unless you set one. Set a limit as an app environment default for every serve route, or as a
+domain-specific value when one endpoint needs a different limit. A service port can also declare a default for its
+routes.
 
 These are local Envoy Gateway limits. Each route and each Envoy data-plane replica maintains its own counters, so
 `rate_limit_total` is not one combined quota for the whole app environment or cluster. With multiple gateway replicas,
@@ -355,12 +355,10 @@ Wodby enables the `enabled` policy on public Wodby-managed technical routes. Pri
 On Envoy Gateway clusters, the New domain form also enables HSTS by default; clear the checkbox when a domain must
 remain accessible without an HSTS policy. Existing custom domains are not changed automatically.
 
-For Envoy Gateway app environments, Wodby creates default route settings for routing compatibility and baseline request
-protection:
+For Envoy Gateway app environments, Wodby creates these default route settings:
 
 - HTTPS redirect is enabled by default
 - session affinity uses cookies by default
-- request rate limits default to `300/minute` per IP and `1000/second` total for each serve route
 - generated technical routes get `no_index` enabled by default
 - public generated technical routes get HSTS enabled by default
 
