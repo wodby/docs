@@ -71,6 +71,11 @@ The page also shows the checkout's live **Git status**: the current branch and w
 and the uncommitted changes. Select **Refresh** to read it again. Only the workspace owner sees it. The initial branch
 and commit on the page record the state at creation.
 
+Files the service generates, such as installed dependencies or Drupal core and contrib modules, stay out of Git status.
+Setup lists them in the checkout's `.git/info/exclude`, which Git never commits, so your `.gitignore` doesn't change.
+Your own lines in that file are kept, and **Retry setup** updates Wodby's list. Custom code, such as Drupal's custom
+modules and themes, still shows up, and so do changes to tracked files.
+
 ### Storage
 
 Wodby keeps the code checkout and agent home on volumes of the cluster's default storage class, and runs the code
@@ -178,9 +183,11 @@ Workspace setup is separate from ordinary post-deployment scripts. Those scripts
 After pulling code yourself, decide whether to rerun setup, run an application-specific command, or restart the
 application.
 
-For Drupal projects with a tracked settings file, include the required Wodby settings bootstrap intentionally in your
-project. Setup will not rewrite tracked settings or replace tracked upload placeholders. Making a tracked file
-ignored does not remove it from Git.
+In Drupal projects, setup creates `settings.php` from `default.settings.php` when it's missing, or adds Wodby's
+settings include to your existing file. The include loads only when Wodby's settings file exists, so you can commit it
+and the file keeps working elsewhere. A tracked `settings.php` shows the include as a change to commit. Setup stops
+rather than replace a tracked `files` directory with the link to uploaded files. Remove the directory from Git, make
+sure Git ignores it, and retry setup. Ignoring a tracked file doesn't remove it from Git.
 
 ## Deliver changes to a CI/CD environment
 
