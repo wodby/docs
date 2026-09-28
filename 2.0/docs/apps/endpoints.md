@@ -310,6 +310,11 @@ Domains support every setting in this table. Redirects support `https_redirect`,
 depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
 when you select an override target.
 
+### HTTPS redirect
+
+With `https_redirect` set to `true`, the gateway redirects plain HTTP requests to HTTPS. With `false`, a domain that has
+a TLS certificate serves the app over both HTTP and HTTPS, with the same settings and basic authentication.
+
 ### Request rate limits
 
 `rate_limit_per_ip` limits requests from one client IP, while `rate_limit_total` limits requests from all clients to the
@@ -334,8 +339,14 @@ the configured proxy chain is processed; clients sharing a NAT address also shar
 `backend_request_timeout` limits one request from the gateway to the selected app service. A finite backend request
 timeout cannot be longer than a finite request timeout.
 
-Use `0s` when a long-lived HTTP or WebSocket endpoint must not have that timeout. If a timeout is absent from every
-effective settings layer, Wodby leaves it unset and the gateway implementation's default behavior applies.
+App environments use a `request_timeout` of `0s` by default, so requests have no total time limit. The gateway still
+closes requests that stop sending or receiving data. Existing app environments switch to it on their next deployment,
+unless you set a different app environment value.
+
+A finite `request_timeout` also covers the time the gateway takes to send the whole response, so it cuts off downloads
+and streamed responses that take longer, for example a large file sent to a slow connection. Use `0s` for long-lived
+HTTP or WebSocket endpoints. If a timeout is absent from every effective settings layer, Wodby leaves it unset and the
+gateway implementation's default behavior applies.
 
 ### HSTS
 
@@ -359,6 +370,7 @@ For Envoy Gateway app environments, Wodby creates these default route settings:
 
 - HTTPS redirect is enabled by default
 - session affinity uses cookies by default
+- the request timeout is `0s`, so requests have no total time limit
 - generated technical routes get `no_index` enabled by default
 - public generated technical routes get HSTS enabled by default
 
