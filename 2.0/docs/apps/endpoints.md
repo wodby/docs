@@ -122,6 +122,11 @@ On clusters with Wodby infrastructure version `4.0.0` or newer, route changes ar
 [routing deployment](deploys.md#routing-deployments). They do not require the source or target app service to be
 redeployed. Older infrastructure versions continue to apply the change through an app-service deployment.
 
+Adding or deleting a domain or redirect, or changing the `Main` domain, also changes the hostnames your app receives in
+[`WODBY_HOSTS`, `WODBY_PRIMARY_HOST`, and `WODBY_PRIMARY_URL`](environment-variables.md#system-environment-variables).
+Wodby then marks the app environment as `needs redeploy`. The route works right away, but apps that accept only the
+hosts in `WODBY_HOSTS`, such as Drupal, reject a new hostname until you redeploy.
+
 When you create a custom domain or redirect with Let's Encrypt, certificate issuance runs separately from application
 deployment. An unattached or incorrectly routed hostname does not fail the deployment or change the app environment to an
 errored state. You can also delete a custom domain or redirect while its app environment is errored, so a bad hostname

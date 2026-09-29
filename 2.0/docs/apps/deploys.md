@@ -329,7 +329,9 @@ one-time upgrade from service-owned routing, it shows `Migrating routing`. These
 rebuild` and `needs redeploy`, which continue to describe app builds and service workloads.
 
 Automatic routing deployments, including deployments after certificate renewal, create background tasks for logs and
-failure tracking. You do not need to start an app-service deployment after a successful routing-only change.
+failure tracking. You do not need to start an app-service deployment after a successful routing-only change, unless
+the change adds or removes a hostname or changes the `Main` domain. Then the app environment is marked `needs redeploy`
+so your app receives its new hostnames. See [Domains](endpoints.md#domains).
 
 After a partial workload deployment, Wodby applies routing for app services that currently have a successful deployed
 runtime. Routes to services that have not deployed successfully are omitted instead of being applied to missing
