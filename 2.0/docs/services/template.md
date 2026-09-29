@@ -914,7 +914,8 @@ can override service tokens with the same name and environment type.
 
 Each item supports:
 
-- `name`: required token name.
+- `name`: required token name. Names that start with `wodby_` are reserved; see
+  [token names](../apps/tokens.md#token-names).
 - `value`: fixed token value.
 - `generate.regex`: regex used to generate the value.
 - `secret`: optional boolean for fixed-value tokens.
