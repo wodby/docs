@@ -107,17 +107,19 @@ The **Connect** panel includes steps for common tools:
   requires an eligible account.
 - **Codex**: sign in with `codex login`, or `codex login --device-auth` without a browser, then add the SSH host in the
   Codex app under **Settings → Connections**.
-- **opencode**: run `opencode` in the working directory and sign in to your model provider with `opencode auth login`.
+- **opencode**: run `opencode` in the working directory. Where Wodby offers [AI credits](../pricing.md#ai-credits),
+  it uses them with the GLM 5.3 model by default, so you don't sign in. To use your own provider, run
+  `opencode auth login` and choose its model with `/models`; opencode remembers your choice. If opencode reports an
+  authorization error after setup reruns or the SSH runner restarts, restart opencode.
 - **Hermes Agent**: it runs on your computer. Set its terminal backend to `ssh`, with the workspace host and the user
   from the connection details.
 
-Claude Code, Codex and opencode come with the workspace, so you only sign in. They update with Wodby and don't update
-themselves; to manage versions yourself, install your own copy and put it first on your `PATH`. Claude Code and
+Claude Code, Codex and opencode come with the workspace. They update with Wodby and don't update themselves; to manage versions yourself, install your own copy and put it first on your `PATH`. Claude Code and
 opencode need an Alpine-based runtime image, which Wodby's services use; on other images, install them yourself. A
-workspace created earlier gets these tools after **Restart SSH runner**.
+workspace created earlier gets these tools, and AI credits for opencode, after **Restart SSH runner**.
 
 Any other tool that works over SSH can use the workspace too. Install and authenticate it as its provider requires.
-Wodby does not include a built-in dashboard coding agent.
+To work without SSH, use [Wodby Agent](wodby-agent.md) from the **Agent** tab.
 
 Agent tools and credentials stored in your private home persist across runner restarts and pauses. Application
 containers do not share that home. The agent can access the application's code and environment through the runner;
