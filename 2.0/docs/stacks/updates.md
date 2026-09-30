@@ -5,9 +5,9 @@ The currently published revision remains active for running app environments unt
 Manual stack service revision updates also create or update an unpublished draft. Git updates, sync with origin, and
 automatic stack updates create a new published stack revision directly after the update task succeeds.
 
-Publishing a draft or completing a stack update does not automatically change running app environments. Automatic stack
-updates can also auto-upgrade app environments when auto-upgrade is enabled for those environments. After a new revision
-exists, each app environment can still be upgraded separately from its current revision to the latest revision.
+When a new revision is published, from a draft or by a stack update, app environments with
+[auto-upgrade](../apps/stack.md#auto-upgrade) enabled move to it during their upgrade time window. Other app
+environments keep their current revision until you upgrade them.
 
 There are several common update paths.
 
