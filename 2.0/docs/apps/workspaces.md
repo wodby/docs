@@ -119,7 +119,7 @@ opencode need an Alpine-based runtime image, which Wodby's services use; on othe
 workspace created earlier gets these tools, and AI credits for opencode, after **Restart SSH runner**.
 
 Any other tool that works over SSH can use the workspace too. Install and authenticate it as its provider requires.
-To work without SSH, use [Wodby Agent](wodby-agent.md) from the **Agent** tab.
+To work without SSH, use [Wodby Agent](wodby-agent.md) from the **Chats** tab.
 
 Agent tools and credentials stored in your private home persist across runner restarts and pauses. Application
 containers do not share that home. The agent can access the application's code and environment through the runner;

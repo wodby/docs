@@ -6,12 +6,12 @@ with a model provider. It uses the GLM 5.3 model and pays with your organization
 [AI credits](../pricing.md#ai-credits).
 
 !!! note "Availability"
-    Wodby Agent must be enabled in Wodby. When it isn't, the **Agent** tab shows only your
+    Wodby Agent must be enabled in Wodby. When it isn't, the **Chats** tab shows only your
     [agent connections](../agents/permissions.md).
 
 ## Use Wodby Agent
 
-1. Open the workspace environment's **Workspace** page, then **Agent**.
+1. Open the workspace environment's **Workspace** page, then **Chats**.
 2. Keep **Wodby Agent** selected. It starts automatically while the environment is running.
 3. Type your request and press Enter. Shift+Enter starts a new line.
 
@@ -41,7 +41,7 @@ with repositories you trust.
 
 Every input, cached input and output token of a request counts against the organization's AI credits: first the
 month's included tokens, then purchased tokens, then additional usage within the spending limit on paid plans. If
-you can view billing, the **Agent** tab shows this month's usage below the message box.
+you can view billing, the **Chats** tab shows this month's usage below the message box.
 
 When the credits run out, the agent stops until you buy tokens, raise the spending limit or the next month starts.
 See [AI credits](../pricing.md#ai-credits).
@@ -53,5 +53,5 @@ To use another agent in the workspace, follow its steps on the workspace's **Con
 with GLM 5.3 as its default model, unless you choose a model from your own provider. Claude Code, Codex and other
 agents use your own provider account and aren't billed through AI credits.
 
-The **Agent** tab also lists your [agent connections](../agents/permissions.md). Select one to see the tasks it ran in
+The **Chats** tab also lists your [agent connections](../agents/permissions.md). Select one to see the tasks it ran in
 the environment.
