@@ -40,10 +40,10 @@ with repositories you trust.
 ## AI credits
 
 Every input, cached input and output token of a request counts against the organization's AI credits: first the
-month's included tokens, then purchased tokens, then additional usage within the spending limit on paid plans. If
-you can view billing, the **Chats** tab shows this month's usage below the message box.
+free tokens it gets once, then purchased tokens, then additional usage within the spending limit on paid plans. If
+you can view billing, the **Chats** tab shows the free and purchased tokens left below the message box.
 
-When the credits run out, the agent stops until you buy tokens, raise the spending limit or the next month starts.
+When the credits run out, the agent stops until you buy tokens, upgrade or raise the spending limit.
 See [AI credits](../pricing.md#ai-credits).
 
 ## Other agents

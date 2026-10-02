@@ -15,7 +15,7 @@ Typical included capabilities:
 - 10 app services
 - 30 minutes of Wodby CI per month
 - 5 GB of private container registry storage
-- 5M [AI credits](#ai-credits) tokens per month for Wodby Agent
+- 5M free [AI credits](#ai-credits) tokens for Wodby Agent, granted once
 - logs streaming
 - stacks updates
 - unlimited projects
@@ -41,7 +41,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - organization Single Sign-On (SSO)
 - best-effort support
 - $30 of Wodby Cloud usage per month
-- 10M [AI credits](#ai-credits) tokens per month for Wodby Agent
+- 10M free [AI credits](#ai-credits) tokens in total for Wodby Agent, granted once
 
 The Team plan has a $48 minimum for each monthly billing cycle. It includes up to 24 billable
 [app services](apps/services.md). Capacity above the included amount is billed at the current rate shown on the
@@ -197,18 +197,17 @@ AI credits pay for [Wodby Agent](apps/wodby-agent.md) and for opencode in
 [development workspaces](apps/workspaces.md#connect-your-editor-or-agent) when it uses the default GLM 5.3 model.
 Usage is counted in tokens, and every input, cached input and output token counts the same. Tokens cost $1.00 per 1M.
 
-- **Included tokens**: 5M per month on the Developer plan and 10M on paid plans. They renew on the first day of each
-  calendar month (UTC), not on your billing date, and unused tokens don't carry over.
+- **Free tokens**: your organization gets 5M tokens once on the Developer plan. The first time it subscribes to a
+  paid plan, the total rises to 10M. Free tokens don't renew.
 - **Purchased tokens**: select **Buy tokens** on the **AI credits** card in `Organization > Billing > Usage`, enter
   whole millions (1M to 10,000M) and pay with a saved [payment method](#payment-methods). If your bank asks you to
-  confirm the payment, confirm it in the dialog. Purchased tokens never expire and are used after the month's
-  included tokens, on any plan.
-- **Additional usage**: on paid plans, usage beyond the included and purchased tokens is billed with your subscription
+  confirm the payment, confirm it in the dialog. Purchased tokens never expire and are used after the free tokens,
+  on any plan.
+- **Additional usage**: on paid plans, usage beyond the free and purchased tokens is billed with your subscription
   at $1.00 per 1M tokens. It's off until an owner sets a spending limit in dollars on the AI credits card, and it
   stops at that limit or when a downgrade is scheduled.
 
-On the Developer plan, Wodby Agent stops when the included and purchased tokens run out. Buy tokens, upgrade, or wait
-for the next month.
+On the Developer plan, Wodby Agent stops when the free and purchased tokens run out. Buy tokens or upgrade.
 
 A refund or dispute of a purchase removes its tokens. If they were already used, the purchased balance becomes
 negative and Wodby Agent stops until you buy enough tokens to cover it or the dispute is resolved in your favor.
