@@ -26,16 +26,34 @@ generate responses.
 
 ## Approvals
 
-The agent reads, searches and edits files in the checkout without asking. It asks before anything else, such as
-running a command: select **Allow once** or **Reject**. Its file tools work only inside the checkout. When the agent
-asks a question, choose an answer and select **Answer**.
+The agent reads, searches and edits files in the checkout without asking, and its file tools work only inside the
+checkout. Choose what else it asks you to approve in the **Approvals** list next to the model:
 
-Commands you allow run as the workspace user, with the same access as your SSH sessions, including pushing to the
-app's repository.
+- **Ask before pushing** (the default): commands run without asking, except pushing to a Git remote.
+- **Ask before commands**: every command and web request asks.
+- **Never ask**: nothing asks.
 
-Settings in the repository, such as `opencode.json`, don't change the agent's model or approvals. Plugins in the
-repository's `.opencode/plugin` directory do run inside the agent and can use your AI credits, so use the agent only
-with repositories you trust.
+Changing the setting restarts the agent, which stops a running chat. When the agent asks, select **Allow once** or
+**Reject**. When it asks a question, choose an answer and select **Answer**.
+
+Commands run as the workspace user, with the same access as your SSH sessions, including pushing to the app's
+repository. **Ask before pushing** recognizes pushes in the command text only, so it misses a push inside a script
+or an alias, and a repository's own `opencode.json` can turn it off. For a repository you don't fully trust, choose
+**Ask before commands**. Repository settings don't change the agent's model. Plugins in the repository's
+`.opencode/plugin` directory do run inside the agent and can use your AI credits, so use the agent only with
+repositories you trust.
+
+## Working with the environment
+
+The agent can also work with the workspace environment itself, with your access:
+
+- check its services, logs, deployments, builds and tasks
+- deploy it, start builds, and run service actions and cron jobs
+- run commands in its containers, for example to clear a cache. This needs a paid plan, like the
+  [web terminal](web-terminal.md).
+
+Deploying, building, running actions or cron jobs and running commands ask for approval unless you chose
+**Never ask**. The agent can't reach your other environments or apps, change settings or delete anything.
 
 ## AI credits
 
