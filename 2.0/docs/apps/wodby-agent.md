@@ -47,13 +47,12 @@ repositories you trust.
 
 The agent can also work with the workspace environment itself, with your access:
 
-- check its services, logs, deployments, builds and tasks
-- deploy it, start builds, and run service actions and cron jobs
+- check its services, logs, deployments and tasks
+- deploy it, and run service actions and cron jobs
 - run commands in its containers, for example to clear a cache. This needs a paid plan, like the
   [web terminal](web-terminal.md).
 
-Deploying, building, running actions or cron jobs and running commands ask for approval unless you chose
-**Never ask**. The agent can't reach your other environments or apps, change settings or delete anything.
+Deploying, running actions or cron jobs and running commands ask for approval unless you chose **Never ask**. The agent can't reach your other environments or apps, change settings or delete anything.
 
 ## AI credits
 
