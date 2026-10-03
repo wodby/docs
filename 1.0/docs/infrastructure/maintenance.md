@@ -3,7 +3,7 @@
 You can see your server's infrastructure version on the servers list in the Dashboard. For Infrastructure 7, check for available updates in the server's settings. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
 
 !!! success "Current Wodby 1 infrastructure lines"
-    Infrastructure 7.0.1 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
+    Infrastructure 7.0.2 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
 
 !!! warning "No in-place 6 to 7 upgrade"
     Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
@@ -19,6 +19,15 @@ Agent updates are not installed automatically. Apply available infrastructure up
 ### Updating from the Dashboard
 
 The Dashboard shows updates available for your server. Review the release summary to see what will change. If you need an update that is not offered, contact [Wodby support](../support.md).
+
+Infrastructure 7.0.0 servers update to 7.0.1 first, then to 7.0.2. Run the checks and confirm each update separately:
+
+| Update | Changes | Expected interruption |
+| --- | --- | --- |
+| 7.0.0 → 7.0.1 | Edge 3.0.9 | HTTP and HTTPS traffic briefly stops while Edge restarts. |
+| 7.0.1 → 7.0.2 | Agent 5.6.0 | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
+
+The 7.0.2 update requires a healthy Agent and Edge 3.0.9 with a supported configuration. Server checks identify unsupported versions or customizations before an update can start. These component updates do not upgrade the operating system, Docker or Kubernetes.
 
 !!! warning "Traffic interruption"
     Updates that restart Edge briefly interrupt HTTP and HTTPS traffic to applications on the server. Review the update warnings and schedule a suitable maintenance window before proceeding.
@@ -36,6 +45,8 @@ A preview expires after 15 minutes. Run the checks again if it expires or the se
 
 During the update, deployments and other changes to the server are blocked. You cannot cancel the update or delete the server while maintenance is in progress. The Dashboard shows the new infrastructure version once the update has been verified.
 
+For the Agent update, the image is downloaded before the running Agent is replaced. The Dashboard waits for Agent to reconnect and verifies the updated component before reporting success. A brief management disconnect during this step is expected; do not start a manual Agent update while the Dashboard update is running.
+
 ### If an update does not complete
 
 If an update fails or your connection is lost, reopen the server's settings and check the task status before retrying.
@@ -43,6 +54,8 @@ If an update fails or your connection is lost, reopen the server's settings and 
 If the Dashboard shows **Update outcome needs verification**, the server remains in maintenance. Wait until the displayed recovery time, then select **Check update status** when it becomes available. This checks whether the update completed; it does not repeat the update.
 
 If the update was not applied, review the task log, resolve any reported problem, and run new checks before retrying. If the server remains in maintenance after checking its status, contact [Wodby support](../support.md) and include the update task link.
+
+If Agent cannot reconnect, the Dashboard may be unable to verify the result even if the image changed. The recorded infrastructure version stays unchanged and maintenance remains reserved. Contact support before attempting a manual update or rollback; restoring Agent connectivity may require access to the server.
 
 ## Infrastructure 6 OS upgrade tips
 
@@ -71,6 +84,11 @@ Some operating systems such as Debian 11 enable cgroup v2, which is not supporte
 - Reboot the server
 
 ## Changelog
+
+### 7.0.2
+
+* Updated Agent to [5.6.0](https://github.com/wodby/agent/releases/tag/5.6.0), using Node.js 26.
+* Added a Dashboard update from 7.0.1 that verifies Agent after it reconnects. Edge and application containers continue running during the update.
 
 ### 7.0.1
 
