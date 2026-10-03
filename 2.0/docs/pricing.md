@@ -15,6 +15,7 @@ Typical included capabilities:
 - 10 app services
 - 30 minutes of Wodby CI per month
 - 5 GB of private container registry storage
+- 5M free [AI credits](#ai-credits) tokens for Wodby Agent, granted once
 - logs streaming
 - stacks updates
 - unlimited projects
@@ -40,6 +41,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - organization Single Sign-On (SSO)
 - best-effort support
 - $30 of Wodby Cloud usage per month
+- 10M free [AI credits](#ai-credits) tokens in total for Wodby Agent, granted once
 
 The Team plan has a $48 minimum for each monthly billing cycle. It includes up to 24 billable
 [app services](apps/services.md). Capacity above the included amount is billed at the current rate shown on the
@@ -62,6 +64,7 @@ Designed for large workloads and teams. Custom pricing and limits. On-premises o
 - App services on paid plans
 - Addons usage above included amounts
 - Wodby Cloud usage if you run workloads on Wodby Cloud
+- AI credits you buy, and additional AI credits usage on paid plans
 - Infrastructure costs from your cloud provider if you use managed Kubernetes, managed databases, or other resources in your own account
 
 Organization users and projects are included in your plan and are not billed separately. Projects have no plan-based
@@ -79,21 +82,35 @@ Addons let you extend included limits and pay for extra usage when needed.
 
 ## Spending limits
 
-From `Organization > Billing > Subscription`, organization owners on paid subscriptions can set optional spending limits for:
+From `Organization > Billing > Usage`, organization owners on paid subscriptions can set optional spending limits for:
 
 - the main app-service plan usage
 - individual addons such as Wodby CI minutes, registry storage, Wodby Blob Storage, and Wodby Cloud usage
+- additional [AI credits](#ai-credits) usage
 
 In practice:
 
-- leaving the value empty means `Unlimited`
+- leaving the value empty means `Unlimited`, except for AI credits, where additional usage is off until you set a limit
 - the main plan limit cannot be set below the included app-service amount for that plan
 - addon limits are configured separately per addon
 - operations that would exceed a limit can be blocked, and the billing UI shows that the limit was exceeded
 
-Only organization owners can change subscription settings, open the customer portal, downgrade, upgrade, or update spending limits. Other roles with billing visibility have read-only access.
+Only organization owners can change subscription settings, open the customer portal, downgrade, upgrade, update spending limits, manage payment methods, or buy AI credits. Other roles with billing visibility have read-only access.
 
 On the free plan, usage above included addon amounts is not allowed. In that case you must either upgrade or wait for the next billing cycle when the addon is renewable.
+
+## Payment methods
+
+Organization owners manage the organization's cards in `Organization > Billing > Payment methods`. Card details go
+directly to Stripe, Wodby's payment processor.
+
+- Select **Add card** to save a card. The first card you add becomes the default.
+- The default card pays subscription invoices and is preselected when you buy AI credits. Select **Make default** to
+  use another card. The card you pay with when you upgrade is saved here as the default.
+- On a paid plan, you can't remove the default card. Make another card the default first.
+- Cards stay saved after a downgrade, so you can keep buying AI credits on the Developer plan.
+
+Invoices are in the Stripe customer portal.
 
 ## Downgrading a paid subscription
 
@@ -173,3 +190,24 @@ Wodby Cloud is billed in dollars as Wodby Cloud usage.
 Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
 
 Paid plans include $30 of Wodby Cloud usage per month.
+
+### AI credits
+
+AI credits pay for [Wodby Agent](apps/wodby-agent.md) and for opencode in
+[development workspaces](apps/workspaces.md#connect-your-editor-or-agent) when it uses the default GLM 5.3 model.
+Usage is counted in tokens, and every input, cached input and output token counts the same. Tokens cost $1.00 per 1M.
+
+- **Free tokens**: your organization gets 5M tokens once on the Developer plan. The first time it subscribes to a
+  paid plan, the total rises to 10M. Free tokens don't renew.
+- **Purchased tokens**: select **Buy tokens** on the **AI credits** card in `Organization > Billing > Usage`, enter
+  whole millions (1M to 10,000M) and pay with a saved [payment method](#payment-methods). If your bank asks you to
+  confirm the payment, confirm it in the dialog. Purchased tokens never expire and are used after the free tokens,
+  on any plan.
+- **Additional usage**: on paid plans, usage beyond the free and purchased tokens is billed with your subscription
+  at $1.00 per 1M tokens. It's off until an owner sets a spending limit in dollars on the AI credits card, and it
+  stops at that limit or when a downgrade is scheduled.
+
+On the Developer plan, Wodby Agent stops when the free and purchased tokens run out. Buy tokens or upgrade.
+
+A refund or dispute of a purchase removes its tokens. If they were already used, the purchased balance becomes
+negative and Wodby Agent stops until you buy enough tokens to cover it or the dispute is resolved in your favor.
