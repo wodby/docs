@@ -29,8 +29,9 @@ generate responses.
 The agent reads, searches and edits files in the checkout without asking, and its file tools work only inside the
 checkout. Choose what else it asks you to approve in the **Approvals** list next to the model:
 
-- **Ask before pushing** (the default): commands run without asking, except pushing to a Git remote.
-- **Ask before commands**: every command and web request asks.
+- **Ask before pushing** (the default): commands and changes to the environment run without asking, except pushing
+  to a Git remote.
+- **Ask before commands**: every command, web request and change to the environment asks.
 - **Never ask**: nothing asks.
 
 Changing the setting restarts the agent, which stops a running chat. When the agent asks, select **Allow once** or
@@ -49,10 +50,12 @@ The agent can also work with the workspace environment itself, with your access:
 
 - check its services, logs, deployments and tasks
 - deploy it, and run service actions and cron jobs
+- enable or disable its services, except the ones that hold your code
 - run commands in its containers, for example to clear a cache. This needs a paid plan, like the
   [web terminal](web-terminal.md).
 
-Deploying, running actions or cron jobs and running commands ask for approval unless you chose **Never ask**. The agent can't reach your other environments or apps, change settings or delete anything.
+These changes ask for approval only when you chose **Ask before commands**. The agent can't reach your other
+environments or apps, change other settings or delete anything.
 
 ## AI credits
 
