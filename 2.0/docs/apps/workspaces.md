@@ -108,7 +108,7 @@ The **Connect** panel includes steps for common tools:
 - **Codex**: sign in with `codex login`, or `codex login --device-auth` without a browser, then add the SSH host in the
   Codex app under **Settings → Connections**.
 - **opencode**: run `opencode` in the working directory. Where Wodby offers [AI credits](../pricing.md#ai-credits),
-  it uses them with the GLM 5.3 model by default, so you don't sign in. To use your own provider, run
+  it uses them by default, so you don't sign in. To use your own provider, run
   `opencode auth login` and choose its model with `/models`; opencode remembers your choice. If opencode reports an
   authorization error after setup reruns or the SSH runner restarts, restart opencode.
 - **Hermes Agent**: it runs on your computer. Set its terminal backend to `ssh`, with the workspace host and the user

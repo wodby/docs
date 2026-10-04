@@ -2,8 +2,7 @@
 
 Wodby Agent is a coding agent built into [development workspaces](workspaces.md). You chat with it in the dashboard,
 and it works in the workspace's Git checkout and runs commands in your SSH runner. You don't need SSH or an account
-with a model provider. It uses the GLM 5.3 model and pays with your organization's
-[AI credits](../pricing.md#ai-credits).
+with a model provider. It pays with your organization's [AI credits](../pricing.md#ai-credits).
 
 !!! note "Availability"
     Wodby Agent must be enabled in Wodby. When it isn't, the **Chats** tab shows only your
@@ -21,8 +20,12 @@ to continue it, or select **New chat**. To interrupt the agent, select the stop 
 Only the workspace owner can use the agent. Chats are kept in the owner's private home in the workspace, so they
 survive runner restarts and pauses.
 
+The agent sends the whole chat with every request, so a longer chat uses more AI credits for each step. **Context**,
+below the message box, shows how full the chat is. When it fills up, the agent summarizes the earlier conversation
+and carries on; the summary stays in the chat, collapsed. Start a new chat for a new task to keep it small.
+
 Your messages, and the code and command output the agent reads, are sent through Wodby to the model provider to
-generate responses.
+generate responses. Wodby Agent currently runs on the GLM 5.3 model, which may change.
 
 ## Approvals
 
@@ -70,8 +73,8 @@ See [AI credits](../pricing.md#ai-credits).
 
 To use another agent in the workspace, follow its steps on the workspace's **Connect** tab; see
 [Connect your editor or agent](workspaces.md#connect-your-editor-or-agent). opencode run over SSH also uses AI credits,
-with GLM 5.3 as its default model, unless you choose a model from your own provider. Claude Code, Codex and other
-agents use your own provider account and aren't billed through AI credits.
+unless you choose a model from your own provider. Claude Code, Codex and other agents use your own provider account
+and aren't billed through AI credits.
 
 The **Chats** tab also lists your [agent connections](../agents/permissions.md). Select one to see the tasks it ran in
 the environment.

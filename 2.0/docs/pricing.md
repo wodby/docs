@@ -194,7 +194,7 @@ Paid plans include $30 of Wodby Cloud usage per month.
 ### AI credits
 
 AI credits pay for [Wodby Agent](apps/wodby-agent.md) and for opencode in
-[development workspaces](apps/workspaces.md#connect-your-editor-or-agent) when it uses the default GLM 5.3 model.
+[development workspaces](apps/workspaces.md#connect-your-editor-or-agent) when it uses the default model.
 Usage is counted in tokens, and every input, cached input and output token counts the same. Tokens cost $1.00 per 1M.
 
 - **Free tokens**: your organization gets 5M tokens once on the Developer plan. The first time it subscribes to a
