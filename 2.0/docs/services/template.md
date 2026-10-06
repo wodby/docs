@@ -358,6 +358,38 @@ Type: `string`. Required.
 
 Human-readable service title.
 
+### `guidance`
+
+Type: `string`. Optional.
+
+Path to a Markdown file in the service's repository, relative to the manifest, with notes for AI agents that work on
+an application using the service. Agents see the code and the environment, but not what your image does on its own.
+Without notes they configure again what the service already configures.
+
+```yaml
+guidance: GUIDANCE.md
+```
+
+Describe what the service sets up and what it leaves to the application:
+
+- what the image generates or configures by itself, and where
+- which environment variables each link provides
+- conditions that switch optional features on
+- how configuration is changed: variables, settings and config files, not generated files
+- where data is stored, and what differs in a development workspace
+
+Rules:
+
+- The file must be UTF-8 text of at most 16 KiB.
+- A service that inherits another with [`from`](#from) gets the base service's notes followed by its own. Describe
+  only what your service adds.
+- Wodby stores the text with the service revision, so an app sees the notes of the revision it runs.
+- Everyone who can use the service can read the notes. Don't put secrets or internal host names in them.
+- Don't name the file `AGENTS.md`: agents that edit the service's own repository read that file as instructions for
+  themselves.
+
+Wodby's own services ship such notes; see `GUIDANCE.md` in their repositories for examples.
+
 ### `clusterCapabilities`
 
 Type: `object`.
