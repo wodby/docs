@@ -59,7 +59,7 @@ Wodby provides a native integration with Amazon Relational Database Service.
   integration.
 - Wodby-created RDS resources use the `wodby-rds-` prefix.
 - Database servers can be highly available with RDS Multi-AZ, or zonal when high availability is disabled.
-- Wodby uses the `standard` RDS storage type.
+- New database servers use General Purpose SSD (`gp3`) storage. The minimum storage size is 20 GiB.
 - Storage size is configured during database creation. Wodby does not configure RDS storage autoscaling for these
   instances.
 - You can manage databases and database users from the Wodby dashboard.
