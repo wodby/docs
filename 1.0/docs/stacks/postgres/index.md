@@ -33,6 +33,13 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 2.0.20
+
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+- 📜 PostgreSQL backups omit ownership and grants, and imports preserve managed database ownership
+
 ### 2.0.19
 
 - Adminer:

@@ -7,6 +7,23 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.12
+
+- ⬆️ Vanilla Drupal 11.4.8, 10.6.18
+- PHP:
+    - ⬆️ PHP 8.5.11, 8.4.26, 8.3.35, 8.2.34
+    - ⬆️ PIE 1.5.1
+    - ⬆️ MongoDB extension 2.5.3
+    - ⬆️ OpenTelemetry extension 1.4.2
+    - ⬆️ Protobuf extension 5.36.2
+    - ⬆️ New Relic PHP agent updated with the gRPC fixes introduced in 12.11.0.40
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+- ⬆️ Apache 2.4.69
+- ⬆️ Redis 8.4.7, 8.2.10
+- ⬆️ Solr 9.11.0
+
 ## 6.2.11
 
 - ⬆️ Vanilla Drupal 11.4.7, 10.6.17

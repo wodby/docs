@@ -79,6 +79,12 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.12
+
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+
 ### 1.4.11
 
 - Nginx:
