@@ -10,6 +10,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 ## 6.2.12
 
 - ⬆️ Vanilla Drupal 11.4.8, 10.6.18
+- 🐞 Fixed vanilla Drupal 7 image selection with PHP 8.2 by pinning the last published versioned image
 - PHP:
     - ⬆️ PHP 8.5.11, 8.4.26, 8.3.35, 8.2.34
     - ⬆️ PIE 1.5.1
