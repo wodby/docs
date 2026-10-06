@@ -40,6 +40,12 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+### 3.3.6
+
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+
 ### 3.3.5
 
 - Adminer:

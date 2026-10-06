@@ -30,6 +30,12 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.1.3
+
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+
 ### 3.1.2
 
 - Nginx:

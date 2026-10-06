@@ -77,6 +77,10 @@ Solr path: /solr/[NAME OF YOUR CORE]
 
 This changelog is for Solr for Drupal stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/solr/releases).
 
+### 2.7.6
+
+⬆️ Solr 9.11.0
+
 ### 2.7.5
 
 🐞Solr's init action is now idempotent and recoverable, with clearer API errors
