@@ -21,6 +21,7 @@ This is useful when, for example:
 - one project should use an integration managed by another project or by the organization
 - multiple projects should use the same stack, service, provider, or database
 - an organization-owned resource should be available only to selected projects
+- an organization-owned cluster, integration, stack, or service should be available to every project
 - a platform team should let another project use a shared resource without transferring ownership
 
 ## Ownership scopes
@@ -29,7 +30,7 @@ A share never changes the resource owner.
 
 | Ownership scope | Who can directly modify/delete the resource | Who can read/use it | Who can change ownership/sharing |
 | --- | --- | --- | --- |
-| Organization-owned | Organization owners/admins | Organization owners, admins, support users, and users in shared projects | Organization owners/admins |
+| Organization-owned | Organization owners/admins | Organization owners, admins, support users, and users in shared projects. Every organization member when the resource is [available to all projects](#make-a-resource-available-to-all-projects) | Organization owners/admins |
 | Project-owned | Users with `Write` or `Admin` access to the owner project, plus organization owners/admins | Users who can access the owner project or any shared project | Organization owners/admins. If the resource remains project-owned, users with owner-scope write access can update sharing or owner project when they also have project `Admin` access to every affected project |
 
 Project shares do not transfer ownership and do not grant project administration rights. Changing any resource to organization ownership requires organization owner/admin access.
@@ -57,6 +58,28 @@ Examples:
 - a shared service, provider, or database can be used where the resource type is supported
 
 The user still needs write access to the target project or target app they are changing. Sharing the selected resource does not grant permission to create or modify other objects.
+
+## Make a resource available to all projects
+
+An organization-owned Kubernetes cluster, integration, stack, or service can be available to all projects instead of
+being shared project by project.
+
+When a resource is available to all projects:
+
+- every project in the organization can use it, including projects created later
+- every organization member can see and select it
+- every project has `Read/Use` access, and you can still give selected projects `Modify/Delete`
+- only organization owners and admins can modify or delete the resource or change its sharing
+
+To change the setting, open the resource, go to `Sharing`, and set `Available to` to `All projects` or
+`Selected projects`. You can also select `Available to all projects` when you create, import, or copy a cluster,
+integration, stack, or service with the organization as its owner.
+
+Apps, databases, and providers do not have this setting. A project-owned resource does not have it either: change its
+owner to the organization first.
+
+Switching back to `Selected projects` is rejected while a project without its own share still uses the resource. Share
+the resource with that project first.
 
 ## What sharing does not do
 
@@ -104,6 +127,10 @@ In `Project access`, choose:
 - `Read/Use` when the project should be able to see and select the resource
 - `Modify/Delete` when the project-resource link should be write-capable where supported
 
+For an organization-owned cluster, integration, stack, or service, `Available to` sets whether the resource is
+available to `Selected projects` or to `All projects`. See
+[Make a resource available to all projects](#make-a-resource-available-to-all-projects).
+
 Click `Update` to save the owner and access list.
 
 ## Creation, import, and copy forms
@@ -115,6 +142,9 @@ For resources that support ownership on creation, including apps, the dashboard 
 
 Projects are grouped under `Projects` in the selector.
 
+When the organization is the owner of a new cluster, integration, stack, or service, select
+`Available to all projects` to let every project use it without sharing it project by project.
+
 The selected owner also controls which existing organization/project-scoped resources can be referenced. This applies
 when selecting a stack or cluster for an app, attaching integrations or databases, choosing a backup destination,
 copying configuration, and using other resource-backed settings.
@@ -122,11 +152,11 @@ copying configuration, and using other resource-backed settings.
 | Target owner | Resources the target can reference |
 | --- | --- |
 | Organization | Organization-owned resources in the same organization |
-| Project | Resources in the same organization that are owned by or explicitly shared with the target's owner project |
+| Project | Resources in the same organization that are owned by or explicitly shared with the target's owner project, or available to all projects |
 
-For a project-owned target, an organization-owned resource must still be shared with the owner project. Your personal
-access to the resource through organization administration or another project does not replace that share. `Read/Use`
-access is sufficient unless the workflow specifically requires a write-capable relationship.
+For a project-owned target, an organization-owned resource must be shared with the owner project or available to all
+projects. Your personal access to the resource through organization administration or another project does not replace
+that. `Read/Use` access is sufficient unless the workflow specifically requires a write-capable relationship.
 
 For an organization-owned target, a project-owned resource is not valid even when an organization owner or admin can
 access both. Move the dependency to organization ownership or choose another organization-owned dependency first.
@@ -141,7 +171,10 @@ their own availability and compatibility rules.
 - Changing `Owner` clears selections that may belong to the previous scope. Select the stack, cluster, integration, or database again from the refreshed options.
 - The project filter in the dashboard header controls your general working view; it does not override the target's ownership boundary on a creation form.
 
-For example, if you own a new app with Project B, a stack or cluster visible only in Project A will not appear. Share it with Project B first, then return to the form.
+For example, if Project B owns a new app, a stack or cluster that only Project A can use does not appear. An
+organization-owned resource that you can see but Project B cannot use is listed greyed out with a
+`Not shared with the project` label. Share the resource with Project B, or make it available to all projects, then
+return to the form.
 
 ## Changing sharing with active references
 
@@ -152,6 +185,7 @@ invalid for the resource that uses it.
 For example, Wodby rejects an update that would:
 
 - remove the target owner project's access to a dependency
+- switch a dependency from `All projects` to `Selected projects` while a project without its own share uses it
 - move a target to organization ownership while it still uses a project-owned dependency
 - move a dependency to project ownership while an organization-owned target still uses it
 - move a project-owned target to a project where its dependency is not shared
@@ -170,11 +204,11 @@ This validation applies even when you personally have access to both projects. Y
 
 ## Where shared resources appear
 
-Shared resources appear in the target project's `Resources` view and in resource selectors where the workflow supports that resource type.
+Shared resources appear in the target project's `Resources` view and in resource selectors where the workflow supports that resource type. Resources available to all projects appear in every project's `Resources` view with `Read/Use` access.
 
 If a resource from Project A is missing while you work in Project B, check whether:
 
-- the resource is shared to Project B
+- the resource is shared to Project B or available to all projects
 - you have access to Project B
 - the resource is in a usable status
 - the resource type is compatible with the workflow
