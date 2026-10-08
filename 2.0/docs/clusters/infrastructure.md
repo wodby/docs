@@ -89,6 +89,11 @@ For each supported app environment namespace, Wodby manages these ingress polici
 | `wodby-allow-same-namespace` | Allows ingress from other pods in the same app environment namespace. App services inside the same app environment can still communicate with each other. |
 | `wodby-allow-edge` | Allows ingress from the `envoy-gateway` and `ingress-nginx` namespaces so Wodby's public edge components can reach app services. |
 
+On self-hosted K3S and DigitalOcean Kubernetes clusters, Wodby also allows the cluster's own nodes to reach pods in
+app environment namespaces. Without this, a node cannot reach an app pod that runs on another node, and an app that
+mounts shared storage served from inside the cluster can stay in `ContainerCreating` on a cluster with several nodes.
+App environments remain isolated from each other.
+
 These policies affect ingress only. Wodby does not restrict egress with these policies, and does not generate per-service
 or per-port NetworkPolicy rules from app links.
 
@@ -102,6 +107,15 @@ example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernete
 marked as outdated solely because `3.0.0` exists.
 
 ### Changelog
+
+#### 4.1.1
+
+Version `4.1.1` lets the nodes of a self-hosted K3S cluster reach app pods on other nodes. It fixes apps with shared
+storage that could not start on K3S clusters with several nodes. The upgrade does not restart apps.
+
+New K3S and DigitalOcean Kubernetes clusters are set up this way when they are created. Existing DigitalOcean
+Kubernetes clusters get the same change with their next app deployment. Other managed Kubernetes clusters are not
+changed by this version and need no upgrade.
 
 #### 4.1.0
 
