@@ -113,6 +113,8 @@ configuration changes.
 
 | Tool | Use |
 | --- | --- |
+| `enable_app_service` | Enable a disabled app service, together with the disabled services it requires. In a running environment this starts a deployment. |
+| `disable_app_service` | Disable an app service: it stops and its domains and redirects are disabled, while its volumes are kept. Requires `confirm: true`. |
 | `update_cluster` | Update a cluster title. |
 | `update_cluster_settings` | Update cluster settings such as automatic infrastructure upgrades. Requires `confirm: true`. |
 | `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |

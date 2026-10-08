@@ -208,6 +208,7 @@ nav:
       - Overview: apps/index.md
       - App environments: apps/environments.md
       - Development workspaces: apps/workspaces.md
+      - Wodby Agent: apps/wodby-agent.md
       - Cluster migration: apps/migration.md
       - Maintenance mode: apps/maintenance.md
       - Stack: apps/stack.md
