@@ -26,7 +26,7 @@ Kubernetes integrations are used for:
 | [Azure](azure.md#aks) | AKS |
 | [Google Cloud Platform](gcp.md#gke) | GKE |
 | [DigitalOcean](digitalocean.md#doks) | DOKS |
-| [OVH](ovh.md#kubernetes) | Managed Kubernetes |
+| [OVH EU, OVH CA, OVH US](ovh.md#kubernetes) | Managed Kubernetes |
 
 - Use [Wodby Cloud](../clusters/wodby-cloud.md) or [Demo Cluster](../clusters/demo.md) when you do not want to bring your own cloud account.
 - Use [K3S](../clusters/k3s.md) when you want to connect your own server instead of provisioning a managed Kubernetes service.
