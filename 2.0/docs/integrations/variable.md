@@ -57,6 +57,7 @@ Variable integrations are typically attached to:
 - [Mailchimp](../providers/mailchimp.md)
 - [New Relic](../providers/newrelic.md)
 - [OpenAI](../providers/openai.md)
+- [OpenCode Zen](../providers/opencode.md)
 - [PagerDuty](../providers/pagerduty.md)
 - [PostHog](../providers/posthog.md)
 - [Pusher](../providers/pusher.md)
