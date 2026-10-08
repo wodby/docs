@@ -201,12 +201,36 @@ build or run; the CI/CD environment's build and tests validate that. Local depen
 files and workspace data are not transferred with a Git push. Wodby does not automatically create a PR or a preview
 environment as part of this workflow.
 
+## Upgrade the stack
+
+A workspace upgrades to a newer stack revision the same way as any app environment: open `Stack > Operations` and
+select `Upgrade`. See [Stack upgrade](stack.md#upgrade).
+
+An upgrade does more to a workspace than to a CI/CD environment:
+
+1. The code services stop.
+2. The whole environment is deployed with the new revision. There is no option to skip the deployment.
+3. The workspace's setup runs again, because the new revision can change dependencies and tools.
+4. The SSH runner restarts, which ends open SSH sessions, and the code services start.
+
+Your code and home directory are kept. Commit or stash work in progress first if a setup step could overwrite it.
+
+Wodby refuses the upgrade, and changes nothing, when the new revision:
+
+- no longer has the service that holds the workspace's code, or that service no longer supports workspaces;
+- changes the working directory, home directory or user of that service.
+
+It also refuses while setup or a runner restart is running. Create a new workspace to use such a revision.
+
+[Auto-upgrade](stack.md#auto-upgrade) is available for a workspace and is off by default, because an upgrade
+interrupts your session. Turn it on in `Stack > Operations` or when you create the workspace.
+
 ## Limits and recovery
 
 - Code services run one replica without autoscaling. Scheduled jobs remain disabled.
 - Code-service derivatives must be disabled; supporting-service derivatives can remain available.
-- Changing the repository, source links or storage, upgrading the stack, deploying a built image into the workspace, and
-  moving it to another cluster are not supported. Create a new environment for those changes.
+- Changing the repository, source links or storage, deploying a built image into the workspace, and moving it to
+  another cluster are not supported. Create a new environment for those changes.
 - The code services, the SSH runner and setup jobs run on one node, so that node needs room for all of them.
   With node-local storage, such as the default K3S storage class, the workspace can only run on the node that holds
   its volumes.
