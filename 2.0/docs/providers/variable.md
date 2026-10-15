@@ -45,6 +45,7 @@ Variable provider integrations are typically attached to:
 - [Mailchimp](mailchimp.md)
 - [New Relic](newrelic.md)
 - [OpenAI](openai.md)
+- [OpenCode Zen](opencode.md)
 - [PagerDuty](pagerduty.md)
 - [PostHog](posthog.md)
 - [Pusher](pusher.md)
