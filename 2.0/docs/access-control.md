@@ -167,9 +167,9 @@ The user still needs write access to the target object they are creating or modi
 Resource-specific checks still apply. A resource may need to be in an `OK` status, belong to the same organization, provide the right integration type, or satisfy stack/service compatibility rules.
 
 Read/use access for the user is necessary but does not by itself make an organization/project-scoped resource a valid
-dependency. A project-owned target can reference resources owned by or shared with its owner project. An
-organization-owned target can reference only organization-owned resources in the same organization. See
-[Sharing](sharing.md#creation-import-and-copy-forms).
+dependency. A project-owned target can reference resources owned by or shared with its owner project, and
+organization-owned resources that are available to all projects. An organization-owned target can reference only
+organization-owned resources in the same organization. See [Sharing](sharing.md#creation-import-and-copy-forms).
 
 ## Resource ownership
 
@@ -193,11 +193,11 @@ Access rules:
 
 | Action              | Allowed users                                                                                     |
 |---------------------|---------------------------------------------------------------------------------------------------|
-| Read/use            | Organization owners, admins, support users, or users who can access a project with `Read/Use` or `Modify/Delete` access |
+| Read/use            | Organization owners, admins, support users, or users who can access a project with `Read/Use` or `Modify/Delete` access. Every organization member when the resource is available to all projects |
 | Modify/delete       | Organization owners and admins                                                                    |
 | Ownership & sharing | Organization owners and admins                                                                    |
 
-Regular organization members do not automatically see organization-owned resources. They can see and use an organization-owned resource only when it is shared with a project they can access.
+Regular organization members do not automatically see organization-owned resources. They can see and use an organization-owned resource only when it is shared with a project they can access or when it is [available to all projects](sharing.md#make-a-resource-available-to-all-projects).
 
 ### Project-owned resources
 
