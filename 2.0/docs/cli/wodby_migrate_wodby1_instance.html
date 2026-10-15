@@ -5878,6 +5878,9 @@
 read-only preview. Add --apply to create the target and import data, then test
 the target using its technical route. Change DNS only after testing succeeds,
 and rerun the same command with --verify to validate the completed migration.
+Add --workspace to create an instance that uses direct Git deployment as a
+development workspace: its code is checked out from the linked Git repository
+instead of being built by CI. The preview reports why an instance cannot be one.
 
 The migration exports only the selected
 instance and its parent app metadata, then creates a new Wodby 2 app containing
@@ -6124,6 +6127,24 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
             <td><code>--wait-timeout duration</code></td>
             <td>Timeout for each target operation</td>
             <td><code>30m0s</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--workspace</code></td>
+            <td>Create this direct-Git instance as a Wodby 2 development workspace instead of an app environment built by CI</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--workspace-storage-class string</code></td>
+            <td>Storage class for the code and home volumes of development workspaces (defaults to the cluster&#39;s default storage class)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--workspace-storage-service string</code></td>
+            <td>Enabled storage service of the target stack that holds the code and home volumes of development workspaces instead of a storage class</td>
+            <td><span class="muted">-</span></td>
           </tr>
         
           <tr>

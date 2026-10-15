@@ -5883,6 +5883,9 @@ reported per app while remaining apps continue. A shared
 repository by name; use --target-repository-map for per-app integrations or
 repository-name overrides. A missing repository match falls back to unlinked
 Custom CI. Use --skip-code only to omit code migration intentionally.
+Use repeatable --workspace-instance APP/INSTANCE values to create instances that
+use direct Git deployment as development workspaces: their code is checked out
+from the linked Git repository instead of being built by CI.
 By default, the newest successful file for each required backup component is selected.
 Use repeatable --source-backup APP/INSTANCE=BACKUP_UUID values to override
 individual snapshots, or --skip-data to omit data. Changes after each selected
@@ -6134,6 +6137,24 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
             <td><code>--wait-timeout duration</code></td>
             <td>Timeout for each target operation</td>
             <td><code>30m0s</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--workspace-instance stringArray</code></td>
+            <td>Create a direct-Git instance, by UUID or APP/INSTANCE, as a Wodby 2 development workspace instead of an app environment built by CI (repeatable)</td>
+            <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--workspace-storage-class string</code></td>
+            <td>Storage class for the code and home volumes of development workspaces (defaults to the cluster&#39;s default storage class)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--workspace-storage-service string</code></td>
+            <td>Enabled storage service of the target stack that holds the code and home volumes of development workspaces instead of a storage class</td>
+            <td><span class="muted">-</span></td>
           </tr>
         
           <tr>
