@@ -70,6 +70,25 @@ added kind. Some resource-creation permissions cannot be proven without changing
 reported as unverifiable rather than treated as an update failure. For AWS, GCP, and Azure, you can rerun the permission
 test from the integration's **Edit** page.
 
+### Reconnect an expired sign-in
+
+Integrations that you connect by signing in to the provider, such as Google Cloud, Azure, DigitalOcean, OVHcloud,
+GitLab, and Bitbucket, keep working as long as the provider accepts that sign-in. Wodby renews it automatically, but a
+provider can stop accepting it, for example when you revoke Wodby's access in your provider account or after a long
+period without use. The integration is then marked **Expired**.
+
+To restore it, open the integration and click **Reconnect**, then sign in with the same provider account. The
+integration keeps its name, kinds, sharing, and everything that uses it. Signing in with a different account is refused.
+You need permission to modify the integration to reconnect it. An integration shared with your organization can only
+be reconnected by the organization that owns it.
+
+Creating a new integration for an account that is already connected in your organization is refused; reconnect the
+existing integration instead.
+
+You can delete an expired integration without reconnecting it. Wodby then cannot remove what it created in your provider
+account, such as a Google Cloud service account and its role bindings; the deletion task warns about this so that you
+can remove them in the provider console.
+
 ## Provider revisions and updates
 
 Provider changes create new revisions. When an integration remains on the provider revision it was configured against,
