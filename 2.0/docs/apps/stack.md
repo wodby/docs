@@ -70,6 +70,9 @@ the rollout succeeds. This skip does not apply to service-manifest `post_deploy`
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
+A [development workspace](workspaces.md#upgrade-the-stack) upgrades the same way, but the upgrade also stops its code
+services, runs its setup again and restarts its SSH runner.
+
 All upgrade options are disabled by default. This is a valid, non-destructive upgrade: Wodby adds configuration that
 the new stack requires but preserves existing app environment choices where possible. Select `Show overrides
 configuration` to review the options that let the stack replace those existing choices. The control stays collapsed
