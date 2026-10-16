@@ -14,6 +14,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 - [WordPress](wordpress/index.md): build, runtime configuration, shared content, and cron behavior
 - [Matomo](matomo/index.md): installer database values, geolocation, mail, and archiving cron
 
+- [Supabase](supabase/index.md): credentials, storage, recovery and self-hosting limits
+
 ## Service stack guides
 
 - [Gotenberg](gotenberg/index.md): private endpoint usage and migration from AthenaPDF
