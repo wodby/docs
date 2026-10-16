@@ -318,6 +318,7 @@ nav:
           - DigitalOcean: providers/digitalocean.md
           - Cloudflare: providers/cloudflare.md
           - Backblaze: providers/backblaze.md
+          - Wasabi: providers/wasabi.md
       - Git:
           - Overview: providers/git.md
           - GitHub: providers/github.md
