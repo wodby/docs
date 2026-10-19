@@ -8,7 +8,7 @@ You use projects to:
 - control who can see or change those resources
 - keep environments or teams separated inside the same organization
 
-Resources can be project-owned or organization-owned. Project-owned resources have one owner project and can be shared with additional projects when needed. Organization-owned resources can also be shared to projects so regular project members can use them.
+Resources can be project-owned or organization-owned. Project-owned resources have one owner project and can be shared with additional projects when needed. Organization-owned resources can also be shared to projects so regular project members can use them. An organization-owned cluster, integration, stack, or service can be [available to all projects](sharing.md#make-a-resource-available-to-all-projects) instead.
 
 ## Project pages
 
@@ -28,7 +28,7 @@ The `Resources` page can include:
 - services
 - providers
 
-Shared resources can appear here even when they are owned by another project or by the organization. Depending on the share level, the project may have `Read/Use` or `Modify/Delete` access.
+Shared resources can appear here even when they are owned by another project or by the organization. Depending on the share level, the project may have `Read/Use` or `Modify/Delete` access. Organization-owned resources that are available to all projects appear in every project with `Read/Use` access.
 
 ## Creating a project
 
@@ -85,12 +85,12 @@ Projects are also resource boundaries.
 
 - Resources from one project are not automatically available in another.
 - Cross-project references are not allowed unless the resource is explicitly shared to the target project.
-- Organization-owned dependencies that use project sharing must also be explicitly shared before a project-owned target can reference them.
+- Organization-owned dependencies that use project sharing must also be shared with the project, or available to all projects, before a project-owned target can reference them.
 - An organization-owned target can reference only organization-owned resources in the same organization when the dependency uses organization/project ownership; access to a project-owned resource does not make it valid for that target.
 - Write-capable project-resource workflows require a `Modify/Delete` share and write-level access in the target project where that workflow supports shared-resource writes.
 - Direct resource update/delete operations still follow the resource owner scope.
-- Organization-owned resources are visible to regular project members only when shared to one of their projects.
-- For example, a project-owned app cannot use an organization/project-scoped cluster, database, integration, service, stack, or provider unless that resource is owned by or shared with the app's owner project.
+- Organization-owned resources are visible to regular project members only when shared to one of their projects or available to all projects.
+- For example, a project-owned app cannot use an organization/project-scoped cluster, database, integration, service, stack, or provider unless that resource is owned by or shared with the app's owner project, or available to all projects.
 - On creation forms, the selected resource owner defines this context. If Project B owns the new resource, referenced resources must be owned by or shared with Project B. Selecting Project A in the dashboard header does not make Project A-only resources valid for a Project B-owned resource.
 - Changing a resource owner or removing project access is rejected when that change would leave an existing app, cluster, database, stack, integration, or backup preset with an inaccessible dependency. Update the dependent resource or share its dependency with the new owner project first.
 
