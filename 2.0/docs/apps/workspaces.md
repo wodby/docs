@@ -71,6 +71,20 @@ The page also shows the checkout's live **Git status**: the current branch and w
 and the uncommitted changes. Select **Refresh** to read it again. Only the workspace owner sees it. The initial branch
 and commit on the page record the state at creation.
 
+Select a changed file to see what changed in it since the last commit: staged and unstaged changes together, with a
+new file shown as added. A very long diff is cut short and says so; run `git diff` in the workspace for the rest.
+
+### Pull changes
+
+When the current branch tracks a branch in the repository, **Pull changes** brings in the commits pushed there, for
+example by a teammate. It only fast-forwards: it never merges, rebases or overwrites your work. The button is
+unavailable while a tracked file has uncommitted changes, when the branch is not pushed yet, and on a detached HEAD.
+Commit or discard your changes first.
+
+After the pull, Wodby runs the repository's [post-deployment scripts](../cicd/deploy.md) in the code service, so
+steps such as database updates happen as they would after a deployment. Turn that off in the confirmation when you
+only want the code.
+
 Files the service generates, such as installed dependencies or Drupal core and contrib modules, stay out of Git status.
 Setup lists them in the checkout's `.git/info/exclude`, which Git never commits, so your `.gitignore` doesn't change.
 Your own lines in that file are kept, and **Retry setup** updates Wodby's list. Custom code, such as Drupal's custom
@@ -181,9 +195,9 @@ while the setup steps run; supporting services and an available SSH runner remai
 dependencies and generated files, so review your Git diff afterward. It never pulls, resets or reclones an initialized
 checkout.
 
-Workspace setup is separate from ordinary post-deployment scripts. Those scripts do not run for workspace deployments.
-After pulling code yourself, decide whether to rerun setup, run an application-specific command, or restart the
-application.
+Workspace setup is separate from ordinary post-deployment scripts. Those scripts do not run for workspace deployments;
+they run after [**Pull changes**](#pull-changes). After pulling code yourself over SSH, decide whether to rerun setup,
+run an application-specific command, or restart the application.
 
 In Drupal projects, setup creates `settings.php` from `default.settings.php` when it's missing, or adds Wodby's
 settings include to your existing file. The include loads only when Wodby's settings file exists, so you can commit it
