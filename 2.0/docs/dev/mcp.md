@@ -177,6 +177,84 @@ Client versions and organization policies can affect available features.
     A remote gateway needs a supported callback or interactive authorization handoff. Do not assume that a device-code
     flow is available on Wodby. See [Hermes MCP configuration](https://hermes-agent.nousresearch.com/docs/user-guide/features/mcp/).
 
+<span id="chatgpt"></span>
+
+??? note "ChatGPT and dots"
+
+    ChatGPT keeps a custom MCP server as a plugin of your account. A dot can use the plugins that are installed and
+    enabled for your account.
+
+    1. In ChatGPT, open **Plugins** and add a custom MCP server.
+    2. Enter a name and the endpoint above, including `/mcp`.
+    3. Choose OAuth, create the connection, and review the browser consent before approving.
+    4. Open the plugin that ChatGPT created and install it.
+
+    ChatGPT asks you to confirm a tool that changes something. Custom MCP servers depend on your ChatGPT plan and, in
+    a ChatGPT workspace, on your administrator's settings. See
+    [Connect an MCP server to ChatGPT](https://developers.openai.com/plugins/deploy/connect-chatgpt) and
+    [dots](https://learn.chatgpt.com/docs/dots).
+
+<span id="grok-build"></span>
+
+??? note "Grok Build"
+
+    Grok Build can add Wodby from the CLI:
+
+    ```bash
+    grok mcp add --transport http wodby https://mcp.wodby.com/mcp
+    ```
+
+    Start Grok Build, open `/mcps`, and press `i` to authorize Wodby in your browser. The sign-in returns to a local
+    address on the computer that runs Grok Build, so authorize where your browser runs.
+
+    The equivalent configuration in `~/.grok/config.toml` is:
+
+    ```toml
+    [mcp_servers.wodby]
+    url = "https://mcp.wodby.com/mcp"
+    enabled = true
+    ```
+
+    See [Grok Build MCP servers](https://docs.x.ai/build/features/mcp-servers).
+
+<span id="grok-bot"></span>
+
+??? note "Grok Bot"
+
+    Add Wodby to your Bot as a custom MCP server of the **Remote HTTPS** type with the endpoint above, then authorize
+    Wodby in your browser when the Bot asks. Every Bot in your account can use an installed connector.
+
+    See [Grok Bot computers and apps](https://docs.x.ai/grok-bot/computer-and-apps).
+
+<span id="muse-code"></span>
+
+??? note "Muse Code"
+
+    Add Wodby to `~/.config/muse/settings.json`. Keep `schema_version`, and merge the server with your existing
+    entries:
+
+    ```json
+    {
+      "schema_version": 1,
+      "mcpServers": {
+        "wodby": {
+          "type": "streamable-http",
+          "url": "https://mcp.wodby.com/mcp"
+        }
+      }
+    }
+    ```
+
+    Then sign in:
+
+    ```bash
+    muse mcp login wodby
+    ```
+
+    Over SSH, add `--headless`: Muse Code prints the sign-in address and asks you to paste the address your browser
+    ends on. Use `/mcp` in a session to check the server. See
+    [Muse Code MCP servers](https://meta-models.github.io/muse-code-sdk/next/guides/extend/mcp-servers/).
+
 <span id="generic-clients"></span>
 
 ??? note "Generic clients"
@@ -260,6 +338,9 @@ Client versions and organization policies can affect available features.
     If the host cannot accept the endpoint or a suitable plugin, use a client with documented remote MCP support
     rather than guessing setup commands.
 
+    Muse, Meta's personal agent, has no setting for a remote MCP server. It builds custom connectors on request, and
+    Meta does not document MCP or OAuth for them. Use Muse Code or another client above instead.
+
 ## Verify the connection
 
 <span id="using-wodby-in-your-mcp-client"></span>
@@ -327,3 +408,7 @@ and [tool catalog](mcp/tools.md). Use the connected server's schemas for current
 Use [workspace MCP controls](../apps/workspaces.md#mcp-controls) to inspect a development workspace, retrieve the owner's
 SSH connection details, rerun preparation, or pause and resume it. Connect your editor or agent over SSH separately to
 work on the checkout.
+
+An agent that runs on its vendor's own computer, such as a dot or a Grok Bot, works with Wodby through MCP. Give it
+the [scopes](mcp/reference.md#authentication) its task needs; [container commands](mcp/reference.md#container-commands)
+require `mcp:exec`.
