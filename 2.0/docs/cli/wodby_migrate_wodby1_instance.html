@@ -8096,7 +8096,7 @@ required component shown in the preview. Use --source-backup BACKUP_UUID to pin
 all components to a different complete snapshot, or
 --skip-data to omit data. Changes made after the selected backup completed are
 not migrated. Apply is resumable and stores its plan and state in the system
-temporary directory. When state exists, the same --apply command preserves the saved plan
+temporary directory, or next to --state-file when it is set. When state exists, the same --apply command preserves the saved plan
 and continues completed work. --apply --restart replaces the saved plan. If the
 migration already changed Wodby 2, the CLI first shows and confirms removal of
 only the resources recorded as created by this migration; pre-existing target
@@ -8228,7 +8228,7 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
         
           <tr>
             <td><code>--state-file string</code></td>
-            <td>Secure resume-state path (defaults to the system temporary directory)</td>
+            <td>Secure resume-state path; the plan is kept next to it (defaults to the system temporary directory)</td>
             <td><span class="muted">-</span></td>
           </tr>
         
