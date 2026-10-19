@@ -672,10 +672,9 @@ Each `endpoints[].ports[]` item supports:
 - `protocol`: required protocol. Allowed values: `http`, `tcp`, `udp`.
 - `private`: optional boolean.
 - `main`: marks the main port within that endpoint.
-- `redeployOnPublicPortChange`: redeploy the owning app service after this public TCP or UDP port is published or
-  unpublished. It is not supported for HTTP or private ports.
-- `routeToPublicPort`: target the assigned public port number on the rendered Kubernetes Service. It requires
-  `redeployOnPublicPortChange`.
+- `routeToPublicPort`: target the assigned public port number on the rendered Kubernetes Service, and redeploy the
+  owning app service right away when the port is published or unpublished. It is not supported for HTTP or private
+  ports.
 - `routeDefaults`: optional map of [HTTP route setting](../apps/endpoints.md#route-settings) names to default string
   values. It is supported only when `protocol` is `http`.
 

@@ -71,7 +71,7 @@ format and behavior.
 
 Most published TCP and UDP ports keep a fixed port inside Kubernetes and use a separately assigned public port. Some
 charts instead use one value as both the advertised public port and the port rendered on their Kubernetes Service.
-Those charts can opt in to public-port-driven deployment and routing:
+Those charts can opt in to public-port-driven routing:
 
 ```yaml
 endpoints:
@@ -81,7 +81,6 @@ endpoints:
   - name: ssh
     number: 22
     protocol: tcp
-    redeployOnPublicPortChange: true
     routeToPublicPort: true
 
 helm:
@@ -90,18 +89,16 @@ helm:
     value: "{{service.endpoints.ssh.ports.ssh.effectivePort}}"
 ```
 
-`redeployOnPublicPortChange: true` schedules a partial deployment of the owning app service after this port is
-published or unpublished. This lets the rendered chart consume the new assignment. The option is supported only for
-non-private TCP and UDP ports.
+Set `routeToPublicPort: true` only when the chart renders its Kubernetes Service port from the public assignment.
+Wodby then targets the assigned number when it creates the TCP or UDP route, and starts a partial deployment of the
+owning app service right away when the port is published or unpublished, so the chart and the route cannot keep
+different port numbers. The option is supported only for non-private TCP and UDP ports. When `routeToPublicPort` is
+omitted, Wodby routes to the manifest's fixed `number`.
 
-Wodby also redeploys the app service after a publish or unpublish when its Helm values, environment variables, or
-processed configs read the port's `publicPort` or `effectivePort` token, even without `redeployOnPublicPortChange`.
-If that deployment fails, the port keeps its new state; deploy the app service again to apply it.
-
-Add `routeToPublicPort: true` only when the chart also renders its Kubernetes Service port from the public assignment.
-Wodby then targets the assigned number when it creates the TCP or UDP route. This option requires
-`redeployOnPublicPortChange`, so the chart and route cannot keep different backend port numbers. When
-`routeToPublicPort` is omitted, Wodby continues routing to the manifest's fixed `number`.
+When a service's Helm values, environment variables, or processed configs read a port's `publicPort` or
+`effectivePort` token, publishing or unpublishing the port marks the app environment as
+[`needs redeploy`](../apps/deploys.md#needs-redeploy), as a domain change does. The next deployment applies the new
+value. The mark also stays if the immediate deployment of a `routeToPublicPort` port fails, so you can deploy again.
 
 The stable endpoint and port names provide access to the internal, public, and effective values through
 [service endpoint-port tokens](../apps/tokens.md#service).
