@@ -55,6 +55,11 @@ A Kubernetes cluster created in your own cloud account through a supported provi
 
 The top-level workspace boundary for users, teams, projects, billing, and shared settings.
 
+## Preview environment
+
+A temporary app environment that Wodby creates automatically for a pull request, copied from a base environment and
+deleted when the pull request closes or has been idle for a configured period.
+
 ## Primary route
 
 The default HTTP route for a specific app service endpoint.

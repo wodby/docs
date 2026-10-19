@@ -39,3 +39,15 @@ Wodby supports GitHub Actions as a third-party CI integration.
 - You can also re-run the workflow run associated with the last recorded build
 - The GitHub App installation must have access to the repository with Actions permissions enabled
 - Starting a new workflow run requires the workflow to support `workflow_dispatch`
+
+## Preview environments
+
+GitHub integrations can create [preview environments](../apps/preview-environments.md) for pull requests.
+
+- The GitHub App installation must be allowed to read pull requests, create commit statuses, and comment on pull
+  requests. GitHub asks the installation owner to approve these permissions when they are missing. Until they are
+  approved, Wodby still creates previews but cannot report their status to the pull request.
+- Wodby reacts to pull requests that target the branch followed by the app's base environment. Pull requests from forks
+  are ignored.
+- Each deployment is reported as a `wodby/preview` commit status on the commit it built, and the first successful
+  deployment adds one comment with the preview URL.
