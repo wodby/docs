@@ -74,6 +74,11 @@ Before removing a required project share or changing ownership, update the app e
 registry selection, let active builds finish, and replace and void old images that still use the previous registry.
 See [Sharing](../sharing.md#changing-sharing-with-active-references) for the general rule.
 
+## Vulnerability scanning
+
+On the Team and Enterprise plans, Wodby scans the images of deployed builds for known vulnerabilities and shows the
+results on each build. See [Vulnerability scanning](vulnerability-scanning.md).
+
 ## Automatically void old build images
 
 Build images remain available after newer builds are deployed so you can reuse or roll back to an older build. If the
