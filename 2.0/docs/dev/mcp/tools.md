@@ -13,6 +13,8 @@ These tools require `mcp:read` when using OAuth.
 | Tool | Use |
 | --- | --- |
 | `get_wodby_guidance` | Discover Wodby 2 workflow skills or load one by name. |
+| `search_wodby_docs` | Search the public Wodby 2 documentation and return matching sections with the page to read. |
+| `read_wodby_docs` | Read one page of the public Wodby 2 documentation as text, taken from `search_wodby_docs`. |
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
@@ -26,10 +28,16 @@ These tools require `mcp:read` when using OAuth.
 | `get_workspace_context` | Read development workspace runtime, preview, setup and initial Git information. |
 | `get_workspace_connection` | Get the owner’s SSH endpoint, fingerprint, the agents ready in the workspace and connection guidance. |
 | `get_app_instance` | Get an app environment by ID. |
+| `get_app_environment` | Get an app environment by ID. |
 | `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
 | `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
+| `prepare_app_environment_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
 | `list_app_services` | List services for an app environment by app environment ID or the legacy organization/app/instance-name arguments. |
 | `get_app_service` | Get an app service by ID. |
+| `get_service_guidance` | Read what the services of an app environment generate and wire for the application, such as settings files and connections to linked databases, caches, search, mail and file storage, and what the code still has to do. |
+| `list_app_service_env_vars` | List an app service's environment variables and where each comes from: the app service, the service, the stack, a setting, a link or an integration. Secret values are not returned. |
+| `get_app_service_resources` | Get an app service's replica count and each container's CPU and memory requests and limits. |
+| `list_app_routes` | List an app environment's domains, the service and port each leads to, whether a certificate is attached, and whether the domain's DNS reaches the cluster. |
 | `list_app_service_cron_schedules` | List cron schedules for an app environment or app service by IDs or by the legacy organization/app/instance-name/service arguments. |
 | `list_app_builds` | List recent builds for an app environment by ID or the legacy organization/app/instance-name arguments. |
 | `get_app_build` | Get an app build by ID. |
@@ -39,6 +47,7 @@ These tools require `mcp:read` when using OAuth.
 | `wait_for_task` | Poll a task until it reaches a terminal state and optionally include bounded logs and follow-up suggestions. |
 | `get_task_logs` | Get structured task job and step logs. |
 | `get_task_step_logs` | Read a bounded page of live or historical task-step logs with sequence cursors. |
+| `list_tasks` | List an organization's tasks, newest first, optionally by status or by the app, environment, cluster, database, stack, service or integration they belong to. |
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
 | `list_clusters` | List clusters in an organization. |
 | `get_cluster` | Get a cluster by ID. |
@@ -51,6 +60,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_database` | Get a database by ID. |
 | `list_database_dbs` | List DBs inside a database. |
 | `list_database_users` | List database users without returning passwords. |
+| `list_backups` | List backups of an app environment, app service, database or database DB, or of the whole organization, newest first, with where each is stored. |
+| `list_backup_presets` | List backup presets, which save a backup destination and can run backups on a schedule. |
 | `list_public_services` | List public service catalog items. |
 | `list_services` | List services in an organization. |
 | `get_service` | Get a service by name and optional revision number. |
@@ -58,6 +69,9 @@ These tools require `mcp:read` when using OAuth.
 | `get_service_schema` | Get the Wodby service manifest JSON schema. |
 | `get_service_examples` | Get concise Wodby service manifest examples. |
 | `validate_service_manifest` | Validate a Wodby service manifest without creating it. |
+| `list_git_files` | List the entries of one directory of a repository, without descending into it. |
+| `read_git_file` | Read a text file of a repository, such as `composer.json`, `package.json`, a lock file, a Dockerfile or a manifest. |
+| `validate_ci_files` | Validate a repository's Wodby CI files (`.wodby/pipeline.yml`, `.wodby/post-deployment.yml`) without running anything. |
 | `get_provider_schema` | Get the Wodby custom provider manifest JSON schema. |
 | `validate_provider_manifest` | Validate a Wodby custom provider manifest without creating it. |
 | `list_public_stacks` | List public stack catalog items. |
@@ -123,6 +137,9 @@ configuration changes.
 | `update_service_from_manifest` | Update an existing non-Git service from a Wodby service manifest. Requires `confirm: true`. |
 | `update_service_from_git` | Update a service from its Git source. Requires `confirm: true`. |
 | `update_stack_from_git` | Update a stack from its Git source. Requires `confirm: true`. |
+| `create_app_route` | Add a domain to an app environment, routed to a port of an app service. By default Wodby requests a Let's Encrypt certificate, issued once the domain's DNS points to the cluster. |
+| `update_app_route` | Change a route: turn it off or on, make it the primary domain, change its path or certificate, or redirect it to another host. Generated and private routes can't be changed. |
+| `create_backup_preset` | Create a backup preset: a saved destination that by default also runs backups every day in a time window. Presets need a paid subscription. |
 
 ## Provisioning tools
 
@@ -160,6 +177,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `create_import` | Import data into an app service or database DB. |
 | `cancel_task` | Cancel a running task. |
 | `delete_cluster` | Delete a cluster. |
+| `delete_app_route` | Remove a route from an app environment, so its domain stops reaching the app. To stop serving a domain for a while, turn it off with `update_app_route` instead. |
 | `delete_database` | Delete a database. |
 | `delete_database_db` | Delete a DB inside a database. |
 | `delete_database_user` | Delete a database user. |

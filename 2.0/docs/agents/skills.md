@@ -14,6 +14,12 @@ permissions, user approval, or checking the connected server's current input sch
 | `wodby2-service` | Reuse or author and validate a service definition. |
 | `wodby2-stack` | Compose services into a stack and validate it. |
 | `wodby2-provider` | Reuse an integration contract or validate a custom variable-provider manifest. |
+| `wodby2-environment` | Configure and operate an existing app environment: environment variables, CPU, memory and replicas, cron schedules, domains and certificates, pausing, resuming and maintenance mode. |
+| `wodby2-connect` | Connect application code to the services Wodby runs for it, such as a database, cache, search, mail or file storage, using what Wodby already sets up instead of adding settings to the code. |
+| `wodby2-ci` | Create or repair a repository's Wodby CI pipeline and post-deployment scripts, validate both, and follow the first build. Also covers running the same steps in GitHub Actions, GitLab CI or CircleCI. |
+| `wodby2-data` | Protect and move data: backup destinations and schedules, taking, verifying and restoring backups, importing dumps or files, copying data between environments, and standalone databases. |
+| `wodby2-cluster` | Choose, create, size, scale and upgrade a cluster, including infrastructure and infrastructure app upgrades. |
+| `wodby2-review` | Review an app environment, an app or a whole organization without changing anything, and report what is unhealthy, unprotected or out of date, with what to fix first. |
 
 Provider authoring does not implement a new OAuth or infrastructure provider. Validation does not publish a manifest.
 Missing integration setup may require a dashboard handoff.
