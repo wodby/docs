@@ -8102,7 +8102,9 @@ of only resources recorded as created by these migrations. Pre-existing target
 apps and reused resources are preserved. Restart is refused after successful
 verification or while any target operation remains ambiguous. --rollback
 deletes the Wodby 2 resources this migration created and discards its state; it
-refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
+refuses once --verify has succeeded, because DNS then points at Wodby 2.
+Migrated cron schedules stay disabled until --verify confirms that DNS points
+to Wodby 2, so scheduled jobs do not run on both platforms.</p>
 
     
 
