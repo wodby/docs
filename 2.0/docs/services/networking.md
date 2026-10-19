@@ -94,6 +94,10 @@ helm:
 published or unpublished. This lets the rendered chart consume the new assignment. The option is supported only for
 non-private TCP and UDP ports.
 
+Wodby also redeploys the app service after a publish or unpublish when its Helm values, environment variables, or
+processed configs read the port's `publicPort` or `effectivePort` token, even without `redeployOnPublicPortChange`.
+If that deployment fails, the port keeps its new state; deploy the app service again to apply it.
+
 Add `routeToPublicPort: true` only when the chart also renders its Kubernetes Service port from the public assignment.
 Wodby then targets the assigned number when it creates the TCP or UDP route. This option requires
 `redeployOnPublicPortChange`, so the chart and route cannot keep different backend port numbers. When

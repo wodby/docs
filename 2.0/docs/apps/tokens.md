@@ -109,6 +109,21 @@ The other `env` tokens remain available for template compatibility.
 - `service.replicas`: app-service replica count
 - `service.secrets.env`: generated Kubernetes Secret name used for secret environment variables
 
+The `service.secrets.env` Secret holds the service's secret environment variables: those marked `secret: true` and
+those that reference a secret token, such as a generated one. Each variable is a key named after it. A chart that reads
+a password from a named Secret key can use this token as the Secret name. When a Helm value references this token,
+Wodby creates the Secret from those variables even if no container mapping uses it.
+
+Each endpoint's primary route is available as `service.endpoints.[endpoint-name].[field]`:
+
+- `primaryHost`: domain name of the endpoint's primary route
+- `primaryURL`: URL of the endpoint's primary route, with `https://` when the route has a certificate and `http://`
+  otherwise
+
+Both are empty while the endpoint has no primary route or its primary route is disabled. Use them for a chart with more
+than one public HTTP endpoint, such as an application with a separate container registry host. Wodby redeploys the
+app service when one of these values changes.
+
 Named endpoint ports are available as `service.endpoints.[endpoint-name].ports.[port-name].[field]`:
 
 - `number`: manifest-defined internal port number
@@ -119,6 +134,10 @@ Named endpoint ports are available as `service.endpoints.[endpoint-name].ports.[
 Use `effectivePort` when a chart needs one usable value before and after publication. When a chart renders its
 Kubernetes Service port from this value, also configure the service port's
 [`redeployOnPublicPortChange` and `routeToPublicPort`](../services/networking.md#dynamic-public-backend-ports) fields.
+
+When a Helm value consists of exactly one `number`, `publicPort`, or `effectivePort` token, Wodby passes it to the
+chart as a number, so charts that validate ports as numbers accept it. Inside a longer value, such as
+`ssh://git@example.com:{{service.endpoints.ssh.ports.ssh.effectivePort}}`, the token is replaced as text.
 
 Legacy `service.helm.release` is still supported for backward compatibility.
 

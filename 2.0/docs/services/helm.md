@@ -201,6 +201,16 @@ rules.
 During service import, Wodby validates explicit Helm value paths against the chart's merged values and schema when they
 are available. It also renders the chart with the same backend-managed values used during deployment.
 
+A value path passes when the chart's `values.yaml` or values schema defines it, or when a chart template reads it.
+This covers charts that leave optional values commented out in `values.yaml`:
+
+- A path into a subchart, such as `redis.auth.existingSecret`, can be read by that subchart's templates.
+- A `global.*` path can be read by any subchart's templates.
+- A path inside a map that a template reads as a whole, such as `global.psql.host` when the chart reads
+  `.Values.global.psql`, also passes. Reading the whole `global` map or a whole subchart map does not count.
+
+A path that no template reads is rejected, which catches misspelled values and values the chart ignores.
+
 For the primary Deployment or StatefulSet, Wodby renders replica counts `0` and `1` and verifies that the matching
 workload has the same `spec.replicas` value. It performs the same check for every additional workload that declares
 `helm.replicas` or `helm.managedReplicas`. Services marked as scalable are also rendered with `2` replicas and must

@@ -557,8 +557,12 @@ Each workload declares:
 
 `workloads[].helm.replicas` maps the app service's effective replica count to a chart value for that workload.
 `workloads[].helm.managedReplicas` instead applies the count directly to the rendered workload and removes a chart HPA
-that targets it. The two fields are mutually exclusive, and `managedReplicas` is not supported for DaemonSets. See
+that targets it. The two fields are mutually exclusive, and `managedReplicas` is not supported for DaemonSets or for
+the primary workload of a scalable service. See
 [Workload-level Helm mappings](workloads.md#workload-level-helm-mappings).
+
+`workloads[].containers[].helm.secretEnvFrom` passes the app service's secret environment variables to a chart's
+`envFrom` value. See [Container-level Helm mappings](workloads.md#container-level-helm-mappings).
 
 If the service has multiple workloads, mark one as `primary`. The primary workload is the default target used by
 runtime features when no explicit workload is selected.

@@ -245,7 +245,9 @@ Use `managedReplicas: true` only when the chart cannot expose an ordinary replic
 HorizontalPodAutoscaler. Wodby then writes `spec.replicas` directly to the rendered Deployment or StatefulSet and
 removes only the chart HPA that targets that workload. Any unrelated chart HPA still fails import validation.
 
-`managedReplicas` cannot be combined with `replicas` on the same workload and is not supported for DaemonSets.
+`managedReplicas` cannot be combined with `replicas` on the same workload and is not supported for DaemonSets. In a
+service marked as `scalable`, the primary workload cannot use `managedReplicas`: Wodby's autoscaler controls that
+workload's replica count, so use `replicas` there.
 
 The four deployment paths are required for charts with multiple workloads when the corresponding setting needs to be
 passed to Helm. Service-level deployment mapping defaults apply only to single-workload services. See
@@ -258,10 +260,28 @@ passed to Helm. Service-level deployment mapping defaults apply only to single-w
 - `resources`
 - `env`
 - `envKV`
+- `secretEnvFrom`
 - `mounts`
 - `image`
 
 These are Helm value paths used when Wodby injects container-scoped data.
+
+Use `secretEnvFrom` for a chart that accepts an `envFrom` list but cannot keep `valueFrom` entries in its environment
+list. Wodby passes an `envFrom` entry that loads the app service's secret environment variables from the
+[`service.secrets.env`](../apps/tokens.md#service) Secret, so secret values stay out of Helm values. Only secret
+variables are available this way; also map `env` when the container needs the other variables. When a secret value
+changes, Wodby restarts the workload, as it does for `env`.
+
+```yaml
+workloads:
+- name: app
+  kind: deployment
+  containers:
+  - name: app
+    helm:
+      env: app.extraEnv
+      secretEnvFrom: app.extraEnvFrom
+```
 
 ### Container image Helm mappings
 
