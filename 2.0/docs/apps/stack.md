@@ -70,6 +70,9 @@ the rollout succeeds. This skip does not apply to service-manifest `post_deploy`
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
 
+A [development workspace](workspaces.md#upgrade-the-stack) upgrades the same way, but the upgrade also stops its code
+services, runs its setup again and restarts its SSH runner.
+
 All upgrade options are disabled by default. This is a valid, non-destructive upgrade: Wodby adds configuration that
 the new stack requires but preserves existing app environment choices where possible. Select `Show overrides
 configuration` to review the options that let the stack replace those existing choices. The control stays collapsed
@@ -93,15 +96,18 @@ contain configuration changes.
 
 ## Auto-upgrade
 
-An app environment can be configured to upgrade its stack automatically after the stack is automatically updated.
+An app environment can be configured to upgrade its stack automatically. With auto-upgrade enabled, Wodby moves the app
+environment to the stack's latest published revision, however that revision was published: by an automatic stack
+update, a manual stack update or sync, or a published draft.
 This is an app environment setting, so production, staging, and development environments can use different behavior even when
 they belong to the same app.
 
 Auto-upgrade uses the same settings as the manual `Upgrade stack` form. The saved settings decide which app environment
 overrides Wodby replaces with values from the latest stack revision.
 
-Auto-upgrade can run after supported automatic stack updates, including Git-backed stack auto-updates, automatic stack
-service revision updates, and automatic sync with origin.
+Automatic stack updates, such as Git-backed stack auto-updates, automatic stack service revision updates, and automatic
+sync with origin, start auto-upgrades right away. Wodby also regularly checks for app environments with auto-upgrade
+enabled that run an older revision, so revisions you publish yourself are applied too.
 
 Use an [automation time window](../automation-time-windows.md) when an app environment should start automatic stack
 upgrades only during selected hours.
@@ -113,8 +119,8 @@ move to the latest stack revision without a manual review step. If the stack upg
 extra configuration, Wodby records warnings and waits for you to finish the service configuration before deployment,
 the same as a manual stack upgrade.
 
-Manual stack updates, manual syncs, and manually published drafts do not force app environments forward. Use the manual
-upgrade flow when you want to control the rollout yourself.
+To control the rollout of a stack change yourself, disable auto-upgrade for the app environments you want to upgrade
+manually, or keep the change in a draft until you are ready. Unpublished drafts are never applied.
 
 During upgrade, Wodby matches existing app services to stack services by stack service name.
 
@@ -153,7 +159,8 @@ boilerplate is marked as default, the first boilerplate is used. If the default 
 records a warning and asks you to select the build source after the upgrade.
 
 When a stack upgrade leaves unresolved service configuration, Wodby skips the automatic post-upgrade deployment.
-Deployments are blocked until the app environment reports complete service configuration.
+Finish the reported configuration before deploying when possible. If you start a deployment before resolving the
+issues, Wodby allows it to proceed and records the relevant issues as warnings in the deployment task.
 
 ### Update versions to default
 

@@ -62,6 +62,10 @@ The storage integration must also match the backup target's [ownership boundary]
 Access to the integration through another project is not sufficient. These checks apply to one-off backups, presets,
 scheduled runs, restores, and downloads.
 
+Open a completed backup to request its download link. For backups stored in Wodby Blob Storage, you can also
+[void the stored file](../providers/wodby-blob-storage.md#voiding-backup-files) while retaining the backup record.
+Voided files cannot be downloaded or imported.
+
 ## Backup presets
 
 Backup presets save time when entering backup destination details, and they can also define automatic backups.

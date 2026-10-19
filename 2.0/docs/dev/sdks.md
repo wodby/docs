@@ -2,11 +2,11 @@
 
 Wodby publishes generated SDKs for API automation. The SDKs use API key authentication: send the key as `X-API-KEY`.
 
-Use the [2.0 API reference](https://wodby.com/docs/2.0/api/) for the current public `/v1` REST API. Use SDK repository documentation for language-specific generated class and method names.
+Use the <a href="https://wodby.com/docs/2.0/api/" target="_self">2.0 API reference</a> for the current public `/v1` REST API. Use SDK repository documentation for language-specific generated class and method names.
 
 ## Compatibility
 
-The SDKs listed below target the current Wodby 2.0 public `/v1` API and are generated from the OpenAPI schema published in the [API reference](https://wodby.com/docs/2.0/api/).
+The SDKs listed below target the current Wodby 2 public `/v1` API and are generated from the OpenAPI schema published in the <a href="https://wodby.com/docs/2.0/api/" target="_self">API reference</a>.
 
 SDK package versions `4.0.0` and newer target the Wodby 2 API `/v1`. If you maintain an older integration that uses the previous v3 SDK surface, keep it pinned to a compatible `3.x` package version until you migrate.
 
@@ -87,7 +87,7 @@ $config = \Wodby\Api\Configuration::getDefaultConfiguration()
 - Generate a client from the 2.0 OpenAPI schema when you want typed models for new `/v1` integrations.
 - Use the official SDK packages when you want generated models and request helpers in a supported language.
 - Use [Wodby MCP](mcp.md) when an AI assistant needs Wodby context, deployment diagnostics, or approved operations.
-- Use the [Wodby CLI](cli.md) for CI build, release, and deploy workflows.
+- Use the [Wodby CLI](cli.md) for CI build, push, and deploy workflows.
 
 ## Related pages
 

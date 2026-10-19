@@ -24,9 +24,15 @@ when the latest definition still generates the same token name for the same envi
 upgrade from rotating database passwords and other generated credentials. Rotate such a credential explicitly when a
 new value is required.
 
-This page is the public reference for built-in runtime tokens resolved in app-service context.
+## Token names
 
-Some internal or infrastructure-only secret-bearing tokens are intentionally omitted from this public list.
+Token names that start with `wodby_` are reserved for tokens that Wodby provides. You cannot define a token with such a
+name in a service or stack template, or add one to an app service, stack, or stack service. Importing or updating a
+service or stack template also fails when an environment variable references a `wodby_` token that Wodby does not
+provide, so the mistake is reported before deployment.
+
+If a deployment fails with `Unknown wodby token`, rename the token so that it does not start with `wodby_`, and update
+the environment variables that reference it.
 
 ## Where tokens are supported
 
@@ -57,6 +63,8 @@ marked secret explicitly. See [Environment variables](environment-variables.md#s
 - `app.name`: application machine name
 - `app.title`: application title
 
+Legacy `wodby_app_name` still resolves to the same value as `app.name`. Use `app.name` in new templates.
+
 ## `instance`
 
 `instance` is the legacy token namespace for an app environment. It remains available for template compatibility.
@@ -73,13 +81,10 @@ marked secret explicitly. See [Environment variables](environment-variables.md#s
 - `kubernetes.name`: cluster machine name
 - `kubernetes.fullName`: cluster full name
 
-Infrastructure-oriented FRPC tokens are also supported under `kubernetes.frpc.*`, but the secret-bearing/internal
-subset is intentionally not documented here.
-
 ## `env`
 
-`env` is the legacy token namespace backed by the internal environment-policy record. Prefer `instance` for app
-environment identity and `env.type` for behavior that depends on an environment type.
+Use `env.type` for behavior that depends on an environment type. Use `instance` for app environment identity.
+The other `env` tokens remain available for template compatibility.
 
 - `env.id`: [environment](environment-types.md) ID
 - `env.name`: environment machine name

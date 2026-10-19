@@ -61,9 +61,9 @@ the stack contains. Git-backed stacks can also update from Git, either manually 
 supported push event matches the stack source. Catalog-derived stacks can sync with their origin to pull in catalog-side
 manifest changes.
 
-Publishing the draft creates a new stack revision. Updating a stack does not automatically update all app environments
-using it unless the stack was updated automatically and auto-upgrade is enabled for those app environments. Each app
-environment can still be upgraded to the latest published stack revision separately.
+Publishing the draft creates a new stack revision. App environments with [auto-upgrade](../apps/stack.md#auto-upgrade)
+enabled move to the latest published revision during their upgrade time window. Other app environments keep their
+current revision until you upgrade them.
 
 See [Stack updates](updates.md) for the stack update workflows and [Application stack](../apps/stack.md#upgrade) for
 the app environment upgrade settings.

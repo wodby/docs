@@ -33,6 +33,28 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 2.0.20
+
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+- 📜 PostgreSQL backups omit ownership and grants, and imports preserve managed database ownership
+
+### 2.0.19
+
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+
+### 2.0.18
+
+- ⬆️ PostgreSQL 15.19, 14.24
+- 📜 Initialization can restore objects owned by a managed role while preserving the cluster administrator
+- ⭐️ Bundled pgvector 0.8.6 in the PostgreSQL 15 and 14 images; the vector extension remains disabled by default
+- 📜 Added shared preload library configuration and consistent extension provisioning for newly created databases
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
+
 ### 2.0.17
 
 - ⬆️ Updated to 18.4, 17.10, 16.14, 15.18, 14.23

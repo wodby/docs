@@ -1,5 +1,5 @@
-site_name: Wodby 1 Docs
-site_description: Wodby 1.0 Documentation
+site_name: Wodby Documentation
+site_description: Wodby 1 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/1.0
 
@@ -26,9 +26,12 @@ extra:
     property: G-SQ2VLFFRNC
 
 theme:
-  logo: assets/images/wodby1-logo.png
+  logo: assets/images/wodby1-logo.svg
   favicon: assets/images/favicon.png
   name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
   features:
   - navigation.tabs
   - navigation.instant
@@ -53,6 +56,9 @@ theme:
       name: Switch to light mode
   custom_dir: 'theme'
 
+hooks:
+  - ../scripts/version_assets.py
+
 extra_css: ["assets/wodby.css"]
 extra_javascript: ["assets/intercom.js"]
 
@@ -76,47 +82,70 @@ markdown_extensions:
 - pymdownx.magiclink
 - pymdownx.mark
 - pymdownx.smartsymbols
-- pymdownx.superfences
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format
 - pymdownx.tasklist:
     custom_checkbox: true
 - pymdownx.tilde
 - markdown_include.include:
     base_path: includes
 
+plugins:
+- search
+- redirects:
+    redirect_maps:
+      'infrastructure/env-vars.md': 'apps/env-vars.md'
+      'infrastructure/mail-delivery.md': 'apps/mail-delivery.md'
+      'dev/api-keys.md': 'user/api-keys.md'
+      'cicd/deploy.md': 'apps/deploy.md'
+      'apps/post-deployment-scripts.md': 'cicd/post-deployment-scripts.md'
+      'integrations/docker-registry.md': 'cicd/docker-registry.md'
+      'cluster/index.md': 'infrastructure/cluster.md'
+      'organizations.md': 'org.md'
+      'roles.md': 'access-control.md'
+      'account-security.md': 'user/security.md'
+
 nav:
-- Home:
-  - Getting started: index.md
-  - Billing: billing.md
-  - Development: dev.md
-  - Docker4X: docker4x.md
+- Get Started:
+  - Overview: index.md
+  - App model: apps/app-vs-instance-vs-service.md
+  - Glossary: glossary.md
   - FAQ: faq.md
   - Status: status.md
   - Support: support.md
   - Troubleshooting: troubleshooting.md
-  - Account security: account-security.md
-  - User roles: roles.md
 - Apps:
   - New app: apps/new.md
   - Instances: apps/instances.md
   - Server migration: apps/server-migration.md
   - Deployment: apps/deploy.md
+  - Builds: apps/builds.md
   - Domains: apps/domains.md
   - Backups: apps/backups.md
   - Logging: apps/logs.md
-  - Post-deployment scripts: apps/post-deployment-scripts.md
+  - Environment variables: apps/env-vars.md
+  - Mail delivery: apps/mail-delivery.md
+- CI/CD:
+  - Overview: cicd/index.md
+  - Direct Git: cicd/git.md
+  - Third-party CI: cicd/third-party.md
+  - Post-deployment scripts: cicd/post-deployment-scripts.md
+  - Container registry: cicd/docker-registry.md
 - Infrastructure:
   - Overview: infrastructure/index.md
   - Connecting server: infrastructure/connecting-server.md
   - Containers: infrastructure/containers.md
   - Monitoring: infrastructure/monitoring.md
-  - Mail delivery: infrastructure/mail-delivery.md
-  - Environment variables: infrastructure/env-vars.md
   - Disk: infrastructure/disk.md
   - Maintenance: infrastructure/maintenance.md
   - Security: infrastructure/security.md
   - HSTS: infrastructure/hsts.md
   - UFW: infrastructure/ufw.md
   - CLI: infrastructure/cli.md
+  - Cluster: infrastructure/cluster.md
 - Stacks:
   - Overview: stacks/index.md
   - Configuration: stacks/config.md
@@ -169,11 +198,25 @@ nav:
   - BitBucket: integrations/bitbucket.md
   - CloudFlare: integrations/cloudflare.md
   - DigitalOcean: integrations/digitalocean.md
-  - Docker registry: integrations/docker-registry.md
   - GCP: integrations/gcp.md
   - GitHub: integrations/github.md
   - GitLab: integrations/gitlab.md
   - SendGrid: integrations/sendgrid.md
   - Custom provider: integrations/custom.md
-- Cluster:
-  - Kubernetes cluster: cluster/index.md
+- Organization:
+  - Overview: org.md
+  - Access control: access-control.md
+  - Security: org/security.md
+  - Settings: org/settings.md
+  - Billing: billing.md
+- User:
+  - Overview: user/index.md
+  - Account: user/account.md
+  - Security: user/security.md
+  - API keys: user/api-keys.md
+  - SSH keys: user/ssh-keys.md
+- Development:
+  - Overview: dev/index.md
+  - API and SDKs: dev/api.md
+  - CLI: dev/cli.md
+  - Local development: docker4x.md

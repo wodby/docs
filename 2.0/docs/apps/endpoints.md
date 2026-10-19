@@ -122,6 +122,11 @@ On clusters with Wodby infrastructure version `4.0.0` or newer, route changes ar
 [routing deployment](deploys.md#routing-deployments). They do not require the source or target app service to be
 redeployed. Older infrastructure versions continue to apply the change through an app-service deployment.
 
+Adding or deleting a domain or redirect, or changing the `Main` domain, also changes the hostnames your app receives in
+[`WODBY_HOSTS`, `WODBY_PRIMARY_HOST`, and `WODBY_PRIMARY_URL`](environment-variables.md#system-environment-variables).
+Wodby then marks the app environment as `needs redeploy`. The route works right away, but apps that accept only the
+hosts in `WODBY_HOSTS`, such as Drupal, reject a new hostname until you redeploy.
+
 When you create a custom domain or redirect with Let's Encrypt, certificate issuance runs separately from application
 deployment. An unattached or incorrectly routed hostname does not fail the deployment or change the app environment to an
 errored state. You can also delete a custom domain or redirect while its app environment is errored, so a bad hostname
@@ -183,6 +188,10 @@ certificate check for the route is already running, Wodby reuses that task rathe
 Certificate renewals are scheduled automatically and spread over time. If Let's Encrypt is temporarily busy or rate
 limits a renewal request, Wodby schedules another renewal attempt and includes the retry time in the failed renewal
 notification.
+
+For failed issuance or renewal, see [certificate troubleshooting](certificate-troubleshooting.md). Domains proxied
+through Cloudflare may need an exception for automated validation; see
+[certificate validation behind Cloudflare](../providers/cloudflare.md#certificate-validation-behind-cloudflare).
 
 `Organization > Certificates` shows issued and uploaded certificates by issuer, hostname, status, issue date, renewal
 date, expiry date, and where each certificate is used. Use the issuer filter to show all certificates, Let's Encrypt
@@ -299,10 +308,35 @@ Supported route settings are:
 | `hsts` | `disabled`, `enabled`, or `include_subdomains` |
 | `request_timeout` | Gateway API duration such as `30s`, `5m`, or `1h`; `0s` disables the timeout |
 | `backend_request_timeout` | Gateway API duration such as `30s`, `5m`, or `1h`; `0s` disables the timeout |
+| `rate_limit_per_ip` | positive request count per period, such as `300/minute`; each client IP has a separate limit |
+| `rate_limit_total` | positive request count per period, such as `1000/second`; all clients share the route limit |
 
 Domains support every setting in this table. Redirects support `https_redirect`, `no_index`, and `hsts`; settings that
 depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
 when you select an override target.
+
+### HTTPS redirect
+
+With `https_redirect` set to `true`, the gateway redirects plain HTTP requests to HTTPS. With `false`, a domain that has
+a TLS certificate serves the app over both HTTP and HTTPS, with the same settings and basic authentication.
+
+### Request rate limits
+
+`rate_limit_per_ip` limits requests from one client IP, while `rate_limit_total` limits requests from all clients to the
+route. When both settings are present, a request must satisfy both limits. Requests over either limit receive
+`429 Too Many Requests` at the gateway instead of reaching the app service.
+
+Values use the form `<requests>/<period>`. The request count must be a positive integer. Supported periods are
+`second`, `minute`, `hour`, `day`, `month`, and `year`, written in lowercase and singular form.
+
+Routes have no rate limit unless you set one. Set a limit as an app environment default for every serve route, or as a
+domain-specific value when one endpoint needs a different limit. A service port can also declare a default for its
+routes.
+
+These are local Envoy Gateway limits. Each route and each Envoy data-plane replica maintains its own counters, so
+`rate_limit_total` is not one combined quota for the whole app environment or cluster. With multiple gateway replicas,
+the effective traffic capacity can be higher than the configured value. The per-IP limit uses the client address after
+the configured proxy chain is processed; clients sharing a NAT address also share one limit.
 
 ### Request timeouts
 
@@ -310,8 +344,14 @@ when you select an override target.
 `backend_request_timeout` limits one request from the gateway to the selected app service. A finite backend request
 timeout cannot be longer than a finite request timeout.
 
-Use `0s` when a long-lived HTTP or WebSocket endpoint must not have that timeout. If a timeout is absent from every
-effective settings layer, Wodby leaves it unset and the gateway implementation's default behavior applies.
+App environments use a `request_timeout` of `0s` by default, so requests have no total time limit. The gateway still
+closes requests that stop sending or receiving data. Existing app environments switch to it on their next deployment,
+unless you set a different app environment value.
+
+A finite `request_timeout` also covers the time the gateway takes to send the whole response, so it cuts off downloads
+and streamed responses that take longer, for example a large file sent to a slow connection. Use `0s` for long-lived
+HTTP or WebSocket endpoints. If a timeout is absent from every effective settings layer, Wodby leaves it unset and the
+gateway implementation's default behavior applies.
 
 ### HSTS
 
@@ -331,10 +371,11 @@ Wodby enables the `enabled` policy on public Wodby-managed technical routes. Pri
 On Envoy Gateway clusters, the New domain form also enables HSTS by default; clear the checkbox when a domain must
 remain accessible without an HSTS policy. Existing custom domains are not changed automatically.
 
-For new Envoy Gateway app environments, Wodby creates default route settings to match the previous ingress behavior:
+For Envoy Gateway app environments, Wodby creates these default route settings:
 
 - HTTPS redirect is enabled by default
 - session affinity uses cookies by default
+- the request timeout is `0s`, so requests have no total time limit
 - generated technical routes get `no_index` enabled by default
 - public generated technical routes get HSTS enabled by default
 

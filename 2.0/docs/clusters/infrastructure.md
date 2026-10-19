@@ -26,6 +26,39 @@ those route types and also use Cilium for Kubernetes networking and NetworkPolic
 Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
 
+## Cluster capability policy
+
+A cluster capability policy records which published operator stack revisions are approved for the cluster.
+It is separate from the infrastructure apps installed during cluster creation.
+
+!!! warning "Policy storage only"
+
+    Automatic operator installation and deployment dependency enforcement are not available yet. Saving
+    `autoInstall: true` does not install operators or make a capability-dependent application ready to deploy.
+    Leave it disabled for normal use.
+
+New approvals must reference revisions you can access. Private stacks must match the cluster's organization
+and ownership scope. Enabling the flag revalidates all retained approvals. Disabling it or removing stale approvals
+does not require renewed access to those revisions.
+
+### API fields
+
+The REST cluster settings object `clusterCapabilities` contains:
+
+- `autoInstall`: required boolean when submitting the object; disabled by default.
+- `stackRevisionIds`: required array of up to 128 unique, positive integer IDs identifying approved, published stack
+  revisions. These are revision IDs, not stack IDs.
+
+Omitting `clusterCapabilities` preserves the existing policy. If the object is supplied, both fields must be present
+and non-null. An explicit empty array clears the approved revisions; an explicit `false` disables the flag.
+
+GraphQL uses `stackRevisionIDs` with string-valued IDs. MCP update input uses
+`cluster_capabilities.auto_install` and `cluster_capabilities.stack_revision_ids`; its output uses the REST-style
+`clusterCapabilities`, `autoInstall`, and `stackRevisionIds` names. See the
+[API reference](https://wodby.com/docs/2.0/api/) for endpoints and schemas.
+
+For service authors, see the [cluster capability declaration reference](../services/template.md#clustercapabilities).
+
 ## App environment network policies
 
 When a regular app environment is deployed, Wodby creates or updates Kubernetes `NetworkPolicy` resources in the app
@@ -56,6 +89,11 @@ For each supported app environment namespace, Wodby manages these ingress polici
 | `wodby-allow-same-namespace` | Allows ingress from other pods in the same app environment namespace. App services inside the same app environment can still communicate with each other. |
 | `wodby-allow-edge` | Allows ingress from the `envoy-gateway` and `ingress-nginx` namespaces so Wodby's public edge components can reach app services. |
 
+On self-hosted K3S and DigitalOcean Kubernetes clusters, Wodby also allows the cluster's own nodes to reach pods in
+app environment namespaces. Without this, a node cannot reach an app pod that runs on another node, and an app that
+mounts shared storage served from inside the cluster can stay in `ContainerCreating` on a cluster with several nodes.
+App environments remain isolated from each other.
+
 These policies affect ingress only. Wodby does not restrict egress with these policies, and does not generate per-service
 or per-port NetworkPolicy rules from app links.
 
@@ -69,6 +107,15 @@ example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernete
 marked as outdated solely because `3.0.0` exists.
 
 ### Changelog
+
+#### 4.1.1
+
+Version `4.1.1` lets the nodes of a self-hosted K3S cluster reach app pods on other nodes. It fixes apps with shared
+storage that could not start on K3S clusters with several nodes. The upgrade does not restart apps.
+
+New K3S and DigitalOcean Kubernetes clusters are set up this way when they are created. Existing DigitalOcean
+Kubernetes clusters get the same change with their next app deployment. Other managed Kubernetes clusters are not
+changed by this version and need no upgrade.
 
 #### 4.1.0
 

@@ -1,93 +1,31 @@
 # Provider vs Integration
 
-Providers and integrations are related, but they are not the same thing.
+A **provider** defines how Wodby connects to a third-party service. An **integration** stores your connection settings
+and credentials for that provider.
 
-If you keep one rule in mind, use this one:
-
-- a **provider** is the template
-- an **integration** is your actual connection created from that template
-
-## Quick model
-
-| Term | What it is | Example |
+| Provider | Example integration | Use |
 | --- | --- | --- |
-| Provider | Wodby's definition of how to work with a third-party service | `AWS`, `GitHub`, `OpenAI` |
-| Integration | Your configured connection created from a provider | `AWS production account`, `GitHub org connection`, `OpenAI team key` |
-| Variable provider | A provider whose main job is to expose environment variables | `Sentry`, `Stripe`, or your own custom variable provider |
-| Variable integration | A concrete integration created from a variable provider | `Stripe production keys`, `Sentry staging DSN` |
+| AWS | Your production AWS account | Create clusters, store backups, or use other enabled AWS capabilities |
+| GitHub | Your team's GitHub connection | Access repositories |
+| Sentry | Your staging Sentry DSN | Supply environment variables to app services |
 
-## How they relate
+## Create and use an integration
 
-The usual flow is:
+1. Choose a provider and enter its required connection settings.
+2. Choose whether the integration belongs to the organization or a project.
+3. [Share it with additional projects](../sharing.md) if needed.
+4. Select the integration when configuring an app service, stack, cluster, database, or backup.
 
-1. choose a provider
-2. create an integration from that provider
-3. choose whether the integration is owned by the organization or by a project
-4. share the integration with additional projects when they need access
-5. use that integration from Kubernetes, databases, stacks, or app services
-
-## Provider
-
-A provider defines:
-
-- required fields
-- supported integration kinds or types
-- auth method
-- any variables the provider exposes
-- any provider-specific setup rules
-
-Providers are reusable product definitions, not your credentials.
-
-## Integration
-
-An integration is your actual configured object inside Wodby.
-
-This is where you store:
-
-- credentials
-- account IDs
-- DSNs
-- API keys
-- repository access details
-- storage bucket access
-
-Integrations are the objects you actually attach to apps, stacks, clusters, backups, and other workflows.
+See [Integration types](types.md) for the operations each type supports and [Providers](../providers/index.md) for
+provider-specific setup instructions.
 
 ## Variable providers and variable integrations
 
-Variable providers are useful when the result you want is a reusable set of environment variables rather than a full infrastructure integration.
+A variable provider defines fields that Wodby can pass to containers as environment variables. For example, a Sentry
+integration holds a DSN that app services can use for error reporting.
 
-Use a variable provider and integration when:
+Use a [variable integration](variable.md) to reuse credentials across apps or environments. For a value used by only
+one service, you can set an [app-service environment variable](../apps/environment-variables.md) directly.
 
-- you want to centralize third-party credentials
-- the same values are reused across multiple apps or stacks
-- Wodby does not yet ship a built-in provider for that service
-
-Use plain app-service environment variables instead when the value is one-off and not worth centralizing.
-
-## Examples
-
-### Example 1: AWS
-
-- Provider: `AWS`
-- Integration: `AWS account for production`
-- Result: can be used for Kubernetes, storage, or other AWS-backed workflows depending on the selected kinds
-
-### Example 2: Sentry
-
-- Provider: `Sentry`
-- Integration: `Sentry for staging`
-- Result: injects Sentry-related environment variables into the app services where you attach it
-
-### Example 3: Custom variable provider
-
-- Provider: `Acme internal APIs`
-- Integration: `Acme production credentials`
-- Result: exposes the environment variables you defined in that custom provider
-
-## Related pages
-
-- [Integrations overview](index.md)
-- [Providers overview](../providers/index.md)
-- [Integration types](types.md)
-- [Variable integration](variable.md)
+If your service has no built-in provider, [create a custom variable provider](../providers/custom-variable-providers.md)
+to define the fields and environment variables it needs.

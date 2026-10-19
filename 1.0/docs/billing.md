@@ -26,23 +26,23 @@ If you cancel a subscription, it remains active until the end of the current bil
 
 ## Container registry storage
 
-Wodby provides a private docker registry `registry.wodby.com` that stores the images built and released during your deployments. See [deployment](apps/deploy.md#release) for how images are pushed to it.
+Wodby provides a private docker registry `registry.wodby.com` that stores the images built and pushed during your deployments. See [deployment](cicd/third-party.md#push) for how images are pushed to it.
 
-Every organization includes 5 GB of registry storage. Storage above the included amount is billed at $0.15 per GB per month.
+Every organization includes 5 GB of registry storage. Measured storage is rounded up to the next whole GB, and storage above the included amount is billed at $0.15 per GB per month.
 
-Deleting images you no longer need reduces your stored amount. Images that belong to deleted applications and instances are cleaned up automatically.
+Registry storage is billed in advance as part of the organization's subscription. If the measured amount changes during a billing period, the difference is prorated from the measurement time and applied as a charge or credit on the next invoice.
+
+Deleting images you no longer need reduces your stored amount after registry usage is next measured. Registry deletion, usage measurement, and subscription reconciliation run in the background, so the dashboard and billable quantity do not change immediately. You can also [automatically clean unused CI build images](apps/builds.md#automatically-clean-unused-build-images) after a retention period you choose. Images that belong to deleted applications and instances are cleaned up automatically.
 
 ## Invoices
 
 After every successful charge, Wodby sends an invoice to the billing email specified under `Billing > Settings`, or to the billing contact associated with the Stripe customer. You can also find all invoices and download them as PDF files under `Billing > Invoices`.
 
-## Billing address and VAT
-
-You can specify the required billing details under `Billing > Settings`. The details appear on your invoices. Stripe Checkout also collects the billing address needed to process a new subscription.
-
 ## Permissions
 
-All organization owners can manage the organization's payment method and subscription.
+Organization owners and administrators can view and manage the organization's
+payment method, subscription, billing details, and invoices. See
+[Permissions](access-control.md#organization-permissions).
 
 ## Discount
 

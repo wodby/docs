@@ -48,19 +48,8 @@ new explicit choice.
 
 ## Current storage class
 
-Wodby keeps the configured class separately from the class observed on live Kubernetes PVCs and PVs. The dashboard can
-therefore distinguish them. Open an app environment, select an app service, and open its `Volumes` tab. The `Storage class`
-column shows:
-
-- the effective class currently observed on the Kubernetes claim when the volume is healthy
-- the selected and effective classes when they differ or cannot be verified
-- a warning status only when the state needs attention
-
-An optional volume that has not been added shows empty size and storage-class values with no diagnostic status. Its
-absence is valid and does not affect configuration health.
-
-Healthy volumes show the class once; the dashboard does not repeat matching values or display a `Current` badge.
-Diagnostic statuses are:
+Open an app environment, select an app service, and open its `Volumes` tab. The `Storage class` column shows the
+class used by the volume and warns if it differs from your selection or cannot be verified.
 
 | State | Meaning |
 | --- | --- |
@@ -71,12 +60,6 @@ Diagnostic statuses are:
 
 Refresh the app-service volume state after provisioning or a cluster storage change if the result is temporarily
 unknown.
-
-After this feature is enabled, Wodby reconciles existing apps in the background. It records a configured class only
-when every labeled claim for a volume resolves to the same class and that class is still selectable. Shared or reused
-volumes, unlabeled claims, claims without an effective class, mixed claims, and private or removed classes remain
-unconfigured and continue to show their live state when it can be observed. This reconciliation does not modify or
-move any PVC data.
 
 ## Changing a storage class
 

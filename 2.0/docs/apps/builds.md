@@ -13,7 +13,7 @@ The two common patterns are:
    uses `build.link` to identify the linked app service that owns the source, so they can produce images as part of the
    same build and deployment flow.
 
-For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you release them with `wodby ci release` and deploy them with `wodby ci deploy`.
+For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you push them with `wodby ci push` and deploy them with `wodby ci deploy`.
 
 Wodby exports one source owner and its linked image targets to each CI build. A different app service with its own build
 source is excluded and receives a separate build. The service selected by `build.link` must accept connected builds and
@@ -73,6 +73,36 @@ make one of these live references invalid for the app's current owner scope.
 Before removing a required project share or changing ownership, update the app environment to another valid CI or
 registry selection, let active builds finish, and replace and void old images that still use the previous registry.
 See [Sharing](../sharing.md#changing-sharing-with-active-references) for the general rule.
+
+## Automatically void old build images
+
+Build images remain available after newer builds are deployed so you can reuse or roll back to an older build. If the
+app environment uses [Wodby Registry](../cicd/wodby-registry.md), you can automatically void images after a retention
+period:
+
+1. Open the app environment and go to `CI/CD > Builds > Settings`.
+2. Under **Auto-void images of unused builds older than**, select **Never**, **1 month**, **3 months**, **6 months**, or
+   **1 year**.
+3. Select **Save settings**.
+
+**Never** is the default and disables automatic image voiding. The other periods are measured from the time the build
+ended. Wodby checks for eligible images hourly, so voiding may happen after the selected period rather than at the exact
+expiration time. Enabling cleanup or selecting a shorter period can make existing images eligible during the next
+check.
+
+Automatic cleanup considers only completed, canceled, and failed builds. Wodby keeps all images from a build when any
+of them is:
+
+- used by a currently running app service or the app environment's current deployment
+- selected by an awaiting, pending, or in-progress deployment
+- retained as the previous image for rollback by an awaiting, pending, or in-progress deployment
+
+If an image is older than the selected period, it becomes eligible during a later check after these references are
+gone. Cleanup removes the image from Wodby Registry and prevents future deployment or rollback from using it, but the
+build record remains in build history.
+
+Automatic voiding does not apply to Docker Hub, Distribution Registry, or another customer-managed registry. Use that
+registry's retention policy instead.
 
 ## Roll back to a previous build
 

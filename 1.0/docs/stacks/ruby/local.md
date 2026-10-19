@@ -44,11 +44,15 @@ development:
 !!! success "Get updates"
     We release updates to images from time to time, you can find detailed changelog and update instructions on GitHub under [releases page](https://github.com/wodby/docker4ruby/releases)  
     
+## Image tags
+
+{!local/image-tags.md!}
+
 ## Domains
 
 Docker4Ruby uses [traefik](https://hub.docker.com/_/traefik) container for routing. By default, we use port `8000` to avoid potential conflicts but if port `80` is free on your host machine just replace traefik's ports definition in the compose file.
 
-By default `BASE_URL` set to `ruby.docker.localhost`, you can change it in `.env` file.
+By default, `PROJECT_BASE_URL` is set to `ruby.docker.localhost`. You can change it in the `.env` file.
 
 Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers like Chrome may work without it). Do the same for other default domains you might need from listed below:  
 
@@ -61,7 +65,7 @@ Add `127.0.0.1 ruby.docker.localhost` to your `/etc/hosts` file (some browsers l
 | `node`       | `http://front.ruby.docker.localhost:8000`        |
 | `varnish`    | `http://varnish.ruby.docker.localhost:8000`      |
 | `portainer`  | `http://portainer.ruby.docker.localhost:8000`    |
-| `opensearch` | `http://opensearch.drupal.docker.localhost:8000` |
+| `opensearch` | `http://opensearch.ruby.docker.localhost:8000` |
 
 ## Database import and export
 
@@ -100,7 +104,7 @@ Commands:
 
 ## Permissions issues
 
-You might have permissions issues caused by non-matching uid/gid on your host machine and the default user in php container.
+You might have permissions issues caused by non-matching uid/gid on your host machine and the default user in the ruby container.
 
 ### Linux
 

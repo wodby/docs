@@ -1,0 +1,2 @@
+# Additional build dependency for clean Markdown exports; MkDocs is provided by the build image.
+markdownify==1.2.3

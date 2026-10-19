@@ -213,7 +213,8 @@ when a Dockerfile needs a build argument.
 
 Used by top-level `tokens` and `services[].tokens`.
 
-- `name`: required token name.
+- `name`: required token name. Names that start with `wodby_` are reserved; see
+  [token names](../apps/tokens.md#token-names).
 - `value`: fixed token value.
 - `generate.regex`: regex used to generate the token value.
 - `secret`: optional boolean for fixed-value tokens.

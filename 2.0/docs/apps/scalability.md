@@ -75,4 +75,6 @@ service's **Configuration > General** page, turn **Autoscaling** off, and select
 
 ## Vertical scaling
 
-Coming soon...
+Wodby does not currently configure automatic vertical pod autoscaling. Adjust CPU and memory requests and limits
+manually at the stack or app-service level, then deploy the updated configuration. Use metrics to review actual usage
+before changing requests or limits.

@@ -32,6 +32,8 @@ From the list page you can:
 
 ## Related pages
 
+- [Agent credentials and revocation](../agents/permissions.md#expiration-and-revocation)
+
 - [User settings](index.md)
 - [Developer API keys](../dev/api-keys.md)
 - [Wodby API](../dev/api.md)

@@ -30,6 +30,28 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.1.3
+
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+
+### 3.1.2
+
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+
+### 3.1.1
+
+- ⬆️ Nginx 1.31.5
+- ⬆️ Updated the gotpl template renderer in the Nginx image
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
+
 ### 3.1.0
 
 - ℹ️ This update requires server infrastructure at least 5.9.0
@@ -191,7 +213,7 @@ Minor Nginx fixes
 
 ### 1.0.1
 
-* Updated [Redis (1.0.2)](https://wodby.com/docs/stacks/redis#changelog) and [Postgres (1.0.1)](https://wodby.com/docs/postgres#changelog) services
+* Updated [Redis (1.0.2)](../redis/index.md#changelog) and [Postgres (1.0.1)](../postgres/index.md#changelog) services
 
 ### 1.0.0
 

@@ -1,5 +1,5 @@
 site_name: Wodby Documentation
-site_description: Wodby 2.0 Documentation
+site_description: Wodby 2 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/2.0
 
@@ -29,6 +29,9 @@ theme:
   logo: assets/images/logo.svg
   favicon: assets/images/favicon.svg
   name: material
+  font:
+    text: Inter
+    code: JetBrains Mono
   features:
     - navigation.tabs
     - navigation.instant
@@ -96,6 +99,9 @@ plugins:
   - search
   - redirects:
       redirect_maps:
+        'agents/index.md': 'dev/mcp.md'
+        'agents/clients.md': 'dev/mcp.md'
+        'troubleshooting/certificates.md': 'apps/certificate-troubleshooting.md'
         'apps/instances.md': 'apps/environments.md'
         'apps/app-vs-instance-vs-service.md': 'apps/app-vs-environment-vs-service.md'
         'apps/env.md': 'apps/environment-types.md'
@@ -124,7 +130,7 @@ plugins:
         'integrations/brevo.md': 'providers/brevo.md'
         'integrations/circleci.md': 'providers/circleci.md'
         'integrations/cloudflare.md': 'providers/cloudflare.md'
-        'integrations/datadog.md': 'providers/variable.md'
+        'integrations/datadog.md': 'providers/datadog.md'
         'integrations/digitalocean.md': 'providers/digitalocean.md'
         'integrations/discord.md': 'providers/discord.md'
         'integrations/distribution.md': 'providers/distribution.md'
@@ -178,7 +184,9 @@ plugins:
         'services/volumes.md': 'services/configuration.md#volumes'
 
 hooks:
+  - ../scripts/version_assets.py
   - scripts/include_generated_reference_sitemap.py
+  - scripts/agent_docs.py
 
 not_in_nav: |
   cli/*.html
@@ -199,6 +207,8 @@ nav:
   - Apps:
       - Overview: apps/index.md
       - App environments: apps/environments.md
+      - Development workspaces: apps/workspaces.md
+      - Wodby Agent: apps/wodby-agent.md
       - Cluster migration: apps/migration.md
       - Maintenance mode: apps/maintenance.md
       - Stack: apps/stack.md
@@ -206,6 +216,7 @@ nav:
       - Environment variables: apps/environment-variables.md
       - Web terminal: apps/web-terminal.md
       - Endpoints: apps/endpoints.md
+      - Certificate troubleshooting: apps/certificate-troubleshooting.md
       - Access: apps/access.md
       - Builds: apps/builds.md
       - Deploys: apps/deploys.md
@@ -224,7 +235,7 @@ nav:
       - Git: cicd/git.md
       - Build: cicd/build.md
       - Deployment: cicd/deploy.md
-      - Docker Registry: cicd/docker-registry.md
+      - Container Registry: cicd/docker-registry.md
       - Third-party CI: cicd/third-party.md
       - Wodby CI: cicd/wodby-ci.md
       - Wodby Registry: cicd/wodby-registry.md
@@ -308,6 +319,7 @@ nav:
           - DigitalOcean: providers/digitalocean.md
           - Cloudflare: providers/cloudflare.md
           - Backblaze: providers/backblaze.md
+          - Wasabi: providers/wasabi.md
       - Git:
           - Overview: providers/git.md
           - GitHub: providers/github.md
@@ -349,13 +361,20 @@ nav:
           - Auth0: providers/auth0.md
           - Brevo: providers/brevo.md
           - Cloudflare: providers/cloudflare.md
+          - Datadog: providers/datadog.md
           - Discord: providers/discord.md
           - Gemini: providers/gemini.md
+          - Google Analytics: providers/google-analytics.md
+          - Google Tag Manager: providers/google-tag-manager.md
           - Intercom: providers/intercom.md
+          - LaunchDarkly: providers/launchdarkly.md
           - Mailchimp: providers/mailchimp.md
           - Mailgun: providers/mailgun.md
           - New Relic: providers/newrelic.md
           - OpenAI: providers/openai.md
+          - OpenCode Zen: providers/opencode.md
+          - PagerDuty: providers/pagerduty.md
+          - PostHog: providers/posthog.md
           - Postmark: providers/postmark.md
           - Pusher: providers/pusher.md
           - Resend: providers/resend.md
@@ -388,5 +407,15 @@ nav:
       - API: dev/api.md
       - SDKs: dev/sdks.md
       - API keys: dev/api-keys.md
-      - MCP: dev/mcp.md
+      - MCP:
+          - Connect and get started: dev/mcp.md
+          - Permissions and audit history: agents/permissions.md
+          - Skills and compatibility: agents/skills.md
+          - Workflows:
+              - Plan a migration: agents/workflows/migrate.md
+              - Deploy staging: agents/workflows/staging.md
+              - Diagnose failures: agents/workflows/troubleshoot.md
+          - Connection troubleshooting: agents/troubleshooting.md
+          - Technical reference: dev/mcp/reference.md
+          - Tool reference: dev/mcp/tools.md
       - CLI: dev/cli.md

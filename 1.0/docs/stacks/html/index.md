@@ -5,7 +5,7 @@
 ### CI/CD
 
 !!! info "CI/CD tutorial"
-    For a detailed instructions of setting up CI/CD workflow see the main [deployment article](../../apps/deploy.md#cicd)
+    For detailed instructions on setting up a CI/CD workflow, see the [third-party CI guide](../../cicd/third-party.md)
 
 The following services are CI services that will be built by default:
 
@@ -26,6 +26,22 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 ## Changelog
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
+
+### 1.1.18
+
+⬆️ Apache 2.4.69
+
+### 1.1.17
+
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+
+### 1.1.16
+
+- ⬆️ Nginx 1.31.5
+- ⬆️ Updated the gotpl template renderer in the Nginx image
+- ⬆️ Refreshed the Apache 2.4 service image
 
 ### 1.1.15
 

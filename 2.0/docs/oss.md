@@ -1,10 +1,10 @@
 # Open Source
 
-Wodby publishes the core building blocks for Wodby 2.0 on GitHub. Public Docker images are available on
+Wodby publishes the core building blocks for Wodby 2 on GitHub. Public Docker images are available on
 [Docker Hub](https://hub.docker.com/r/wodby), and source repositories are available under the
 [Wodby GitHub organization](https://github.com/wodby).
 
-## Wodby 2.0
+## Wodby 2
 
 - [Services](https://github.com/wodby/services) lists public Wodby services with links to their source repositories.
 - [Stacks](https://github.com/wodby/stacks) lists public Wodby stacks with links to their source repositories.
@@ -16,4 +16,4 @@ Wodby publishes the core building blocks for Wodby 2.0 on GitHub. Public Docker 
 ## Projects
 
 - [Documentation](https://github.com/wodby/docs) contains the public Wodby documentation.
-- [Wodby CLI](https://github.com/wodby/wodby-cli) provides command-line automation for Wodby 2.0 resources and CI workflows.
+- [Wodby CLI](https://github.com/wodby/wodby-cli) provides command-line automation for Wodby 2 resources and CI workflows.

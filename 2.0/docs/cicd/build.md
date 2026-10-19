@@ -63,7 +63,7 @@ Secret build arguments are not written to the local CI config. The CLI forwards 
 matching names. Wodby CI injects these variables automatically; in third-party CI, configure the same names as CI secret
 environment variables.
 
-Builds use `docker buildx build --load`, so images remain available locally for `wodby ci release`.
+Builds use `docker buildx build --load`, so images remain available locally for `wodby ci push`.
 
 Cache-related flags:
 

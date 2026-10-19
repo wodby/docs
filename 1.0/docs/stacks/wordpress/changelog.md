@@ -7,6 +7,55 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.12
+
+- ⬆️ Vanilla WordPress 7.1.2
+- PHP:
+    - ⬆️ PHP 8.5.11, 8.4.26, 8.3.35, 8.2.34
+    - ⬆️ PIE 1.5.1
+    - ⬆️ MongoDB extension 2.5.3
+    - ⬆️ OpenTelemetry extension 1.4.2
+    - ⬆️ Protobuf extension 5.36.2
+    - ⬆️ New Relic PHP agent updated with the gRPC fixes introduced in 12.11.0.40
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+- ⬆️ Apache 2.4.69
+- ⬆️ Redis 8.4.7, 8.2.10
+
+## 6.2.11
+
+- PHP:
+    - ⬆️ PIE 1.4.10
+    - ⬆️ OpenTelemetry 1.4.1
+    - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1
+    - 📜 Builds now select the latest compatible stable PHP gRPC extension
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+
+## 6.2.10
+
+- ⬆️ Vanilla WordPress 7.1
+- PHP:
+    - ⬆️ PHP 8.5.10, 8.4.25
+    - ⬆️ Extensions: Brotli 0.21.0, gRPC 1.83.1, MongoDB 2.5.2, Protobuf 5.36.1, and SQLSRV/PDO_SQLSRV 5.13.3 for PHP 8.3 and newer; PHP 8.2 keeps SQL Server driver 5.12.0
+    - 📜 Interactive shell prompts now use the container runtime hostname
+- ⬆️ Nginx 1.31.5
+- Adminer:
+    - ⬆️ Upgraded to Adminer 6.0.2, including the security fixes introduced in 6.0.0
+    - 🐞 Improved errors for unavailable plugins and corrected the multi-plugin example ([#12](https://github.com/wodby/adminer/issues/12))
+- MariaDB:
+    - ⬆️ MariaDB 11.8.9, 11.4.13, 10.11.19, 10.6.28
+    - 📜 Initialization accepts common archives containing one SQL payload, ignores macOS metadata, and reports unsupported files clearly
+    - 🐞 Fixed quoting of semicolon-delimited table exclusions in database backups
+- ⬆️ Redis 8.4.6, 8.2.9, 7.4.11
+- ⬆️ Updated the gotpl template renderer in the MariaDB, Nginx, OpenSMTPD, and Varnish images
+- ⬆️ Webgrind and XHProf rebuilt with PHP fixes and extension updates
+
 ## 6.2.9
 
 - ⬆️ Vanilla WordPress 7.0.2
@@ -1471,7 +1520,7 @@ Bugfix: varnish stripped known cookie preventing user login
 
 ## 5.3.2
 
-* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/wordpress/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/wordpress/containers/#xhprof)
+* Added new profiler service [xhprof viewer](containers.md#xhprof-viewer) for analysis and graphical review of [xhprof traces](containers.md#xhprof)
 * Added Redis 5
 * PHP:
     * ❗️imagick extension has been temporary disabled due to stability issues with ImageMagick library https://github.com/wodby/wordpress/issues/1

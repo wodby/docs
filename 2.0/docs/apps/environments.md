@@ -20,6 +20,7 @@ flowchart TD
 ```
 
 An app environment is one isolated deployment of your application on a [Kubernetes cluster](../clusters/index.md).
+It was previously called an *app instance*; both terms refer to the same resource.
 
 Each app environment has its own:
 
@@ -55,6 +56,12 @@ To change an existing environment, open `Apps > [App] > [Environment] > Settings
 the environment has no active buildable services, and saves the selection for services that are enabled or added later.
 Changes apply to future builds. Existing builds keep the CI provider, registry, and registry repository recorded when
 those builds were created.
+
+## Development workspaces
+
+For persistent code editing over SSH, set **Deployment mode** to [Development workspace](workspaces.md) when creating
+an environment. This mode is separate from the environment type and cannot be changed after creation. Workspace
+environments use an editable Git checkout instead of the normal image build and deployment workflow.
 
 ## Copying configuration to a new environment
 

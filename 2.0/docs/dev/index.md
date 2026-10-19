@@ -2,6 +2,9 @@
 
 Use these pages when you integrate external automation with Wodby.
 
+For agent-assisted work, start with the [MCP getting started](mcp.md). Use the [technical reference](mcp/reference.md) when
+building or troubleshooting the connection itself.
+
 ## API and SDKs
 
 - [Wodby API](api.md) documents the public `/v1` REST API, authentication, limits, and OpenAPI links.
@@ -11,4 +14,4 @@ Use these pages when you integrate external automation with Wodby.
 
 ## CLI
 
-- [Wodby CLI](cli.md) covers common CI build, release, deploy, and one-off run workflows, with links to the generated full CLI reference.
+- [Wodby CLI](cli.md) covers common CI build, push, deploy, and one-off run workflows, with links to the generated full CLI reference.

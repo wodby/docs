@@ -7,6 +7,61 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.12
+
+- ⬆️ Vanilla Drupal 11.4.8, 10.6.18
+- 🐞 Fixed vanilla Drupal 7 image selection with PHP 8.2 by pinning the last published versioned image
+- PHP:
+    - ⬆️ PHP 8.5.11, 8.4.26, 8.3.35, 8.2.34
+    - ⬆️ PIE 1.5.1
+    - ⬆️ MongoDB extension 2.5.3
+    - ⬆️ OpenTelemetry extension 1.4.2
+    - ⬆️ Protobuf extension 5.36.2
+    - ⬆️ New Relic PHP agent updated with the gRPC fixes introduced in 12.11.0.40
+- Adminer:
+    - ⬆️ Adminer 6.1.1
+    - 🐞 PHP execution-time and upload-size settings now take effect, with 512M defaults for upload and POST sizes. Use `PHP_MEMORY_LIMIT` (default 512M) instead of the ineffective `PHP_CLI_MEMORY_LIMIT`
+- ⬆️ Apache 2.4.69
+- ⬆️ Redis 8.4.7, 8.2.10
+- ⬆️ Solr 9.11.0
+
+## 6.2.11
+
+- ⬆️ Vanilla Drupal 11.4.7, 10.6.17
+- PHP:
+    - ⬆️ PIE 1.4.10
+    - ⬆️ OpenTelemetry 1.4.1
+    - ⬆️ Microsoft ODBC Driver and tools 18.7.1.1
+    - 📜 Builds now select the latest compatible stable PHP gRPC extension
+    - 🐞 Fixed Drupal CSS/JS aggregate directory permissions at startup and after imports
+- Adminer:
+    - ⬆️ Adminer 6.1.0
+    - 🐞 Fixed default database host and database name not being applied in the login form
+- Nginx:
+    - ⬆️ Nginx 1.31.6, 1.30.5
+    - ⚠️ Removed the optional XSLT module
+
+## 6.2.10
+
+Applies to the Drupal 7–11 stacks. For Drupal 6, see [5.7.2](#572-drupal-6).
+
+- ⬆️ Vanilla Drupal 11.4.6, 10.6.16
+- PHP:
+    - ⬆️ PHP 8.5.10, 8.4.25
+    - ⬆️ Extensions: Brotli 0.21.0, gRPC 1.83.1, MongoDB 2.5.2, Protobuf 5.36.1, and SQLSRV/PDO_SQLSRV 5.13.3 for PHP 8.3 and newer; PHP 8.2 keeps SQL Server driver 5.12.0
+    - 📜 Interactive shell prompts now use the container runtime hostname
+- ⬆️ Nginx 1.31.5
+- Adminer:
+    - ⬆️ Upgraded to Adminer 6.0.2, including the security fixes introduced in 6.0.0
+    - 🐞 Improved errors for unavailable plugins and corrected the multi-plugin example ([#12](https://github.com/wodby/adminer/issues/12))
+- MariaDB:
+    - ⬆️ MariaDB 11.8.9, 11.4.13, 10.11.19, 10.6.28
+    - 📜 Initialization accepts common archives containing one SQL payload, ignores macOS metadata, and reports unsupported files clearly
+    - 🐞 Fixed quoting of semicolon-delimited table exclusions in database backups
+- ⬆️ Redis 8.4.6, 8.2.9, 7.4.11
+- ⬆️ Updated the gotpl template renderer in the MariaDB, Nginx, OpenSMTPD, and Varnish images
+- ⬆️ Webgrind and XHProf rebuilt with PHP fixes and extension updates
+
 ## 6.2.9
 
 - ⬆️ Vanilla Drupal 10.6.14
@@ -637,6 +692,14 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - ⬆️ Redis 7.0.8, 6.2.10
 - 🏔 Alpine updated to 3.17 for MariaDB (10.5-10.9), OpenSMTPD and Nginx
 
+## 5.7.2 (Drupal 6)
+
+- ⬆️ Nginx 1.31.5
+- ⬆️ Updated the gotpl template renderer in the Nginx image
+- ⬆️ Refreshed the Apache 2.4 service image
+- ⬆️ Adminer 6.0.2, including the security fixes introduced in 6.0.0
+- 🐞 Adminer reports unavailable plugins more clearly
+
 ## 5.7.1
 
 - ⬆️ Vanilla Drupal 10.0.1, 9.5.1
@@ -806,7 +869,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
     - 🛠 Removed preload of libiconv https://github.com/docker-library/php/pull/1264
     - 🐞 Bugfix: mail delivery fails due to non-compliant RFC 2822 error
     - 🐞 Bugfix: mail delivery fails invalid sender address
-- ⭐️ Added Zookeeper service, you can now upload Search API Solr config sets via admin UI, see [instructions](https://wodby.com/docs/1.0/stacks/solr-drupal#solr-cloud-with-zookeeper-recommended)
+- ⭐️ Added Zookeeper service, you can now upload Search API Solr config sets via admin UI, see [instructions](../solr-drupal/index.md#solr-cloud-with-zookeeper-recommended)
 - ⭐️ Added Solr Cloud support for Solr
 - ⬆️ OpenSMTPD 1.11.0
 - ⬆️ Memcached 1.6.15
@@ -1612,7 +1675,7 @@ Bugfix: composer install/update executed from post-deployment scripts may someti
 
 ## 5.3.3
 
-* Added new profiler service [xhprof viewer](https://wodby.com/docs/stacks/drupal/containers/#xhprof-viewer) for analysis and graphical review of [xhprof traces](https://wodby.com/docs/stacks/drupal/containers/#xhprof)
+* Added new profiler service [xhprof viewer](containers.md#xhprof-viewer) for analysis and graphical review of [xhprof traces](containers.md#xhprof)
 * Added Redis 5
 * Vanilla Drupal patch updates: 8.6.3, 7.61
 * PHP:
@@ -2126,7 +2189,7 @@ Do not add trailing slashes for non-directory requests
 
 * PHP updated to 7.1.9, 7.0.23
 * PHPUnit updated to 6.3
-* New service Blackfire agent for profiling via blackfire.io, see [usage instructions](containers.md#blackfire)
+* New Blackfire agent service for profiling via blackfire.io
 * Environment varibles now cleared in PHP-FPM by default except for `WODBY_APP_NAME`, `WODBY_ENVIRONMENT_TYPE`,
   `WODBY_ENVIRONMENT_NAME`. You can disable it by adding environment variable `PHP_FPM_CLEAR_ENV` with
   `no` value to Drupal (PHP) container

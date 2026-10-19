@@ -116,6 +116,10 @@ The storage integration must also match the backup target's [ownership boundary]
 Access to the integration through another project is not sufficient. These checks apply to one-off backups, presets,
 scheduled runs, restores, and downloads.
 
+Open a completed backup to request its download link. For backups stored in Wodby Blob Storage, you can also
+[void the stored file](../providers/wodby-blob-storage.md#voiding-backup-files) while retaining the backup record.
+Voided files cannot be downloaded or imported.
+
 !!! note
     A backup destination's object storage class, such as an S3 archive class, is separate from the
     [Kubernetes storage class](storage.md) used by the app service's persistent volume.

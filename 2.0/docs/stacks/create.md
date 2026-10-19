@@ -33,9 +33,6 @@ The boilerplate stack is a working baseline. Replace its metadata and `services[
 your stack should manage. Keep `services[].name` as the stack-local service name, use `services[].links` to satisfy
 required service links, and use stack-level overrides only for defaults that should apply to apps created from the stack.
 
-For existing Wodby-managed stack implementations, use the current
-[`wodby/stacks`](https://github.com/wodby/stacks) index instead of copying repository links into this page.
-
 ## Add a catalog stack
 
 Use a catalog stack when an existing public Wodby stack is close to what you need.

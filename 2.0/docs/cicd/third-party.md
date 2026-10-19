@@ -74,12 +74,11 @@ builds. An unselected build-source owner does not block the group. If a multi-ow
 repeating the task retries targets that returned a provider error without starting another run for targets whose
 dispatch was already attempted.
 
-Provider workflows do not currently return a Wodby launch identifier that can distinguish two unresolved dashboard
-requests for the same source owner. Wodby therefore allows only one awaiting dashboard build requirement per source
-owner. Finish or cancel that request before starting another deployment group containing the same owner.
+Only one dashboard build request can await a build for a given source service at a time. Finish or cancel that request
+before starting another deployment group containing the same service.
 
 When an externally started workflow reports a build, Wodby uses it for an existing dashboard group only when that group
-is awaiting that source owner. Otherwise, `wodby ci deploy` creates a standalone deployment for the build's released
+is awaiting that source owner. Otherwise, `wodby ci deploy` creates a standalone deployment for the build's pushed
 service outputs and does not wait for unrelated source owners. Custom CI always starts externally and follows this
 handoff flow.
 
@@ -101,7 +100,7 @@ new build and deployment.
 2. Install Wodby CLI and run `wodby ci init $WODBY_APP_SERVICE_ID`.
 3. Use `wodby ci run ...` for dependency installation or other one-off commands.
 4. Run `wodby ci build [SERVICE]...`.
-5. Run `wodby ci release [SERVICE]...`.
+5. Run `wodby ci push [SERVICE]...`.
 6. Run `wodby ci deploy [SERVICE]...`.
 
 Use `wodby ci init --dind $WODBY_APP_SERVICE_ID` when your provider builds through docker-in-docker, as in the GitLab CI examples.

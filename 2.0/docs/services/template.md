@@ -358,6 +358,99 @@ Type: `string`. Required.
 
 Human-readable service title.
 
+### `guidance`
+
+Type: `string`. Optional.
+
+Path to a Markdown file in the service's repository, relative to the manifest, with notes for AI agents that work on
+an application using the service. Agents see the code and the environment, but not what your image does on its own.
+Without notes they configure again what the service already configures.
+
+```yaml
+guidance: GUIDANCE.md
+```
+
+Describe what the service sets up and what it leaves to the application:
+
+- what the image generates or configures by itself, and where
+- which environment variables each link provides
+- conditions that switch optional features on
+- how configuration is changed: variables, settings and config files, not generated files
+- where data is stored, and what differs in a development workspace
+
+Rules:
+
+- The file must be UTF-8 text of at most 16 KiB.
+- A service that inherits another with [`from`](#from) gets the base service's notes followed by its own. Describe
+  only what your service adds.
+- Wodby stores the text with the service revision, so an app sees the notes of the revision it runs.
+- Everyone who can use the service can read the notes. Don't put secrets or internal host names in them.
+- Don't name the file `AGENTS.md`: agents that edit the service's own repository read that file as instructions for
+  themselves.
+
+Wodby's own services ship such notes; see `GUIDANCE.md` in their repositories for examples.
+
+### `clusterCapabilities`
+
+Type: `object`.
+
+Describes shared cluster controllers that the service requires or provides. These declarations are separate from
+app-service links.
+
+!!! warning "Declaration support only"
+
+    Wodby accepts and validates these declarations, but application deployment does not yet enforce them or
+    automatically install missing operators. Do not rely on this section to prepare a cluster for an application.
+
+External services cannot declare cluster capabilities. The object must contain `requires`, `provides`, or both.
+
+#### `clusterCapabilities.requires`
+
+Each requirement supports:
+
+- `name`: required capability identifier.
+- `version`: required semantic-version constraint for the controller implementation, not its Helm chart version.
+- `features`: optional list of required feature names.
+- `apis`: optional list of required custom Kubernetes APIs. Each entry requires `group`, `version`, and `resource`
+  (the plural resource name).
+
+Inherited requirements are retained. Declaring the same capability in a child service adds a constraint; it does not
+replace or relax the parent's requirements.
+
+#### `clusterCapabilities.provides`
+
+Only `infrastructure` and `operator` services can provide capabilities. Each declaration supports:
+
+- `name`: required capability identifier.
+- `version`: optional controller implementation version. Operator services default to the selected service option's
+  version. Infrastructure services must set it explicitly because they do not have selectable options.
+- `controller`: required controller detection profile, described below.
+- `apis`: optional list of provided custom APIs, using the same `group`, `version`, and `resource` fields as requirements.
+- `features`: optional feature detection rules, described below.
+
+`controller` supports:
+
+- `kind`: required, either `Deployment` or `DaemonSet` (case-sensitive).
+- `namespace`: optional namespace restriction. Omitting it allows detection across namespaces.
+- `matchLabels`: required, non-empty map of Kubernetes labels identifying the controller.
+- `versionLabel`: required label key from which to read the controller implementation version.
+- `checks`: optional configuration checks. Each has a non-empty `path` array of object keys or numeric array indexes
+  and a `value` to match. Strings, numbers, and booleans are compared without type conversion.
+
+Each `features` entry has a `name` and a non-empty `fields` list. Each field specifies an `api` that also appears in the
+provided `apis` list, and a non-empty `path` of property names in that API's CRD schema. Array-item schema traversal is
+not supported. All fields must be present to establish a feature.
+
+A child service declaration with the same provided capability name replaces the entire inherited declaration,
+including its controller detection profile. Other inherited provided capabilities are retained.
+
+Detection profiles describe existing controllers; they do not grant permission to adopt, upgrade, or delete an
+externally managed operator. Missing version information or ambiguous controller matches do not establish that an
+operator is absent.
+
+Adding a capability-providing operator to a stack requires a Wodby system administrator. See
+[Operator services](types.md#operator) for the permission rules and [CRD charts](helm.md#crd-charts) for chart support.
+
 ### `external`
 
 Type: `boolean`. Default: `false`.
@@ -419,7 +512,8 @@ Use `build: true` when a service Dockerfile needs the value as a build argument.
 
 Type: `array`.
 
-Service versions or deployment variants. Services that do not inherit from another service usually define at least one option, unless they are infrastructure services.
+Application versions or deployment variants. Services that do not inherit from another service usually define at least
+one option, unless they are infrastructure services.
 
 Each item supports:
 
@@ -429,6 +523,22 @@ Each item supports:
 - `eol`: optional end-of-life date in ISO datetime format.
 
 Only one option can be default. If none is marked as default, the first option becomes the default automatically.
+
+The service release version, option version, and image tag identify different things. For example, a MariaDB service
+could use:
+
+| Value | Example | Identifies |
+| --- | --- | --- |
+| Service release version | `2.4.1` | The Wodby service definition |
+| `options[].version` | `11.4` | The MariaDB version line |
+| `options[].tag` | `11.4-r0` | A published MariaDB image revision |
+
+`11.4-r0` combines the upstream version with Wodby's image revision. Wodby's own tools, such as Backup, use semantic
+product versions. Previously published image tags remain available. See the
+[image tag policy](https://github.com/wodby/images#image-revisions) for supported formats and revision counters.
+
+Wodby-managed service and stack release tags keep semantic versions for compatibility and automatic updates. An image
+revision number does not indicate compatibility; review the image's release notes before changing its tag.
 
 ### `workloads`
 
@@ -845,7 +955,8 @@ can override service tokens with the same name and environment type.
 
 Each item supports:
 
-- `name`: required token name.
+- `name`: required token name. Names that start with `wodby_` are reserved; see
+  [token names](../apps/tokens.md#token-names).
 - `value`: fixed token value.
 - `generate.regex`: regex used to generate the value.
 - `secret`: optional boolean for fixed-value tokens.
@@ -979,6 +1090,9 @@ The object supports:
 - `valueMappings`: optional paths for backend-managed app-service values. Omitted mappings retain the documented
   compatibility defaults.
 - `crds`: optional CRD file list.
+- `crdCharts`: optional list of separate CRD charts. Each entry requires `name`, `chart`, and `version`, and can include
+  `source` and `values` using the same value-entry format as `helm.values`. Available only to infrastructure services
+  and capability-providing operators. See [CRD charts](helm.md#crd-charts).
 - `values`: optional extra Helm values. `helm.values[].value` can use [built-in runtime tokens](../apps/tokens.md)
   and service-defined tokens.
 

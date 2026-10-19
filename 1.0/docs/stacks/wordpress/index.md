@@ -15,7 +15,7 @@ For demo purposes and simple WordPress installations you can use Vanilla WordPre
 
 ### Direct git integration
 
-We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](../../apps/post-deployment-scripts.md):
+We recommend using [Composer](https://getcomposer.org/) to manage dependencies in your repository. Dependencies will be installed via [post-deployment scripts](../../cicd/post-deployment-scripts.md):
 
 1. Fork [our boilerplate](https://github.com/wodby/wordpress-composer)
 2. Create `wodby.yml` in repository root (our boilerplate already has it) with the following content:

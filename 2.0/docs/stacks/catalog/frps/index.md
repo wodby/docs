@@ -62,22 +62,5 @@ Create routes for both `tunnel.example.com` and
 enabling Let's Encrypt. Do not publish the `proxy-http` port manually; HTTP
 traffic enters through Wodby routes.
 
-## Migrate the Wodby backend Compose clients
-
-The backend Compose setup already runs one FRPC container for the dashboard
-and one for the API. For an FRPS app whose published control hostname is also
-the route's root hostname, update these environment variables:
-
-```dotenv
-FRPC_HOST=tunnel.example.com
-FRPC_PORT=31500
-FRPC_AUTH_TOKEN=replace-with-the-generated-auth-token
-```
-
-The Compose clients register `tunnel.example.com` for the dashboard and
-`api.tunnel.example.com` for the API. Restart both FRPC containers after the
-change, confirm the proxies are online in the FRPS dashboard, and test both
-Wodby routes before removing the previous FRPS server.
-
 When a client workload itself moves into Wodby, route directly to that app
 service instead of tunneling it back through FRPS.

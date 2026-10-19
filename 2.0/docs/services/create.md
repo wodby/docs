@@ -32,9 +32,6 @@ options, image, Helm chart, settings, and build files with the service you want 
 names stable after users create app services from the service, because stack and app-level overrides can depend on those
 names.
 
-For existing Wodby-managed service implementations, use the current
-[`wodby/services`](https://github.com/wodby/services) index instead of copying repository links into this page.
-
 ## Wodby Helm charts
 
 [`wodby/charts`](https://github.com/wodby/charts) contains Helm charts used by Wodby services. These charts are designed

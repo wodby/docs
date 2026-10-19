@@ -1,6 +1,6 @@
 # Getting Support
 
-We provide the best effort support (with exception to premium support customers), this means we do not guarantee that we will respond shortly to your request despite how urgent it is. We usually respond in EU business hours and try to give initial responses within one business day.  
+We provide best-effort support without a guaranteed response time, except for premium support customers. We usually respond during EU business hours and aim to provide an initial response within one business day.
 
 You can contact us in one of these ways:
 

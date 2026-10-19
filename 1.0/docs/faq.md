@@ -14,7 +14,7 @@ If the latest version of stack does not yet have the latest version please conta
 
 Wodby's availability does not directly affect availability of your server(s) or applications. Although if Wodby becomes unavailable some tasks such as auto deployment won't be processed and auto backups will be postponed.
 
-You can always track our current status at http://status.wodby.com/
+You can always track our current status at [status.wodby.com](https://status.wodby.com/).
 
 ## Does Wodby move applications data outside my region?
 
@@ -52,39 +52,36 @@ See [this article](stacks/wordpress/index.md#upgrading-wordpress)
 
 ## How can I build my frontend application with Node (npm)?
 
-You should use [CI/CD deployment](apps/deploy.md#cicd) 
+You should use [CI/CD deployment](cicd/third-party.md)
 
 ## How can I purchase a server?
 
-Wodby is not a hosting provider. We believe that there are plenty of reliable providers on the market already. Instead we provide a way to connect your own server from any cloud.
+For Wodby 1, purchase a server from your preferred hosting provider, then
+[connect it to Wodby](infrastructure/connecting-server.md).
 
-## Why does team plan starts from $50?
+## Why does the Team plan have a minimum charge?
 
-The team plan starts with 10 [app instances](apps/instances.md) minimum. And here is why – when people use Wodby in production they expect a certain level of service which we can't provide for less than $50/mo. On the other hand we don't want to provide poor service.
-
-Quality over quantity.
+The Team plan bills for a minimum of 10 [app instances](apps/instances.md). See
+[Billing](billing.md) for how instance usage is calculated and where to find current prices.
 
 ## I have a lot of applications and looking for ways to save costs
 
-If you have many low-traffic applications we recommend consider the following:
-
-* Do not deploy too many apps per one server because the overhead growth relatively to # of containers is not linear. ~200-300 containers is a recommended maximum
-* Use dedicated (or bare-metal) server instead of VPS. It will be cheaper (but less reliable) if you know how many resources you need. You will get a guaranteed stable CPU performance unlike on VPS (cloud providers usually oversell) 
+Review your applications' [resource requests and limits](stacks/config.md#resources)
+and [server monitoring](infrastructure/monitoring.md) before choosing a server size.
+Allow capacity for traffic peaks, builds, backups, and maintenance.
 
 ## How can I delete my account?
 
-You can delete your account from `Account > delete` page
+Open `Account > Delete` and enter your current password. Account deletion can
+be blocked by ownership and billing responsibilities; see
+[Delete your account](user/account.md#delete-your-account) before starting.
 
 ## How do I enable two-factor authentication?
 
 Open `Account > Security` in the Wodby dashboard. See
-[Account security](account-security.md) for setup, recovery-code, and
+[Account security](user/security.md) for setup, recovery-code, and
 account-recovery instructions.
-
-## What's the origin of Wodby name?
-
-Wodby pronounced as wɔːdbi. Wodby is a name of a water spirit in a slavic mythology (https://en.wikipedia.org/wiki/Vodyanoy). Vodyanoy or Wodby in Upper Sorbian language.
 
 ## What's the location of Wodby team?
 
-Wodby is a US corporation with a distributed team. Currently we provide support mostly in EU hours (CET).
+Wodby is a US corporation with a distributed team. See [Support](support.md) for contact details and response hours.
