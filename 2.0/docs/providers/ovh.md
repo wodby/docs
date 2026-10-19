@@ -1,8 +1,26 @@
 # OVH
 
+OVHcloud keeps three separate account systems. An account belongs to the one it was opened with and can sign in only
+there, so Wodby has one provider for each:
+
+| Provider | Use it when your OVHcloud account | Sign-in |
+| --- | --- | --- |
+| **OVH EU** | was opened with a European OVHcloud entity | `www.ovh.com` |
+| **OVH CA** | was opened with OVHcloud Canada, which also serves Asia-Pacific and the Americas outside the United States | `ca.ovh.com` |
+| **OVH US** | is an OVHcloud US account | `us.ovhcloud.com` |
+
+Pick the provider that matches your account, not the data center you want. An EU or CA account can create clusters
+in any region OVHcloud offers it, including regions on another continent. Data centers in the United States are
+available to OVH US accounts only. If sign-in rejects a valid login, the account most likely belongs to another
+provider in the table.
+
+The three providers work the same way; everything below applies to each.
+
 ## Auth
 
-We provide authentication via OAuth2. After creating the integration and passing through the OAuth2 authentication flow you will be asked to select an appropriate OVH project. All resources we create will be created under the selected project.
+Authentication uses OAuth2. Create an integration with the provider that matches your account and sign in at
+OVHcloud. Then select an OVHcloud Public Cloud project to finish the integration. All resources Wodby creates are
+created in that project.
 
 ## Kubernetes
 
@@ -18,16 +36,11 @@ Wodby provides integration with OVH Managed Kubernetes service.
 
 #### Supported regions
 
-We support the following OVH regions:
+Wodby offers the regions where OVHcloud provides Managed Kubernetes for the selected project. Which ones you see
+depends on your account:
 
-- BHS
-- DE
-- GRA
-- SBG5
-- SGP
-- SYD
-- UK
-- WAW
+- OVH EU and OVH CA: for example BHS, DE, GRA, SBG5, SGP, SYD, UK and WAW
+- OVH US: US-EAST-VA and US-WEST-OR
 
 ### Billing
 
