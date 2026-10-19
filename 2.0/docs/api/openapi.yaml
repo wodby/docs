@@ -235,6 +235,32 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /orgs/{id}/settings:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - orgs
+      summary: Update organization settings
+      description: Updates organization defaults and returns the organization. A new build image retention also applies to every app environment that still uses the previous organization value; environments with their own value keep it, and new environments inherit the new value.
+      operationId: updateOrgSettings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrgSettingsInput'
+      responses:
+        '200':
+          description: Updated organization
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Org'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /orgs/{id}/subscription:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -551,6 +577,49 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /apps/sharing/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - apps
+      summary: Get app sharing
+      description: Returns who owns the app and which projects can use it.
+      operationId: getAppSharing
+      responses:
+        '200':
+          description: App sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - apps
+      summary: Update app sharing
+      description: Changes the app owner and replaces the projects it is shared with. Returns the resulting sharing.
+      operationId: updateAppSharing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSharingInput'
+      responses:
+        '200':
+          description: Updated app sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-environments:
     get:
       tags:
@@ -787,6 +856,53 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /app-environments/route-settings/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-routes
+      summary: List app environment default route settings
+      description: Returns the app environment's default route settings. Every route inherits them unless it overrides them.
+      operationId: listAppEnvironmentRouteSettings
+      responses:
+        '200':
+          description: Default route settings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppRouteSetting'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - app-routes
+      summary: Replace app environment default route settings
+      description: Replaces all default route settings of the app environment. A setting left out is removed, so routes fall back to the service default. Returns the stored settings.
+      operationId: replaceAppEnvironmentRouteSettings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppRouteSettingsInput'
+      responses:
+        '200':
+          description: Stored default route settings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppRouteSetting'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /app-environments/{id}/actions/upgrade-stack:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -835,6 +951,118 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-environments/{id}/actions/migrate:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-environments
+      summary: Migrate app environment to another cluster
+      description: Starts moving the app environment and its data to another cluster of the same organization. The source stays available for rollback until the migration is cleaned up or its retention ends.
+      operationId: migrateAppEnvironment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppEnvironmentMigrationInput'
+      responses:
+        '202':
+          description: Migration started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppEnvironmentMigrationOperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-environment-migrations:
+    get:
+      tags:
+        - app-environments
+      summary: List app environment migrations
+      description: Returns the cluster migrations of one app environment.
+      operationId: listAppEnvironmentMigrations
+      parameters:
+        - name: appEnvironmentId
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: App environment migrations
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppEnvironmentMigration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-environment-migrations/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-environments
+      summary: Get app environment migration
+      description: Returns one cluster migration with the progress of each copied service.
+      operationId: getAppEnvironmentMigration
+      responses:
+        '200':
+          description: App environment migration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppEnvironmentMigration'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-environment-migrations/{id}/actions/rollback:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-environments
+      summary: Roll back app environment migration
+      description: Moves the app environment back to its source cluster while the source is still retained.
+      operationId: rollbackAppEnvironmentMigration
+      responses:
+        '202':
+          description: Rollback started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppEnvironmentMigrationOperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-environment-migrations/{id}/actions/cleanup:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-environments
+      summary: Clean up app environment migration
+      description: Removes the app environment's retained resources from the source cluster after a completed migration. The migration can no longer be rolled back afterwards.
+      operationId: cleanupAppEnvironmentMigration
+      responses:
+        '202':
+          description: Cleanup started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppEnvironmentMigrationOperationResult'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -906,6 +1134,85 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WorkspaceConnection'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /workspaces/{id}/git-status:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-environments
+      summary: Get workspace Git status
+      description: Owner-only. Run a read-only Git command in the workspace runner and return the current branch, HEAD commit and uncommitted changes. When the state cannot be read, available is false and reason explains why.
+      operationId: getWorkspaceGitStatus
+      responses:
+        '200':
+          description: Live Git state of the workspace checkout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceGitStatus'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /workspaces/{id}/git-diff:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - app-environments
+      summary: Get workspace file diff
+      description: Owner-only. Returns how one file in the workspace checkout differs from the last commit, with staged and unstaged changes together. An untracked file is shown as added. When the diff cannot be read, available is false and reason explains why.
+      operationId: getWorkspaceGitDiff
+      parameters:
+        - name: path
+          in: query
+          required: true
+          description: File path relative to the checkout, as listed by the workspace Git status.
+          schema:
+            type: string
+        - name: originalPath
+          in: query
+          required: false
+          description: Previous path of a renamed or copied file.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Diff of the file
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkspaceGitDiff'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /workspaces/{id}/actions/pull:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-environments
+      summary: Pull workspace
+      description: Owner-only. Fast-forwards the workspace checkout to its upstream branch, keeping uncommitted changes, then runs the environment's post-deployment scripts unless scripts is false.
+      operationId: pullWorkspace
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspacePullInput'
+      responses:
+        '202':
+          description: Workspace pull queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -2393,6 +2700,26 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /app-builds/{id}/actions/void-images:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - app-builds
+      summary: Void build images
+      description: Removes the build's images from a Wodby-managed registry when possible and marks them unavailable, so the build can no longer be deployed. Refused while the build is pending or used by the environment. Returns the build.
+      operationId: voidAppBuildImages
+      responses:
+        '200':
+          description: Build with voided images
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppBuild'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /clusters:
     get:
       tags:
@@ -2600,6 +2927,49 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /clusters/sharing/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - clusters
+      summary: Get cluster sharing
+      description: Returns who owns the cluster and which projects can use it.
+      operationId: getClusterSharing
+      responses:
+        '200':
+          description: Cluster sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - clusters
+      summary: Update cluster sharing
+      description: Changes the cluster owner and replaces the projects it is shared with. It can also make an organization-owned cluster available to every project. Returns the resulting sharing.
+      operationId: updateClusterSharing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSharingInput'
+      responses:
+        '200':
+          description: Updated cluster sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /clusters/{id}/actions/upgrade-infra:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -2767,6 +3137,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /databases/sharing/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - databases
+      summary: Get database sharing
+      description: Returns who owns the database and which projects can use it.
+      operationId: getDatabaseSharing
+      responses:
+        '200':
+          description: Database sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - databases
+      summary: Update database sharing
+      description: Changes the database owner and replaces the projects it is shared with. Returns the resulting sharing.
+      operationId: updateDatabaseSharing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSharingInput'
+      responses:
+        '200':
+          description: Updated database sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -3268,7 +3681,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/GenericObject'
+                  $ref: '#/components/schemas/CloudMachineType'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -3466,6 +3879,72 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /integrations/usages/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - integrations
+      summary: List integration usages
+      description: Lists what uses the integration, such as services, environments, builds, backups and organization defaults, so you can check it before you change or delete the integration. Only usages you can see are listed.
+      operationId: listIntegrationUsages
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Integration usages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationUsagesResponse'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /integrations/sharing/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - integrations
+      summary: Get integration sharing
+      description: Returns who owns the integration and which projects can use it.
+      operationId: getIntegrationSharing
+      responses:
+        '200':
+          description: Integration sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - integrations
+      summary: Update integration sharing
+      description: Changes the integration owner and replaces the projects it is shared with. It can also make an organization-owned integration available to every project. Returns the resulting sharing.
+      operationId: updateIntegrationSharing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSharingInput'
+      responses:
+        '200':
+          description: Updated integration sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /integrations/configuration/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -3590,7 +4069,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/GenericObject'
+                  $ref: '#/components/schemas/CloudMachineType'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -3790,6 +4269,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Provider'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /providers/sharing/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - providers
+      summary: Get provider sharing
+      description: Returns who owns the provider and which projects can use it.
+      operationId: getProviderSharing
+      responses:
+        '200':
+          description: Provider sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - providers
+      summary: Update provider sharing
+      description: Changes the provider owner and replaces the projects it is shared with. Returns the resulting sharing.
+      operationId: updateProviderSharing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSharingInput'
+      responses:
+        '200':
+          description: Updated provider sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -4137,6 +4659,49 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /services/sharing/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - services
+      summary: Get service sharing
+      description: Returns who owns the service and which projects can use it.
+      operationId: getServiceSharing
+      responses:
+        '200':
+          description: Service sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - services
+      summary: Update service sharing
+      description: Changes the service owner and replaces the projects it is shared with. It can also make an organization-owned service available to every project. Returns the resulting sharing.
+      operationId: updateServiceSharing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSharingInput'
+      responses:
+        '200':
+          description: Updated service sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /services/{name}/options/link-candidates:
     parameters:
       - $ref: '#/components/parameters/Name'
@@ -4235,7 +4800,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ImportCatalogFromGitInput'
+              $ref: '#/components/schemas/ImportStacksFromGitInput'
       responses:
         '201':
           description: Import task
@@ -4422,6 +4987,49 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Stack'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stacks/sharing/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - stacks
+      summary: Get stack sharing
+      description: Returns who owns the stack and which projects can use it.
+      operationId: getStackSharing
+      responses:
+        '200':
+          description: Stack sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - stacks
+      summary: Update stack sharing
+      description: Changes the stack owner and replaces the projects it is shared with. It can also make an organization-owned stack available to every project. Returns the resulting sharing.
+      operationId: updateStackSharing
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceSharingInput'
+      responses:
+        '200':
+          description: Updated stack sharing
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceSharing'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -5529,6 +6137,26 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /backups/{id}/actions/void-file:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - backups
+      summary: Void backup file
+      description: Permanently removes a completed backup file from Wodby Blob Storage while retaining its backup record. The operation is unavailable while an import is using the backup.
+      operationId: voidBackupFile
+      responses:
+        '200':
+          description: Backup with its file marked as voided
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Backup'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /backup-presets:
     get:
       tags:
@@ -5778,6 +6406,16 @@ paths:
           schema:
             type: boolean
           description: Deprecated compatibility alias for view=tree
+        - name: agentConnectionId
+          in: query
+          description: Restrict tasks to an authorized agent connection in the requested organization.
+          schema:
+            type: integer
+        - name: mcpOnly
+          in: query
+          description: Only tasks known to originate through MCP, including spawned work. Unknown historical tasks are excluded.
+          schema:
+            type: boolean
         - name: includeSystem
           in: query
           schema:
@@ -6062,6 +6700,55 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/AppRouteSetting'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+    put:
+      tags:
+        - app-routes
+      summary: Replace app route settings
+      description: Replaces all setting overrides of the route. A setting left out is removed, so the route inherits the app environment or service default. Returns the stored overrides.
+      operationId: replaceAppRouteSettings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppRouteSettingsInput'
+      responses:
+        '200':
+          description: Stored route setting overrides
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AppRouteSetting'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /app-routes/actions/bulk:
+    post:
+      tags:
+        - app-routes
+      summary: Enable, disable or delete app routes
+      description: Applies one operation to several routes of an app environment in one task.
+      operationId: bulkOperateAppRoutes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkAppRouteOperationInput'
+      responses:
+        '202':
+          description: Route operation started
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -6357,7 +7044,7 @@ paths:
       tags:
         - app-environments
       summary: List app-access cleanups
-      description: Returns cleanup records for exactly one app instance or integration.
+      description: Returns cleanup records for exactly one app environment or integration.
       operationId: listAppAccessCleanups
       parameters:
         - name: appInstanceId
@@ -6600,6 +7287,32 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /stacks/{id}/actions/ignore-service-revision:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - stacks
+      summary: Ignore stack service revision
+      description: Stops offering one service revision as an update for a stack service and its derivatives. A newer service revision is offered again. Returns the stack.
+      operationId: ignoreStackServiceRevision
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IgnoreStackServiceRevisionInput'
+      responses:
+        '200':
+          description: Updated stack
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stack'
         default:
           $ref: '#/components/responses/Error'
         4XX:
@@ -6889,6 +7602,159 @@ components:
           type: string
         detail:
           type: string
+    AppRouteSettingsInput:
+      type: object
+      required:
+        - settings
+      properties:
+        settings:
+          type: array
+          description: The complete list of settings. A setting left out is removed.
+          items:
+            $ref: '#/components/schemas/AppRouteSettingInput'
+    AppRouteSettingInput:
+      type: object
+      required:
+        - name
+        - value
+      properties:
+        name:
+          $ref: '#/components/schemas/AppRouteSettingName'
+        value:
+          type: string
+    BulkAppRouteOperationInput:
+      type: object
+      required:
+        - appEnvironmentId
+        - routeIds
+        - operation
+      properties:
+        appEnvironmentId:
+          type: integer
+        routeIds:
+          type: array
+          minItems: 1
+          description: Routes of the app environment to change.
+          items:
+            type: integer
+        operation:
+          type: string
+          enum:
+            - enable
+            - disable
+            - delete
+    IgnoreStackServiceRevisionInput:
+      type: object
+      required:
+        - stackServiceId
+        - serviceRevId
+      properties:
+        stackServiceId:
+          type: integer
+          description: Root stack service whose update to skip. Its derivatives skip it too.
+        serviceRevId:
+          type: integer
+          description: Service revision to stop offering.
+    IntegrationUsagesResponse:
+      type: object
+      required:
+        - items
+        - totalCount
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/IntegrationUsage'
+        totalCount:
+          type: integer
+        nextPage:
+          type: integer
+          nullable: true
+    IntegrationUsage:
+      type: object
+      required:
+        - id
+        - category
+        - kind
+        - target
+        - createdAt
+      properties:
+        id:
+          type: string
+        category:
+          type: string
+          enum:
+            - current
+            - historical
+            - cleanup
+          description: current for what uses the integration now, historical for records such as builds and backups, cleanup for pending removal of resources it created.
+        kind:
+          type: string
+          enum:
+            - application_access
+            - application_access_cleanup
+            - app_service_integration
+            - app_service_ci
+            - stack_service_integration
+            - stack_service_build_source
+            - service_registry
+            - organization_ci
+            - organization_registry
+            - app_environment_ci
+            - app_environment_registry
+            - backup_storage
+            - app_build_ci
+            - app_build_registry
+            - git_repository
+            - cluster_provider
+            - database_provider
+            - backup_preset_storage
+        detail:
+          type: string
+          nullable: true
+        target:
+          $ref: '#/components/schemas/IntegrationUsageTarget'
+        createdAt:
+          type: string
+          format: date-time
+    IntegrationUsageTarget:
+      type: object
+      required:
+        - id
+        - type
+        - title
+      properties:
+        id:
+          type: integer
+        type:
+          type: string
+          enum:
+            - organization
+            - app
+            - app_environment
+            - app_service
+            - stack
+            - stack_service
+            - service
+            - backup
+            - app_build
+            - git_repository
+            - cluster
+            - database
+            - backup_preset
+            - access_cleanup
+        name:
+          type: string
+          nullable: true
+        title:
+          type: string
+        icon:
+          type: string
+          nullable: true
+        parent:
+          description: Resource that contains the target, such as the app environment of an app service.
+          allOf:
+            - $ref: '#/components/schemas/IntegrationUsageTarget'
     OperationResult:
       type: object
       required:
@@ -7204,11 +8070,59 @@ components:
       properties:
         autoStackUpgrade:
           $ref: '#/components/schemas/AppEnvironmentAutoStackUpgradeSettings'
+        buildImageCleanup:
+          $ref: '#/components/schemas/BuildImageCleanupSettings'
     AppEnvironmentSettingsInput:
       type: object
       properties:
         autoStackUpgrade:
           $ref: '#/components/schemas/AppEnvironmentAutoStackUpgradeSettingsInput'
+        buildImageCleanup:
+          description: Omit it to keep the current build image retention.
+          allOf:
+            - $ref: '#/components/schemas/BuildImageCleanupSettingsInput'
+    BuildImageCleanupSettings:
+      type: object
+      description: How long images of unused builds are kept in the Wodby container registry before they are voided.
+      required:
+        - retention
+      properties:
+        retention:
+          description: Age after which images of unused builds are voided automatically. never disables the cleanup.
+          type: string
+          enum:
+            - never
+            - one_month
+            - three_months
+            - six_months
+            - one_year
+    BuildImageCleanupSettingsInput:
+      type: object
+      required:
+        - retention
+      properties:
+        retention:
+          type: string
+          enum:
+            - never
+            - one_month
+            - three_months
+            - six_months
+            - one_year
+    OrgSettings:
+      type: object
+      properties:
+        buildImageCleanup:
+          description: Default build image retention for the organization's app environments.
+          allOf:
+            - $ref: '#/components/schemas/BuildImageCleanupSettings'
+    OrgSettingsInput:
+      type: object
+      required:
+        - buildImageCleanup
+      properties:
+        buildImageCleanup:
+          $ref: '#/components/schemas/BuildImageCleanupSettingsInput'
     AppEnvironmentMaintenanceModeInput:
       type: object
       required:
@@ -7457,6 +8371,10 @@ components:
         projectId:
           type: integer
           nullable: true
+        availableToAllProjects:
+          type: boolean
+          nullable: true
+          description: Lets every project in the organization use the new resource without a project share. Only an organization-owned resource, created without projectId, can be available to all projects.
         sourceRevId:
           type: integer
           nullable: true
@@ -7544,11 +8462,31 @@ components:
       properties:
         autoInfrastructureUpgrade:
           $ref: '#/components/schemas/ClusterAutoInfrastructureUpgradeSettings'
+        clusterCapabilities:
+          $ref: '#/components/schemas/ClusterCapabilityPolicy'
     ClusterSettingsInput:
       type: object
       properties:
         autoInfrastructureUpgrade:
           $ref: '#/components/schemas/ClusterAutoInfrastructureUpgradeSettingsInput'
+        clusterCapabilities:
+          $ref: '#/components/schemas/ClusterCapabilityPolicy'
+    ClusterCapabilityPolicy:
+      type: object
+      required:
+        - autoInstall
+        - stackRevisionIds
+      properties:
+        autoInstall:
+          type: boolean
+        stackRevisionIds:
+          type: array
+          maxItems: 128
+          uniqueItems: true
+          items:
+            type: integer
+            minimum: 1
+          description: Approved immutable stack revision IDs for discovery and optional installation.
     ImportCatalogFromGitInput:
       type: object
       required:
@@ -7582,6 +8520,19 @@ components:
               type: integer
               nullable: true
               description: Optional registry integration used when an imported service image requires authentication.
+            availableToAllProjects:
+              type: boolean
+              nullable: true
+              description: Lets every project in the organization use the imported services without a project share. Only organization-owned services, imported without projectId, can be available to all projects.
+    ImportStacksFromGitInput:
+      allOf:
+        - $ref: '#/components/schemas/ImportCatalogFromGitInput'
+        - type: object
+          properties:
+            availableToAllProjects:
+              type: boolean
+              nullable: true
+              description: Lets every project in the organization use the imported stacks without a project share. Only organization-owned stacks, imported without projectId, can be available to all projects.
     ManifestFromYAMLInput:
       type: object
       required:
@@ -7593,6 +8544,10 @@ components:
         projectId:
           type: integer
           nullable: true
+        availableToAllProjects:
+          type: boolean
+          nullable: true
+          description: Lets every project in the organization use the new resource without a project share. Only an organization-owned resource, created without projectId, can be available to all projects.
         version:
           type: string
           description: Optional revision version label for the generated non-Git resource.
@@ -7995,6 +8950,8 @@ components:
         registryIntegrationId:
           type: integer
           description: Effective default registry integration ID. Zero selects the built-in Wodby registry service.
+        settings:
+          $ref: '#/components/schemas/OrgSettings'
         capabilities:
           $ref: '#/components/schemas/OrgCapabilities'
         subscription:
@@ -8256,6 +9213,84 @@ components:
         updatedAt:
           type: string
           format: date-time
+    ResourceSharing:
+      type: object
+      description: Who owns a resource and which projects can use it.
+      required:
+        - ownershipScope
+        - availableToAllProjects
+        - sharedProjects
+      properties:
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+          description: org when the organization owns the resource, project when one project owns it.
+        ownerProjectId:
+          type: integer
+          nullable: true
+          description: Project that owns the resource when ownershipScope is project.
+        availableToAllProjects:
+          type: boolean
+          description: True when every project in the organization can use the resource without a project share. Only organization-owned clusters, integrations, services and stacks can be available to all projects; it is always false for other resources.
+        sharedProjects:
+          type: array
+          description: Projects the resource is shared with that you can see. The owning project has the owner role.
+          items:
+            $ref: '#/components/schemas/ResourceProjectShare'
+    ResourceProjectShare:
+      type: object
+      required:
+        - projectId
+        - role
+      properties:
+        projectId:
+          type: integer
+        role:
+          type: string
+          enum:
+            - owner
+            - write
+            - read
+    ResourceSharingInput:
+      type: object
+      required:
+        - ownershipScope
+        - sharedProjects
+      properties:
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+          description: org to make the organization the owner, project to make one project the owner.
+        ownerProjectId:
+          type: integer
+          nullable: true
+          description: Project that becomes the owner. Required when ownershipScope is project.
+        sharedProjects:
+          type: array
+          description: The complete list of project shares. A project left out loses its share. The owning project always keeps write access. You need write access to every project whose share you add or remove.
+          items:
+            $ref: '#/components/schemas/ProjectShareInput'
+        availableToAllProjects:
+          type: boolean
+          nullable: true
+          description: Lets every project in the organization use the resource without a project share. Only organization-owned clusters, integrations, services and stacks can be available to all projects. Omit it to keep the current setting.
+    ProjectShareInput:
+      type: object
+      required:
+        - projectId
+        - access
+      properties:
+        projectId:
+          type: integer
+        access:
+          type: string
+          enum:
+            - read
+            - write
     App:
       type: object
       required:
@@ -8453,6 +9488,7 @@ components:
         - id
         - number
         - status
+        - rolloutStatus
         - rollbackStatus
         - postDeploymentStatus
         - skipRollback
@@ -8460,6 +9496,8 @@ components:
         - appInstanceId
         - builds
         - appServiceDeployments
+        - postDeploymentScripts
+        - skipPostDeploymentScripts
         - createdAt
         - updatedAt
       properties:
@@ -8469,6 +9507,21 @@ components:
           type: integer
         status:
           type: string
+          description: Overall result, including the routing updates that follow the service rollout.
+        rolloutStatus:
+          type: string
+          enum:
+            - unknown
+            - pending
+            - in_progress
+            - completed
+            - canceled
+            - errored
+          description: Progress of rolling out the selected services. It does not show whether routing has finished.
+        rolloutEndedAt:
+          type: string
+          format: date-time
+          nullable: true
         rollbackStatus:
           type: string
           enum:
@@ -8525,6 +9578,14 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AppServiceDeployment'
+        postDeploymentScripts:
+          type: array
+          description: Post-deployment scripts that the deployment's builds provide.
+          items:
+            type: string
+        skipPostDeploymentScripts:
+          type: boolean
+          description: True when the deployment does not run the post-deployment scripts its builds provide.
         createdAt:
           type: string
           format: date-time
@@ -8614,6 +9675,9 @@ components:
         - gitRef
         - commitHash
         - commitMessage
+        - workflow
+        - imageVoidStatus
+        - canVoidImages
         - createdAt
         - updatedAt
       properties:
@@ -8621,7 +9685,7 @@ components:
           type: integer
         number:
           type: integer
-          description: App-instance build-launch number. Build records created by the same Wodby CI launch share this number.
+          description: App environment build-launch number. Build records created by the same Wodby CI launch share this number.
         status:
           type: string
         appInstanceId:
@@ -8648,6 +9712,38 @@ components:
           type: string
         commitMessage:
           type: string
+        authorName:
+          type: string
+          nullable: true
+        authorEmail:
+          type: string
+          nullable: true
+        workflow:
+          type: string
+          description: CI workflow that produced an externally built image. Empty for Wodby CI builds.
+        stackRevId:
+          type: integer
+          nullable: true
+          description: Stack revision the build was made for.
+        gitRepoId:
+          type: integer
+          nullable: true
+        ciIntegrationId:
+          type: integer
+          nullable: true
+        registryIntegrationId:
+          type: integer
+          nullable: true
+        imageVoidStatus:
+          type: string
+          enum:
+            - none
+            - partially_voided
+            - voided
+          description: Whether the build's images were voided and can no longer be deployed.
+        canVoidImages:
+          type: boolean
+          description: True when the build's images can be voided now.
         createdAt:
           type: string
           format: date-time
@@ -8822,6 +9918,7 @@ components:
         - allowedEnvTypes
         - orgId
         - ownershipScope
+        - availableToAllProjects
         - capabilities
         - createdAt
         - updatedAt
@@ -8921,6 +10018,9 @@ components:
         ownerProjectId:
           type: integer
           nullable: true
+        availableToAllProjects:
+          type: boolean
+          description: True when every project in the organization can use the resource without a project share.
         capabilities:
           $ref: '#/components/schemas/ClusterCapabilities'
         settings:
@@ -8992,6 +10092,7 @@ components:
         - kind
         - status
         - version
+        - ownershipScope
         - envId
         - envType
         - orgId
@@ -9022,6 +10123,15 @@ components:
           type: integer
           nullable: true
         appServiceId:
+          type: integer
+          nullable: true
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+          description: org when the organization owns the resource, project when one project owns it.
+        ownerProjectId:
           type: integer
           nullable: true
         envId:
@@ -9056,6 +10166,8 @@ components:
         - envScope
         - allowedEnvIds
         - allowedEnvTypes
+        - ownershipScope
+        - availableToAllProjects
         - createdAt
         - updatedAt
       properties:
@@ -9112,6 +10224,18 @@ components:
               - staging
               - dev
               - feature
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+          description: org when the organization owns the resource, project when one project owns it.
+        ownerProjectId:
+          type: integer
+          nullable: true
+        availableToAllProjects:
+          type: boolean
+          description: True when every project in the organization can use the resource without a project share.
         createdAt:
           type: string
           format: date-time
@@ -9126,6 +10250,8 @@ components:
         - status
         - manual
         - integrationId
+        - fileDeleted
+        - canVoidFile
         - options
         - createdAt
         - updatedAt
@@ -9157,6 +10283,13 @@ components:
           type: integer
           nullable: true
           description: Storage integration that owns the backup. Null identifies Wodby's built-in blob storage.
+        blobStorageRegion:
+          type: string
+          nullable: true
+          enum:
+            - eu
+            - us
+          description: Region used by Wodby Blob Storage. Null for third-party storage and legacy backups.
         taskId:
           type: integer
           nullable: true
@@ -9166,6 +10299,12 @@ components:
           nullable: true
           minimum: 0
           description: Final stored archive size in bytes. Null when the size has not been recorded.
+        fileDeleted:
+          type: boolean
+          description: Whether the stored backup file has been permanently removed.
+        canVoidFile:
+          type: boolean
+          description: Whether the backup file can be permanently removed now.
         options:
           type: array
           items:
@@ -9260,6 +10399,13 @@ components:
         storageClass:
           type: string
           nullable: true
+        blobStorageRegion:
+          type: string
+          nullable: true
+          enum:
+            - eu
+            - us
+          description: Region used by Wodby Blob Storage. Null for third-party storage and legacy presets.
         options:
           type: array
           items:
@@ -9290,6 +10436,43 @@ components:
         updatedAt:
           type: string
           format: date-time
+    TaskInitiator:
+      type: object
+      description: Immutable provenance. Client names and versions are self-reported, not verified identities. Contains no credentials.
+      required:
+        - source
+        - userId
+        - oauthClientId
+        - oauthClientName
+        - clientName
+        - clientVersion
+        - toolName
+        - requestId
+      properties:
+        source:
+          type: string
+          enum:
+            - mcp
+        userId:
+          type: integer
+        apiKeyId:
+          type: integer
+          nullable: true
+        agentConnectionId:
+          type: integer
+          nullable: true
+        oauthClientId:
+          type: string
+        oauthClientName:
+          type: string
+        clientName:
+          type: string
+        clientVersion:
+          type: string
+        toolName:
+          type: string
+        requestId:
+          type: string
     Task:
       type: object
       required:
@@ -9307,6 +10490,12 @@ components:
         - createdAt
         - updatedAt
       properties:
+        initiator:
+          type: object
+          description: Absent when provenance is unknown; absence does not imply human initiation.
+          allOf:
+            - $ref: '#/components/schemas/TaskInitiator'
+          nullable: true
         id:
           type: integer
         name:
@@ -10238,6 +11427,8 @@ components:
         - HSTS
         - REQUEST_TIMEOUT
         - BACKEND_REQUEST_TIMEOUT
+        - RATE_LIMIT_PER_IP
+        - RATE_LIMIT_TOTAL
     AppRouteSettingSource:
       type: string
       enum:
@@ -10278,7 +11469,7 @@ components:
           type: boolean
         issuer:
           type: string
-          description: Human-readable certificate authority name parsed from uploaded certificates, or the managed issuer identifier.
+          description: 'Issuer label: a certificate authority name for uploaded or temporary AWS certificates, otherwise the managed issuer identifier.'
         domain:
           type: string
         dnsNames:
@@ -10335,6 +11526,7 @@ components:
         - public
         - revId
         - orgId
+        - ownershipScope
         - createdAt
         - updatedAt
       properties:
@@ -10352,6 +11544,15 @@ components:
           type: integer
         orgId:
           type: integer
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+          description: org when the organization owns the resource, project when one project owns it.
+        ownerProjectId:
+          type: integer
+          nullable: true
         createdAt:
           type: string
           format: date-time
@@ -10484,6 +11685,8 @@ components:
         - revId
         - latestRevNumber
         - orgId
+        - ownershipScope
+        - availableToAllProjects
         - createdAt
         - updatedAt
       properties:
@@ -10507,6 +11710,18 @@ components:
           type: integer
         orgId:
           type: integer
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+          description: org when the organization owns the resource, project when one project owns it.
+        ownerProjectId:
+          type: integer
+          nullable: true
+        availableToAllProjects:
+          type: boolean
+          description: True when every project in the organization can use the resource without a project share.
         settings:
           $ref: '#/components/schemas/ServiceSettings'
         createdAt:
@@ -10658,6 +11873,8 @@ components:
         - revId
         - latestRevNumber
         - orgId
+        - ownershipScope
+        - availableToAllProjects
         - createdAt
         - updatedAt
       properties:
@@ -10715,6 +11932,18 @@ components:
           nullable: true
         orgId:
           type: integer
+        ownershipScope:
+          type: string
+          enum:
+            - org
+            - project
+          description: org when the organization owns the resource, project when one project owns it.
+        ownerProjectId:
+          type: integer
+          nullable: true
+        availableToAllProjects:
+          type: boolean
+          description: True when every project in the organization can use the resource without a project share.
         settings:
           $ref: '#/components/schemas/StackSettings'
         createdAt:
@@ -11222,6 +12451,8 @@ components:
         - workload
         - name
       properties:
+        gpu:
+          $ref: '#/components/schemas/GPUResources'
         id:
           type: integer
           nullable: true
@@ -11250,6 +12481,8 @@ components:
         - workload
         - name
       properties:
+        gpu:
+          $ref: '#/components/schemas/GPUResources'
         id:
           type: integer
           nullable: true
@@ -11987,7 +13220,65 @@ components:
     CloudZone:
       $ref: '#/components/schemas/GenericObject'
     CloudMachineType:
-      $ref: '#/components/schemas/GenericObject'
+      type: object
+      properties:
+        name:
+          type: string
+        cpu:
+          type: integer
+        mem:
+          type: integer
+        disk:
+          type: integer
+        sharedCPU:
+          type: boolean
+        available:
+          type: boolean
+        family:
+          type: string
+        minStorageSize:
+          type: integer
+          nullable: true
+        maxStorageSize:
+          type: integer
+          nullable: true
+        minIOPS:
+          type: integer
+          nullable: true
+        maxIOPS:
+          type: integer
+          nullable: true
+        defaultIOPS:
+          type: integer
+          nullable: true
+        storageOptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/GenericObject'
+        gpus:
+          type: array
+          nullable: true
+          description: Provider-reported devices. This does not guarantee driver setup or spare capacity.
+          items:
+            $ref: '#/components/schemas/CloudGPU'
+    CloudGPU:
+      type: object
+      required:
+        - manufacturer
+        - model
+        - count
+      properties:
+        manufacturer:
+          type: string
+        model:
+          type: string
+        count:
+          type: integer
+          minimum: 1
+        memoryMiB:
+          type: integer
+          nullable: true
+          description: Memory per device in MiB; absent when the provider does not report it.
     KubeVersion:
       type: object
       required:
@@ -12926,6 +14217,11 @@ components:
           description: Defaults to the stack revision's service defaults when omitted.
           items:
             $ref: '#/components/schemas/NewAppServiceInput'
+        serviceOverrides:
+          type: array
+          description: Changes to the stack revision's service defaults. Use it instead of services to set only what differs, such as the repository of a workspace. Not allowed with services.
+          items:
+            $ref: '#/components/schemas/NewAppServiceOverrideInput'
         clusterId:
           type: integer
           nullable: true
@@ -12986,6 +14282,11 @@ components:
           description: Defaults to the stack revision's service defaults when omitted.
           items:
             $ref: '#/components/schemas/NewAppServiceInput'
+        serviceOverrides:
+          type: array
+          description: Changes to the stack revision's service defaults. Use it instead of services to set only what differs, such as the repository of a workspace. Not allowed with services.
+          items:
+            $ref: '#/components/schemas/NewAppServiceOverrideInput'
         clusterId:
           type: integer
           nullable: true
@@ -13096,6 +14397,29 @@ components:
           $ref: '#/components/schemas/ResourcesInput'
         scalability:
           $ref: '#/components/schemas/ScalabilityInput'
+    NewAppServiceOverrideInput:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+          description: Stack service ID in the selected stack revision.
+        disabled:
+          type: boolean
+        version:
+          type: string
+        buildSource:
+          $ref: '#/components/schemas/BuildSourceInput'
+        settings:
+          type: array
+          description: Service settings to set. A setting that is not named keeps its default. Use it to supply a required setting that has no default.
+          items:
+            $ref: '#/components/schemas/AppServiceSettingInput'
+        database:
+          description: The database server, and optionally the database, of a database service. Required to enable an external database service, such as a managed PostgreSQL server.
+          allOf:
+            - $ref: '#/components/schemas/AppServiceDatabaseInput'
     BuildSourceInput:
       type: object
       required:
@@ -13199,6 +14523,10 @@ components:
     ResourcesInput:
       type: object
       properties:
+        gpu:
+          allOf:
+            - $ref: '#/components/schemas/GPUResources'
+          description: Omitted or null preserves an existing GPU override. Count zero disables GPUs.
         workload:
           type: string
           nullable: true
@@ -13217,6 +14545,21 @@ components:
         limitMem:
           type: integer
           nullable: true
+    GPUResources:
+      type: object
+      nullable: true
+      required:
+        - resourceName
+        - count
+      properties:
+        resourceName:
+          type: string
+          description: Qualified device-plugin resource name, such as nvidia.com/gpu or amd.com/gpu. Native and reserved Kubernetes resource names are rejected.
+        count:
+          type: integer
+          minimum: 0
+          maximum: 2147483647
+          description: Device count per container replica. Kubernetes requests and limits are equal; zero explicitly disables GPUs.
     ScalabilityInput:
       type: object
       required:
@@ -13274,6 +14617,10 @@ components:
         projectId:
           type: integer
           nullable: true
+        availableToAllProjects:
+          type: boolean
+          nullable: true
+          description: Lets every project in the organization use the new resource without a project share. Only an organization-owned resource, created without projectId, can be available to all projects.
         integrationId:
           type: integer
         name:
@@ -13579,6 +14926,10 @@ components:
         projectId:
           type: integer
           nullable: true
+        availableToAllProjects:
+          type: boolean
+          nullable: true
+          description: Lets every project in the organization use the new resource without a project share. Only an organization-owned resource, created without projectId, can be available to all projects.
         fieldsInput:
           type: array
           items:
@@ -13743,6 +15094,10 @@ components:
         databaseDbId:
           type: integer
           nullable: true
+        backupPresetId:
+          type: integer
+          nullable: true
+          description: Associates a one-off backup with the preset used to populate its destination and options.
         backupName:
           type: string
           nullable: true
@@ -13755,6 +15110,14 @@ components:
         storageClass:
           type: string
           nullable: true
+        blobStorageRegion:
+          type: string
+          nullable: true
+          default: eu
+          enum:
+            - eu
+            - us
+          description: Wodby Blob Storage region. Omit to use Europe; must be omitted for third-party storage.
         options:
           type: array
           nullable: true
@@ -13818,6 +15181,14 @@ components:
         storageClass:
           type: string
           nullable: true
+        blobStorageRegion:
+          type: string
+          nullable: true
+          default: eu
+          enum:
+            - eu
+            - us
+          description: Wodby Blob Storage region. Omit to use Europe; must be omitted for third-party storage.
         options:
           type: array
           nullable: true
@@ -13878,6 +15249,13 @@ components:
         storageClass:
           type: string
           nullable: true
+        blobStorageRegion:
+          type: string
+          nullable: true
+          enum:
+            - eu
+            - us
+          description: Wodby Blob Storage region. Omit to preserve the current region; must be omitted for third-party storage.
         options:
           type: array
           nullable: true
@@ -14099,8 +15477,10 @@ components:
           type: string
         storageClassName:
           type: string
+          description: Storage class for the workspace code and home volumes. Every Pod that mounts the code then runs on one node. Omit both storage fields to use the cluster's default storage class. Not allowed with storageServiceName.
         storageServiceName:
           type: string
+          description: Enabled storage service in the selected stack that shares the workspace files across nodes. Not allowed with storageClassName.
         codeSize:
           type: integer
           minimum: 1
@@ -14146,6 +15526,255 @@ components:
           type: string
         taskId:
           type: integer
+    WorkspaceGitStatus:
+      type: object
+      required:
+        - available
+        - changes
+        - truncated
+        - checkedAt
+      properties:
+        available:
+          type: boolean
+          description: False when the state cannot be read; reason explains why and the other fields are omitted.
+        reason:
+          type: string
+        branch:
+          type: string
+          description: Current branch; omitted for a detached HEAD.
+        upstream:
+          type: string
+          description: Upstream branch that the current branch tracks.
+        ahead:
+          type: integer
+          description: Commits on the current branch that its upstream does not have.
+        behind:
+          type: integer
+          description: Commits on the upstream that the current branch does not have.
+        commit:
+          type: string
+          description: HEAD commit; omitted before the first commit.
+        commitSubject:
+          type: string
+        committedAt:
+          type: string
+          format: date-time
+        changes:
+          type: array
+          description: Uncommitted changes, including untracked files.
+          maxItems: 500
+          items:
+            $ref: '#/components/schemas/WorkspaceGitChange'
+        truncated:
+          type: boolean
+          description: True when more changes exist than listed.
+        checkedAt:
+          type: string
+          format: date-time
+    WorkspaceGitDiff:
+      type: object
+      required:
+        - available
+        - path
+        - diff
+        - binary
+        - truncated
+      properties:
+        available:
+          type: boolean
+          description: False when the diff cannot be read; reason explains why and diff is empty.
+        reason:
+          type: string
+        path:
+          type: string
+        diff:
+          type: string
+          description: Unified diff of staged and unstaged changes. Empty when the file does not differ.
+        binary:
+          type: boolean
+          description: True for a file Git does not show line by line.
+        truncated:
+          type: boolean
+          description: True when the diff is longer than what is returned.
+    WorkspacePullInput:
+      type: object
+      properties:
+        scripts:
+          type: boolean
+          default: true
+          description: Run the environment's post-deployment scripts after the pull.
+    AppEnvironmentMigrationInput:
+      type: object
+      required:
+        - targetClusterId
+      properties:
+        targetClusterId:
+          type: integer
+          description: Cluster of the same organization that the environment moves to.
+        volumes:
+          type: array
+          description: Target cluster storage classes for the environment's volumes. A volume left out uses its current storage class, which must exist on the target cluster.
+          items:
+            $ref: '#/components/schemas/AppEnvironmentMigrationVolumeInput'
+    AppEnvironmentMigrationVolumeInput:
+      type: object
+      required:
+        - appServiceVolumeId
+      properties:
+        appServiceVolumeId:
+          type: integer
+        storageClassName:
+          type: string
+          nullable: true
+          description: Target cluster storage class for the volume.
+    AppEnvironmentMigrationOperationResult:
+      type: object
+      required:
+        - success
+        - migration
+      properties:
+        success:
+          type: boolean
+        taskId:
+          type: integer
+          nullable: true
+          description: Task that runs the requested step.
+        migration:
+          $ref: '#/components/schemas/AppEnvironmentMigration'
+    AppEnvironmentMigration:
+      type: object
+      required:
+        - id
+        - appEnvironmentId
+        - sourceClusterId
+        - targetClusterId
+        - taskId
+        - status
+        - phase
+        - components
+        - failureMessage
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: integer
+        appEnvironmentId:
+          type: integer
+        sourceClusterId:
+          type: integer
+        targetClusterId:
+          type: integer
+        taskId:
+          type: integer
+          description: Task that runs the migration.
+        deploymentId:
+          type: integer
+          nullable: true
+          description: Deployment that brings the environment up on the target cluster.
+        status:
+          type: string
+          enum:
+            - pending
+            - in_progress
+            - completed
+            - failed
+            - rolling_back
+            - rolled_back
+            - rollback_failed
+            - cleaned
+        phase:
+          type: string
+          enum:
+            - preparing
+            - freezing_source
+            - backing_up
+            - restoring_target
+            - cutting_over
+            - retaining_source
+            - rolling_back
+            - cleaning_source
+            - done
+        components:
+          type: array
+          description: Services whose data the migration copies with a backup on the source and an import on the target.
+          items:
+            $ref: '#/components/schemas/AppEnvironmentMigrationComponent'
+        failureMessage:
+          type: string
+        retainUntil:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the retained source is removed automatically.
+        cutoverAt:
+          type: string
+          format: date-time
+          nullable: true
+        endedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    AppEnvironmentMigrationComponent:
+      type: object
+      required:
+        - id
+        - appServiceId
+        - name
+        - backupId
+        - importId
+      properties:
+        id:
+          type: integer
+        appServiceId:
+          type: integer
+        name:
+          type: string
+        backupId:
+          type: integer
+        backupStatus:
+          type: string
+          nullable: true
+        importId:
+          type: integer
+        importStatus:
+          type: string
+          nullable: true
+    WorkspaceGitChange:
+      type: object
+      required:
+        - path
+        - kind
+        - staged
+        - unstaged
+      properties:
+        path:
+          type: string
+        originalPath:
+          type: string
+          description: Previous path of a renamed or copied file.
+        kind:
+          type: string
+          enum:
+            - modified
+            - added
+            - deleted
+            - renamed
+            - copied
+            - type_changed
+            - untracked
+            - conflicted
+        staged:
+          type: boolean
+          description: The index differs from HEAD for this path.
+        unstaged:
+          type: boolean
+          description: The working tree differs from the index for this path.
     WorkspaceConnection:
       type: object
       required:
@@ -14156,6 +15785,9 @@ components:
         - username
         - workingDirectory
         - hostKeyFingerprint
+        - agents
+        - gitCredentials
+        - aiCredits
       properties:
         ready:
           type: boolean
@@ -14171,3 +15803,14 @@ components:
           type: string
         hostKeyFingerprint:
           type: string
+        agents:
+          type: array
+          description: Coding agent commands pre-installed in the SSH runner, such as claude, codex and opencode. Empty when the runner has none.
+          items:
+            type: string
+        gitCredentials:
+          type: boolean
+          description: True when git push and fetch in the SSH runner authenticate to the app's repository with the app's Git integration.
+        aiCredits:
+          type: boolean
+          description: True when opencode in the SSH runner uses the organization's AI credits by default.
