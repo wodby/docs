@@ -8283,6 +8283,12 @@ to Wodby 2, so scheduled jobs do not run on both platforms.</p>
           </tr>
         
           <tr>
+            <td><code>--target-letsencrypt</code></td>
+            <td>Give routes that used a custom certificate in Wodby 1 a Let&#39;s Encrypt certificate, issued once DNS points to Wodby 2, instead of uploading the certificate again</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
             <td><code>--target-project string</code></td>
             <td>Wodby 2 project ID or exact name (defaults to a project-owned cluster&#39;s owner; otherwise organization-owned)</td>
             <td><span class="muted">-</span></td>
@@ -8316,6 +8322,12 @@ to Wodby 2, so scheduled jobs do not run on both platforms.</p>
             <td><code>--target-version-map stringArray</code></td>
             <td>Source-service version override ([APP/][INSTANCE/]SOURCE_SERVICE=TARGET_VERSION)</td>
             <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-wodby-ci</code></td>
+            <td>Build instances that Wodby 1 deployed through third-party CI with Wodby CI, from the repository linked with --target-git-integration-id</td>
+            <td><code>false</code></td>
           </tr>
         
           <tr>
