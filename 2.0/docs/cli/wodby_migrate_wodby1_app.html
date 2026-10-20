@@ -8235,6 +8235,24 @@ to Wodby 2, so scheduled jobs do not run on both platforms.</p>
           </tr>
         
           <tr>
+            <td><code>--target-backup-bucket string</code></td>
+            <td>Bucket of --target-backup-integration-id for backups</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-backup-integration-id int</code></td>
+            <td>Keep backups in this Wodby 2 storage integration (S3, GCS, Azure, Wasabi, Backblaze) instead of Wodby Blob or a copy of the Wodby 1 mirror; with --target-backup-bucket</td>
+            <td><code>0</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-backup-window string</code></td>
+            <td>Daily automatic backup window HH:MM-HH:MM in the organization&#39;s time zone, 30 to 180 minutes (default 02:00-05:00)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
             <td><code>--target-ci-integration-id int</code></td>
             <td>Wodby 2 CI integration ID override (otherwise Wodby CI with a linked repository, or automatic Custom CI fallback)</td>
             <td><code>0</code></td>
@@ -8304,6 +8322,12 @@ to Wodby 2, so scheduled jobs do not run on both platforms.</p>
             <td><code>--target-service-map stringArray</code></td>
             <td>Source-to-target service mapping ([APP/][INSTANCE/]SOURCE=TARGET)</td>
             <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-smtp-integration-id int</code></td>
+            <td>Relay mail through this Wodby 2 SMTP integration instead of credentials copied from Wodby 1, also for instances that sent mail without a relay</td>
+            <td><code>0</code></td>
           </tr>
         
           <tr>
