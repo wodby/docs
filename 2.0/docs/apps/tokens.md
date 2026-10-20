@@ -109,6 +109,38 @@ The other `env` tokens remain available for template compatibility.
 - `service.replicas`: app-service replica count
 - `service.secrets.env`: generated Kubernetes Secret name used for secret environment variables
 
+The `service.secrets.env` Secret holds the service's secret environment variables: those marked `secret: true` and
+those that reference a secret token, such as a generated one. Each variable is a key named after it. A chart that reads
+a password from a named Secret key can use this token as the Secret name: Wodby creates the Secret whenever the
+service has secret variables, even if no container mapping uses it. Pods restart when a secret value changes, so a
+chart that reads the Secret only at startup picks up a rotated password.
+
+Each endpoint's primary route is available as `service.endpoints.[endpoint-name].[field]`:
+
+- `primaryHost`: domain name of the endpoint's primary route
+- `primaryURL`: URL of the endpoint's primary route, with `https://` when the route has a certificate and `http://`
+  otherwise
+
+Both are empty while the endpoint has no primary route or its primary route is disabled. Use them for a chart with more
+than one public HTTP endpoint, such as an application with a separate container registry host. When one of these
+values changes, the app environment is marked as `needs redeploy`, as it is for the service's own primary domain.
+
+Named endpoint ports are available as `service.endpoints.[endpoint-name].ports.[port-name].[field]`:
+
+- `number`: manifest-defined internal port number
+- `protocol`: port protocol
+- `publicPort`: assigned public port number, or an empty value while the port is unpublished
+- `effectivePort`: assigned public port number when published, otherwise the manifest-defined internal number
+
+Use `effectivePort` when a chart needs one usable value before and after publication. Publishing or unpublishing a
+port marks the app environment as `needs redeploy` when the service reads that port's `publicPort` or `effectivePort`.
+When a chart renders its Kubernetes Service port from this value, also set the service port's
+[`routeToPublicPort`](../services/networking.md#dynamic-public-backend-ports) field.
+
+When a Helm value consists of exactly one `number`, `publicPort`, or `effectivePort` token, Wodby passes it to the
+chart as a number, so charts that validate ports as numbers accept it. Inside a longer value, such as
+`ssh://git@example.com:{{service.endpoints.ssh.ports.ssh.effectivePort}}`, the token is replaced as text.
+
 Legacy `service.helm.release` is still supported for backward compatibility.
 
 ## `helm`

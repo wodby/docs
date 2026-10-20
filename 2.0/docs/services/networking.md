@@ -67,6 +67,42 @@ relationship between request and backend request timeouts. Inherited services me
 port name, and setting name; a child value replaces the matching base value. Derivative endpoints use the same port
 format and behavior.
 
+### Dynamic public backend ports
+
+Most published TCP and UDP ports keep a fixed port inside Kubernetes and use a separately assigned public port. Some
+charts instead use one value as both the advertised public port and the port rendered on their Kubernetes Service.
+Those charts can opt in to public-port-driven routing:
+
+```yaml
+endpoints:
+- name: ssh
+  workload: shell
+  ports:
+  - name: ssh
+    number: 22
+    protocol: tcp
+    routeToPublicPort: true
+
+helm:
+  values:
+  - name: shell.port
+    value: "{{service.endpoints.ssh.ports.ssh.effectivePort}}"
+```
+
+Set `routeToPublicPort: true` only when the chart renders its Kubernetes Service port from the public assignment.
+Wodby then targets the assigned number when it creates the TCP or UDP route, and starts a partial deployment of the
+owning app service right away when the port is published or unpublished, so the chart and the route cannot keep
+different port numbers. The option is supported only for non-private TCP and UDP ports. When `routeToPublicPort` is
+omitted, Wodby routes to the manifest's fixed `number`.
+
+When a service's Helm values, environment variables, or processed configs read a port's `publicPort` or
+`effectivePort` token, publishing or unpublishing the port marks the app environment as
+[`needs redeploy`](../apps/deploys.md#needs-redeploy), as a domain change does. The next deployment applies the new
+value. The mark also stays if the immediate deployment of a `routeToPublicPort` port fails, so you can deploy again.
+
+The stable endpoint and port names provide access to the internal, public, and effective values through
+[service endpoint-port tokens](../apps/tokens.md#service).
+
 Endpoint names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). Port names must follow the [port name rules](../naming.md#port-names).
 
 Workload targeting and selectors are described in [service workloads](workloads.md).
