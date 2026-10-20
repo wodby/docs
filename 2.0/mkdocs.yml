@@ -320,6 +320,7 @@ nav:
           - Cloudflare: providers/cloudflare.md
           - Backblaze: providers/backblaze.md
           - Wasabi: providers/wasabi.md
+          - S3-compatible storage: providers/s3-compatible.md
       - Git:
           - Overview: providers/git.md
           - GitHub: providers/github.md
