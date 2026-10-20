@@ -215,6 +215,7 @@ nav:
   - Security: user/security.md
   - API keys: user/api-keys.md
   - SSH keys: user/ssh-keys.md
+  - Email notifications: user/notifications.md
 - Development:
   - Overview: dev/index.md
   - API and SDKs: dev/api.md
