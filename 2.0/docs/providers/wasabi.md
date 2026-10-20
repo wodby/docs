@@ -40,7 +40,10 @@ Create a Wasabi user that can reach only the buckets Wodby may use:
 
     `s3:DeleteObject` is not required.
 
-2. Open **Users**, create a user with programmatic access, and attach the policy.
+    Wasabi's built-in policies, which the user screen offers first, cannot be limited to specific buckets.
+    `WasabiFullAccess` also works, but it reaches every bucket in the account and allows deleting objects.
+
+2. Open **Users**, create a user with programmatic access, and attach the policy you created.
 3. Create an access key for that user and copy the Access Key and Secret Key. Wasabi shows the secret key only once.
 
 The integration form asks for the Access Key and Secret Key. Wodby finds the region of each bucket, so one integration
