@@ -79,6 +79,12 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.13
+
+- ⬆️ Nginx 1.31.8, 1.30.6
+- ⬆️ Adminer 6.1.2
+- 🏔️ Alpine Linux updates for Nginx, including a zlib security fix (CVE-2026-85091)
+
 ### 1.4.12
 
 - Adminer:

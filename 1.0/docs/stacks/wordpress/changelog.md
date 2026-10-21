@@ -7,6 +7,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.13
+
+- ⬆️ Vanilla WordPress 7.1.3
+- PHP:
+    - ⬆️ PHP 8.5.12, 8.4.27, 8.3.36, 8.2.35 with fixes for two critical remote code execution vulnerabilities (CVE-2026-109618, CVE-2026-109619)
+    - ⬆️ MongoDB extension 2.5.5 with BSON decoding security fixes (CVE-2026-106436, CVE-2026-106432, CVE-2026-112368)
+    - ⬆️ PIE 1.5.2
+- ⬆️ Nginx 1.31.8, 1.30.6
+- Varnish:
+    - 🐞 Objects matching `VARNISH_SECONDARY_STORAGE_CONDITION` are now stored in the secondary storage set by `VARNISHD_SECONDARY_STORAGE`, and all other objects in the main storage. Previously the condition had no effect and objects alternated between the two storages
+    - 📜 The `x-varnish-storage` response header is no longer added
+- ⬆️ Adminer 6.1.2
+- 🏔️ Alpine Linux updates for Nginx and Varnish, including a zlib security fix (CVE-2026-85091)
+
 ## 6.2.12
 
 - ⬆️ Vanilla WordPress 7.1.2
