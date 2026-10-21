@@ -7,6 +7,17 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.13
+
+- ⬆️ Vanilla Drupal 11.4.11, 10.6.19
+- Nginx:
+    - ⬆️ Nginx 1.31.7, 1.30.6
+    - 🐞 With `NGINX_DRUPAL_FILE_PROXY_URL` set, missing CSS and JS aggregates now reach Drupal, which builds them on demand, instead of being redirected to the proxy site. This covers `optimized/` aggregates on Drupal 9, 10 and 11 and AdvAgg aggregates on Drupal 7 and 8. Files under `sites/*/files/private/` are no longer served directly
+- Varnish:
+    - 🐞 Objects matching `VARNISH_SECONDARY_STORAGE_CONDITION` are now stored in the secondary storage set by `VARNISHD_SECONDARY_STORAGE`, and all other objects in the main storage. Previously the condition had no effect and objects alternated between the two storages
+    - 📜 The `x-varnish-storage` response header is no longer added
+- ⬆️ Adminer 6.1.2
+
 ## 6.2.12
 
 - ⬆️ Vanilla Drupal 11.4.8, 10.6.18

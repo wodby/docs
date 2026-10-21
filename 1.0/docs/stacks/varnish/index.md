@@ -57,6 +57,11 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.4.4
+
+- 🐞 Objects matching `VARNISH_SECONDARY_STORAGE_CONDITION` are now stored in the secondary storage set by `VARNISHD_SECONDARY_STORAGE`, and all other objects in the main storage. Previously the condition had no effect and objects alternated between the two storages
+- 📜 The `x-varnish-storage` response header is no longer added
+
 ### 3.4.3
 
 - ⬆️ Updated the gotpl template renderer to 0.6.9 in the Varnish 6.0 image, incorporating the refreshed Go runtime
