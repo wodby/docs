@@ -31,6 +31,10 @@ You can define resources at:
 - stack level
 - app-service level
 
+App services can also request GPUs with **GPU devices**: a device name, such as `nvidia.com/gpu`, and the number of
+GPUs for each replica. A count of `0` turns off the GPU request of the service's default configuration. App services
+that request GPUs run on the cluster's [GPU node pool](../clusters/gpu.md).
+
 ## Autoscaling rules
 
 Autoscaling requires an active paid subscription. Manual replica scaling remains available on all active plans. If
