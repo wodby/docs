@@ -61,6 +61,7 @@ This changelog is for Varnish stack on Wodby, to see image changes see tags desc
 
 - 🐞 Objects matching `VARNISH_SECONDARY_STORAGE_CONDITION` are now stored in the secondary storage set by `VARNISHD_SECONDARY_STORAGE`, and all other objects in the main storage. Previously the condition had no effect and objects alternated between the two storages
 - 📜 The `x-varnish-storage` response header is no longer added
+- 🏔️ Alpine Linux updates for Varnish, including a zlib security fix (CVE-2026-85091)
 
 ### 3.4.3
 

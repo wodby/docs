@@ -32,8 +32,9 @@ This changelog is for Cachet stack on Wodby, to see image changes see tags descr
 
 ### 3.1.4
 
-- ⬆️ Nginx 1.31.7, 1.30.6
+- ⬆️ Nginx 1.31.8, 1.30.6
 - ⬆️ Adminer 6.1.2
+- 🏔️ Alpine Linux updates for Nginx, including a zlib security fix (CVE-2026-85091)
 
 ### 3.1.3
 

@@ -29,7 +29,8 @@ This changelog is for HTML stack on Wodby, to see images changes see tags descri
 
 ### 1.1.19
 
-⬆️ Nginx 1.31.7, 1.30.6
+- ⬆️ Nginx 1.31.8, 1.30.6
+- 🏔️ Alpine Linux updates for Nginx, including a zlib security fix (CVE-2026-85091)
 
 ### 1.1.18
 
