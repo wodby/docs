@@ -10,6 +10,8 @@ You can set:
 - minimum node count
 - maximum node count
 
+A [GPU node pool](gpu.md) has its own minimum and maximum node counts, set on the same page.
+
 Clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later. They always have
 one node, and the dashboard does not show scaling controls for them. Create a regular managed Kubernetes or Wodby Cloud
 cluster if you need cluster autoscaling or future node growth.
