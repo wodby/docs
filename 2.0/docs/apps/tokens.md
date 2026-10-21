@@ -133,6 +133,7 @@ Available when the current app-service context exposes a database.
 - `database.host`: database hostname. This is private when accessed through an app service with a private database user, otherwise public
 - `database.port`: database connection port. This is private when available, otherwise public
 - `database.driver`: database driver, based on the database kind
+- `database.ssl`: `true` when Wodby connects to the database server with TLS, otherwise `false`
 - `database.root.name`: database superuser username
 - `database.root.password`: database superuser password
 - `database.user.name`: database username for the current app-service context
@@ -152,6 +153,8 @@ Accessed as `links.[name].[token]`.
 - `links.[name].env.[env-var-name]`: environment-variable value from the linked app service
 - `links.[name].tokens.[token-name]`: token value from the linked app service
 - `links.[name].database.*`: database token from the linked app service. See [`database`](#database)
+- `links.[name].database.caFile`: path of the linked managed database server's CA certificate, mounted at the link's
+  [`database.ca.filepath`](../services/template.md#links). Empty when the server has no CA certificate
 
 ## `configs`
 
