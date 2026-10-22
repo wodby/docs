@@ -24,6 +24,10 @@ See [API v2 compatibility](api.md#version-2-deprecated) for existing integration
 
 Use the [CLI](cli.md) for command-line automation and [CI/CD](../cicd/index.md).
 
+## MCP
+
+See the [MCP guide](mcp.md) for availability, AI client connection settings, supported workflows, and current limits.
+
 ## Local development
 
 Use [Docker4X](../docker4x.md) to run a local environment based on Wodby's stacks.
