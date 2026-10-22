@@ -48,7 +48,7 @@ the app list or open an individual infrastructure app page.
 ## Infrastructure version upgrades
 
 Some changes affect the cluster-level infrastructure version rather than only an infrastructure app stack revision.
-These upgrades can change how Wodby wires cluster networking, routing, or platform controllers.
+These upgrades can change cluster networking, routing, platform controllers, or host security.
 
 An infrastructure version upgrade can include an upgrade of a required infrastructure app. This prerequisite is part
 of the infrastructure version workflow even though the dashboard tracks general infrastructure app stack updates
@@ -57,8 +57,9 @@ separately; you do not need to run the separate infrastructure app stack upgrade
 See [Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions) for infrastructure version details,
 the changelog, current versions, and cluster-type-specific upgrade behavior.
 
-Run K3S infrastructure version upgrades during a maintenance window for production workloads, because pod networking can
-be briefly interrupted while K3S restarts and Cilium takes over.
+Run K3S infrastructure version upgrades during a maintenance window for production workloads. Some updates restart K3S
+or change networking and can briefly interrupt cluster access or application traffic. Review the changelog for the
+offered update before starting it.
 
 Infrastructure version `4.0.0` also performs a one-time routing ownership migration. Wodby first upgrades the Envoy
 Gateway infrastructure app when required, reconciles the cluster entrypoint, and verifies Gateway API compatibility.
@@ -90,6 +91,59 @@ If the latest infrastructure version upgrade or infrastructure app stack upgrade
 dashboard shows `Retry available` and replaces the normal upgrade button with a re-run button for the failed task. Open
 the failed task from the dialog when you need to review logs before re-running it.
 
+### K3S host CA security update (4.1.2)
+
+!!! info "Upcoming update"
+    Infrastructure version `4.1.2` is planned for self-hosted K3S clusters. Apply it when the dashboard offers it.
+    Managed Kubernetes clusters do not use this host update.
+
+This update addresses host trust in certificate chains affected by the eMudhra intermediate CA compromise. See
+[Mozilla's security advisory](https://www.openwall.com/lists/oss-security/2026/10/20/1) and, for Ubuntu servers,
+[Ubuntu security notice USN-8944-1](https://ubuntu.com/security/notices/USN-8944-1).
+
+#### Apply the update
+
+Use an account with permission to upgrade the cluster.
+
+1. Open `Clusters > [Cluster] > Infrastructure > Operations` and check the current version in the
+   `Wodby infrastructure` card. If it already shows `4.1.2` or newer, this infrastructure update is complete.
+2. Choose a maintenance window and start the offered infrastructure version upgrade. If earlier versions are offered
+   first, review their changelog and apply them in order until the cluster reaches `4.1.2` or newer.
+3. Follow the upgrade task and confirm that it succeeds and the card shows `4.1.2` or newer.
+
+Automatic infrastructure upgrades can apply this patch when enabled and permitted by the cluster's version policy and
+time window. Check the current version and task history if a security email refers to an update that has already run.
+
+#### What changes on the server
+
+Wodby checks the host CA trust stores, updates the operating system's CA packages when needed, and verifies that the
+affected CA keys are no longer trusted. The update uses the distribution's package manager and requires a CA package
+that removes the affected trust. Package mirrors must be reachable when a package update is needed.
+
+If the host trust stores already pass verification, Wodby skips package downloads. It still restarts K3S so the running
+service reloads trust instead of retaining cached certificates. Cluster access can be temporarily interrupted during
+the restart. Wodby verifies the connection and host trust again before recording the new infrastructure version.
+
+#### If the update fails
+
+The task reports the error and leaves the infrastructure version unchanged. Failure of this security update alone
+does not put the cluster into a failed state: Wodby returns it to `OK` if no separate health problem prevents that.
+App deployments waiting for the upgrade can resume when the cluster is `OK`. An actual connectivity or health problem
+can still affect cluster status.
+
+Review the task logs, resolve the reported condition, and retry. For example, the distribution may not yet provide a
+CA package that removes all affected trust, a package mirror may be unavailable, or custom host trust settings may need
+manual review. Installing the latest available package is not sufficient if verification still finds affected CAs.
+
+#### Update application trust separately
+
+This upgrade checks the server's host trust stores. Application containers, language runtimes, and custom CA bundles
+can keep their own trust stores. Update affected images or runtime bundles and rebuild or redeploy applications as
+needed. Other host services that cache CA trust may also need a reload or restart.
+
+Removing trust can make HTTPS connections to legitimate endpoints under the removed roots fail. If an application
+depends on such an endpoint, arrange a replacement certificate chain with its operator.
+
 ## App activity during infrastructure upgrades
 
 Before starting either type of infrastructure upgrade, Wodby checks for application work that could change cluster
@@ -100,8 +154,9 @@ later scheduled check.
 
 Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
 while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
-returns to `ok`. If the infrastructure upgrade fails, the deployment continues waiting until the cluster recovers to
-`ok`.
+returns to `ok`. After a failed infrastructure upgrade, deployment waits until the cluster returns to `ok`. The
+[K3S host CA security update](#k3s-host-ca-security-update-412) restores that status after a failed attempt unless a
+separate health problem prevents it.
 
 While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
 and app stack upgrades cannot start on that cluster. Operations that are part of the infrastructure upgrade itself
