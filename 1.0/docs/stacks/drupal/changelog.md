@@ -7,6 +7,12 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.14
+
+Applies to the Drupal 7–11 stacks.
+
+- 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PHP, Nginx, Apache, Redis, Memcached, OpenSMTPD and Varnish
+
 ## 6.2.13
 
 - ⬆️ Vanilla Drupal 11.4.11, 10.6.20
