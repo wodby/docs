@@ -11,7 +11,7 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 Applies to the Drupal 7–11 stacks.
 
-- 🏔️ Alpine Linux updates for PHP, Nginx and Apache
+- 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PHP, Nginx, Apache, Redis, Memcached, OpenSMTPD and Varnish
 
 ## 6.2.13
 

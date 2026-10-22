@@ -32,7 +32,7 @@ This changelog is for Cachet stack on Wodby, to see image changes see tags descr
 
 ### 3.1.5
 
-🏔️ Alpine Linux updates for Nginx and Apache
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Nginx and Apache
 
 ### 3.1.4
 

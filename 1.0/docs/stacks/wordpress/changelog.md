@@ -9,7 +9,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 
 ## 6.2.14
 
-- 🏔️ Alpine Linux updates for PHP, Nginx and Apache
+- 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PHP, Nginx, Apache, Redis, Memcached, OpenSMTPD and Varnish
 
 ## 6.2.13
 

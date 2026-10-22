@@ -81,7 +81,7 @@ This changelog is for Matomo stack on Wodby, to see image changes see tags descr
 
 ### 1.4.16
 
-🏔️ Alpine Linux updates for Nginx
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Nginx, Redis and OpenSMTPD
 
 ### 1.4.15
 

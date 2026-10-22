@@ -57,6 +57,10 @@ A few reasons why you may get 503:
 
 This changelog is for Varnish stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/varnish/releases).
 
+### 3.4.5
+
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Varnish
+
 ### 3.4.4
 
 - 🐞 Objects matching `VARNISH_SECONDARY_STORAGE_CONDITION` are now stored in the secondary storage set by `VARNISHD_SECONDARY_STORAGE`, and all other objects in the main storage. Previously the condition had no effect and objects alternated between the two storages
