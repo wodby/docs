@@ -3,12 +3,15 @@
 You can see your server's infrastructure version on the servers list in the Dashboard. For Infrastructure 7, check for available updates in the server's settings. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
 
 !!! success "Current Wodby 1 infrastructure lines"
-    Infrastructure 7.0.2 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
+    Infrastructure 7.0.3 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
 
 !!! warning "No in-place 6 to 7 upgrade"
     Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
 
 You will be notified each time a new version of the infrastructure is released.
+
+!!! info "Infrastructure 7.0.3 — October 22, 2026"
+    Update Agent to 5.6.2 from your server settings in the Dashboard. [Run the server checks and confirm the update](#updating-from-the-dashboard). The update briefly disconnects server management while Agent restarts. Application containers and Edge continue running.
 
 ## Infrastructure 7 maintenance
 
@@ -20,14 +23,15 @@ Agent updates are not installed automatically. Apply available infrastructure up
 
 The Dashboard shows updates available for your server. Review the release summary to see what will change. If you need an update that is not offered, contact [Wodby support](../support.md).
 
-Infrastructure 7.0.0 servers update to 7.0.1 first, then to 7.0.2. Run the checks and confirm each update separately:
+Infrastructure 7.0.0 servers update to 7.0.1 first, then to 7.0.2 and 7.0.3. Run the checks and confirm each update separately:
 
 | Update | Changes | Expected interruption |
 | --- | --- | --- |
 | 7.0.0 → 7.0.1 | Edge 3.0.9 | HTTP and HTTPS traffic briefly stops while Edge restarts. |
 | 7.0.1 → 7.0.2 | Agent 5.6.0 | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
+| 7.0.2 → 7.0.3 | Agent 5.6.2 | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
 
-The 7.0.2 update requires a healthy Agent and Edge 3.0.9 with a supported configuration. Server checks identify unsupported versions or customizations before an update can start. These component updates do not upgrade the operating system, Docker or Kubernetes.
+The Agent updates require a healthy Agent and Edge 3.0.9 with a supported configuration. Server checks identify unsupported versions or customizations before an update can start. These component updates do not upgrade the operating system, Docker or Kubernetes.
 
 !!! warning "Traffic interruption"
     Updates that restart Edge briefly interrupt HTTP and HTTPS traffic to applications on the server. Review the update warnings and schedule a suitable maintenance window before proceeding.
@@ -84,6 +88,11 @@ Some operating systems such as Debian 11 enable cgroup v2, which is not supporte
 - Reboot the server
 
 ## Changelog
+
+### 7.0.3
+
+* Updated Agent to [5.6.2](https://github.com/wodby/agent/releases/tag/5.6.2), including Node.js 26.12.1 and Alpine Linux 3.24.3.
+* Update from 7.0.2 in the Dashboard. Server management briefly disconnects while Agent restarts; Edge and application containers continue running.
 
 ### 7.0.2
 
