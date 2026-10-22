@@ -11,7 +11,9 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 
 Applies to the Drupal 7–11 stacks.
 
-- 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PHP, Nginx, Apache, Redis, Memcached, OpenSMTPD and Varnish
+- 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PHP, Nginx, Apache, MariaDB, PostgreSQL, Redis, Memcached, OpenSMTPD and Varnish
+
+The MariaDB and PostgreSQL updates were added after the initial 6.2.14 release. If you already upgraded to 6.2.14, check the database images and apply the latest stack revision if needed. Contact support if the update is not offered.
 
 ## 6.2.13
 
