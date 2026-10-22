@@ -79,6 +79,11 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.14
+
+- ⬆️ Matomo 5.14.1
+- ⬆️ PHP 8.2.35 with fixes for two critical remote code execution vulnerabilities (CVE-2026-109618, CVE-2026-109619)
+
 ### 1.4.13
 
 - ⬆️ Nginx 1.31.8, 1.30.6
