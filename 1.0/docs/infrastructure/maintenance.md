@@ -3,7 +3,7 @@
 You can see your server's infrastructure version on the servers list in the Dashboard. For Infrastructure 6 and 7, check for available updates in the server's settings. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
 
 !!! success "Current Wodby 1 infrastructure lines"
-    Infrastructure 7.0.4 is the default for fresh servers. Infrastructure 6.1.0 is the latest legacy release for existing Infrastructure 6 servers.
+    Infrastructure 7.0.5 is the default for fresh servers. Infrastructure 6.1.0 is the latest legacy release for existing Infrastructure 6 servers.
 
 !!! warning "No in-place 6 to 7 upgrade"
     Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
@@ -20,7 +20,7 @@ Agent updates are not installed automatically. Apply available infrastructure up
 
 The Dashboard shows updates available for your server. Review the release summary to see what will change. If you need an update that is not offered, contact [Wodby support](../support.md).
 
-Infrastructure 7.0.0 servers update to 7.0.1 first, then to 7.0.2, 7.0.3 and 7.0.4. Run the checks and confirm each update separately:
+Infrastructure 7.0.0 servers update to 7.0.1 first, then to 7.0.2, 7.0.3, 7.0.4 and 7.0.5. Run the checks and confirm each update separately:
 
 | Update | Changes | Expected interruption |
 | --- | --- | --- |
@@ -28,8 +28,11 @@ Infrastructure 7.0.0 servers update to 7.0.1 first, then to 7.0.2, 7.0.3 and 7.0
 | 7.0.1 → 7.0.2 | Agent 5.6.0 | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
 | 7.0.2 → 7.0.3 | Agent 5.6.2 | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
 | 7.0.3 → 7.0.4 | Edge 3.0.27 | HTTP and HTTPS traffic briefly stops while Edge restarts. |
+| 7.0.4 → 7.0.5 | Agent 5.7.0 and a best-effort host CA update | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
 
-The Agent updates require a healthy Agent and Edge 3.0.9 with a supported configuration. Server checks identify unsupported versions or customizations before an update can start. The 7.0.4 Edge update requires a healthy Agent 5.6.2. These component updates do not upgrade the operating system, Docker or Kubernetes.
+The 7.0.2 and 7.0.3 Agent updates require a healthy Agent and Edge 3.0.9 with a supported configuration. The 7.0.4 Edge update requires a healthy Agent 5.6.2. The 7.0.5 update requires a healthy Agent and Edge 3.0.27. Server checks identify unsupported versions or customizations before an update can start. These updates do not upgrade the operating system, Docker or Kubernetes.
+
+After Agent is verified, 7.0.5 attempts the [host CA security update](#host-ca-security-update). Check its result in the update task.
 
 !!! warning "Traffic interruption"
     Updates that restart Edge briefly interrupt HTTP and HTTPS traffic to applications on the server. Review the update warnings and schedule a suitable maintenance window before proceeding.
@@ -65,9 +68,13 @@ Infrastructure 6.0.0–6.0.4 servers can update to 6.1.0 using the [Dashboard up
 
 The server checks identify unsupported host versions and custom configurations before the update starts. This update does not upgrade the operating system, Docker or Kubernetes. If the update does not complete, follow the [recovery guidance](#if-an-update-does-not-complete); contact support if the server remains in maintenance.
 
-After Agent and Edge are updated, Infrastructure 6.1.0 attempts to refresh the host's CA certificates for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available). This step depends on security packages being available for your operating system. Older operating systems may need extended security support or manual remediation. A failure does not prevent the Agent and Edge upgrade from completing.
+After Agent and Edge are updated, 6.1.0 attempts the [host CA security update](#host-ca-security-update). Check its result in the update task.
 
-Check the update task for the host CA result. If it says the **host CA update was not verified**, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). A server showing version 6.1.0 does not by itself confirm that its host CA update succeeded.
+## Host CA security update
+
+Infrastructure 6.1.0 and 7.0.5 attempt to refresh the host's CA certificates for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. This step depends on security packages being available for your operating system. Older operating systems may need extended security support or manual remediation. A CA failure does not prevent the infrastructure upgrade from completing.
+
+Check the update task for the host CA result. If it says the **host CA update was not verified**, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). A server showing version 6.1.0 or 7.0.5 does not by itself confirm that its host CA update succeeded. If there is no recorded CA result, contact support for verification.
 
 The CA step does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
 
@@ -98,6 +105,11 @@ Some operating systems such as Debian 11 enable cgroup v2, which is not supporte
 - Reboot the server
 
 ## Changelog
+
+### 7.0.5
+
+* Updated Agent to [5.7.0](https://github.com/wodby/agent/releases/tag/5.7.0).
+* Added a best-effort [host CA security update](#host-ca-security-update). Review the update task for verification or manual-remediation warnings.
 
 ### 7.0.4
 
