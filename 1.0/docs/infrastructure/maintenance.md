@@ -1,96 +1,43 @@
 # Infrastructure maintenance
 
-You can see your server's infrastructure version on the servers list in the Dashboard. For Infrastructure 6 and 7, check for available updates in the server's settings. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
+Check your server's infrastructure version on the servers list in the Dashboard. The current releases are **7.0.5** for Infrastructure 7 and **6.1.0** for existing Infrastructure 6 servers. Infrastructure and [stacks](../stacks/maintenance.md) are updated separately.
 
-!!! success "Current Wodby 1 infrastructure lines"
-    Infrastructure 7.0.5 is the default for fresh servers. Infrastructure 6.1.0 is the latest legacy release for existing Infrastructure 6 servers.
+Infrastructure 6 cannot be upgraded in place to Infrastructure 7. To move to Infrastructure 7, [connect a fresh supported server](connecting-server.md) and migrate or redeploy your applications.
 
-!!! warning "No in-place 6 to 7 upgrade"
-    Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
+## Updating from the Dashboard
 
-You will be notified each time a new version of the infrastructure is released.
+The Dashboard offers the next supported update for your server. The server must be available, and you need permission to update it. Wait for active server and application tasks to finish. Server checks identify unsupported versions or configurations.
 
-## Infrastructure 7 maintenance
+Review the interruption warnings and choose a suitable maintenance window. Edge updates briefly interrupt HTTP and HTTPS traffic. Agent updates briefly disconnect server management while application containers and Edge continue running.
 
-Infrastructure 7 installs exact versions of Docker, Kubernetes, containerd, cri-dockerd, and networking packages and places the apt packages on hold. Do not upgrade these components independently. Contact [Wodby support](../support.md) before changing a control-plane component or upgrading the host operating system.
-
-Agent updates are not installed automatically. Apply available infrastructure updates from the Dashboard as described below. Use the [Agent update command](cli.md#updating-infrastructure-7-agent) when instructed by support.
-
-### Updating from the Dashboard
-
-The Dashboard offers the next supported update for your server. Review the release summary to see what will change. If another update is offered after it completes, run the checks and confirm that update separately. If you need an update that is not offered, contact [Wodby support](../support.md).
-
-Server checks identify unsupported versions or customizations before an update can start. Component updates do not upgrade the operating system, Docker or Kubernetes. Check the update task for the result of any [host CA security update](#host-ca-security-update).
-
-!!! warning "Traffic interruption"
-    Updates that restart Edge briefly interrupt HTTP and HTTPS traffic to applications on the server. Review the update warnings and schedule a suitable maintenance window before proceeding.
-
-You need permission to update the server. The server must be available, and active server and application tasks must finish before you start the update.
-
-1. Open the server's settings in the Dashboard and find **Infrastructure update**.
-2. Select **Check server for update**. Checking the server does not apply the update.
-3. Review the source and target versions, release summary, affected application instances, and warnings. Resolve any reported blockers before proceeding.
+1. Open the server's settings and find **Infrastructure update**.
+2. Select **Check server for update**. This checks the server without applying changes.
+3. Review the versions, release summary, affected application instances, and warnings. Resolve any reported blockers.
 4. Select the acknowledgement checkbox, then **Update infrastructure**.
-5. Select **View update task and logs** to follow progress. You can leave the page and return later.
-6. After the update completes, check that your applications are accessible over HTTP and HTTPS and behave as expected.
+5. Open **View update task and logs** to follow progress. You can leave the page and return later.
+6. After completion, check that your applications are accessible over HTTP and HTTPS and behave as expected.
 
-A preview expires after 15 minutes. Run the checks again if it expires or the server configuration changes. Each user must run their own checks before confirming an update.
+Checks expire after 15 minutes. Run them again if they expire or the server configuration changes. Each user must run their own checks. If another update is offered after completion, check and confirm it separately.
 
-During the update, deployments and other changes to the server are blocked. You cannot cancel the update or delete the server while maintenance is in progress. The Dashboard shows the new infrastructure version once the update has been verified.
+During an update, deployments and other server changes are blocked. You cannot cancel the update or delete the server. Do not apply manual infrastructure changes while the update is in progress.
 
-For the Agent update, the image is downloaded before the running Agent is replaced. The Dashboard waits for Agent to reconnect and verifies the updated component before reporting success. A brief management disconnect during this step is expected; do not start a manual Agent update while the Dashboard update is running.
+Dashboard component updates do not upgrade the operating system, Docker or Kubernetes. Contact [Wodby support](../support.md) before changing the host operating system or infrastructure components manually.
 
 ### If an update does not complete
 
-If an update fails or your connection is lost, reopen the server's settings and check the task status before retrying.
+Reopen the server's settings and check the update task before retrying. A failed task can leave some components updated, so the server may remain in maintenance until its state is verified.
 
-If the Dashboard shows **Update outcome needs verification**, the server remains in maintenance. Wait until the displayed recovery time, then select **Check update status** when it becomes available. This checks whether the update completed; it does not repeat the update.
+If the Dashboard shows **Update outcome needs verification**, wait until the displayed recovery time, then select **Check update status**. This checks the installed state without repeating the update.
 
-If the update was not applied, review the task log, resolve any reported problem, and run new checks before retrying. If the server remains in maintenance after checking its status, contact [Wodby support](../support.md) and include the update task link.
-
-If Agent cannot reconnect, the Dashboard may be unable to verify the result even if the image changed. The recorded infrastructure version stays unchanged and maintenance remains reserved. Contact support before attempting a manual update or rollback; restoring Agent connectivity may require access to the server.
-
-## Infrastructure 6 component updates
-
-Infrastructure 6.0.0–6.0.4 servers can update to 6.1.0 using the [Dashboard update steps](#updating-from-the-dashboard). The update replaces Agent, then Edge, under one confirmation. Server management briefly disconnects while Agent restarts. HTTP and HTTPS traffic briefly stops while Edge restarts.
-
-The server checks identify unsupported host versions and custom configurations before the update starts. This update does not upgrade the operating system, Docker or Kubernetes. If the update does not complete, follow the [recovery guidance](#if-an-update-does-not-complete); contact support if the server remains in maintenance.
-
-After Agent and Edge are updated, 6.1.0 attempts the [host CA security update](#host-ca-security-update). Check its result in the update task.
+If the update was not applied and maintenance has ended, resolve the problem shown in the task log and run new checks. If the server remains in maintenance or disconnected, contact [Wodby support](../support.md) with the task link before attempting a manual update or rollback.
 
 ## Host CA security update
 
-Infrastructure 6.1.0 and 7.0.5 attempt to refresh the host's CA certificates for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. This step depends on security packages being available for your operating system. Older operating systems may need extended security support or manual remediation. A CA failure does not prevent the infrastructure upgrade from completing.
+Infrastructure 6.1.0 and 7.0.5 attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. If the host trust files need updating, security packages must be available for the operating system. Older systems may need extended security support or manual remediation. Failure of this step does not fail the infrastructure upgrade.
 
-Check the update task for the host CA result. If it says the **host CA update was not verified**, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). A server showing version 6.1.0 or 7.0.5 does not by itself confirm that its host CA update succeeded. If there is no recorded CA result, contact support for verification.
+Check the CA result in the update task. If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
 
-The CA step does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
-
-## Infrastructure 6 OS upgrade tips
-
-!!! tip "Create snapshot of your VM first"
-    Before performing the upgrade regardless of the method we strongly recommend creating a snapshot of your server if it's a VM.    
-
-!!! warning "Test your upgrades with the dev server first"
-    Make sure your prod and dev server are from the same cloud provider and have the same OS distribution/version. After successfully upgrading the dev server and testing all the hosted apps you should continue to upgrading your production server.
-
-These instructions apply only to existing Infrastructure 6 servers. They do not turn an Infrastructure 6 server into Infrastructure 7.
-
-When upgrading an Infrastructure 6 host to a previously supported operating-system version:
-
-1. [Stop Kubernetes and Docker services first](cli.md#restart-docker-and-kubernetes-services)
-2. Perform the upgrade
-3. Reboot
-4. Make sure Docker was not installed from packages (we require a specific version that we manuall install during server connection)
-5. Check iptables version via `iptables --version`. If it's `1.8.2` or newer switch it to legacy mode: `update-alternatives --set iptables /usr/sbin/iptables-legacy`
-6. Make sure [cgroup v2 is disabled](#infrastructure-6-cgroup2-workaround)
-
-## Infrastructure 6 cgroup2 workaround
-
-Some operating systems such as Debian 11 enable cgroup v2, which is not supported by the Docker version used by Infrastructure 6. To retain Infrastructure 6 compatibility:
-- Edit `/etc/default/grub` and add `systemd.unified_cgroup_hierarchy=0` to `GRUB_CMDLINE_LINUX_DEFAULT` (or `GRUB_CMDLINE_LINUX` if it's not present)
-- Run `update-grub`
-- Reboot the server
+The CA update does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
 
 ## Changelog
 
@@ -128,6 +75,8 @@ Fresh-server Infrastructure 7 release:
 * Wodby Agent 5.5.0
 
 ### 6.1.0
+
+Available for existing Infrastructure 6.0.0–6.0.4 servers.
 
 * Updated Agent to [5.7.0](https://github.com/wodby/agent/releases/tag/5.7.0).
 * Updated Edge to [2.7.1](https://github.com/wodby/edge-alpine/releases/tag/2.7.1).
