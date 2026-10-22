@@ -65,6 +65,12 @@ Infrastructure 6.0.0–6.0.4 servers can update to 6.1.0 using the [Dashboard up
 
 The server checks identify unsupported host versions and custom configurations before the update starts. This update does not upgrade the operating system, Docker or Kubernetes. If the update does not complete, follow the [recovery guidance](#if-an-update-does-not-complete); contact support if the server remains in maintenance.
 
+After Agent and Edge are updated, Infrastructure 6.1.0 attempts to refresh the host's CA certificates for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available). This step depends on security packages being available for your operating system. Older operating systems may need extended security support or manual remediation. A failure does not prevent the Agent and Edge upgrade from completing.
+
+Check the update task for the host CA result. If it says the **host CA update was not verified**, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). A server showing version 6.1.0 does not by itself confirm that its host CA update succeeded.
+
+The CA step does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
+
 ## Infrastructure 6 OS upgrade tips
 
 !!! tip "Create snapshot of your VM first"
@@ -125,6 +131,7 @@ Fresh-server Infrastructure 7 release:
 
 * Updated Agent to [5.7.0](https://github.com/wodby/agent/releases/tag/5.7.0).
 * Updated Edge to [2.7.1](https://github.com/wodby/edge-alpine/releases/tag/2.7.1).
+* Added a best-effort host CA security update. Check the update task for any required manual remediation.
 
 ### 6.0.4
 
