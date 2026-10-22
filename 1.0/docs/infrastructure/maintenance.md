@@ -1,9 +1,9 @@
 # Infrastructure maintenance
 
-You can see your server's infrastructure version on the servers list in the Dashboard. For Infrastructure 7, check for available updates in the server's settings. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
+You can see your server's infrastructure version on the servers list in the Dashboard. For Infrastructure 6 and 7, check for available updates in the server's settings. For other infrastructure changes, [contact our support team](../support.md) to schedule an upgrade.
 
 !!! success "Current Wodby 1 infrastructure lines"
-    Infrastructure 7.0.4 is the default for fresh servers. Infrastructure 6.0.4 is the latest legacy release for existing Infrastructure 6 servers.
+    Infrastructure 7.0.4 is the default for fresh servers. Infrastructure 6.1.0 is the latest legacy release for existing Infrastructure 6 servers.
 
 !!! warning "No in-place 6 to 7 upgrade"
     Infrastructure 7 requires a fresh Ubuntu 26.04 or Debian 13 server. Migrate or redeploy applications from Infrastructure 6 instead of running Installer 2.x on the existing host.
@@ -58,6 +58,12 @@ If the Dashboard shows **Update outcome needs verification**, the server remains
 If the update was not applied, review the task log, resolve any reported problem, and run new checks before retrying. If the server remains in maintenance after checking its status, contact [Wodby support](../support.md) and include the update task link.
 
 If Agent cannot reconnect, the Dashboard may be unable to verify the result even if the image changed. The recorded infrastructure version stays unchanged and maintenance remains reserved. Contact support before attempting a manual update or rollback; restoring Agent connectivity may require access to the server.
+
+## Infrastructure 6 component updates
+
+Infrastructure 6.0.0–6.0.4 servers can update to 6.1.0 using the [Dashboard update steps](#updating-from-the-dashboard). The update replaces Agent, then Edge, under one confirmation. Server management briefly disconnects while Agent restarts. HTTP and HTTPS traffic briefly stops while Edge restarts.
+
+The server checks identify unsupported host versions and custom configurations before the update starts. This update does not upgrade the operating system, Docker or Kubernetes. If the update does not complete, follow the [recovery guidance](#if-an-update-does-not-complete); contact support if the server remains in maintenance.
 
 ## Infrastructure 6 OS upgrade tips
 
@@ -114,6 +120,11 @@ Fresh-server Infrastructure 7 release:
 * etcd 3 using the direct v3 API
 * Wodby Edge 3.0.0 with support certificates for technical domains
 * Wodby Agent 5.5.0
+
+### 6.1.0
+
+* Updated Agent to [5.7.0](https://github.com/wodby/agent/releases/tag/5.7.0).
+* Updated Edge to [2.7.1](https://github.com/wodby/edge-alpine/releases/tag/2.7.1).
 
 ### 6.0.4
 
