@@ -9,7 +9,7 @@ Wodby 1 currently supports only single-node setups. For scalable clusters, we re
 Infrastructure and stacks are versioned and maintained separately. Infrastructure updates can include operating-system compatibility, security fixes, and component upgrades.
 
 * [Infrastructure maintenance](maintenance.md)
-* [Update Infrastructure 7 from the Dashboard](maintenance.md#updating-from-the-dashboard)
+* [Update infrastructure from the Dashboard](maintenance.md#updating-from-the-dashboard)
 * [Stacks maintenance](../stacks/maintenance.md)
 
 The infrastructure is powered by Docker and Kubernetes. The Wodby Agent applies operations requested by the Wodby 1 backend, and Edge terminates TLS and proxies public traffic to application services.
@@ -24,7 +24,7 @@ Infrastructure 7 is not an in-place upgrade for Infrastructure 6. To move an exi
 
 ### Infrastructure 6
 
-Infrastructure 6 is the legacy line used by existing Wodby 1 servers. Its installation, operating-system, and maintenance instructions remain separate from Infrastructure 7. Do not run the Infrastructure 7 installer on an existing Infrastructure 6 server.
+Infrastructure 6 is the legacy line used by existing Wodby 1 servers. Do not run the Infrastructure 7 installer on an existing Infrastructure 6 server.
 
 See [infrastructure maintenance](maintenance.md) for the current release profiles and upgrade policy.
 
