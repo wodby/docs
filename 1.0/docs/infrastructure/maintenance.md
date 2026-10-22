@@ -18,21 +18,9 @@ Agent updates are not installed automatically. Apply available infrastructure up
 
 ### Updating from the Dashboard
 
-The Dashboard shows updates available for your server. Review the release summary to see what will change. If you need an update that is not offered, contact [Wodby support](../support.md).
+The Dashboard offers the next supported update for your server. Review the release summary to see what will change. If another update is offered after it completes, run the checks and confirm that update separately. If you need an update that is not offered, contact [Wodby support](../support.md).
 
-Infrastructure 7.0.0 servers update to 7.0.1 first, then to 7.0.2, 7.0.3, 7.0.4 and 7.0.5. Run the checks and confirm each update separately:
-
-| Update | Changes | Expected interruption |
-| --- | --- | --- |
-| 7.0.0 → 7.0.1 | Edge 3.0.9 | HTTP and HTTPS traffic briefly stops while Edge restarts. |
-| 7.0.1 → 7.0.2 | Agent 5.6.0 | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
-| 7.0.2 → 7.0.3 | Agent 5.6.2 | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
-| 7.0.3 → 7.0.4 | Edge 3.0.27 | HTTP and HTTPS traffic briefly stops while Edge restarts. |
-| 7.0.4 → 7.0.5 | Agent 5.7.0 and a best-effort host CA update | Server management briefly disconnects while Agent restarts. Application containers and Edge continue running. |
-
-The 7.0.2 and 7.0.3 Agent updates require a healthy Agent and Edge 3.0.9 with a supported configuration. The 7.0.4 Edge update requires a healthy Agent 5.6.2. The 7.0.5 update requires a healthy Agent and Edge 3.0.27. Server checks identify unsupported versions or customizations before an update can start. These updates do not upgrade the operating system, Docker or Kubernetes.
-
-After Agent is verified, 7.0.5 attempts the [host CA security update](#host-ca-security-update). Check its result in the update task.
+Server checks identify unsupported versions or customizations before an update can start. Component updates do not upgrade the operating system, Docker or Kubernetes. Check the update task for the result of any [host CA security update](#host-ca-security-update).
 
 !!! warning "Traffic interruption"
     Updates that restart Edge briefly interrupt HTTP and HTTPS traffic to applications on the server. Review the update warnings and schedule a suitable maintenance window before proceeding.
