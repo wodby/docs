@@ -79,7 +79,7 @@ Fresh-server Infrastructure 7 release:
 Available for existing Infrastructure 6.0.0–6.0.4 servers.
 
 * Updated Agent to [5.7.0](https://github.com/wodby/agent/releases/tag/5.7.0).
-* Updated Edge to [2.7.2](https://github.com/wodby/edge-alpine/releases/tag/2.7.2), fixing “Content not found” responses when application routes could not load.
+* Updated Edge to [2.7.2](https://github.com/wodby/edge-alpine/releases/tag/2.7.2).
 * Added a best-effort host CA security update. Check the update task for any required manual remediation.
 
 ### 6.0.4
