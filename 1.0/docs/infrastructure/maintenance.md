@@ -1,6 +1,6 @@
 # Infrastructure maintenance
 
-Check your server's infrastructure version on the servers list in the Dashboard. The current releases are **7.0.5** for Infrastructure 7 and **6.1.0** for existing Infrastructure 6 servers. Infrastructure and [stacks](../stacks/maintenance.md) are updated separately.
+Check your server's infrastructure version on the servers list in the Dashboard. The current releases are **7.0.6** for Infrastructure 7 and **6.1.1** for existing Infrastructure 6 servers. Infrastructure and [stacks](../stacks/maintenance.md) are updated separately.
 
 Infrastructure 6 cannot be upgraded in place to Infrastructure 7. To move to Infrastructure 7, [connect a fresh supported server](connecting-server.md) and migrate or redeploy your applications.
 
@@ -41,6 +41,10 @@ The CA update does not restart host services. Long-running services may need a s
 
 ## Changelog
 
+### 7.0.6
+
+* Updated Agent to [5.7.1](https://github.com/wodby/agent/releases/tag/5.7.1).
+
 ### 7.0.5
 
 * Updated Agent to [5.7.0](https://github.com/wodby/agent/releases/tag/5.7.0).
@@ -73,6 +77,10 @@ Fresh-server Infrastructure 7 release:
 * etcd 3 using the direct v3 API
 * Wodby Edge 3.0.0 with support certificates for technical domains
 * Wodby Agent 5.5.0
+
+### 6.1.1
+
+* Updated Agent to [5.7.1](https://github.com/wodby/agent/releases/tag/5.7.1).
 
 ### 6.1.0
 
