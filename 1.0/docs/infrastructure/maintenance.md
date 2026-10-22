@@ -10,17 +10,13 @@ You can see your server's infrastructure version on the servers list in the Dash
 
 You will be notified each time a new version of the infrastructure is released.
 
-## Infrastructure 7 maintenance
-
-Infrastructure 7 installs exact versions of Docker, Kubernetes, containerd, cri-dockerd, and networking packages and places the apt packages on hold. Do not upgrade these components independently. Contact [Wodby support](../support.md) before changing a control-plane component or upgrading the host operating system.
-
-Agent updates are not installed automatically. Apply available infrastructure updates from the Dashboard as described below. Use the [Agent update command](cli.md#updating-infrastructure-7-agent) when instructed by support.
-
-### Updating from the Dashboard
+## Updating from the Dashboard
 
 The Dashboard offers the next supported update for your server. Review the release summary to see what will change. If another update is offered after it completes, run the checks and confirm that update separately. If you need an update that is not offered, contact [Wodby support](../support.md).
 
 Server checks identify unsupported versions or customizations before an update can start. Component updates do not upgrade the operating system, Docker or Kubernetes. Check the update task for the result of any [host CA security update](#host-ca-security-update).
+
+On Infrastructure 7, contact [Wodby support](../support.md) before upgrading the host operating system or independently changing Docker, Kubernetes, container runtimes or networking components.
 
 !!! warning "Traffic interruption"
     Updates that restart Edge briefly interrupt HTTP and HTTPS traffic to applications on the server. Review the update warnings and schedule a suitable maintenance window before proceeding.
