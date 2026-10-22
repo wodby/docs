@@ -108,6 +108,15 @@ marked as outdated solely because `3.0.0` exists.
 
 ### Changelog
 
+#### 4.1.2 (upcoming)
+
+Version `4.1.2` updates and verifies the host CA trust store on self-hosted K3S servers following the eMudhra
+intermediate CA compromise. It restarts K3S to reload trust, including when the operating system has already applied
+the CA fix. Run it during a maintenance window when the dashboard offers the update.
+
+See the [K3S host CA security update](updates.md#k3s-host-ca-security-update-412) for upgrade steps, retry behavior,
+and the separate updates needed for application CA bundles.
+
 #### 4.1.1
 
 Version `4.1.1` lets the nodes of a self-hosted K3S cluster reach app pods on other nodes. It fixes apps with shared
