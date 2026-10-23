@@ -71,6 +71,53 @@ Update the organization stack, then upgrade only the dev instance of application
 example. Follow the tasks and tell me whether a CI rebuild is still required.
 ```
 
+### Deploy and configure an instance
+
+For a deployment, name the application, instance, and requested code source.
+For example:
+
+```text
+In organization example, deploy the main branch to the dev instance of my-app.
+Follow the deployment task and report the deployed commit.
+```
+
+The agent can use a connected repository for a [direct Git deployment](../cicd/git.md),
+redeploy the current instance configuration, or deploy an eligible
+[previous CI build](../apps/builds.md#deploy-a-previous-build). New CI builds run
+through your [configured CI pipeline](../cicd/third-party.md).
+
+For configuration changes, specify the service, setting, and desired value.
+The agent should read the existing configuration, preserve unrelated settings,
+and explain whether applying the change will restart services or require a CI
+rebuild. For example:
+
+```text
+In organization example, show the PHP memory limit for the dev instance of
+my-app. Propose changing it to 256M and explain how the change will be applied.
+```
+
+When changing a secret, provide an explicit replacement and ask the agent to
+omit it from its report. Masked values are placeholders; omit them from updates to
+preserve the stored secrets. Domain changes do not update external DNS
+records automatically; see [domains](../apps/domains.md).
+
+### Backups, restore, and migration
+
+Ask the agent to create a backup of the selected database, files, or both and
+follow the task to completion. Before restoring, review the backup, instance,
+and components to overwrite. A restore replaces those components on the
+original instance; it does not restore code, a CI build, or a stack revision.
+See [backups](../apps/backups.md) for recovery and retention behavior.
+
+To create another instance using existing data, ask the agent to clone the
+selected source database/files into a new instance in the same organization.
+Identify the destination server and new instance name explicitly.
+
+For a [server migration](../apps/server-migration.md), the agent checks
+eligibility, selects a successful backup, and creates a separate billable copy.
+The source remains available. Verify the copy before switching traffic;
+DNS, custom-domain certificates, and source deletion require separate steps.
+
 ### Server infrastructure updates
 
 The agent checks the next update offered for the selected server and runs its preflight checks. Review the proposed versions, affected instances, blockers, and interruption warnings before approving the update. A preflight check does not apply the update.
@@ -111,9 +158,10 @@ resources. PDF downloads are limited to 2 MiB.
 
 Creating, deploying, upgrading, backing up, or restoring a resource can return a task. Ask the agent to follow that task and inspect its logs before reporting completion. An accepted request is not a completed operation.
 
-For each intended write, the agent should supply a unique `request_key` and
-preserve it if the same request is submitted again. Duplicate keys for the same
-user and organization are refused for 24 hours. This protection requires the
+Write tools accept an optional `request_key` of 16–128 ASCII letters, digits,
+underscores, or hyphens. Ask the agent to use a unique key for each intended
+write and preserve it if the same request is submitted again. Duplicate keys
+for the same user and organization are refused for 24 hours. This protection requires the
 key; it does not repeat or recover the original response. Do not switch keys to
 repeat an operation whose outcome is uncertain.
 
@@ -146,4 +194,4 @@ Connecting MCP does not grant access to your source repository, host, database, 
 | A write reports a duplicate `request_key` | Inspect its target and recent tasks. The original operation may already have run. |
 | An operation fails or stops responding | Inspect its task, logs, and current resource state before retrying. |
 
-For connection issues that persist, [contact support](../support.md) with the client name, error message, and relevant task ID. Do not include your API key or installer command.
+For connection issues that persist, [contact support](../support.md) with the client name, error message, and relevant task ID. Omit API keys, installer commands, upload forms, and replacement secrets.
