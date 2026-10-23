@@ -91,6 +91,31 @@ The server includes skills that guide the agent through common Wodby 1 workflows
 
 Skills help the agent choose and sequence tools. They do not change your permissions or replace your approval of an operation.
 
+### Search the documentation
+
+Ask the agent to use `search_wodby1_docs` for Wodby 1 settings, limits, or
+workflow instructions, then `read_wodby1_docs` for the matching page. Long pages
+include a continuation offset. The returned URL lets you check the source.
+Documentation describes the product; use resource tools to inspect your
+organization's current state. If a cached result is marked stale, account for
+that when reviewing the answer.
+
+### Install skills locally, if supported
+
+Local installation is optional. The [public skill index](https://api.wodby.com/api/v3/mcp/skills)
+links to individual workflows and a downloadable archive. Each release has a
+versioned index and SHA-256 hashes. Retain those URLs and hashes when pinning a
+version for automation; review changes before upgrading.
+
+The archive contains the same workflow text as MCP guidance, portable skill
+directories, plugin metadata, and HTTP MCP configuration. Use your client's
+supported installation mechanism. If it cannot load the archive, use
+`get_wodby1_guidance` instead. The configuration contains a `WODBY_API_KEY`
+environment placeholder; configure the key through your client's secret
+settings if that placeholder is unsupported. Installing files does not connect
+an account or grant permission. Always discover the connected server's current
+tools before following an installed workflow.
+
 ## Common requests
 
 Name the organization, application, instance, or server you want to work on. Distinguish checking a proposed change from applying it. For example:
@@ -108,6 +133,29 @@ instances, blockers, and interruption warnings before applying any changes.
 Update the organization stack, then upgrade only the dev instance of application
 example. Follow the tasks and tell me whether a CI rebuild is still required.
 ```
+
+### Prepare creation before applying it
+
+Use `prepare_app_creation`, `prepare_instance_creation`, or
+`prepare_server_creation` to review a new resource before creating it. Start
+with the organization UUID and the choices you already know. For example:
+
+```text
+Prepare a dev instance of my-app in organization example. Show the server,
+stack revision, unresolved choices, and blockers. Do not create it yet.
+```
+
+The agent should resolve the returned questions and blockers, review exact
+stack/service revision choices and server compatibility, then show the proposed
+creation call. Required services need a supported revision from the selected
+stack. An explicitly selected service list can omit optional services.
+
+`ready: true` means the supplied choices passed preparation checks. It does not
+reserve capacity, guarantee provider availability or prices, or approve
+creation. The creation operation checks permissions, limits, and current state
+again. Approve the target, configuration, and any costs before applying it.
+`create_app_instance` creates an instance using its application's stack without
+requiring a data copy; use cloning when a copy is intended.
 
 ### Deploy and configure an instance
 
@@ -207,6 +255,58 @@ If a request times out or the connection is lost, the change may already have ha
 
 !!! warning "Existing data can be overwritten"
     Restoring a backup or importing into an existing instance can overwrite its data. Review the [backup and restore guidance](../apps/backups.md) before approving an overwrite.
+
+### Read diagnostic logs
+
+For task logs, `get_task_log_page` returns the latest messages by default.
+Follow `next_before_sequence_id` to find earlier errors. To read new messages,
+use `after_sequence_id` with the previous last sequence; zero starts at the
+beginning. These cursors are exclusive and cannot be combined.
+
+A page contains at most 100 entries and 64 KiB of encoded entries.
+`collection_complete` describes task-log collection, not application health.
+Disabled task logging is reported as unavailable. Oversized details are omitted
+whole with `details_omitted`; inspect the dashboard task log for that missing
+evidence. Other oversized messages are marked truncated. Missing text is not
+an empty result or proof of success.
+
+For service logs, `get_instance_service_log_snapshot` freezes the current
+rolling cache. Continue with its `snapshot_id`, the same instance/service, and
+sequence cursors. Snapshots retain at most 200 entries and 64 KiB of encoded
+entries for five minutes. They require the original credential and current
+resource access. Source messages larger than 8 KiB are omitted whole.
+
+The service cache can aggregate output from multiple pods, lag, lose batches,
+or retain older output after a restart. Check cache presence, update time,
+staleness, truncation, and reported gaps. A cache-read failure is an error;
+empty or missing cached output does not prove application health.
+
+### Watch logs during a reproduction
+
+For example:
+
+```text
+Watch the php service logs for my-app's dev instance for up to 60 seconds while
+I reproduce this error. Do not send requests to the app or change it.
+```
+
+The agent starts `start_instance_service_log_watch` before the reproduction,
+polls `read_instance_service_log_watch` about every five seconds using its
+sequence cursor, and calls `stop_instance_service_log_watch` when enough
+evidence is collected. A watch polls the existing cache; it is not a complete
+runtime stream.
+
+Watches last 60 seconds by default, with a 10–120 second limit, and stop after
+30 seconds without a read. Stopped or expired watches cannot resume. Evidence
+expires five minutes after creation. Up to three watches and ten snapshots per
+user can be admitted within five minutes; shared capacity limits can also
+refuse a new collection. Wait for the returned retry interval.
+
+Watch buffers retain at most 200 entries and 64 KiB. Report dropped entries,
+cursor gaps, stale cache, and observed target changes. Cached pod observations
+cannot guarantee generation coverage. Retained reads require the original
+credential and current resource access. Starting a watch does not authorize
+commands, test traffic, restarts, or deployments.
 
 ## Current limits
 
