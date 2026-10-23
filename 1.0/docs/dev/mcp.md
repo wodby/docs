@@ -7,7 +7,7 @@ Connect an AI client to Wodby 1 to inspect resources, deploy applications, manag
 
 ## Connect your client
 
-1. Create an [organization-scoped API key](../user/api-keys.md) under `Account > API Keys`. Use a separate key for each agent integration.
+1. Open `Organization > Agents > Connect an agent`. Enter a name that identifies the client or automation, choose an expiration, and click **Create agent connection**. Save the API key before selecting **I have saved the key**; it is shown only once. Use a separate connection for each agent integration.
 2. In your MCP client's server settings, add a remote server with these values:
 
     | Setting | Value |
@@ -21,9 +21,47 @@ Connect an AI client to Wodby 1 to inspect resources, deploy applications, manag
 3. Save the key in your client's secret configuration, then connect and load the server's tools. Keep the key out of conversations, source control, and logs.
 4. Ask the agent to list the organization and its applications. Verify the organization before requesting changes.
 
+The Connect page can generate a URL for your selected tool groups and read-only preference. Copy that URL into the client when using those preferences.
+
+Existing [organization-scoped API keys](../user/api-keys.md) also work. Ordinary keys are not automatically listed as agent connections.
+
 Your client must support remote HTTP MCP servers with custom authentication headers. Clients that require OAuth browser authorization cannot use this endpoint. Wodby 1 and Wodby 2 use different MCP endpoints and connection settings.
 
 The agent acts with the key owner's [permissions](../access-control.md), restricted to the key's organization. Connecting does not grant additional permissions or authorize changes. API keys do not provide separate MCP read-only scopes; use an account with permissions appropriate to the work you want the agent to perform.
+
+## Review access and activity
+
+The Agents pages are also available from the organization settings tabs.
+
+Open `Organization > Agents > Connections` to see the authorizing
+user, credential status, expiration, and last successful MCP tool call. Enable
+**Include expired and revoked connections** to see inactive entries. Use
+**Refresh** after changing client access or checking a recent connection.
+
+**Authorized** means the credential is available; it does not mean an agent is
+running. Initialization alone does not count as a successful tool call. Check
+that the agent can identify your organization and list its applications.
+
+You can rename or revoke your own connections. Owners can manage all
+organization connections. Administrators can view all connections and manage
+member-owned connections, but cannot manage another administrator's or owner's
+connection. Support has read-only visibility. Resource permissions still apply
+to every operation.
+
+Select **Revoke access** to prevent new authenticated requests with that key.
+Revoked connections remain in the list. Tasks already started may continue;
+revoking access does not undo their changes. Remove the saved credential from
+the client as well when retiring an integration.
+
+Use **Activity**, or a connection's **Activity** link, to inspect visible tasks
+initiated through MCP. Task history shows the initiating tool and a request ID
+for troubleshooting. It records task-backed operations, not every read or the
+agent's conversation. Older tasks may have no MCP attribution. Viewing a
+connection does not grant access to additional task logs or resources.
+
+If a connection-creation response is lost, check Connections before creating
+another one. If a key was created but never received, revoke that connection
+and create a replacement.
 
 ## Choose tools for your workflow
 

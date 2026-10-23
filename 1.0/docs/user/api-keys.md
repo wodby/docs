@@ -31,6 +31,6 @@ Organization-scoped keys authenticate API v3 requests through the `X-API-Key` he
 curl https://api.wodby.com/api/v3/user -H 'X-API-Key: YOUR_API_KEY'
 ```
 
-To connect an AI client, follow the [MCP guide](../dev/mcp.md) for availability, client requirements, and connection settings. Store the key in the client's secret configuration.
+For an AI client, use `Organization > Agents > Connect an agent` to create a dedicated organization-scoped key and connection record. Follow the [MCP guide](../dev/mcp.md) for availability, requirements, access management, and connection settings. Existing organization-scoped keys also work, but are not automatically listed as agent connections. Store the key in the client's secret configuration.
 
 Keep API keys out of source control, client-side code, logs, and other publicly accessible locations. Expired or deleted keys cannot authenticate new requests.
