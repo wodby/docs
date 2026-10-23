@@ -25,6 +25,18 @@ Your client must support remote HTTP MCP servers with custom authentication head
 
 The agent acts with the key owner's [permissions](../access-control.md), restricted to the key's organization. Connecting does not grant additional permissions or authorize changes. API keys do not provide separate MCP read-only scopes; use an account with permissions appropriate to the work you want the agent to perform.
 
+## Choose tools for your workflow
+
+The default connection offers all available tools. To load a smaller catalog,
+add `?groups=deployment,data` to the endpoint URL. Choose one or more of
+`deployment`, `configuration`, `data`, `infrastructure`, `stacks`, `integrations`,
+`organization`, and `billing`. Discovery and task-reading tools remain available.
+
+Add `read_only=1` to offer only tools marked as reads, for example
+`https://api.wodby.com/api/v3/mcp?groups=infrastructure&read_only=1`.
+These settings limit this connection's tools. They do not change the API key's
+permissions; use appropriate account permissions for access restrictions.
+
 ## Workflow guidance
 
 The server includes skills that guide the agent through common Wodby 1 workflows. The agent can call `get_wodby1_guidance` without a name to list the skills, then load the relevant skill by name. You do not need to install a separate skills package.
@@ -34,6 +46,9 @@ The server includes skills that guide the agent through common Wodby 1 workflows
 | `wodby1-get-started` | Finding organizations, applications, instances, servers, and stacks |
 | `wodby1-server-infrastructure-upgrade` | Checking, applying, and verifying offered infrastructure updates |
 | `wodby1-stack-upgrade` | Updating organization stacks, upgrading instances, and handling required CI rebuilds |
+| `wodby1-deploy` | Creating applications and instances, direct Git deployments, and retained CI builds |
+| `wodby1-data` | Backups, restore, cloning, archive imports, and server migration |
+| `wodby1-configure` | Service settings, environment variables, domains, cron, and caches |
 | `wodby1-troubleshoot` | Following tasks and logs, investigating failures, and checking uncertain outcomes |
 
 Skills help the agent choose and sequence tools. They do not change your permissions or replace your approval of an operation.
@@ -72,9 +87,35 @@ For instances built through [third-party CI](../cicd/third-party.md), a stack up
 
 Deploying a [previous build](../apps/builds.md#deploy-a-previous-build) selects its saved images and stack revision. It is not a substitute for rebuilding against an upgraded stack, and it does not restore the database or persistent files.
 
+### Import a local archive
+
+Ask the agent to load `wodby1-data` and select the archive and organization.
+`prepare_archive_upload` returns a private upload form valid for one hour, with
+a maximum archive size of 2 GiB. The agent's client must have permission and
+file-transfer support to upload your chosen file. After a successful upload,
+the agent can use the returned file URL for a supported import. See the
+[Drupal](../stacks/drupal/index.md#import) or [WordPress](../stacks/wordpress/index.md#import) import requirements.
+
+Treat the upload form as a credential and keep it out of shared conversations
+and logs. Importing into an existing instance can overwrite data; create a
+fresh backup and review the exact target and components first.
+
+### Download an invoice
+
+Ask the agent to list the organization's invoices and retrieve the selected
+invoice with `get_invoice_document`. Your key's owner must have permission to
+view organization billing. The client must support saving embedded MCP
+resources. PDF downloads are limited to 2 MiB.
+
 ### Follow tasks to completion
 
 Creating, deploying, upgrading, backing up, or restoring a resource can return a task. Ask the agent to follow that task and inspect its logs before reporting completion. An accepted request is not a completed operation.
+
+For each intended write, the agent should supply a unique `request_key` and
+preserve it if the same request is submitted again. Duplicate keys for the same
+user and organization are refused for 24 hours. This protection requires the
+key; it does not repeat or recover the original response. Do not switch keys to
+repeat an operation whose outcome is uncertain.
 
 If a request times out or the connection is lost, the change may already have happened. Inspect the task and resource state before retrying. Review the exact target and data impact before confirming deletion, restoration, import, or migration.
 
@@ -87,7 +128,6 @@ MCP does not yet cover every dashboard action:
 
 - Manage account SSH keys and API keys, change passwords, configure MFA, and change organization security requirements in the dashboard.
 - Complete third-party OAuth consent and credential verification in the dashboard. Do not send passwords, MFA codes, or recovery codes to the agent.
-- Upload local import archives and download invoice PDFs through the dashboard. Importing an archive from a supported URL is available through the tools.
 
 For bring-your-own-server setup, the agent can prepare an installer command. That does not install or access the server. Treat the command as a credential and run it only on the intended server; see [connecting a server](../infrastructure/connecting-server.md).
 
@@ -102,6 +142,8 @@ Connecting MCP does not grant access to your source repository, host, database, 
 | An organization or resource is missing | Confirm the key's organization and its owner's resource permissions. |
 | The client asks for OAuth login | Use a client configuration that supports an API key in a custom header. |
 | Opening the endpoint in a browser returns `405 Method Not Allowed` | Connect through a Streamable HTTP MCP client. Opening the URL in a browser is not a connection test. |
+| The server reports a request limit | Wait at least the returned retry interval before submitting again. Defaults are 120 requests and 30 writes per minute per user and organization. |
+| A write reports a duplicate `request_key` | Inspect its target and recent tasks. The original operation may already have run. |
 | An operation fails or stops responding | Inspect its task, logs, and current resource state before retrying. |
 
 For connection issues that persist, [contact support](../support.md) with the client name, error message, and relevant task ID. Do not include your API key or installer command.
