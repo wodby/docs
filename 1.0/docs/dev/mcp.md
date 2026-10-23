@@ -7,8 +7,8 @@ Connect an AI client to Wodby 1 to inspect resources, deploy applications, manag
 
 ## Connect your client
 
-1. Open `Organization > Agents > Connect an agent`. Enter a name that identifies the client or automation, choose an expiration, and click **Create agent connection**. Save the API key before selecting **I have saved the key**; it is shown only once. Use a separate connection for each agent integration.
-2. In your MCP client's server settings, add a remote server with these values:
+1. Open `Organization > Agents > Connect an agent`. Choose your client, enter an agent name, select an expiration, and click **Create API key**. Save the API key before selecting **I have saved the key**; it is shown only once. Use a separate connection for each agent integration.
+2. Copy the configuration shown for **Codex**, **Claude Code**, or **Cursor** into the indicated file. Merge it with your existing configuration and set `WODBY_API_KEY` to the saved key in the environment that starts the client. For **Other client**, add a remote server with these values:
 
     | Setting | Value |
     | --- | --- |
@@ -19,9 +19,9 @@ Connect an AI client to Wodby 1 to inspect resources, deploy applications, manag
     | Header value | Your Wodby 1 API key |
 
 3. Save the key in your client's secret configuration, then connect and load the server's tools. Keep the key out of conversations, source control, and logs.
-4. Ask the agent to list the organization and its applications. Verify the organization before requesting changes.
+4. Copy the verification prompt from step 3 on the Connect page and send it to your agent. Verify the organization before requesting changes.
 
-The Connect page can generate a URL for your selected tool groups and read-only preference. Copy that URL into the client when using those preferences.
+Expand **Tool selection** to choose tool groups or offer read-only tools. The displayed client configuration updates with your choices.
 
 Existing [organization-scoped API keys](../user/api-keys.md) also work. Ordinary keys are not automatically listed as agent connections.
 
@@ -34,9 +34,8 @@ The agent acts with the key owner's [permissions](../access-control.md), restric
 The Agents pages are also available from the organization settings tabs.
 
 Open `Organization > Agents > Connections` to see the authorizing
-user, credential status, expiration, and last successful MCP tool call. Enable
-**Include expired and revoked connections** to see inactive entries. Use
-**Refresh** after changing client access or checking a recent connection.
+user, credential status, expiration, and last successful MCP tool call under
+**Last used**. The list includes expired and revoked connections without pagination.
 
 **Authorized** means the credential is available; it does not mean an agent is
 running. Initialization alone does not count as a successful tool call. Check
