@@ -35,9 +35,11 @@ If the update was not applied and maintenance has ended, resolve the problem sho
 
 ## Host CA security update
 
-Direct updates from Infrastructure 6.0.0–6.0.4 to 6.1.1 and 7.0.0–7.0.4 to 7.0.7 attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. If the host trust files need updating, security packages must be available for the operating system. Older systems may need extended security support or manual remediation. Failure of this step does not fail the infrastructure upgrade.
+Updates from Infrastructure 6.0.0–6.0.4 or 6.1.0 to 6.1.1, and from 7.0.0–7.0.4 to 7.0.7, attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. Failure of this step does not fail the infrastructure upgrade.
 
-Updates from Infrastructure 6.1.0, 7.0.5, or 7.0.6 do not repeat the CA update included in the earlier 6.1.0 and 7.0.5 releases. Check the CA result in the update task that included it. If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
+For Infrastructure 6 updates to 6.1.1, Debian and Ubuntu hosts can disable the affected **emSign ECC Root CA - G3** and **Comodo AAA Services root** certificates through the system CA configuration and rebuild the trust store. This works even when the configured repositories do not offer a fixed package. Infrastructure 7 CA updates and Infrastructure 6 updates on other operating systems require vendor security packages. Older systems may need extended security support. Affected custom CA copies require manual remediation.
+
+Updates from Infrastructure 7.0.5 or 7.0.6 do not repeat the earlier CA update. Servers already on 6.1.1 are not offered another update to the same version. Check the CA result in the update task that included it. Successful verification is logged as **Host CA trust files were verified against the eMudhra incident.** If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
 
 The CA update does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
 
@@ -87,6 +89,7 @@ Fresh-server Infrastructure 7 release:
 ### 6.1.1
 
 * Updated Agent to 5.7.1.
+* Included [host CA remediation](#host-ca-security-update) when updating from 6.1.0 or earlier supported Infrastructure 6 versions. Review the update task for verification or manual-remediation warnings.
 
 ### 6.1.0
 
