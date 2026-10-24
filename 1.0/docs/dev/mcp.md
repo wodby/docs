@@ -9,7 +9,7 @@ Connect an AI client to Wodby 1 to inspect resources, deploy applications, manag
 
 1. Open `Organization > Agents > Connect an agent`. Choose your client and copy the displayed configuration into the indicated file or terminal.
 2. Start authorization from the client. Sign in to Wodby, complete MFA if required, and select the organization to connect.
-3. Check the client ID, return address, and requested permissions. **Read** is selected by default. Approve additional permissions only for the work you want the client to perform.
+3. Check the client ID, return address, and permissions. All supported scopes are selected by default. Deselect any you do not want to grant; **Read** is required.
 4. Return to your client and send the verification prompt from the Connect page. Verify the organization and its applications before requesting changes.
 
 For clients with a custom server form, use these settings:
@@ -27,16 +27,18 @@ The client refreshes its access automatically. A connection lasts up to 90 days 
 
 OAuth access is restricted to one organization and the authorizing user's existing [permissions](../access-control.md). The approved permissions further limit what the client can do:
 
-| Permission | Allows |
-| --- | --- |
-| Read | Discover resources and read authorized task logs and diagnostics |
-| Operate | Run deployments, backups, cache clears, and other operational tasks |
-| Configure | Change application, server, integration, and organization settings |
-| Provision | Create resources |
-| Destructive operations | Delete resources, restore or import data, and perform infrastructure or stack upgrades |
-| Sensitive values | Send secrets in supported requests or create temporary connection and upload credentials |
+| Scope | Permission | Allows |
+| --- | --- | --- |
+| `mcp:read` | Read | Discover resources and read authorized task logs and diagnostics |
+| `mcp:operate` | Operate | Run deployments, backups, cache clears, and other operational tasks |
+| `mcp:configure` | Configure | Change application, server, integration, and organization settings |
+| `mcp:provision` | Provision | Create resources |
+| `mcp:destructive` | Destructive operations | Delete resources, restore or import data, and perform infrastructure or stack upgrades |
+| `mcp:sensitive` | Use secrets | Send secrets in supported requests or create temporary connection and upload credentials |
 
-Some tools require more than one permission. When a tool needs additional access, the client can start authorization again for those permissions. Wodby never adds permissions silently. Destructive operations still require confirmation of the operation and target.
+All supported scopes are available during authorization, even when the client initially requests only Read. Your choices take effect when you select **Authorize**. To allow only viewing resources and logs, deselect every scope except Read.
+
+Some tools require more than one permission. To add permissions to an existing connection, authorize again from the client. Refreshing does not add permissions. Destructive operations still require confirmation of the operation and target.
 
 OAuth tokens work only with the Wodby 1 MCP endpoint. They cannot authenticate ordinary API requests or authorize a different organization. Browser sign-in does not authorize third-party Git or cloud-provider integrations.
 
@@ -61,7 +63,7 @@ user, authentication method, approved permissions, credential status, expiration
 running. Initialization alone does not count as a successful tool call. Check
 that the agent can identify your organization and list its applications.
 
-You can rename or revoke your own connections. Owners can manage all
+You can revoke your own connections. Owners can manage all
 organization connections. Administrators can view all connections and manage
 member-owned connections, but cannot manage another administrator's or owner's
 connection. Support has read-only visibility. Resource permissions still apply
