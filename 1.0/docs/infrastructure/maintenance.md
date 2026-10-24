@@ -1,12 +1,12 @@
 # Infrastructure maintenance
 
-Check your server's infrastructure version on the servers list in the Dashboard. The current releases are **7.0.6** for Infrastructure 7 and **6.1.1** for existing Infrastructure 6 servers. Infrastructure and [stacks](../stacks/maintenance.md) are updated separately.
+Check your server's infrastructure version on the servers list in the Dashboard. The current releases are **7.0.7** for Infrastructure 7 and **6.1.1** for existing Infrastructure 6 servers. Infrastructure and [stacks](../stacks/maintenance.md) are updated separately.
 
 Infrastructure 6 cannot be upgraded in place to Infrastructure 7. To move to Infrastructure 7, [connect a fresh supported server](connecting-server.md) and migrate or redeploy your applications.
 
 ## Updating from the Dashboard
 
-Infrastructure 7.0.0–7.0.5 servers can update directly to 7.0.6 with one check and confirmation. The update applies the required component changes in order.
+Infrastructure 7.0.0–7.0.6 servers can update directly to 7.0.7 with one check and confirmation. The update applies the required component changes in order.
 
 The Dashboard offers the next supported update for your server. The server must be available, and you need permission to update it. Wait for active server and application tasks to finish. Server checks identify unsupported versions or configurations.
 
@@ -35,13 +35,17 @@ If the update was not applied and maintenance has ended, resolve the problem sho
 
 ## Host CA security update
 
-Infrastructure 6.1.0, Infrastructure 7.0.5, and direct updates from 7.0.0–7.0.4 to 7.0.6 attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. If the host trust files need updating, security packages must be available for the operating system. Older systems may need extended security support or manual remediation. Failure of this step does not fail the infrastructure upgrade.
+Direct updates from Infrastructure 6.0.0–6.0.4 to 6.1.1 and 7.0.0–7.0.4 to 7.0.7 attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. If the host trust files need updating, security packages must be available for the operating system. Older systems may need extended security support or manual remediation. Failure of this step does not fail the infrastructure upgrade.
 
-The Agent-only update from 7.0.5 to 7.0.6 does not repeat the CA update. Check the CA result in the update task that included it. If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
+Updates from Infrastructure 6.1.0, 7.0.5, or 7.0.6 do not repeat the CA update included in the earlier 6.1.0 and 7.0.5 releases. Check the CA result in the update task that included it. If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
 
 The CA update does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
 
 ## Changelog
+
+### 7.0.7
+
+* Updated Edge to [3.0.28](https://github.com/wodby/edge-alpine/tree/3.0.28), including the Brotli security fix for [CVE-2026-111497](https://github.com/google/brotli/releases/tag/v1.2.1).
 
 ### 7.0.6
 
