@@ -7,36 +7,55 @@ Connect an AI client to Wodby 1 to inspect resources, deploy applications, manag
 
 ## Connect your client
 
-1. Open `Organization > Agents > Connect an agent`. Enter a name that identifies the client or automation, choose an expiration, and click **Create agent connection**. Save the API key before selecting **I have saved the key**; it is shown only once. Use a separate connection for each agent integration.
-2. In your MCP client's server settings, add a remote server with these values:
+1. Open `Organization > Agents > Connect an agent`. Choose your client and copy the displayed configuration into the indicated file or terminal.
+2. Start authorization from the client. Sign in to Wodby, complete MFA if required, and select the organization to connect.
+3. Check the client ID, return address, and requested permissions. **Read** is selected by default. Approve additional permissions only for the work you want the client to perform.
+4. Return to your client and send the verification prompt from the Connect page. Verify the organization and its applications before requesting changes.
 
-    | Setting | Value |
-    | --- | --- |
-    | Name | `wodby1` |
-    | Transport | Streamable HTTP |
-    | URL | `https://api.wodby.com/api/v3/mcp` |
-    | Authentication header | `X-API-Key` |
-    | Header value | Your Wodby 1 API key |
+For clients with a custom server form, use these settings:
 
-3. Save the key in your client's secret configuration, then connect and load the server's tools. Keep the key out of conversations, source control, and logs.
-4. Ask the agent to list the organization and its applications. Verify the organization before requesting changes.
+| Setting | Value |
+| --- | --- |
+| Name | `wodby1` |
+| Transport | Streamable HTTP |
+| URL | `https://api.wodby.com/api/v3/mcp` |
+| Authentication | OAuth |
 
-The Connect page can generate a URL for your selected tool groups and read-only preference. Copy that URL into the client when using those preferences.
+The client refreshes its access automatically. A connection lasts up to 90 days before another authorization is required. Refreshing keeps the same connection and task history. A new authorization creates a separate connection; revoke connections you no longer use.
 
-Existing [organization-scoped API keys](../user/api-keys.md) also work. Ordinary keys are not automatically listed as agent connections.
+### Permissions
 
-Your client must support remote HTTP MCP servers with custom authentication headers. Clients that require OAuth browser authorization cannot use this endpoint. Wodby 1 and Wodby 2 use different MCP endpoints and connection settings.
+OAuth access is restricted to one organization and the authorizing user's existing [permissions](../access-control.md). The approved permissions further limit what the client can do:
 
-The agent acts with the key owner's [permissions](../access-control.md), restricted to the key's organization. Connecting does not grant additional permissions or authorize changes. API keys do not provide separate MCP read-only scopes; use an account with permissions appropriate to the work you want the agent to perform.
+| Permission | Allows |
+| --- | --- |
+| Read | Discover resources and read authorized task logs and diagnostics |
+| Operate | Run deployments, backups, cache clears, and other operational tasks |
+| Configure | Change application, server, integration, and organization settings |
+| Provision | Create resources |
+| Destructive operations | Delete resources, restore or import data, and perform infrastructure or stack upgrades |
+| Sensitive values | Send secrets in supported requests or create temporary connection and upload credentials |
+
+Some tools require more than one permission. When a tool needs additional access, the client can start authorization again for those permissions. Wodby never adds permissions silently. Destructive operations still require confirmation of the operation and target.
+
+OAuth tokens work only with the Wodby 1 MCP endpoint. They cannot authenticate ordinary API requests or authorize a different organization. Browser sign-in does not authorize third-party Git or cloud-provider integrations.
+
+### API keys for automation
+
+Select **Use an API key** on the Connect page for unattended clients or clients without OAuth support. Enter an agent name, choose an expiration, and select **Create API key**. Save the key before selecting **I have saved the key**; it is shown only once.
+
+Use the same Streamable HTTP URL with an `X-API-Key` header containing the saved key. The Connect page provides client-specific configuration using `WODBY_API_KEY`. Keep the key out of conversations, source control, and logs. Use a separate connection for each integration.
+
+Existing [organization-scoped API keys](../user/api-keys.md) also work. Ordinary keys are not automatically listed as agent connections. API keys use the owner's existing permissions and do not have OAuth permission scopes.
+
+Expand **Tool selection** in API-key setup to choose tool groups or offer read-only tools. The displayed configuration updates with your choices. These URL preferences select tools; they do not restrict the key's permissions.
 
 ## Review access and activity
 
 The Agents pages are also available from the organization settings tabs.
 
 Open `Organization > Agents > Connections` to see the authorizing
-user, credential status, expiration, and last successful MCP tool call. Enable
-**Include expired and revoked connections** to see inactive entries. Use
-**Refresh** after changing client access or checking a recent connection.
+user, authentication method, approved permissions, credential status, expiration, and last successful MCP tool call under **Last used**. The list includes expired and revoked connections without pagination.
 
 **Authorized** means the credential is available; it does not mean an agent is
 running. Initialization alone does not count as a successful tool call. Check
@@ -48,7 +67,7 @@ member-owned connections, but cannot manage another administrator's or owner's
 connection. Support has read-only visibility. Resource permissions still apply
 to every operation.
 
-Select **Revoke access** to prevent new authenticated requests with that key.
+Select **Revoke access** to prevent new authenticated requests with that credential.
 Revoked connections remain in the list. Tasks already started may continue;
 revoking access does not undo their changes. Remove the saved credential from
 the client as well when retiring an integration.
@@ -59,7 +78,7 @@ for troubleshooting. It records task-backed operations, not every read or the
 agent's conversation. Older tasks may have no MCP attribution. Viewing a
 connection does not grant access to additional task logs or resources.
 
-If a connection-creation response is lost, check Connections before creating
+If an API-key creation response is lost, check Connections before creating
 another one. If a key was created but never received, revoke that connection
 and create a replacement.
 
@@ -72,8 +91,8 @@ add `?groups=deployment,data` to the endpoint URL. Choose one or more of
 
 Add `read_only=1` to offer only tools marked as reads, for example
 `https://api.wodby.com/api/v3/mcp?groups=infrastructure&read_only=1`.
-These settings limit this connection's tools. They do not change the API key's
-permissions; use appropriate account permissions for access restrictions.
+These settings limit this connection's tools. They do not change its permissions;
+OAuth scopes and the user's resource permissions still apply.
 
 ## Workflow guidance
 
@@ -323,10 +342,13 @@ Connecting MCP does not grant access to your source repository, host, database, 
 
 | Problem | What to check |
 | --- | --- |
-| Authentication fails | Confirm the API key was saved correctly and has not expired or been revoked. |
+| Authentication fails | For OAuth, start authorization again from the client. For an API key, confirm it was saved correctly and has not expired or been revoked. |
 | The endpoint returns `404 Not Found` | Check the Wodby 1 URL above and confirm MCP availability with support. |
-| An organization or resource is missing | Confirm the key's organization and its owner's resource permissions. |
-| The client asks for OAuth login | Use a client configuration that supports an API key in a custom header. |
+| An organization or resource is missing | Confirm the connection's organization and the authorizing user's resource permissions. |
+| The client asks for OAuth login | Sign in to Wodby and review the organization and permissions. For API-key automation, choose the client's custom-header configuration. |
+| A tool reports insufficient permissions | Authorize the additional permissions from the client. Your Wodby resource permissions still apply. |
+| Refresh fails or authorization expires | Start authorization again. If a refresh result was lost, let the client retry promptly; do not repeatedly reuse an old refresh token. |
+| Client registration or metadata fails | Check that the client supports public OAuth with S256 PKCE and has valid HTTPS or loopback return addresses. Contact the client provider if its public metadata cannot be loaded. |
 | Opening the endpoint in a browser returns `405 Method Not Allowed` | Connect through a Streamable HTTP MCP client. Opening the URL in a browser is not a connection test. |
 | The server reports a request limit | Wait at least the returned retry interval before submitting again. Defaults are 120 requests and 30 writes per minute per user and organization. |
 | A write reports a duplicate `request_key` | Inspect its target and recent tasks. The original operation may already have run. |
