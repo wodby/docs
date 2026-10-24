@@ -30,6 +30,15 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.1.6
+
+- ⬆️ Adminer 6.2.0
+- Nginx:
+    - ⬆️ VTS module 0.2.7 with buffer-overflow, reporting and concurrency fixes
+    - ⬆️ ngx_brotli with Brotli 1.2.1
+- 🐞 Fixed the [Brotli decoder security issue](https://github.com/google/brotli/releases/tag/v1.2.1) (CVE-2026-111497) in Adminer
+- 🏔️ Alpine Linux updates for Nginx, including the Brotli decoder fix (CVE-2026-111497)
+
 ### 3.1.5
 
 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Nginx and Apache

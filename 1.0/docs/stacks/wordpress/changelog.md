@@ -7,6 +7,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.15
+
+- PHP:
+    - 🐞 Fixed PHP 8.1 outgoing mail by correcting its default sendmail command
+    - ⬆️ gRPC extension 1.84.1 for PHP 8.2–8.5
+    - 🐞 Security backports for PHP 7.4.33, 8.0.30 and 8.1.34 fix CVE-2026-109618 and CVE-2026-109619
+    - 📜 These legacy PHP lines remain EOL. Their minimal backports disable session upload progress and terminate PHP workers immediately on memory allocation failure
+- Nginx:
+    - ⬆️ VTS module 0.2.7 with buffer-overflow, reporting and concurrency fixes
+    - ⬆️ ngx_brotli with Brotli 1.2.1
+- ⬆️ Adminer 6.2.0
+- 🐞 Fixed the [Brotli decoder security issue](https://github.com/google/brotli/releases/tag/v1.2.1) (CVE-2026-111497) in PHP 8.2–8.5, Apache and Adminer images
+- 🏔️ Alpine Linux updates for Nginx, including the Brotli decoder fix (CVE-2026-111497)
+
 ## 6.2.14
 
 - 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PHP, Nginx, Apache, MariaDB, PostgreSQL, Redis, Memcached, OpenSMTPD and Varnish

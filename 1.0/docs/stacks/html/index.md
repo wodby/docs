@@ -27,6 +27,14 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 1.1.21
+
+- Nginx:
+    - ⬆️ VTS module 0.2.7 with buffer-overflow, reporting and concurrency fixes
+    - ⬆️ ngx_brotli with Brotli 1.2.1
+- 🐞 Fixed the [Brotli decoder security issue](https://github.com/google/brotli/releases/tag/v1.2.1) (CVE-2026-111497) in Apache
+- 🏔️ Alpine Linux updates for Nginx, including the Brotli decoder fix (CVE-2026-111497)
+
 ### 1.1.20
 
 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Nginx and Apache
