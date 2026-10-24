@@ -12,6 +12,17 @@ Connect an AI client to Wodby 1 to inspect resources, deploy applications, manag
 3. Check the client ID, return address, and requested permissions. **Read** is selected by default. Approve additional permissions only for the work you want the client to perform.
 4. Return to your client and send the verification prompt from the Connect page. Verify the organization and its applications before requesting changes.
 
+Terminal setup requires your client's CLI to be installed. If `codex` is not found, follow the [Codex CLI installation instructions](https://learn.chatgpt.com/docs/codex/cli).
+
+For Claude Code, run both commands from the same directory:
+
+```sh
+claude mcp add --transport http wodby1 'https://api.wodby.com/api/v3/mcp'
+claude mcp login wodby1
+```
+
+The first command saves the server configuration. The second starts browser authorization. If the server is already added, run only the login command. Alternatively, enter `/mcp` inside Claude Code, select **wodby1**, and choose **Authenticate**. See [Claude Code authentication](https://code.claude.com/docs/en/mcp#authenticate-from-the-command-line).
+
 For clients with a custom server form, use these settings:
 
 | Setting | Value |
