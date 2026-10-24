@@ -6,6 +6,8 @@ Infrastructure 6 cannot be upgraded in place to Infrastructure 7. To move to Inf
 
 ## Updating from the Dashboard
 
+Infrastructure 7.0.0–7.0.5 servers can update directly to 7.0.6 with one check and confirmation. The update applies the required component changes in order.
+
 The Dashboard offers the next supported update for your server. The server must be available, and you need permission to update it. Wait for active server and application tasks to finish. Server checks identify unsupported versions or configurations.
 
 Review the interruption warnings and choose a suitable maintenance window. Edge updates briefly interrupt HTTP and HTTPS traffic. Agent updates briefly disconnect server management while application containers and Edge continue running.
@@ -17,7 +19,7 @@ Review the interruption warnings and choose a suitable maintenance window. Edge 
 5. Open **View update task and logs** to follow progress. You can leave the page and return later.
 6. After completion, check that your applications are accessible over HTTP and HTTPS and behave as expected.
 
-Checks expire after 15 minutes. Run them again if they expire or the server configuration changes. Each user must run their own checks. If another update is offered after completion, check and confirm it separately.
+Checks expire after 15 minutes. Run them again if they expire or the server configuration changes. Each user must run their own checks.
 
 During an update, deployments and other server changes are blocked. You cannot cancel the update or delete the server. Do not apply manual infrastructure changes while the update is in progress.
 
@@ -33,9 +35,9 @@ If the update was not applied and maintenance has ended, resolve the problem sho
 
 ## Host CA security update
 
-Infrastructure 6.1.0 and 7.0.5 attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. If the host trust files need updating, security packages must be available for the operating system. Older systems may need extended security support or manual remediation. Failure of this step does not fail the infrastructure upgrade.
+Infrastructure 6.1.0, Infrastructure 7.0.5, and direct updates from 7.0.0–7.0.4 to 7.0.6 attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. If the host trust files need updating, security packages must be available for the operating system. Older systems may need extended security support or manual remediation. Failure of this step does not fail the infrastructure upgrade.
 
-Check the CA result in the update task. If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
+The Agent-only update from 7.0.5 to 7.0.6 does not repeat the CA update. Check the CA result in the update task that included it. If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
 
 The CA update does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
 
