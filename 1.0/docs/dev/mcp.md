@@ -2,14 +2,11 @@
 
 Connect an AI client to Wodby 1 to inspect resources, deploy applications, manage backups, and troubleshoot tasks. You can also ask an agent to check and apply supported server infrastructure and application stack updates.
 
-!!! note "Availability"
-    MCP support for Wodby 1 is upcoming. [Contact support](../support.md) to confirm availability before connecting.
-
 ## Connect your client
 
 1. Open `Organization > Agents > Connect an agent`. Choose your client and copy the displayed configuration into the indicated file or terminal.
 2. Start authorization from the client. Sign in to Wodby, complete MFA if required, and select the organization to connect.
-3. Check the client ID, return address, and permissions. All supported scopes are selected by default. Deselect any you do not want to grant; **Read** is required.
+3. Check the client ID, return address, and permissions. All supported scopes are selected by default. Deselect any you do not want to grant; **Read** is required. Select **Authorize** to confirm.
 4. Return to your client and send the verification prompt from the Connect page. Verify the organization and its applications before requesting changes.
 
 Terminal setup requires your client's CLI to be installed. If `codex` is not found, follow the [Codex CLI installation instructions](https://learn.chatgpt.com/docs/codex/cli).
@@ -85,8 +82,8 @@ Revoked connections remain in the list. Tasks already started may continue;
 revoking access does not undo their changes. Remove the saved credential from
 the client as well when retiring an integration.
 
-Use **Activity**, or a connection's **Activity** link, to inspect visible tasks
-initiated through MCP. Task history shows the initiating tool and a request ID
+Open `Organization > Agents > Activity` to inspect visible tasks initiated
+through MCP. Task history shows the initiating tool and a request ID
 for troubleshooting. It records task-backed operations, not every read or the
 agent's conversation. Older tasks may have no MCP attribution. Viewing a
 connection does not grant access to additional task logs or resources.
