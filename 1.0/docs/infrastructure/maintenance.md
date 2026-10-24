@@ -10,7 +10,7 @@ Infrastructure 7.0.0–7.0.6 servers can update directly to 7.0.7 with one check
 
 The Dashboard offers the next supported update for your server. The server must be available, and you need permission to update it. Wait for active server and application tasks to finish. Server checks identify unsupported versions or configurations.
 
-Review the interruption warnings and choose a suitable maintenance window. Edge updates briefly interrupt HTTP and HTTPS traffic. Agent updates briefly disconnect server management while application containers and Edge continue running.
+Review the interruption warnings and choose a suitable maintenance window. Component images are downloaded before the running components are replaced. Edge updates still briefly interrupt HTTP and HTTPS traffic while Edge restarts. Agent updates briefly disconnect server management while application containers and Edge continue running.
 
 1. Open the server's settings and find **Infrastructure update**.
 2. Select **Check server for update**. This checks the server without applying changes.
@@ -35,11 +35,11 @@ If the update was not applied and maintenance has ended, resolve the problem sho
 
 ## Host CA security update
 
-Updates from Infrastructure 6.0.0–6.0.4 or 6.1.0 to 6.1.1, and from 7.0.0–7.0.4 to 7.0.7, attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. Failure of this step does not fail the infrastructure upgrade.
+Updates from Infrastructure 6.0.0–6.0.4 or 6.1.0 to 6.1.1, and from 7.0.0–7.0.6 to 7.0.7, attempt a host CA certificate update for the [eMudhra security incident](https://ubuntu.com/blog/emudhra-ca-compromise-fixes-available) after their component updates are verified. Failure of this step does not fail the infrastructure upgrade.
 
-For Infrastructure 6 updates to 6.1.1, Debian and Ubuntu hosts can disable the affected **emSign ECC Root CA - G3** and **Comodo AAA Services root** certificates through the system CA configuration and rebuild the trust store. This works even when the configured repositories do not offer a fixed package. Infrastructure 7 CA updates and Infrastructure 6 updates on other operating systems require vendor security packages. Older systems may need extended security support. Affected custom CA copies require manual remediation.
+During updates to Infrastructure 6.1.1 or 7.0.7, Debian and Ubuntu hosts can disable the affected **emSign ECC Root CA - G3** and **Comodo AAA Services root** certificates through the system CA configuration and rebuild the trust store. This works even when the configured repositories do not offer a fixed package. Other operating systems require vendor security packages. Older systems may need extended security support. Affected custom CA copies require manual remediation.
 
-Updates from Infrastructure 7.0.5 or 7.0.6 do not repeat the earlier CA update. Servers already on 6.1.1 are not offered another update to the same version. Check the CA result in the update task that included it. Successful verification is logged as **Host CA trust files were verified against the eMudhra incident.** If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
+Each supported upgrade to the current infrastructure release checks host CA trust, including when an earlier CA update was attempted. A clean host needs no changes. Servers already on 6.1.1 or 7.0.7 can have host CA trust checked and repaired separately through [Wodby support](../support.md), without changing infrastructure versions or component images. Check the CA result in the server task history. Successful verification is logged as **Host CA trust files were verified against the eMudhra incident.** If the host CA update was not verified or no result is recorded, apply your operating-system vendor's CA security fix and verify the host trust store, or contact [Wodby support](../support.md). The infrastructure version alone does not confirm successful CA remediation.
 
 The CA update does not restart host services. Long-running services may need a separately scheduled reload or restart to use the updated trust store. Application images and language-runtime CA bundles require separate updates. Certificates chaining to removed roots may no longer be trusted.
 
@@ -48,6 +48,7 @@ The CA update does not restart host services. Long-running services may need a s
 ### 7.0.7
 
 * Updated Edge to [3.0.28](https://github.com/wodby/edge-alpine/tree/3.0.28), including the Brotli security fix for [CVE-2026-111497](https://github.com/google/brotli/releases/tag/v1.2.1).
+* Included [host CA remediation](#host-ca-security-update) from every supported earlier Infrastructure 7 version. Review the server task for verification or manual-remediation warnings.
 
 ### 7.0.6
 
