@@ -39,6 +39,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - web shell for containers
 - Application Access for protected or private-network HTTP endpoints
 - organization Single Sign-On (SSO)
+- [vulnerability scanning](apps/vulnerability-scanning.md) of deployed build images
 - best-effort support
 - $30 of Wodby Cloud usage per month
 - 10M free [AI credits](#ai-credits) tokens in total for Wodby Agent, granted once
@@ -151,6 +152,9 @@ requirements and behavior.
 Organization SSO is also a paid feature. Disable every provider from **Organization > SSO** before scheduling a
 downgrade. Provider configuration and verified domains can remain in the organization while it uses the Developer
 plan, but the providers cannot be enabled or used for sign-in until the organization upgrades again.
+
+[Vulnerability scanning](apps/vulnerability-scanning.md) does not block a downgrade. After the organization moves to the
+Developer plan, Wodby stops scanning build images and hides earlier results until the organization upgrades again.
 
 ### Wodby CI minutes
 
