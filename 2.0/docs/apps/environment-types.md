@@ -26,7 +26,8 @@ organization-level object.
 
 Use `prod` for live production workloads. Use `dev`, `staging`, `test`, and `feature` for their corresponding lifecycle
 stages. Unless a stack explicitly defines different behavior, non-development types use production-safe runtime
-settings.
+settings. Automatic [preview environments](preview-environments.md) use `feature` unless the app is configured
+otherwise.
 
 ## Compatibility
 
