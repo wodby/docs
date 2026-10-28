@@ -152,6 +152,12 @@ Only people with write or admin access to the repository can run commands. Wodby
 command and with 😕 when it refuses one; the Wodby comment explains why. `/wodby reseed` is refused while the preview
 cannot be deleted, for example while a build is running. Commands are ignored for apps without preview environments.
 
+## Using previews from AI agents
+
+Agents connected through the [Wodby MCP server](../dev/mcp.md) can read and change an app's preview settings,
+list pull requests that can get a preview, and create one, with the
+[preview tools](../dev/mcp/tools.md). Changing settings and creating a preview require your confirmation.
+
 ## Finding previews in the dashboard
 
 Preview environments appear in `Apps > [App] > Environments` with a `PR #<number>` tag and can be opened like any other
