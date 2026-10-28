@@ -14,8 +14,9 @@ Open the server's settings to see its **Infrastructure components**: the install
 | **Update recommended** | Update the component in your next maintenance window. Agent or Edge has a newer release, or the installed version is older than Wodby supports, close to its end of support, or affected by a known issue. |
 | **Update available** | No action needed. A newer version exists. |
 | **Up to date** | No action needed. |
-| **Not reported** | The server has not reported this component yet. Servers report installed versions once Wodby support has updated their installer. |
 | **No updates** | Infrastructure 6 components that cannot be updated in place. |
+
+The list shows only components whose installed version is known. On some older servers, containerd, cri-dockerd and the installer are not listed until Wodby support updates the server's installer.
 
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
