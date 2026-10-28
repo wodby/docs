@@ -48,7 +48,13 @@ app.
 | `Seed data` | Base environment services that support both imports and backups. Select a service to restore a fresh backup of it into every new preview, and choose the import and backup when the service offers more than one. |
 
 Seeding a service requires a [backup preset](backups.md) for the chosen backup in the base environment. Services
-without one are listed but cannot be selected until a preset exists; the row links to the base environment's presets.
+without one are listed with a `No backup preset` tag and cannot be selected until a preset exists; the tag links to the
+base environment's presets.
+
+If seeding a selected service is not possible when a preview is created, the preview is still created and that service
+starts without data. This happens when the preset was deleted, or the service was removed, disabled, or not in `OK`
+status in the base environment. Wodby reports it on the pull request (see [Pull request feedback](#pull-request-feedback)).
+Deleting a backup preset that previews seed from finishes with a warning that explains this.
 
 Changes to these settings apply to previews created afterwards. Existing previews keep running until their pull request
 closes or they expire.
@@ -81,7 +87,7 @@ plan usage like any other environment while they exist.
 | No activity for the idle expiry period | The preview is deleted. |
 | Pull request from a fork | No preview is created. Forks could run untrusted code with the app's configuration. |
 | Draft pull request | No preview is created unless `Draft pull requests` is enabled. |
-| Concurrent preview limit reached | The pull request is skipped. It gets a preview on its next push once a preview has been deleted. |
+| Concurrent preview limit reached | The pull request is skipped and gets a failed `wodby/preview` status. It gets a preview on its next push once a preview has been deleted. |
 
 Automatic preview deletion is not blocked by the organization's [termination protection](../org.md#termination-protection).
 You can also delete a preview manually from the app's environments list; the next push to the pull request creates a
@@ -97,15 +103,24 @@ update the commit status.
 A deployment that did not build the pull request commit, such as a configuration-only redeploy, does not change the
 status.
 
+When Wodby cannot create a preview for a pull request, it sets the `wodby/preview` status to `failure` with the
+reason, for example that the base environment is not in `OK` status or that the concurrent preview limit is reached.
+The next push to the pull request tries again.
+
+When a preview is created but some selected services could not be seeded, Wodby also sets a `wodby/preview-data`
+status to `failure` that names the service and the reason, or the number of affected services. The preview itself
+works; those services start without data. Fix the cause, such as adding the missing backup preset, then delete the
+preview and push to the pull request to create it again with data.
+
 ## Finding previews in the dashboard
 
 Preview environments appear in `Apps > [App] > Environments` with a `PR #<number>` tag and can be opened like any other
 environment. Their creation, deployments, and deletion are listed under the app's `Tasks` tab, where the creation task is
 titled with the pull request number.
 
-If a pull request does not get a preview, check that previews are enabled for the app, that the pull request targets the
-branch the base environment follows, that it is not a draft or from a fork, and that the concurrent preview limit is not
-reached.
+If a pull request does not get a preview, check the `wodby/preview` status on the pull request for the reason. Also check
+that previews are enabled for the app, that the pull request targets the branch the base environment follows, and that
+it is not a draft or from a fork.
 
 ## Related pages
 
