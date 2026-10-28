@@ -40,8 +40,9 @@ app.
 | Setting | Description |
 | --- | --- |
 | `Pull request previews` | Turns preview environments on or off for the app. Turning them off does not delete existing previews; they are still removed when their pull requests close. |
-| `Base environment` | The environment whose configuration is copied into every preview and whose services provide seed data. Only standard environments of the app are offered. |
+| `Base environment` | The environment whose configuration is copied into every preview and whose services provide seed data. Only standard environments of the app are offered. Choosing a production environment shows a warning: previews copy its variables and secrets, and seeded services get its data. |
 | `Environment type` | The [environment type](environment-types.md) of created previews. `feature` is the default; `prod` is not allowed. |
+| `Run cron jobs` | Whether previews run the base environment's cron jobs. Disabled by default: cron jobs are copied but turned off, so previews don't send duplicate emails or run scheduled tasks twice. You can still turn on a single cron job in a preview. |
 | `Draft pull requests` | Whether draft pull requests get previews. Disabled by default; a preview is created when the draft is marked ready for review. |
 | `Concurrent previews` | The maximum number of preview environments the app keeps at the same time, up to 50. Pull requests beyond the limit are skipped until a preview is deleted. The default is 5. |
 | `Idle expiry (days)` | Deletes a preview whose pull request had no activity for this many days. The default is 7; `0` disables idle expiry. |
@@ -65,10 +66,15 @@ Each preview is created from the base environment at the moment the pull request
 
 - Service configuration is copied: enabled services and versions, settings, environment variables, volume sizes,
   integrations, cron schedules, and service links. Secret values are copied as well.
+- Every service runs one replica, with autoscaling turned off. CPU and memory requests and limits stay as in the base
+  environment.
+- Backup presets are not copied, so previews make no scheduled backups. You can still back up a preview manually.
+- Cron jobs are turned off unless `Run cron jobs` is enabled.
 - The service connected to the pull request repository follows the pull request branch instead of the base branch.
 - Container database services get their own database. Preview environments never share a database with the base
   environment.
-- Selected services are seeded from a fresh backup of the base environment taken at creation time. The backup is
+- Only the services selected in `Seed data` get data. They are seeded from a fresh backup of the base environment taken
+  at creation time. The backup is
   restored during the preview's first deployment, so a large database delays the first successful deployment.
 - Custom domains, TLS certificates, HTTP authentication, and Application Access are not copied. The preview is reached
   through its generated technical domain.
