@@ -1,12 +1,13 @@
 # App access
 
-App access controls whether an app environment is published through ordinary Wodby routes or through a supported access
-provider. It applies to HTTP endpoints and is configured independently for each app environment.
+App access controls whether an app environment is published through ordinary Wodby routes, behind basic auth, or
+through a supported access provider. It applies to HTTP endpoints and is configured independently for each app
+environment.
 
 ## Availability
 
 Application Access requires an active paid subscription. Organizations on the free Developer plan can create apps in
-`Public` mode, but `Protected` mode is unavailable until the organization upgrades.
+`Public` or `Basic Auth` mode, but `Application Access` mode is unavailable until the organization upgrades.
 
 Before scheduling a downgrade to Developer, remove Application Access from every app environment. If paid access becomes
 unavailable while an existing configuration remains, its protection stays active and readable, but it cannot be
@@ -14,26 +15,42 @@ changed. You can still remove it, and Wodby can still finish provider cleanup.
 
 ## Modes
 
-The app creation form offers two modes:
+The app creation form offers three modes:
 
 - `Public` is the default. Wodby publishes enabled HTTP routes normally.
-- `Protected` uses an [Application Access integration](../providers/access.md). The provider supplies either protected
-  publishing or private-network routing for the selected endpoints, and Wodby suppresses the corresponding public
-  routes.
+- `Basic Auth` publishes routes normally but asks every visitor for a username and password. See
+  [Basic Auth](#basic-auth).
+- `Application Access` uses an [Application Access integration](../providers/access.md). The provider supplies either
+  protected publishing or private-network routing for the selected endpoints, and Wodby suppresses the corresponding
+  public routes.
 
-Some stacks require Protected mode. The stack can also require an access type and scope, and can optionally restrict
+Some stacks require Application Access. The stack can also require an access type and scope, and can optionally restrict
 the provider. In that case the required choices cannot be changed and you must select a compatible Application Access
 integration before creating the app.
 
-Protected mode requires an active Application Access integration, an enabled HTTP endpoint, and a cluster that uses
+Application Access requires an active Application Access integration, an enabled HTTP endpoint, and a cluster that uses
 managed app routing.
 
 A standalone Tailscale Node is not an Access mode. It remains an app service for cases where the node itself is the
 deployed workload; see [VPN providers](../providers/vpn.md).
 
+## Basic Auth
+
+`Basic Auth` protects the whole new app environment with HTTP basic authentication. Wodby generates the password; the
+username is `wodby`. Reveal the password on `Apps > [App] > [Environment] > Endpoints > Auths`. Basic Auth is available
+on every plan and works on all cluster types.
+
+Services that have their own basic auth entry, such as Mailpit, keep their own password. Sharing the environment
+password with reviewers does not open those tools. You can change, regenerate or remove the protection later on the
+Auths page. See [Auths](endpoints.md#auths) for how entries combine and how to leave a webhook or API reachable
+without a password.
+
+`Basic Auth` and `Application Access` cannot be chosen together in the app creation form. Basic auth applies only to
+routes that Wodby's public gateway serves; endpoints published through Application Access are not affected.
+
 ## Configure access during app creation
 
-In Step 4, `App settings`, select `Protected` under `Access` and then configure:
+In Step 4, `App settings`, select `Application Access` under `Access` and then configure:
 
 1. `Access provider`: the integration that will provide the app's protected or private connection path.
 2. `Access type`: Protected publishing or Private network when the selected provider offers both. Providers with one
@@ -170,7 +187,7 @@ contains HTTP destinations only.
 
 Wodby creates and reconciles provider resources when access is enabled or changed, and removes them when access is
 removed or the app environment is deleted. Removing access restores the matching ordinary public routes unless the stack
-requires Protected mode.
+requires Application Access.
 
 The access type is fixed while Access is enabled. To move an existing app environment between Protected publishing and
 Private network access, remove Access and enable it again with the other type. Wodby finishes the old provider cleanup
