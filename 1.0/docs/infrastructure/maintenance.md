@@ -4,6 +4,28 @@ Check your server's infrastructure version on the servers list in the Dashboard.
 
 Infrastructure 6 cannot be upgraded in place to Infrastructure 7. To move to Infrastructure 7, [connect a fresh supported server](connecting-server.md) and migrate or redeploy your applications.
 
+## Infrastructure components
+
+Open the server's settings to see its **Infrastructure components**: the installed and latest version of each component, its status, and who updates it. The server's version in the servers list is highlighted orange when a component needs an update and red when one is critical.
+
+| Status | What to do |
+| --- | --- |
+| **Critical** | A known security issue affects the installed version, or the version is past its end of support. Update the component as soon as possible. |
+| **Update recommended** | Update the component in your next maintenance window. Agent or Edge has a newer release, or the installed version is older than Wodby supports, close to its end of support, or affected by a known issue. |
+| **Update available** | No action needed. A newer version exists. |
+| **Up to date** | No action needed. |
+| **Not reported** | The server has not reported this component yet. Servers report installed versions once Wodby support has updated their installer. |
+| **No updates** | Infrastructure 6 components that cannot be updated in place. |
+
+When a known issue affects a component, its advisory ID appears next to the status and links to the details.
+
+New servers always receive the latest versions. On existing servers, Kubernetes, Docker and the other host components are updated only when security or support requires it: they do not serve public traffic, and some of their updates restart application containers or briefly interrupt networking. Edge serves your applications' public traffic, so keep Agent and Edge up to date.
+
+**Updated by** shows how each component is updated:
+
+* **Infrastructure update**: update Agent and Edge yourself, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
+* **Wodby support**: Wodby support updates the installer, etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
+
 ## Updating from the Dashboard
 
 Infrastructure 7.0.0–7.0.6 servers can update directly to 7.0.7 with one check and confirmation. The update applies the required component changes in order.
