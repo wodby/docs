@@ -16,7 +16,7 @@ Open the server's settings to see its **Infrastructure components**: the install
 | **Up to date** | No action needed. |
 | **No updates** | Infrastructure 6 components that cannot be updated in place. |
 
-The list shows only components whose installed version is known. On some older servers, containerd, cri-dockerd and the installer are not listed until Wodby support updates the server's installer.
+The list shows only components whose installed version is known. On some older servers, Docker Engine, containerd, cri-dockerd and the installer are not listed until Wodby support updates the server's installer.
 
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
