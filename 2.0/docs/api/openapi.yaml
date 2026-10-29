@@ -987,6 +987,78 @@ paths:
           $ref: '#/components/responses/Error'
         4XX:
           $ref: '#/components/responses/Error'
+  /apps/settings/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      tags:
+        - apps
+      summary: Update app settings
+      description: Updates application-wide settings such as pull request preview environments and returns the updated app.
+      operationId: updateAppSettings
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppSettingsInput'
+      responses:
+        '200':
+          description: Updated app
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/App'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /apps/preview-pull-requests/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    get:
+      tags:
+        - apps
+      summary: List pull requests for preview environments
+      description: Lists the app's open pull requests into the branch the preview base environment tracks, most recently updated first, with the preview environment each one has and why a preview environment cannot be created for it now. When preview environments are not configured for the app, `configured` is false and the list is empty.
+      operationId: listAppPreviewPullRequests
+      responses:
+        '200':
+          description: Open pull requests
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppPreviewPullRequestList'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
+  /apps/preview-environments/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    post:
+      tags:
+        - apps
+      summary: Create a pull request preview environment
+      description: Creates a preview environment for one open pull request of the app and returns the task that creates it in the background. Draft pull requests are accepted even when draft previews are off. Pull requests from forks, pull requests that already have a preview environment, a base environment that is not in OK status, and a full concurrency limit are refused.
+      operationId: createAppPreviewEnvironment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewAppPreviewEnvironmentRequest'
+      responses:
+        '200':
+          description: Creation result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationResult'
+        default:
+          $ref: '#/components/responses/Error'
+        4XX:
+          $ref: '#/components/responses/Error'
   /apps/sharing/{id}:
     parameters:
       - $ref: '#/components/parameters/Id'
@@ -11598,10 +11670,225 @@ components:
         ownerProjectId:
           type: integer
           nullable: true
+        settings:
+          $ref: '#/components/schemas/AppSettings'
         createdAt:
           type: string
           format: date-time
         updatedAt:
+          type: string
+          format: date-time
+    AppSettings:
+      type: object
+      required:
+        - previewEnvironments
+      properties:
+        previewEnvironments:
+          $ref: '#/components/schemas/AppPreviewEnvironmentsSettings'
+    AppPreviewEnvironmentsSettings:
+      type: object
+      description: Automatic preview environments for pull requests opened against the branch tracked by the base environment.
+      required:
+        - enabled
+        - environmentType
+        - imports
+        - buildDrafts
+        - runCronJobs
+        - maxConcurrent
+        - idleTtlDays
+      properties:
+        enabled:
+          type: boolean
+        baseAppEnvironmentId:
+          type: integer
+          nullable: true
+        environmentType:
+          type: string
+          enum:
+            - test
+            - staging
+            - dev
+            - feature
+        imports:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppPreviewImport'
+        buildDrafts:
+          type: boolean
+        runCronJobs:
+          type: boolean
+          description: Run the base environment's cron jobs in every preview. When false, the default, cron jobs are copied disabled. Previews never copy backup presets and run every service with one replica.
+        maxConcurrent:
+          type: integer
+        idleTtlDays:
+          type: integer
+    AppPreviewImport:
+      type: object
+      required:
+        - appServiceName
+        - importName
+        - backupName
+      properties:
+        appServiceName:
+          type: string
+        importName:
+          type: string
+        backupName:
+          type: string
+    AppSettingsInput:
+      type: object
+      properties:
+        previewEnvironments:
+          $ref: '#/components/schemas/AppPreviewEnvironmentsSettingsInput'
+    AppPreviewEnvironmentsSettingsInput:
+      type: object
+      required:
+        - enabled
+      properties:
+        enabled:
+          type: boolean
+        baseAppEnvironmentId:
+          type: integer
+        environmentType:
+          type: string
+          enum:
+            - test
+            - staging
+            - dev
+            - feature
+        imports:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppPreviewImport'
+        buildDrafts:
+          type: boolean
+        runCronJobs:
+          type: boolean
+          description: Omitted keeps the stored value; apps that never set it do not run cron jobs in previews.
+        maxConcurrent:
+          type: integer
+        idleTtlDays:
+          type: integer
+    AppPreviewPullRequestList:
+      type: object
+      description: Open pull requests a preview environment can be created for by hand.
+      required:
+        - configured
+        - pullRequests
+      properties:
+        configured:
+          type: boolean
+          description: True when preview environments are enabled and the base environment exists.
+        pullRequests:
+          type: array
+          items:
+            $ref: '#/components/schemas/AppPreviewPullRequest'
+    AppPreviewPullRequest:
+      type: object
+      description: An open pull request into the branch the preview base environment tracks.
+      required:
+        - number
+        - title
+        - url
+        - remoteGitRepoId
+        - repositoryUrl
+        - headRef
+        - baseRef
+        - author
+        - draft
+        - fromFork
+        - hasPreview
+      properties:
+        number:
+          type: integer
+        title:
+          type: string
+        url:
+          type: string
+        remoteGitRepoId:
+          type: string
+          description: Remote repository of the pull request. Pass it when creating the preview environment.
+        repositoryUrl:
+          type: string
+        headRef:
+          type: string
+        baseRef:
+          type: string
+        author:
+          type: string
+        draft:
+          type: boolean
+        fromFork:
+          type: boolean
+          description: The head branch lives in another repository. Pull requests from forks never get preview environments.
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+        hasPreview:
+          type: boolean
+          description: The pull request already has a preview environment, possibly one being deleted.
+        previewAppEnvironmentId:
+          type: integer
+          nullable: true
+        skipReason:
+          type: string
+          nullable: true
+          description: Why a preview environment cannot be created for this pull request now. Null when it can.
+    NewAppPreviewEnvironmentRequest:
+      type: object
+      required:
+        - number
+      properties:
+        number:
+          type: integer
+          description: Pull request number.
+        remoteGitRepoId:
+          type: string
+          nullable: true
+          description: Remote repository of the pull request. Required when the base environment tracks several repositories.
+    AppEnvironmentPreview:
+      type: object
+      description: Pull request metadata of an automatic preview environment.
+      required:
+        - number
+        - title
+        - url
+        - headRef
+        - headSha
+        - baseRef
+        - author
+        - draft
+        - lastActivityAt
+        - createdAt
+      properties:
+        number:
+          type: integer
+        title:
+          type: string
+        url:
+          type: string
+        headRef:
+          type: string
+        headSha:
+          type: string
+        baseRef:
+          type: string
+        author:
+          type: string
+        draft:
+          type: boolean
+        baseAppEnvironmentId:
+          type: integer
+          nullable: true
+        lastActivityAt:
+          type: string
+          format: date-time
+        closedAt:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
           type: string
           format: date-time
     AppEnvironment:
@@ -11706,6 +11993,11 @@ components:
             $ref: '#/components/schemas/AppServiceConfigurationIssue'
         settings:
           $ref: '#/components/schemas/AppEnvironmentSettings'
+        preview:
+          type: object
+          allOf:
+            - $ref: '#/components/schemas/AppEnvironmentPreview'
+          nullable: true
         health:
           $ref: '#/components/schemas/AppEnvironmentHealth'
         createdAt:
