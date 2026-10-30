@@ -50,14 +50,12 @@ Project creation itself is an organization-level action, so it is typically hand
 
 ## Project filter
 
-The project selector in the dashboard header is your working scope.
+The project selector in the dashboard header sets the project you are working in. You work in one project at a time, so to compare projects, switch between them.
 
-- You can select one or more projects.
-- `Select all` is available when you want to work across the whole organization.
-- At least one project must remain selected.
-- Your selection is stored as your default project filter for that organization.
-
-This filter affects the lists you see across project-aware areas such as apps, clusters, databases, integrations, stacks, services, providers, and tasks.
+- Lists of apps, clusters, databases, integrations, stacks, services, providers, and tasks follow the selected project. Resource lists also include resources shared with that project and organization-owned resources you can view.
+- Creation forms start with the selected project as the owner when you can create resources in it. You can choose another owner on the form.
+- Your selection is saved as your default for that organization. Until you pick one, the dashboard starts on the organization's oldest project. If you had selected several projects before, it starts on the oldest of them.
+- If you open a resource the selected project cannot see, for example from a link, the selector switches to the resource's project. Your saved default does not change.
 
 ## Access model
 
