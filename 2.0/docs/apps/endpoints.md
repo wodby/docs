@@ -132,6 +132,9 @@ deployment. An unattached or incorrectly routed hostname does not fail the deplo
 errored state. You can also delete a custom domain or redirect while its app environment is errored, so a bad hostname
 never blocks cleanup.
 
+On paid plans, Wodby also checks custom domains from outside once a minute and alerts you when one stops answering. See
+[uptime checks](uptime-checks.md).
+
 Deleting a custom domain or redirect also removes its route-specific HTTP settings and authentication scope. Reusable
 organization-level custom certificates remain available until you delete them separately.
 

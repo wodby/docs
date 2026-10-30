@@ -31,6 +31,7 @@ Examples include:
 - automatic service source updates, inherited-service base revision updates, Git-backed stack updates, stack service
   revision updates, origin stack syncs, and app stack upgrades
 - cron job and backup failures and recoveries, plus failed imports, certificate renewals, custom certificate expiration, service actions, or integration installs
+- custom domain outages and recoveries
 - breached spending limits
 - weekly organization reports
 
@@ -101,6 +102,12 @@ If a notification identifies a Cloudflare browser challenge, follow the
 The `Custom certificate expiration` setting controls warnings for uploaded TLS certificates, which Wodby does not
 renew automatically. Wodby emails organization admins 30, 14, 7, and 1 day before expiration and once after the
 certificate expires. Each stage is sent once for a certificate's current expiration date.
+
+## Custom domain outage notifications
+
+The `Custom domain outages and recoveries` setting controls the emails organization admins receive from
+[uptime checks](../apps/uptime-checks.md#outage-and-recovery-alerts): when a custom domain goes down or comes back, and
+when it has been down for 7 days. Turning it off doesn't stop the checks or their tasks.
 
 ## Weekly organization report
 

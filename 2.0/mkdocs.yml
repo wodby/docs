@@ -217,6 +217,7 @@ nav:
       - Web terminal: apps/web-terminal.md
       - Endpoints: apps/endpoints.md
       - Certificate troubleshooting: apps/certificate-troubleshooting.md
+      - Uptime checks: apps/uptime-checks.md
       - Access: apps/access.md
       - Builds: apps/builds.md
       - Deploys: apps/deploys.md
