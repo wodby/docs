@@ -33,8 +33,8 @@ list shows each component's version, where it runs, and how many pods or nodes r
 infrastructure apps, and each node's Kubernetes agent, container runtime, operating system, and kernel. Your applications
 are not included.
 
-Wodby checks healthy clusters every six hours, and the page shows when the cluster was last checked. A new cluster's list
-can take up to six hours to appear. A cluster that isn't healthy keeps its last list until it recovers.
+A healthy cluster's list appears within a few minutes and refreshes about every six hours. The page shows when the
+cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
 
 `Managed by` tells you how a component gets updated:
 
