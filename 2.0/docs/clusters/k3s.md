@@ -97,6 +97,62 @@ Replace the example client address with the K3S server's address as seen by Squi
 `SSL_ports` ACLs if they are already defined, and keep the organization's authentication conditions in the allow rule.
 When SSL bumping is enabled, add `frps.wodby.com:31225` to the applicable splice or bypass policy.
 
+#### Zscaler example
+
+Zscaler Internet Access (ZIA) can carry the server's traffic as an explicit proxy or through a GRE or IPsec tunnel.
+In both cases, ask your Zscaler administrator to set up the following in the ZIA Admin Portal:
+
+1. **Location without sign-in.** Add the server's egress address or tunnel to a location or sub-location, and turn
+   off `Enforce Authentication` for it. The installer and cluster components cannot complete Zscaler's browser
+   sign-in.
+2. **Firewall rule.** Add a Cloud Firewall rule that allows TCP port `31225` to `frps.wodby.com` from that location.
+   Place it above any rule that blocks non-web traffic.
+3. **SSL/TLS inspection exemption.** Add an SSL/TLS Inspection rule with the `Do Not Inspect` action for a
+   destination group that contains `*.wodby.com`, `registry-1.docker.io`, `auth.docker.io`, and
+   `production.cloudflare.docker.com`. FRPC, its upgrade jobs, and monitoring run in cluster pods that do not
+   trust the Zscaler root certificate, and the FRPC tunnel is not HTTPS.
+4. **CONNECT to port 31225 (explicit proxy only).** Under `Advanced Settings > HTTP Tunnel Control`, turn off
+   `Block Tunneling to Non-HTTP/HTTPS Ports`. When this option is on, which is the default, ZIA allows CONNECT only to
+   ports `80` and `443`, so the installer's FRPS check fails. The option applies to the whole organization; ZIA
+   still applies Cloud Firewall rules to traffic inside CONNECT tunnels, so use firewall rules to keep other
+   non-standard ports blocked.
+
+If ZIA inspects HTTPS for other destinations, such as OS package mirrors, GitHub, and `get.k3s.io`, install your
+organization's Zscaler root certificate in the server's system trust store before you run the installation command.
+The installer, K3S, and Helm on the server use that trust store:
+
+```sh
+# Ubuntu/Debian
+sudo cp zscaler-root-ca.crt /usr/local/share/ca-certificates/
+sudo update-ca-certificates
+
+# Fedora/CentOS
+sudo cp zscaler-root-ca.crt /etc/pki/ca-trust/source/anchors/
+sudo update-ca-trust extract
+```
+
+With an **explicit proxy**, set the proxy variables as described in [Configure the server](#configure-the-server).
+Use the gateway host name and port your Zscaler administrator gives you, for example
+`http://gateway.zscalertwo.net:80` or port `9400`. ZIA identifies the server by its location, so the URL has no
+credentials:
+
+```sh
+export HTTP_PROXY='http://gateway.zscalertwo.net:80'
+export HTTPS_PROXY="$HTTP_PROXY"
+```
+
+With a **GRE or IPsec tunnel**, the server reaches the internet without a proxy setting. Do not set the proxy
+variables; run the installation command as usual.
+
+To check the inspection exemption before installing, look at the certificate issuer the server receives from Wodby. With
+an explicit proxy, add `-proxy gateway.zscalertwo.net:80` to the command:
+
+```sh
+openssl s_client -connect apiv2.wodby.com:443 -servername apiv2.wodby.com </dev/null 2>/dev/null | grep issuer
+```
+
+If the issuer names Zscaler, the `Do Not Inspect` rule does not match the server's traffic yet.
+
 #### Configure the server
 
 Open a root shell on the target server, export the proxy variables in that same shell, and then paste the one-time
@@ -247,6 +303,12 @@ Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles
   and authentication policy.
 - A connection error without an HTTP status usually means the server cannot resolve or reach the proxy, or the proxy
   cannot resolve or reach the requested destination.
+- Behind a Zscaler explicit proxy, a failed FRPS check usually means `Block Tunneling to Non-HTTP/HTTPS Ports` is
+  still on or no Cloud Firewall rule allows `frps.wodby.com:31225`. See [Zscaler example](#zscaler-example).
+- `SSL certificate problem` errors during installation behind Zscaler mean the server does not trust the Zscaler root
+  certificate. Install it in the system trust store, or exempt the destination from SSL/TLS inspection.
+- If FRPC or monitoring reports certificate errors after a Zscaler installation, exempt `*.wodby.com` and the Docker
+  Hub endpoints from SSL/TLS inspection.
 - If cluster metrics remain unavailable after a proxy installation, upgrade or redeploy the monitoring infrastructure
   app and confirm that the proxy permits HTTPS access to the Wodby API monitoring endpoint.
 - Do not open FRPS ports `7500` or `8080` on the K3S server; they do not carry the outbound FRPC control connection.
