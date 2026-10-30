@@ -106,13 +106,37 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
+The latest version is `4.1.3`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
+Cloud clusters are offered upgrades up to `4.0.0`, because later versions need no upgrade on them. They can show any
+version from `4.0.0` to `4.1.3`, depending on when they were created.
+
+Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
+
 ### Changelog
 
-#### 4.1.2 (upcoming)
+#### 4.1.3
+
+Version `4.1.3` updates Cilium on self-hosted K3S clusters to `1.19.10` and keeps your Cilium settings. Clusters must be
+on `4.1.2` first. New K3S servers install this version directly. Managed Kubernetes clusters are not changed.
+
+The new Cilium release includes these security fixes:
+
+- [CVE-2026-56743](https://github.com/cilium/cilium/security/advisories/GHSA-fm8w-2m5w-9j7r): a Kubernetes NetworkPolicy
+  can unexpectedly allow ingress from the local namespace.
+- [CVE-2026-56742](https://github.com/cilium/cilium/security/advisories/GHSA-w7c2-w76w-5hmj): namespaced HTTPRoutes can
+  redirect traffic to other namespaces. This affects Cilium's own Gateway API support. Wodby routes traffic through
+  Envoy Gateway instead.
+- Cilium no longer trusts the compromised eMudhra intermediate CA certificates.
+
+Cilium restarts on each node during the upgrade, so run it during a maintenance window for production workloads. If the
+upgrade fails, the cluster is marked as errored. Review the task logs, resolve the reported problem, and run the upgrade
+again.
+
+#### 4.1.2
 
 Version `4.1.2` updates and verifies the host CA trust store on self-hosted K3S servers following the eMudhra
 intermediate CA compromise. It restarts K3S to reload trust, including when the operating system has already applied
-the CA fix. Run it during a maintenance window when the dashboard offers the update.
+the CA fix. Run it during a maintenance window.
 
 See the [K3S host CA security update](updates.md#k3s-host-ca-security-update-412) for upgrade steps, retry behavior,
 and the separate updates needed for application CA bundles.

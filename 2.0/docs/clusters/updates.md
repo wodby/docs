@@ -93,9 +93,9 @@ the failed task from the dialog when you need to review logs before re-running i
 
 ### K3S host CA security update (4.1.2)
 
-!!! info "Upcoming update"
-    Infrastructure version `4.1.2` is planned for self-hosted K3S clusters. Apply it when the dashboard offers it.
-    Managed Kubernetes clusters do not use this host update.
+!!! info "Self-hosted K3S only"
+    Infrastructure version `4.1.2` applies to self-hosted K3S clusters. Managed Kubernetes clusters do not use this host
+    update.
 
 This update addresses host trust in certificate chains affected by the eMudhra intermediate CA compromise. See
 [Mozilla's security advisory](https://www.openwall.com/lists/oss-security/2026/10/20/1) and, for Ubuntu servers,
@@ -273,3 +273,17 @@ The upgrade runs as a task and puts the cluster into `Upgrading` status. Wodby:
 Open the task to follow progress and review provider details. If an upgrade fails after the provider has applied it to
 the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes
 the remaining stages instead of trying to start an unrelated transition.
+
+### Amazon EKS add-ons
+
+On Amazon EKS, the upgrade also updates the vpc-cni, kube-proxy, CoreDNS, and EBS CSI driver add-ons after the nodes. Each
+moves to the version AWS marks as the default for the target Kubernetes version. Add-ons that are already newer are not
+downgraded, and add-ons several releases behind move one minor version at a time. Settings Wodby applied when it created
+the cluster are kept.
+
+EKS installs kube-proxy and CoreDNS as self-managed workloads when a cluster is created. The first upgrade replaces them
+with EKS-managed add-ons, which restarts their pods. Changes you made directly to those workloads, such as a custom CoreDNS
+configuration, can be overwritten.
+
+If this stage fails, repeat the failed task. The retry leaves the control plane and nodes as they are and resumes the
+add-on updates. An EKS cluster without the EKS-managed vpc-cni or EBS CSI driver add-on keeps those components unchanged.

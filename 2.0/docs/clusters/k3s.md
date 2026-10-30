@@ -49,7 +49,7 @@ The generated script performs the current bootstrap flow for you. It:
 - installs required NFS client packages
 - installs firewall rules that restrict public access to the K3S API endpoint
 - installs K3S
-- installs Helm
+- installs Helm 4
 - installs Cilium for pod networking and NetworkPolicy enforcement
 - prepares local kubeconfig on the server
 - installs Wodby's proxy client so the cluster can securely connect back to Wodby
