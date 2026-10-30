@@ -97,7 +97,7 @@ Configure settings that apply to the whole app environment:
 
 - Choose the deployment mode: CI/CD or development workspace.
 - Choose whether to enable stack auto-upgrades.
-- Choose Public, Basic Auth or Application Access [App Access](access.md).
+- Choose [access](access.md): Public, Basic Auth, Cloudflare or Tailscale.
 - Select the default CI system and container registry when the app has an enabled service with a build source.
 - Choose whether to create [preview environments](preview-environments.md) for pull requests.
 

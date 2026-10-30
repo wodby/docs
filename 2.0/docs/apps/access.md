@@ -7,7 +7,8 @@ environment.
 ## Availability
 
 Application Access requires an active paid subscription. Organizations on the free Developer plan can create apps in
-`Public` or `Basic Auth` mode, but `Application Access` mode is unavailable until the organization upgrades.
+`Public` or `Basic Auth` mode, but the `Cloudflare` and `Tailscale` modes are unavailable until the organization
+upgrades.
 
 Before scheduling a downgrade to Developer, remove Application Access from every app environment. If paid access becomes
 unavailable while an existing configuration remains, its protection stays active and readable, but it cannot be
@@ -15,18 +16,19 @@ changed. You can still remove it, and Wodby can still finish provider cleanup.
 
 ## Modes
 
-The app creation form offers three modes:
+The app creation form offers four modes:
 
 - `Public` is the default. Wodby publishes enabled HTTP routes normally.
 - `Basic Auth` publishes routes normally but asks every visitor for a username and password. See
   [Basic Auth](#basic-auth).
-- `Application Access` uses an [Application Access integration](../providers/access.md). The provider supplies either
-  protected publishing or private-network routing for the selected endpoints, and Wodby suppresses the corresponding
-  public routes.
+- `Cloudflare` and `Tailscale` use Application Access through an
+  [Application Access integration](../providers/access.md) of that provider. The provider supplies either protected
+  publishing or private-network routing for the selected endpoints, and Wodby suppresses the corresponding public
+  routes.
 
-Some stacks require Application Access. The stack can also require an access type and scope, and can optionally restrict
-the provider. In that case the required choices cannot be changed and you must select a compatible Application Access
-integration before creating the app.
+Some stacks require Application Access. Then `Public` and `Basic Auth` are unavailable and you choose `Cloudflare` or
+`Tailscale`. A stack that names a provider leaves only that provider available. The stack can also require an access
+type and scope; those choices cannot be changed.
 
 Application Access requires an active Application Access integration, an enabled HTTP endpoint, and a cluster that uses
 managed app routing.
@@ -45,20 +47,27 @@ password with reviewers does not open those tools. You can change, regenerate or
 Auths page. See [Auths](endpoints.md#auths) for how entries combine and how to leave a webhook or API reachable
 without a password.
 
-`Basic Auth` and `Application Access` cannot be chosen together in the app creation form. Basic auth applies only to
+`Basic Auth` cannot be combined with `Cloudflare` or `Tailscale` in the app creation form. Basic auth applies only to
 routes that Wodby's public gateway serves; endpoints published through Application Access are not affected.
 
 ## Configure access during app creation
 
-In Step 4, `App settings`, select `Application Access` under `Access` and then configure:
+In Step 4, `App settings`, select `Cloudflare` or `Tailscale` under `Access`. Wodby uses your organization's
+integration for that provider:
 
-1. `Access provider`: the integration that will provide the app's protected or private connection path.
-2. `Access type`: Protected publishing or Private network when the selected provider offers both. Providers with one
+- With one integration available to the app's project, Wodby selects it for you.
+- With several, choose one under `Integration`.
+- With none, follow the `Create a Cloudflare integration` or `Create a Tailscale integration` link, then come back to
+  the form.
+
+Then configure:
+
+1. `Access type`: Protected publishing or Private network when the selected provider offers both. Providers with one
    type select it automatically.
-3. `Scope`: whether access covers the entire app or selected endpoints. With Selected endpoints, choose one or more
+2. `Scope`: whether access covers the entire app or selected endpoints. With Selected endpoints, choose one or more
    enabled HTTP destinations and mark one as primary.
-4. Provider-specific settings, such as a Cloudflare DNS zone and Access policy for Protected publishing.
-5. A primary hostname when the provider uses your own domain.
+3. Provider-specific settings, such as a Cloudflare DNS zone and Access policy for Protected publishing.
+4. A primary hostname when the provider uses your own domain.
 
 For Entire app scope, Wodby automatically includes every enabled HTTP destination that normally has an external route.
 Routes and paths that target the same app port share one provider address. For Selected endpoints, the form lists the
