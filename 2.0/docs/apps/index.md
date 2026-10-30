@@ -119,12 +119,12 @@ production environments. You can override the suggested value before creating th
 
 #### Access
 
-`Public` is the default and uses ordinary Wodby routes. `Basic Auth` asks every visitor for a username and a password
-that Wodby generates; reveal it later on the environment's `Endpoints > Auths` page. `Application Access` publishes
-the app through an [Application Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select
-whether the provider uses protected publishing or private-network routing when it offers both, choose whether it covers
-the entire app or selected endpoints, then complete its provider-specific settings. Some stacks require Application
-Access.
+`Public` is the default and uses ordinary Wodby routes. `Basic Auth` asks every visitor for a username and a password.
+Both are optional in the form: by default the username is `wodby` and Wodby generates the password, which you reveal
+later on the environment's `Endpoints > Auths` page. `Cloudflare` and `Tailscale` publish the app through an
+[Application Access provider](../providers/access.md). Select the integration, then whether the provider uses protected
+publishing or private-network routing when it offers both, choose whether it covers the entire app or selected
+endpoints, and complete its provider-specific settings. Some stacks require Application Access.
 
 See [App access](access.md) for route behavior, primary hostnames, and provider requirements.
 

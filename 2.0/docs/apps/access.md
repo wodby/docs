@@ -38,9 +38,14 @@ deployed workload; see [VPN providers](../providers/vpn.md).
 
 ## Basic Auth
 
-`Basic Auth` protects the whole new app environment with HTTP basic authentication. Wodby generates the password; the
-username is `wodby`. Reveal the password on `Apps > [App] > [Environment] > Endpoints > Auths`. Basic Auth is available
-on every plan and works on all cluster types.
+`Basic Auth` protects the whole new app environment with HTTP basic authentication. `Username` and `Password` are
+optional when you create the app:
+
+- Leave `Username` empty to use `wodby`. A username cannot contain a colon.
+- Leave `Password` empty and Wodby generates one.
+
+Reveal the password on `Apps > [App] > [Environment] > Endpoints > Auths`. Basic Auth is available on every plan and
+works on all cluster types.
 
 Services that have their own basic auth entry, such as Mailpit, keep their own password. Sharing the environment
 password with reviewers does not open those tools. You can change, regenerate or remove the protection later on the
@@ -52,11 +57,10 @@ routes that Wodby's public gateway serves; endpoints published through Applicati
 
 ## Configure access during app creation
 
-In Step 4, `App settings`, select `Cloudflare` or `Tailscale` under `Access`. Wodby uses your organization's
-integration for that provider:
+In Step 4, `App settings`, select `Cloudflare` or `Tailscale` under `Access`, then check `Integration`:
 
-- With one integration available to the app's project, Wodby selects it for you.
-- With several, choose one under `Integration`.
+- With one integration available to the app's project, it is already selected.
+- With several, choose one.
 - With none, follow the `Create a Cloudflare integration` or `Create a Tailscale integration` link, then come back to
   the form.
 
