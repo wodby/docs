@@ -26,6 +26,26 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 
 * **Infrastructure update**: update Agent and Edge yourself, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
 * **Wodby support**: Wodby support updates the installer, etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
+* **Wodby installer**: the server updates this itself. See [Kubernetes certificates](#kubernetes-certificates).
+
+## Kubernetes certificates
+
+Infrastructure 7 servers use internal Kubernetes certificates that last one year. The server renews them automatically, so you don't need to do anything.
+
+When fewer than 90 days are left, the server renews its certificates between 02:00 and 05:00 server time. Server management, including deployments, pauses for about a minute. Applications keep running. If a deployment fails during this time, run it again.
+
+If a renewal doesn't complete, the server goes back to its existing certificates and tries again the next night. Management can be unavailable for up to about 10 minutes when this happens.
+
+To check the certificates, open the server's settings and find **Kubernetes certificates** under **Infrastructure components**. Servers that haven't reported their certificates don't show this row.
+
+| Status | What to do |
+| --- | --- |
+| **Valid** | No action needed. |
+| **Needs attention** | A renewal failed, a certificate expires within 30 days, or the certificate authority expires within a year. After a failed renewal, the server tries again the next night. If the status stays, select **Request update** or contact [Wodby support](../support.md). |
+| **Critical** | A certificate expires within 7 days or has already expired. Select **Request update** or contact [Wodby support](../support.md) as soon as possible. Once a certificate expires, deployments and other server management stop working, although running applications keep working. |
+| **Not reported** | The server hasn't reported its certificates recently. Check that the server is online. If the status stays, contact [Wodby support](../support.md). |
+
+Certificate authorities last ten years and aren't renewed automatically.
 
 ## Updating from the Dashboard
 

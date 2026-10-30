@@ -89,6 +89,14 @@ kubectl -n wodby get deployment agent edge -o custom-columns=NAME:.metadata.name
 
 The Kubernetes deployment image is authoritative for Agent and Edge patch versions on a running server; the recorded installation profile describes what the installer originally applied.
 
+### Check Kubernetes certificates
+
+```shell
+/opt/wodby/bin/installer certificates
+```
+
+This lists each certificate's expiry date, the last renewal and any renewal error.
+
 ### Clean up failed task Pods
 
 Review the list before deleting anything:
