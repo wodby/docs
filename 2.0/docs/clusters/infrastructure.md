@@ -26,6 +26,32 @@ those route types and also use Cilium for Kubernetes networking and NetworkPolic
 Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
 
+## Cluster components
+
+To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Components`. The
+list shows each component's version, where it runs, and how many pods or nodes run it. It includes system pods,
+infrastructure apps, and each node's Kubernetes agent, container runtime, operating system, and kernel. Your applications
+are not included.
+
+Wodby checks healthy clusters every six hours, and the page shows when the cluster was last checked. A new cluster's list
+can take up to six hours to appear. A cluster that isn't healthy keeps its last list until it recovers.
+
+`Managed by` tells you how a component gets updated:
+
+| Managed by | How it is updated |
+| --- | --- |
+| Wodby | An [infrastructure version or infrastructure app upgrade](updates.md). |
+| k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
+| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) or [recycling worker nodes](updates.md#worker-node-updates) can update it. |
+| Server | The operating system of your K3S server. You update it. |
+| Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
+
+The version is the image tag or the version the node reports, exactly as published. It's empty for an image referenced
+only by digest.
+
+The list is also available through the API as `GET /v1/cluster-components/{id}`, using the cluster's ID, and the GraphQL
+`clusterComponents` query.
+
 ## Cluster capability policy
 
 A cluster capability policy records which published operator stack revisions are approved for the cluster.
