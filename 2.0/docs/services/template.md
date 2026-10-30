@@ -457,6 +457,19 @@ Type: `boolean`. Default: `false`.
 
 Marks the service as externally managed.
 
+### `basicAuth`
+
+Type: `boolean`. Default: `false`.
+
+Asks Wodby to protect the service's public HTTP endpoints with basic auth by default. Each new app service of this
+service gets its own [auth entry](../apps/endpoints.md#auths) with a generated password, which users reveal in Wodby.
+Services inside the environment keep reaching it directly.
+
+Use it for tools without a login of their own or with sensitive data, such as mail catchers and admin interfaces. Do
+not use it for public applications, or for services whose clients send their own `Authorization` header, because a
+request can carry only one. Stacks can override it with
+[`services[].basicAuth`](../stacks/template.md#servicesbasicauth), and users can turn it off when they create an app.
+
 ### `scalable`
 
 Type: `boolean`. Default: `false`.

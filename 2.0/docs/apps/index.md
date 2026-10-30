@@ -61,6 +61,8 @@ There are 6 steps of creating a new application:
 - In the selected stack you can:
   - select a version (option) of a service 
   - enable/disable optional services and change their configuration
+  - turn `Basic Auth` on or off for services with a public web endpoint. Some services, such as Mailpit and database
+    admin tools, are protected by default. See [Auths](endpoints.md#auths).
   - configure resources request and limitation
   - configure autoscaling for scalable services
 
@@ -95,7 +97,7 @@ Configure settings that apply to the whole app environment:
 
 - Choose the deployment mode: CI/CD or development workspace.
 - Choose whether to enable stack auto-upgrades.
-- Choose Public or Protected [App Access](access.md).
+- Choose [access](access.md): Public, Basic Auth, Cloudflare or Tailscale.
 - Select the default CI system and container registry when the app has an enabled service with a build source.
 - Choose whether to create [preview environments](preview-environments.md) for pull requests.
 
@@ -117,11 +119,12 @@ production environments. You can override the suggested value before creating th
 
 #### Access
 
-`Public` is the default and uses ordinary Wodby routes. `Protected` publishes the app through an
-[Application Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select whether the provider
-uses protected publishing or private-network routing when it offers both, choose whether it covers the entire app or
-selected endpoints, then complete its provider-specific settings. Some stacks require
-Protected access.
+`Public` is the default and uses ordinary Wodby routes. `Basic Auth` asks every visitor for a username and a password.
+Both are optional in the form: by default the username is `wodby` and Wodby generates the password, which you reveal
+later on the environment's `Endpoints > Auths` page. `Cloudflare` and `Tailscale` publish the app through an
+[Application Access provider](../providers/access.md). Select the integration, then whether the provider uses protected
+publishing or private-network routing when it offers both, choose whether it covers the entire app or selected
+endpoints, and complete its provider-specific settings. Some stacks require Application Access.
 
 See [App access](access.md) for route behavior, primary hostnames, and provider requirements.
 

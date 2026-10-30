@@ -388,30 +388,59 @@ needing redeploy.
 
 ## Auths
 
-The `Auths` screen manages HTTP basic authentication.
+The `Auths` screen manages HTTP basic authentication for the environment's domains and redirects.
 
-Each auth entry has:
+Each auth entry protects one of three scopes:
 
-- username
-- password
-- optional realm
-- optional app service scope
-- optional domain or redirect scope
+- the whole environment, when no service and no domain is selected
+- one or more app services, when services are selected
+- one domain or redirect, when it is selected
 
-This gives you three practical scopes:
+The most specific entry applies: a domain's entry overrides a service's, which overrides the environment's. Each
+service and each domain uses only one entry, so a service with its own entry keeps its own password even when the whole
+environment is protected.
 
-- app-level, when both service and route are left empty
-- service-level, when a service is selected and route is left empty
-- domain- or redirect-level, when a specific item is selected
+### Passwords
 
-Auth precedence is most-specific first:
+Leave the password empty to let Wodby generate one; the username defaults to `wodby`. You can also set your own
+password. The edit screen reveals the current password and can replace it with a newly generated one. After a password
+changes, visitors and any scripts that use the old password must use the new one.
 
-- domain or redirect auth overrides service auth
-- service auth overrides app-level auth
+Revealing a password requires [runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and a
+recent [secret reveal confirmation](../user/security.md#secret-reveal-confirmation).
 
-The edit screen can also reveal the current password for an existing auth entry. You need
-[runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent
-[secret reveal confirmation](../user/security.md#secret-reveal-confirmation).
+### Exemptions
+
+An exemption switches basic auth off for selected services or one domain even when a wider entry covers them. Use it
+for endpoints that cannot send a password:
+
+- webhooks from services such as Stripe or GitHub
+- APIs whose clients send their own `Authorization` header, such as bearer tokens
+- a separate API service called by a single-page app on another domain
+
+An exemption has no username or password. A request can carry only one `Authorization` header, so a service that
+checks its own HTTP basic authentication, such as Solr, should not be behind a Wodby entry either.
+
+### Protected by default
+
+Some services ask Wodby to protect their public web interface because it has no login of its own or exposes sensitive
+data, for example Mailpit, phpMyAdmin, Adminer, pgAdmin, Prometheus, Dagster, the Spark master, 3X UI and Gotenberg.
+When such a service is added to an environment, Wodby creates an auth entry for that service with its own generated
+password. The Auths list tags these entries `Service default`. A stack can turn the default off for one of its
+services, and you can turn it on or off per service in the new app form. Removing the entry makes the service public
+again.
+
+Requests between services in the same environment do not pass through Wodby's gateway and need no password. Health
+checks and certificate validation are not affected either.
+
+### Copies and previews
+
+Copied environments, including environments created from Git branches, keep the auth entries of their source with the
+same passwords. Domain entries are not copied, because a copy gets its own domains.
+[Preview environments](preview-environments.md#basic-auth) use one password shared by all previews of the app instead
+of the base environment's environment-wide entry.
+
+### Applying changes
 
 On infrastructure version `4.0.0` or newer, changing auth settings starts a routing deployment and does not mark app
 services as needing redeploy. Older infrastructure versions continue to mark the affected app services and app
