@@ -26,14 +26,21 @@ In the dashboard, organization-level administration is handled by owners and adm
 
 ## Invitation
 
-You can invite users by email whether they already have a Wodby account or not. The invitation link is valid for 3 days. If the invited person does not have an account yet, they are prompted to create one after opening the link.
+You can invite users by email whether they already have a Wodby account or not. An invitation sets the email address
+and the [organization role](#roles). The invitation link is valid for 3 days. If the invited person does not have an
+account yet, they are prompted to create one after opening the link.
+
+Give the new member access to teams and projects from their page, `Organization > Members > [Member]`. Teams can be
+set right away; project access can be added once the invitation is accepted.
 
 ## Organization navigation
 
 The organization area in the dashboard includes these sections:
 
-- `Members` to invite users, review membership status, and manage organization roles
+- `Members` to invite users, review membership status, manage organization roles, and see or change each member's
+  projects and teams
 - `Projects` to create projects, review project resources, and manage project access
+- `Project roles` to review the system project roles and manage your organization's custom roles
 - `Teams` to group users and reuse project access assignments
 - `Backups` to create organization-wide backup presets reused in app and database backup flows
 - `Certificates` to review issued certificates used by application routes and supported database resources
@@ -49,6 +56,8 @@ The organization area in the dashboard includes these sections:
 - invite users by email
 - review invitation and join status
 - change organization roles
+- see each member's project access, direct or through teams, and change their direct project roles
+- add members to teams, change their team roles, or remove them from teams
 - remove members when needed
 
 See [Access control](access-control.md) for how organization roles interact with project access.
