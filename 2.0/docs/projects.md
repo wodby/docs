@@ -41,8 +41,10 @@ When creating a project, you can:
 - set the project name
 - optionally preselect organization members
 - optionally preselect teams
-- choose one initial role for those selected users or teams
-- when the initial role is `Write`, choose whether those memberships can reveal runtime secrets
+- choose one initial system role for those selected users or teams
+- for `Write` and the `Developer` roles, choose whether those memberships can reveal secrets
+
+Custom project roles can be given on the project's `Access` page after the project is created.
 
 Project creation itself is an organization-level action, so it is typically handled by organization owners or admins.
 
@@ -64,17 +66,21 @@ Access is granted per project, either:
 - directly to an organization member
 - through a team added to the project
 
-Project roles are:
+Each membership has a [project role](access-control.md#project-roles). A role grants project-wide permissions and
+permissions per environment type, so you can, for example, let developers deploy to staging while only sysadmins
+deploy to production. The system roles are:
 
-- `Read` to view the project and use resources visible in it
+- `Read` to view the project, its environments, and their logs
+- `Developer (non-production)` to work in every environment type except production, which stays read-only
+- `Developer` to deploy, operate, configure, and create environments of every type, with a shell outside production
 - `Write` to create and modify resources inside the project
 - `Admin` to manage the project itself
 
-Teams can receive `Read` or `Write` project roles. Project `Admin` is granted directly to specific users.
+Organization owners and admins can also create custom project roles. Teams cannot receive roles that manage the
+project; project administration is granted directly to specific users.
 
-For `Write` memberships, project administrators can independently enable or disable `Reveal runtime secrets`. This
-controls direct display of app-service tokens, endpoint-auth passwords, and database-user passwords. Project `Admin`
-includes secret reveal, while `Read` cannot receive it. See
+For `Write` and the `Developer` roles, project administrators can turn `Reveal secrets` on or off per membership. This
+controls direct display of app-service tokens, endpoint-auth passwords, and database-user passwords. See
 [Secret reveal permissions](access-control.md#secret-reveal-permissions).
 
 See [Access control](access-control.md) for the full role model.
@@ -99,6 +105,9 @@ See [Sharing](sharing.md) for how cross-project visibility works in practice.
 ## Deleting a project
 
 A project cannot be deleted while it still contains resources. Remove dependent resources first, then delete the project.
+
+Every organization keeps at least one project, so its last project cannot be deleted. Create another project first if
+you want to replace it. Deleting the whole organization removes all of its projects.
 
 ## Related pages
 
