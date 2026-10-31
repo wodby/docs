@@ -26,6 +26,38 @@ those route types and also use Cilium for Kubernetes networking and NetworkPolic
 Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
 
+## Cluster components
+
+To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Components`. The
+list shows each component's version, whether an update is available, where it runs, and how many pods or nodes run it.
+It includes system pods and each node's Kubernetes agent, container runtime, operating system, and kernel. Your
+applications are not included. Infrastructure apps are hidden because the `Apps` tab reports them; choose
+`Infrastructure app` in the `Managed by` filter to show them.
+
+A healthy cluster's list appears within a few minutes and refreshes about every six hours. The page shows when the
+cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
+
+`Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
+not count. On managed clusters, only Amazon EKS add-ons show updates. See
+[component updates](updates.md#component-updates).
+
+`Managed by` tells you how a component gets updated:
+
+| Managed by | How it is updated |
+| --- | --- |
+| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates). |
+| Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
+| k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
+| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
+| Server | The operating system of your K3S server. You update it. |
+| Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
+
+The version is the image tag or the version the node reports, exactly as published. It's empty for an image referenced
+only by digest.
+
+The list is also available through the API as `GET /v1/cluster-components/{id}`, using the cluster's ID, and the GraphQL
+`clusterComponents` query.
+
 ## Cluster capability policy
 
 A cluster capability policy records which published operator stack revisions are approved for the cluster.

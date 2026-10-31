@@ -220,6 +220,30 @@ the cluster infrastructure version or infrastructure app stacks.
 Wodby sends email notifications when automatic infrastructure upgrades succeed or fail. You can manage these from
 `User settings > Notifications`.
 
+## Component updates
+
+Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
+available, the `Component updates` card appears at `Clusters > [Cluster] > Infrastructure > Operations`. Choose `Update`
+and confirm to run it as a task.
+
+| Cluster | Components |
+| --- | --- |
+| K3S | Cilium, once the cluster's Wodby infrastructure version is up to date. |
+| Amazon EKS | The VPC CNI, kube-proxy, CoreDNS, and EBS CSI driver add-ons. The update moves them to the AWS default for the cluster's Kubernetes version. |
+
+Other cluster types don't offer component updates, because the provider manages these components. They change with a
+[Kubernetes version update](#kubernetes-version-updates) or the provider's own patches.
+
+Before you update:
+
+- The cluster must be in `OK` status, and deployments on it wait until the update finishes.
+- On K3S, Cilium restarts on each node, so run the update during a maintenance window for production workloads.
+- On EKS, the first update of a copy that EKS installed replaces it with an EKS-managed add-on. This restarts its pods
+  and can overwrite changes made directly to it, such as a custom configuration.
+
+If an update fails, the task shows the error and the cluster returns to `OK`. The update stays available, so you can
+run it again.
+
 ## Worker node updates
 
 For [managed Kubernetes](managed.md) clusters, the simplest way to refresh worker nodes is usually to recycle them.
