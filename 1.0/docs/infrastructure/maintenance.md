@@ -11,7 +11,7 @@ Open the server's settings to see its **Infrastructure components**: the install
 | Status | What to do |
 | --- | --- |
 | **Critical** | A known security issue affects the installed version, or the version is past its end of support. Update the component as soon as possible. |
-| **Update recommended** | Update the component in your next maintenance window. Agent or Edge has a newer release, or the installed version is older than Wodby supports, close to its end of support, or affected by a known issue. |
+| **Update recommended** | Update the component in your next maintenance window. Edge has a newer release, Infrastructure 6 Agent has a newer release, or the installed version is older than Wodby supports, close to its end of support, or affected by a known issue. |
 | **Update available** | No action needed. A newer version exists. |
 | **Up to date** | No action needed. |
 | **No updates** | Infrastructure 6 components that cannot be updated in place. |
@@ -24,8 +24,9 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 
 **Updated by** shows how each component is updated:
 
-* **Infrastructure update**: update Agent and Edge yourself, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
-* **Wodby support**: Wodby support updates the installer, etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
+* **Update** button: update this component yourself, as described in [Updating individual components](#updating-individual-components).
+* **Infrastructure update**: update this component yourself when an update is available, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
+* **Wodby support**: Wodby support updates these components with you, at a time that suits your applications: the installer, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal, plus etcd on servers below Infrastructure 7.0.7. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Wodby installer**: the server updates this itself. See [Kubernetes certificates](#kubernetes-certificates).
 
 ## Kubernetes certificates
@@ -46,6 +47,37 @@ To check the certificates, open the server's settings and find **Kubernetes cert
 | **Not reported** | The server hasn't reported its certificates recently. Check that the server is online. If the status stays, contact [Wodby support](../support.md). |
 
 Certificate authorities last ten years and aren't renewed automatically.
+
+## Updating individual components
+
+On Infrastructure 7.0.7 and later, you can update Agent, etcd and Edge without changing the server's infrastructure version. Servers on earlier versions first [update to 7.0.7](#updating-from-the-dashboard).
+
+These updates stay within the component's current release line. A larger version change arrives with a new infrastructure version.
+
+| Component | During the update |
+| --- | --- |
+| **Agent** | Server management briefly disconnects. Applications and Edge keep running. |
+| **etcd** | Server management pauses for up to about 20 seconds. Applications and Edge keep running. |
+| **Edge** | HTTP and HTTPS traffic is briefly interrupted while Edge restarts. |
+
+To update:
+
+1. Open the server's settings and find **Infrastructure components**.
+2. Select **Update** next to a component, or **Update all** to update every component that has an update. This checks the server without applying changes.
+3. Under **Infrastructure update**, review the summary, affected application instances, and warnings. Resolve any reported blockers.
+4. Select the acknowledgement checkbox, then the update button, such as **Update etcd**.
+5. Open **View update task and logs** to follow progress. You can leave the page and return later.
+6. After completion, check that your applications are accessible over HTTP and HTTPS and behave as expected.
+
+Selected components update one at a time, in this order: Agent, etcd, Edge. If one can't be verified, the components after it aren't updated.
+
+An update can require a minimum version of another component. If the check reports this, select **Update all** or update that component first.
+
+If the check reports that Wodby cannot read etcd on the server, contact [Wodby support](../support.md). This is a one-time change on servers connected before etcd updates were available, and nothing restarts. Then select **Check server again**.
+
+The requirements and restrictions in [Updating from the Dashboard](#updating-from-the-dashboard) also apply, including check expiry and blocked changes during the update.
+
+If an update doesn't complete, see [If an update does not complete](#if-an-update-does-not-complete). If etcd doesn't return, applications keep running, but deployments and other server management stay unavailable until Wodby support repairs it.
 
 ## Updating from the Dashboard
 
