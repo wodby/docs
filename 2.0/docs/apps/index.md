@@ -148,8 +148,8 @@ the application code and pipeline manifests.
 
 Services often provide a public build boilerplate that you can use directly. With [GitHub](../providers/github.md) and
 [GitLab](../providers/gitlab.md), Wodby can also create a new repository and import the boilerplate contents into it.
-For [Bitbucket](../providers/bitbucket.md), create or copy the boilerplate repository manually first, then select it as
-the build source. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
+For [Bitbucket](../providers/bitbucket.md), create an empty repository first, and Wodby imports the boilerplate contents
+into it. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
 is a third-party integration.
 
 In a development workspace, this section is called **Development workspace**. It offers only **Clone boilerplate** and
