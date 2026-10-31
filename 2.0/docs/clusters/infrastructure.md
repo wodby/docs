@@ -29,18 +29,23 @@ policy controller, until their cluster infrastructure is upgraded.
 ## Cluster components
 
 To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Components`. The
-list shows each component's version, where it runs, and how many pods or nodes run it. It includes system pods,
-infrastructure apps, and each node's Kubernetes agent, container runtime, operating system, and kernel. Your applications
-are not included.
+list shows each component's version, whether an update is available, where it runs, and how many pods or nodes run it.
+It includes system pods and each node's Kubernetes agent, container runtime, operating system, and kernel. Your
+applications are not included. Infrastructure apps are hidden because the `Apps` tab reports them; choose
+`Infrastructure app` in the `Managed by` filter to show them.
 
 A healthy cluster's list appears within a few minutes and refreshes about every six hours. The page shows when the
 cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
+
+`Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
+not count. Managed clusters do not show updates here yet.
 
 `Managed by` tells you how a component gets updated:
 
 | Managed by | How it is updated |
 | --- | --- |
-| Wodby | An [infrastructure version or infrastructure app upgrade](updates.md). |
+| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades). |
+| Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
 | k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
 | Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) or [recycling worker nodes](updates.md#worker-node-updates) can update it. |
 | Server | The operating system of your K3S server. You update it. |
