@@ -47,7 +47,7 @@ not count. Managed clusters do not show updates here yet.
 | Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades). |
 | Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
 | k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
-| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) or [recycling worker nodes](updates.md#worker-node-updates) can update it. |
+| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. |
 | Server | The operating system of your K3S server. You update it. |
 | Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
 
