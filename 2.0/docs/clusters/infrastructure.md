@@ -38,16 +38,17 @@ A healthy cluster's list appears within a few minutes and refreshes about every 
 cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
 
 `Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
-not count. Managed clusters do not show updates here yet.
+not count. On managed clusters, only Amazon EKS add-ons show updates. See
+[component updates](updates.md#component-updates).
 
 `Managed by` tells you how a component gets updated:
 
 | Managed by | How it is updated |
 | --- | --- |
-| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades). |
+| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates). |
 | Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
 | k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
-| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. |
+| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
 | Server | The operating system of your K3S server. You update it. |
 | Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
 
