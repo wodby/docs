@@ -18,7 +18,7 @@ Each hostname has one check, shared by all of its paths. The check sends a `GET`
 primary path, or otherwise to its shortest path. It uses HTTPS when the domain has a certificate and HTTP when it
 doesn't.
 
-These aren't checked:
+These have no uptime check, and you can't turn one on:
 
 - Wodby-generated [technical domains](endpoints.md#technical-domains)
 - private routes
@@ -49,14 +49,10 @@ answers, not that your app works correctly:
 - A site behind Basic Auth answers `401`, so the check only shows that something answers.
 - Wodby doesn't follow redirects, so a redirect counts as up even if its destination is down.
 - A domain behind a proxy or CDN may answer from the proxy while your app is down.
-
-### Deployments and maintenance mode
+- A firewall that answers checks with `403` counts as up, so a check can miss an outage behind it.
 
 Checks keep running during deployments. A deployment that makes a domain fail two checks in a row is reported as an
 outage.
-
-[Maintenance mode](maintenance.md) responds with `503`, so a domain in maintenance mode is reported as down. To avoid
-this during planned maintenance, turn off the domain's check first.
 
 ## Outage and recovery alerts
 
@@ -81,19 +77,23 @@ If the domain comes back, one passing check ends the outage, Wodby emails admins
 
 ## When checks don't run
 
-Checks don't run while an app environment is paused, or while it is being created, imported, paused, resumed, migrated,
-or deleted.
+Checks don't run while an app environment is paused or in [maintenance mode](maintenance.md), or while it is being
+created, imported, paused, resumed, migrated, or deleted.
 
 These actions end an open outage without a recovery email:
 
 - turning off the domain's check
 - disabling the domain's routes
 - pausing the app environment
+- turning on maintenance mode
+
+When an action ends an open outage this way, the check starts over. Once checks run again, the domain must pass once
+before it can alert.
 
 ## Turn a check off
 
 Checks are on by default. To turn one off, open the domain from `Apps > [App] > [Environment] > Endpoints > Domains`
-and turn off its uptime check. The change applies to every path of that hostname.
+and use the switch on its `Uptime check` card. The change applies to every path of that hostname.
 
 You can also use the API: send `PUT /v1/app-routes/{id}/uptime-check` with `{"enabled": false}`.
 
