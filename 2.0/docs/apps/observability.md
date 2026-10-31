@@ -17,6 +17,11 @@ Cluster-level metrics are shown from `Clusters > [Cluster] > Metrics`.
 That page also includes namespace-level usage details, including namespace type, related app environment, pod and
 container counts, restart totals, CPU and memory usage, and persistent volume storage usage per namespace.
 
+### Uptime checks
+
+On paid plans, Wodby checks your custom domains from outside once a minute and alerts you when one stops answering. See
+[uptime checks](uptime-checks.md).
+
 ### Monitoring with third-party service
 
 You can also monitor your app with third-party services. For example, you can attach a [New Relic integration](../providers/newrelic.md).

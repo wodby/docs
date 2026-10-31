@@ -37,6 +37,9 @@ The page is served at the public edge and does not depend on an application cont
 customized. Existing hostname and path matching, TLS certificates, HTTP-to-HTTPS redirects, and HTTP basic
 authentication remain in place.
 
+[Uptime checks](uptime-checks.md#when-checks-dont-run) don't run during maintenance mode, so the `503` status doesn't
+send an alert. Turning on maintenance mode ends an open outage without a recovery email.
+
 Maintenance mode also covers public redirect routes. A route configured to redirect to another destination returns
 the maintenance response until maintenance mode is disabled.
 

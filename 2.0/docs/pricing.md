@@ -30,6 +30,7 @@ Designed for small teams and production workloads. Limits can be increased with 
 Team includes everything in Developer, plus production-focused features such as:
 
 - custom domains
+- [uptime checks](apps/uptime-checks.md) for custom domains
 - auto-renewed SSL certificates
 - uploaded custom TLS certificates
 - autoscaling tools

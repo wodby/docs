@@ -115,7 +115,8 @@ not restore or redeploy application workloads. On infrastructure version `4.0.0`
 the environment is paused remain pending and are applied after its workloads are restored.
 
 The environment's endpoints do not respond while it is paused. Persistent volumes and their data remain provisioned so the
-environment can be resumed later. A pause has no automatic expiration.
+environment can be resumed later. A pause has no automatic expiration. [Uptime checks](uptime-checks.md#when-checks-dont-run)
+don't run while it is paused.
 
 After Kubernetes verifies that the workloads have stopped, the environment moves to `paused`. Select
 `Resume app environment` from the same `Pause & Resume` tab to make its services count toward plan usage again and restore
