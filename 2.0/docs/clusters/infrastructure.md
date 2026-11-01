@@ -38,7 +38,7 @@ A healthy cluster's list appears within a few minutes and refreshes about every 
 cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
 
 `Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
-not count. On managed clusters, only Amazon EKS add-ons show updates. See
+not count. The column is hidden when no listed component has a status. On managed clusters, only Amazon EKS add-ons show updates. See
 [component updates](updates.md#component-updates).
 
 On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
