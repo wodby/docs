@@ -11,8 +11,8 @@ Open the server's settings to see its **Infrastructure components**: the install
 | Status | What to do |
 | --- | --- |
 | **Critical** | A known security issue affects the installed version, or the version is past its end of support. Update the component as soon as possible. |
-| **Update recommended** | Update the component in your next maintenance window. Edge has a newer release, Infrastructure 6 Agent has a newer release, or the installed version is older than Wodby supports, close to its end of support, or affected by a known issue. |
-| **Update available** | No action needed. A newer version exists. |
+| **Update recommended** | Update the component in your next maintenance window. Infrastructure 6 Agent or Edge has a newer release, or the installed version is older than Wodby supports, close to its end of support, or affected by a known issue. |
+| **Update available** | No action needed. A newer version exists, and you can update when it suits you if the component has an **Update** button. |
 | **Up to date** | No action needed. |
 | **No updates** | Infrastructure 6 components that cannot be updated in place. |
 
@@ -20,11 +20,12 @@ The list shows only components whose installed version is known.
 
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
-New servers always receive the latest versions. On existing servers, Kubernetes, Docker and the other host components are updated only when security or support requires it: they do not serve public traffic, and some of their updates restart application containers or briefly interrupt networking. Edge serves your applications' public traffic, so keep Agent and Edge up to date.
+New servers always receive the latest versions. On existing servers, Kubernetes, Docker and the other host components are updated only when security or support requires it: they do not serve public traffic, and some of their updates restart application containers or briefly interrupt networking. On Infrastructure 7, the status of Agent and Edge shows when an update is urgent.
 
 **Update** shows how each component is updated, and is empty when an up-to-date Agent or Edge needs nothing:
 
-* **Dashboard**: update Agent and Edge yourself, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
+* **Update** button: update Agent or Edge yourself, as described in [Updating Agent and Edge](#updating-agent-and-edge).
+* **Dashboard**: on Infrastructure 6 servers and Infrastructure 7 servers below 7.0.7, update Agent and Edge as described in [Updating from the Dashboard](#updating-from-the-dashboard). On newer servers, this appears instead of the button until the server reports its versions, or if you don't have permission to update the server.
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
 * **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
@@ -47,6 +48,34 @@ To check the certificates, open the server's settings and find **Kubernetes cert
 | **Not reported** | The server hasn't reported its certificates recently. Check that the server is online. If the status stays, contact [Wodby support](../support.md). |
 
 Certificate authorities last ten years and aren't renewed automatically.
+
+## Updating Agent and Edge
+
+On Infrastructure 7.0.7 and later, you can update Agent and Edge without changing the server's infrastructure version. Servers on earlier versions first [update to 7.0.7](#updating-from-the-dashboard).
+
+These updates stay within the component's current release line. A larger version change arrives with a new infrastructure version.
+
+| Component | During the update |
+| --- | --- |
+| **Agent** | Server management briefly disconnects. Applications and Edge keep running. |
+| **Edge** | HTTP and HTTPS traffic is briefly interrupted while Edge restarts. |
+
+To update:
+
+1. Open the server's settings and find **Infrastructure components**.
+2. Select **Update** next to a component, or **Update all** to update both. This checks the server without applying changes.
+3. Under **Infrastructure update**, review the summary, affected application instances, and warnings. Resolve any reported blockers.
+4. Select the acknowledgement checkbox, then the update button, such as **Update Edge**.
+5. Open **View update task and logs** to follow progress. You can leave the page and return later.
+6. After completion, check that your applications are accessible over HTTP and HTTPS and behave as expected.
+
+Agent updates first, then Edge. If Agent can't be verified, Edge isn't updated.
+
+A newly connected server shows the **Update** button once it has reported its versions, which can take up to an hour.
+
+The requirements and restrictions in [Updating from the Dashboard](#updating-from-the-dashboard) also apply, including check expiry and blocked changes during the update.
+
+If an update doesn't complete, see [If an update does not complete](#if-an-update-does-not-complete).
 
 ## Updating from the Dashboard
 
