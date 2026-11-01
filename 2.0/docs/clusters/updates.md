@@ -334,12 +334,15 @@ move your nodes to a patched image from your provider.
     | --- | --- |
     | Amazon EKS | Recycle nodes. Each managed node group moves to its latest image, and a group already on it isn't changed. |
     | Azure AKS | Recycle nodes. Every node is replaced, so first confirm the latest image contains the fix. |
-    | DigitalOcean Kubernetes | Recycle nodes. Every node is replaced one at a time, and the pool runs one node short during each replacement. |
-    | Google GKE, OVH Managed Kubernetes | Recycling isn't available. Run a [Kubernetes version update](#kubernetes-version-updates), or use your provider's tools. |
-    | Single-node clusters | Recycling isn't available. Run a [Kubernetes version update](#kubernetes-version-updates). |
+    | DigitalOcean Kubernetes | Run a [Kubernetes version update](#kubernetes-version-updates) to a version that the [DigitalOcean changelog](https://docs.digitalocean.com/products/kubernetes/details/changelog/) lists with Linux kernel `6.12.113-1` or newer. DigitalOcean ships kernel updates with its Kubernetes versions. |
+    | Google GKE | Run a [Kubernetes version update](#kubernetes-version-updates) to a version that Google lists as fixed. Recycling isn't available. |
+    | OVH Managed Kubernetes | Recycling isn't available. Check with OVHcloud whether your nodes have received the fix. |
 
     To recycle nodes, run [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) or use the
     [API](../api/index.html).
+
+    Wodby doesn't yet offer an update that keeps the same Kubernetes version number and only changes the provider's
+    revision, such as `1.36.5-do.1` to `1.36.5-do.2`. Use your provider's tools for that update.
 
 3. Run `kubectl get nodes -o wide` and check that the `KERNEL-VERSION` column shows the fixed version from your provider.
    A successful task alone doesn't prove that the node image included the fix.
