@@ -26,9 +26,9 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 
 * **Update** button: update this component yourself, as described in [Updating individual components](#updating-individual-components).
 * **Infrastructure update**: update this component yourself when an update is available, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
-* **Wodby**: Wodby updates the installer. You don't need to do anything, and applications aren't affected.
+* **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
 * **Wodby support**: Wodby support updates these components with you, at a time that suits your applications: Kubernetes, Docker Engine, containerd, cri-dockerd and Canal, plus etcd on servers below Infrastructure 7.0.7. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
-* **Wodby installer**: the server updates this itself. See [Kubernetes certificates](#kubernetes-certificates).
+* **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
 
 ## Kubernetes certificates
 
