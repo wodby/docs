@@ -141,13 +141,25 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
-The latest version is `4.1.3`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
+The latest version is `4.1.4`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
 Cloud clusters are offered upgrades up to `4.0.0`, because later versions need no upgrade on them. They can show any
 version from `4.0.0` to `4.1.3`, depending on when they were created.
 
 Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
 
 ### Changelog
+
+#### 4.1.4
+
+Version `4.1.4` reduces the exposure of self-hosted K3S servers to the Linux kernel bug
+[CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432). It drops incoming IPv4 TCP packets that carry IP
+options, turns off MPTCP on the server, and restarts K3S and Cilium. Clusters must be on `4.1.3` first. New K3S servers
+install this version directly. Run it during a maintenance window.
+
+This version doesn't fix the bug: you also need to install a patched kernel and reboot the server. See
+[K3S host protection for CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) for the steps and limits.
+Managed Kubernetes clusters aren't changed by this version and need
+[a patched node image from their provider](updates.md#fix-cve-2026-98432-on-managed-kubernetes).
 
 #### 4.1.3
 

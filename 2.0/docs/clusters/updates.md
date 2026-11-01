@@ -91,6 +91,77 @@ If the latest infrastructure version upgrade or infrastructure app stack upgrade
 dashboard shows `Retry available` and replaces the normal upgrade button with a re-run button for the failed task. Open
 the failed task from the dialog when you need to review logs before re-running it.
 
+### K3S host protection for CVE-2026-98432 (4.1.4)
+
+!!! info "Self-hosted K3S only"
+    Infrastructure version `4.1.4` applies to self-hosted K3S clusters. For managed Kubernetes clusters, see
+    [Fix CVE-2026-98432 on managed Kubernetes](#fix-cve-2026-98432-on-managed-kubernetes).
+
+[CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) is a critical Linux kernel bug. Someone on the network
+can reach it by sending specially crafted TCP connection requests, without logging in. It can lead to running code as
+root on the server.
+
+This update reduces your exposure but doesn't fix the bug. To fix it, you also need to
+[install a patched kernel](#install-a-patched-kernel).
+
+#### Apply the update
+
+Use an account with permission to upgrade the cluster.
+
+1. Open `Clusters > [Cluster] > Infrastructure > Operations` and check the current version in the
+   `Wodby infrastructure` card. If it already shows `4.1.4` or newer, this update is complete.
+2. Choose a maintenance window and start the offered infrastructure version upgrade. If earlier versions are offered
+   first, apply them in order until the cluster reaches `4.1.4`.
+3. Follow the upgrade task and confirm that it succeeds and the card shows `4.1.4`.
+
+Automatic infrastructure upgrades apply this update when enabled and permitted by the cluster's version policy and time
+window.
+
+#### What changes on the server
+
+Wodby makes these changes and applies them again each time the server boots:
+
+- It drops incoming IPv4 TCP packets that carry IP options, which is how the bug is triggered. Normal traffic doesn't use
+  IP options.
+- It turns off Multipath TCP (MPTCP) on the server, because the published exploit needs a service that accepts MPTCP.
+
+Wodby then restarts K3S and Cilium so they stop accepting MPTCP. Cluster access can be briefly interrupted during the
+restart.
+
+Check these before you upgrade:
+
+- Services you run directly on the server can't use MPTCP. Containers aren't affected, because each pod keeps its own
+  setting.
+- The server can't use IP options on TCP connections, including CIPSO security labels.
+
+#### What it doesn't cover
+
+An application running in a pod can still send these packets to other pods on the same server. If an attacker has already
+compromised a pod, only a patched kernel protects your other pods.
+
+#### Install a patched kernel
+
+1. Check your operating system's status for this bug: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432),
+   [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432),
+   [Red Hat Enterprise Linux](https://access.redhat.com/security/cve/CVE-2026-98432), or
+   [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status.
+2. Install the fixed kernel with your package manager and reboot the server during a maintenance window. Wodby doesn't
+   update or reboot your server's kernel.
+3. Run `uname -r` and compare the version with the fixed version your distribution lists. Distributions backport fixes,
+   so compare against your distribution's version rather than the upstream kernel version.
+
+If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later. The protections stay
+on after you install the patched kernel, and you don't need to remove them.
+
+#### If the update fails
+
+The task reports the error and leaves the infrastructure version unchanged. Wodby returns the cluster to `OK` if no
+separate health problem prevents that.
+
+The server needs `iptables` with the `u32` match or `nftables` to drop these packets. If it has neither, install
+`nftables` and retry the update. New K3S servers without either tool finish installing with a warning in the output, and
+they don't have this protection until you install one and run `/usr/local/bin/wodby-k3s-firewall`.
+
 ### K3S host CA security update (4.1.2)
 
 !!! info "Self-hosted K3S only"
@@ -155,7 +226,8 @@ later scheduled check.
 Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
 while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
 returns to `ok`. After a failed infrastructure upgrade, deployment waits until the cluster returns to `ok`. The
-[K3S host CA security update](#k3s-host-ca-security-update-412) restores that status after a failed attempt unless a
+[K3S host protection](#k3s-host-protection-for-cve-2026-98432-414) and
+[K3S host CA](#k3s-host-ca-security-update-412) security updates restore that status after a failed attempt unless a
 separate health problem prevents it.
 
 While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
@@ -247,6 +319,32 @@ run it again.
 ## Worker node updates
 
 For [managed Kubernetes](managed.md) clusters, the simplest way to refresh worker nodes is usually to recycle them.
+
+### Fix CVE-2026-98432 on managed Kubernetes
+
+[CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) is a critical Linux kernel bug in your worker nodes.
+Wodby infrastructure upgrades don't change managed nodes, so `4.1.4` isn't offered on these clusters. To fix the bug,
+move your nodes to a patched image from your provider.
+
+1. Check your provider's security bulletin to confirm that it has released a patched node image. For example, see the
+   [AWS bulletin](https://aws.amazon.com/security/security-bulletins/2026-160-aws/).
+2. Replace your nodes during a maintenance window, using the option for your cluster:
+
+    | Cluster | How to replace nodes |
+    | --- | --- |
+    | Amazon EKS | Recycle nodes. Each managed node group moves to its latest image, and a group already on it isn't changed. |
+    | Azure AKS | Recycle nodes. Every node is replaced, so first confirm the latest image contains the fix. |
+    | DigitalOcean Kubernetes | Recycle nodes. Every node is replaced one at a time, and the pool runs one node short during each replacement. |
+    | Google GKE, OVH Managed Kubernetes | Recycling isn't available. Run a [Kubernetes version update](#kubernetes-version-updates), or use your provider's tools. |
+    | Single-node clusters | Recycling isn't available. Run a [Kubernetes version update](#kubernetes-version-updates). |
+
+    To recycle nodes, run [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) or use the
+    [API](../api/index.html).
+
+3. Run `kubectl get nodes -o wide` and check that the `KERNEL-VERSION` column shows the fixed version from your provider.
+   A successful task alone doesn't prove that the node image included the fix.
+
+Wodby operates the nodes of Wodby Cloud clusters, so you can't replace them yourself.
 
 ## Kubernetes version updates
 
