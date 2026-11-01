@@ -18,6 +18,8 @@ Open the server's settings to see its **Infrastructure components**: the install
 
 The list shows only components whose installed version is known.
 
+The **Linux kernel** row shows the kernel the server is running, once the server has reported it. **Critical** means a fixed kernel is available to install. **Update recommended** means none is available for your system yet. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
+
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
 New servers always receive the latest versions. On existing servers, Kubernetes, Docker and the other host components are updated only when security or support requires it: they do not serve public traffic, and some of their updates restart application containers or briefly interrupt networking. On Infrastructure 7, the status of Agent and Edge shows when an update is urgent.
@@ -26,6 +28,7 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 
 * **Update** button: update Agent or Edge yourself, as described in [Updating Agent and Edge](#updating-agent-and-edge).
 * **Dashboard**: on Infrastructure 6 servers and Infrastructure 7 servers below 7.0.7, update Agent and Edge as described in [Updating from the Dashboard](#updating-from-the-dashboard). On newer servers, this appears instead of the button until the server reports its versions, or if you don't have permission to update the server.
+* **Update it yourself**: you install a fixed Linux kernel on the server, as described in [Install a fixed kernel](#install-a-fixed-kernel). Empty when the kernel has the fixes Wodby tracks.
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
 * **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
@@ -165,7 +168,7 @@ Wodby doesn't reboot your servers. Automatic operating-system updates may alread
     ```
 
 4. During a maintenance window, reboot with `sudo reboot`. All applications on the server are unavailable until it has started again, usually for a few minutes.
-5. Run `uname -r` to confirm the server runs the new kernel, then check that your applications are accessible.
+5. Run `uname -r` to confirm the server runs the new kernel, then check that your applications are accessible. The **Linux kernel** row in **Infrastructure components** updates once the server next reports it, which can take up to a day.
 
 **If no fixed kernel is available yet**, keep the filter in place and check again later.
 
