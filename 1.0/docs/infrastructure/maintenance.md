@@ -22,7 +22,7 @@ When a known issue affects a component, its advisory ID appears next to the stat
 
 New servers always receive the latest versions. On existing servers, Kubernetes, Docker and the other host components are updated only when security or support requires it: they do not serve public traffic, and some of their updates restart application containers or briefly interrupt networking. Edge serves your applications' public traffic, so keep Agent and Edge up to date.
 
-**Updated by** shows how each component is updated:
+**Update** shows how each component is updated, and is empty when an up-to-date Agent or Edge needs nothing:
 
 * **Dashboard**: update Agent and Edge yourself, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
