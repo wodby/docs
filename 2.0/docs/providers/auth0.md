@@ -10,6 +10,9 @@ Auth0 is available in Wodby as a `variable` provider. Use it when you want to in
 | Client ID | Yes | `AUTH0_CLIENT_ID` |
 | Client Secret | Yes | `AUTH0_CLIENT_SECRET` |
 
+To change the domain of an existing integration, enter the client secret again. Your application sends the secret to
+that domain, so a new domain can't reuse it without you entering it.
+
 ## Usage
 
 After you create an Auth0 integration and attach it to an app service or stack, Wodby injects the variables above into the container.
