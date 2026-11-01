@@ -135,9 +135,11 @@ Protection applies to deletion requests from both the dashboard and API, and a f
 It also applies when another operation would delete a protected resource, such as a stack upgrade that removes an
 app-owned database. Deletion workflows that already started before protection was enabled can finish.
 
-!!! note "Demo clusters still expire"
+!!! note "Demo clusters and preview environments still expire"
     Temporary Wodby Cloud demo clusters are deleted automatically after 24 hours, together with their applications,
-    even when termination protection is set to `All`.
+    even when termination protection is set to `All`. Automatic deletion of
+    [preview environments](apps/preview-environments.md) after their pull request closes or goes idle is not blocked
+    either.
 
 ## Editing the organization
 
