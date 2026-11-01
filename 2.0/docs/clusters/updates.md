@@ -371,8 +371,8 @@ system, with the number of nodes running each.
 ### Fix CVE-2026-98432 on managed Kubernetes
 
 [CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) is a critical Linux kernel bug in your worker nodes.
-Wodby infrastructure upgrades don't change managed nodes, so `4.1.4` isn't offered on these clusters. To fix the bug,
-move your nodes to a patched image from your provider.
+Wodby infrastructure upgrades don't change managed nodes. Your cluster can show version `4.1.4`, but that doesn't protect it
+from this bug. To fix the bug, move your nodes to a patched image from your provider.
 
 1. Check your provider's security bulletin to confirm that it has released a patched node image. For example, see the
    [AWS bulletin](https://aws.amazon.com/security/security-bulletins/2026-160-aws/).
