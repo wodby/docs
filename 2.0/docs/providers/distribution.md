@@ -13,6 +13,12 @@ Distribution Registry is available in Wodby as a `registry` provider. Use it to 
 | Username (pull only) | No | Optional separate account for deployment image pulls |
 | Password (pull only) | No | Optional password or token for the pull-only account |
 
+The host must be reachable from the public internet, because Wodby checks your credentials from its own network. A
+registry available only on a private network or VPN can't pass this check.
+
+To change the host of an existing integration, enter its saved passwords again. Wodby sends them to the host, so a new
+host can't reuse them without you entering them.
+
 ## Usage
 
 Create a Distribution Registry integration and select it as the registry when creating an app or app environment with buildable services.

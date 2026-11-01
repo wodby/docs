@@ -27,6 +27,7 @@ See [TLS certificates](endpoints.md#tls-certificates) for certificate ownership 
 | Cloudflare browser verification challenge | Follow the [Cloudflare certificate troubleshooting steps](../providers/cloudflare.md#certificate-validation-behind-cloudflare). Automated validation cannot complete a JavaScript or cookie challenge. |
 | `404` or `200` with an unexpected response body | The request may have reached the application, another origin, or a cached response instead of the temporary solver. Check hostname, path routing, redirects, and cache rules. |
 | Connection refused, host unreachable, or probe timeout | Check public HTTP reachability, proxy origin settings, and cluster health. Read earlier probe messages too: a final timeout may follow repeated HTTP errors. |
+| Challenge domain leads to a private or internal address | Let's Encrypt can only validate a public address. Point the domain, and any redirect from it, at a public address. |
 | Let's Encrypt rate limit or temporary service error | Follow the retry time in the notification. Repeated manual retries can prolong a rate-limit problem. |
 
 ## Check the active challenge path

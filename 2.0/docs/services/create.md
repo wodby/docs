@@ -81,6 +81,10 @@ deployment only when the image actually requires authentication.
 The integration must match the image registry host. If anonymous image access is denied and no matching integration is
 selected, the import log tells you to select one and retry.
 
+Wodby checks images and downloads Helm charts from its own network, so registries and chart repositories must be
+reachable from the public internet. Sources on private or internal addresses are refused, and so are charts given as a
+file path. Use an OCI reference or a chart name with its repository.
+
 Git-backed services can later be updated from the same repository manually or automatically. See
 [Service updates](updates.md).
 
