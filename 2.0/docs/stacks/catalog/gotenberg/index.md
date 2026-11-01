@@ -65,9 +65,13 @@ Application code must read `GOTENBERG_ENDPOINT` explicitly.
 Do not copy `GOTENBERG_HTTP_AUTH_USERNAME` or `GOTENBERG_HTTP_AUTH_PASSWORD` from a custom Wodby 1 stack as though they
 were Drupal module settings. The module does not read them, and they are not Gotenberg 8 server configuration names.
 
-If API basic authentication is required, configure Gotenberg 8 deliberately with
-`GOTENBERG_API_BASIC_AUTH_USERNAME` and `GOTENBERG_API_BASIC_AUTH_PASSWORD` and enable its basic-auth setting. Prefer the
-private service endpoint when only services inside the app need access.
+Wodby protects Gotenberg's public domain with basic auth by default, with a password you reveal on the environment's
+`Endpoints > Auths` page. Services inside the app call Gotenberg directly and need no credentials. Clients outside the
+environment send the username and password of that entry.
+
+Do not also enable Gotenberg's own API basic authentication (`GOTENBERG_API_BASIC_AUTH_USERNAME` and
+`GOTENBERG_API_BASIC_AUTH_PASSWORD`) while the Wodby entry exists: a request can carry only one `Authorization` header.
+If you need Gotenberg's own authentication, remove the Wodby entry first.
 
 ### Migration checklist
 

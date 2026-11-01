@@ -108,7 +108,8 @@ For project-owned resources, direct secret reveal follows this table:
 | Project `Write` without `Reveal runtime secrets` | Not allowed | Not allowed |
 | Project `Read` | Not allowed | Not allowed |
 
-Runtime secrets currently include app-service tokens, app endpoint-auth passwords, and database-user passwords.
+Runtime secrets currently include app-service tokens, app endpoint-auth passwords, the shared preview environment
+password, and database-user passwords.
 Privileged secrets currently include database master or root passwords. Organization-owned secrets can be revealed only
 by organization owners and admins.
 

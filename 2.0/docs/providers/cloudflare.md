@@ -197,7 +197,7 @@ mode's full permission check runs when you create an app. Wodby does not request
 
 ### Configure an app
 
-Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
+Select Application Access during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
 Cloudflare Application Access integration, an access type, and whether the scope covers the Entire app or Selected
 endpoints.
 

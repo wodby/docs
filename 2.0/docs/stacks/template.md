@@ -296,6 +296,14 @@ Type: `boolean`. Default: `false`.
 
 Disables the stack service by default.
 
+### `services[].basicAuth`
+
+Type: `boolean`. Default: the service's [`basicAuth`](../services/template.md#basicauth) value.
+
+Overrides the service's basic auth default for this stack service. `true` protects the public HTTP endpoints of new app
+services with a generated password; `false` creates no auth entry. Users can still change it per service when they
+create an app. It has no effect on services without a public HTTP endpoint.
+
 ### `services[].replicas`
 
 Type: `integer`. Default: `1`.

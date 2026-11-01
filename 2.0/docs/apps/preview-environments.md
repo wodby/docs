@@ -17,7 +17,8 @@ Preview environments are disabled by default and configured per app.
   requests, and read and react to issue comments. GitHub asks the installation owner to approve these permissions when
   they are missing. Until they are approved, previews are still created, but the pull request receives no status or
   comment, and [commands](#pull-request-commands) are ignored. See [GitHub](../providers/github.md#preview-environments).
-- The base environment must use `Public` [App access](access.md). Protected environments are not supported yet.
+- The base environment must not use [Application Access](access.md). Environments with `Public` or `Basic Auth`
+  access are supported.
 - Database services of the base environment must run as containers in the environment. Environments that use an
   existing database server are not supported yet.
 - The cluster of the base environment must allow the environment type chosen for previews. See
@@ -46,6 +47,7 @@ app.
 | `Draft pull requests` | Whether draft pull requests get previews. Disabled by default; a preview is created when the draft is marked ready for review. |
 | `Concurrent previews` | The maximum number of preview environments the app keeps at the same time, up to 50. Pull requests beyond the limit are skipped until a preview is deleted. The default is 5. |
 | `Idle expiry (days)` | Deletes a preview whose pull request had no activity for this many days. The default is 7; `0` disables idle expiry. |
+| `Basic Auth` | Protects every preview with basic auth. Enabled by default. All previews of the app share one generated password. See [Basic auth](#basic-auth). |
 | `Seed data` | Base environment services that support both imports and backups. Select a service to restore a fresh backup of it into every new preview, and choose the import and backup when the service offers more than one. |
 
 Seeding a service requires a [backup preset](backups.md) for the chosen backup in the base environment. Services
@@ -76,12 +78,31 @@ Each preview is created from the base environment at the moment the pull request
 - Only the services selected in `Seed data` get data. They are seeded from a fresh backup of the base environment taken
   at creation time. The backup is
   restored during the preview's first deployment, so a large database delays the first successful deployment.
-- Custom domains, TLS certificates, HTTP authentication, and Application Access are not copied. The preview is reached
-  through its generated technical domain.
+- Custom domains, TLS certificates, and Application Access are not copied. The preview is reached through its
+  generated technical domain.
+- Basic auth entries of services, and exemptions, are copied with their passwords. With `Basic Auth` enabled, the
+  shared preview password replaces the base environment's environment-wide entry. With it disabled, the base
+  environment's entries are copied as they are. Domain entries are not copied.
 
 The environment machine name is `pr-<number>`, the title shows the pull request number and title, and the technical
 domain follows the usual `*.pr-<number>.[app-name].[org-name].wodby.app` pattern. Previews count toward app-service
 plan usage like any other environment while they exist.
+
+## Basic auth
+
+With `Basic Auth` enabled, every preview asks visitors for a username and password. All previews of the app share one
+password, which Wodby generates when previews are enabled, so reviewers learn it once. The username is `wodby`.
+
+On `Apps > [App] > Settings > Preview environments` you can:
+
+- reveal the password. This requires
+  [runtime secret reveal permission](../access-control.md#secret-reveal-permissions) in the environment type used for
+  previews, and a recent [secret reveal confirmation](../user/security.md#secret-reveal-confirmation). Each reveal is
+  recorded as a task.
+- regenerate the password. Every existing preview switches to the new password, and reviewers need the new one.
+
+Services with their own basic auth entry, such as Mailpit, keep their own password in previews. Turning `Basic Auth`
+off applies to previews created afterwards; existing previews keep their protection until they are deleted.
 
 ## Lifecycle
 
