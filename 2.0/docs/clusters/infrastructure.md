@@ -42,8 +42,7 @@ not count. The column is hidden when no listed component has a status. On manage
 [component updates](updates.md#component-updates).
 
 On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
-version reaches end of life. You can still upgrade earlier from
-[Kubernetes version updates](updates.md#kubernetes-version-updates).
+version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy).
 
 `Managed by` tells you how a component gets updated:
 

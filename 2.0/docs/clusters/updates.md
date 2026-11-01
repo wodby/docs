@@ -271,7 +271,9 @@ managed by Wodby and cannot be changed manually.
 Wodby filters the provider's direct targets to keep upgrades incremental and recoverable:
 
 - If a newer patch is available in the current Kubernetes minor, only the newest available patch is offered first.
-- After the current minor is patched, you can move to the immediately following minor version.
+- After the current minor is patched, you can move to the immediately following minor version. On K3S, it is offered only
+  after your current minor version reaches end of life. On managed clusters you can choose it earlier, but it shows as
+  an update only after end of life.
 - Skipping a minor or changing the Kubernetes major version is not offered as a direct upgrade.
 - Preview Kubernetes versions are excluded.
 
