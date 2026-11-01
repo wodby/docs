@@ -38,9 +38,21 @@ development environments and off elsewhere. See [Environment variables](../../..
 
 Cache and sessions stay on files until you set `CACHE_DRIVER` and `SESSION_DRIVER` on the PHP service.
 
-Valkey stores queued jobs, so the stack gives it a 5 GB `data` volume, persistence, and the `noeviction` policy. Jobs
-are not evicted under memory pressure and they survive a restart. When Valkey reaches its memory limit, new writes fail
-instead, so size `VALKEY_MAXMEMORY` (`128m` by default) for your queue on the Valkey app service.
+Valkey stores queued jobs, so the stack sets its policy to `noeviction`. Jobs are not evicted under memory pressure. When
+Valkey reaches its memory limit, new writes fail instead, so size `VALKEY_MAXMEMORY` (`128m` by default) for your queue
+on the Valkey app service.
+
+!!! warning "A Valkey restart loses queued jobs"
+
+    Valkey has no volume in this stack, so a restart or deployment of Valkey empties it.
+
+To keep queued jobs across a restart, store them in MariaDB. Set `QUEUE_CONNECTION` to `database` on the PHP service and
+deploy. This also applies to the optional **Laravel Queue** service. Jobs need the `jobs` table, which the boilerplate
+includes through Laravel's default migrations. If your application does not have it, run `php artisan make:queue-table`
+and commit the migration. See [Laravel's queue documentation](https://laravel.com/docs/queues).
+
+Do not select **Add volume** on an existing Valkey app service. Kubernetes does not allow the change, so the deployment
+fails.
 
 Do not use this Valkey instance for Laravel's cache. Cache pressure would block queue writes. Add a separate cache
 service with an LRU policy.
