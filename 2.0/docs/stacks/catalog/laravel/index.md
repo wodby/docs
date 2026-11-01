@@ -38,9 +38,24 @@ development environments and off elsewhere. See [Environment variables](../../..
 
 Cache and sessions stay on files until you set `CACHE_DRIVER` and `SESSION_DRIVER` on the PHP service.
 
-Valkey is a cache by default: it evicts any key once its memory limit is reached, and its `data` volume is optional.
-Queued jobs can be dropped silently under memory pressure, and a restart empties it when there is no volume. For a
-reliable queue, set `VALKEY_MAXMEMORY_POLICY` to `noeviction` and size `VALKEY_MAXMEMORY` on the Valkey app service.
+Valkey stores queued jobs, so the stack sets its policy to `noeviction`. Jobs are not evicted under memory pressure. When
+Valkey reaches its memory limit, new writes fail instead, so size `VALKEY_MAXMEMORY` (`128m` by default) for your queue
+on the Valkey app service.
+
+!!! warning "A Valkey restart loses queued jobs"
+
+    Valkey has no volume in this stack, so a restart or deployment of Valkey empties it.
+
+To keep queued jobs across a restart, store them in MariaDB. Set `QUEUE_CONNECTION` to `database` on the PHP service and
+deploy. This also applies to the optional **Laravel Queue** service. Jobs need the `jobs` table, which the boilerplate
+includes through Laravel's default migrations. If your application does not have it, run `php artisan make:queue-table`
+and commit the migration. See [Laravel's queue documentation](https://laravel.com/docs/queues).
+
+Do not select **Add volume** on an existing Valkey app service. Kubernetes does not allow the change, so the deployment
+fails.
+
+Do not use this Valkey instance for Laravel's cache. Cache pressure would block queue writes. Add a separate cache
+service with an LRU policy.
 
 Mailpit captures every message and delivers none of them. Its web interface is protected with basic auth. Reveal the
 password in **Endpoints > Auths**. For real delivery, enable OpenSMTPD, point the PHP service's **Mail Transfer Agent**
@@ -77,7 +92,8 @@ and are lost when it restarts.
 
 A MariaDB backup is a gzipped SQL dump of the environment's database. The stack excludes the contents of the `cache` and
 `cache_locks` tables by default. They keep their definition and lose their rows. You can change this with the backup's
-**Excluded table contents** option. A database import replaces the whole data volume.
+**Excluded table contents** option. A database import replaces the whole data volume. The Valkey service has no backups
+or imports.
 
 The Files NFS storage service has its own **Files backup** and **Files import**. See
 [Application Backups](../../../apps/backups.md) and [Application Imports](../../../apps/imports.md).
