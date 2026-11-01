@@ -396,7 +396,7 @@ Wodby operates the nodes of Wodby Cloud clusters, so you can't replace them your
 ## Kubernetes version updates
 
 Kubernetes version updates are separate from Wodby infrastructure version and infrastructure app updates. Wodby reads
-the current cluster state and asks the provider for direct upgrade targets each time you open the upgrade operation.
+the current cluster state and asks the provider for direct upgrade targets each time you open the `Kubernetes` tab.
 The plan is cluster-specific rather than a generic list of Kubernetes releases.
 
 Wodby supports this workflow for:
@@ -431,8 +431,8 @@ match the version observed through the Kubernetes API. Resolve the reported cond
 
 ### Run an upgrade
 
-Open `Clusters`, select the cluster, and go to `Infrastructure > Operations`. Review the Kubernetes version operation,
-select one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window:
+Open `Clusters`, select the cluster, and go to `Infrastructure > Kubernetes`. In the `Kubernetes version` card, select
+one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window:
 the provider can rotate control-plane components and worker nodes, and the Kubernetes API can be temporarily
 unavailable.
 
