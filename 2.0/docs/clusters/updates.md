@@ -145,13 +145,24 @@ compromised a pod, only a patched kernel protects your other pods.
    [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432),
    [Red Hat Enterprise Linux](https://access.redhat.com/security/cve/CVE-2026-98432), or
    [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status.
-2. Install the fixed kernel with your package manager and reboot the server during a maintenance window. Wodby doesn't
-   update or reboot your server's kernel.
-3. Run `uname -r` and compare the version with the fixed version your distribution lists. Distributions backport fixes,
+2. Connect to the server over SSH and install the kernel update. These commands install the latest packages your
+   distribution offers, and `apt upgrade` also updates your other packages:
+
+    | Distribution | Command |
+    | --- | --- |
+    | Ubuntu, Debian | `sudo apt update && sudo apt upgrade` |
+    | Fedora, CentOS Stream, Red Hat Enterprise Linux | `sudo dnf upgrade --refresh 'kernel*'` |
+    | openSUSE, SUSE Linux Enterprise | `sudo zypper refresh && sudo zypper update kernel-default` |
+
+3. Reboot the server during a maintenance window with `sudo reboot`. Your apps are unavailable until the server and K3S
+   have started again. Wodby doesn't update or reboot your server's kernel.
+4. Run `uname -r` and compare the version with the fixed version your distribution lists. Distributions backport fixes,
    so compare against your distribution's version rather than the upstream kernel version.
 
-If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later. The protections stay
-on after you install the patched kernel, and you don't need to remove them.
+If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later.
+
+The protections stay on after you install the patched kernel. You don't need to remove them, and normal traffic isn't
+affected by them. Wodby applies them again each time the server boots, whichever kernel it runs.
 
 #### If the update fails
 
@@ -318,7 +329,20 @@ run it again.
 
 ## Worker node updates
 
-For [managed Kubernetes](managed.md) clusters, the simplest way to refresh worker nodes is usually to recycle them.
+Wodby has no separate node update. On [managed Kubernetes](managed.md) clusters, worker nodes get a newer image and kernel
+in one of two ways:
+
+- **Recycle nodes** replaces nodes without changing the Kubernetes version. It's available on Amazon EKS, Azure AKS and
+  DigitalOcean Kubernetes, except for single-node clusters. Use `Recycle nodes` at
+  `Clusters > [Cluster] > Infrastructure > Kubernetes`, the
+  [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) command, or the [API](../api/index.html).
+- **A [Kubernetes version update](#kubernetes-version-updates)** moves nodes to the image that comes with the new version.
+  It's available on all managed providers that support version updates, including Google GKE.
+
+Which one delivers a given fix depends on your provider, so check its release notes first.
+
+On [K3S](k3s.md), you own the server, so you update its operating system and kernel yourself. See
+[Install a patched kernel](#install-a-patched-kernel) for the commands.
 
 ### Fix CVE-2026-98432 on managed Kubernetes
 
@@ -338,8 +362,7 @@ move your nodes to a patched image from your provider.
     | Google GKE | Run a [Kubernetes version update](#kubernetes-version-updates) to a version that Google lists as fixed. Recycling isn't available. |
     | OVH Managed Kubernetes | Recycling isn't available. Check with OVHcloud whether your nodes have received the fix. |
 
-    To recycle nodes, run [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) or use the
-    [API](../api/index.html).
+    See [Worker node updates](#worker-node-updates) for how to recycle nodes.
 
 3. Run `kubectl get nodes -o wide` and check that the `KERNEL-VERSION` column shows the fixed version from your provider.
    A successful task alone doesn't prove that the node image included the fix.
