@@ -1,25 +1,63 @@
 # Catalog stack guides
 
-Catalog stack guides explain application-specific setup that cannot be expressed fully by a stack manifest. Use them
-together with the stack and service configuration shown in the dashboard.
+Every stack in the catalog has a guide here. Guides explain what to set when creating an environment, how to sign in
+or connect, and what to back up. Use them together with the stack and service configuration shown in the dashboard.
 
 The source repository for each stack remains the authoritative reference for its current services, versions, links,
 storage, and defaults. Browse all available stacks in the [Wodby stack catalog](https://wodby.com/stacks) or the
 [`wodby/stacks`](https://github.com/wodby/stacks) repository.
 
-## Application guides
+## Application stacks
 
-- [Drupal](drupal/index.md): Wodby runtime configuration, storage, cron, and application actions
-- [Connect Drupal to Solr](drupal/solr.md): configure Search API Solr for the catalog Drupal stack
-- [WordPress](wordpress/index.md): build, runtime configuration, shared content, and cron behavior
-- [Matomo](matomo/index.md): installer database values, geolocation, mail, and archiving cron
+[Drupal](drupal/index.md) ([connect to Solr](drupal/solr.md)), [WordPress](wordpress/index.md),
+[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Discourse](discourse/index.md), [Chatwoot](chatwoot/index.md),
+[Mattermost](mattermost/index.md), [Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
 
-## Service stack guides
+## Framework stacks
 
-- [Gotenberg](gotenberg/index.md): private endpoint usage and migration from AthenaPDF
-- [Solr](solr/index.md): SolrCloud authentication, collections, and configsets
-- [OpenSMTPD](opensmtpd/index.md): outbound relay integrations and test messages
-- [FRP Server](frps/index.md): connect external FRPC clients through Wodby routes
+[HTML](html/index.md), [Angular](angular/index.md), [React](react/index.md), [Vue](vue/index.md),
+[PHP](php/index.md), [Laravel](laravel/index.md), [Python](python/index.md), [Django](django/index.md),
+[FastAPI](fastapi/index.md), [Flask](flask/index.md), [Ruby](ruby/index.md), [Rails](rails/index.md),
+[Go](go/index.md), [Node.js](node/index.md), [Next.js](nextjs/index.md)
+
+## Backend platforms
+
+[Supabase](supabase/index.md)
+
+## Databases
+
+[MariaDB](mariadb/index.md), [MySQL](mysql/index.md), [PostgreSQL](postgres/index.md), [PostGIS](postgis/index.md),
+[Cloud MySQL](cloud-mysql/index.md), [Cloud MariaDB](cloud-mariadb/index.md),
+[Cloud PostgreSQL](cloud-postgres/index.md)
+
+## Data, messaging and search
+
+[Valkey](valkey/index.md), [Redis](redis/index.md), [Memcached](memcached/index.md), [RabbitMQ](rabbitmq/index.md),
+[Distribution Registry](distribution/index.md), [Solr](solr/index.md), [Elasticsearch](elasticsearch/index.md),
+[OpenSearch](opensearch/index.md), [ClickHouse](clickhouse/index.md), [Apache Kafka](kafka/index.md),
+[Apache Spark](spark/index.md), [Apache Airflow](airflow/index.md), [ZooKeeper](zookeeper/index.md)
+
+## Utilities and integrations
+
+[Mailpit](mailpit/index.md), [OpenSMTPD](opensmtpd/index.md), [Gotenberg](gotenberg/index.md),
+[Tailscale](tailscale/index.md), [3X UI](3xui/index.md), [FRP Server](frps/index.md), [OpenClaw](openclaw/index.md)
+
+## Identity and access
+
+[Keycloak](keycloak/index.md)
+
+## AI inference
+
+[vLLM](vllm/index.md)
+
+## Observability
+
+[Prometheus](prometheus/index.md), [Grafana](grafana/index.md), [Grafana Loki](loki/index.md),
+[VictoriaMetrics](victoria-metrics/index.md)
+
+## Kubernetes system stacks
+
+[Kubernetes system stacks](system/index.md) are deployed by Wodby to operate a cluster.
 
 ## Shared operations
 
