@@ -143,8 +143,8 @@ example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernete
 marked as outdated solely because `3.0.0` exists.
 
 The latest version is `4.1.4`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
-Cloud clusters are offered upgrades up to `4.0.0`, because later versions need no upgrade on them. They can show any
-version from `4.0.0` to `4.1.3`, depending on when they were created.
+Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3S servers, so once on `4.0.0` these clusters
+show the latest version automatically, with no task and no change to the cluster.
 
 Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
 
