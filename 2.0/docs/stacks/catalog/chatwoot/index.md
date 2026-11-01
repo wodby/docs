@@ -9,8 +9,8 @@ attachment storage, and an optional OpenSMTPD service. The current composition i
 Set **Admin email** on the Chatwoot app service when you create the app. Replace the `admin@example.com` placeholder
 with your own address, because Chatwoot sends password resets to it.
 
-At the end of the first deployment, Wodby creates a super admin and a first Chatwoot account named `Chatwoot`, and
-closes Chatwoot's onboarding page. No mail is needed.
+Before the web server starts, Wodby creates a super admin and a first Chatwoot account named `Chatwoot`, so Chatwoot's
+onboarding page is never offered. No mail is needed.
 
 1. Open the Chatwoot app service's **Configuration > Tokens** tab and reveal `admin_password`. See
    [Tokens](../../../apps/tokens.md).
@@ -21,6 +21,9 @@ The token and **Admin email** are used only while no super admin exists. Changin
 administrator, and neither does a later deployment. To change the administrator's address, edit the user in the Super
 Admin console at `/super_admin`. This is also how you replace the placeholder if you kept it.
 
+If **Admin email** is not a valid address, the Chatwoot service does not start and the deployment fails. The reason is in
+the service's logs. Correct the setting and deploy again.
+
 ## Upgrade an existing environment
 
 When you upgrade the stack, **Admin email** is added with the `admin@example.com` placeholder and `admin_password` is
@@ -28,7 +31,8 @@ generated.
 
 - If the environment already has a super admin, nothing changes. Keep signing in with your existing account.
 - If nobody finished the onboarding page, the deployment after the upgrade creates the administrator and closes the page.
-  Sign in as described above, then replace the placeholder address in the Super Admin console.
+  The page stays open until that deployment starts the new version, so upgrade soon. Sign in as described above, then
+  replace the placeholder address in the Super Admin console.
 
 ## Settings to review when creating the app
 
