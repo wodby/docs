@@ -341,9 +341,6 @@ move your nodes to a patched image from your provider.
     To recycle nodes, run [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) or use the
     [API](../api/index.html).
 
-    Wodby doesn't yet offer an update that keeps the same Kubernetes version number and only changes the provider's
-    revision, such as `1.36.5-do.1` to `1.36.5-do.2`. Use your provider's tools for that update.
-
 3. Run `kubectl get nodes -o wide` and check that the `KERNEL-VERSION` column shows the fixed version from your provider.
    A successful task alone doesn't prove that the node image included the fix.
 
@@ -371,7 +368,9 @@ managed by Wodby and cannot be changed manually.
 
 Wodby filters the provider's direct targets to keep upgrades incremental and recoverable:
 
-- If a newer patch is available in the current Kubernetes minor, only the newest available patch is offered first.
+- If a newer patch is available in the current Kubernetes minor, only the newest available patch is offered first. On
+  DigitalOcean Kubernetes and Google GKE, this includes a newer provider build of the same Kubernetes version, such as
+  `1.36.5-do.1` to `1.36.5-do.2`, because providers can ship security fixes that way.
 - After the current minor is patched, you can move to the immediately following minor version. On K3S, it is offered only
   after your current minor version reaches end of life. On managed clusters you can choose it earlier, but it shows as
   an update only after end of life.
