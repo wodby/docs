@@ -24,7 +24,7 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 
 **Updated by** shows how each component is updated:
 
-* **Infrastructure update**: update Agent and Edge yourself, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
+* **Dashboard**: update Agent and Edge yourself, as described in [Updating from the Dashboard](#updating-from-the-dashboard).
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
 * **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
