@@ -30,13 +30,16 @@ When using token authentication:
 - Required role: `Developer` or higher for both Git and CI integrations
 - To clone build boilerplates, the token actor must be allowed to create projects in the target namespace
 - For self-hosted GitLab, specify the GitLab base URL. Leave it empty for GitLab.com
+- A self-hosted GitLab must be reachable from the public internet. Wodby can't connect to private or internal addresses,
+  so an instance available only on a private network or VPN can't be used
+- To change the base URL of an existing integration, enter the access token again
 - If you want to run GitLab CI builds from Wodby, make sure the token's actor is allowed to run pipelines for protected branches such as `main`
 
 Token authentication asks for:
 
 | Field | Required | Description |
 | --- | --- | --- |
-| GitLab Base URL | No | Base URL of a self-hosted GitLab installation. Leave empty for GitLab.com. |
+| GitLab Base URL | No | Base URL of a self-hosted GitLab installation, reachable from the public internet. Leave empty for GitLab.com. |
 | GitLab access token | Yes | Personal, group, or project access token with the scopes and role described above. |
 
 ## CI

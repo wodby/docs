@@ -8,7 +8,8 @@ The dashboard can show linked identities such as:
 - GitHub
 - organization SSO providers
 
-For each linked identity, Wodby shows the associated email address and lets you unlink that identity.
+For each linked identity, Wodby shows the associated email address and lets you unlink that identity. Unlinking may ask
+you to [confirm it's you](security.md#changes-to-how-you-sign-in).
 
 Organization SSO identities are created when you sign in through an organization's configured SSO provider.
 
