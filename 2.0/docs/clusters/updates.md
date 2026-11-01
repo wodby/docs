@@ -344,6 +344,30 @@ Which one delivers a given fix depends on your provider, so check its release no
 On [K3S](k3s.md), you own the server, so you update its operating system and kernel yourself. See
 [Install a patched kernel](#install-a-patched-kernel) for the commands.
 
+### Check what changed on your nodes
+
+A successful task doesn't always mean your nodes changed. For example, Amazon EKS leaves a node group alone if it already
+runs the latest image, and a Kubernetes version update on K3S keeps your servers.
+
+To check, open the task's log. Recycling and Kubernetes version update tasks list each node's name, creation time, kernel,
+and operating system at their start and end. They then compare the two lists:
+
+```text
+Compared with the start of this task: 2 replaced or removed, 2 new, 0 not replaced
+Kernel at the start: 6.12.96 (2 nodes); at the end: 6.12.113 (2 nodes)
+```
+
+Look for these lists in the `Nodes before recycling` and `Nodes after recycling` steps of a recycling task, and in the
+`Upgrade plan` and `Outcome` steps of a Kubernetes version update. The task also lists your nodes at the end if it fails,
+because a failed task can leave some nodes replaced. If Wodby can't read your nodes, the log says so, and this doesn't
+change the task's result.
+
+The log doesn't tell you whether a kernel is fixed, because distributions backport fixes to older version numbers. Compare
+the version with the one your provider lists.
+
+When the task ends, the [`Components` list](infrastructure.md#cluster-components) also shows the new kernel and operating
+system, with the number of nodes running each.
+
 ### Fix CVE-2026-98432 on managed Kubernetes
 
 [CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) is a critical Linux kernel bug in your worker nodes.
@@ -364,8 +388,8 @@ move your nodes to a patched image from your provider.
 
     See [Worker node updates](#worker-node-updates) for how to recycle nodes.
 
-3. Run `kubectl get nodes -o wide` and check that the `KERNEL-VERSION` column shows the fixed version from your provider.
-   A successful task alone doesn't prove that the node image included the fix.
+3. [Check what changed on your nodes](#check-what-changed-on-your-nodes), and confirm that they run the fixed version from
+   your provider. A successful task alone doesn't prove that the node image included the fix.
 
 Wodby operates the nodes of Wodby Cloud clusters, so you can't replace them yourself.
 
@@ -414,11 +438,12 @@ unavailable.
 
 The upgrade runs as a task and puts the cluster into `Upgrading` status. Wodby:
 
-1. Records the source and target versions in the task.
+1. Records the source and target versions in the task and lists your nodes.
 2. Starts or resumes the provider upgrade.
 3. Waits for the provider operation to complete.
 4. Verifies that the Kubernetes API reports the target and that every node is `Ready`.
 5. Records the observed version and returns the cluster to normal operation.
+6. Lists your nodes again and [shows what changed](#check-what-changed-on-your-nodes).
 
 Open the task to follow progress and review provider details. If an upgrade fails after the provider has applied it to
 the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes

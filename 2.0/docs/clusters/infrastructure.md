@@ -34,8 +34,9 @@ It includes system pods and each node's Kubernetes agent, container runtime, ope
 applications are not included. Infrastructure apps are hidden because the `Apps` tab reports them; choose
 `Infrastructure app` in the `Managed by` filter to show them.
 
-A healthy cluster's list appears within a few minutes and refreshes about every six hours. The page shows when the
-cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
+A healthy cluster's list appears within a few minutes and refreshes about every six hours. It also refreshes when a
+[node recycling or Kubernetes version update task](updates.md#check-what-changed-on-your-nodes) ends. The page shows when
+the cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
 
 `Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
 not count. The column is hidden when no listed component has a status. On managed clusters, only Amazon EKS add-ons show updates. See
