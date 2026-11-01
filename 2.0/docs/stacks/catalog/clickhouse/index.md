@@ -29,13 +29,23 @@ instead of adding environment variables. Server settings are not exposed as sett
 
 Port `8123` is the main HTTP endpoint, so it gets a public HTTPS address. Port `9000` has no route.
 
-- The address answers `Ok.` at its root. Open `/play` to run queries and `/dashboard` for the built-in charts. Sign in with
-  the account above.
-- The address accepts SQL from anywhere for anyone with the password. Requests without it are refused.
-- `/play` and `/dashboard` send the password in the request URL, so it can appear in ingress logs.
+The address answers `Ok.` at its root. Open `/play` to run queries and `/dashboard` for the built-in charts. Sign in with
+the account above.
+
+!!! warning "Anyone with the password can run SQL from anywhere"
+
+    The public address accepts any SQL the account allows, including statements that change or delete data. Requests
+    without the password are refused. `/play` and `/dashboard` send the password in the URL of every query, so it can
+    appear in ingress logs. A link such as `/play?password=...` also carries it.
+
+To protect the address:
+
+- Keep the generated password, or replace it with one as long and random.
+- Do not share `/play` or `/dashboard` URLs or copy them into tickets or chat. Do not add the password to a URL.
+- Restrict who can reach the address with [App Access](../../../apps/access.md), or disable the route. Services in the
+  same app environment keep connecting directly. App Access needs an active paid subscription.
 - Do not turn on Wodby Basic Auth for this service. ClickHouse uses the `Authorization` header for its own login, so
-  `/play`, `/dashboard` and HTTP clients stop working behind Basic Auth. To restrict who can reach the address, use
-  [App Access](../../../apps/access.md) or disable the route.
+  `/play`, `/dashboard` and HTTP clients stop working behind Basic Auth.
 
 ## Resources, data and backups
 

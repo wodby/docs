@@ -1,7 +1,8 @@
 # Dagster
 
-The Wodby Dagster catalog stack runs the Dagster webserver and daemon with a PostgreSQL database. The current
-composition is documented in [`wodby/stack-dagster`](https://github.com/wodby/stack-dagster).
+The Wodby Dagster catalog stack runs the Dagster webserver and daemon with a PostgreSQL database. Dagster stores its
+data in that database, so both services are required and cannot be excluded. The current composition is documented in
+[`wodby/stack-dagster`](https://github.com/wodby/stack-dagster).
 
 ## Open the Dagster interface
 

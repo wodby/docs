@@ -4,11 +4,29 @@ The Wodby Chatwoot catalog stack runs Chatwoot with a Sidekiq worker, PostgreSQL
 attachment storage, and an optional OpenSMTPD service. The current composition is documented in
 [`wodby/stack-chatwoot`](https://github.com/wodby/stack-chatwoot).
 
+## Create the first administrator
+
+After the first deployment, open the app's main domain. Chatwoot redirects to `/installation/onboarding`.
+
+!!! warning "Finish this right after the first deployment"
+
+    The page is open to anyone who can reach the address until it is submitted, and the first submission creates the
+    administrator.
+
+1. Enter a name, company name, work email, and password. The password needs at least 6 characters, with an upper-case
+   letter, a lower-case letter, a number, and a special character.
+2. Clear the subscription checkbox if you do not want these details sent to Chatwoot for release notes and newsletters.
+3. Select **Finish Setup**, then sign in with that email and password.
+
+This creates the first Chatwoot account and a super admin user. The user is confirmed immediately, so no mail is needed.
+Manage users and super admins in the Super Admin console at `/super_admin`.
+
 ## Settings to review when creating the app
 
 Set these on the Chatwoot app service:
 
 - **Account signup**: `false` by default, which disables public signup. `api_only` allows signup through the API only.
+  The first administrator does not depend on this setting.
 - **Mailer sender**: the address Chatwoot uses for outbound email. Use an address your mail relay accepts.
 - **Force SSL**, **Default locale**, **Log level**, **Rails threads**, and **Sidekiq concurrency**.
 

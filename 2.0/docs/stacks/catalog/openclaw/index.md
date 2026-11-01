@@ -9,15 +9,29 @@ The stack requires Protected access with the Private network type for the entire
 [Application Access integration](../../../providers/access.md) when you create the app. You cannot change these choices.
 Application Access needs an active paid subscription. See [App access](../../../apps/access.md).
 
-The gateway port (18789) is private and gets no public route.
+Wodby publishes no public route for the gateway. You reach it through the Access provider. Services in the same app
+environment reach it directly on port 18789.
 
-## Gateway token
+## Open the Control UI
 
-Clients of the gateway and the Control UI authenticate with the `gateway_token` token. Find it on the OpenClaw app
-service's **Configuration > Tokens** tab. See [Tokens](../../../apps/tokens.md).
+Wodby sets up the private address after the first successful deployment.
 
-The Control UI can be opened from the environment's primary host, the service's address inside the cluster, and the
-local address.
+1. Connect your device to the provider's private network: join the tailnet for [Tailscale](../../../providers/tailscale.md),
+   or use the Cloudflare One Client for [Cloudflare](../../../providers/cloudflare.md#private-network-access).
+2. Open the address listed under **Apps > [App] > [Environment] > Endpoints > Domains**.
+3. Find the `gateway_token` token on the OpenClaw app service's **Configuration > Tokens** tab, and paste it into
+   **Gateway secret**. See [Tokens](../../../apps/tokens.md).
+4. Approve the browser. A new browser waits for a one-time approval. In a
+   [web terminal](../../../apps/web-terminal.md), run these commands, and the page connects by itself:
+
+    ```bash
+    openclaw devices list
+    openclaw devices approve <requestId>
+    ```
+
+Each browser profile needs its own approval. A private window asks again after it closes.
+
+Other clients of the gateway authenticate with the same token.
 
 ## Turn on agents and channels
 
