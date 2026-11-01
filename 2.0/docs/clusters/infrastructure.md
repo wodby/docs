@@ -41,6 +41,10 @@ cluster was last checked. A cluster that isn't healthy keeps its last list until
 not count. On managed clusters, only Amazon EKS add-ons show updates. See
 [component updates](updates.md#component-updates).
 
+On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
+version reaches end of life. You can still upgrade earlier from
+[Kubernetes version updates](updates.md#kubernetes-version-updates).
+
 `Managed by` tells you how a component gets updated:
 
 | Managed by | How it is updated |
