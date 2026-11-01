@@ -26,6 +26,41 @@ those route types and also use Cilium for Kubernetes networking and NetworkPolic
 Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
 
+## Cluster components
+
+To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Components`. The
+list shows each component's version, whether an update is available, where it runs, and how many pods or nodes run it.
+It includes system pods and each node's Kubernetes agent, container runtime, operating system, and kernel. Your
+applications are not included. Infrastructure apps are hidden because the `Apps` tab reports them; choose
+`Infrastructure app` in the `Managed by` filter to show them.
+
+A healthy cluster's list appears within a few minutes and refreshes about every six hours. The page shows when the
+cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
+
+`Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
+not count. The column is hidden when no listed component has a status. On managed clusters, only Amazon EKS add-ons show updates. See
+[component updates](updates.md#component-updates).
+
+On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
+version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy).
+
+`Managed by` tells you how a component gets updated:
+
+| Managed by | How it is updated |
+| --- | --- |
+| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates). |
+| Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
+| k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
+| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
+| Server | The operating system of your K3S server. You update it. |
+| Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
+
+The version is the image tag or the version the node reports, exactly as published. It's empty for an image referenced
+only by digest.
+
+The list is also available through the API as `GET /v1/cluster-components/{id}`, using the cluster's ID, and the GraphQL
+`clusterComponents` query.
+
 ## Cluster capability policy
 
 A cluster capability policy records which published operator stack revisions are approved for the cluster.
@@ -106,7 +141,40 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
+The latest version is `4.1.3`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
+Cloud clusters are offered upgrades up to `4.0.0`, because later versions need no upgrade on them. They can show any
+version from `4.0.0` to `4.1.3`, depending on when they were created.
+
+Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
+
 ### Changelog
+
+#### 4.1.3
+
+Version `4.1.3` updates Cilium on self-hosted K3S clusters to `1.19.10` and keeps your Cilium settings. Clusters must be
+on `4.1.2` first. New K3S servers install this version directly. Managed Kubernetes clusters are not changed.
+
+The new Cilium release includes these security fixes:
+
+- [CVE-2026-56743](https://github.com/cilium/cilium/security/advisories/GHSA-fm8w-2m5w-9j7r): a Kubernetes NetworkPolicy
+  can unexpectedly allow ingress from the local namespace.
+- [CVE-2026-56742](https://github.com/cilium/cilium/security/advisories/GHSA-w7c2-w76w-5hmj): namespaced HTTPRoutes can
+  redirect traffic to other namespaces. This affects Cilium's own Gateway API support. Wodby routes traffic through
+  Envoy Gateway instead.
+- Cilium no longer trusts the compromised eMudhra intermediate CA certificates.
+
+Cilium restarts on each node during the upgrade, so run it during a maintenance window for production workloads. If the
+upgrade fails, the cluster is marked as errored. Review the task logs, resolve the reported problem, and run the upgrade
+again.
+
+#### 4.1.2
+
+Version `4.1.2` updates and verifies the host CA trust store on self-hosted K3S servers following the eMudhra
+intermediate CA compromise. It restarts K3S to reload trust, including when the operating system has already applied
+the CA fix. Run it during a maintenance window.
+
+See the [K3S host CA security update](updates.md#k3s-host-ca-security-update-412) for upgrade steps, retry behavior,
+and the separate updates needed for application CA bundles.
 
 #### 4.1.1
 

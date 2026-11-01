@@ -13,3 +13,13 @@ Retention is measured from the build's original creation date. Enabling or short
 Build history remains after cleanup, but a build cannot be deployed again once its required images have been removed. External registry images are not deleted by this setting.
 
 See [Build image cleanup](../apps/builds.md#automatically-clean-unused-build-images) for details and manual cleanup, and [Container registry storage](../billing.md#container-registry-storage) for billing.
+
+## Agents
+
+Open `Organization > Agents` to connect an AI client, review its
+credential status and expiration, rename or revoke a connection, and inspect
+visible MCP task activity. Each connection uses a dedicated API key scoped to
+that organization and the authorizing user's resource permissions.
+
+See [MCP setup and access management](../dev/mcp.md) for availability, connection
+instructions, permissions, and current limits.

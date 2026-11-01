@@ -77,7 +77,9 @@ At 07:00 UTC Wodby evaluates every enabled database and file schedule
 independently. After allowing for normal task execution time, it emails the
 organization's owners and administrators when an enabled component has missed
 its most recent scheduled successful backup. The report links to the instance
-backup page and identifies the overdue component.
+backup page and identifies the overdue component. Each owner or administrator
+can turn these reports off for an organization under
+[Email notifications](../user/notifications.md).
 
 When investigating a report, inspect the backup task log and check server disk,
 memory, CPU, and connectivity. See [Troubleshooting](../troubleshooting.md#backup-failures).

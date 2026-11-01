@@ -7,6 +7,47 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.15
+
+Applies to the Drupal 7–11 stacks.
+
+- 🐞 Fixed vanilla Drupal 7 image selection with PHP 8.1 and updated its PHP 8.2 runtime to 8.2.35
+- PHP:
+    - ⬆️ gRPC extension 1.84.1 for PHP 8.2–8.5
+    - 🐞 Security backports for PHP 7.4.33, 8.0.30 and 8.1.34 fix CVE-2026-109618 and CVE-2026-109619
+    - 📜 These legacy PHP lines remain EOL. Their minimal backports disable session upload progress and terminate PHP workers immediately on memory allocation failure
+    - 📜 Generated Drupal 11 settings now explicitly set `enable_html5_validation` and preserve application overrides. Test custom forms before disabling browser validation
+- Nginx:
+    - ⬆️ VTS module 0.2.7 with buffer-overflow, reporting and concurrency fixes
+    - ⬆️ ngx_brotli with Brotli 1.2.1
+- ⬆️ Adminer 6.2.0
+- 🐞 Fixed the [Brotli decoder security issue](https://github.com/google/brotli/releases/tag/v1.2.1) (CVE-2026-111497) in PHP 8.2–8.5, Apache and Adminer images
+- 🏔️ Alpine Linux updates for Nginx, including the Brotli decoder fix (CVE-2026-111497)
+
+## 6.2.14
+
+Applies to the Drupal 7–11 stacks.
+
+- 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PHP, Nginx, Apache, MariaDB, PostgreSQL, Redis, Memcached, OpenSMTPD and Varnish
+
+The MariaDB and PostgreSQL updates were added after the initial 6.2.14 release. If you already upgraded to 6.2.14, check the database images and apply the latest stack revision if needed. Contact support if the update is not offered.
+
+## 6.2.13
+
+- ⬆️ Vanilla Drupal 11.4.11, 10.6.20
+- PHP:
+    - ⬆️ PHP 8.5.12, 8.4.27, 8.3.36, 8.2.35 with fixes for two critical remote code execution vulnerabilities (CVE-2026-109618, CVE-2026-109619)
+    - ⬆️ MongoDB extension 2.5.5 with BSON decoding security fixes (CVE-2026-106436, CVE-2026-106432, CVE-2026-112368)
+    - ⬆️ PIE 1.5.2
+- Nginx:
+    - ⬆️ Nginx 1.31.8, 1.30.6
+    - 🐞 With `NGINX_DRUPAL_FILE_PROXY_URL` set, missing CSS and JS aggregates now reach Drupal, which builds them on demand, instead of being redirected to the proxy site. This covers `optimized/` aggregates on Drupal 9, 10 and 11 and AdvAgg aggregates on Drupal 7 and 8. Files under `sites/*/files/private/` are no longer served directly
+- Varnish:
+    - 🐞 Objects matching `VARNISH_SECONDARY_STORAGE_CONDITION` are now stored in the secondary storage set by `VARNISHD_SECONDARY_STORAGE`, and all other objects in the main storage. Previously the condition had no effect and objects alternated between the two storages
+    - 📜 The `x-varnish-storage` response header is no longer added
+- ⬆️ Adminer 6.1.2
+- 🏔️ Alpine Linux updates for Nginx and Varnish, including a zlib security fix (CVE-2026-85091)
+
 ## 6.2.12
 
 - ⬆️ Vanilla Drupal 11.4.8, 10.6.18

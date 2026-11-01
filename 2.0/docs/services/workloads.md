@@ -272,6 +272,13 @@ With this configuration, Wodby writes the full repository path such as `registry
 
 See also: [Helm](helm.md).
 
+### Fixed component image tags
+
+A service containing several components can specify an explicit tag in each container's `image`, for example
+`supabase/gotrue:v2.196.0`. That tag takes precedence over the selected service option's image tag. Untagged image
+repositories continue to use the option tag, or the option version when no tag is set. This allows one service option
+to identify a tested bundle whose components have different versions. Registry ports are not image tags.
+
 ## Validation rules
 
 Service import validates workloads strictly.

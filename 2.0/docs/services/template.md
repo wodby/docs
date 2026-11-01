@@ -694,8 +694,31 @@ Each item supports:
 - `selectors`: required selectors. A linked service must match at least one selector.
 - `env`: optional environment variables added when the link is set.
 - `helm`: optional Helm values added when the link is set.
+- `database.ca.filepath`: optional absolute path where Wodby mounts the CA certificate of the linked managed database
+  server, when the server has one. Use it with
+  [`{{link.database.caFile}}`](../apps/tokens.md#links) to connect to the server with TLS.
 
 Each `links[].selectors[]` item uses the selector object described above.
+
+For example, a PHP service can pass the CA certificate path of a linked managed MySQL server to Laravel:
+
+```yaml
+links:
+- name: db
+  title: Database
+  database:
+    ca:
+      filepath: /etc/wodby/db/ca.pem
+  env:
+  - name: MYSQL_ATTR_SSL_CA
+    value: '{{link.database.caFile}}'
+  selectors:
+  - type: db
+    labels:
+    - mysql
+```
+
+The path is empty for a database without a CA certificate, such as one in the cluster, so the app connects as before.
 
 ### `volumes`
 

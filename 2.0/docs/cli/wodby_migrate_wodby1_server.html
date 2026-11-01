@@ -8102,7 +8102,9 @@ of only resources recorded as created by these migrations. Pre-existing target
 apps and reused resources are preserved. Restart is refused after successful
 verification or while any target operation remains ambiguous. --rollback
 deletes the Wodby 2 resources this migration created and discards its state; it
-refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
+refuses once --verify has succeeded, because DNS then points at Wodby 2.
+Migrated cron schedules stay disabled until --verify confirms that DNS points
+to Wodby 2, so scheduled jobs do not run on both platforms.</p>
 
     
 
@@ -8243,6 +8245,30 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
           </tr>
         
           <tr>
+            <td><code>--target-backup-bucket string</code></td>
+            <td>Bucket of --target-backup-integration-id for backups</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-backup-integration-id int</code></td>
+            <td>Keep backups in this Wodby 2 storage integration (S3, GCS, Azure, Wasabi, Backblaze) instead of Wodby Blob or a copy of the Wodby 1 mirror; with --target-backup-bucket</td>
+            <td><code>0</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-backup-window string</code></td>
+            <td>Daily automatic backup window HH:MM-HH:MM in the organization&#39;s time zone, 30 to 180 minutes (default 02:00-05:00)</td>
+            <td><span class="muted">-</span></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-catch-mail</code></td>
+            <td>Deliver the mail of non-production app environments to the stack&#39;s Mailpit service, so testing never emails real recipients</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
             <td><code>--target-ci-integration-id int</code></td>
             <td>Wodby 2 CI integration ID override (otherwise Wodby CI with a linked repository, or automatic Custom CI fallback)</td>
             <td><code>0</code></td>
@@ -8291,6 +8317,12 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
           </tr>
         
           <tr>
+            <td><code>--target-letsencrypt</code></td>
+            <td>Give routes that used a custom certificate in Wodby 1 a Let&#39;s Encrypt certificate, issued once DNS points to Wodby 2, instead of uploading the certificate again</td>
+            <td><code>false</code></td>
+          </tr>
+        
+          <tr>
             <td><code>--target-project string</code></td>
             <td>Wodby 2 project ID or exact name (defaults to a project-owned cluster&#39;s owner; otherwise organization-owned)</td>
             <td><span class="muted">-</span></td>
@@ -8315,6 +8347,12 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
           </tr>
         
           <tr>
+            <td><code>--target-smtp-integration-id int</code></td>
+            <td>Relay mail through this Wodby 2 SMTP integration instead of credentials copied from Wodby 1, also for instances that sent mail without a relay</td>
+            <td><code>0</code></td>
+          </tr>
+        
+          <tr>
             <td><code>--target-stack-id int</code></td>
             <td>Existing Wodby 2 stack ID override (managed Drupal/WordPress apps get a new catalog stack by default)</td>
             <td><code>0</code></td>
@@ -8330,6 +8368,12 @@ refuses once --verify has succeeded, because DNS then points at Wodby 2.</p>
             <td><code>--target-version-map stringArray</code></td>
             <td>Source-service version override ([APP/][INSTANCE/]SOURCE_SERVICE=TARGET_VERSION)</td>
             <td><code>[]</code></td>
+          </tr>
+        
+          <tr>
+            <td><code>--target-wodby-ci</code></td>
+            <td>Build instances that Wodby 1 deployed through third-party CI with Wodby CI, from the repository linked with --target-git-integration-id</td>
+            <td><code>false</code></td>
           </tr>
         
           <tr>

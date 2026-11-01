@@ -63,6 +63,7 @@ There are 6 steps of creating a new application:
   - enable/disable optional services and change their configuration
   - configure resources request and limitation
   - configure autoscaling for scalable services
+  - use the icons under `TOTAL` to reset all services to the stack's defaults or [clear their resources](scalability.md#clearing-resources-when-creating-an-app)
 
 ### Step 2
 
@@ -78,6 +79,9 @@ Select where you want to run the first environment of your application. The form
    - Enable `Single-node cluster` when one fixed node is acceptable and you do not need high availability or cluster scaling
    - Persistent Wodby Cloud clusters require a paid plan
    - For testing, enable `Demo` to create a free temporary single-node Wodby Cloud cluster that is deleted automatically after 24 hours together with its applications
+
+If you choose an existing cluster, Wodby checks that the environment fits on it. If it can't fit, you can't continue
+until you lower its resources in Step 1 or choose a larger cluster. See [Cluster capacity](scalability.md#cluster-capacity).
 
 You can also create a Wodby Cloud cluster before creating an app from `Clusters > New Wodby Cloud cluster`.
 

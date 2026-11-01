@@ -79,6 +79,39 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.18
+
+- ⬆️ Adminer 6.2.0
+- ⬆️ PHP gRPC extension 1.84.1
+- Nginx:
+    - ⬆️ VTS module 0.2.7 with buffer-overflow, reporting and concurrency fixes
+    - ⬆️ ngx_brotli with Brotli 1.2.1
+- 🐞 Fixed the [Brotli decoder security issue](https://github.com/google/brotli/releases/tag/v1.2.1) (CVE-2026-111497) in the Matomo PHP runtime and Adminer images
+- 🏔️ Alpine Linux updates for Nginx, including the Brotli decoder fix (CVE-2026-111497)
+
+### 1.4.17
+
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for MariaDB
+
+### 1.4.16
+
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Nginx, Redis and OpenSMTPD
+
+### 1.4.15
+
+- ⬆️ Matomo 5.14.2
+
+### 1.4.14
+
+- ⬆️ Matomo 5.14.1
+- ⬆️ PHP 8.2.35 with fixes for two critical remote code execution vulnerabilities (CVE-2026-109618, CVE-2026-109619)
+
+### 1.4.13
+
+- ⬆️ Nginx 1.31.8, 1.30.6
+- ⬆️ Adminer 6.1.2
+- 🏔️ Alpine Linux updates for Nginx, including a zlib security fix (CVE-2026-85091)
+
 ### 1.4.12
 
 - Adminer:

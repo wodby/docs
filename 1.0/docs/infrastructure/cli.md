@@ -26,12 +26,12 @@ kubectl -n wodby rollout status deployment/agent --timeout=5m
 
 ### Updating Infrastructure 7 Agent
 
-Use the [Dashboard infrastructure update](maintenance.md#updating-from-the-dashboard) when it is offered for your server. Infrastructure 7.0.2 uses Agent 5.6.0. Dashboard application-log polling requires Agent 5.4.2 or newer.
+Use the [Dashboard infrastructure update](maintenance.md#updating-from-the-dashboard) when it is offered for your server. Infrastructure 7.0.4 uses Agent 5.6.2. Dashboard application-log polling requires Agent 5.4.2 or newer.
 
 Run the following manual update only when instructed by Wodby support, with no Dashboard infrastructure update in progress. Server management briefly disconnects while Agent restarts; application containers and Edge continue running.
 
 ```shell
-kubectl -n wodby set image deployment/agent agent=wodbycloud/agent:5.6.0
+kubectl -n wodby set image deployment/agent agent=wodbycloud/agent:5.6.2
 kubectl -n wodby rollout status deployment/agent --timeout=5m
 ```
 
@@ -88,6 +88,14 @@ kubectl -n wodby get deployment agent edge -o custom-columns=NAME:.metadata.name
 ```
 
 The Kubernetes deployment image is authoritative for Agent and Edge patch versions on a running server; the recorded installation profile describes what the installer originally applied.
+
+### Check Kubernetes certificates
+
+```shell
+/opt/wodby/bin/installer certificates
+```
+
+This lists each certificate's expiry date, the last renewal and any renewal error.
 
 ### Clean up failed task Pods
 

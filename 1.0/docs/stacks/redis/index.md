@@ -20,6 +20,10 @@ redis://default:[redis-pass]@[node-ip]:[dynamic-node-redis-port]
 
 This changelog is for Redis stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/redis/releases).
 
+### 3.3.8
+
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Redis
+
 ### 3.3.7
 
 ⬆️ Redis 8.4.7, 8.2.10

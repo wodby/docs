@@ -31,6 +31,37 @@ You can define resources at:
 - stack level
 - app-service level
 
+App services can also request GPUs with **GPU devices**: a device name, such as `nvidia.com/gpu`, and the number of
+GPUs for each replica. A count of `0` turns off the GPU request of the service's default configuration. App services
+that request GPUs run on the cluster's [GPU node pool](../clusters/gpu.md).
+
+#### Clearing resources when creating an app
+
+When you create an app, the icons under `TOTAL` in the services table reset all services to the stack's defaults or
+clear their resources. You can also clear the values of one service in its resources dialog.
+
+A cleared service reserves nothing and has no limit. It is the first to suffer when a node runs short of memory or CPU.
+Clearing all services also turns off their autoscaling, because autoscaling needs a CPU request.
+
+### Cluster capacity
+
+When you create an app or an app environment on an existing cluster, Wodby adds up the resource requests of its enabled
+services and compares them with what the cluster can offer: the capacity free now, plus any nodes it can still add.
+
+- **It can't fit:** Wodby refuses to create the environment and shows both amounts. This also applies when one replica
+  of a service is larger than a node. Lower the resources, choose a larger cluster, or
+  [scale the cluster](../clusters/scalability.md).
+- **It may not fit:** you see a warning and can continue. This happens when the environment fits only if the cluster adds
+  nodes, or when Wodby can't read the cluster's current usage. The deployment fails if there is no room for it.
+
+The same refusal applies when you create an environment through the API, the CLI, or an agent.
+
+A check that passes doesn't guarantee a deployment:
+
+- Services that define no resource requests count as nothing, even though they use resources.
+- Enough capacity in total can still be split across nodes so that a replica doesn't fit on any one of them.
+- Only creating an environment is checked. Enabling a service or raising its resources later isn't.
+
 ## Autoscaling rules
 
 Autoscaling requires an active paid subscription. Manual replica scaling remains available on all active plans. If

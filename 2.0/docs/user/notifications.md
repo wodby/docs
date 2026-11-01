@@ -20,7 +20,7 @@ It does not change notification delivery for other organization members.
 
 The page groups notification types by category, such as apps, clusters, automation, integrations, billing, and reports.
 
-Each notification has its own toggle. Turning a notification off stops that type of email for your user in the selected organization.
+Each optional notification has its own toggle. Turning a notification off stops that type of email for your user in the selected organization.
 
 Examples include:
 
@@ -33,6 +33,17 @@ Examples include:
 - cron job and backup failures and recoveries, plus failed imports, certificate renewals, custom certificate expiration, service actions, or integration installs
 - breached spending limits
 - weekly organization reports
+
+## Security infrastructure upgrade notices (upcoming)
+
+Wodby may send critical security upgrade notices to organization members who have permission to upgrade affected
+clusters. These notices are separate from optional upgrade result emails and are not disabled by the notification
+toggles or newsletter preferences.
+
+A notice identifies clusters you can upgrade and explains the required action. The upcoming
+[K3S host CA security update](../clusters/updates.md#k3s-host-ca-security-update-412) applies only to self-hosted K3S
+servers. Check the cluster's current version and task history before acting: an automatic upgrade may have completed
+since the notice was prepared.
 
 ## Scheduled cron and backup notifications
 

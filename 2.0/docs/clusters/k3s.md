@@ -49,7 +49,7 @@ The generated script performs the current bootstrap flow for you. It:
 - installs required NFS client packages
 - installs firewall rules that restrict public access to the K3S API endpoint
 - installs K3S
-- installs Helm
+- installs Helm 4
 - installs Cilium for pod networking and NetworkPolicy enforcement
 - prepares local kubeconfig on the server
 - installs Wodby's proxy client so the cluster can securely connect back to Wodby
@@ -208,12 +208,13 @@ reports `DiskPressure`, and retry. See [Application persistent storage](../apps/
 New K3S clusters use the current Wodby cluster infrastructure version. Existing K3S clusters can be marked as outdated
 when Wodby releases a K3S-specific infrastructure upgrade.
 
-The current K3S-specific upgrade path is described in
-[Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions). It replaces the default K3S
-flannel/kube-router networking setup with Cilium.
+K3S-specific infrastructure upgrades can change networking or host security. Review the
+[infrastructure changelog](infrastructure.md#changelog) before upgrading. The upcoming
+[host CA security update](updates.md#k3s-host-ca-security-update-412) requires a K3S restart even if the operating
+system has already applied the CA fix.
 
-The upgrade can briefly interrupt pod networking while K3S restarts and Cilium takes over. Run it during a maintenance
-window for production workloads.
+Some upgrades restart K3S or change pod networking, which can briefly interrupt cluster access or application traffic.
+Run infrastructure upgrades during a maintenance window for production workloads.
 
 Automatic infrastructure upgrades are available for K3S clusters and are enabled by default for new clusters. Disable
 them when automatic maintenance is not acceptable for that cluster. See

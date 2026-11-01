@@ -20,6 +20,21 @@ This lets the app use the managed database while keeping the rest of the applica
 
 Managed database machine names are provider-facing. They must use lowercase letters, numbers, and dashes, start with a letter, end with a letter or number, and be 3 to 32 characters long.
 
+## Encrypted connections
+
+For a managed database on Amazon RDS, DigitalOcean or Azure, Wodby gives the app the server's CA certificate. Apps
+from the PHP-based catalog stacks connect to the server over TLS when it has one:
+
+- Laravel and Drupal 10 and 11 connect with TLS and verify the server certificate.
+- WordPress connects with TLS but cannot verify the server certificate, because WordPress has no setting for a CA
+  certificate.
+
+Some servers accept only TLS connections, for example new Amazon RDS MariaDB servers. Apps on them need these TLS
+settings to connect. To get them in an existing app environment, [upgrade its stack](../stacks/updates.md).
+
+A custom service gets the CA certificate through its database link. See
+[`links`](../services/template.md#links).
+
 ## Place it near Kubernetes
 
 When creating a managed database, you can optionally associate it with a [Kubernetes cluster](../clusters/index.md).

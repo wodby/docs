@@ -38,6 +38,11 @@ Use the cluster `Sharing` page later if other projects need `Read/Use` or `Modif
 
 When you delete a managed cluster from Wodby, Wodby also deletes it in the cloud provider account.
 
+## GPU node pools
+
+DOKS, EKS and GKE clusters can have an optional [GPU node pool](gpu.md) next to the default node pool, for app
+services that need GPUs.
+
 ## Single-node clusters
 
 Some managed Kubernetes providers expose a `Single-node cluster` option in Wodby's cluster creation form. The option is available only for standard, non-serverless clusters after you select a supported Kubernetes integration.

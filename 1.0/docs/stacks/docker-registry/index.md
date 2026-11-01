@@ -11,6 +11,10 @@ You can acquire auto-generated redis password from `App > Stack > Redis` page.
 
 ## Changelog
 
+### 0.3.3
+
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for Redis
+
 ### 0.3.2
 
 - ⬆️ Redis 7.4.11

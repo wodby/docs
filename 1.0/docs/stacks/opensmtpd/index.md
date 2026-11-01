@@ -34,6 +34,10 @@ OpenSMTPD can be configured with the following [environment variables](https://g
 
 This changelog is for OpenSMTPD stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/opensmtpd/releases).
 
+### 2.1.7
+
+🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for OpenSMTPD
+
 ### 2.1.6
 
 - ⬆️ Updated the gotpl template renderer to 0.6.9 in the OpenSMTPD 7 image, incorporating the refreshed Go runtime

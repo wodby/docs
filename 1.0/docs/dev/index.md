@@ -2,7 +2,7 @@
 
 # Development
 
-Use the Wodby 1 API, SDKs, and CLI to automate application management and deployments.
+Use the Wodby 1 API, SDKs, and CLI to automate application management and deployments, or connect an AI client through [MCP](mcp.md).
 
 ## API keys
 
@@ -23,6 +23,10 @@ See [API v2 compatibility](api.md#version-2-deprecated) for existing integration
 ## Wodby CLI
 
 Use the [CLI](cli.md) for command-line automation and [CI/CD](../cicd/index.md).
+
+## MCP
+
+See the [MCP guide](mcp.md) for availability, AI client connection settings, supported workflows, and current limits.
 
 ## Local development
 
