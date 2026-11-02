@@ -153,7 +153,7 @@ The filter can't stop connections made inside a single container, so an applicat
 
 Wodby doesn't reboot your servers. Automatic operating-system updates may already have installed a fixed kernel, but it takes effect only after a reboot.
 
-1. Check your operating system's status for this vulnerability and note the fixed version for your release: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432) or [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432). For Debian 9, 10 and 11, see [Debian 9, 10 and 11](#debian-9-10-and-11) first.
+1. Check your operating system's status for this vulnerability and note the fixed version for your release: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432) or [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432). For Debian 9, 10 and 11, see [Debian 9, 10 and 11](#debian-9-10-and-11) first. For Ubuntu, see [Ubuntu](#ubuntu).
 2. Connect to the server over SSH and install the kernel packages. Don't use `apt upgrade`, which can also change Docker and other components that Wodby keeps [at coordinated versions](security.md):
 
     ```shell
@@ -173,6 +173,13 @@ Wodby doesn't reboot your servers. Automatic operating-system updates may alread
 **If no fixed kernel is available yet**, keep the filter in place and check again later.
 
 **If your operating system is past its standard support**, it may not get a fix. Use its extended security support if it has one, or [connect a fresh Infrastructure 7 server](connecting-server.md) and move your applications with [server migration](../apps/server-migration.md).
+
+#### Ubuntu
+
+Ubuntu releases kernel fixes through its regular updates, so the steps above install the fix once Ubuntu has released it for your release. Until then, they install Ubuntu's newest kernel without the fix, so always compare versions in step 3. Check the fixed version on [Ubuntu's page](https://ubuntu.com/security/CVE-2026-98432): cloud kernels such as `-aws`, `-azure` or `-gcp` have their own version numbers, and `-generic` and `-virtual` kernels share theirs.
+
+* **22.04, 24.04 and 26.04:** use the steps above once Ubuntu lists the fix as released for your release. Don't install a kernel from Ubuntu's `-proposed` pocket: it's for testing.
+* **16.04, 18.04 and 20.04:** Ubuntu lists no fix for these releases. Keep the filter in place, and move to a fresh Infrastructure 7 server as described above.
 
 #### Debian 9, 10 and 11
 
