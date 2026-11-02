@@ -6,7 +6,7 @@ Infrastructure 6 cannot be upgraded in place to Infrastructure 7. To move to Inf
 
 ## Infrastructure components
 
-Open the server's settings to see its **Infrastructure components**: the installed and latest version of each component, its status, and who updates it. The server's version in the servers list is highlighted orange when a component needs an update and red when one is critical.
+Open the server's settings to see its **Infrastructure components**: the installed and latest version of each component, its status, and who updates it. The server's version in the servers list is highlighted orange when a component needs an update and red when one is critical. It's also red on any server below Infrastructure 6.1.2 or 7.0.8, whatever its components show, until you [update its infrastructure](#update-infrastructure-to-reduce-your-exposure) for [CVE-2026-98432](#linux-kernel-security-update-cve-2026-98432).
 
 | Status | What to do |
 | --- | --- |
@@ -18,7 +18,7 @@ Open the server's settings to see its **Infrastructure components**: the install
 
 The list shows only components whose installed version is known.
 
-The **Linux kernel** row shows the kernel the server is running, once the server has reported it. **Critical** means a fixed kernel is available to install. **Update recommended** means none is available for your system yet. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
+The **Linux kernel** row shows the kernel the server is running, once the server has reported it. **Critical** means a fixed kernel is available to install. **Update recommended** means none is available for your system yet, and the row can show this on a server whose version is red. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
 
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
