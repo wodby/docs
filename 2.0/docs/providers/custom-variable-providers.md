@@ -97,8 +97,14 @@ Each field requires:
 - `label`: the user-facing label
 - `variable`: the environment variable exposed by the integration
 
-Optional field properties include `description`, `optional`, `regex`, and `editable`. A `select` field must provide a
-non-empty `options` list. A `textarea_upload` field can use `accept` to limit the files offered by the file picker.
+Optional field properties include `description`, `optional`, `regex`, `editable`, and `requireSecretsOnChange`. A
+`select` field must provide a non-empty `options` list. A `textarea_upload` field can use `accept` to limit the files
+offered by the file picker.
+
+Set `requireSecretsOnChange: true` on a field that decides where a saved secret is sent, such as a host, base URL,
+domain, or site. Changing that field then requires entering the saved secrets again, so an edit can't send them to
+another server. You don't need it when your manifest's validation fixes the address, or when the provider has no
+secret.
 
 Field names and environment-variable names must be unique across the complete manifest. At least one field must be
 defined, either at provider or kind level. The standard
