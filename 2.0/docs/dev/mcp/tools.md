@@ -27,6 +27,8 @@ These tools require `mcp:read` when using OAuth.
 | `list_app_instances` | List app environments with optional project, app, cluster, and status filters by names or IDs. |
 | `get_workspace_context` | Read development workspace runtime, preview, setup and initial Git information. |
 | `get_workspace_connection` | Get the owner’s SSH endpoint, fingerprint, the agents ready in the workspace and connection guidance. |
+| `get_workspace_git_status` | Read the Git state of a workspace's checkout: branch, upstream, commits ahead and behind, the last commit, and the changed files. |
+| `get_workspace_git_diff` | Read the uncommitted diff of one file in a workspace's checkout. A long diff is truncated; a binary file has none. |
 | `get_app_instance` | Get an app environment by ID. |
 | `get_app_environment` | Get an app environment by ID. |
 | `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
@@ -34,10 +36,18 @@ These tools require `mcp:read` when using OAuth.
 | `prepare_app_environment_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
 | `list_app_services` | List services for an app environment by app environment ID or the legacy organization/app/instance-name arguments. |
 | `get_app_service` | Get an app service by ID. |
+| `get_app_service_configuration` | Read how an app service is configured next to what its service allows: running and available versions, where its code is built from, settings, config file overrides, links, integrations, and volumes. Values of secret settings are not returned. |
 | `get_service_guidance` | Read what the services of an app environment generate and wire for the application, such as settings files and connections to linked databases, caches, search, mail and file storage, and what the code still has to do. |
 | `list_app_service_env_vars` | List an app service's environment variables and where each comes from: the app service, the service, the stack, a setting, a link or an integration. Secret values are not returned. |
 | `get_app_service_resources` | Get an app service's replica count and each container's CPU and memory requests and limits. |
 | `list_app_routes` | List an app environment's domains, the service and port each leads to, whether a certificate is attached, and whether the domain's DNS reaches the cluster. |
+| `get_app_route_settings` | Read HTTP route settings such as HTTPS redirect, HSTS, request size, timeouts, and rate limits, for an environment's defaults or the values in effect for one domain. Available on clusters that use Envoy Gateway. |
+| `list_app_ports` | List an app environment's service ports: protocol, internal number, whether the service marks it private, and the public port when it is published. |
+| `list_app_auths` | List an app environment's HTTP basic authentication entries with their scope, username, and realm. Passwords are never returned. |
+| `get_app_environment_access` | Read whether an app environment is Public or Protected, its App Access configuration, and the HTTP ports App Access endpoints can point at. |
+| `get_app_access_provider_options` | Read what an Application Access integration offers before you configure App Access with it: access types, scopes, hostnames, and required settings. |
+| `list_app_environment_migrations` | List an app environment's moves to other clusters, newest first, with status, phase, failure message, when the retained source will be deleted, and the backup and restore of each data service. |
+| `get_app_environment_stack_upgrade_changelog` | Preview what `upgrade_app_environment_stack` would change: stack versions and, per service, whether it is added, removed, or changes version, with release notes. An empty result means the environment already runs the newest revision. |
 | `list_app_service_cron_schedules` | List cron schedules for an app environment or app service by IDs or by the legacy organization/app/instance-name/service arguments. |
 | `list_app_builds` | List recent builds for an app environment by ID or the legacy organization/app/instance-name arguments. |
 | `get_app_build` | Get an app build by ID. |
@@ -51,6 +61,8 @@ These tools require `mcp:read` when using OAuth.
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
 | `list_clusters` | List clusters in an organization. |
 | `get_cluster` | Get a cluster by ID. |
+| `get_kubernetes_version_upgrade_plan` | Read a cluster's current Kubernetes version, the versions it can move to directly, and anything blocking the upgrade or worth a warning. |
+| `get_cluster_infra_app_upgrade_changelog` | Preview what `upgrade_cluster_infra_apps` would change: per infrastructure app, the stack versions and per-service changes with release notes. |
 | `get_kubernetes_cluster_options` | Get provider-backed Kubernetes regions or zones, machine types, versions, and settings for a Kubernetes integration. |
 | `get_wodby_cloud_options` | Get Wodby Cloud regions, machine types, pricing, and creation notes. |
 | `prepare_cluster_creation` | Resolve defaults and return missing questions for creating managed, k3s, demo, or Wodby Cloud clusters. This does not create anything. |
@@ -69,15 +81,19 @@ These tools require `mcp:read` when using OAuth.
 | `get_service_schema` | Get the Wodby service manifest JSON schema. |
 | `get_service_examples` | Get concise Wodby service manifest examples. |
 | `validate_service_manifest` | Validate a Wodby service manifest without creating it. |
+| `list_git_repositories` | List the repositories a Git integration can read. |
 | `list_git_files` | List the entries of one directory of a repository, without descending into it. |
 | `read_git_file` | Read a text file of a repository, such as `composer.json`, `package.json`, a lock file, a Dockerfile or a manifest. |
 | `validate_ci_files` | Validate a repository's Wodby CI files (`.wodby/pipeline.yml`, `.wodby/post-deployment.yml`) without running anything. |
+| `list_providers` | List the integration providers an organization can use: its custom providers and Wodby's public ones, with their current revision and, for a provider from Git, its repository ref. |
 | `get_provider_schema` | Get the Wodby custom provider manifest JSON schema. |
 | `validate_provider_manifest` | Validate a Wodby custom provider manifest without creating it. |
 | `list_public_stacks` | List public stack catalog items. |
 | `list_stacks` | List stacks in an organization. |
 | `get_stack` | Get a stack by name and optional revision number. |
 | `get_stack_contract` | Inspect revision-specific stack composition, links, options, and service metadata without configuration values. Not an editable manifest. |
+| `get_stack_origin_sync_changelog` | Preview what `sync_stack_with_origin` would bring: the origin's version and its release notes since this stack was copied. An empty result means there is nothing newer. |
+| `get_stack_service_update_changelog` | Preview what `update_stack_service_revisions` would change: per outdated stack service, the current and new version with release notes. |
 | `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
 | `get_stack_examples` | Get concise Wodby stack manifest examples. |
 | `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
@@ -96,6 +112,7 @@ These tools require `mcp:operate` when using OAuth.
 | Tool | Use |
 | --- | --- |
 | `prepare_workspace` | Rerun workspace setup, preserving the checkout. Requires `confirm: true`. |
+| `start_workspace_agent_chat` | Hand a coding task to Wodby Agent in a development workspace, as a new chat there. Only the workspace owner can do this, and they follow the chat and answer its approvals in the workspace. With OAuth, also requires `mcp:exec`. Requires `confirm: true`. |
 | `restart_workspace` | Restart the SSH runner, ending sessions; does not restart the application. Requires `confirm: true`. |
 | `pause_workspace` / `resume_workspace` | Pause or resume a workspace environment. Requires `confirm: true`. |
 | `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app environment selector, and suggest waiting for its task. |
@@ -136,10 +153,20 @@ configuration changes.
 | `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
 | `update_service_from_manifest` | Update an existing non-Git service from a Wodby service manifest. Requires `confirm: true`. |
 | `update_service_from_git` | Update a service from its Git source. Requires `confirm: true`. |
+| `create_git_repository` | Create a private repository under a Git integration you may modify, with a first commit holding a README. Not for a new app's code: creating an app that copies a boilerplate creates its repository. Refused on Bitbucket, where you create the repository yourself. |
+| `create_git_branch` | Create a branch at the head of another branch, through a Git integration you may modify. It never moves or replaces an existing branch. |
+| `create_git_pull_request` | Open a pull request (a merge request on GitLab) from one branch of a repository into another, through a Git integration you may modify. It never merges anything. |
+| `create_workspace_pull_request` | Open a pull request (a merge request on GitLab) from a development workspace's branch in the repository its code comes from. Push the branch with Git first. Only the workspace owner can do this. |
+| `update_provider_from_manifest` | Publish a new revision of a custom provider that does not come from Git. Existing integrations stay on their revision until you upgrade them in the dashboard. Requires `confirm: true`. |
+| `update_provider_from_git` | Update a custom provider from its Git repository at a branch, tag, or commit. Existing integrations stay on their revision until you upgrade them in the dashboard. Requires `confirm: true`. |
 | `update_stack_from_git` | Update a stack from its Git source. Requires `confirm: true`. |
 | `create_app_route` | Add a domain to an app environment, routed to a port of an app service. By default Wodby requests a Let's Encrypt certificate, issued once the domain's DNS points to the cluster. |
 | `update_app_route` | Change a route: turn it off or on, make it the primary domain, change its path or certificate, or redirect it to another host. Generated and private routes can't be changed. |
 | `create_backup_preset` | Create a backup preset: a saved destination that by default also runs backups every day in a time window. Presets need a paid subscription. |
+| `create_app_auth` | Put HTTP basic authentication in front of an app environment, some of its services, or one domain, or exempt services or a domain from it. The password is generated and never returned here; reveal it on the environment's **Domains > Auths** page in the dashboard. |
+| `update_app_auth` | Change a basic auth entry's username, realm, or scope, or replace its password with a newly generated one, which you reveal in the dashboard. |
+| `update_app_service` | Change the version an app service runs or where its code is built from, such as another branch. The result says whether the service needs a new build or only a deployment. A database's major version change can need a data migration. |
+| `update_app_environment_cicd_settings` | Choose the CI provider that builds an app environment's services and the container registry for their images. This applies to future builds; existing builds keep what they were built with. |
 
 ## Provisioning tools
 
@@ -159,14 +186,17 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `import_stacks` | Import stacks from a Git repository. |
 | `create_service_from_manifest` | Create a custom service from a Wodby service manifest. |
 | `create_stack_from_manifest` | Create a custom stack from a Wodby stack manifest. |
+| `create_provider_from_manifest` | Create a custom integration provider from a provider manifest. Create its integrations and enter their credentials in the dashboard. |
+| `import_providers` | Import custom integration providers from a Git repository: `provider.yml` at its root, or the providers an `index.yml` lists. |
 
 ## Sensitive tools
 
-These tools require `mcp:sensitive` in addition to their other scope and require `confirm: true`.
+These tools require `mcp:sensitive` in addition to their other scope.
 
 | Tool | Use |
 | --- | --- |
-| `create_database_user` | Create a database user by submitting a password. The password is not returned in the MCP response. |
+| `create_database_user` | Create a database user by submitting a password. The password is not returned in the MCP response. Requires `mcp:provision` and `confirm: true`. |
+| `get_backup_download` | Get a time-limited download link for a backup's file. Requires `mcp:read`. Anyone with the link can download the backup, which can contain your database and files, until it expires. Share it only with the person who asked for it, and do not store or repost it. |
 
 ## Destructive tools
 
@@ -176,18 +206,26 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | --- | --- |
 | `create_import` | Import data into an app service or database DB. |
 | `cancel_task` | Cancel a running task. |
+| `cancel_deployment` | Cancel a deployment that has not started rolling out, such as one waiting for a build in an external CI system. To stop a deployment that is already rolling out, use `cancel_task`. |
 | `delete_cluster` | Delete a cluster. |
 | `delete_app_route` | Remove a route from an app environment, so its domain stops reaching the app. To stop serving a domain for a while, turn it off with `update_app_route` instead. |
+| `create_app_access` | Make an app environment Protected by publishing it through an Application Access integration or a private network. Public routes in the scope stop serving visitors at once. The access type can't be changed later. Requires a paid subscription. |
+| `update_app_access` | Change an app environment's App Access scope, provider settings, or endpoints. Routes leaving the scope become public, and routes entering it stop serving the public. |
+| `delete_app_access` | Make an app environment Public again: remove its App Access, delete the provider's resources, and restore its public routes, which anyone can then reach. |
+| `delete_app_auth` | Remove a basic auth entry. What it protected becomes reachable without a password, unless a broader entry still covers it. |
 | `delete_database` | Delete a database. |
 | `delete_database_db` | Delete a DB inside a database. |
 | `delete_database_user` | Delete a database user. |
-| `update_app_instance_settings` | Update app environment settings such as automatic stack upgrades. |
+| `update_app_environment_settings` | Update app environment settings such as automatic stack upgrades and build-image cleanup. |
 | `update_stack_service` | Update selected stack-service settings. |
+| `update_stack_service_revisions` | Move a stack's services to the newest revisions of their services. Pinned services and ignored revisions stay as they are. Environments then move to the new stack revision with `upgrade_app_environment_stack`. |
+| `update_stack_from_manifest` | Replace the composition of a stack that does not come from Git with a complete stack manifest. Services the manifest leaves out are removed from the stack. |
 | `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
-| `reconcile_app_instance_stack` | Reapply an app environment's assigned stack revision, optionally replace existing choices with stack defaults, and rebuild or redeploy all resulting services. |
-| `upgrade_app_instance_stack` | Upgrade selected app environment stack sections. |
+| `reconcile_app_environment_stack` | Reapply an app environment's assigned stack revision, optionally replace existing choices with stack defaults, and rebuild or redeploy all resulting services. |
+| `upgrade_app_environment_stack` | Upgrade an app environment to its latest stack revision. Preview it first with `get_app_environment_stack_upgrade_changelog`. Optional settings can replace your existing choices with stack defaults, and the environment's main service always follows the stack. |
 | `upgrade_cluster_infra` | Upgrade cluster infrastructure. |
 | `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |
+| `upgrade_kubernetes_version` | Upgrade a cluster's Kubernetes to a version `get_kubernetes_version_upgrade_plan` lists. The provider can rotate control-plane components and worker nodes, and the Kubernetes API can be briefly unavailable, so run it for production in a maintenance window. It can't be undone. Supported for EKS, AKS, GKE Standard, DigitalOcean, OVH, and K3S clusters; Wodby Cloud and serverless clusters are refused. |
 
 MCP responses are compact summaries designed for AI agents. Some operation and task responses include `suggestedCalls`,
 which are follow-up tool calls the client can use to continue the workflow, such as waiting for a build or deployment
