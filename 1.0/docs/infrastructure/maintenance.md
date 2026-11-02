@@ -153,7 +153,7 @@ The filter can't stop connections made inside a single container, so an applicat
 
 Wodby doesn't reboot your servers. Automatic operating-system updates may already have installed a fixed kernel, but it takes effect only after a reboot.
 
-1. Check your operating system's status for this vulnerability and note the fixed version for your release: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432) or [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432).
+1. Check your operating system's status for this vulnerability and note the fixed version for your release: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432) or [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432). For Debian 9, 10 and 11, see [Debian 9, 10 and 11](#debian-9-10-and-11) first.
 2. Connect to the server over SSH and install the kernel packages. Don't use `apt upgrade`, which can also change Docker and other components that Wodby keeps [at coordinated versions](security.md):
 
     ```shell
@@ -171,6 +171,13 @@ Wodby doesn't reboot your servers. Automatic operating-system updates may alread
 5. Run `uname -r` to confirm the server runs the new kernel, then check that your applications are accessible. The **Linux kernel** row in **Infrastructure components** updates once the server next reports it, which can take up to a day.
 
 **If no fixed kernel is available yet**, keep the filter in place and check again later.
+
+#### Debian 9, 10 and 11
+
+Debian's own repositories have no fix for these releases. Freexian's [Extended LTS](https://www.freexian.com/lts/extended/) repository has one, listed on its [tracker](https://deb.freexian.com/extended-lts/tracker/CVE-2026-98432):
+
+* **Debian 11:** a fixed 5.10 kernel, `5.10.272-1`, which the server reports as `5.10.0-47`. Add the repository as described in [How to use Extended LTS](https://www.freexian.com/lts/extended/docs/how-to-use-extended-lts/), then follow the steps above. Freexian recommends turning off the Debian repositories when you add it, so the server then gets all its Debian packages from Freexian, not only the kernel.
+* **Debian 9 and 10:** no fix for their 4.9 and 4.19 kernels. Freexian offers a newer 6.1 kernel with the fix, but Wodby hasn't tested Infrastructure 6 servers on it. If Docker or Kubernetes doesn't start on it after the reboot, your applications stay unavailable until the server is back on its previous kernel. Keep the filter in place, and contact [Wodby support](../support.md) before installing it, or move to a fresh Infrastructure 7 server as described below.
 
 **If your operating system is past its standard support**, it may not get a fix. Use its extended security support if it has one, or [connect a fresh Infrastructure 7 server](connecting-server.md) and move your applications with [server migration](../apps/server-migration.md).
 
