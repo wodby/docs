@@ -153,8 +153,8 @@ Organization SSO is also a paid feature. Disable every provider from **Organizat
 downgrade. Provider configuration and verified domains can remain in the organization while it uses the Developer
 plan, but the providers cannot be enabled or used for sign-in until the organization upgrades again.
 
-[Vulnerability scanning](apps/vulnerability-scanning.md) does not block a downgrade. After the organization moves to the
-Developer plan, Wodby stops scanning build images and hides earlier results until the organization upgrades again.
+[Vulnerability scanning](apps/vulnerability-scanning.md) does not block a downgrade. As soon as a downgrade is scheduled,
+Wodby stops scanning build images and hides earlier results until the organization upgrades again.
 
 ### Wodby CI minutes
 
