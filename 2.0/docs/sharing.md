@@ -31,7 +31,7 @@ A share never changes the resource owner.
 | Ownership scope | Who can directly modify/delete the resource | Who can read/use it | Who can change ownership/sharing |
 | --- | --- | --- | --- |
 | Organization-owned | Organization owners/admins | Organization owners, admins, support users, and users in shared projects. Every organization member when the resource is [available to all projects](#make-a-resource-available-to-all-projects) | Organization owners/admins |
-| Project-owned | Users with `Write` or `Admin` access to the owner project, plus organization owners/admins | Users who can access the owner project or any shared project | Organization owners/admins. If the resource remains project-owned, users with owner-scope write access can update sharing or owner project when they also have project `Admin` access to every affected project |
+| Project-owned | Users whose role in the owner project includes `Manage resources`, plus organization owners/admins | Users who can access the owner project or any shared project | Organization owners/admins. If the resource remains project-owned, users with owner-scope write access can update sharing or owner project when they also have project `Admin` access to every affected project |
 
 Project shares do not transfer ownership and do not grant project administration rights. Changing any resource to organization ownership requires organization owner/admin access.
 
