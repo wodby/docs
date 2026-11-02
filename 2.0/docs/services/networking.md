@@ -90,9 +90,10 @@ helm:
 ```
 
 Set `routeToPublicPort: true` only when the chart renders its Kubernetes Service port from the public assignment.
-Wodby then targets the assigned number when it creates the TCP or UDP route, and starts a partial deployment of the
-owning app service right away when the port is published or unpublished, so the chart and the route cannot keep
-different port numbers. The option is supported only for non-private TCP and UDP ports. When `routeToPublicPort` is
+Wodby then targets the assigned number when it creates the TCP or UDP route. When the port is published or unpublished,
+Wodby starts a partial deployment of the owning app service right away if that service is deployed, enabled, and in `OK`
+status, so the chart and the route cannot keep different port numbers. Otherwise, the next deployment applies the change.
+Unless the chart renders the assigned number during import, its Service port must use the manifest port's name. The option is supported only for non-private TCP and UDP ports. When `routeToPublicPort` is
 omitted, Wodby routes to the manifest's fixed `number`.
 
 When a service's Helm values, environment variables, or processed configs read a port's `publicPort` or

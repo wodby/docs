@@ -112,14 +112,11 @@ operator charts do not receive a managed application name by default because the
 controller product. They can opt in by mapping a supported path explicitly.
 
 Set `helm.valueMappings.disableNameOverride: true` when a third-party workload chart deliberately does not implement
-this application-name label contract. Wodby then does not persist or pass a managed `nameOverride` and skips the
-corresponding label check during import. The chart must still expose stable labels that let every declared workload
+this application-name label contract. New app services then get no managed `nameOverride`, and Wodby skips the
+corresponding label check during import. Don't add this to a service whose existing app services have a managed name:
+their deployments fail. The chart must still expose stable labels that let every declared workload
 selector resolve unambiguously, such as the Helm release plus a component label. Do not combine `disableNameOverride`
 with a custom `nameOverride` path.
-
-This opt-out is explicit because Helm commonly accepts an unused value without reporting that the chart ignored it.
-Without the opt-out, Wodby treats an ineffective `nameOverride` as a broken chart mapping instead of silently weakening
-the naming contract for every service.
 
 The application name is selected when the app service is installed. Existing app services are not relabeled when this
 capability becomes available or when their stack is upgraded, because changing a Deployment or StatefulSet selector
@@ -218,8 +215,7 @@ preserve that exact count. Fixed services may normalize values above one to a si
 charts that accept a Helm value but do not use it. DaemonSets do not have a replica-count check.
 
 Validation rejects any HorizontalPodAutoscaler rendered with the service manifest's Helm values. The exception is an
-HPA that targets a workload with `helm.managedReplicas: true`; Wodby removes that HPA during post-rendering before
-performing the same check. An HPA for any other workload remains an error because app-service autoscaling is managed by
+HPA that targets a workload with `helm.managedReplicas: true`; Wodby removes that HPA before performing the same check. An HPA for any other workload remains an error because app-service autoscaling is managed by
 Wodby.
 
 For services with managed application names, Wodby renders a sentinel `nameOverride` and verifies that

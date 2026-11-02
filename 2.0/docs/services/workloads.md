@@ -269,8 +269,8 @@ These are Helm value paths used when Wodby injects container-scoped data.
 Use `secretEnvFrom` for a chart that accepts an `envFrom` list but cannot keep `valueFrom` entries in its environment
 list. Wodby passes an `envFrom` entry that loads the app service's secret environment variables from the
 [`service.secrets.env`](../apps/tokens.md#service) Secret, so secret values stay out of Helm values. Only secret
-variables are available this way; also map `env` when the container needs the other variables. When a secret value
-changes, Wodby restarts the workload, as it does for `env`.
+variables are available this way; also map `env` when the container needs the other variables. `envKV` is ignored when
+`secretEnvFrom` is set. When a secret value changes, the next deployment restarts the workload, as it does for `env`.
 
 ```yaml
 workloads:

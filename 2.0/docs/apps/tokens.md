@@ -112,8 +112,9 @@ The other `env` tokens remain available for template compatibility.
 The `service.secrets.env` Secret holds the service's secret environment variables: those marked `secret: true` and
 those that reference a secret token, such as a generated one. Each variable is a key named after it. A chart that reads
 a password from a named Secret key can use this token as the Secret name: Wodby creates the Secret whenever the
-service has secret variables, even if no container mapping uses it. Pods restart when a secret value changes, so a
-chart that reads the Secret only at startup picks up a rotated password.
+service has secret variables, even if no container mapping uses it. The next deployment after a secret value changes
+restarts the pods, so a chart that reads the Secret only at startup picks up a rotated password. When a container
+mapping renders the Secret, it holds only the variables of mapped containers, and only their workloads restart.
 
 Each endpoint's primary route is available as `service.endpoints.[endpoint-name].[field]`:
 
@@ -138,7 +139,8 @@ When a chart renders its Kubernetes Service port from this value, also set the s
 [`routeToPublicPort`](../services/networking.md#dynamic-public-backend-ports) field.
 
 When a Helm value consists of exactly one `number`, `publicPort`, or `effectivePort` token, Wodby passes it to the
-chart as a number, so charts that validate ports as numbers accept it. Inside a longer value, such as
+chart as a number, so charts that validate ports as numbers accept it. An unpublished `publicPort` stays an empty string,
+so use `effectivePort` when the chart requires a number. Inside a longer value, such as
 `ssh://git@example.com:{{service.endpoints.ssh.ports.ssh.effectivePort}}`, the token is replaced as text.
 
 Legacy `service.helm.release` is still supported for backward compatibility.
