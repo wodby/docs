@@ -108,6 +108,9 @@ The weekly organization report includes an `Automation health` section with enab
 backup presets whose latest conclusive result is still failed. It also shows ongoing issues when a cron schedule has
 not produced another run eligible for a reminder.
 
+On the Team and Enterprise plans, the report also lists currently deployed builds with critical or high vulnerabilities.
+See [Vulnerability scanning](../apps/vulnerability-scanning.md#weekly-organization-report).
+
 ## Defaults
 
 Notifications are enabled by default unless you turn them off.
