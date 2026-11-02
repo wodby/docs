@@ -207,6 +207,7 @@ nav:
   - Apps:
       - Overview: apps/index.md
       - App environments: apps/environments.md
+      - Preview environments: apps/preview-environments.md
       - Development workspaces: apps/workspaces.md
       - Wodby Agent: apps/wodby-agent.md
       - Cluster migration: apps/migration.md
@@ -219,6 +220,7 @@ nav:
       - Certificate troubleshooting: apps/certificate-troubleshooting.md
       - Access: apps/access.md
       - Builds: apps/builds.md
+      - Vulnerability scanning: apps/vulnerability-scanning.md
       - Deploys: apps/deploys.md
       - Backups: apps/backups.md
       - Imports: apps/imports.md

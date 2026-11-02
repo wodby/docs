@@ -10,6 +10,9 @@ services or stacks through an integration.
 | API key | Yes | `DD_API_KEY` |
 | Site | No | `DD_SITE` |
 
+To set, change, or clear the site of an existing integration, enter the API key again. Your application sends the key to
+that site, so a new site can't reuse it without you entering it.
+
 Wodby stores the API key as a secret. Set **Site** when the application needs a Datadog site such as `datadoghq.com`
 or `datadoghq.eu`.
 

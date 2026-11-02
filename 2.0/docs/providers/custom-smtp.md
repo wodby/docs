@@ -28,6 +28,9 @@ Custom SMTP intentionally supports encrypted relay modes only. Use `smtp+tls` fo
 Applications continue to send mail to OpenSMTPD on its internal port `25`. OpenSMTPD then forwards the message to the
 configured upstream relay.
 
+To change the relay host of an existing integration, enter the saved password again or remove it. It is sent to that
+host, so a new host can't reuse it without you entering it.
+
 The relay host is mandatory. Wodby rejects an incomplete Custom SMTP configuration rather than allowing OpenSMTPD to
 attempt direct delivery.
 

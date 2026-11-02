@@ -39,6 +39,8 @@ Each app environment has its own:
 - [Cron](cron.md) schedules and jobs
 - [Tasks](tasks.md) history
 
+Wodby can also create temporary [preview environments](preview-environments.md) for pull requests automatically.
+
 All environments of the same app share the same stack, but different environments can run on different clusters and different stack revisions.
 
 App environments do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
@@ -164,5 +166,6 @@ new one.
 - [Applications overview](index.md)
 - [App vs app environment vs app service](app-vs-environment-vs-service.md)
 - [Maintenance mode](maintenance.md)
+- [Preview environments](preview-environments.md)
 - [App environment cluster migration](migration.md)
 - [Application stack](stack.md)

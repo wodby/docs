@@ -31,6 +31,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_workspace_git_diff` | Read the uncommitted diff of one file in a workspace's checkout. A long diff is truncated; a binary file has none. |
 | `get_app_instance` | Get an app environment by ID. |
 | `get_app_environment` | Get an app environment by ID. |
+| `get_app_preview_settings` | Get an app's [preview environment](../../apps/preview-environments.md) settings with the base environment and the services they seed. |
+| `list_app_preview_pull_requests` | List the open pull requests an app can get a preview environment for, with the reason when one cannot. |
 | `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
 | `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
 | `prepare_app_environment_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
@@ -180,6 +182,7 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `scale_cluster` | Scale a cluster node pool. |
 | `create_app_from_stack` | Create an app and initial app environment from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
 | `create_app_instance_from_stack` | Create an app environment in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_preview_environment` | Create a preview environment for an open pull request. |
 | `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
@@ -217,6 +220,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `delete_database_db` | Delete a DB inside a database. |
 | `delete_database_user` | Delete a database user. |
 | `update_app_environment_settings` | Update app environment settings such as automatic stack upgrades and build-image cleanup. |
+| `update_app_preview_settings` | Update an app's preview environment settings. Only the given settings change. |
 | `update_stack_service` | Update selected stack-service settings. |
 | `update_stack_service_revisions` | Move a stack's services to the newest revisions of their services. Pinned services and ignored revisions stay as they are. Environments then move to the new stack revision with `upgrade_app_environment_stack`. |
 | `update_stack_from_manifest` | Replace the composition of a stack that does not come from Git with a complete stack manifest. Services the manifest leaves out are removed from the stack. |

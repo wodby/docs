@@ -101,6 +101,7 @@ Configure settings that apply to the whole app environment:
 - Choose whether to enable stack auto-upgrades.
 - Choose Public or Protected [App Access](access.md).
 - Select the default CI system and container registry when the app has an enabled service with a build source.
+- Choose whether to create [preview environments](preview-environments.md) for pull requests.
 
 When adding another environment to an existing app, use `Copy configuration from` to prefill compatible app and service
 fields from another environment. See
@@ -139,6 +140,13 @@ it uses Wodby CI and Wodby Registry. You can override either choice for the new 
 organization defaults or existing environments. Connected build sources inherit Default CI. Public and cloned
 boilerplate sources use Wodby CI regardless of this selection.
 
+#### Preview environments
+
+Set `Pull request previews` to `Enabled` to create a temporary environment for every pull request opened against the
+Git branch of the environment you are creating. The option is available when a service has a build source and the
+deployment mode is CI/CD, and it is disabled by default. Which services are seeded with data is configured later under
+`Apps > [App] > Settings > Preview environments`. See [Preview environments](preview-environments.md).
+
 ### Step 5
 
 Configure individual app services. Sections only appear when the selected stack provides the corresponding capability.
@@ -152,8 +160,8 @@ the application code and pipeline manifests.
 
 Services often provide a public build boilerplate that you can use directly. With [GitHub](../providers/github.md) and
 [GitLab](../providers/gitlab.md), Wodby can also create a new repository and import the boilerplate contents into it.
-For [Bitbucket](../providers/bitbucket.md), create or copy the boilerplate repository manually first, then select it as
-the build source. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
+For [Bitbucket](../providers/bitbucket.md), create an empty repository first, and Wodby imports the boilerplate contents
+into it. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
 is a third-party integration.
 
 In a development workspace, this section is called **Development workspace**. It offers only **Clone boilerplate** and

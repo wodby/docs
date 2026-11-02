@@ -37,7 +37,7 @@ apply to pausing and deleting the environment.
   support workspace mounts.
 - Use your own Git repository, so you can push your work. Connect an existing repository, or clone the service's
   boilerplate into a new repository with a [GitHub](../providers/github.md) or [GitLab](../providers/gitlab.md)
-  integration.
+  integration, or into an empty repository you created first with a [Bitbucket](../providers/bitbucket.md) integration.
 - Add your public key in [User settings > SSH keys](../user/ssh-keys.md). Keep the private key on your computer. Until
   you add one, the app form and the **Workspace** page warn you and link to that page. A key you add later works
   without restarting the workspace.
@@ -54,8 +54,8 @@ service. Code and agent-home storage are also billed under normal storage rules.
 3. In the app settings, set **Deployment mode** to **Development workspace**. If the option is unavailable, hover over
    it to see why.
 4. In the services step, open the **Development workspace** section. For the source service, choose
-   **Clone boilerplate** to create a new repository from the boilerplate, or **Use my repository** and select the
-   repository and the Git reference to start from.
+   **Clone boilerplate** to create a new repository from the boilerplate (with Bitbucket, enter the name of an empty
+   repository you created first), or **Use my repository** and select the repository and the Git reference to start from.
 5. Optionally, change **Code, size (Gi)** and **Agent home, size (Gi)** in the **Workspace** group under **Volumes**.
 6. Review the services, resource usage and access settings, then create the environment.
 
