@@ -44,10 +44,12 @@ Wodby supports GitHub Actions as a third-party CI integration.
 
 GitHub integrations can create [preview environments](../apps/preview-environments.md) for pull requests.
 
-- The GitHub App installation must be allowed to read pull requests, create commit statuses, comment on pull
-  requests, and read and react to issue comments. GitHub asks the installation owner to approve these permissions when
-  they are missing. Until they are approved, Wodby still creates previews but cannot report their status to the pull
-  request, and pull request commands are ignored.
+- The GitHub App installation needs write access to `Pull requests`, `Commit statuses`, and `Issues`, and the
+  `Pull request` and `Issue comment` events. With Wodby CI, it also needs the `Push` event. GitHub asks the installation
+  owner to approve these when they are missing.
+- Without the `Pull requests` permission, Wodby can't read pull requests, so previews are not created. With it, other
+  missing permissions or events mean no status or comment on the pull request, ignored commands, or new commits that
+  don't rebuild the preview.
 - Wodby reacts to pull requests that target the branch followed by the app's base environment. Pull requests from forks
   are ignored.
 - Each deployment is reported as a `wodby/preview` commit status on the commit it built, and Wodby keeps one comment
