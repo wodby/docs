@@ -43,9 +43,9 @@ Organization membership changes follow role hierarchy rules.
 An invitation sets only the email address and the organization role. Give access to projects and teams afterwards from
 the member's page, `Organization > Members > [Member]`:
 
-- `Projects` lists every project the member can access, with the role and whether the access is direct or comes from a
-  team. Owners and admins can add the member to a project, change a direct role, or remove direct access. Access
-  through a team is changed on the team or on the project.
+- `Projects` lists the member's direct and team project access, with the role and where it comes from. Owners and admins
+  have access to every project whether or not it is listed. They can add the member to a project, change a direct role,
+  or remove direct access. Access through a team is changed on the team or on the project.
 - `Teams` lists the member's teams and their role in each. Owners and admins can add, remove, or change them.
 - `Edit` changes the organization role or removes the member.
 
@@ -102,15 +102,15 @@ Preview environments use the environment type configured for the app's previews.
 | `View`                    | Seeing status, settings, deployments, metrics, and tasks.                                                      |
 | `Logs`                    | Reading application logs.                                                                                      |
 | `Deploy`                  | Running builds and deployments, redeploying, and cancelling them.                                              |
-| `Operate`                 | Restarting, pausing, maintenance mode, running actions and crons, and controlling workspaces.                  |
+| `Operate`                 | Restarting, pausing, maintenance mode, and running actions and crons.                                          |
 | `Configure`               | Changing settings, variables, Helm values, resources, routes, ports, endpoint auth, tokens, links, integrations, and schedules. |
 | `Upgrade`                 | Upgrading and reconciling the stack, and moving the environment to another cluster.                            |
-| `Shell`                   | Opening the [web terminal](apps/web-terminal.md) and running commands. A shell exposes the credentials the workload receives. |
-| `Back up`                 | Creating backups and backup presets, and voiding backup files.                                                 |
+| `Shell`                   | Opening the [web terminal](apps/web-terminal.md), running commands, controlling workspaces, and using workspace agents. A shell exposes the credentials the workload receives. |
+| `Back up`                 | Creating and downloading backups, managing backup presets, and voiding backup files.                           |
 | `Restore`                 | Importing data, which replaces existing data.                                                                  |
 | `Create`                  | Creating environments of this type.                                                                            |
 | `Delete`                  | Deleting environments and databases of this type.                                                              |
-| `Reveal secrets`          | Revealing app tokens, endpoint auth passwords, and database user passwords.                                    |
+| `Reveal secrets`          | Revealing app tokens, endpoint auth passwords, the shared preview password, and database user passwords.       |
 | `Reveal master passwords` | Revealing database master passwords.                                                                           |
 
 Every project member can see the project's environments and read their logs, so every role includes `View` and `Logs`
@@ -167,8 +167,8 @@ team role as `Write` during access checks.
 
 ### Managing project access
 
-Project access is managed from `Organization > Projects > [Project] > Access`, or per member from
-`Organization > Members > [Member] > Projects`.
+Project access is managed from `Organization > Projects > [Project] > Access`. Organization owners and admins can also
+manage it per member from `Organization > Members > [Member] > Projects`.
 
 Organization owners/admins and members whose role includes `Manage project` can:
 
@@ -178,6 +178,14 @@ Organization owners/admins and members whose role includes `Manage project` can:
 - assign team roles
 - change roles later
 - remove project memberships
+
+In the dashboard, only organization owners and admins can pick any member or team to add. Others with `Manage project`
+can change or remove existing memberships and add teams they lead.
+
+!!! warning "`Manage project` has no upper limit"
+    Someone with `Manage project` can give any project role to any membership in that project, including `Admin` for
+    themselves. Give it only to people you would trust with full access to the project, including its production
+    environments and master passwords.
 
 ## Secret reveal permissions
 
@@ -195,7 +203,8 @@ For project-owned resources, direct secret reveal follows this table:
 | Project `Read` | Not allowed | Not allowed |
 | Custom role | As set for each environment type | As set for each environment type |
 
-`Reveal secrets` currently covers app-service tokens, app endpoint-auth passwords, and database-user passwords.
+`Reveal secrets` currently covers app-service tokens, app endpoint-auth passwords, the shared preview environment
+password, and database-user passwords.
 `Reveal master passwords` covers database master or root passwords. Organization-owned secrets can be revealed only by
 organization owners and admins.
 
@@ -375,8 +384,8 @@ A `Developers` team is added to Project App with `Write`.
 
 ### Production changes by a few people
 
-Only system administrators should deploy to and patch production. Core developers work freely outside production and
-only look at production. One team works on a single project, and its leads manage that project's access.
+Only system administrators should deploy to and patch production. Core developers work outside production and only
+look at production. One team works on a single project, and its leads manage that project's access.
 
 1. Create a custom role `Sys admin` by copying `Read` and adding `Deploy`, `Operate`, `Configure`, `Upgrade`,
    `Back up`, and `Restore` in `Production`. Give it to a `Sys admins` team in every project.
@@ -384,7 +393,8 @@ only look at production. One team works on a single project, and its leads manag
    using the system role, or copy it into a custom role to fine-tune it.
 3. Give a `Team X` team the `Developer` or `Developer (non-production)` role in Team X's project only.
 4. Give Team X's leads a custom role with `Manage project` directly in that project, so they can manage its access.
-   Teams cannot hold that permission.
+   Teams cannot hold that permission. Leads can then also give themselves any role in that project, including production
+   access.
 
 ## Related pages
 
