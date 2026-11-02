@@ -40,6 +40,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - Application Access for protected or private-network HTTP endpoints
 - organization Single Sign-On (SSO)
 - [vulnerability scanning](apps/vulnerability-scanning.md) of deployed build images
+- [preview environments](apps/preview-environments.md) for pull requests
 - best-effort support
 - $30 of Wodby Cloud usage per month
 - 10M free [AI credits](#ai-credits) tokens in total for Wodby Agent, granted once
@@ -155,6 +156,10 @@ plan, but the providers cannot be enabled or used for sign-in until the organiza
 
 [Vulnerability scanning](apps/vulnerability-scanning.md) does not block a downgrade. As soon as a downgrade is scheduled,
 Wodby stops scanning build images and hides earlier results until the organization upgrades again.
+
+[Preview environments](apps/preview-environments.md#after-a-downgrade) do not block a downgrade either. Wodby creates no
+new previews from the moment a downgrade is scheduled, and existing previews stay until their pull requests close or
+they go idle.
 
 ### Wodby CI minutes
 

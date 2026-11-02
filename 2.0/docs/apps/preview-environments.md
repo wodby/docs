@@ -7,8 +7,8 @@ the pull request. With Wodby CI, every push to the pull request rebuilds the pre
 pipeline starts the builds. Wodby deletes the preview when the pull request is closed or merged, or after it has been
 idle for a configurable number of days.
 
-Preview environments are disabled by default and configured per app. They work with GitHub, GitLab, and Bitbucket. This
-page says pull request for what GitLab calls a merge request.
+Preview environments require an active paid subscription. They are disabled by default and configured per app. They
+work with GitHub, GitLab, and Bitbucket. This page says pull request for what GitLab calls a merge request.
 
 ## Prerequisites
 
@@ -31,6 +31,17 @@ page says pull request for what GitLab calls a merge request.
   existing database server are not supported yet.
 - The cluster of the base environment must allow the environment type chosen for previews. See
   [Environment types](environment-types.md).
+
+## After a downgrade
+
+Previews do not block a [downgrade](../pricing.md). Once a downgrade is scheduled, and on the Developer plan:
+
+- You can't turn previews on or create or recreate a preview. A new pull request gets a failed `wodby/preview` status and
+  a comment that says why.
+- Existing previews keep following their pull requests and count toward your plan limits until the pull requests close
+  or the previews go idle.
+- You can turn previews off at any time. If you leave them on, your settings stay, and new pull requests get previews
+  again after you upgrade.
 
 ## Enabling preview environments
 
