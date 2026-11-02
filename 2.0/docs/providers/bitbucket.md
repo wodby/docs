@@ -10,7 +10,6 @@ stored as `BITBUCKET_WORKSPACE` and determines where Wodby discovers repositorie
 Wodby can't create repositories on Bitbucket, so you create the repository first. Wodby copies the boilerplate into it
 at the app's first deployment.
 
-<<<<<<< HEAD
 1. In the integration's workspace on Bitbucket, create an empty repository, without a README or `.gitignore`.
 2. In Wodby, choose **Clone boilerplate**, select the Bitbucket integration, and enter the repository's name as it
    appears in its URL. Names can use letters, digits, dots, dashes, and underscores.
@@ -26,9 +25,6 @@ Wodby builds from the boilerplate's branch. If the repository's main branch is a
 and its log warns you. You can change the main branch in the repository settings on Bitbucket.
 
 To build from a repository that already has code, select it as the build source instead.
-=======
-To start from a build boilerplate with Bitbucket, create or copy the repository manually in Bitbucket, then select that
-repository as the build source in Wodby.
 
 ## Preview environments
 
@@ -47,4 +43,3 @@ Bitbucket integrations can create [preview environments](../apps/preview-environ
 - People with write or admin access to the repository can comment `/wodby preview` or `/wodby reseed` on the pull
   request. Bitbucket has no comment reactions, so Wodby explains a refused command in its comment. See
   [Pull request commands](../apps/preview-environments.md#pull-request-commands).
->>>>>>> origin/master
