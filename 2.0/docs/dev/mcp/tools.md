@@ -24,17 +24,15 @@ These tools require `mcp:read` when using OAuth.
 | `show_app_status` | Return a dashboard-style app summary with app environments, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
 | `get_app` | Get an app by ID. |
 | `find_environment` | Find an app environment by organization, app name, and the legacy `instanceName` argument. |
-| `list_app_instances` | List app environments with optional project, app, cluster, and status filters by names or IDs. |
+| `list_app_environments` | List app environments with optional project, app, cluster, and status filters by names or IDs. |
 | `get_workspace_context` | Read development workspace runtime, preview, setup and initial Git information. |
 | `get_workspace_connection` | Get the owner’s SSH endpoint, fingerprint, the agents ready in the workspace and connection guidance. |
 | `get_workspace_git_status` | Read the Git state of a workspace's checkout: branch, upstream, commits ahead and behind, the last commit, and the changed files. |
 | `get_workspace_git_diff` | Read the uncommitted diff of one file in a workspace's checkout. A long diff is truncated; a binary file has none. |
-| `get_app_instance` | Get an app environment by ID. |
 | `get_app_environment` | Get an app environment by ID. |
 | `get_app_preview_settings` | Get an app's [preview environment](../../apps/preview-environments.md) settings with the base environment and the services they seed. |
 | `list_app_preview_pull_requests` | List the open pull requests an app can get a preview environment for, with the reason when one cannot. |
 | `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
-| `prepare_app_instance_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
 | `prepare_app_environment_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
 | `list_app_services` | List services for an app environment by app environment ID or the legacy organization/app/instance-name arguments. |
 | `get_app_service` | Get an app service by ID. |
@@ -84,6 +82,7 @@ These tools require `mcp:read` when using OAuth.
 | `get_service_examples` | Get concise Wodby service manifest examples. |
 | `validate_service_manifest` | Validate a Wodby service manifest without creating it. |
 | `list_git_repositories` | List the repositories a Git integration can read. |
+| `check_git_access` | Check what a Git integration may do before relying on it: create a private repository, push to a repository, and open pull requests. Each check is allowed, denied with what to change in the Git provider, or unknown when the provider does not say. |
 | `list_git_files` | List the entries of one directory of a repository, without descending into it. |
 | `read_git_file` | Read a text file of a repository, such as `composer.json`, `package.json`, a lock file, a Dockerfile or a manifest. |
 | `validate_ci_files` | Validate a repository's Wodby CI files (`.wodby/pipeline.yml`, `.wodby/post-deployment.yml`) without running anything. |
@@ -105,7 +104,7 @@ These tools require `mcp:read` when using OAuth.
 | `read_app_service_log_watch` | Read cursor-based batches, including dropped-entry counts and watch status. |
 | `stop_app_service_log_watch` | Stop a watch without changing the application. |
 | `get_app_services_metrics` | Get current metrics for one or more app services selected by IDs or by service names with an app environment selector. |
-| `get_app_instances_metrics` | Get current metrics for one or more app environments. |
+| `get_app_environments_metrics` | Get current metrics for one or more app environments. |
 
 ## Operation tools
 
@@ -116,7 +115,12 @@ These tools require `mcp:operate` when using OAuth.
 | `prepare_workspace` | Rerun workspace setup, preserving the checkout. Requires `confirm: true`. |
 | `start_workspace_agent_chat` | Hand a coding task to Wodby Agent in a development workspace, as a new chat there. Only the workspace owner can do this, and they follow the chat and answer its approvals in the workspace. With OAuth, also requires `mcp:exec`. Requires `confirm: true`. |
 | `restart_workspace` | Restart the SSH runner, ending sessions; does not restart the application. Requires `confirm: true`. |
-| `pause_workspace` / `resume_workspace` | Pause or resume a workspace environment. Requires `confirm: true`. |
+| `pause_workspace` | Pause a workspace environment. Requires `confirm: true`. |
+| `resume_workspace` | Resume a paused workspace environment. Requires `confirm: true`. |
+| `pull_workspace` | Bring a workspace's checkout up to date with its branch's upstream, then run the repository's post-deployment scripts unless you turn them off. Only the workspace owner can do this. The pull only fast-forwards: it refuses a branch with commits the upstream lacks, and leaves the checkout as it was when the pull would overwrite uncommitted changes. |
+| `pause_app_environment` | Pause an app environment: its services stop and stop using compute, while its data and configuration are kept. The app is unreachable, and scheduled backups and cron jobs do not run, until it is resumed. |
+| `resume_app_environment` | Resume a paused app environment. |
+| `set_app_environment_maintenance_mode` | Turn an app environment's maintenance mode on or off. While it is on, visitors get a maintenance page with HTTP 503 instead of the app. |
 | `create_deployment` | Create a deployment for one or more app services selected by IDs or by service names with an app environment selector, and suggest waiting for its task. |
 | `redeploy_deployment` | Redeploy from an existing deployment. |
 | `deploy_build` | Deploy a completed app build. |
@@ -125,6 +129,8 @@ These tools require `mcp:operate` when using OAuth.
 | `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
+| `retry_app_route_certificate` | Request a domain's Let's Encrypt certificate again, for example after fixing its DNS. A certificate is issued only once the domain's DNS reaches the cluster, so retrying before that fails again. |
+| `retry_app_access_cleanup` | Repeat the cleanup left over from removed App Access, such as Cloudflare or Tailscale resources Wodby could not delete. The failed removal's task gives the cleanup ID. |
 | `update_current_user` | Update the authenticated user's display name. |
 | `duplicate_stack` | Duplicate a stack into an organization and optional project. |
 
@@ -148,6 +154,15 @@ configuration changes.
 | --- | --- |
 | `enable_app_service` | Enable a disabled app service, together with the disabled services it requires. In a running environment this starts a deployment. |
 | `disable_app_service` | Disable an app service: it stops and its domains and redirects are disabled, while its volumes are kept. Requires `confirm: true`. |
+| `set_main_app_service` | Make an app service the main service of its environment, the one that serves the environment's root technical domain. Only an enabled service of the environment's own, with a public HTTP port, can be main. A stack upgrade makes the stack's main service the main one again. |
+| `set_app_service_setting` | Set one of the settings an app service's service declares, such as a site name or an admin email. Secret settings are refused; set those in the dashboard. Running containers get the value with the next deployment of the service. |
+| `set_app_service_env_var` | Add an environment variable to an app service, or change the one it already has with this name. It takes precedence over a variable with the same name from the service or the stack. Running containers get it with the next deployment of the service. |
+| `set_app_service_config` | Override one of the config files an app service's service provides, such as `php.ini` or an nginx server block, or turn it off. The override replaces the whole file, so start from the current content. Running containers get it with the next deployment of the service. |
+| `set_app_service_link` | Point one of an app service's links at another service of the same environment, such as a different database or cache, or remove an optional link. Running containers get the new connection settings with the next deployment of the service. |
+| `add_app_service_integration` | Connect an organization integration, such as S3 storage or an SMTP relay, to an integration slot of an app service. Running containers get its settings with the next deployment of the service. |
+| `remove_app_service_integration` | Detach an integration from an app service; the organization's integration itself stays. Features that rely on it, such as file uploads to S3 or sending mail, stop working with the next deployment of the service. |
+| `rename_app` | Change the title an app is shown with. Its machine name, which names its Kubernetes resources and domains, never changes. |
+| `rename_app_environment` | Change the title an app environment is shown with. Its machine name, which names its namespace and generated domains, never changes. |
 | `update_cluster` | Update a cluster title. |
 | `update_cluster_settings` | Update cluster settings such as automatic infrastructure upgrades. Requires `confirm: true`. |
 | `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
@@ -158,12 +173,19 @@ configuration changes.
 | `create_git_repository` | Create a private repository under a Git integration you may modify, with a first commit holding a README. Not for a new app's code: creating an app that copies a boilerplate creates its repository. Refused on Bitbucket, where you create the repository yourself. |
 | `create_git_branch` | Create a branch at the head of another branch, through a Git integration you may modify. It never moves or replaces an existing branch. |
 | `create_git_pull_request` | Open a pull request (a merge request on GitLab) from one branch of a repository into another, through a Git integration you may modify. It never merges anything. |
+| `commit_git_files` | Add or replace text files in a repository with one commit on a branch, through a Git integration you may modify. It never deletes files, rewrites history or creates a branch, and fails instead of overwriting when the branch moved meanwhile. A file you send replaces the whole file. Builds and deployments that follow the branch can start from the commit. |
 | `create_workspace_pull_request` | Open a pull request (a merge request on GitLab) from a development workspace's branch in the repository its code comes from. Push the branch with Git first. Only the workspace owner can do this. |
 | `update_provider_from_manifest` | Publish a new revision of a custom provider that does not come from Git. Existing integrations stay on their revision until you upgrade them in the dashboard. Requires `confirm: true`. |
 | `update_provider_from_git` | Update a custom provider from its Git repository at a branch, tag, or commit. Existing integrations stay on their revision until you upgrade them in the dashboard. Requires `confirm: true`. |
 | `update_stack_from_git` | Update a stack from its Git source. Requires `confirm: true`. |
+| `add_stack_service` | Add a service, such as Redis or Solr, to a stack your organization owns. The addition is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `set_stack_service_link` | Point one of a stack service's links at another service of the same stack, such as PHP's cache link at a newly added Redis, or remove an optional link. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. |
+| `ignore_stack_service_revision` | Stop offering one service revision as an update for a stack service and its derivatives. The next newer revision of the service is offered again. |
 | `create_app_route` | Add a domain to an app environment, routed to a port of an app service. By default Wodby requests a Let's Encrypt certificate, issued once the domain's DNS points to the cluster. |
 | `update_app_route` | Change a route: turn it off or on, make it the primary domain, change its path or certificate, or redirect it to another host. Generated and private routes can't be changed. |
+| `set_app_route_setting` | Set one HTTP route setting, such as HTTPS redirect, HSTS, request size, timeouts, or rate limits, as an environment default or for one domain. Wodby applies it with a routing deployment. Available on clusters that use Envoy Gateway. |
+| `remove_app_route_setting` | Remove an HTTP route setting from an environment's defaults or from one domain, so the next layer's value applies again: a domain falls back to the service's and then the environment's default. |
+| `unpublish_app_port` | Stop exposing a published port to the internet. Clients outside the cluster that use it, such as SSH or a remote database client, lose access. |
 | `create_backup_preset` | Create a backup preset: a saved destination that by default also runs backups every day in a time window. Presets need a paid subscription. |
 | `create_app_auth` | Put HTTP basic authentication in front of an app environment, some of its services, or one domain, or exempt services or a domain from it. The password is generated and never returned here; reveal it on the environment's **Domains > Auths** page in the dashboard. |
 | `update_app_auth` | Change a basic auth entry's username, realm, or scope, or replace its password with a newly generated one, which you reveal in the dashboard. |
@@ -181,7 +203,8 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. If demo or sizing choices are unresolved, they are returned as questions. |
 | `scale_cluster` | Scale a cluster node pool. |
 | `create_app_from_stack` | Create an app and initial app environment from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
-| `create_app_instance_from_stack` | Create an app environment in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_environment_from_stack` | Create an app environment in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `add_app_service_volume` | Add one of the optional volumes an app service's service declares and the environment does not have yet. A volume is billable storage in the cluster. Volumes that already exist can't be resized or removed with this tool. |
 | `create_app_preview_environment` | Create a preview environment for an open pull request. |
 | `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
@@ -212,6 +235,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `cancel_deployment` | Cancel a deployment that has not started rolling out, such as one waiting for a build in an external CI system. To stop a deployment that is already rolling out, use `cancel_task`. |
 | `delete_cluster` | Delete a cluster. |
 | `delete_app_route` | Remove a route from an app environment, so its domain stops reaching the app. To stop serving a domain for a while, turn it off with `update_app_route` instead. |
+| `publish_app_port` | Make a non-HTTP port, such as SSH or a database's TCP port, reachable from the internet on a public port Wodby assigns. Anyone on the internet can then reach it, so publish only what has its own authentication, and prefer a private network for databases. Private and HTTP ports can't be published. Publishing may redeploy the cluster's gateway first. |
 | `create_app_access` | Make an app environment Protected by publishing it through an Application Access integration or a private network. Public routes in the scope stop serving visitors at once. The access type can't be changed later. Requires a paid subscription. |
 | `update_app_access` | Change an app environment's App Access scope, provider settings, or endpoints. Routes leaving the scope become public, and routes entering it stop serving the public. |
 | `delete_app_access` | Make an app environment Public again: remove its App Access, delete the provider's resources, and restore its public routes, which anyone can then reach. |
@@ -224,12 +248,19 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `update_stack_service` | Update selected stack-service settings. |
 | `update_stack_service_revisions` | Move a stack's services to the newest revisions of their services. Pinned services and ignored revisions stay as they are. Environments then move to the new stack revision with `upgrade_app_environment_stack`. |
 | `update_stack_from_manifest` | Replace the composition of a stack that does not come from Git with a complete stack manifest. Services the manifest leaves out are removed from the stack. |
+| `remove_stack_service` | Remove a service and its derivatives from a stack your organization owns. A required service, or one other services require through a link, is refused. The removal is saved to the stack's draft and reaches environments only after `publish_stack_draft` and an upgrade. |
+| `publish_stack_draft` | Publish a stack's unpublished draft as its new revision. Publishing checks the main service and required links and changes nothing when they fail. Environments then move to the new revision with `upgrade_app_environment_stack`, or on their own where automatic stack upgrades are on. |
+| `discard_stack_draft` | Discard a stack's unpublished draft and every change saved to it. The published revision and the app environments on it stay as they are. |
 | `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
 | `reconcile_app_environment_stack` | Reapply an app environment's assigned stack revision, optionally replace existing choices with stack defaults, and rebuild or redeploy all resulting services. |
 | `upgrade_app_environment_stack` | Upgrade an app environment to its latest stack revision. Preview it first with `get_app_environment_stack_upgrade_changelog`. Optional settings can replace your existing choices with stack defaults, and the environment's main service always follows the stack. |
+| `migrate_app_environment` | Move an app environment and its persistent data to another cluster of the organization. The environment is unavailable while its data is backed up, restored on the target and deployed, so plan a maintenance window. The environment must be OK with an active deployment and not in maintenance mode, without App Access, private or custom routes, or published TCP/UDP ports. Both clusters must be OK, every data service needs backup and import operations, every built service an active build, and the final backups use Wodby Blob Storage, which needs a paid subscription. Wodby keeps the stopped source for seven days. |
+| `rollback_app_environment_migration` | Restore an app environment on its source cluster after a migration that failed and whose automatic recovery did not finish. Fix the underlying cluster, storage, or deployment problem first. A completed migration can't be rolled back. |
+| `cleanup_app_environment_migration` | Permanently delete the stopped source an app environment left on its old cluster after a completed migration, before the seven-day retention ends. The migration backups stay. |
 | `upgrade_cluster_infra` | Upgrade cluster infrastructure. |
 | `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |
 | `upgrade_kubernetes_version` | Upgrade a cluster's Kubernetes to a version `get_kubernetes_version_upgrade_plan` lists. The provider can rotate control-plane components and worker nodes, and the Kubernetes API can be briefly unavailable, so run it for production in a maintenance window. It can't be undone. Supported for EKS, AKS, GKE Standard, DigitalOcean, OVH, and K3S clusters; Wodby Cloud and serverless clusters are refused. |
+| `recycle_cluster_nodes` | Refresh a managed cluster's worker nodes. EKS moves each node group to its latest node image and leaves a group that already runs it in place; AKS and DigitalOcean replace every node. Workloads move to the new nodes, so applications restart, and new deployments wait until it ends. The cluster must be in OK status with no active application operations. GKE, OVHcloud, Wodby Cloud, serverless, and single-node clusters are refused. |
 
 MCP responses are compact summaries designed for AI agents. Some operation and task responses include `suggestedCalls`,
 which are follow-up tool calls the client can use to continue the workflow, such as waiting for a build or deployment

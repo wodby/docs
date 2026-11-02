@@ -11,7 +11,15 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 DOCS = Path(__file__).resolve().parents[1] / "docs"
 PUBLIC_SKILLS = "https://mcp.wodby.com/agent-skills"
-TOOL_PATTERN = r"`((?:get|list|find|show|prepare|validate|create|update|start|read|stop|wait|diagnose|import|deploy|run|repeat|delete|cancel|sync|reconcile|upgrade|scale|duplicate|redeploy)_[a-z0-9_]+)`"
+# Leading verbs of MCP tool names. Add a tool's verb here when it introduces a new one; a test fails until then.
+TOOL_VERBS = ("add", "cancel", "check", "cleanup", "close", "commit", "create", "delete", "deploy", "diagnose", "disable",
+              "discard", "duplicate", "enable", "exec", "find", "get", "ignore", "import", "list", "migrate", "pause",
+              "prepare", "preview", "publish", "pull", "read", "reconcile", "recycle", "redeploy", "remove", "rename",
+              "repeat", "restart", "resume", "retry", "rollback", "run", "scale", "search", "set", "show", "start", "stop",
+              "sync", "unpublish", "update", "upgrade", "validate", "verify", "wait")
+# Tool arguments and result fields that start with one of those verbs but are not tools.
+NON_TOOL_NAMES = ("cleanup_id", "disable_monitoring", "preview_host", "preview_urls", "retry_ambiguous")
+TOOL_PATTERN = (r"`((?!(?:" + "|".join(NON_TOOL_NAMES) + r")`)(?:" + "|".join(TOOL_VERBS) + r")_[a-z0-9_]+)`")
 
 
 def documented_names(text, pattern):
