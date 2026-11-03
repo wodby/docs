@@ -276,6 +276,7 @@ nav:
               - WordPress: stacks/catalog/wordpress/index.md
               - Ghost: stacks/catalog/ghost/index.md
               - Matomo: stacks/catalog/matomo/index.md
+              - Moodle: stacks/catalog/moodle/index.md
               - Discourse: stacks/catalog/discourse/index.md
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
@@ -301,6 +302,7 @@ nav:
               - Rust: stacks/catalog/rust/index.md
               - Java: stacks/catalog/java/index.md
               - Spring Boot: stacks/catalog/spring-boot/index.md
+              - Kotlin: stacks/catalog/kotlin/index.md
               - ASP.NET Core: stacks/catalog/aspnetcore/index.md
               - Node.js: stacks/catalog/node/index.md
               - Next.js: stacks/catalog/nextjs/index.md

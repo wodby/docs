@@ -10,9 +10,9 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 ## Application stacks
 
 [Drupal](drupal/index.md) ([connect to Solr](drupal/solr.md)), [WordPress](wordpress/index.md),
-[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Discourse](discourse/index.md), [Chatwoot](chatwoot/index.md),
-[Mattermost](mattermost/index.md), [Nextcloud](nextcloud/index.md), [GitLab](gitlab/index.md),
-[Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
+[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Moodle](moodle/index.md), [Discourse](discourse/index.md),
+[Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md), [Nextcloud](nextcloud/index.md),
+[GitLab](gitlab/index.md), [Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
 
@@ -20,8 +20,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [PHP](php/index.md), [Laravel](laravel/index.md), [Symfony](symfony/index.md), [Python](python/index.md),
 [Django](django/index.md), [FastAPI](fastapi/index.md), [Flask](flask/index.md), [Ruby](ruby/index.md),
 [Rails](rails/index.md), [Go](go/index.md), [Rust](rust/index.md), [Java](java/index.md),
-[Spring Boot](spring-boot/index.md), [ASP.NET Core](aspnetcore/index.md), [Node.js](node/index.md),
-[Next.js](nextjs/index.md), [TanStack Start](tanstack-start/index.md)
+[Spring Boot](spring-boot/index.md), [Kotlin](kotlin/index.md), [ASP.NET Core](aspnetcore/index.md),
+[Node.js](node/index.md), [Next.js](nextjs/index.md), [TanStack Start](tanstack-start/index.md)
 
 ## Backend platforms
 
