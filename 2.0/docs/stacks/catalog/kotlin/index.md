@@ -30,9 +30,12 @@ To use a managed database instead of the PostgreSQL container, see [Managed data
   [Shadow plugin](https://gradleup.com/shadow/), set the shadow jar's classifier to empty, the plain jar's to `plain`,
   and call `mergeServiceFiles()`, as the boilerplate does. Ktor's Gradle plugin can build such a jar with
   `buildFatJar`.
-- A Dockerfile from your repository replaces the service's, for example for a build that makes several jars. Its last
-  stage must start from the service image and run `java-app`, as in the boilerplate. See
-  [Application builds](../../../apps/builds.md).
+- When the build leaves several jars, such as in a multi-project build, add a
+  [build variable](../../../apps/environment-variables.md#runtime-and-build-variables) `JAVA_BUILD_JAR` to the app
+  service with the path of the one to run, such as `server/build/libs/server-all.jar`. A development workspace builds
+  at runtime, so give the variable the runtime scope too.
+- A Dockerfile from your repository replaces the service's. Its last stage must start from the service image and run
+  `java-app`, as in the boilerplate. See [Application builds](../../../apps/builds.md).
 - The application must listen on port `8080` on all interfaces. Wodby sets no `PORT` variable in a deployed
   environment, so default to `8080` in the code. With Ktor's `embeddedServer`, pass `host = "0.0.0.0"`.
 - The JVM's heap follows the container's memory limit: `JAVA_OPTS` on the app service defaults to
