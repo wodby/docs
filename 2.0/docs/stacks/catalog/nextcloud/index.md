@@ -58,18 +58,21 @@ Without the OpenSMTPD link, set up an email server in Nextcloud under **Administ
 
 ## Uploads and timeouts
 
-By default, the Nextcloud domain accepts request bodies up to 3 GiB, and its request and backend timeouts are one hour.
-The **PHP upload limit** setting is `3G`, and the **Apache request body limit** setting is `0`, which means no Apache
-limit. Nextcloud clients normally upload large files in smaller parts, so these limits apply to each part.
+The Nextcloud domain passes uploads through to Nextcloud as they arrive, and its request and backend timeouts are one
+hour. The **PHP upload limit** setting is `3G`, and the **Apache request body limit** setting is `0`, which means no
+Apache limit. Nextcloud clients normally upload large files in smaller parts, so these limits apply to each part.
 
-To accept larger single requests, raise the `request_body_size` [HTTP setting](../../../apps/endpoints.md#http-settings)
-and **PHP upload limit** together, then deploy the Nextcloud service. **PHP memory limit** is `512M` by default.
+To accept larger single requests, raise the **PHP upload limit**, then deploy the Nextcloud service. Do not set the
+`request_body_size` [HTTP setting](../../../apps/endpoints.md#http-settings) on the Nextcloud domain: it makes the
+route hold each upload in memory until it is complete. **PHP memory limit** is `512M` by default.
 
 ## Caching
 
 Nextcloud keeps a local cache in its own container and uses Redis for the shared cache, file locking, and browser
-sessions. In this stack, Redis has no volume and keeps nothing on disk. When Redis restarts or is deployed, its data is
-cleared, and people signed in through the browser may need to sign in again. See the [Redis guide](../redis/index.md).
+sessions. In this stack, Redis has no volume and keeps nothing on disk. It can use up to 512 MB of memory and never
+removes keys to free memory, so file locks and sessions are not lost while Redis runs. When Redis restarts or is
+deployed, its data is cleared, and people signed in through the browser may need to sign in again. See the [Redis
+guide](../redis/index.md).
 
 ## Object storage for files
 
@@ -125,7 +128,8 @@ set a new password for an account.
 
 Nextcloud upgrades itself when it starts with a newer version, for example after you change the version on the
 [General configuration](../../../apps/services.md#general-configuration) tab or after a stack update. Nextcloud's
-built-in web updater is turned off.
+built-in web updater is turned off. The upgrade runs before Nextcloud serves requests, and Wodby gives it about 15
+minutes before the container is restarted.
 
 - Back up before you upgrade.
 - Upgrade one major version at a time, for example from 33 to 34. If you skip a major version, Nextcloud does not start.

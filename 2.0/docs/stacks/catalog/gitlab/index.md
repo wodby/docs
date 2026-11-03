@@ -184,7 +184,8 @@ Incoming email, such as replying to notifications by email, is disabled.
 
 - Git repositories and wikis are on the GitLab `repositories` volume (50 GB by default).
 - Database data is on the PostgreSQL volume (20 GB by default).
-- Valkey keeps its data on a 10 GB volume with persistence on.
+- Valkey keeps its data on a 10 GB volume with persistence on. It can use up to 1 GB of memory and never removes keys
+  to free memory, because it holds GitLab's background jobs and sessions.
 - Artifacts, LFS objects, uploads, packages, and Registry images are in your object storage.
 
 GitLab creates a backup archive every day at 01:00 in the cluster's time zone and uploads it to the backups bucket. The
