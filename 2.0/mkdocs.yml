@@ -296,6 +296,7 @@ nav:
               - Ruby: stacks/catalog/ruby/index.md
               - Rails: stacks/catalog/rails/index.md
               - Go: stacks/catalog/go/index.md
+              - Rust: stacks/catalog/rust/index.md
               - ASP.NET Core: stacks/catalog/aspnetcore/index.md
               - Node.js: stacks/catalog/node/index.md
               - Next.js: stacks/catalog/nextjs/index.md
