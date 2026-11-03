@@ -299,6 +299,7 @@ nav:
               - ASP.NET Core: stacks/catalog/aspnetcore/index.md
               - Node.js: stacks/catalog/node/index.md
               - Next.js: stacks/catalog/nextjs/index.md
+              - TanStack Start: stacks/catalog/tanstack-start/index.md
           - Backend platforms:
               - Supabase: stacks/catalog/supabase/index.md
           - Databases:
