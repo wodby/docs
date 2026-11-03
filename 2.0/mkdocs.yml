@@ -288,6 +288,7 @@ nav:
               - Vue: stacks/catalog/vue/index.md
               - PHP: stacks/catalog/php/index.md
               - Laravel: stacks/catalog/laravel/index.md
+              - Symfony: stacks/catalog/symfony/index.md
               - Python: stacks/catalog/python/index.md
               - Django: stacks/catalog/django/index.md
               - FastAPI: stacks/catalog/fastapi/index.md
