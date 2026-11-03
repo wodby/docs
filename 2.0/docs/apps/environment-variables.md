@@ -90,6 +90,10 @@ Wodby adds the following runtime-only variables to every app-service container:
 | `WODBY_PRIMARY_HOST` | Protected primary hostname when App Access is configured; otherwise the enabled `Main` route hostname |
 | `WODBY_PRIMARY_URL` | URL for `WODBY_PRIMARY_HOST`; protected App Access URLs use `https` |
 
+`WODBY_HOSTS`, `WODBY_PRIMARY_HOST`, and `WODBY_PRIMARY_URL` are set in containers that Wodby builds and in containers
+whose service asks for them with [`routeMetadata`](../services/workloads.md#route-hostnames). Databases, caches, and
+other ready-made services don't receive them.
+
 `WODBY_PRIMARY_HOST` and `WODBY_PRIMARY_URL` are present only when the app environment has a primary hostname. During an
 [App Access](access.md#primary-hostname) change, `WODBY_HOSTS` can temporarily contain both current and desired
 hostnames so the workload continues accepting traffic throughout the transition.
