@@ -18,8 +18,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [HTML](html/index.md), [Angular](angular/index.md), [React](react/index.md), [Vue](vue/index.md),
 [PHP](php/index.md), [Laravel](laravel/index.md), [Python](python/index.md), [Django](django/index.md),
 [FastAPI](fastapi/index.md), [Flask](flask/index.md), [Ruby](ruby/index.md), [Rails](rails/index.md),
-[Go](go/index.md), [ASP.NET Core](aspnetcore/index.md), [Node.js](node/index.md), [Next.js](nextjs/index.md),
-[TanStack Start](tanstack-start/index.md)
+[Go](go/index.md), [Rust](rust/index.md), [ASP.NET Core](aspnetcore/index.md), [Node.js](node/index.md),
+[Next.js](nextjs/index.md), [TanStack Start](tanstack-start/index.md)
 
 ## Backend platforms
 
