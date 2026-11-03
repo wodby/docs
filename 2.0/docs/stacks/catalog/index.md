@@ -10,8 +10,9 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 ## Application stacks
 
 [Drupal](drupal/index.md) ([connect to Solr](drupal/solr.md)), [WordPress](wordpress/index.md),
-[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Discourse](discourse/index.md), [Chatwoot](chatwoot/index.md),
-[Mattermost](mattermost/index.md), [Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
+[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Moodle](moodle/index.md), [Discourse](discourse/index.md),
+[Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md), [Dagster](dagster/index.md),
+[Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
 
