@@ -167,6 +167,13 @@ Available when the current app-service context exposes a database.
 - `database.host`: database hostname. This is private when accessed through an app service with a private database user, otherwise public
 - `database.port`: database connection port. This is private when available, otherwise public
 - `database.driver`: database driver, based on the database kind
+- `database.url`: connection URL that includes the username and password, such as
+  `postgresql://user:password@host:5432/db`. MariaDB and MySQL use the `mysql` scheme. Mark environment variables that
+  use it `secret: true`
+- `database.jdbcUrl`: JDBC URL for Java applications, such as `jdbc:postgresql://host:5432/db`. It starts with
+  `jdbc:postgresql:`, `jdbc:mariadb:` or `jdbc:mysql:`, matching the database kind, and does not include the username or
+  password: pass `database.user.name` and `database.user.password` separately. Not available for MongoDB. No TLS
+  settings are added; for a MariaDB server that requires TLS, add `sslMode` to the URL in the application
 - `database.ssl`: `true` when Wodby connects to the database server with TLS, otherwise `false`
 - `database.root.name`: database superuser username
 - `database.root.password`: database superuser password
