@@ -11,7 +11,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 
 [Drupal](drupal/index.md) ([connect to Solr](drupal/solr.md)), [WordPress](wordpress/index.md),
 [Ghost](ghost/index.md), [Matomo](matomo/index.md), [Discourse](discourse/index.md), [Chatwoot](chatwoot/index.md),
-[Mattermost](mattermost/index.md), [Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
+[Mattermost](mattermost/index.md), [Nextcloud](nextcloud/index.md), [GitLab](gitlab/index.md),
+[Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
 
@@ -30,7 +31,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 
 [MariaDB](mariadb/index.md), [MySQL](mysql/index.md), [PostgreSQL](postgres/index.md), [PostGIS](postgis/index.md),
 [Cloud MySQL](cloud-mysql/index.md), [Cloud MariaDB](cloud-mariadb/index.md),
-[Cloud PostgreSQL](cloud-postgres/index.md)
+[Cloud PostgreSQL](cloud-postgres/index.md), [MongoDB](mongodb/index.md)
 
 ## Data, messaging and search
 
@@ -43,7 +44,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 
 [Mailpit](mailpit/index.md), [OpenSMTPD](opensmtpd/index.md), [Gotenberg](gotenberg/index.md),
 [Tailscale](tailscale/index.md), [3X UI](3xui/index.md), [FRP Server](frps/index.md), [RustDesk Server](rustdesk/index.md),
-[OpenClaw](openclaw/index.md)
+[OpenClaw](openclaw/index.md), [T3 Code](t3code/index.md)
 
 ## Identity and access
 
