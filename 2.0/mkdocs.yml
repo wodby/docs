@@ -334,6 +334,7 @@ nav:
               - Tailscale: stacks/catalog/tailscale/index.md
               - 3X UI: stacks/catalog/3xui/index.md
               - FRP Server: stacks/catalog/frps/index.md
+              - RustDesk Server: stacks/catalog/rustdesk/index.md
               - OpenClaw: stacks/catalog/openclaw/index.md
           - Identity and access:
               - Keycloak: stacks/catalog/keycloak/index.md
