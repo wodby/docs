@@ -447,6 +447,11 @@ detected capabilities under `Clusters > [Cluster] > Infrastructure > Operations`
 
 Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`. The first available port in that range is used.
 
+On [K3S](../clusters/k3s.md) clusters and [single-node clusters](../clusters/managed.md#single-node-clusters), a TCP port
+and a UDP port can share a public port number, which software such as a RustDesk server needs. When you publish a port
+whose counterpart on the same endpoint, with the same port number and the other protocol, is already published, it gets
+the same public port. On other clusters, every published port gets its own number.
+
 On regular managed Kubernetes clusters, published ports are exposed through the cluster load balancer. In single-node managed clusters that use direct node traffic instead of a load balancer, Wodby manages the node firewall rules for this published-port range.
 
 When a port is published, the dashboard shows the assigned public port. For SSHD services, it also shows ready-to-use `ssh`, `sftp`, and `scp` command examples based on the app environment main route.
