@@ -184,6 +184,8 @@ Each `workloads[].containers[]` item supports:
 - `name`: required pod container name
 - `image`: optional runtime image reference
 - `build`: optional boolean for build target containers
+- `routeMetadata`: optional boolean that passes the app environment's hostnames to a container that is not a build
+  target
 - `hostname`: optional container hostname
 - `env`: optional container-scoped env vars
 - `resources`: optional container-scoped resources
@@ -200,6 +202,25 @@ Services with build configuration mark target containers with `build: true`.
 - Multiple containers can be marked only when they are intended to receive the same built image.
 
 See also: [Service build](build.md).
+
+### Route hostnames
+
+Build target containers receive the app environment's hostnames in
+[`WODBY_HOSTS`, `WODBY_PRIMARY_HOST`, and `WODBY_PRIMARY_URL`](../apps/environment-variables.md#system-environment-variables).
+Other containers do not, so adding a domain doesn't affect databases, caches, and similar services.
+
+Set `routeMetadata: true` on a container that runs a ready-made application image and needs these variables, for
+example to build a trusted host list:
+
+```yaml
+containers:
+- name: nextcloud
+  image: docker.io/library/nextcloud
+  routeMetadata: true
+```
+
+When a domain or [App Access](../apps/access.md) hostname is added, removed, or made primary, Wodby marks services with
+such a container as needing a redeploy, the same as services with build targets.
 
 ## Helm mappings
 
