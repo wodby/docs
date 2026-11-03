@@ -131,6 +131,19 @@ Type: `string`.
 
 Icon name shown in the Wodby dashboard.
 
+### `docs`
+
+Type: `string`. Optional.
+
+HTTPS address of a guide to the stack: how its services work together, which optional services to enable, and what
+the application's code must do. AI agents that work on an app environment created from the stack, such as
+[Wodby Agent](../apps/wodby-agent.md), get the address and read the guide before changing how the application is set
+up. A copy of the stack in another organization or project uses the guide of the stack it was copied from.
+
+```yaml
+docs: https://wodby.com/docs/2.0/stacks/catalog/go/
+```
+
 ### `access`
 
 Type: `object`.

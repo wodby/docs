@@ -38,7 +38,7 @@ These tools require `mcp:read` when using OAuth.
 | `list_app_services` | List services for an app environment by app environment ID or the legacy organization/app/instance-name arguments. |
 | `get_app_service` | Get an app service by ID. |
 | `get_app_service_configuration` | Read how an app service is configured next to what its service allows: running and available versions, where its code is built from, settings, config file overrides, links, integrations, and volumes. Values of secret settings are not returned. |
-| `get_service_guidance` | Read what the services of an app environment generate and wire for the application, such as settings files and connections to linked databases, caches, search, mail and file storage, and what the code still has to do. |
+| `get_service_guidance` | Read what the services of an app environment generate and wire for the application, such as settings files and connections to linked databases, caches, search, mail and file storage, and what the code still has to do. Also names the environment's stack and the address of its guide, when the stack has one. |
 | `list_app_service_env_vars` | List an app service's environment variables and where each comes from: the app service, the service, the stack, a setting, a link or an integration. Secret values are not returned. |
 | `get_app_service_resources` | Get an app service's replica count and each container's CPU and memory requests and limits. |
 | `list_app_routes` | List an app environment's domains, the service and port each leads to, whether a certificate is attached, and whether the domain's DNS reaches the cluster. |
