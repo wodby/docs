@@ -280,6 +280,8 @@ nav:
               - Discourse: stacks/catalog/discourse/index.md
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
+              - Nextcloud: stacks/catalog/nextcloud/index.md
+              - GitLab: stacks/catalog/gitlab/index.md
               - Dagster: stacks/catalog/dagster/index.md
               - Slack Inviter: stacks/catalog/slack-inviter/index.md
           - Framework stacks:
@@ -315,6 +317,7 @@ nav:
               - Cloud MySQL: stacks/catalog/cloud-mysql/index.md
               - Cloud MariaDB: stacks/catalog/cloud-mariadb/index.md
               - Cloud PostgreSQL: stacks/catalog/cloud-postgres/index.md
+              - MongoDB: stacks/catalog/mongodb/index.md
           - Data, messaging and search:
               - Valkey: stacks/catalog/valkey/index.md
               - Redis: stacks/catalog/redis/index.md
@@ -338,6 +341,7 @@ nav:
               - FRP Server: stacks/catalog/frps/index.md
               - RustDesk Server: stacks/catalog/rustdesk/index.md
               - OpenClaw: stacks/catalog/openclaw/index.md
+              - T3 Code: stacks/catalog/t3code/index.md
           - Identity and access:
               - Keycloak: stacks/catalog/keycloak/index.md
           - AI inference:
