@@ -10,16 +10,18 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 ## Application stacks
 
 [Drupal](drupal/index.md) ([connect to Solr](drupal/solr.md)), [WordPress](wordpress/index.md),
-[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Discourse](discourse/index.md), [Chatwoot](chatwoot/index.md),
-[Mattermost](mattermost/index.md), [Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
+[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Moodle](moodle/index.md), [Discourse](discourse/index.md),
+[Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md), [Dagster](dagster/index.md),
+[Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
 
 [HTML](html/index.md), [Angular](angular/index.md), [React](react/index.md), [Vue](vue/index.md),
-[PHP](php/index.md), [Laravel](laravel/index.md), [Python](python/index.md), [Django](django/index.md),
-[FastAPI](fastapi/index.md), [Flask](flask/index.md), [Ruby](ruby/index.md), [Rails](rails/index.md),
-[Go](go/index.md), [Kotlin](kotlin/index.md), [ASP.NET Core](aspnetcore/index.md), [Node.js](node/index.md),
-[Next.js](nextjs/index.md)
+[PHP](php/index.md), [Laravel](laravel/index.md), [Symfony](symfony/index.md), [Python](python/index.md),
+[Django](django/index.md), [FastAPI](fastapi/index.md), [Flask](flask/index.md), [Ruby](ruby/index.md),
+[Rails](rails/index.md), [Go](go/index.md), [Rust](rust/index.md), [Java](java/index.md),
+[Spring Boot](spring-boot/index.md), [Kotlin](kotlin/index.md), [ASP.NET Core](aspnetcore/index.md),
+[Node.js](node/index.md), [Next.js](nextjs/index.md), [TanStack Start](tanstack-start/index.md)
 
 ## Backend platforms
 
@@ -41,7 +43,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 ## Utilities and integrations
 
 [Mailpit](mailpit/index.md), [OpenSMTPD](opensmtpd/index.md), [Gotenberg](gotenberg/index.md),
-[Tailscale](tailscale/index.md), [3X UI](3xui/index.md), [FRP Server](frps/index.md), [OpenClaw](openclaw/index.md)
+[Tailscale](tailscale/index.md), [3X UI](3xui/index.md), [FRP Server](frps/index.md), [RustDesk Server](rustdesk/index.md),
+[OpenClaw](openclaw/index.md)
 
 ## Identity and access
 

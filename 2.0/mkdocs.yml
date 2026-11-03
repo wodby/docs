@@ -276,6 +276,7 @@ nav:
               - WordPress: stacks/catalog/wordpress/index.md
               - Ghost: stacks/catalog/ghost/index.md
               - Matomo: stacks/catalog/matomo/index.md
+              - Moodle: stacks/catalog/moodle/index.md
               - Discourse: stacks/catalog/discourse/index.md
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
@@ -288,6 +289,7 @@ nav:
               - Vue: stacks/catalog/vue/index.md
               - PHP: stacks/catalog/php/index.md
               - Laravel: stacks/catalog/laravel/index.md
+              - Symfony: stacks/catalog/symfony/index.md
               - Python: stacks/catalog/python/index.md
               - Django: stacks/catalog/django/index.md
               - FastAPI: stacks/catalog/fastapi/index.md
@@ -295,10 +297,14 @@ nav:
               - Ruby: stacks/catalog/ruby/index.md
               - Rails: stacks/catalog/rails/index.md
               - Go: stacks/catalog/go/index.md
+              - Rust: stacks/catalog/rust/index.md
+              - Java: stacks/catalog/java/index.md
+              - Spring Boot: stacks/catalog/spring-boot/index.md
               - Kotlin: stacks/catalog/kotlin/index.md
               - ASP.NET Core: stacks/catalog/aspnetcore/index.md
               - Node.js: stacks/catalog/node/index.md
               - Next.js: stacks/catalog/nextjs/index.md
+              - TanStack Start: stacks/catalog/tanstack-start/index.md
           - Backend platforms:
               - Supabase: stacks/catalog/supabase/index.md
           - Databases:
@@ -330,6 +336,7 @@ nav:
               - Tailscale: stacks/catalog/tailscale/index.md
               - 3X UI: stacks/catalog/3xui/index.md
               - FRP Server: stacks/catalog/frps/index.md
+              - RustDesk Server: stacks/catalog/rustdesk/index.md
               - OpenClaw: stacks/catalog/openclaw/index.md
           - Identity and access:
               - Keycloak: stacks/catalog/keycloak/index.md
