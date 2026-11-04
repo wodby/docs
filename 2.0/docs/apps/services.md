@@ -332,6 +332,10 @@ An app override takes precedence over the displayed default. Use `Reset override
 config, resetting means the next deployment stops mounting the override and the container uses the file supplied by its
 image; Wodby does not save a copy of the image default as another override.
 
+A changed or reset config takes effect when you deploy the app service. If Wodby mounts the config as a file in the
+container, that deployment restarts the service's pods so the application reads the new file. A config that Wodby passes
+to the service's Helm chart takes effect the way that chart applies it.
+
 ## Tokens tab
 
 The `Configuration > Tokens` subtab lets you add or remove [tokens](tokens.md) that can be used in environment
