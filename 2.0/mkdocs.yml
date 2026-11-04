@@ -218,7 +218,7 @@ nav:
       - Web terminal: apps/web-terminal.md
       - Endpoints: apps/endpoints.md
       - Certificate troubleshooting: apps/certificate-troubleshooting.md
-      - Access: apps/access.md
+      - Private App Access: apps/access.md
       - Builds: apps/builds.md
       - Vulnerability scanning: apps/vulnerability-scanning.md
       - Deploys: apps/deploys.md
@@ -423,7 +423,7 @@ nav:
           - Resend: providers/resend.md
           - SendGrid: providers/sendgrid.md
           - Custom SMTP: providers/custom-smtp.md
-      - Application Access:
+      - Private App Access:
           - Overview: providers/access.md
           - Cloudflare: providers/cloudflare.md
           - Tailscale: providers/tailscale.md

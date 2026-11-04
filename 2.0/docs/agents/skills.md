@@ -15,7 +15,7 @@ permissions, user approval, or checking the connected server's current input sch
 | `wodby2-service` | Reuse or author and validate a service definition. |
 | `wodby2-stack` | Compose services into a stack and validate it, or bring an existing stack up to date from its origin, its Git source, or newer service revisions. |
 | `wodby2-provider` | Reuse an integration contract or validate a custom variable-provider manifest. |
-| `wodby2-environment` | Configure and operate an existing app environment: environment variables, CPU, memory and replicas, cron schedules, domains and certificates, basic auth and App Access, moving to another cluster, pausing, resuming and maintenance mode, a service's version and code branch, and stack upgrades. |
+| `wodby2-environment` | Configure and operate an existing app environment: environment variables, CPU, memory and replicas, cron schedules, domains and certificates, basic auth and Private App Access, moving to another cluster, pausing, resuming and maintenance mode, a service's version and code branch, and stack upgrades. |
 | `wodby2-connect` | Connect application code to the services Wodby runs for it, such as a database, cache, search, mail or file storage, using what Wodby already sets up instead of adding settings to the code. |
 | `wodby2-ci` | Create or repair a repository's Wodby CI pipeline and post-deployment scripts, validate both, and follow the first build. Also covers running the same steps in GitHub Actions, GitLab CI or CircleCI. |
 | `wodby2-data` | Protect and move data: backup destinations and schedules, taking, verifying and restoring backups, importing dumps or files, copying data between environments, and standalone databases. |

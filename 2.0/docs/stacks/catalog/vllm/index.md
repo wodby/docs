@@ -10,8 +10,8 @@ production use.
 
 - **GPU capacity.** The cluster needs GPU nodes that vLLM can use. Each replica requests one GPU and runs only on Linux
   amd64 nodes. See [GPU node pools](../../../clusters/gpu.md) for the supported managed clusters.
-- **Private access.** The stack requires [Application Access](../../../apps/access.md) with the Private network type
-  for the entire app. Select a compatible Application Access integration when you create the app. This needs an active
+- **Private access.** The stack requires [Private App Access](../../../apps/access.md) with the Private network type
+  for the entire app. Select a compatible Private App Access integration when you create the app. This needs an active
   paid subscription and a cluster that uses managed app routing. vLLM's API key does not protect all of its management
   and metrics routes, so the stack does not publish a public route.
 
@@ -34,7 +34,7 @@ Raise the app service's CPU and memory resources for a larger model.
 
 ## Call the API
 
-Use the private address that Application Access reports for the app, with `/v1` appended. Services in the same
+Use the private address that Private App Access reports for the app, with `/v1` appended. Services in the same
 environment can use `http://<app service name>:8000/v1`.
 
 Open the vLLM app service's **Configuration > Tokens** tab and reveal `api_key`. Clients send it as a Bearer token.

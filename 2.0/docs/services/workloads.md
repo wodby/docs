@@ -219,8 +219,8 @@ containers:
   routeMetadata: true
 ```
 
-When a domain or [App Access](../apps/access.md) hostname is added, removed, or made primary, Wodby marks services with
-such a container as needing a redeploy, the same as services with build targets.
+When a domain or [Private App Access](../apps/access.md) hostname is added, removed, or made primary, Wodby marks
+services with such a container as needing a redeploy, the same as services with build targets.
 
 ## Helm mappings
 

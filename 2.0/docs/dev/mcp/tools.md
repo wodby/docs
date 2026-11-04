@@ -45,8 +45,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_app_route_settings` | Read HTTP route settings such as HTTPS redirect, HSTS, request size, timeouts, and rate limits, for an environment's defaults or the values in effect for one domain. Available on clusters that use Envoy Gateway. |
 | `list_app_ports` | List an app environment's service ports: protocol, internal number, whether the service marks it private, and the public port when it is published. |
 | `list_app_auths` | List an app environment's HTTP basic authentication entries with their scope, username, and realm. Passwords are never returned. |
-| `get_app_environment_access` | Read whether an app environment is Public or Protected, its App Access configuration, and the HTTP ports App Access endpoints can point at. |
-| `get_app_access_provider_options` | Read what an Application Access integration offers before you configure App Access with it: access types, scopes, hostnames, and required settings. |
+| `get_app_environment_access` | Read whether an app environment is Public or Protected, its Private App Access configuration, and the HTTP ports Private App Access endpoints can point at. |
+| `get_app_access_provider_options` | Read what a Private App Access integration offers before you configure Private App Access with it: access types, scopes, hostnames, and required settings. |
 | `list_app_environment_migrations` | List an app environment's moves to other clusters, newest first, with status, phase, failure message, when the retained source will be deleted, and the backup and restore of each data service. |
 | `get_app_environment_stack_upgrade_changelog` | Preview what `upgrade_app_environment_stack` would change: stack versions and, per service, whether it is added, removed, or changes version, with release notes. An empty result means the environment already runs the newest revision. |
 | `list_app_service_cron_schedules` | List cron schedules for an app environment or app service by IDs or by the legacy organization/app/instance-name/service arguments. |
@@ -137,7 +137,7 @@ These tools require `mcp:operate` when using OAuth.
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
 | `retry_app_route_certificate` | Request a domain's Let's Encrypt certificate again, for example after fixing its DNS. A certificate is issued only once the domain's DNS reaches the cluster, so retrying before that fails again. |
-| `retry_app_access_cleanup` | Repeat the cleanup left over from removed App Access, such as Cloudflare or Tailscale resources Wodby could not delete. The failed removal's task gives the cleanup ID. |
+| `retry_app_access_cleanup` | Repeat the cleanup left over from removed Private App Access, such as Cloudflare or Tailscale resources Wodby could not delete. The failed removal's task gives the cleanup ID. |
 | `verify_wodby1_migration` | Once you have tested the migrated app on its technical domains and pointed DNS to Wodby 2, check DNS, configuration, imports, routes, certificates and workloads, and turn on the migrated cron schedules. A verified migration can no longer be rolled back. |
 
 ## Container command tools
@@ -262,9 +262,9 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `delete_backup_preset` | Delete a backup preset, so its scheduled backups stop. Backups it already made are kept. |
 | `delete_app_route` | Remove a route from an app environment, so its domain stops reaching the app. To stop serving a domain for a while, turn it off with `update_app_route` instead. |
 | `publish_app_port` | Make a non-HTTP port, such as SSH or a database's TCP port, reachable from the internet on a public port Wodby assigns. Anyone on the internet can then reach it, so publish only what has its own authentication, and prefer a private network for databases. Private and HTTP ports can't be published. Publishing may redeploy the cluster's gateway first. |
-| `create_app_access` | Make an app environment Protected by publishing it through an Application Access integration or a private network. Public routes in the scope stop serving visitors at once. The access type can't be changed later. Requires a paid subscription. |
-| `update_app_access` | Change an app environment's App Access scope, provider settings, or endpoints. Routes leaving the scope become public, and routes entering it stop serving the public. |
-| `delete_app_access` | Make an app environment Public again: remove its App Access, delete the provider's resources, and restore its public routes, which anyone can then reach. |
+| `create_app_access` | Make an app environment Protected by publishing it through a Private App Access integration or a private network. Public routes in the scope stop serving visitors at once. The access type can't be changed later. Requires a paid subscription. |
+| `update_app_access` | Change an app environment's Private App Access scope, provider settings, or endpoints. Routes leaving the scope become public, and routes entering it stop serving the public. |
+| `delete_app_access` | Make an app environment Public again: remove its Private App Access, delete the provider's resources, and restore its public routes, which anyone can then reach. |
 | `delete_app_auth` | Remove a basic auth entry. What it protected becomes reachable without a password, unless a broader entry still covers it. |
 | `delete_database` | Delete a database. |
 | `delete_database_db` | Delete a DB inside a database. |
@@ -280,7 +280,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
 | `reconcile_app_environment_stack` | Reapply an app environment's assigned stack revision, optionally replace existing choices with stack defaults, and rebuild or redeploy all resulting services. |
 | `upgrade_app_environment_stack` | Upgrade an app environment to its latest stack revision. Preview it first with `get_app_environment_stack_upgrade_changelog`. Optional settings can replace your existing choices with stack defaults, and the environment's main service always follows the stack. |
-| `migrate_app_environment` | Move an app environment and its persistent data to another cluster of the organization. The environment is unavailable while its data is backed up, restored on the target and deployed, so plan a maintenance window. The environment must be OK with an active deployment and not in maintenance mode, without App Access, private or custom routes, or published TCP/UDP ports. Both clusters must be OK, every data service needs backup and import operations, every built service an active build, and the final backups use Wodby Blob Storage, which needs a paid subscription. Wodby keeps the stopped source for seven days. |
+| `migrate_app_environment` | Move an app environment and its persistent data to another cluster of the organization. The environment is unavailable while its data is backed up, restored on the target and deployed, so plan a maintenance window. The environment must be OK with an active deployment and not in maintenance mode, without Private App Access, private or custom routes, or published TCP/UDP ports. Both clusters must be OK, every data service needs backup and import operations, every built service an active build, and the final backups use Wodby Blob Storage, which needs a paid subscription. Wodby keeps the stopped source for seven days. |
 | `rollback_app_environment_migration` | Restore an app environment on its source cluster after a migration that failed and whose automatic recovery did not finish. Fix the underlying cluster, storage, or deployment problem first. A completed migration can't be rolled back. |
 | `cleanup_app_environment_migration` | Permanently delete the stopped source an app environment left on its old cluster after a completed migration, before the seven-day retention ends. The migration backups stay. |
 | `upgrade_cluster_infra` | Upgrade cluster infrastructure. |

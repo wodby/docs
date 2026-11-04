@@ -1,14 +1,14 @@
-# App access
+# Private App Access
 
-App access controls whether an app environment is published through ordinary Wodby routes or through a supported access
-provider. It applies to HTTP endpoints and is configured independently for each app environment.
+Private App Access controls whether an app environment is published through ordinary Wodby routes or through a supported
+access provider. It applies to HTTP endpoints and is configured independently for each app environment.
 
 ## Availability
 
-Application Access requires an active paid subscription. Organizations on the free Developer plan can create apps in
+Private App Access requires an active paid subscription. Organizations on the free Developer plan can create apps in
 `Public` mode, but `Protected` mode is unavailable until the organization upgrades.
 
-Before scheduling a downgrade to Developer, remove Application Access from every app environment. If paid access becomes
+Before scheduling a downgrade to Developer, remove Private App Access from every app environment. If paid access becomes
 unavailable while an existing configuration remains, its protection stays active and readable, but it cannot be
 changed. You can still remove it, and Wodby can still finish provider cleanup.
 
@@ -17,15 +17,15 @@ changed. You can still remove it, and Wodby can still finish provider cleanup.
 The app creation form offers two modes:
 
 - `Public` is the default. Wodby publishes enabled HTTP routes normally.
-- `Protected` uses an [Application Access integration](../providers/access.md). The provider supplies either protected
+- `Protected` uses a [Private App Access integration](../providers/access.md). The provider supplies either protected
   publishing or private-network routing for the selected endpoints, and Wodby suppresses the corresponding public
   routes.
 
 Some stacks require Protected mode. The stack can also require an access type and scope, and can optionally restrict
-the provider. In that case the required choices cannot be changed and you must select a compatible Application Access
+the provider. In that case the required choices cannot be changed and you must select a compatible Private App Access
 integration before creating the app.
 
-Protected mode requires an active Application Access integration, an enabled HTTP endpoint, and a cluster that uses
+Protected mode requires an active Private App Access integration, an enabled HTTP endpoint, and a cluster that uses
 managed app routing.
 
 A standalone Tailscale Node is not an Access mode. It remains an app service for cases where the node itself is the
@@ -62,10 +62,10 @@ or disabling an app service automatically reconciles this address inventory afte
 
 For example, a Drupal stack can receive one Access address for Drupal and another for Mailpit when both expose external
 HTTP routes. Routes with different paths or aliases that target the same app port share one Access address.
-A database or other service that only exposes a private or non-HTTP port does not receive an App Access address.
+A database or other service that only exposes a private or non-HTTP port does not receive a Private App Access address.
 
 An app with published public TCP or UDP ports cannot switch to Entire app access until those ports are unpublished.
-Application Access protects HTTP endpoints; it does not place arbitrary TCP or UDP ports behind an identity proxy.
+Private App Access protects HTTP endpoints; it does not place arbitrary TCP or UDP ports behind an identity proxy.
 
 ### Selected endpoints
 
@@ -128,7 +128,7 @@ apex because the apex may already serve another site.
 Cloudflare Private network reuses the Wodby technical hostname for each selected endpoint. Tailscale assigns the
 hostname from the app and tailnet names. Neither private-network type shows a hostname field.
 
-Wodby does not offer `*.trycloudflare.com` addresses for App Access. Cloudflare Quick Tunnels assign a random,
+Wodby does not offer `*.trycloudflare.com` addresses for Private App Access. Cloudflare Quick Tunnels assign a random,
 temporary hostname and are intended for testing and development without an uptime guarantee. Wodby uses a managed,
 persistent Tunnel instead. Protected publishing uses stable hostnames in a customer-owned Cloudflare zone; Private
 network access reuses stable Wodby technical hostnames. See
@@ -143,12 +143,12 @@ now routed privately through Cloudflare One instead of published by Wodby's publ
 port share that address. For Selected endpoints scope, routes for unselected endpoints remain public.
 
 The `private` flag in a service definition is different. It prevents a port from being published through public Wodby
-routing, but it does not create a Cloudflare or Tailscale address. Application Access is the explicit app environment
+routing, but it does not create a Cloudflare or Tailscale address. Private App Access is the explicit app environment
 setting that asks a provider to publish an eligible HTTP endpoint.
 
 ### Published TCP and UDP ports
 
-Published ports use the cluster's public gateway and are outside the Application Access connector. They do not receive
+Published ports use the cluster's public gateway and are outside the Private App Access connector. They do not receive
 a Cloudflare or Tailscale hostname or inherit an identity or private-network policy.
 
 - With Entire app scope, Wodby requires existing published ports to be unpublished and prevents publishing new ones
@@ -157,8 +157,8 @@ a Cloudflare or Tailscale hostname or inherit an identity or private-network pol
   by the Access provider.
 - An unpublished non-HTTP port remains reachable only through internal Kubernetes networking.
 
-Use [Publishing ports](endpoints.md#publishing-ports) for public TCP or UDP exposure. App Access endpoint selection
-contains HTTP destinations only.
+Use [Publishing ports](endpoints.md#publishing-ports) for public TCP or UDP exposure. Private App Access endpoint
+selection contains HTTP destinations only.
 
 ## Providers
 
@@ -178,15 +178,16 @@ before creating the replacement resources.
 
 ## Resource cleanup
 
-Wodby records the provider resources it creates so cleanup can continue even after App Access or the app environment has
-been removed. Cleanup also runs after an initial access setup fails, before that configuration can be retried.
+Wodby records the provider resources it creates so cleanup can continue even after Private App Access or the app
+environment has been removed. Cleanup also runs after an initial access setup fails, before that configuration can be
+retried.
 
-Removing App Access restores the matching Wodby public routes first. Deleting an app environment removes its workloads
-first so an access connector cannot continue reaching the app while provider policy is being removed. Wodby then
-removes its connector resources, provider endpoints, credentials, and other managed resources.
+Removing Private App Access restores the matching Wodby public routes first. Deleting an app environment removes its
+workloads first so an access connector cannot continue reaching the app while provider policy is being removed. Wodby
+then removes its connector resources, provider endpoints, credentials, and other managed resources.
 
-A temporary provider or cluster API failure does not prevent app deletion or leave App Access enabled in Wodby. The
-task finishes with a warning, Wodby retains a cleanup obligation, and a separate cleanup task is attempted. You can
+A temporary provider or cluster API failure does not prevent app deletion or leave Private App Access enabled in Wodby.
+The task finishes with a warning, Wodby retains a cleanup obligation, and a separate cleanup task is attempted. You can
 review the warning and select `Retry cleanup` from either:
 
 - `Apps > [App] > [Environment] > Settings > Access`, while the app environment still exists
@@ -204,5 +205,5 @@ customer-managed Tailscale tags and access rules, are never deleted.
 
 - [Endpoints](endpoints.md)
 - [App environments](environments.md)
-- [Application Access providers](../providers/access.md)
+- [Private App Access providers](../providers/access.md)
 - [Integration types](../integrations/types.md)

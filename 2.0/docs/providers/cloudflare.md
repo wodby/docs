@@ -4,7 +4,7 @@ Cloudflare exposes five integration kinds in Wodby:
 
 - **API** (`variable`) injects an Account ID and API token into compatible app services or stacks.
 - **SMTP (Beta)** (`smtp`) relays transactional email through Cloudflare Email Service.
-- **Application Access** (`application_access`) provides protected publishing through Cloudflare Access or
+- **Private App Access** (`application_access`) provides protected publishing through Cloudflare Access or
   private-network access through Cloudflare One.
 - **R2** (`storage`) stores app and database backups in customer-owned Cloudflare R2 buckets.
 - **Turnstile** (`variable`) injects Cloudflare Turnstile keys into app services or stacks.
@@ -80,7 +80,7 @@ Allowing only traffic recognized as a certificate-authority bot is insufficient:
 submitting it for validation. Testing from your own browser can succeed while the automated request is challenged.
 
 For other errors and retry behavior, see [certificate troubleshooting](../apps/certificate-troubleshooting.md). For
-Cloudflare Tunnel hostnames created through Application Access, use the certificate requirements in
+Cloudflare Tunnel hostnames created through Private App Access, use the certificate requirements in
 [Protected access](#protected-access); the public origin HTTP validation steps above describe a different certificate
 path.
 
@@ -156,9 +156,9 @@ When creating a backup or backup preset, select the Cloudflare R2 integration an
 Wodby uploads, restores, and downloads backup objects through R2's S3-compatible API. Download and restore operations
 use expiring provider-signed URLs.
 
-## Application Access
+## Private App Access
 
-One Cloudflare Application Access integration supports both Wodby access types:
+One Cloudflare Private App Access integration supports both Wodby access types:
 
 | Wodby access type | Cloudflare path | Address | User experience |
 | --- | --- | --- | --- |
@@ -198,7 +198,7 @@ mode's full permission check runs when you create an app. Wodby does not request
 ### Configure an app
 
 Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
-Cloudflare Application Access integration, an access type, and whether the scope covers the Entire app or Selected
+Cloudflare Private App Access integration, an access type, and whether the scope covers the Entire app or Selected
 endpoints.
 
 #### Protected access
@@ -267,9 +267,9 @@ automatically after deployment.
 
 !!! note "HTTP endpoints only"
     The Gateway TCP proxy setting above lets the Cloudflare One Client carry the HTTPS connection to Wodby's private
-    hostname route. It does not expose arbitrary app TCP or UDP ports through Application Access. Entire app scope
+    hostname route. It does not expose arbitrary app TCP or UDP ports through Private App Access. Entire app scope
     prevents public port publishing; with Selected endpoints scope, separately published TCP or UDP ports remain
-    public and outside Cloudflare Application Access.
+    public and outside Cloudflare Private App Access.
 
 When access is removed or the app environment is deleted, Wodby removes the connector, tunnel connections, applicable
 managed DNS records or private hostname routes, the Tunnel, and the Access application. It does not delete the selected
@@ -309,7 +309,7 @@ corresponding widget in the Cloudflare dashboard. The kind exposes:
 | Secret Key | Yes      | `TURNSTILE_SECRET_KEY` |
 
 Attach the integration to an app service or stack that supports the Cloudflare Turnstile kind. Wodby injects only the
-Turnstile fields for that service requirement; fields from a separately selected Application Access kind are not
+Turnstile fields for that service requirement; fields from a separately selected Private App Access kind are not
 included. The application must implement and verify Turnstile—attaching the integration does not add a challenge to
 the app automatically.
 
@@ -319,6 +319,6 @@ the app automatically.
 - [SMTP providers](smtp.md)
 - [Application backups](../apps/backups.md)
 - [Database backups](../databases/backups.md)
-- [App access](../apps/access.md)
-- [Application Access providers](access.md)
+- [Private App Access](../apps/access.md)
+- [Private App Access providers](access.md)
 - [Variable integrations](../integrations/variable.md)

@@ -99,7 +99,7 @@ Configure settings that apply to the whole app environment:
 
 - Choose the deployment mode: CI/CD or development workspace.
 - Choose whether to enable stack auto-upgrades.
-- Choose Public or Protected [App Access](access.md).
+- Choose Public or Protected [Private App Access](access.md).
 - Select the default CI system and container registry when the app has an enabled service with a build source.
 - Choose whether to create [preview environments](preview-environments.md) for pull requests.
 
@@ -122,12 +122,12 @@ production environments. You can override the suggested value before creating th
 #### Access
 
 `Public` is the default and uses ordinary Wodby routes. `Protected` publishes the app through an
-[Application Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select whether the provider
+[Private App Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select whether the provider
 uses protected publishing or private-network routing when it offers both, choose whether it covers the entire app or
 selected endpoints, then complete its provider-specific settings. Some stacks require
 Protected access.
 
-See [App access](access.md) for route behavior, primary hostnames, and provider requirements.
+See [Private App Access](access.md) for route behavior, primary hostnames, and provider requirements.
 
 #### CI/CD
 
@@ -213,6 +213,6 @@ Review your application configuration and click _Create new app_.
 - [Environments](environments.md)
 - [App environment cluster migration](migration.md)
 - [Maintenance mode](maintenance.md)
-- [App access](access.md)
+- [Private App Access](access.md)
 - [App services](services.md)
 - [Web terminal](web-terminal.md)

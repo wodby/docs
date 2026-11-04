@@ -29,7 +29,7 @@ Each app environment has its own:
 - [Endpoints](endpoints.md) to configure HTTP routes and published ports
 - [Maintenance mode](maintenance.md) to temporarily replace public HTTP routes with a maintenance response
 - [Cluster migration](migration.md) to move the environment and supported persistent data to another cluster
-- [App Access](access.md) to choose public, identity-protected, or private-network HTTP access
+- [Private App Access](access.md) to choose public, identity-protected, or private-network HTTP access
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has services with build configuration
 - CI provider and container registry selections
 - [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
@@ -77,8 +77,8 @@ same app and confirm to prefill compatible configuration for the new environment
 - existing database selections for compatible external database services
 
 Only fields supported by the selected stack revision and integrations available to you are copied. Review both App
-settings and Services before creating the environment. App Access, imports, backups, volume data, and database data are
-not copied.
+settings and Services before creating the environment. Private App Access, imports, backups, volume data, and database
+data are not copied.
 
 When the source environment was created by cloning a boilerplate into your Git account, the new environment connects to that
 resulting repository. It does not clone the boilerplate into another repository. A public boilerplate source remains a

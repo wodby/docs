@@ -7,18 +7,18 @@ Machine name: `vpn`
 Use this integration type when you want to deploy and manage the network node itself as an app service. This includes
 the standalone Tailscale stack and custom stacks containing the Tailscale service.
 
-## VPN nodes versus Application Access
+## VPN nodes versus Private App Access
 
-A VPN node and [Application Access](access.md) solve different problems:
+A VPN node and [Private App Access](access.md) solve different problems:
 
-| Capability | VPN node | Application Access |
+| Capability | VPN node | Private App Access |
 | --- | --- | --- |
 | Managed as | An app service in the stack | An app environment Access setting |
 | Lifetime | Persists with the service | Reconciled with selected HTTP endpoints |
 | Primary use | Join the tailnet as a node | Make app endpoints reachable privately |
 | Requires an HTTP endpoint | No | Yes |
 
-Do not add a Tailscale service to a stack only to make its HTTP endpoints private. Use Application Access for that
+Do not add a Tailscale service to a stack only to make its HTTP endpoints private. Use Private App Access for that
 case. Keep the service model when the Tailscale node itself is the workload you want to deploy.
 
 ## Supported providers
@@ -30,5 +30,5 @@ case. Keep the service model when the Tailscale node itself is the workload you 
 ## Related pages
 
 - [Integration types](../integrations/types.md)
-- [Application Access providers](access.md)
+- [Private App Access providers](access.md)
 - [Tailscale](tailscale.md)
