@@ -5,8 +5,9 @@ are in [`wodby/stack-prometheus`](https://github.com/wodby/stack-prometheus).
 
 ## Choose services when you create the app
 
-Prometheus is the stack's main service. Grafana is optional and disabled by default. When you enable it, Wodby
-provisions a Prometheus data source in Grafana for you, and the Prometheus service is linked to it.
+Prometheus is the stack's main service. Grafana is enabled by default and can be excluded when you create the app.
+Wodby provisions a Prometheus data source in Grafana for you, and the Prometheus service is linked to it. Apps created
+before Grafana became a default keep their choice; enable the Grafana app service there to add it.
 
 ## Open Prometheus
 
