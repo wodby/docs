@@ -281,6 +281,7 @@ nav:
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
               - Nextcloud: stacks/catalog/nextcloud/index.md
+              - Odoo: stacks/catalog/odoo/index.md
               - GitLab: stacks/catalog/gitlab/index.md
               - Dagster: stacks/catalog/dagster/index.md
               - Slack Inviter: stacks/catalog/slack-inviter/index.md
