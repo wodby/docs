@@ -4,8 +4,7 @@ The Wodby Moodle catalog stack runs [Moodle LMS](https://moodle.org/) 5.3 with N
 Moodle's files, OpenSMTPD for mail, and an optional Valkey service for sessions. A separate worker runs Moodle's cron.
 The current composition is documented in [`wodby/stack-moodle`](https://github.com/wodby/stack-moodle).
 
-Start with the Vanilla Moodle boilerplate, which builds Moodle's own repository, or connect a repository with your own
-Moodle 5.3 code.
+The stack runs Wodby's prebuilt Moodle image, so there's nothing to build and no repository to connect.
 
 ## Administrator account
 
@@ -34,20 +33,18 @@ Moodle uses the app environment's main domain as its address and redirects other
 change the main domain, deploy the Moodle service again so Moodle picks up the new address. To use another address, set
 the `MOODLE_WWWROOT` [environment variable](../../../apps/environment-variables.md) on the Moodle service.
 
-## Configuration
+## Configuration and plugins
 
-When your repository has no `config.php` next to Moodle's `public` directory, the build adds one that reads the
-database, address, data directory and session settings from the app environment. A repository with its own `config.php`
-keeps it; read the values from the same environment variables rather than committing credentials.
+Moodle's `config.php` reads the database, address, data directory and session settings from the app environment.
 
-Moodle's code is part of the build image. Add plugins and themes to the repository and build again: plugins installed
-from Moodle's web interface would be lost at the next deployment, so that option is turned off. Use a cloned or
-connected repository when you add plugins or want to choose when Moodle is updated.
+Moodle's code is part of the image, so you can't add plugins or themes. Installing them from Moodle's web interface is
+turned off, because the next deployment would remove them.
 
-## Upgrades
+## Updates and upgrades
 
-Every deployment runs Moodle's upgrade when the new code needs one. Moodle switches to maintenance mode while it
-upgrades. Back up the app before you move to a new Moodle release.
+New Moodle releases arrive as updates of the Moodle service; see [stack upgrades](../../../apps/stack.md#upgrade). The
+deployment after an update runs Moodle's upgrade, and Moodle switches to maintenance mode while it upgrades. Back up the
+app before you upgrade.
 
 ## Cron
 
