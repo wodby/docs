@@ -6,13 +6,38 @@ in [`wodby/stack-loki`](https://github.com/wodby/stack-loki).
 ## Choose services when you create the app
 
 Loki is required. Grafana is enabled by default as the stack's main interface, with Loki provisioned as its default
-data source. You can exclude Grafana when you need only the Loki API.
+data source. The OpenTelemetry Collector is enabled by default as the public endpoint that applications send logs to.
+You can exclude Grafana when you need only the Loki API, and the Collector when only services in the same app
+environment write to Loki.
 
 ## Sign in to Grafana
 
 Open the Grafana app service's **Configuration > Tokens** tab and reveal `admin_username` (`admin`) and
 `admin_password`. Grafana applies them once, on the first start with an empty data volume. Changing the tokens later does
 not change the existing account. See [Tokens](../../../apps/tokens.md) and the [Grafana guide](../grafana/index.md).
+
+## Send logs from your applications
+
+Applications send logs to the OpenTelemetry Collector over OTLP. The Collector's HTTP port has a public HTTPS domain,
+listed under **Endpoints** for the app environment, so applications in other app environments, other clusters, or
+outside Wodby can use it. Every request needs the Collector's ingest token: open the Collector app service's
+**Configuration > Tokens** tab and reveal `ingest_token`. See [Tokens](../../../apps/tokens.md).
+
+Set the standard OpenTelemetry SDK variables in the application that sends logs:
+
+| Variable | Value |
+| --- | --- |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | `https://<Collector domain>`, without a path |
+| `OTEL_EXPORTER_OTLP_PROTOCOL` | `http/protobuf` |
+| `OTEL_EXPORTER_OTLP_HEADERS` | `Authorization=Bearer%20<ingest token>`, stored as a secret |
+| `OTEL_SERVICE_NAME` | A name for the application |
+| `OTEL_LOGS_EXPORTER` | `otlp` |
+| `OTEL_TRACES_EXPORTER`, `OTEL_METRICS_EXPORTER` | `none`, because this Collector accepts logs only |
+
+The Collector forwards logs to Loki. In Grafana, find them by the `service_name` label, for example
+`{service_name="api"}`. To change what the Collector does, edit its **Collector config** under
+**Configuration > Configs** and deploy the service. See [Configs tab](../../../apps/services.md#configs-tab) and the
+[Grafana Tempo guide](../tempo/index.md#change-configuration) for the same Collector used for traces.
 
 ## Connect to Loki
 
