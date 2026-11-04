@@ -352,6 +352,7 @@ nav:
               - Prometheus: stacks/catalog/prometheus/index.md
               - Grafana: stacks/catalog/grafana/index.md
               - Grafana Loki: stacks/catalog/loki/index.md
+              - Grafana Tempo: stacks/catalog/tempo/index.md
               - VictoriaMetrics: stacks/catalog/victoria-metrics/index.md
           - Kubernetes system stacks: stacks/catalog/system/index.md
   - Services:

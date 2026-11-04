@@ -14,18 +14,18 @@ change the existing account.
 
 ## Add data sources
 
-The stack ships no data sources. The Grafana service can be linked to Grafana Loki, Prometheus, and VictoriaMetrics
-services. A link sets no variables and creates no data source by itself.
+The stack ships no data sources. The Grafana service can be linked to Grafana Loki, Grafana Tempo, Prometheus, and
+VictoriaMetrics services. A link sets no variables and creates no data source by itself.
 
 Declare data sources in the **Grafana datasources** file under **Configuration > Configs**. It is empty by default.
 A data source removed from the file is deleted from Grafana on the next start. Grafana reads the file at start, so
 deploy the service after a change. See
 [Configs tab](../../../apps/services.md#configs-tab).
 
-A linked service is reached at `http://<its app service name>:<its port>`. Loki uses port `3100`, VictoriaMetrics uses
-`8428`, and Prometheus uses `9090`. To add data sources automatically, use a stack that provisions them. See the
-[Prometheus](../prometheus/index.md), [Loki](../loki/index.md), and [VictoriaMetrics](../victoria-metrics/index.md)
-guides.
+A linked service is reached at `http://<its app service name>:<its port>`. Loki uses port `3100`, Tempo uses `3200`,
+VictoriaMetrics uses `8428`, and Prometheus uses `9090`. To add data sources automatically, use a stack that provisions
+them. See the [Prometheus](../prometheus/index.md), [Loki](../loki/index.md), [Tempo](../tempo/index.md), and
+[VictoriaMetrics](../victoria-metrics/index.md) guides.
 
 ## Change configuration
 
