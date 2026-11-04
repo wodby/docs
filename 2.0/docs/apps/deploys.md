@@ -212,6 +212,9 @@ manifests have not changed.
 For non-external services, force deployment restarts the service pods with the selected chart values and image
 references, even when those values have not changed.
 
+You do not need force deployment after changing a config file that Wodby mounts into the container. A regular deployment
+restarts the service's pods when the file's content changed.
+
 Force deployment does not create a new build or change which image is deployed. For services with build sources, choose the build
 you want to deploy in the same way as a regular manual deployment.
 

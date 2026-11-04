@@ -93,6 +93,10 @@ Each service config uses exactly one delivery mode:
 - `filename`: Wodby creates a ConfigMap entry but does not mount it. Use this when the chart expects an existing
   ConfigMap name and handles the mount on its own.
 
+A running container never sees a new version of a file mounted with `filepath`. When a deployment changes the content of
+such a file, Wodby restarts the pods that mount it. With `helm` and `filename`, the chart decides whether a content
+change restarts its pods, for example through a checksum annotation on the pod template.
+
 A config default can come from either:
 
 - `config`: inline content or a file in the service repository.
