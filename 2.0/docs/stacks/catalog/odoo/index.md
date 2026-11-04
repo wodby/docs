@@ -4,8 +4,8 @@ The Wodby Odoo catalog stack runs [Odoo](https://www.odoo.com/) Community Editio
 shared NFS storage for Odoo's files, and an optional OpenSMTPD service for mail. The current composition is documented
 in [`wodby/stack-odoo`](https://github.com/wodby/stack-odoo).
 
-Odoo itself comes with the service's image. Your repository holds only the modules you add: start with the Odoo modules
-boilerplate, or connect a repository of your own modules.
+The stack needs no repository: Odoo and every Community app come with the service's image. Install apps from Odoo's
+**Apps** menu, or list them in the **Apps to install** setting when you create the app.
 
 ## Administrator account
 
@@ -28,18 +28,13 @@ These settings are only used when Odoo is installed. To change the administrator
 If the first deployment can't install Odoo, for example because the admin password is missing, the deployment's
 post-deploy step fails with the reason. Fix it and deploy again.
 
-## Modules
+## Updates
 
-Add your modules to the repository, one directory per module, and deploy. Every directory up to three levels deep that
-contains modules is added to Odoo's addons path, so you can also add community repositories, such as OCA ones, as Git
-submodules. Python packages your modules need go in `requirements.txt`.
+Odoo updates arrive with new revisions of the service's image. After each deployment, Odoo updates the installed apps
+whose version went up. To update every installed app, run the **Update all modules** action of the Odoo service.
 
-After each deployment, Odoo updates the installed modules whose version went up and the installed modules of your
-repository whose files changed. New modules appear in the **Apps** menu; install them from there. To update every
-installed module, run the **Update all modules** action of the Odoo service.
-
-Odoo's code is part of the build image, so apps you install from Odoo's Apps menu must be ones the image or your
-repository already contains.
+To add your own or community modules, build an image `FROM wodby/odoo` with the modules in `/usr/src/app`, and use it
+from a [custom service](../../../services/create.md) based on the Odoo service.
 
 ## Workers and live updates
 
@@ -63,7 +58,6 @@ app before you move to a new major Odoo version: Odoo doesn't migrate a database
 
 ## Limits
 
-- Odoo Community Edition only. If you have an Odoo Enterprise subscription, add the Enterprise modules to your
-  repository.
+- Odoo Community Edition only. Enterprise modules need a custom image, like your own modules.
 - One database per app environment.
 - Uploads are limited to 128 MB.
