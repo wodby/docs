@@ -188,7 +188,7 @@ Each `workloads[].containers[]` item supports:
   target
 - `hostname`: optional container hostname
 - `env`: optional container-scoped env vars
-- `resources`: optional container-scoped resources
+- `resources`: optional default resources for the container; see the [resources object](template.md#resources-object)
 - `helm`: optional container-level Helm mappings
 
 Container names must match the real container names created by the chart.

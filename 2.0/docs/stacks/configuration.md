@@ -148,7 +148,8 @@ For non-external services, configure resource requests and limits from
 `Stack > Stack services > [Service] > Runtime > Resources`. These map to
 [Kubernetes resource requests and limits](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/#how-pods-with-resource-limits-are-run).
 
-Resources are set per workload and container defined by the service manifest.
+Resources are set per workload and container defined by the service manifest. A container shows the service's
+default resources until you set its own, and the values you set replace those defaults as a whole.
 
 #### Request
 

@@ -28,8 +28,13 @@ CPU requests and limits are specified in millicores, where `1000` millicores equ
 
 You can define resources at:
 
+- service level, as defaults in the service manifest
 - stack level
 - app-service level
+
+A container uses its service defaults unless its stack service or app service sets resources for it. Resources set
+for a container replace the service defaults as a whole: if you set only a memory request, the container gets no CPU
+request and no limits.
 
 App services can also request GPUs with **GPU devices**: a device name, such as `nvidia.com/gpu`, and the number of
 GPUs for each replica. A count of `0` turns off the GPU request of the service's default configuration. App services
