@@ -1051,6 +1051,8 @@ Each item supports:
 - `workload`: optional workload name. If omitted, Wodby targets the primary workload.
 - `boilerplate`: optional build boilerplate name filter for `post_deploy` and `post_deploy_once` actions.
 - `depends`: optional list of actions that must run first.
+- `timeoutSeconds`: optional limit on how long the action may run, from `1` to `3600` seconds. Without it, an action is
+  stopped after 5 minutes and its deployment or task fails. Set it for slow actions such as a first install.
 
 The legacy `template` action filter remains supported for existing manifests but is deprecated. Use `boilerplate` for
 new and updated manifests.
