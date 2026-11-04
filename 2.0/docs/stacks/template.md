@@ -148,12 +148,12 @@ docs: https://wodby.com/docs/2.0/stacks/catalog/go/
 
 Type: `object`.
 
-Optional [App Access](../apps/access.md) requirement for app environments created from the stack. This policy describes
-the access outcome the stack needs. The app environment still stores the actual access configuration and the user selects
-an eligible Application Access integration.
+Optional [Private App Access](../apps/access.md) requirement for app environments created from the stack. This policy
+describes the access outcome the stack needs. The app environment still stores the actual access configuration and the
+user selects an eligible Private App Access integration.
 
-- `required`: required boolean. When `true`, App Access must be configured during app creation and cannot be removed
-  while the app environment uses this stack revision.
+- `required`: required boolean. When `true`, Private App Access must be configured during app creation and cannot be
+  removed while the app environment uses this stack revision.
 - `provider`: optional provider machine name, such as `tailscale` or `cloudflare`. Omit it to accept any provider that
   supports the required mode and scope. Set it only when the stack depends on provider-specific behavior.
 - `mode`: required access type. Allowed values are `protected` and `private_network`.

@@ -21,7 +21,7 @@ SES.
 Persistent private-network nodes such as Tailscale are also regular services of type `service`. Their network-specific
 credential lifecycle comes from a compatible `vpn` integration rather than a separate service type.
 
-Use [Application Access](../apps/access.md) instead when the goal is only to publish an app's HTTP endpoints privately.
+Use [Private App Access](../apps/access.md) instead when the goal is only to publish an app's HTTP endpoints privately.
 
 ## `db`
 

@@ -30,7 +30,7 @@ Before starting a migration, make sure:
 
 The first version of cluster migration supports only managed technical routes. Before migrating:
 
-- remove [App Access](access.md)
+- remove [Private App Access](access.md)
 - remove private routes
 - remove or disable custom routes
 - unpublish TCP and UDP ports

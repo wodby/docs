@@ -269,15 +269,15 @@ issuer of `Let's Encrypt` does not by itself mean that a certificate has been is
 from deployment status: a route can exist and the app can be healthy while its custom hostname is still waiting for
 DNS or points to another origin.
 
-When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
-ordinary public routes in the selected scope and uses the Access primary hostname as the app environment's canonical
-address. The Domains and Redirects lists show the effective Access hostname; Cloudflare Protected and Tailscale use
-provider-facing hostnames, while Cloudflare Private network reuses the suppressed Wodby technical hostname. Routes that
-target the same app port share one Access hostname. With Selected endpoints scope, routes for unselected endpoints
-remain public.
+When [Private App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby
+suppresses ordinary public routes in the selected scope and uses the Access primary hostname as the app environment's
+canonical address. The Domains and Redirects lists show the effective Access hostname; Cloudflare Protected and
+Tailscale use provider-facing hostnames, while Cloudflare Private network reuses the suppressed Wodby technical
+hostname. Routes that target the same app port share one Access hostname. With Selected endpoints scope, routes for
+unselected endpoints remain public.
 
 The `private` flag on a port does not create a Cloudflare or Tailscale endpoint by itself. Private ports without an
-explicit App Access configuration remain reachable only through internal Kubernetes networking.
+explicit Private App Access configuration remain reachable only through internal Kubernetes networking.
 
 <a id="route-settings"></a>
 

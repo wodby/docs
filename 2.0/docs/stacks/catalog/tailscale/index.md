@@ -23,9 +23,9 @@ only the node, so use this link in a custom stack that also contains the service
 ## Limits
 
 - Do not add a Tailscale node to a stack only to make its HTTP endpoints private. Use
-  [Application Access](../../../apps/access.md) for that. Keep this stack when the node itself is the workload you want
+  [Private App Access](../../../apps/access.md) for that. Keep this stack when the node itself is the workload you want
   to deploy.
 - Deploying a node does not expose other app services and does not change the app environment's Access setting.
-- Removing Application Access does not remove the node, and deleting the node service does not change Access.
+- Removing Private App Access does not remove the node, and deleting the node service does not change Access.
 
-See [VPN providers](../../../providers/vpn.md) for how nodes and Application Access differ.
+See [VPN providers](../../../providers/vpn.md) for how nodes and Private App Access differ.

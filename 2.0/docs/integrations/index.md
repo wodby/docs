@@ -3,7 +3,7 @@
 Integrations are reusable connections between Wodby and third-party services. You create an integration from a [provider](../providers/index.md), choose an owner, and then use sharing when the integration should be available to additional projects.
 
 An integration can represent a cloud account, a Git provider connection, an SMTP relay, a registry account, an
-Application Access connection, a private-network node, or a set of provider-managed environment variables.
+Private App Access connection, a private-network node, or a set of provider-managed environment variables.
 
 ## When to use integrations
 
@@ -35,7 +35,7 @@ Each integration exposes one or more [types](types.md). The type-specific overvi
 - [CI providers](../providers/ci.md) for build and deployment pipelines
 - [Registry providers](../providers/registry.md) for container image registries
 - [SMTP providers](../providers/smtp.md) for outbound mail relays
-- [Application Access providers](../providers/access.md) for identity-protected or private-network HTTP access
+- [Private App Access providers](../providers/access.md) for identity-protected or private-network HTTP access
 - [VPN providers](../providers/vpn.md) for persistent service-managed private-network nodes
 - [Variable integrations](variable.md) for reusable provider-backed environment variables
 
@@ -108,7 +108,7 @@ Depending on the provider and type, integrations can be used for:
 - External container registries
 - Backup storage destinations
 - CI/CD workflows
-- Protected app access through Cloudflare or Tailscale
+- Private App Access through Cloudflare or Tailscale
 - Tailscale Node services that join a tailnet as persistent workloads
 
 ## Related pages

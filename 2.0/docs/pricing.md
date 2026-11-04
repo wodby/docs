@@ -37,7 +37,7 @@ Team includes everything in Developer, plus production-focused features such as:
 - backup presets and automatic backups
 - scheduled and manually run cron jobs
 - web shell for containers
-- Application Access for protected or private-network HTTP endpoints
+- Private App Access for protected or private-network HTTP endpoints
 - organization Single Sign-On (SSO)
 - [vulnerability scanning](apps/vulnerability-scanning.md) of deployed build images
 - [preview environments](apps/preview-environments.md) for pull requests
@@ -128,7 +128,7 @@ After a downgrade is scheduled:
 - new paid-only features and capacity above the Developer plan limit are not available
 
 To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
-features. Application Access is a paid feature, so remove it from every app environment under **Apps > your app > your
+features. Private App Access is a paid feature, so remove it from every app environment under **Apps > your app > your
 environment > Settings > Access** before scheduling a downgrade. The downgrade error identifies each affected app and
 environment.
 

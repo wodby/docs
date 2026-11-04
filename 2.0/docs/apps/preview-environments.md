@@ -25,7 +25,7 @@ work with GitHub, GitLab, and Bitbucket. This page says pull request for what Gi
       [GitLab](../providers/gitlab.md#preview-environments).
     - Bitbucket: the `Admin` permission on the repository. See
       [Bitbucket](../providers/bitbucket.md#preview-environments).
-- The base environment must not use [Application Access](access.md). Environments with `Public` or `Basic Auth`
+- The base environment must not use [Private App Access](access.md). Environments with `Public` or `Basic Auth`
   access are supported.
 - Database services of the base environment must run as containers in the environment. Environments that use an
   existing database server are not supported yet.
@@ -96,7 +96,7 @@ Each preview is created from the base environment at the moment the pull request
 - Only the services selected in `Seed data` get data. They are seeded from a fresh backup of the base environment taken
   at creation time. The backup is
   restored during the preview's first deployment, so a large database delays the first successful deployment.
-- Custom domains, TLS certificates, and Application Access are not copied. The preview is reached through its
+- Custom domains, TLS certificates, and Private App Access are not copied. The preview is reached through its
   generated technical domain.
 - Service basic auth entries and exemptions are copied with their passwords. With `Basic Auth` enabled, the shared
   preview password replaces the base environment's environment-wide entry. With it disabled, that entry is copied as it

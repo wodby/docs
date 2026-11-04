@@ -27,7 +27,8 @@ custom route or published as a public TCP or UDP port.
 
 `private` is a service-template policy, not the current publication state of a port. A non-private port that has no
 route is still public-capable and can be exposed later; a private port cannot. Provider-backed publication is an
-explicit app environment [App Access](../apps/access.md) setting rather than an automatic effect of the `private` flag.
+explicit app environment [Private App Access](../apps/access.md) setting rather than an automatic effect of the
+`private` flag.
 
 One port per endpoint can be marked as main. If no port is marked as main, the first port becomes main automatically.
 

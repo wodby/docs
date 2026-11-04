@@ -13,14 +13,14 @@ Use the directory below to jump to the type you need. Type-specific overview pag
 | CI | `ci` | Run builds and deployments from Wodby CI or third-party CI | [CI providers](../providers/ci.md) |
 | Registry | `registry` | Push and pull build images from container registries | [Registry providers](../providers/registry.md) |
 | SMTP | `smtp` | Relay outbound email through a provider | [SMTP providers](../providers/smtp.md) |
-| Application Access | `application_access` | Route an app or selected HTTP endpoints through an access provider | [Application Access providers](../providers/access.md) |
+| Private App Access | `application_access` | Route an app or selected HTTP endpoints through an access provider | [Private App Access providers](../providers/access.md) |
 | VPN | `vpn` | Deploy a persistent service-managed node on a private network | [VPN providers](../providers/vpn.md) |
 | Variable | `variable` | Reuse provider-backed environment variables across apps and stacks | [Variable integrations](variable.md) |
 
 ## Notes
 
 - Some providers support more than one type. For example, AWS can be used for Kubernetes, databases, storage, SMTP,
-  and variables, Cloudflare supports Application Access and variables, and Tailscale supports Application Access and
+  and variables, Cloudflare supports Private App Access and variables, and Tailscale supports Private App Access and
   service-managed VPN nodes.
 - Type pages explain the type-level workflow. Provider pages explain the exact fields, auth methods, and exposed environment variables.
 

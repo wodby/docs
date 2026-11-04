@@ -250,8 +250,8 @@ interrupts your session. Turn it on in `Stack > Operations` or when you create t
 - The code services, the SSH runner and setup jobs run on one node, so that node needs room for all of them.
   With node-local storage, such as the default K3S storage class, the workspace can only run on the node that holds
   its volumes.
-- To protect HTTP previews with [App Access](access.md), choose **Selected endpoints**. **Entire app** protection
-  conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.
+- To protect HTTP previews with [Private App Access](access.md), choose **Selected endpoints**. **Entire app**
+  protection conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.
 - [Pausing](environments.md#pausing-and-resuming-an-environment) stops workloads and SSH access but preserves code and
   agent-home storage. Storage remains provisioned and billable; pausing does not delete the cluster.
 - Resume does not pull code. It can retry setup interrupted by a lifecycle operation, but an ordinary setup failure

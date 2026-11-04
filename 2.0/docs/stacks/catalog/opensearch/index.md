@@ -24,7 +24,8 @@ OpenSearch Dashboards is the main app service, and it has a public HTTPS address
 `password` token. Create other users under **Security** in Dashboards.
 
 The address accepts sign-ins from anywhere. Do not turn on Wodby Basic Auth for it, because Dashboards reads the
-`Authorization` header for its own login. To restrict who can reach the address, use [App Access](../../../apps/access.md).
+`Authorization` header for its own login. To restrict who can reach the address, use
+[Private App Access](../../../apps/access.md).
 
 The Dashboards version must match the OpenSearch version in major and minor. Wodby generates a `cookie_password` token
 once to encrypt session cookies. Replacing it signs users out.

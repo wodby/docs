@@ -27,8 +27,8 @@ or reset it with an [occ command](#run-occ-commands).
 ## Domains
 
 Nextcloud accepts requests only for its trusted domains. Wodby sets them from the app environment's domains, including
-[App Access](../../../apps/access.md) hostnames, each time Nextcloud starts. This list replaces trusted domains set in
-Nextcloud's own configuration, so manage domains in Wodby.
+[Private App Access](../../../apps/access.md) hostnames, each time Nextcloud starts. This list replaces trusted domains
+set in Nextcloud's own configuration, so manage domains in Wodby.
 
 After you add or remove a domain, or change the main domain, deploy the Nextcloud service. Until then, Nextcloud rejects
 requests for a new hostname with an untrusted domain error. Links that Nextcloud creates in background jobs, such as

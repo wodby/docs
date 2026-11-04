@@ -42,8 +42,8 @@ To protect the address:
 
 - Keep the generated password, or replace it with one as long and random.
 - Do not share `/play` or `/dashboard` URLs or copy them into tickets or chat. Do not add the password to a URL.
-- Restrict who can reach the address with [App Access](../../../apps/access.md), or disable the route. Services in the
-  same app environment keep connecting directly. App Access needs an active paid subscription.
+- Restrict who can reach the address with [Private App Access](../../../apps/access.md), or disable the route. Services
+  in the same app environment keep connecting directly. Private App Access needs an active paid subscription.
 - Do not turn on Wodby Basic Auth for this service. ClickHouse uses the `Authorization` header for its own login, so
   `/play`, `/dashboard` and HTTP clients stop working behind Basic Auth.
 

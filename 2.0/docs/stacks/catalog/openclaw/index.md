@@ -6,8 +6,8 @@ The Wodby OpenClaw catalog stack runs the OpenClaw gateway and its Control UI. T
 ## Before you create the app
 
 The stack requires Protected access with the Private network type for the entire app. Select a compatible
-[Application Access integration](../../../providers/access.md) when you create the app. You cannot change these choices.
-Application Access needs an active paid subscription. See [App access](../../../apps/access.md).
+[Private App Access integration](../../../providers/access.md) when you create the app. You cannot change these choices.
+Private App Access needs an active paid subscription. See [Private App Access](../../../apps/access.md).
 
 Wodby publishes no public route for the gateway. You reach it through the Access provider. Services in the same app
 environment reach it directly on port 18789.
