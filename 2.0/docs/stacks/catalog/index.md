@@ -43,8 +43,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 ## Utilities and integrations
 
 [Mailpit](mailpit/index.md), [OpenSMTPD](opensmtpd/index.md), [Gotenberg](gotenberg/index.md),
-[Tailscale](tailscale/index.md), [3X UI](3xui/index.md), [FRP Server](frps/index.md), [RustDesk Server](rustdesk/index.md),
-[OpenClaw](openclaw/index.md), [T3 Code](t3code/index.md)
+[Tailscale](tailscale/index.md), [NetBird](netbird/index.md), [3X UI](3xui/index.md), [FRP Server](frps/index.md),
+[RustDesk Server](rustdesk/index.md), [OpenClaw](openclaw/index.md), [T3 Code](t3code/index.md)
 
 ## Identity and access
 

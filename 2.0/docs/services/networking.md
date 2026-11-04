@@ -68,6 +68,36 @@ relationship between request and backend request timeouts. Inherited services me
 port name, and setting name; a child value replaces the matching base value. Derivative endpoints use the same port
 format and behavior.
 
+### HTTP/2 and gRPC
+
+Wodby domains answer clients over HTTP/1.1, which most web applications need. Clients that require HTTP/2, such as gRPC
+clients, can't connect that way. Mark the port with `http2: true`, and domains that serve it accept HTTP/2 as well:
+
+```yaml
+endpoints:
+- name: api
+  ports:
+  - name: grpc
+    number: 8080
+    protocol: http
+    main: true
+    http2: true
+    routeDefaults:
+      request_timeout: 0s
+      backend_request_timeout: 0s
+```
+
+The backend must also accept cleartext HTTP/2 (h2c) from the gateway. Declare this on the port of the Kubernetes Service
+that your chart renders, with `appProtocol: kubernetes.io/h2c`. The generic `stateful` chart supports it from version
+`0.3.0` in `service.ports[].appProtocol`.
+
+The gateway then sends every request to that port over HTTP/2, including WebSocket upgrades, which most servers don't
+accept that way. If the service also serves WebSockets, expose them on a separate endpoint without `appProtocol`. Long
+gRPC streams usually also need the route timeouts turned off, as in the example.
+
+A browser that has an HTTP/2 connection open to such a domain can reuse it for another domain of the same environment
+and get `404 Not Found` there. Set `http2` only on ports whose clients need it.
+
 ### Dynamic public backend ports
 
 Most published TCP and UDP ports keep a fixed port inside Kubernetes and use a separately assigned public port. Some
