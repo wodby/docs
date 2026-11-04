@@ -681,6 +681,8 @@ Each `endpoints[].ports[]` item supports:
   ports.
 - `routeDefaults`: optional map of [HTTP route setting](../apps/endpoints.md#route-settings) names to default string
   values. It is supported only when `protocol` is `http`.
+- `http2`: optional boolean. Domains that serve the port accept HTTP/2 from clients, for example gRPC clients. It is
+  supported only when `protocol` is `http`. See [HTTP/2 and gRPC](networking.md#http2-and-grpc).
 
 Only one endpoint can be main. If the service has a single endpoint, it becomes main automatically. If you define
 multiple endpoints, mark one of them as main.
