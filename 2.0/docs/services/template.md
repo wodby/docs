@@ -248,6 +248,10 @@ Used by `workloads[].containers[].resources` and `derivatives[].resources`.
 
 CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
 
+Resources under `workloads[].containers[].resources` are defaults. A container deploys with them unless its stack
+service or app service sets resources for it, which replace the defaults as a whole. Set a memory limit for runtimes
+that size their memory from it, such as the JVM.
+
 ### Selector object
 
 Used by `links[].selectors`.
