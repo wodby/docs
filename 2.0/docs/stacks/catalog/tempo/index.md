@@ -37,6 +37,10 @@ that also export metrics or logs by default, such as the OpenTelemetry Java agen
 Inside the same app environment, services can also send to `http://<Collector app service name>:4318`, or over gRPC to
 port `4317`, with the same token.
 
+Apps from the Wodby application stacks can instead forward traces through their own Collector, set to this
+Collector's domain and token. See
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## View traces in Grafana
 
 Open the Grafana domain listed under **Endpoints**. Open the Grafana app service's **Configuration > Tokens** tab and

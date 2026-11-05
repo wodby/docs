@@ -68,6 +68,12 @@ For real delivery, enable OpenSMTPD, point the app service's mail link to it, an
 The boilerplate logs every request and reads the log level from `RUST_LOG`, `info` by default. Set `RUST_LOG` on the
 app service, for example to `debug`, to change it.
 
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+your application gets the standard OpenTelemetry SDK variables that point to it. See
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Data and backups
 
 PostgreSQL stores data on a `data` volume of 20 GB. Its backups are gzipped SQL dumps of the environment's database. An

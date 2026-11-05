@@ -47,6 +47,12 @@ and size `VALKEY_MAXMEMORY` on the Valkey app service.
 links generated outside a request. Other services reach the application at `WODBY_APP_SERVICE_NAME` on port 8080. See
 [Environment variables](../../../apps/environment-variables.md).
 
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+your application gets the standard OpenTelemetry SDK variables that point to it. See
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Data and backups
 
 PostgreSQL keeps data on a 20 GB `data` volume. A backup is a gzipped SQL dump of the environment's database. It carries

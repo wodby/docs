@@ -76,3 +76,50 @@ Per-pod and per-container tables do not show separate storage usage because PVC 
 than individual containers.
 
 If cluster monitoring is disabled, app environment and app-service metrics pages are not available.
+
+## OpenTelemetry Collector in application stacks
+
+The catalog stacks for application runtimes include an OpenTelemetry Collector, disabled by default: ASP.NET Core,
+Astro, Django, FastAPI, Flask, Go, Java, Kotlin, Next.js, Node.js, Nuxt, Python, Rails, Ruby, Rust, Spring Boot,
+Strapi, SvelteKit, and TanStack Start. The Collector runs in the same app environment as your application and has no
+public domain. It forwards traces, metrics, and logs to an OTLP endpoint you choose, such as the Collector of a
+[Grafana Tempo](../stacks/catalog/tempo/index.md), [Grafana Loki](../stacks/catalog/loki/index.md), or
+[VictoriaMetrics](../stacks/catalog/victoria-metrics/index.md) app, or another OpenTelemetry backend.
+
+### Turn on the Collector
+
+1. Open the `otel-collector` app service. Under `Configuration > Settings`, set:
+    - **Upstream OTLP endpoint**: the base URL to forward to over OTLP/HTTP, without a path. For a Wodby Grafana Tempo,
+      Grafana Loki, or VictoriaMetrics app, use `https://<Collector domain>` of that app.
+    - **Upstream Authorization header**: the `Authorization` header the upstream expects, for example
+      `Bearer <ingest token>` for a Wodby Collector. It is stored as a secret.
+2. Under `Configuration > General`, enable the service. You can also enable it and set its settings when you create the
+   app.
+3. Deploy the app environment, so your application gets the new variables.
+
+The Collector does not start until the upstream endpoint is set. Environments created before the stack included the
+Collector get it with a [stack upgrade](stack.md#upgrade).
+
+### What your application gets
+
+While the Collector is enabled, the application service, and worker services such as Celery or Sidekiq, get the standard
+OpenTelemetry SDK variables:
+
+| Variable | Value |
+| --- | --- |
+| `OTEL_EXPORTER_OTLP_ENDPOINT` | `http://otel-collector:4318` |
+| `OTEL_EXPORTER_OTLP_PROTOCOL` | `http/protobuf` |
+| `OTEL_EXPORTER_OTLP_HEADERS` | The Collector's ingest token, as a secret |
+
+Wodby does not instrument your code. Add an OpenTelemetry SDK or agent for your language that reads these variables,
+and set `OTEL_SERVICE_NAME` to name the application in traces. While the Collector is disabled, the variables are
+absent, so start the instrumentation only when `OTEL_EXPORTER_OTLP_ENDPOINT` is set.
+
+### Choose what to forward
+
+The Collector forwards traces, metrics, and logs to the same endpoint. The Collector of a Wodby Grafana Tempo app
+accepts only traces, Grafana Loki only logs, and VictoriaMetrics only metrics. Data the upstream refuses is dropped,
+and the Collector logs `Exporting failed`. Either turn off the other signals in your application, for example
+`OTEL_METRICS_EXPORTER=none` and `OTEL_LOGS_EXPORTER=none` when forwarding to Tempo, or edit the **Collector config**
+under `Configuration > Configs` to remove pipelines or add an exporter per destination. Deploy the service after a
+config change. See [Configs tab](services.md#configs-tab).
