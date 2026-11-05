@@ -1,6 +1,6 @@
 # Java
 
-The Wodby Java catalog stack runs a Java app service on Java 25 or 21 with optional PostgreSQL, Valkey, Mailpit,
+The Wodby Java catalog stack runs a Java app service with optional PostgreSQL, Valkey, Mailpit,
 OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in
 [`wodby/stack-java`](https://github.com/wodby/stack-java).
 
@@ -16,8 +16,8 @@ the only required service. The others are optional and not selected by default, 
 uses when you create the environment. The app service links to PostgreSQL for the database, Valkey for Redis, and
 Mailpit for mail. Change a link under **Connections > Links** on the app service.
 
-Choose Java 25 or 21 with the app service's version. To use a managed database instead of the PostgreSQL container, see
-[Managed databases](../../../databases/managed.md).
+Choose the Java version with the app service's version. To use a managed database instead of the PostgreSQL container,
+see [Managed databases](../../../databases/managed.md).
 
 ## Build and start
 

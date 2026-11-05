@@ -28,13 +28,13 @@ When the Wodby 1 migration CLI maps `athenapdf` to `gotenberg`, it:
 
 ### Drupal
 
-For Drupal 10.3 and Drupal 11, use the contributed
+For Drupal, use the contributed
 [Gotenberg module](https://www.drupal.org/project/gotenberg). It includes a Gotenberg client and an Entity Print
 backend, but it does not convert configuration or custom code from the older
 [Athena PDF API module](https://www.drupal.org/project/athenapdf_api).
 
 ```bash
-composer require 'drupal/gotenberg:^1.0'
+composer require drupal/gotenberg
 ```
 
 The Drupal module stores its base URL in Drupal configuration and does not read `GOTENBERG_ENDPOINT` automatically.

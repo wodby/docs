@@ -94,7 +94,7 @@ operation in Wodby. The PostgreSQL service does. See [Backups](../../../apps/bac
 
 ## Versions and upgrades
 
-The Gitea service offers one version, `28`.
+The Gitea service offers the current Gitea release.
 
 When a new stack revision brings a newer Gitea, upgrade the app environment's stack. See
 [Upgrade](../../../apps/stack.md#upgrade). Gitea migrates its database when it starts, and Wodby waits up to 15 minutes

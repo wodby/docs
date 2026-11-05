@@ -7,7 +7,7 @@ documented in [`wodby/stack-laravel`](https://github.com/wodby/stack-laravel).
 ## Build and deployment
 
 Start from [Laravel on Wodby](https://github.com/wodby/laravel-boilerplate), which includes `.wodby/pipeline.yml`, or
-connect your own repository. The boilerplate is offered for PHP 8.3 and later. See
+connect your own repository. The boilerplate is offered only for the PHP versions it supports. See
 [Application Builds](../../../apps/builds.md).
 
 Only the document root (**Nginx docroot**, `public` by default) goes into the Nginx image. Put front-end build output

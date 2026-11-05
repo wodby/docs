@@ -12,7 +12,7 @@ the ones your application uses when you create the environment. The app service 
 Valkey for Redis, Mailpit for mail, and the OpenTelemetry Collector for telemetry. Change a link under
 **Connections > Links** on the app service.
 
-The app service runs Node.js 26 by default, or 24 or 22. The boilerplate includes a health endpoint at `/healthz` and
+The app service's version is the Node.js version. The boilerplate includes a health endpoint at `/healthz` and
 checks it after each deployment.
 
 ## Build and start

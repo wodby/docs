@@ -1,6 +1,6 @@
 # Spring Boot
 
-The Wodby Spring Boot catalog stack runs a Spring Boot app service on Java 25 or 21 with PostgreSQL, and optional
+The Wodby Spring Boot catalog stack runs a Spring Boot app service with PostgreSQL, and optional
 Valkey, Mailpit, OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented
 in [`wodby/stack-spring-boot`](https://github.com/wodby/stack-spring-boot).
 
@@ -9,14 +9,14 @@ way, and adds the settings Spring Boot reads by itself.
 
 ## Create the environment
 
-Start from the [Spring Boot boilerplate](https://github.com/wodby/spring-boot-boilerplate), a Spring Boot 4 web
+Start from the [Spring Boot boilerplate](https://github.com/wodby/spring-boot-boilerplate), a Spring Boot web
 application that stores notes in PostgreSQL, or connect your own compatible source repository. The app service and
 PostgreSQL are required. The other services are optional and not selected by default. The app service links to
 PostgreSQL for the database, Valkey for Redis, and Mailpit for mail. Change a link under **Connections > Links** on the
 app service.
 
-Choose Java 25 or 21 with the app service's version. To use a managed database instead of the PostgreSQL container, see
-[Managed databases](../../../databases/managed.md).
+Choose the Java version with the app service's version. To use a managed database instead of the PostgreSQL container,
+see [Managed databases](../../../databases/managed.md).
 
 ## Build and start
 

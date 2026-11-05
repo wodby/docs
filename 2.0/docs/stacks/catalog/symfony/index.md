@@ -6,9 +6,9 @@ managed PostgreSQL database are optional. The current services and defaults are 
 
 ## Create the environment
 
-Start from [Symfony on Wodby](https://github.com/wodby/symfony-boilerplate), a Symfony 7.4 LTS application with
-Doctrine, Twig, Mailer and a `/healthz` endpoint, or connect your own repository. The boilerplate needs PHP 8.4 or later;
-your own repository can use any PHP version the service offers.
+Start from [Symfony on Wodby](https://github.com/wodby/symfony-boilerplate), a Symfony application with Doctrine, Twig,
+Mailer and a `/healthz` endpoint, or connect your own repository. The boilerplate is offered only for the PHP versions
+it supports; your own repository can use any PHP version the service offers.
 
 PHP, Nginx and PostgreSQL are required. The PHP service links to PostgreSQL for the database and to Mailpit for mail.
 Change a link under **Connections > Links** on the PHP app service. To use a managed database instead of the PostgreSQL
@@ -35,7 +35,7 @@ when the application doesn't have Doctrine Migrations.
 - Variables set on the PHP service take precedence over your committed `.env` files. Keep `.env` with safe defaults
   only, and set secrets as [environment variables](../../../apps/environment-variables.md).
 - Wodby's gateway terminates HTTPS. The service sets `SYMFONY_TRUSTED_PROXIES` and `SYMFONY_TRUSTED_HEADERS`, which
-  Symfony 7.2 and later read, so request schemes, generated URLs and client addresses are those of the visitor.
+  Symfony reads, so request schemes, generated URLs and client addresses are those of the visitor.
 - The boilerplate sets `DEFAULT_URI`, used for URLs generated outside a request, to the environment's primary URL.
 - Symfony accepts any host name unless you set `SYMFONY_TRUSTED_HOSTS` on the PHP service.
 

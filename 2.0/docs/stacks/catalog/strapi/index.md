@@ -7,13 +7,13 @@ service. The current services and defaults are documented in
 
 ## Create the environment
 
-Start from the [Strapi Boilerplate](https://github.com/wodby/strapi-boilerplate), a Strapi 5 project in TypeScript, or
+Start from the [Strapi Boilerplate](https://github.com/wodby/strapi-boilerplate), a Strapi project in TypeScript, or
 connect your own compatible source repository. The app service and PostgreSQL are required. Mailpit, OpenSMTPD, and the
 OpenTelemetry Collector are optional and not selected by default. The app service links to PostgreSQL for the database,
 Mailpit for mail, and the OpenTelemetry Collector for telemetry. Change a link under **Connections > Links** on the app
 service.
 
-The app service's versions are Node.js versions: 26 by default, or 24 or 22.
+The app service's version is the Node.js version.
 
 ## First sign-in
 

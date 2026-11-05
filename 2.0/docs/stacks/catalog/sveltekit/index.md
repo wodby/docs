@@ -13,9 +13,8 @@ so select the ones your application uses when you create the environment. The ap
 database, Valkey for Redis, Mailpit for mail, and the OpenTelemetry Collector for telemetry. Change a link under
 **Connections > Links** on the app service.
 
-The service targets SvelteKit 3, which needs Node.js 22.17 or later. The app service runs Node.js 26 by default, or 24
-or 22; all of them qualify. The boilerplate includes a health endpoint at `/healthz` and checks it after each
-deployment.
+The app service's version is the Node.js version, and every version the service offers runs SvelteKit. The boilerplate
+includes a health endpoint at `/healthz` and checks it after each deployment.
 
 ## Build and start
 
@@ -23,7 +22,7 @@ deployment.
   container with `npm run start`. `package.json` must define both scripts.
 - Build with the [Node.js adapter](https://svelte.dev/docs/kit/adapter-node): set `adapter: adapter()` from
   `@sveltejs/adapter-node` in the `sveltekit()` plugin in `vite.config.ts`, build with `vite build`, and start with
-  `node build`. SvelteKit 3 does not read `svelte.config.js`. The boilerplate is set up this way.
+  `node build`. SvelteKit does not read `svelte.config.js`. The boilerplate is set up this way.
 - The Dockerfile does not install dependencies. Install them in your pipeline before the image is built, for example
   with `wodby ci run -- npm ci`, so that `node_modules` is part of the image. See [CI/CD](../../../cicd/index.md).
   SvelteKit, the adapter, Vite, and Svelte can stay in `devDependencies`: the adapter bundles them into `build/`.
@@ -64,7 +63,7 @@ adapter's `PROTOCOL_HEADER`, `ADDRESS_HEADER`, and `XFF_DEPTH` for that, so:
   that must post to the application.
 - `getClientAddress()` returns the visitor's address. It throws for a request that did not pass the gateway, such as a
   check from inside the environment, so do not call it on every request in `handle` or in `/healthz`.
-- Do not set `ORIGIN`, `HOST_HEADER`, or `PORT_HEADER`. SvelteKit 3's adapter no longer reads `ORIGIN`.
+- Do not set `ORIGIN`, `HOST_HEADER`, or `PORT_HEADER`. The Node.js adapter does not read `ORIGIN`.
 
 On shutdown, open requests get 25 seconds to finish, set by `SHUTDOWN_TIMEOUT`. Then the `sveltekit:shutdown` event
 runs, before the container is stopped.

@@ -132,7 +132,7 @@ built-in web updater is turned off. The upgrade runs before Nextcloud serves req
 minutes before the container is restarted.
 
 - Back up before you upgrade.
-- Upgrade one major version at a time, for example from 33 to 34. If you skip a major version, Nextcloud does not start.
+- Upgrade one major version at a time. If you skip a major version, Nextcloud does not start.
 - You cannot return to an older version. Nextcloud does not start when its data is newer than the selected version.
   Restore a backup instead.
 - Apps that are not compatible with the new version are disabled during the upgrade. The Nextcloud service log lists

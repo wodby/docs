@@ -1,6 +1,6 @@
 # Kotlin
 
-The Wodby Kotlin catalog stack runs a Kotlin app service on Java 25 or 21 with optional PostgreSQL, Valkey, Mailpit,
+The Wodby Kotlin catalog stack runs a Kotlin app service with optional PostgreSQL, Valkey, Mailpit,
 OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in
 [`wodby/stack-kotlin`](https://github.com/wodby/stack-kotlin).
 
@@ -12,9 +12,9 @@ and not selected by default, so select the ones your application uses when you c
 links to PostgreSQL for the database, Valkey for Redis, and Mailpit for mail. Change a link under
 **Connections > Links** on the app service.
 
-The app service's versions are Java versions: 25 by default, or 21. The Kotlin version is the one your Gradle build
-pins with the Kotlin Gradle plugin. To run on both Java versions, compile for the older one, as the boilerplate does
-with `jvmTarget` and Java's `targetCompatibility` set to 21.
+The app service's version is the Java version. The Kotlin version is the one your Gradle build pins with the Kotlin
+Gradle plugin. To run on every Java version the service offers, compile for the oldest one with `jvmTarget` and Java's
+`targetCompatibility`, as the boilerplate does.
 
 To use a managed database instead of the PostgreSQL container, see [Managed databases](../../../databases/managed.md).
 

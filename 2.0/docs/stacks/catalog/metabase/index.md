@@ -1,8 +1,8 @@
 # Metabase
 
 The Wodby Metabase catalog stack runs [Metabase](https://www.metabase.com/), the open source business intelligence
-tool, with PostgreSQL and an optional OpenSMTPD service for mail. Metabase uses the official open source edition image,
-version 0.65 by default, or 0.64. The current composition is documented in
+tool, with PostgreSQL and an optional OpenSMTPD service for mail. Metabase uses the official open source edition image.
+The current composition is documented in
 [`wodby/stack-metabase`](https://github.com/wodby/stack-metabase).
 
 ## Administrator account
