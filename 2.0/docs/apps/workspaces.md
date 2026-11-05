@@ -44,8 +44,13 @@ apply to pausing and deleting the environment.
 - Start with fresh application data. Attaching an existing database or selecting a data import during workspace
   creation is not supported.
 
-The SSH runner uses additional compute and counts toward service usage. Its resource allocation matches the source
-service. Code and agent-home storage are also billed under normal storage rules.
+The SSH runner uses additional compute and counts toward service usage. It is where you and Wodby Agent build code
+and run tools, so it doesn't copy the CPU and memory of the source service, which are sized for running the
+application. It requests the `large` [resource preset](scalability.md#resource-presets), 250m CPU and 512 MiB of
+memory, and has no CPU or memory limit, so a build isn't stopped by a limit. A service can set a different size for
+its runner in `workspace.runner.resources` of its manifest. GPUs of the source service are kept. When you create the
+environment, Wodby counts the runner when it checks whether the environment fits on the cluster. Code and agent-home
+storage are also billed under normal storage rules.
 
 ## Create a workspace
 

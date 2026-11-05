@@ -241,12 +241,16 @@ Used by `links[].helm`, `volumes[].helm.values`, `helm.values`, and `derivatives
 
 Used by `workloads[].containers[].resources` and `derivatives[].resources`.
 
+- `preset`: name of a Wodby [resource preset](../apps/scalability.md#resource-presets), such as `small` or `large`.
+  Its values fill in the four values below that you leave out, and the values you write override it. Custom presets
+  of an organization can't be used in manifests.
 - `request.cpu`
 - `request.memory`
 - `limit.cpu`
 - `limit.memory`
 
-CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
+CPU values are in millicores (`1000` is one core) and must be multiples of `10`. Memory values are in MiB and must be
+multiples of `16`.
 
 Resources under `workloads[].containers[].resources` are defaults. A container deploys with them unless its stack
 service or app service sets resources for it, which replace the defaults as a whole. Set a memory limit for runtimes

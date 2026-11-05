@@ -273,6 +273,8 @@ The `Runtime > Resources` subtab lets you configure CPU and memory requests and 
 
 CPU values are set in millicores, where `1000` means `1` CPU core. Memory values are set in megabytes in the dashboard UI.
 
+While you edit a container, **Preset** fills in the values of a [resource preset](scalability.md#resource-presets).
+
 Resource requests directly affect whether the service can be scheduled. If the cluster does not have enough available CPU or memory for the requested pod size, the pod stays pending until enough capacity becomes available. If cluster autoscaling is enabled, the cluster may add nodes to satisfy that demand.
 
 Apps running on a demo cluster cannot change service resources.

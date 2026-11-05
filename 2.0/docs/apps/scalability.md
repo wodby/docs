@@ -40,6 +40,50 @@ App services can also request GPUs with **GPU devices**: a device name, such as 
 GPUs for each replica. A count of `0` turns off the GPU request of the service's default configuration. App services
 that request GPUs run on the cluster's [GPU node pool](../clusters/gpu.md).
 
+#### Resource presets
+
+A resource preset is a named set of CPU and memory values. Instead of typing the values, pick a preset from **Preset**
+in the resources dialog when you create an app, or on the **Resources** tab of an app service or a stack service.
+Picking a preset fills in its values and clears the ones it doesn't set. You can still change any value afterwards.
+The **Preset** column shows which preset a container's values match.
+
+Choosing a preset copies its values. Wodby doesn't keep a link to the preset, so changing or deleting a preset later
+doesn't change any service that used it.
+
+Wodby provides these presets. They set requests only, so containers can use spare CPU and memory on the node:
+
+| Preset    | Requested CPU | Requested memory |
+|-----------|---------------|------------------|
+| `nano`    | 10m           | 32 MiB           |
+| `micro`   | 20m           | 64 MiB           |
+| `small`   | 50m           | 128 MiB          |
+| `medium`  | 100m          | 256 MiB          |
+| `large`   | 250m          | 512 MiB          |
+| `xlarge`  | 500m          | 1024 MiB         |
+| `2xlarge` | 1000m         | 2048 MiB         |
+
+Wodby's presets never change. A new size gets a new name.
+
+Your organization can add its own presets in **Resource presets** in the organization menu. Every member can view them
+and use them. Organization owners and admins create, edit and delete them. A custom preset can set any of the four
+values: requested CPU and memory, and CPU and memory limits. CPU values are multiples of `10` millicores and memory
+values are multiples of `16` MiB. For example, a preset for Java services can add a memory limit, because the JVM sizes
+its memory from the limit. A custom preset can't use the name of a Wodby preset.
+
+Service and stack manifests can name a Wodby preset in `resources.preset`, and override any of its values:
+
+```yaml
+resources:
+  preset: medium
+  limit:
+    memory: 1024
+```
+
+See the
+[service template](../services/template.md#resources-object) and the
+[stack template](../stacks/template.md). The API, the [CLI](../dev/cli.md) and the
+[MCP tools](../dev/mcp/tools.md) accept the name of a Wodby preset or of a custom preset of your organization.
+
 #### Clearing resources when creating an app
 
 When you create an app, the icons under `TOTAL` in the services table reset all services to the stack's defaults or
