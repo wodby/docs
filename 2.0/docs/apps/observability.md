@@ -87,19 +87,49 @@ you choose, such as the Collector of an [Observability](../stacks/catalog/observ
 [Grafana Tempo](../stacks/catalog/tempo/index.md), [Grafana Loki](../stacks/catalog/loki/index.md), or
 [VictoriaMetrics](../stacks/catalog/victoria-metrics/index.md) app, or another OpenTelemetry backend.
 
-### Turn on the Collector
+### See your application's telemetry in Grafana
 
-1. Open the `otel-collector` app service. Under `Configuration > Settings`, set:
-    - **Upstream OTLP endpoint**: the base URL to forward to over OTLP/HTTP, without a path. For a Wodby Observability,
-      Grafana Tempo, Grafana Loki, or VictoriaMetrics app, use `https://<Collector domain>` of that app.
-    - **Upstream Authorization header**: the `Authorization` header the upstream expects, for example
-      `Bearer <ingest token>` for a Wodby Collector. It is stored as a secret.
+The Collector in your app only forwards data. To store and view it, send it to an app created from the
+[Observability](../stacks/catalog/observability/index.md) stack, which has Grafana. One Observability app can collect
+data from many apps and environments.
+
+#### 1. Create the Observability app
+
+1. Create an app from the Observability stack, on any cluster. See
+   [Creating New Application](index.md#creating-new-application).
+2. In its environment, open `Endpoints > Domains` and copy the domain of the `otel-collector` app service.
+3. Open the `otel-collector` app service, then `Configuration > Tokens`, and reveal `ingest_token`. See
+   [Tokens](tokens.md).
+
+#### 2. Turn on the Collector in your app
+
+1. In your app's environment, open the `otel-collector` app service. Under `Configuration > Settings`, set:
+    - **Upstream OTLP endpoint**: `https://<Collector domain>` from step 1, without a path.
+    - **Upstream Authorization header**: `Bearer <ingest token>` from step 1. It is stored as a secret.
 2. Under `Configuration > General`, enable the service. You can also enable it and set its settings when you create the
    app.
-3. Deploy the app environment, so your application gets the new variables.
+3. Deploy the app environment, so your application gets the variables described below.
 
-The Collector does not start until the upstream endpoint is set. Environments created before the stack included the
-Collector get it with a [stack upgrade](stack.md#upgrade).
+Repeat these steps in each environment you want to see. The Collector does not start until the upstream endpoint is set.
+Environments created before the stack included the Collector get it with a [stack upgrade](stack.md#upgrade).
+
+#### 3. Instrument your application
+
+Wodby sets the variables, but your code must send the data. Add an OpenTelemetry SDK or agent for your language and set
+`OTEL_SERVICE_NAME`, for example to the app and environment name. See
+[What your application gets](#what-your-application-gets) and, for PHP, [PHP applications](#php-applications). Build
+and deploy the application.
+
+#### 4. Open Grafana
+
+1. In the Observability app's environment, open `Endpoints > Domains` and open the `grafana` domain.
+2. Sign in with `admin_username` and `admin_password` from the `grafana` app service's `Configuration > Tokens` tab.
+3. Open `Explore`. Choose the Tempo data source for traces, Loki for logs, or VictoriaMetrics for metrics, and filter by
+   your service name. See
+   [View telemetry in Grafana](../stacks/catalog/observability/index.md#view-telemetry-in-grafana).
+
+You can also send data to another OpenTelemetry backend. Set its OTLP/HTTP base URL and the `Authorization` header it
+expects in the same two settings.
 
 ### What your application gets
 
@@ -139,4 +169,5 @@ accepts all three. The Collector of a Wodby Grafana Tempo app accepts only trace
 VictoriaMetrics only metrics. Data the upstream refuses is dropped, and the Collector logs `Exporting failed`. Either
 turn off the other signals in your application, for example `OTEL_METRICS_EXPORTER=none` and
 `OTEL_LOGS_EXPORTER=none` when forwarding to Tempo, or edit the **Collector config** under `Configuration > Configs` to
-remove pipelines or add an exporter per destination. Deploy the service after a config change. See [Configs tab](services.md#configs-tab).
+remove pipelines or add an exporter per destination. Deploy the service after a config change. See
+[Configs tab](services.md#configs-tab).
