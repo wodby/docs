@@ -75,6 +75,15 @@ over TLS and verifies the server certificate when the server has one.
 
 Do not add migration or queue worker commands to the build or to a start script.
 
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+the PHP service and the Laravel Queue service get the standard OpenTelemetry SDK variables that point to it. Add the
+OpenTelemetry PHP SDK with Composer; it then starts without code changes. To trace requests, queue jobs, and database
+queries, also add `open-telemetry/opentelemetry-auto-laravel`.
+See [PHP applications](../../../apps/observability.md#php-applications) and
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Files and storage
 
 The PHP service requires a storage link and mounts a shared files volume at `/mnt/files`. The stack provides it as

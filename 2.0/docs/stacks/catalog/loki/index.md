@@ -3,6 +3,9 @@
 The Wodby Grafana Loki catalog stack runs Loki with Grafana as its interface. The current composition and defaults are
 in [`wodby/stack-loki`](https://github.com/wodby/stack-loki).
 
+To collect traces, metrics, and logs in one app, with links between them in Grafana, use the
+[Observability](../observability/index.md) stack.
+
 ## Choose services when you create the app
 
 Loki is required. Grafana is enabled by default as the stack's main interface, with Loki provisioned as its default

@@ -47,3 +47,12 @@ attach an [SMTP provider integration](../../../providers/smtp.md).
 
 The WordPress PHP service defines an hourly schedule for due WordPress cron events using the app environment's primary
 URL. Change the schedule or run it manually from the app environment's [Cron](../../../apps/cron.md) page.
+
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+the PHP service gets the standard OpenTelemetry SDK variables that point to it. Add the OpenTelemetry PHP SDK with
+Composer; it then starts without code changes. To trace requests, also add
+`open-telemetry/opentelemetry-auto-wordpress`.
+See [PHP applications](../../../apps/observability.md#php-applications) and
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).

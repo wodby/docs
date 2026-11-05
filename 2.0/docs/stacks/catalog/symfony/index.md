@@ -69,6 +69,14 @@ when the container is replaced. File-based sessions are also not shared between 
 database or a Redis-compatible service before you run more than one PHP replica. The stack has no files volume; add one
 for user uploads. See [Application persistent storage](../../../apps/storage.md).
 
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+the PHP service gets the standard OpenTelemetry SDK variables that point to it. Add the OpenTelemetry PHP SDK with
+Composer; it then starts without code changes. To trace requests, also add `open-telemetry/opentelemetry-auto-symfony`.
+See [PHP applications](../../../apps/observability.md#php-applications) and
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Data and backups
 
 PostgreSQL stores data on a `data` volume of 20 GB. Its backups are gzipped SQL dumps of the environment's database. An

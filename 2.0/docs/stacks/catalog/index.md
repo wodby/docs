@@ -62,7 +62,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 ## Observability
 
 [Prometheus](prometheus/index.md), [Grafana](grafana/index.md), [Grafana Loki](loki/index.md),
-[Grafana Tempo](tempo/index.md), [VictoriaMetrics](victoria-metrics/index.md)
+[Grafana Tempo](tempo/index.md), [VictoriaMetrics](victoria-metrics/index.md),
+[Observability](observability/index.md) (traces, metrics, and logs in one app)
 
 ## Kubernetes system stacks
 

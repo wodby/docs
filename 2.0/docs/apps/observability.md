@@ -80,17 +80,18 @@ If cluster monitoring is disabled, app environment and app-service metrics pages
 ## OpenTelemetry Collector in application stacks
 
 The catalog stacks for application runtimes include an OpenTelemetry Collector, disabled by default: ASP.NET Core,
-Astro, Django, FastAPI, Flask, Go, Java, Kotlin, Next.js, Node.js, Nuxt, Python, Rails, Ruby, Rust, Spring Boot,
-Strapi, SvelteKit, and TanStack Start. The Collector runs in the same app environment as your application and has no
-public domain. It forwards traces, metrics, and logs to an OTLP endpoint you choose, such as the Collector of a
+Astro, Django, Drupal, FastAPI, Flask, Go, Java, Kotlin, Laravel, Next.js, Node.js, Nuxt, PHP, Python, Rails, Ruby,
+Rust, Spring Boot, Strapi, SvelteKit, Symfony, TanStack Start, and WordPress. The Collector runs in the same app
+environment as your application and has no public domain. It forwards traces, metrics, and logs to an OTLP endpoint
+you choose, such as the Collector of an [Observability](../stacks/catalog/observability/index.md),
 [Grafana Tempo](../stacks/catalog/tempo/index.md), [Grafana Loki](../stacks/catalog/loki/index.md), or
 [VictoriaMetrics](../stacks/catalog/victoria-metrics/index.md) app, or another OpenTelemetry backend.
 
 ### Turn on the Collector
 
 1. Open the `otel-collector` app service. Under `Configuration > Settings`, set:
-    - **Upstream OTLP endpoint**: the base URL to forward to over OTLP/HTTP, without a path. For a Wodby Grafana Tempo,
-      Grafana Loki, or VictoriaMetrics app, use `https://<Collector domain>` of that app.
+    - **Upstream OTLP endpoint**: the base URL to forward to over OTLP/HTTP, without a path. For a Wodby Observability,
+      Grafana Tempo, Grafana Loki, or VictoriaMetrics app, use `https://<Collector domain>` of that app.
     - **Upstream Authorization header**: the `Authorization` header the upstream expects, for example
       `Bearer <ingest token>` for a Wodby Collector. It is stored as a secret.
 2. Under `Configuration > General`, enable the service. You can also enable it and set its settings when you create the
@@ -115,11 +116,27 @@ Wodby does not instrument your code. Add an OpenTelemetry SDK or agent for your 
 and set `OTEL_SERVICE_NAME` to name the application in traces. While the Collector is disabled, the variables are
 absent, so start the instrumentation only when `OTEL_EXPORTER_OTLP_ENDPOINT` is set.
 
+### PHP applications
+
+In the PHP, Laravel, Symfony, WordPress, and Drupal stacks, the PHP service also gets `OTEL_PHP_AUTOLOAD_ENABLED=true`
+while the Collector is enabled. The OpenTelemetry PHP extension is already in the image. Add the SDK, the OTLP
+exporter, and an HTTP client to your project with Composer:
+
+```bash
+composer require open-telemetry/sdk open-telemetry/exporter-otlp php-http/guzzle7-adapter
+```
+
+The SDK then sets itself up from the variables when your application loads Composer's autoloader, with no code
+changes. Add instrumentation packages for what you want to trace, for example
+`open-telemetry/opentelemetry-auto-laravel`, `open-telemetry/opentelemetry-auto-symfony`,
+`open-telemetry/opentelemetry-auto-wordpress`, or `open-telemetry/opentelemetry-auto-pdo` for database queries.
+While the Collector is disabled, the variables are absent and the SDK stays off.
+
 ### Choose what to forward
 
-The Collector forwards traces, metrics, and logs to the same endpoint. The Collector of a Wodby Grafana Tempo app
-accepts only traces, Grafana Loki only logs, and VictoriaMetrics only metrics. Data the upstream refuses is dropped,
-and the Collector logs `Exporting failed`. Either turn off the other signals in your application, for example
-`OTEL_METRICS_EXPORTER=none` and `OTEL_LOGS_EXPORTER=none` when forwarding to Tempo, or edit the **Collector config**
-under `Configuration > Configs` to remove pipelines or add an exporter per destination. Deploy the service after a
-config change. See [Configs tab](services.md#configs-tab).
+The Collector forwards traces, metrics, and logs to the same endpoint. The Collector of a Wodby Observability app
+accepts all three. The Collector of a Wodby Grafana Tempo app accepts only traces, Grafana Loki only logs, and
+VictoriaMetrics only metrics. Data the upstream refuses is dropped, and the Collector logs `Exporting failed`. Either
+turn off the other signals in your application, for example `OTEL_METRICS_EXPORTER=none` and
+`OTEL_LOGS_EXPORTER=none` when forwarding to Tempo, or edit the **Collector config** under `Configuration > Configs` to
+remove pipelines or add an exporter per destination. Deploy the service after a config change. See [Configs tab](services.md#configs-tab).
