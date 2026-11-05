@@ -4,6 +4,9 @@ The Wodby Grafana Tempo catalog stack collects and stores distributed traces fro
 Collector receives traces, Grafana Tempo stores them, and Grafana shows them. The current composition and defaults are
 in [`wodby/stack-tempo`](https://github.com/wodby/stack-tempo).
 
+To collect traces, metrics, and logs in one app, with links between them in Grafana, use the
+[Observability](../observability/index.md) stack.
+
 ## Choose services when you create the app
 
 Tempo and the OpenTelemetry Collector are required. Grafana is enabled by default as the stack's main interface, with

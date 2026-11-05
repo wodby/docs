@@ -49,6 +49,14 @@ Uploads are limited by both `NGINX_CLIENT_MAX_BODY_SIZE` on Nginx and the PHP se
 `WODBY_ENV_TYPE` tells a development environment from a production-like one. See
 [Environment variables](../../../apps/environment-variables.md).
 
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+the PHP service gets the standard OpenTelemetry SDK variables that point to it. Add the OpenTelemetry PHP SDK with
+Composer; it then starts without code changes.
+See [PHP applications](../../../apps/observability.md#php-applications) and
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Data and backups
 
 The PHP service has no volume. Files written inside the container are lost when it is replaced.

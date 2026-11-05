@@ -63,6 +63,14 @@ The service also exposes actions to:
 Run these from the app service operations in the dashboard. Use the [web terminal](../../../apps/web-terminal.md) for
 other one-off Drush or Composer commands.
 
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+the PHP service gets the standard OpenTelemetry SDK variables that point to it. Add the OpenTelemetry PHP SDK with
+Composer; it then starts without code changes.
+See [PHP applications](../../../apps/observability.md#php-applications) and
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Optional services
 
 The catalog stack can link Drupal to a database, shared files, Valkey, mail, Gotenberg, and Solr. Optional services and

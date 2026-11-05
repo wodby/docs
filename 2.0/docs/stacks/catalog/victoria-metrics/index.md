@@ -3,6 +3,9 @@
 The Wodby VictoriaMetrics catalog stack runs single-node VictoriaMetrics with Grafana as its interface. The current
 composition and defaults are in [`wodby/stack-victoria-metrics`](https://github.com/wodby/stack-victoria-metrics).
 
+To collect traces, metrics, and logs in one app, with links between them in Grafana, use the
+[Observability](../observability/index.md) stack.
+
 ## Choose services when you create the app
 
 VictoriaMetrics is required. Grafana is enabled by default and is the stack's public interface. Its VictoriaMetrics
