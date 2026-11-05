@@ -416,7 +416,8 @@ Each `services[].workloads[].containers[]` item supports:
 - `limit.cpu`
 - `limit.memory`
 
-CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
+CPU values are in millicores (`1000` is one core) and must be multiples of `10`. Memory values are in MiB and must be
+multiples of `16`.
 
 Use the same workload names and container names declared by the referenced service. You only need to list the workloads
 and containers you want to override. Stack import validates these targets against the referenced service manifest.
