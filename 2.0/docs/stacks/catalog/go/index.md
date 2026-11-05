@@ -52,6 +52,12 @@ application's mail transport without them.
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the
 [OpenSMTPD guide](../opensmtpd/index.md).
 
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+your application gets the standard OpenTelemetry SDK variables that point to it. See
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Data and backups
 
 PostgreSQL stores data on a `data` volume of 20 GB. Its backups are gzipped SQL dumps of the environment's database. An

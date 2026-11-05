@@ -38,6 +38,10 @@ quote them in label filters, for example `{"service.name"="api"}`. To change wha
 Collector does, edit its **Collector config** under **Configuration > Configs** and deploy the service. See
 [Configs tab](../../../apps/services.md#configs-tab).
 
+Apps from the Wodby application stacks can instead forward metrics through their own Collector, set to this
+Collector's domain and token. See
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
+
 ## Send and query metrics
 
 VictoriaMetrics listens on port `8428`. The port is private, so Wodby creates no public route for it. Other services in
