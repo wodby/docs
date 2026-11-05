@@ -340,7 +340,7 @@ For field formats, workload-kind restrictions, and precedence, see
 Type: `boolean`.
 
 Marks the main service in the stack. Only one stack service can be main, and its main endpoint must expose a public HTTP
-port. The corresponding app service owns the app environment's root technical route. This is independent of the app
+port. A port the stack makes private with [`services[].endpoints`](#servicesendpoints) doesn't count. The corresponding app service owns the app environment's root technical route. This is independent of the app
 app environment's canonical `Main` route.
 
 If no service is marked as main, Wodby will automatically pick the first eligible service. The same fallback applies
@@ -431,6 +431,43 @@ Each item supports:
 
 - `name`: required service volume name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `size`: required size in GB, minimum `1`.
+
+### `services[].endpoints`
+
+Type: `array`.
+
+Keeps ports of the referenced service private in this stack's app environments. A private port gets no domain, no
+certificate, and no public port. Services in the same app environment still reach it by service name and port.
+
+Use it when a service is public by default but this stack only needs it on the app environment's private network, for
+example an OpenTelemetry Collector that only the stack's own services send to.
+
+Each item supports:
+
+- `name`: required name of an endpoint of the referenced service.
+- `ports`: required list of ports, each with:
+  - `name`: required name of a port of that endpoint.
+  - `private`: required, must be `true`.
+
+```yaml
+services:
+  - name: otel-collector
+    title: OpenTelemetry Collector
+    service: opentelemetry-collector
+    endpoints:
+      - name: otlp
+        ports:
+          - name: otlp-http
+            private: true
+```
+
+A stack can only make a public port private. It can't publish a port that the service keeps private. Validation fails
+when the endpoint or port doesn't exist in the service's [`endpoints`](../services/template.md#endpoints), or when the
+port uses `routeToPublicPort`. The main service's public HTTP port on its main endpoint can't be made private, because
+it serves the app environment's root technical route. Derivatives keep the ports their service defines.
+
+When an app environment is upgraded to a stack revision that makes a port private, Wodby removes the port's technical
+routes and closes its public port. A custom domain on that port stops the upgrade; remove the domain first.
 
 ### `services[].links`
 
