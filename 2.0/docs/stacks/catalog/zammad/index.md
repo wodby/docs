@@ -45,8 +45,8 @@ Customers can register themselves by default (**Register as a new customer**). T
 
 ## Search with Elasticsearch
 
-Zammad uses Elasticsearch for search. It needs Elasticsearch 8.15 or newer, below version 10; the catalog Elasticsearch
-service meets this. OpenSearch is not supported by Zammad. See
+Zammad uses Elasticsearch for search. It needs a supported Elasticsearch version, and the catalog Elasticsearch
+service provides one. OpenSearch is not supported by Zammad. See
 [Zammad's Elasticsearch requirements](https://docs.zammad.org/en/latest/install/elasticsearch.html).
 
 The Elasticsearch service is optional. Without it, Zammad searches the database, which is slower and less complete. To

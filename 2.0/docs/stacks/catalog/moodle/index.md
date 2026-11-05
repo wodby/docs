@@ -1,6 +1,6 @@
 # Moodle
 
-The Wodby Moodle catalog stack runs [Moodle LMS](https://moodle.org/) 5.3 with Nginx, MariaDB, shared NFS storage for
+The Wodby Moodle catalog stack runs [Moodle LMS](https://moodle.org/) with Nginx, MariaDB, shared NFS storage for
 Moodle's files, OpenSMTPD for mail, and an optional Valkey service for sessions. A separate worker runs Moodle's cron.
 The current composition is documented in [`wodby/stack-moodle`](https://github.com/wodby/stack-moodle).
 
@@ -68,5 +68,6 @@ Back up both the database and the `moodledata` volume; see [Application Backups]
 
 ## Limits
 
-- Moodle 5.3 runs on PHP 8.3 or 8.4 and needs MariaDB 11.4 or later.
+- Each Moodle release supports only certain PHP and MariaDB versions. The stack's defaults match; check Moodle's
+  release notes before you change either version.
 - Uploads are limited to 256 MB.

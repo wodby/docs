@@ -25,7 +25,8 @@ To use a managed database instead of the PostgreSQL container, see [Managed data
   lock file is out of date.
 - A Dockerfile from your repository replaces the service's. Its last stage must start from the service image, as in the
   boilerplate. See [Application builds](../../../apps/builds.md).
-- The project's target framework must match the service's .NET version, for example `net10.0` for .NET 10.
+- The project's target framework (`TargetFramework` in the project file) must match the .NET version you choose for
+  the service.
 - The application must listen on port `8080`. ASP.NET Core does that by default in this image; don't set other URLs in
   code. `launchSettings.json` is not used by a deployed application.
 - The image includes ICU and the full culture data, so cultures, number and date formats, and collation work.

@@ -1,7 +1,7 @@
 # GitLab
 
-The Wodby GitLab catalog stack runs GitLab Community Edition 19 from the official GitLab Helm chart, with PostgreSQL 17,
-Valkey 8.1, OpenSMTPD, and an optional GitLab Runner. The current composition is documented in
+The Wodby GitLab catalog stack runs GitLab Community Edition from the official GitLab Helm chart, with PostgreSQL,
+Valkey, OpenSMTPD, and an optional GitLab Runner. The current composition is documented in
 [`wodby/stack-gitlab`](https://github.com/wodby/stack-gitlab).
 
 GitLab, PostgreSQL, Valkey, and OpenSMTPD are required. The GitLab Runner service is disabled until you enable it.
@@ -160,7 +160,7 @@ jobs run on the runner in GitLab.
 How jobs run:
 
 - Each job runs in its own pod, in the same Kubernetes namespace as GitLab. Up to four jobs run at once.
-- Jobs without an `image` use `alpine:3.22`.
+- Jobs without an `image` use a small Alpine Linux image.
 - A job container requests 0.1 CPU and 256 MiB of memory, with limits of 2 CPU and 2 GiB. A job cannot raise these
   limits.
 - Job containers are unprivileged, so Docker-in-Docker is not available. Build container images with a builder that

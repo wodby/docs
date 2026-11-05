@@ -8,7 +8,7 @@ The Wodby Ghost catalog stack combines Ghost, MySQL, and OpenSMTPD services. The
 Set **Email sender** on the Ghost app service. It is required. Use the form `Ghost <ghost@example.com>`, with an address
 that your mail relay accepts.
 
-Ghost needs MySQL 8.4. MariaDB is not supported.
+Ghost needs MySQL, which the stack includes. MariaDB is not supported.
 
 ## First sign-in
 
@@ -47,4 +47,5 @@ and [Imports](../../../apps/imports.md).
 
 - Ghost runs as one replica. Use an external CDN or cache for more delivery capacity instead of adding replicas.
 - The route accepts request bodies up to 50 MiB.
-- Ghost 7 uses a different content path and needs an explicit storage migration. Do not treat it as a routine update.
+- A new major Ghost version can change where content is stored and need an explicit storage migration. Read Ghost's
+  upgrade notes before you move to a new major version, and do not treat it as a routine update.

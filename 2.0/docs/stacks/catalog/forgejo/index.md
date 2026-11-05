@@ -96,11 +96,12 @@ operation in Wodby. The PostgreSQL service does. See [Backups](../../../apps/bac
 
 ## Versions and upgrades
 
-The Forgejo service offers two versions: `17` by default, or `15`, the long-term support release, which gets fixes for
-longer. Choose the version when you create the app environment.
+The Forgejo service offers two versions: the current release by default, or the long-term support release, which gets
+fixes for longer. Choose the version when you create the app environment.
 
-Do not switch an existing environment from `17` to `15`. Forgejo refuses to start on a database written by a newer
-version. See Forgejo's [upgrade guide](https://forgejo.org/docs/latest/admin/upgrade/).
+Do not switch an existing environment from the current release to the long-term support release. Forgejo refuses to
+start on a database written by a newer version. See Forgejo's
+[upgrade guide](https://forgejo.org/docs/latest/admin/upgrade/).
 
 When a new stack revision brings a newer Forgejo, upgrade the app environment's stack. See
 [Upgrade](../../../apps/stack.md#upgrade). Forgejo migrates its database when it starts, and Wodby waits up to 15

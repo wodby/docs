@@ -7,7 +7,7 @@ OpenSMTPD, Gotenberg and Cloud PostgreSQL are optional. The current services and
 ## Build and deployment
 
 Start from the [Django boilerplate](https://github.com/wodby/django-boilerplate) or connect your own repository. The
-boilerplate is offered for Python 3.10 to 3.14. See [Application Builds](../../../apps/builds.md).
+boilerplate is offered only for the Python versions it supports. See [Application Builds](../../../apps/builds.md).
 
 The container runs Gunicorn on port 8080. The defaults assume the project package is named `myapp`. When it is not, set
 both `GUNICORN_APP` (default `myapp.wsgi:application`) and `CELERY_APP` (default `myapp`) on the app service.

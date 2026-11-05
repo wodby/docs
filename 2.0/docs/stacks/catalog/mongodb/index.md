@@ -1,6 +1,6 @@
 # MongoDB
 
-The Wodby MongoDB catalog stack runs a MongoDB 8.0 database server from the official MongoDB image, with an optional
+The Wodby MongoDB catalog stack runs a MongoDB database server from the official MongoDB image, with an optional
 Mongoku web interface. The current composition is documented in
 [`wodby/stack-mongodb`](https://github.com/wodby/stack-mongodb).
 
@@ -86,7 +86,7 @@ Mongoku has no volume. Servers you add in it are lost when its container is repl
 - The MongoDB service runs a single standalone server, not a replica set. MongoDB does not support transactions on a
   standalone server, so application code that needs transactions does not work with this service.
 - The service has no settings or configuration files to override. MongoDB runs with its default configuration.
-- On x86-64 nodes, MongoDB 8.0 needs a CPU with AVX support.
+- On x86-64 nodes, MongoDB needs a CPU with AVX support.
 
 ## Backups and restore
 
