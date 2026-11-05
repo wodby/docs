@@ -283,7 +283,12 @@ nav:
               - Nextcloud: stacks/catalog/nextcloud/index.md
               - Odoo: stacks/catalog/odoo/index.md
               - GitLab: stacks/catalog/gitlab/index.md
+              - Gitea: stacks/catalog/gitea/index.md
+              - Forgejo: stacks/catalog/forgejo/index.md
               - Dagster: stacks/catalog/dagster/index.md
+              - Zammad: stacks/catalog/zammad/index.md
+              - n8n: stacks/catalog/n8n/index.md
+              - Metabase: stacks/catalog/metabase/index.md
               - Slack Inviter: stacks/catalog/slack-inviter/index.md
           - Framework stacks:
               - HTML: stacks/catalog/html/index.md
@@ -308,6 +313,10 @@ nav:
               - Node.js: stacks/catalog/node/index.md
               - Next.js: stacks/catalog/nextjs/index.md
               - TanStack Start: stacks/catalog/tanstack-start/index.md
+              - Nuxt: stacks/catalog/nuxt/index.md
+              - SvelteKit: stacks/catalog/sveltekit/index.md
+              - Astro: stacks/catalog/astro/index.md
+              - Strapi: stacks/catalog/strapi/index.md
           - Backend platforms:
               - Supabase: stacks/catalog/supabase/index.md
           - Databases:
@@ -328,6 +337,7 @@ nav:
               - Solr: stacks/catalog/solr/index.md
               - Elasticsearch: stacks/catalog/elasticsearch/index.md
               - OpenSearch: stacks/catalog/opensearch/index.md
+              - Meilisearch: stacks/catalog/meilisearch/index.md
               - ClickHouse: stacks/catalog/clickhouse/index.md
               - Apache Kafka: stacks/catalog/kafka/index.md
               - Apache Spark: stacks/catalog/spark/index.md
