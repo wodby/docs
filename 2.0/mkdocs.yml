@@ -276,6 +276,7 @@ nav:
               - WordPress: stacks/catalog/wordpress/index.md
               - Ghost: stacks/catalog/ghost/index.md
               - Matomo: stacks/catalog/matomo/index.md
+              - Mautic: stacks/catalog/mautic/index.md
               - Moodle: stacks/catalog/moodle/index.md
               - Discourse: stacks/catalog/discourse/index.md
               - Chatwoot: stacks/catalog/chatwoot/index.md
