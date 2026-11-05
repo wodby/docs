@@ -12,7 +12,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [Drupal](drupal/index.md) ([connect to Solr](drupal/solr.md)), [WordPress](wordpress/index.md),
 [Ghost](ghost/index.md), [Matomo](matomo/index.md), [Moodle](moodle/index.md), [Discourse](discourse/index.md),
 [Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md), [Nextcloud](nextcloud/index.md), [Odoo](odoo/index.md),
-[GitLab](gitlab/index.md), [Dagster](dagster/index.md), [Slack Inviter](slack-inviter/index.md)
+[GitLab](gitlab/index.md), [Gitea](gitea/index.md), [Forgejo](forgejo/index.md), [Dagster](dagster/index.md),
+[Zammad](zammad/index.md), [n8n](n8n/index.md), [Metabase](metabase/index.md), [Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
 
@@ -21,7 +22,8 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [Django](django/index.md), [FastAPI](fastapi/index.md), [Flask](flask/index.md), [Ruby](ruby/index.md),
 [Rails](rails/index.md), [Go](go/index.md), [Rust](rust/index.md), [Java](java/index.md),
 [Spring Boot](spring-boot/index.md), [Kotlin](kotlin/index.md), [ASP.NET Core](aspnetcore/index.md),
-[Node.js](node/index.md), [Next.js](nextjs/index.md), [TanStack Start](tanstack-start/index.md)
+[Node.js](node/index.md), [Next.js](nextjs/index.md), [TanStack Start](tanstack-start/index.md), [Nuxt](nuxt/index.md),
+[SvelteKit](sveltekit/index.md), [Astro](astro/index.md), [Strapi](strapi/index.md)
 
 ## Backend platforms
 
@@ -37,8 +39,9 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 
 [Valkey](valkey/index.md), [Redis](redis/index.md), [Memcached](memcached/index.md), [RabbitMQ](rabbitmq/index.md),
 [Distribution Registry](distribution/index.md), [Solr](solr/index.md), [Elasticsearch](elasticsearch/index.md),
-[OpenSearch](opensearch/index.md), [ClickHouse](clickhouse/index.md), [Apache Kafka](kafka/index.md),
-[Apache Spark](spark/index.md), [Apache Airflow](airflow/index.md), [ZooKeeper](zookeeper/index.md)
+[OpenSearch](opensearch/index.md), [Meilisearch](meilisearch/index.md), [ClickHouse](clickhouse/index.md),
+[Apache Kafka](kafka/index.md), [Apache Spark](spark/index.md), [Apache Airflow](airflow/index.md),
+[ZooKeeper](zookeeper/index.md)
 
 ## Utilities and integrations
 
