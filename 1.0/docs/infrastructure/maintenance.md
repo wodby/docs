@@ -27,10 +27,10 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 **Update** shows how each component is updated, and is empty when an up-to-date Agent or Edge needs nothing:
 
 * **Update** button: update Agent or Edge yourself, as described in [Updating Agent and Edge](#updating-agent-and-edge).
-* **Dashboard**: on Infrastructure 6 servers and Infrastructure 7 servers below 7.0.7, update Agent and Edge as described in [Updating from the Dashboard](#updating-from-the-dashboard). On newer servers, this appears instead of the button until the server reports its versions, or if you don't have permission to update the server.
+* **Dashboard**: on Infrastructure 6 servers and Infrastructure 7 servers below 7.0.7, update Agent and Edge as described in [Updating from the Dashboard](#updating-from-the-dashboard). On newer servers, this appears instead of the button until the server reports its versions, or if you don't have permission to update the server. It also appears on the IPv4 options filter row of servers below 6.1.2 or 7.0.8, because updating their infrastructure adds the filter.
 * **Manual update**: you install a fixed Linux kernel on the server, as described in [Install a fixed kernel](#install-a-fixed-kernel). Empty when the kernel has the fixes Wodby tracks.
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
-* **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications, and restores a missing IPv4 options filter. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
+* **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications, and restores a missing IPv4 options filter on servers already on 6.1.2 or 7.0.8. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
 
 ### Operating system
@@ -49,7 +49,7 @@ Wodby doesn't upgrade a server's operating system. To leave a release that has r
 While a server's kernel needs the [CVE-2026-98432](#linux-kernel-security-update-cve-2026-98432) fix, the last row shows whether the [packet filter that reduces your exposure](#update-infrastructure-to-reduce-your-exposure) is in place. Wodby checks it about once a day. Hover over the status to see when it was last checked.
 
 * **Applied**: the filter is on.
-* **Not applied**: the filter isn't on, so the server is exposed until it runs a fixed kernel. [Install a fixed kernel](#install-a-fixed-kernel), or select **Request update** to ask Wodby support to restore the filter.
+* **Not applied**: the filter isn't on, so the server is exposed until it runs a fixed kernel. [Install a fixed kernel](#install-a-fixed-kernel). On a server below 6.1.2 or 7.0.8, you can also [update its infrastructure](#update-infrastructure-to-reduce-your-exposure) from the Dashboard, which adds the filter. On other servers, select **Request update** to ask Wodby support to restore the filter.
 * **Not checked**: Wodby hasn't checked the server yet, or not in the last few days. This doesn't change the server's status.
 
 The row disappears once the server runs a fixed kernel.
