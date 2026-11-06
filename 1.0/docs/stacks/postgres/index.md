@@ -33,6 +33,12 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
 
+### 2.0.22
+
+- Adminer:
+    - ⬆️ Adminer 6.3.0
+    - 📜 Adminer now runs on Alpine Linux with Apache and PHP-FPM instead of the Debian-based official PHP image. Default database settings, designs, plugins and PHP limits work as before
+
 ### 2.0.21
 
 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for PostgreSQL 15 and 14
