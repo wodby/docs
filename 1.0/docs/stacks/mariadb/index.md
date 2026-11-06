@@ -40,6 +40,12 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
 
+### 3.3.8
+
+- Adminer:
+    - ⬆️ Adminer 6.3.0
+    - 📜 Adminer now runs on Alpine Linux with Apache and PHP-FPM instead of the Debian-based official PHP image. Default database settings, designs, plugins and PHP limits work as before
+
 ### 3.3.7
 
 🏔️ [Alpine Linux security updates](https://alpinelinux.org/posts/Alpine-3.21.9-3.22.7-3.23.7-3.24.3-released.html) for MariaDB 11.8, 11.4 and 10.11

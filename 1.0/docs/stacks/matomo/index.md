@@ -79,6 +79,17 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.19
+
+- Matomo PHP runtime:
+    - 📜 PHP-FPM now gives running requests up to 20 seconds to finish when the container stops. Set `PHP_FPM_PROCESS_CONTROL_TIMEOUT` to change the limit, or `0` for the previous behavior
+    - 🐞 Fixed the OpenSSH [password authentication bypass](https://alpinelinux.org/posts/2026-11-05-openssh-password-authentication-bypass/). SSH password logins are off by default; update promptly if you set `SSHD_PASSWORD_AUTHENTICATION=yes`
+- Adminer:
+    - ⬆️ Adminer 6.3.0
+    - 📜 Adminer now runs on Alpine Linux with Apache and PHP-FPM instead of the Debian-based official PHP image. Default database settings, designs, plugins and PHP limits work as before
+- ⬆️ Redis 7.4.12
+- 🏔️ [Alpine Linux updates](https://alpinelinux.org/posts/alpine-3.21.10-3.22.8-3.23.8-3.24.4-released/) for Nginx and Redis
+
 ### 1.4.18
 
 - ⬆️ Adminer 6.2.0

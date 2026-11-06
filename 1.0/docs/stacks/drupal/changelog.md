@@ -7,6 +7,20 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.16
+
+Applies to the Drupal 7–11 stacks.
+
+- PHP 8.2–8.5:
+    - 🐞 On Drupal 10 and 11, other visitors now get a 503 page while Drupal is being installed from the browser. Previously such requests could leave the new site with "No route found" errors, missing theme styles or failing form saves until a cache rebuild. The installer, `update.php` and the command line work as before
+    - 📜 PHP-FPM now gives running requests up to 20 seconds to finish when the container stops. Set `PHP_FPM_PROCESS_CONTROL_TIMEOUT` to change the limit, or `0` for the previous behavior
+    - 🐞 Fixed the OpenSSH [password authentication bypass](https://alpinelinux.org/posts/2026-11-05-openssh-password-authentication-bypass/). SSH password logins are off by default; update promptly if you set `SSHD_PASSWORD_AUTHENTICATION=yes`
+- Adminer:
+    - ⬆️ Adminer 6.3.0
+    - 📜 Adminer now runs on Alpine Linux with Apache and PHP-FPM instead of the Debian-based official PHP image. Default database settings, designs, plugins and PHP limits work as before
+- ⬆️ Redis 8.4.8, 8.2.11, 7.4.12
+- 🏔️ [Alpine Linux updates](https://alpinelinux.org/posts/alpine-3.21.10-3.22.8-3.23.8-3.24.4-released/) for Nginx, Apache and Redis
+
 ## 6.2.15
 
 Applies to the Drupal 7–11 stacks.

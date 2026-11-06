@@ -7,6 +7,20 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.16
+
+- ⬆️ Vanilla WordPress 7.1.4
+- PHP 8.2–8.5:
+    - ⭐️ WordPress core can be installed in the `wp` subdirectory of the web root with `wp-content` next to it, as in Roots Bedrock. When `wp/wp-settings.php` exists, the generated configuration points `WP_SITEURL` to `/wp` and `WP_CONTENT_DIR` and `WP_CONTENT_URL` to the web root's `wp-content`, so Composer can update core without deleting themes and plugins. Projects with core in the web root are unchanged
+    - ⭐️ New `WP_DISALLOW_FILE_MODS` and `WP_AUTOMATIC_UPDATER_DISABLED` variables set `DISALLOW_FILE_MODS` and `AUTOMATIC_UPDATER_DISABLED`, for sites whose code cannot be changed from wp-admin
+    - 📜 PHP-FPM now gives running requests up to 20 seconds to finish when the container stops. Set `PHP_FPM_PROCESS_CONTROL_TIMEOUT` to change the limit, or `0` for the previous behavior
+    - 🐞 Fixed the OpenSSH [password authentication bypass](https://alpinelinux.org/posts/2026-11-05-openssh-password-authentication-bypass/). SSH password logins are off by default; update promptly if you set `SSHD_PASSWORD_AUTHENTICATION=yes`
+- Adminer:
+    - ⬆️ Adminer 6.3.0
+    - 📜 Adminer now runs on Alpine Linux with Apache and PHP-FPM instead of the Debian-based official PHP image. Default database settings, designs, plugins and PHP limits work as before
+- ⬆️ Redis 8.4.8, 8.2.11, 7.4.12
+- 🏔️ [Alpine Linux updates](https://alpinelinux.org/posts/alpine-3.21.10-3.22.8-3.23.8-3.24.4-released/) for Nginx, Apache and Redis
+
 ## 6.2.15
 
 - PHP:
