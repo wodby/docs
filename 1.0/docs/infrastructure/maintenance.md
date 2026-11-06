@@ -20,6 +20,12 @@ The list shows only components whose installed version is known.
 
 The **Linux kernel** row is the last in the list and shows the kernel the server is running, once the server has reported it. **Critical** means the server is below Infrastructure 6.1.2 or 7.0.8 and a fixed kernel is available to install. **Update recommended** means the kernel doesn't have the fix, but the server is on 6.1.2, 7.0.8 or later, or no fix is available for your system yet. The server's version can still be red in that last case. If **Latest** shows a version, a fixed kernel is available, so [install it](#install-a-fixed-kernel): updating infrastructure only reduces your exposure. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
 
+While the kernel needs the fix, an **IPv4 options filter** row shows whether the [packet filter that reduces your exposure](#update-infrastructure-to-reduce-your-exposure) is in place. Wodby checks it about once a day:
+
+* **Active**, **Up to date**: the filter is on.
+* **Missing**, **Critical**: the filter isn't on, so the server is exposed until it runs a fixed kernel. [Install a fixed kernel](#install-a-fixed-kernel), or select **Request update** to ask Wodby support to restore the filter.
+* **Not reported**: Wodby hasn't checked the server yet, or not in the last few days. The row shows **Not checked** or the last result, and doesn't change the server's status.
+
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
 New servers always receive the latest versions. On existing servers, Kubernetes, Docker and the other host components are updated only when security or support requires it: they do not serve public traffic, and some of their updates restart application containers or briefly interrupt networking. On Infrastructure 7, the status of Agent and Edge shows when an update is urgent.
@@ -30,7 +36,7 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 * **Dashboard**: on Infrastructure 6 servers and Infrastructure 7 servers below 7.0.7, update Agent and Edge as described in [Updating from the Dashboard](#updating-from-the-dashboard). On newer servers, this appears instead of the button until the server reports its versions, or if you don't have permission to update the server.
 * **Manual update**: you install a fixed Linux kernel on the server, as described in [Install a fixed kernel](#install-a-fixed-kernel). Empty when the kernel has the fixes Wodby tracks.
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
-* **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
+* **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications, and restores a missing IPv4 options filter. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
 
 ## Kubernetes certificates
@@ -137,7 +143,7 @@ Follow [Updating from the Dashboard](#updating-from-the-dashboard). Infrastructu
 | **6.1.0, 6.1.1, 7.0.7** | Agent restarts. Server management briefly disconnects, and applications and Edge keep running. |
 | **Earlier versions** | Agent and Edge restart. HTTP and HTTPS traffic is briefly interrupted. |
 
-Adding the filter is best effort. If it can't be added, the update still completes with a warning, so the infrastructure version alone doesn't prove the filter is on. Check the update task:
+Adding the filter is best effort. If it can't be added, the update still completes with a warning, so the infrastructure version alone doesn't prove the filter is on. The **IPv4 options filter** row in [Infrastructure components](#infrastructure-components) shows whether it is, once Wodby has checked the server. The update task also says:
 
 * **The IPv4 options filter is active.** The filter is in place.
 * **…but the optional IPv4 options filter was not verified.** The filter may not be in place. Contact [Wodby support](../support.md).
@@ -196,7 +202,7 @@ You can leave the filter on after installing a fixed kernel. Turn it off only if
 sudo systemctl disable --now wodby-ipv4-options-filter.service
 ```
 
-Updating to 6.1.2 or 7.0.8 leaves it off.
+Updating to 6.1.2 or 7.0.8 leaves it off. If the server's kernel still needs the fix, the **IPv4 options filter** row shows **Missing**.
 
 ## Changelog
 
