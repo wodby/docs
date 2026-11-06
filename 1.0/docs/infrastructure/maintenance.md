@@ -18,7 +18,7 @@ Open the server's settings to see its **Infrastructure components**: the install
 
 The list shows only components whose installed version is known.
 
-The **Linux kernel** row is at the end of the list, followed only by the [IPv4 options filter](#ipv4-options-filter) row while the kernel needs the fix. It shows the kernel the server is running, once the server has reported it. **Critical** means the server is below Infrastructure 6.1.2 or 7.0.8 and a fixed kernel is available to install. **Update recommended** means the kernel doesn't have the fix, but the server is on 6.1.2, 7.0.8 or later, or no fix is available for your system yet. The server's version can still be red in that last case. If **Latest** shows a version, a fixed kernel is available, so [install it](#install-a-fixed-kernel): updating infrastructure only reduces your exposure. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
+The **Linux kernel** row is near the end of the list, after the [operating system](#operating-system) and followed only by the [IPv4 options filter](#ipv4-options-filter) row while the kernel needs the fix. It shows the kernel the server is running, once the server has reported it. **Critical** means the server is below Infrastructure 6.1.2 or 7.0.8 and a fixed kernel is available to install. **Update recommended** means the kernel doesn't have the fix, but the server is on 6.1.2, 7.0.8 or later, or no fix is available for your system yet. The server's version can still be red in that last case. If **Latest** shows a version, a fixed kernel is available, so [install it](#install-a-fixed-kernel): updating infrastructure only reduces your exposure. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
 
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
@@ -32,6 +32,17 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
 * **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications, and restores a missing IPv4 options filter. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
+
+### Operating system
+
+The **Operating system** row shows the distribution and version the server runs, such as Debian 11.11, once the server has reported it. Its status says whether that release still gets free security updates from Debian or Ubuntu. Hover over the status to see the date.
+
+* **Supported**: the release gets free security updates.
+* **Ends soon**: free security updates end within 90 days.
+* **End of life**: free security updates have ended, so the server is marked critical. Paid extended support, such as Ubuntu Pro, may still cover the server, but Wodby can't see it.
+* **Not recognized**: Wodby has no date for this release. This doesn't change the server's status.
+
+Wodby doesn't upgrade a server's operating system. To leave a release that has reached or is reaching its end of life, [connect a new server](connecting-server.md) with Infrastructure 7 and use [migration between servers](../apps/server-migration.md) to move your applications to it. An Infrastructure 6 server can't be upgraded to Infrastructure 7 in place, because Infrastructure 7 requires Ubuntu 26.04 or Debian 13.
 
 ### IPv4 options filter
 
