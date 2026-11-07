@@ -196,6 +196,17 @@ Accessed as `links.[name].[token]`.
 - `links.[name].database.*`: database token from the linked app service. See [`database`](#database)
 - `links.[name].database.caFile`: path of the linked managed database server's CA certificate, mounted at the link's
   [`database.ca.filepath`](../services/template.md#links). Empty when the server has no CA certificate
+- `links.[name].values.[value-name]`: a [link value](../services/template.md#links): the value a user entered for a
+  custom target, or the value's `from` evaluated against the linked app service. Empty for an optional value that is
+  not set
+- `links.[name].exports.[export-name]`: an [export](../services/template.md#exports) of the linked app service,
+  evaluated for this app service's location
+
+Inside a link's own `env` and `helm`, `link.*` is short for `links.[that link].*`.
+
+For a link to an app service of another app environment, only `values.*` and `exports.*` resolve. The other tokens are
+empty, so a service shares only what it exports. A link with a custom target has no linked app service: only
+`values.*` resolve.
 
 ## `configs`
 

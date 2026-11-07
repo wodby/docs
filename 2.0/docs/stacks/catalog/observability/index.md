@@ -42,9 +42,9 @@ and `OTEL_LOGS_EXPORTER=otlp`.
 Inside the same app environment, services can also send to `http://<Collector app service name>:4318`, or over gRPC to
 port `4317`, with the same token.
 
-Apps from the Wodby application stacks can instead forward telemetry through their own Collector. Set its upstream
-endpoint to `https://<Collector domain>` of this app and its upstream Authorization header to `Bearer <ingest token>`.
-See
+Apps from the Wodby application stacks can instead forward telemetry through their own Collector: set its
+**Upstream** link to this app's Collector, listed with the other apps you can link to. On the same cluster the data
+stays on the private network. See
 [OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
 
 ## View telemetry in Grafana
@@ -78,8 +78,9 @@ restarts it so the new file takes effect.
 Common changes:
 
 - **Send data to another backend as well.** Add an exporter to the Collector config, for example `otlp_http` with the
-  backend's endpoint and headers, and list it in the pipelines it should receive. Put the backend's key in a secret
-  environment variable of the Collector and refer to it as `${env:NAME}` in the file.
+  backend's endpoint and headers. In each pipeline that should send to it, replace the exporter list
+  `${env:OTLP_<SIGNAL>_EXPORTERS:-[nop]}` with both exporters, such as `[otlp_http/logs, otlp_http/<name>]`. Put the
+  backend's key in a secret environment variable of the Collector and refer to it as `${env:NAME}` in the file.
 - **Keep traces longer.** See [Grafana Tempo](../tempo/index.md#change-configuration).
 
 Keep the token check on the Collector's receivers while its HTTP port has a public domain.

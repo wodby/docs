@@ -719,6 +719,15 @@ Each item supports:
 - `database.ca.filepath`: optional absolute path where Wodby mounts the CA certificate of the linked managed database
   server, when the server has one. Use it with
   [`{{link.database.caFile}}`](../apps/tokens.md#links) to connect to the server with TLS.
+- `values`: optional values the link hands to the service, whatever the link points at. Each item has `name`,
+  optional `title`, `secret`, `optional`, and `from`. `from` says how a target service provides the value, usually
+  with [`{{link.exports.<name>}}`](../apps/tokens.md#links). Read a value with `{{link.values.<name>}}` in the link's
+  own `env`, or with `{{links.<link>.values.<name>}}` elsewhere. A variable that reads a secret value must be
+  `secret: true`.
+- `custom`: optional boolean. Lets users enter the link's `values` instead of choosing a target service, for example
+  the address and key of a hosted backend. A custom link needs `values` and cannot set `helm`, `certs`, or `database`.
+- `crossApp`: optional boolean. Lets the link point at a service of another app or app environment that accepts
+  links from other apps. See [Links](networking.md#links).
 
 Each `links[].selectors[]` item uses the selector object described above.
 
@@ -741,6 +750,95 @@ links:
 ```
 
 The path is empty for a database without a CA certificate, such as one in the cluster, so the app connects as before.
+
+When two links set the same environment variable, the link declared later wins. A link with values can use that to
+let a specific destination override a default one:
+
+```yaml
+links:
+- name: upstream
+  title: Upstream
+  custom: true
+  crossApp: true
+  selectors:
+  - type: service
+    labels:
+    - opentelemetry-collector
+  values:
+  - name: endpoint
+    title: OTLP endpoint
+    from: '{{link.exports.otlp_http_endpoint}}'
+  - name: authorization
+    title: Authorization header
+    secret: true
+    optional: true
+    from: '{{link.exports.otlp_http_authorization}}'
+  env:
+  - name: OTLP_ENDPOINT
+    value: '{{link.values.endpoint}}'
+  - name: OTLP_AUTHORIZATION
+    value: '{{link.values.authorization}}'
+    secret: true
+```
+
+### `linkGroups`
+
+Type: `array`.
+
+Link groups name links that are alternatives to one another. While the app service is enabled, at least `min` links of
+each group must point at an enabled service or hold a custom target; otherwise Wodby reports a missing required link.
+A disabled app service is not checked.
+
+Each item supports:
+
+- `name`: required group name.
+- `title`: optional title shown in messages.
+- `links`: required names of links the service declares.
+- `min`: required minimum, between 1 and the number of links.
+
+```yaml
+linkGroups:
+- name: destination
+  title: Destination
+  links: [upstream, traces, metrics, logs]
+  min: 1
+```
+
+Because a target in another app or a custom target can only be set after the app exists, start a service with a link
+group as disabled in the stack, then set its links and enable it.
+
+### `crossApp`
+
+Type: `boolean`.
+
+Lets services of other apps and app environments link to this service through links with `crossApp: true`. They read
+only this service's [`exports`](#exports). Use it for services that authenticate requests, such as a collector with an
+ingest token.
+
+### `exports`
+
+Type: `array`.
+
+Values that linking services read as [`{{link.exports.<name>}}`](../apps/tokens.md#links). Each item has `name`, `value`,
+and optional `secret`. Values use this service's tokens, and `{{url.<port>}}`, the base URL of an endpoint port as the
+linking service reaches it:
+
+- from the same app environment: `http://<service>:<port>`;
+- from another app environment on the same cluster: `http://<service>.<namespace>.svc:<port>`;
+- from another cluster: `https://<public domain of the port>`. The port needs a public domain.
+
+```yaml
+crossApp: true
+exports:
+- name: otlp_http_endpoint
+  value: '{{url.otlp-http}}'
+- name: otlp_http_authorization
+  value: 'Bearer {{tokens.ingest_token}}'
+  secret: true
+```
+
+A link that reads an export the target does not declare fails, so services that serve as the same kind of target
+export the same names, with an empty value where they have nothing to provide.
 
 ### `volumes`
 
