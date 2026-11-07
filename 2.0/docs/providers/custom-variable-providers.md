@@ -16,7 +16,7 @@ permission audits, or infrastructure resources.
 | Import from git | You want Git to remain the source of truth, use automatic updates, or keep several providers in one repository. |
 
 All three methods let you select organization or project ownership. An organization-owned provider can be shared with
-projects in the same organization from its `Sharing` tab.
+projects in the same organization from its `Ownership` tab.
 
 ## Names and namespaces
 
@@ -207,7 +207,7 @@ current provider revision active; open the provider's `Tasks` tab to review the 
 
 ## Sharing and deletion
 
-Use the provider's `Sharing` tab to make it available to additional projects in the same organization. Sharing a
+Use the provider's `Ownership` tab to make it available to additional projects in the same organization. Sharing a
 provider does not copy integration credentials; integrations created from it keep their own ownership and sharing
 settings.
 
