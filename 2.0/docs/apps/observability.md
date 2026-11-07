@@ -82,24 +82,51 @@ If cluster monitoring is disabled, app environment and app-service metrics pages
 The catalog stacks for application runtimes include an OpenTelemetry Collector, disabled by default: ASP.NET Core,
 Astro, Django, Drupal, FastAPI, Flask, Go, Java, Kotlin, Laravel, Next.js, Node.js, Nuxt, PHP, Python, Rails, Ruby,
 Rust, Spring Boot, Strapi, SvelteKit, Symfony, TanStack Start, and WordPress. The Collector runs in the same app
-environment as your application and has no public domain. It forwards traces, metrics, and logs to an OTLP endpoint
-you choose, such as the Collector of an [Observability](../stacks/catalog/observability/index.md),
-[Grafana Tempo](../stacks/catalog/tempo/index.md), [Grafana Loki](../stacks/catalog/loki/index.md), or
-[VictoriaMetrics](../stacks/catalog/victoria-metrics/index.md) app, or another OpenTelemetry backend.
+environment as your application and has no public domain. It forwards traces, metrics, and logs to the destinations
+its links name: usually the Collector of an [Observability](../stacks/catalog/observability/index.md) app, or a hosted
+OpenTelemetry backend.
 
-### Turn on the Collector
+### See your application's telemetry in Grafana
 
-1. Open the `otel-collector` app service. Under `Configuration > Settings`, set:
-    - **Upstream OTLP endpoint**: the base URL to forward to over OTLP/HTTP, without a path. For a Wodby Observability,
-      Grafana Tempo, Grafana Loki, or VictoriaMetrics app, use `https://<Collector domain>` of that app.
-    - **Upstream Authorization header**: the `Authorization` header the upstream expects, for example
-      `Bearer <ingest token>` for a Wodby Collector. It is stored as a secret.
-2. Under `Configuration > General`, enable the service. You can also enable it and set its settings when you create the
-   app.
-3. Deploy the app environment, so your application gets the new variables.
+The Collector in your app only forwards data. To store and view it, send it to an app created from the
+[Observability](../stacks/catalog/observability/index.md) stack, which has Grafana. One Observability app can collect
+data from many apps and environments.
 
-The Collector does not start until the upstream endpoint is set. Environments created before the stack included the
-Collector get it with a [stack upgrade](stack.md#upgrade).
+1. Create an app from the Observability stack. See [Creating New Application](index.md#creating-new-application). On
+   the same cluster as your app, data stays on the cluster's private network; on another cluster it goes to the
+   Observability Collector's public domain.
+2. In your app's environment, open the `otel-collector` app service, then `Connections > Links`. Set **Upstream** to
+   the Collector of the Observability app, listed with the other apps you can link to. See
+   [Links tab](services.md#links-tab).
+3. Under `Configuration > General`, enable the service, then deploy the app environment so your application gets the
+   variables below.
+4. Add an OpenTelemetry SDK or agent to your code and set `OTEL_SERVICE_NAME`, for example to the app and environment
+   name. See [What your application gets](#what-your-application-gets).
+5. Open the Observability app's Grafana and find the data in `Explore`. See
+   [View telemetry in Grafana](../stacks/catalog/observability/index.md#view-telemetry-in-grafana).
+
+Repeat steps 2 and 3 in each environment you want to see. Environments created before the stack included the Collector
+get it with a [stack upgrade](stack.md#upgrade).
+
+### Destinations
+
+The Collector has four links. At least one must be set before the Collector can be enabled, so set its links first.
+
+| Link | Sends | Can point at |
+| --- | --- | --- |
+| **Upstream** | Every signal, unless one of the links below is set | A Collector, or a custom target |
+| **Traces** | Traces | A Collector, Grafana Tempo, or a custom target |
+| **Metrics** | Metrics | A Collector, VictoriaMetrics, or a custom target |
+| **Logs** | Logs | A Collector, Grafana Loki, or a custom target |
+
+A signal with no destination is dropped. For a hosted backend, choose **Custom** and enter its OTLP/HTTP base URL,
+without a path, and the `Authorization` header it expects, for example `Bearer <key>`. Backends that need another
+header name are not supported by these fields; edit the **Collector config** under `Configuration > Configs` instead.
+
+Use **Traces**, **Metrics**, or **Logs** to split signals, for example traces to a hosted backend and logs to your
+Observability app. The Collector of a [Grafana Tempo](../stacks/catalog/tempo/index.md),
+[Grafana Loki](../stacks/catalog/loki/index.md), or [VictoriaMetrics](../stacks/catalog/victoria-metrics/index.md) app
+accepts only its own signal, so link it with the matching link, not with **Upstream**.
 
 ### What your application gets
 
@@ -131,12 +158,3 @@ changes. Add instrumentation packages for what you want to trace, for example
 `open-telemetry/opentelemetry-auto-laravel`, `open-telemetry/opentelemetry-auto-symfony`,
 `open-telemetry/opentelemetry-auto-wordpress`, or `open-telemetry/opentelemetry-auto-pdo` for database queries.
 While the Collector is disabled, the variables are absent and the SDK stays off.
-
-### Choose what to forward
-
-The Collector forwards traces, metrics, and logs to the same endpoint. The Collector of a Wodby Observability app
-accepts all three. The Collector of a Wodby Grafana Tempo app accepts only traces, Grafana Loki only logs, and
-VictoriaMetrics only metrics. Data the upstream refuses is dropped, and the Collector logs `Exporting failed`. Either
-turn off the other signals in your application, for example `OTEL_METRICS_EXPORTER=none` and
-`OTEL_LOGS_EXPORTER=none` when forwarding to Tempo, or edit the **Collector config** under `Configuration > Configs` to
-remove pipelines or add an exporter per destination. Deploy the service after a config change. See [Configs tab](services.md#configs-tab).

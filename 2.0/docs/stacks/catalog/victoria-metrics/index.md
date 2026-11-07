@@ -41,8 +41,8 @@ quote them in label filters, for example `{"service.name"="api"}`. To change wha
 Collector does, edit its **Collector config** under **Configuration > Configs** and deploy the service. See
 [Configs tab](../../../apps/services.md#configs-tab).
 
-Apps from the Wodby application stacks can instead forward metrics through their own Collector, set to this
-Collector's domain and token. See
+Apps from the Wodby application stacks can instead forward metrics through their own Collector: set its **Metrics**
+link to this app's Collector, listed with the other apps you can link to. See
 [OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
 
 ## Send and query metrics

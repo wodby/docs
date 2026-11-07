@@ -298,6 +298,19 @@ Links are usually defined in the stack, but app services can override them per a
 Those overrides also affect deployment ordering for that app environment. If linked services are deployed together, Wodby
 deploys the linked target first.
 
+For each link, choose its target from the list:
+
+- a service of this app environment;
+- a service of another app, for links that allow it. The list shows the apps and environments you can link to. See
+  [Links to other apps](../services/networking.md#links-to-other-apps);
+- **Custom**, for links that allow it: enter the values the link asks for. Secret fields start empty. Saving replaces
+  all values, so enter a stored secret again before saving.
+
+Choose **- none -** to remove a target. Required links cannot be removed. When the service needs at least one of several
+links, the tab shows each such group and whether it is satisfied.
+
+After changing a link, deploy the app service so it picks up the new values.
+
 ## Volumes tab
 
 The `Runtime > Volumes` subtab lists the volumes declared by the current service revision. Configured volumes show their app-level

@@ -162,3 +162,36 @@ for a required link; enabling the source also enables its configured required-li
 dependencies. Both services may be disabled together. Wodby never chooses a missing target automatically. The combined
 dependency graph formed by service links and explicit stack dependencies must not contain cycles, including cycles
 involving disabled services.
+
+### Link targets
+
+A link points at one of:
+
+- **A service in the same app environment.** The usual case, set by the stack or on the app service.
+- **A service of another app or app environment**, when the link allows it (`crossApp`) and the target service accepts
+  links from other apps. See [Links to other apps](#links-to-other-apps).
+- **A custom target**, when the link allows it (`custom`): you enter the values the link needs, such as the address and
+  key of a hosted service. Secret values are stored as secrets.
+
+A link has one target at a time. Setting a different kind replaces the previous target.
+
+### Links to other apps
+
+You can link to a service of another app when you are allowed to see that app environment's secrets, and the other
+app belongs to the same organization: to the same project, to the organization, or shared to your project.
+
+- **On the same cluster**, the service connects over the cluster's private network. Wodby opens the other app
+  environment to the linked environments only, on the ports the target shares. On clusters where Wodby cannot enforce
+  network isolation, such as k3s without Cilium, the link works but traffic between environments is not isolated.
+- **On another cluster**, the service connects to the target's public domain, so the target's port needs one.
+
+The linked service reads only what the target [exports](template.md#exports), such as its address and token. Links to
+other apps don't change deployment order and never deploy the other app. When the target is deleted, moves to another
+cluster, or changes its token or domains, the linked app services are marked as needing a deployment.
+
+### Link groups
+
+A service can require at least one of several links, for example a collector that must send data somewhere but may
+use any of several destination links. While such a service is enabled, the required number of links in the group must
+be set. See [`linkGroups`](template.md#linkgroups).
+

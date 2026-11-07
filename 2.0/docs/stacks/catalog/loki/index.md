@@ -42,8 +42,8 @@ The Collector forwards logs to Loki. In Grafana, find them by the `service_name`
 **Configuration > Configs** and deploy the service. See [Configs tab](../../../apps/services.md#configs-tab) and the
 [Grafana Tempo guide](../tempo/index.md#change-configuration) for the same Collector used for traces.
 
-Apps from the Wodby application stacks can instead forward logs through their own Collector, set to this
-Collector's domain and token. See
+Apps from the Wodby application stacks can instead forward logs through their own Collector: set its **Logs**
+link to this app's Collector, listed with the other apps you can link to. See
 [OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
 
 ## Connect to Loki
