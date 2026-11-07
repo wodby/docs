@@ -28,7 +28,7 @@ Then select a start time, end time, time zone, and one or more days. All seven d
 New app environments and clusters receive enabled `02:00` to `04:00` windows in the organization's default time zone for
 each applicable automatic upgrade. The organization creation form preselects the creator's browser time zone and lets
 them change it before creation; if browser detection is unavailable, Wodby uses `UTC`. Owners and admins can change it
-under `Organization > Settings`.
+under `Organization > Settings > General`.
 
 New backup presets created in the dashboard default to a three-hour `02:00` to `05:00` window in the organization's
 default time zone. Their backup timeout also defaults to three hours. The timeout is separate from the window: the

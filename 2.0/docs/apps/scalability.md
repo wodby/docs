@@ -64,7 +64,7 @@ Wodby provides these presets. They set requests only, so containers can use spar
 
 Wodby's presets never change. A new size gets a new name.
 
-Your organization can add its own presets in **Resource presets** in the organization menu. Every member can view them
+Your organization can add its own presets in `Organization > Settings > Resource presets`. Every member can view them
 and use them. Organization owners and admins create, edit and delete them. A custom preset can set any of the four
 values: requested CPU and memory, and CPU and memory limits. CPU values are multiples of `10` millicores and memory
 values are multiples of `16` MiB. For example, a preset for Java services can add a memory limit, because the JVM sizes
