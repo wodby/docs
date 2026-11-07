@@ -79,13 +79,15 @@ See [Billing](pricing.md) for the current plan model and Wodby Cloud billing not
 
 ## Settings
 
-`Organization > Settings` manages defaults used when creating resources. From there you can change:
+`Organization > Settings` holds organization-wide settings in four tabs:
 
-- the default time zone
-- the default CI provider
-- the default container registry
-- the default build-image retention period
-- organization-wide termination protection
+- **General**: the default time zone, the default CI provider and the default container registry
+- **Builds**: the default build-image retention period
+- **Protection**: organization-wide termination protection
+- **Resource presets**: Wodby's and your organization's [resource presets](apps/scalability.md#resource-presets)
+
+Every member can open **Resource presets**. The other tabs are available to members who can view the whole
+organization.
 
 The CI and registry selectors include Wodby's built-in services and available organization-owned integrations of the
 corresponding type. Project-owned integrations cannot be used as organization defaults because they may not be
@@ -101,7 +103,7 @@ Choose `Wodby CI` or `Wodby Container Registry (US)` to use the corresponding bu
 
 ### Build image retention
 
-In the **Wodby container registry settings** card, use **Auto-void images of unused builds for all apps older than** to
+In the **Builds** tab, use **Auto-void images of unused builds for all apps older than** to
 set the default retention period for app environments. Choose **Never**, **1 month**, **3 months**, **6 months**, or
 **1 year**. The default is **Never**, which disables automatic cleanup.
 
@@ -115,7 +117,8 @@ To set an override for one app environment, open `CI/CD > Builds > Settings` in 
 ### Termination protection
 
 Termination protection adds an organization-wide safeguard against destructive operations. It applies after the usual
-access and dependency checks, so disabling it does not grant anyone permission to delete resources.
+access and dependency checks, so disabling it does not grant anyone permission to delete resources. Change it in the
+**Protection** tab.
 
 Only an organization owner using an interactive session can change the setting. Enabling or strengthening protection
 takes effect without additional security confirmation. Weakening or disabling protection requires recent
