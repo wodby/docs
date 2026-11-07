@@ -8,7 +8,7 @@ A GitHub App installation can be connected to Wodby only once. If another Wodby 
 installation, do not start the GitHub connection flow again: GitHub will show only `Configure` for an existing
 installation and does not send a new installation result to Wodby.
 
-Instead, an owner of the Wodby organization that already holds the GitHub integration opens its `Sharing` page and
+Instead, an owner of the Wodby organization that already holds the GitHub integration opens its `Ownership` page and
 invites the other Wodby organization by its exact machine name. An owner of the invited organization then reviews the
 request under `Integrations > OAuth invitations` and chooses the local integration name and title.
 

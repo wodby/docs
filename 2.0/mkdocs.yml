@@ -484,7 +484,7 @@ nav:
       - Teams: teams.md
       - Access control: access-control.md
       - Single Sign-On: sso.md
-      - Sharing: sharing.md
+      - Ownership and sharing: sharing.md
       - Billing: pricing.md
   - User:
       - Overview: user/index.md

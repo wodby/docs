@@ -1,4 +1,4 @@
-# Sharing
+# Ownership and sharing
 
 Projects isolate resources by default. Sharing is how a resource becomes visible or usable outside its owner scope.
 
@@ -37,7 +37,7 @@ Project shares do not transfer ownership and do not grant project administration
 
 ## Project access levels
 
-In the dashboard sharing form, project access is controlled with two columns:
+On the resource's `Ownership` page, project access is controlled with two columns:
 
 | Access level | Meaning |
 | --- | --- |
@@ -71,7 +71,7 @@ When a resource is available to all projects:
 - every project has `Read/Use` access, and you can still give selected projects `Modify/Delete`
 - only organization owners and admins can modify or delete the resource or change its sharing
 
-To change the setting, open the resource, go to `Sharing`, and set `Available to` to `All projects` or
+To change the setting, open the resource, go to `Ownership`, and set `Available to` to `All projects` or
 `Selected projects`. You can also select `Available to all projects` when you create, import, or copy a cluster,
 integration, stack, or service with the organization as its owner.
 
@@ -104,18 +104,18 @@ The ACL model supports ownership and sharing for:
 - services
 - stacks
 
-Dashboard screens may expose these controls in different places depending on the resource type. Container-based databases are app-owned and cannot be shared independently: change their ownership and project access from the owning app's `Sharing` page. Managed databases retain their own sharing controls.
+Dashboard screens may expose these controls in different places depending on the resource type. Container-based databases are app-owned and cannot be shared independently: change their ownership and project access from the owning app's `Ownership` page. Managed databases retain their own sharing controls.
 
 ## Dashboard workflow
 
-Open the resource and go to `Sharing`. For a container-based database, open its owning app and use the app's `Sharing` page instead.
+Open the resource and go to `Ownership`. For a container-based database, open its owning app and use the app's `Ownership` page instead.
 
-The `Sharing settings` card has two areas:
+The `Ownership` card has two areas:
 
-- `Ownership` controls the resource owner.
+- `Owner` controls the resource owner.
 - `Project access` controls which projects can use the resource, and whether each project-resource link is read-only or write-capable.
 
-In `Ownership`, the `Owner` field can be:
+In `Owner`, the `Owned by` field can be:
 
 - `Organization <organization>` for an organization-owned resource
 - `Project` plus a required `Project` selector for a project-owned resource
