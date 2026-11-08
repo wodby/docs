@@ -19,8 +19,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
-| `list_envs` | List environments in an organization for app and app environment creation. |
-| `list_integrations` | List integrations, optionally filtered by type, status, project, or provider labels. |
+| `list_envs` | List the [environment types](../../apps/environment-types.md) an app environment can have: `PROD`, `STAGING`, `TEST`, `DEV` and `FEATURE`. They are the same in every organization. |
+| `list_integrations` | List integrations, optionally filtered by type, status, project, provider labels, or the environment type they are allowed in. |
 | `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
 | `show_app_status` | Return a dashboard-style app summary with app environments, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
 | `get_app` | Get an app by ID. |
@@ -219,11 +219,11 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. If demo or sizing choices are unresolved, they are returned as questions. |
 | `scale_cluster` | Scale a cluster node pool. |
 | `update_cluster_gpu_node_pool` | Add, resize, replace or remove a cluster's [GPU node pool](../../clusters/gpu.md), which adds or removes paid compute capacity. Removal is refused while pods request GPUs. Changing the machine type creates the new pool before deleting the old one. |
-| `create_app_from_stack` | Create an app and initial app environment from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
-| `create_app_environment_from_stack` | Create an app environment in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_from_stack` | Create an app and initial app environment from stack, cluster, organization, and project names or IDs. Choose the environment type with `environment_type`; it defaults to `DEV`. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_environment_from_stack` | Create an app environment in an existing app. Choose its environment type with `environment_type`; it defaults to `DEV`. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
 | `add_app_service_volume` | Add one of the optional volumes an app service's service declares and the environment does not have yet. A volume is billable storage in the cluster. Volumes that already exist can't be resized or removed with this tool. |
 | `create_app_preview_environment` | Create a preview environment for an open pull request. |
-| `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
+| `create_database` | Create a database for one environment type, set with `environment_type`. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
 | `import_stacks` | Import stacks from a Git repository. |
