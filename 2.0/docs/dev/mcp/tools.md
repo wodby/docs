@@ -34,15 +34,16 @@ These tools require `mcp:read` when using OAuth.
 | `get_app_environment` | Get an app environment by ID. |
 | `get_app_preview_settings` | Get an app's [preview environment](../../apps/preview-environments.md) settings with the base environment and the services they seed. |
 | `list_app_preview_pull_requests` | List the open pull requests an app can get a preview environment for, with the reason when one cannot. |
-| `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. This does not create anything. |
-| `prepare_app_environment_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. This does not create anything. |
+| `prepare_app_creation` | Resolve defaults and return missing questions for creating an app and initial app environment. For an existing cluster, it also checks whether the cluster has room for the environment; without room the plan is not ready. This does not create anything. |
+| `prepare_app_environment_creation` | Resolve defaults and return missing questions for creating an app environment in an existing app. For an existing cluster, it also checks whether the cluster has room for the environment; without room the plan is not ready. This does not create anything. |
 | `list_app_services` | List services for an app environment by app environment ID or the legacy organization/app/instance-name arguments. |
 | `get_app_service` | Get an app service by ID. |
 | `get_app_service_configuration` | Read how an app service is configured next to what its service allows: running and available versions, where its code is built from, settings, config file overrides, links, integrations, and volumes. Values of secret settings are not returned. |
 | `get_service_guidance` | Read what the services of an app environment generate and wire for the application, such as settings files and connections to linked databases, caches, search, mail and file storage, and what the code still has to do. Also names the environment's stack and the address of its guide, when the stack has one. |
 | `list_app_service_env_vars` | List an app service's environment variables and where each comes from: the app service, the service, the stack, a setting, a link or an integration. Secret values are not returned. |
+| `list_app_service_link_candidates` | List the app services one link of an app service can point at with `set_app_service_link`: services of the same environment and, for a link that accepts them, services of the organization's other environments. |
 | `get_app_service_resources` | Get an app service's replica count and each container's CPU and memory requests and limits. |
-| `list_resource_presets` | List Wodby's resource presets and the organization's own, with their CPU and memory values. |
+| `list_resource_presets` | List Wodby's resource presets and the organization's own, with their CPU and memory values. The organization's presets have an ID to change or delete them. |
 | `list_app_routes` | List an app environment's domains, the service and port each leads to, whether a certificate is attached, and whether the domain's DNS reaches the cluster. |
 | `get_app_route_settings` | Read HTTP route settings such as HTTPS redirect, HSTS, request size, timeouts, and rate limits, for an environment's defaults or the values in effect for one domain. Available on clusters that use Envoy Gateway. |
 | `list_app_ports` | List an app environment's service ports: protocol, internal number, whether the service marks it private, and the public port when it is published. |
@@ -64,6 +65,7 @@ These tools require `mcp:read` when using OAuth.
 | `diagnose_failed_deployment` | Inspect a deployment, find failed task steps, and return relevant log excerpts. |
 | `list_clusters` | List clusters in an organization. |
 | `get_cluster` | Get a cluster by ID. |
+| `list_cluster_storage_classes` | List a cluster's Kubernetes storage classes, which ones can be chosen for a volume, and the default one. |
 | `get_kubernetes_version_upgrade_plan` | Read a cluster's current Kubernetes version, the versions it can move to directly, and anything blocking the upgrade or worth a warning. |
 | `get_cluster_infra_app_upgrade_changelog` | Preview what `upgrade_cluster_infra_apps` would change: per infrastructure app, the stack versions and per-service changes with release notes. |
 | `list_cluster_component_updates` | List the updates Wodby can apply to single components of a cluster, such as Cilium on K3S or EKS add-ons, without a Kubernetes or infrastructure upgrade. Most components can't be updated this way, so the list is often empty. |
@@ -77,12 +79,17 @@ These tools require `mcp:read` when using OAuth.
 | `list_database_dbs` | List DBs inside a database. |
 | `list_database_users` | List database users without returning passwords. |
 | `get_database_options` | List the database types, versions, regions, and machine types a database integration offers, one choice at a time, to use with `create_database`. |
-| `list_backups` | List backups of an app environment, app service, database or database DB, or of the whole organization, newest first, with where each is stored. |
+| `list_backups` | List backups of an app environment, app service, database or database DB, of the whole organization, or made by one backup preset, newest first, with where each is stored. |
+| `get_backup` | Get one backup: its status, size, where it is stored, and whether its file was deleted. |
 | `list_backup_presets` | List backup presets, which save a backup destination and can run backups on a schedule. |
+| `list_backup_storage_classes` | List the object storage classes, such as `STANDARD` or `GLACIER`, a storage integration offers for backups. |
+| `list_imports` | List the imports into an app environment, app service, database or database DB, newest first. The source URL of an import is not shown. |
+| `get_import` | Get one import: its status, source, the backup it restores, and the task that runs it. |
 | `list_public_services` | List public service catalog items. |
 | `list_services` | List services in an organization. |
 | `get_service` | Get a service by name and optional revision number. |
 | `get_service_contract` | Inspect revision-specific resolved service metadata; configuration values and source contents are omitted. Not an editable manifest. |
+| `list_service_link_candidates` | List, for each link of a catalog service, the public catalog services that can satisfy it, such as the databases a PHP service can connect to. |
 | `get_service_schema` | Get the Wodby service manifest JSON schema. |
 | `get_service_examples` | Get concise Wodby service manifest examples. |
 | `validate_service_manifest` | Validate a Wodby service manifest without creating it. |
@@ -107,6 +114,7 @@ These tools require `mcp:read` when using OAuth.
 | `get_stack_examples` | Get concise Wodby stack manifest examples. |
 | `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
 | `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector. |
+| `get_app_service_volume_storage_classes` | Compare the storage class each volume of an app service is configured with to the class its Kubernetes volumes use, read from the cluster. |
 | `get_app_service_logs` | Read bounded current or previous-container logs and return a log-access task ID. |
 | `start_app_service_log_watch` | Open an audited, short-lived watch for new logs from one pod and container execution. |
 | `read_app_service_log_watch` | Read cursor-based batches, including dropped-entry counts and watch status. |
@@ -173,6 +181,9 @@ configuration changes.
 | `set_app_service_env_var` | Add an environment variable to an app service, or change the one it already has with this name. It takes precedence over a variable with the same name from the service or the stack. Running containers get it with the next deployment of the service. |
 | `delete_app_service_env_var` | Remove an environment variable set on an app service. A variable with the same name from the service or the stack then applies again. Variables that come from the service, the stack, settings or links can't be removed this way. Running containers lose it with the next deployment of the service. |
 | `set_app_service_resources` | Change a container's CPU and memory requests and limits on an app service. Values you leave out stay as they are, and 0 removes a value so the service's default applies. A preset sets all four values at once, and values you give next to it override it. Running containers get the change with the next deployment of the service. |
+| `create_resource_preset` | Add a CPU and memory preset to the organization, to use like Wodby's presets. Only organization owners and admins manage presets. |
+| `update_resource_preset` | Change one of the organization's resource presets. Services that already use its values keep them. Only organization owners and admins manage presets. |
+| `update_integration_environment_policy` | Choose which [environment types](../../apps/environment-types.md) may use an integration. A restriction that would leave out a cluster, app environment, database or backup preset that uses the integration is refused. |
 | `set_app_service_replicas` | Change how many replicas of an app service run, at least one. Services that keep their data on one volume or can't run in parallel refuse more than one. Running replicas change with the next deployment of the service. |
 | `create_app_service_cron_schedule` | Add a cron schedule to an app service: a command Wodby runs in the service on a five-field crontab in UTC. Schedules from the service or the stack already exist, so check `list_app_service_cron_schedules` first. |
 | `update_app_service_cron_schedule` | Change a cron schedule of an app service, or turn it off and on. Settings you leave out stay as they are. |
@@ -277,6 +288,10 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `delete_integration` | Delete an integration and the credentials it holds. Clusters, apps and stacks that use it lose access to that account. |
 | `upgrade_integration_provider_revision` | Update an outdated integration to its provider's current revision after `get_integration_provider_upgrade` shows it can be updated. With `drop_removed_fields`, the update permanently deletes the stored values of fields the new revision removes, and the app services that use them are marked for redeploy. An integration shared with your organization is updated by its owner. |
 | `delete_backup_preset` | Delete a backup preset, so its scheduled backups stop. Backups it already made are kept. |
+| `delete_resource_preset` | Delete one of the organization's resource presets. Services that already use its values keep them. |
+| `delete_provider` | Delete a custom provider of the organization. A provider that integrations still use can't be deleted. |
+| `void_app_build` | Delete the images of a finished build that no app service runs, so it can no longer be deployed. The build's record is kept. |
+| `void_backup_file` | Permanently delete a backup's file from Wodby Blob Storage. The backup can no longer be imported or downloaded; its record is kept. Backups in your own storage are refused. |
 | `delete_app_route` | Remove a route from an app environment, so its domain stops reaching the app. To stop serving a domain for a while, turn it off with `update_app_route` instead. |
 | `publish_app_port` | Make a non-HTTP port, such as SSH or a database's TCP port, reachable from the internet on a public port Wodby assigns. Anyone on the internet can then reach it, so publish only what has its own authentication, and prefer a private network for databases. Private and HTTP ports can't be published. Publishing may redeploy the cluster's gateway first. |
 | `create_app_access` | Make an app environment Protected by publishing it through a Private App Access integration or a private network. Public routes in the scope stop serving visitors at once. The access type can't be changed later. Requires a paid subscription. |
