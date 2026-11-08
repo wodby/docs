@@ -20,7 +20,8 @@ These tools require `mcp:read` when using OAuth.
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
 | `list_envs` | List environments in an organization for app and app environment creation. |
-| `list_integrations` | List integrations, optionally filtered by type, status, project, or provider labels. |
+| `list_integrations` | List integrations, optionally filtered by type, status, project, or provider labels. Shows which integrations are outdated. |
+| `get_integration_provider_upgrade` | Check whether an outdated integration can move to its provider's current revision, which fields the update would remove, and why an update is blocked. Requires `Modify/Delete` access to the integration. See [Integration provider updates](../../integrations/updates.md). |
 | `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
 | `show_app_status` | Return a dashboard-style app summary with app environments, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
 | `get_app` | Get an app by ID. |
@@ -75,6 +76,7 @@ These tools require `mcp:read` when using OAuth.
 | `get_database` | Get a database by ID. |
 | `list_database_dbs` | List DBs inside a database. |
 | `list_database_users` | List database users without returning passwords. |
+| `get_database_options` | List the database types, versions, regions, and machine types a database integration offers, one choice at a time, to use with `create_database`. |
 | `list_backups` | List backups of an app environment, app service, database or database DB, or of the whole organization, newest first, with where each is stored. |
 | `list_backup_presets` | List backup presets, which save a backup destination and can run backups on a schedule. |
 | `list_public_services` | List public service catalog items. |
@@ -137,6 +139,7 @@ These tools require `mcp:operate` when using OAuth.
 | `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
+| `test_integration_permissions` | Check that an integration's credentials have the permissions its provider needs, for example after a failed cluster or database operation. Available for providers with a permission check, such as AWS, Google Cloud, Azure, and Cloudflare. Requires `Modify/Delete` access to the integration. |
 | `retry_app_route_certificate` | Request a domain's Let's Encrypt certificate again, for example after fixing its DNS. A certificate is issued only once the domain's DNS reaches the cluster, so retrying before that fails again. |
 | `retry_app_access_cleanup` | Repeat the cleanup left over from removed Private App Access, such as Cloudflare or Tailscale resources Wodby could not delete. The failed removal's task gives the cleanup ID. |
 | `verify_wodby1_migration` | Once you have tested the migrated app on its technical domains and pointed DNS to Wodby 2, check DNS, configuration, imports, routes, certificates and workloads, and turn on the migrated cron schedules. A verified migration can no longer be rolled back. |
@@ -260,6 +263,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `delete_stack` | Delete a stack of the organization. A stack that app environments still use can't be deleted. |
 | `delete_service` | Delete a custom service of the organization. A service that stacks still use can't be deleted. |
 | `delete_integration` | Delete an integration and the credentials it holds. Clusters, apps and stacks that use it lose access to that account. |
+| `upgrade_integration_provider_revision` | Update an outdated integration to its provider's current revision after `get_integration_provider_upgrade` shows it can be updated. With `drop_removed_fields`, the update permanently deletes the stored values of fields the new revision removes, and the app services that use them are marked for redeploy. An integration shared with your organization is updated by its owner. |
 | `delete_backup_preset` | Delete a backup preset, so its scheduled backups stop. Backups it already made are kept. |
 | `delete_app_route` | Remove a route from an app environment, so its domain stops reaching the app. To stop serving a domain for a while, turn it off with `update_app_route` instead. |
 | `publish_app_port` | Make a non-HTTP port, such as SSH or a database's TCP port, reachable from the internet on a public port Wodby assigns. Anyone on the internet can then reach it, so publish only what has its own authentication, and prefer a private network for databases. Private and HTTP ports can't be published. Publishing may redeploy the cluster's gateway first. |
