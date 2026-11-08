@@ -21,6 +21,22 @@ environment or service becomes runnable again.
 Manual cron-job runs use the same runtime checks. If the environment or target service is not ready, Wodby returns an
 error without creating a cron-job task. Retry the manual run after both are running if the missed work is still needed.
 
+## Overlapping runs
+
+An automatic schedule runs one job at a time. If a run becomes due while the schedule's previous run, automatic or
+manual, is still queued or running, Wodby skips the new run and advances the schedule. The skipped run is not queued or
+replayed. A job that takes longer than its interval therefore runs back to back instead of piling up runs behind it.
+
+A previous run created more than two hours ago no longer blocks new runs. Manual runs always start, even while another
+run of the same schedule is in progress.
+
+## Cron runs in task lists
+
+Every cron-job run, automatic or manual, is recorded as a task. Task lists hide these runs by default so that frequent
+schedules do not push other activity out of view. Select `cron` next to the `Name` column heading to show them. The
+active tasks menu in the header never shows cron runs. To see a schedule's run history, open
+`Apps > [App] > [Environment] > Cron`.
+
 ## Failure and recovery notifications
 
 When an automatic cron schedule's latest conclusive run first changes to failed, Wodby emails organization admins who

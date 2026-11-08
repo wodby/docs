@@ -51,6 +51,11 @@ You can optionally force a rerun. In that mode, user-facing errors are treated a
 
 Some tasks are created by other tasks rather than directly by a user. For example, creating an app usually triggers a deployment task, and sometimes a build task as well.
 
+## Cron runs
+
+Task lists hide cron-job runs by default, because a frequent schedule creates a task for every run. Select `cron` next to
+the `Name` column heading to show them. See [Cron runs in task lists](apps/cron.md#cron-runs-in-task-lists).
+
 ## Silent task
 
 Some immediate tasks are silent. They are still recorded, but they may not appear in the main tasks widget because they are not important enough to interrupt the normal activity stream.
