@@ -32,9 +32,20 @@ You can define resources at:
 - stack level
 - app-service level
 
-A container uses its service defaults unless its stack service or app service sets resources for it. Resources set
-for a container replace the service defaults as a whole: if you set only a memory request, the container gets no CPU
-request and no limits.
+A container uses its service defaults unless its stack service or app service sets resources for it. Each of the four
+values replaces only that default. If you set only a memory limit, the container keeps the default CPU and memory
+requests. If you change only the CPU request, the memory request stays as it was. A stack's values apply on top of the
+service defaults in the same way, and an app service's values on top of the stack's.
+
+Every container requests at least 10m CPU and 16 MiB of memory, even when nothing sets a request, but never more than
+its limit. Without a request, Kubernetes would reserve the whole limit for a container that sets only a limit, or
+reserve nothing at all.
+
+Kubernetes doesn't allow a request above its limit. If a value you set and a default would end up that way, your value
+wins: a default request is lowered to your limit, and a default limit is raised to your request.
+
+Autoscaling needs a CPU request set by the service, the stack, or the app service. The minimum request alone isn't
+enough.
 
 App services can also request GPUs with **GPU devices**: a device name, such as `nvidia.com/gpu`, and the number of
 GPUs for each replica. A count of `0` turns off the GPU request of the service's default configuration. App services
@@ -44,7 +55,8 @@ that request GPUs run on the cluster's [GPU node pool](../clusters/gpu.md).
 
 A resource preset is a named set of CPU and memory values. Instead of typing the values, pick a preset from **Preset**
 in the resources dialog when you create an app, or on the **Resources** tab of an app service or a stack service.
-Picking a preset fills in its values and clears the ones it doesn't set. You can still change any value afterwards.
+Picking a preset fills in its values and clears the ones it doesn't set, so those keep their defaults. You can still
+change any value afterwards.
 The **Preset** column shows which preset a container's values match.
 
 Choosing a preset copies its values. Wodby doesn't keep a link to the preset, so changing or deleting a preset later

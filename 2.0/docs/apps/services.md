@@ -273,7 +273,11 @@ The `Runtime > Resources` subtab lets you configure CPU and memory requests and 
 
 CPU values are set in millicores, where `1000` means `1` CPU core. Memory values are set in megabytes in the dashboard UI.
 
-While you edit a container, **Preset** fills in the values of a [resource preset](scalability.md#resource-presets).
+Values the app service sets appear in regular text. Values it doesn't set appear in grey italics: these are the
+stack's or the service's defaults, or the minimum request. While you edit a container, a field left empty keeps its
+default, which the field shows as a placeholder, and **Preset** fills in the values of a
+[resource preset](scalability.md#resource-presets). See [Resources management](scalability.md#resources-management) for
+how set values and defaults combine.
 
 Resource requests directly affect whether the service can be scheduled. If the cluster does not have enough available CPU or memory for the requested pod size, the pod stays pending until enough capacity becomes available. If cluster autoscaling is enabled, the cluster may add nodes to satisfy that demand.
 
