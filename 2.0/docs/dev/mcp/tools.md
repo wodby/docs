@@ -19,8 +19,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
 | `list_projects` | List projects in an organization by organization name or ID. |
-| `list_envs` | List environments in an organization for app and app environment creation. |
-| `list_integrations` | List integrations, optionally filtered by type, status, project, or provider labels. Shows which integrations are outdated. |
+| `list_envs` | List the [environment types](../../apps/environment-types.md) an app environment can have: `PROD`, `STAGING`, `TEST`, `DEV` and `FEATURE`. They are the same in every organization. |
+| `list_integrations` | List integrations, optionally filtered by type, status, project, provider labels, or the environment type they are allowed in. Shows which integrations are outdated. |
 | `get_integration_provider_upgrade` | Check whether an outdated integration can move to its provider's current revision, which fields the update would remove, and why an update is blocked. Requires `Modify/Delete` access to the integration. See [Integration provider updates](../../integrations/updates.md). |
 | `list_apps` | List apps in an organization, optionally filtered by project names or IDs. |
 | `show_app_status` | Return a dashboard-style app summary with app environments, services, latest build, latest deployment, operational needs, and follow-up suggestions for active tasks. |
@@ -99,6 +99,8 @@ These tools require `mcp:read` when using OAuth.
 | `list_stacks` | List stacks in an organization. |
 | `get_stack` | Get a stack by name and optional revision number. |
 | `get_stack_contract` | Inspect revision-specific stack composition, links, options, and service metadata without configuration values. Not an editable manifest. |
+| `list_stack_services` | List the services of a stack in the revision your changes go to: its unpublished draft when it has one, including services you just added, otherwise the published revision. |
+| `get_stack_service_configuration` | Read how a stack service is configured for the environments made from the stack, next to what its service allows: versions, settings, config files, CPU and memory, volume sizes, environment variables, cron schedules, links and integrations. Values of secret settings and secret variables are not returned. |
 | `get_stack_origin_sync_changelog` | Preview what `sync_stack_with_origin` would bring: the origin's version and its release notes since this stack was copied. An empty result means there is nothing newer. |
 | `get_stack_service_update_changelog` | Preview what `update_stack_service_revisions` would change: per outdated stack service, the current and new version with release notes. |
 | `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
@@ -197,7 +199,16 @@ configuration changes.
 | `update_provider_from_git` | Update a custom provider from its Git repository at a branch, tag, or commit. Existing integrations stay on their revision until you upgrade them in the dashboard. Requires `confirm: true`. |
 | `update_stack_from_git` | Update a stack from its Git source. Requires `confirm: true`. |
 | `add_stack_service` | Add a service, such as Redis or Solr, to a stack your organization owns. The addition is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
-| `set_stack_service_link` | Point one of a stack service's links at another service of the same stack, such as PHP's cache link at a newly added Redis, or remove an optional link. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. |
+| `set_stack_service_link` | Point one of a stack service's links at another service of the same stack, such as PHP's cache link at a newly added Redis, or remove an optional link. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `set_stack_service_config` | Override one of the config files a stack service's service provides, such as `php.ini`. The override replaces the whole file, so start from the content `get_stack_service_configuration` shows. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `set_stack_service_resources` | Change the CPU and memory requests and limits a stack service's container gets, or apply a preset from `list_resource_presets`. Values you leave out stay as they are. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `set_stack_service_setting` | Set or remove the value a stack service gives one of its service's settings, such as a site name. Secret settings are refused; set those in the dashboard. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `set_stack_service_volume` | Set the size, in GB, of one of a stack service's volumes, or return it to the service's default. Existing volumes keep their size. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `update_stack_service_options` | Choose which versions of its service a stack service offers and which one new environments get by default. Existing environments keep the version they run. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `set_stack_service_env_var` | Add an environment variable a stack service gives the environments made from the stack, or change the one it already sets. It can apply to one container and to one environment type. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `delete_stack_service_env_var` | Remove an environment variable a stack service sets. Variables the service itself declares can't be removed this way. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `create_stack_service_cron_schedule` | Add a cron schedule a stack service gives the environments made from the stack: a command Wodby runs in the service on a five-field crontab in UTC. Running schedules can need a paid subscription. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
+| `update_stack_service_cron_schedule` | Change a stack service's cron schedule, or turn it off and on. Settings you leave out stay as they are. The change is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
 | `ignore_stack_service_revision` | Stop offering one service revision as an update for a stack service and its derivatives. The next newer revision of the service is offered again. |
 | `create_app_route` | Add a domain to an app environment, routed to a port of an app service. By default Wodby requests a Let's Encrypt certificate, issued once the domain's DNS points to the cluster. |
 | `update_app_route` | Change a route: turn it off or on, make it the primary domain, change its path or certificate, or redirect it to another host. Generated and private routes can't be changed. |
@@ -222,11 +233,11 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. If demo or sizing choices are unresolved, they are returned as questions. |
 | `scale_cluster` | Scale a cluster node pool. |
 | `update_cluster_gpu_node_pool` | Add, resize, replace or remove a cluster's [GPU node pool](../../clusters/gpu.md), which adds or removes paid compute capacity. Removal is refused while pods request GPUs. Changing the machine type creates the new pool before deleting the old one. |
-| `create_app_from_stack` | Create an app and initial app environment from stack, environment, cluster, organization, and project names or IDs. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
-| `create_app_environment_from_stack` | Create an app environment in an existing app. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_from_stack` | Create an app and initial app environment from stack, cluster, organization, and project names or IDs. Choose the environment type with `environment_type`; it defaults to `DEV`. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
+| `create_app_environment_from_stack` | Create an app environment in an existing app. Choose its environment type with `environment_type`; it defaults to `DEV`. Minimal input is prepared with defaults; unresolved deployment or service choices are returned as questions. |
 | `add_app_service_volume` | Add one of the optional volumes an app service's service declares and the environment does not have yet. A volume is billable storage in the cluster. Volumes that already exist can't be resized or removed with this tool. |
 | `create_app_preview_environment` | Create a preview environment for an open pull request. |
-| `create_database` | Create a database. Password values are intentionally not accepted by this tool. |
+| `create_database` | Create a database for one environment type, set with `environment_type`. Password values are intentionally not accepted by this tool. |
 | `create_database_db` | Create a DB inside a database. |
 | `import_services` | Import services from a Git repository. |
 | `import_stacks` | Import stacks from a Git repository. |
@@ -260,6 +271,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `delete_app` | Delete an app. Its app environments, their services, data and routes go with it. |
 | `delete_app_environment` | Delete an app environment with its services, data and routes. With `force`, it is removed from Wodby even when its Kubernetes resources can't be deleted, for example because its cluster is gone; use that only when an ordinary deletion failed, because resources left on a reachable cluster then need removing by hand. |
 | `delete_app_service_cron_schedule` | Delete a cron schedule of an app service, so its command no longer runs. To stop it for a while, turn it off with `update_app_service_cron_schedule` instead. |
+| `delete_stack_service_cron_schedule` | Remove a cron schedule a stack service adds. To stop it for a while, turn it off with `update_stack_service_cron_schedule` instead. The removal is saved to the stack's draft and reaches environments after `publish_stack_draft` and an upgrade. |
 | `delete_stack` | Delete a stack of the organization. A stack that app environments still use can't be deleted. |
 | `delete_service` | Delete a custom service of the organization. A service that stacks still use can't be deleted. |
 | `delete_integration` | Delete an integration and the credentials it holds. Clusters, apps and stacks that use it lose access to that account. |
@@ -279,7 +291,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `update_stack_service` | Update selected stack-service settings. |
 | `update_stack_service_revisions` | Move a stack's services to the newest revisions of their services. Pinned services and ignored revisions stay as they are. Environments then move to the new stack revision with `upgrade_app_environment_stack`. |
 | `update_stack_from_manifest` | Replace the composition of a stack that does not come from Git with a complete stack manifest. Services the manifest leaves out are removed from the stack. |
-| `remove_stack_service` | Remove a service and its derivatives from a stack your organization owns. A required service, or one other services require through a link, is refused. The removal is saved to the stack's draft and reaches environments only after `publish_stack_draft` and an upgrade. |
+| `remove_stack_service` | Remove a service and its derivatives from a stack your organization owns. A required service, or one other services require through a link, is refused. The removal is saved to the stack's draft and reaches environments only after `publish_stack_draft` and an upgrade. A stack that comes from Git is changed in its repository instead. |
 | `publish_stack_draft` | Publish a stack's unpublished draft as its new revision. Publishing checks the main service and required links and changes nothing when they fail. Environments then move to the new revision with `upgrade_app_environment_stack`, or on their own where automatic stack upgrades are on. |
 | `discard_stack_draft` | Discard a stack's unpublished draft and every change saved to it. The published revision and the app environments on it stay as they are. |
 | `sync_stack_with_origin` | Sync a stack with its origin and optionally delete local configuration that no longer exists upstream. |
