@@ -24,12 +24,8 @@ Organization membership is the top-level access gate. A user must have an active
 | `Owner`   | Full access to organization resources and billing. Owners can manage other owners.                                                       |
 | `Admin`   | Full access to organization resources, projects, teams, and org-owned resources. Admins do not manage billing, termination protection, owners, or other admins.  |
 | `Member`  | Works through project access. Members do not receive organization-wide resource access by default.                                       |
-| `Support` | Read-only access across the organization.                                                                                       |
-| `Robot`   | Internal automation role. Robot users are not assigned to teams or projects and are not managed through normal membership workflows.     |
 
 Organization owners and admins have full resource access across the organization. Project roles matter most for organization members.
-
-Support and robot users cannot be invited as normal users and cannot be assigned to teams or projects.
 
 ## Membership management
 
@@ -38,7 +34,6 @@ Organization membership changes follow role hierarchy rules.
 - Owners can manage owners, admins, and members.
 - Admins can manage members, but not owners or other admins.
 - Members cannot manage organization memberships.
-- Support and robot memberships are not managed through the normal organization membership UI.
 
 An invitation sets only the email address and the organization role. Give access to projects and teams afterwards from
 the member's page, `Organization > Members > [Member]`:
@@ -288,7 +283,7 @@ Access rules:
 
 | Action              | Allowed users                                                                                     |
 |---------------------|---------------------------------------------------------------------------------------------------|
-| Read/use            | Organization owners, admins, support users, or users who can access a project with `Read/Use` or `Modify/Delete` access. Every organization member when the resource is available to all projects |
+| Read/use            | Organization owners, admins, or users who can access a project with `Read/Use` or `Modify/Delete` access. Every organization member when the resource is available to all projects |
 | Modify/delete       | Organization owners and admins                                                                    |
 | Ownership & sharing | Organization owners and admins                                                                    |
 
