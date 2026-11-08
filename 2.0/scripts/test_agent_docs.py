@@ -85,7 +85,8 @@ class ContractTests(unittest.TestCase):
                      "retry_app_route_certificate", "rollback_app_environment_migration", "migrate_app_environment",
                      "cleanup_app_environment_migration", "commit_git_files", "check_git_access",
                      "discard_stack_draft", "ignore_stack_service_revision", "pull_workspace",
-                     "recycle_cluster_nodes", "exec_app_service_command", "get_wodby_guidance"]:
+                     "recycle_cluster_nodes", "exec_app_service_command", "get_wodby_guidance",
+                     "test_integration_permissions", "void_app_build", "void_backup_file"]:
             with self.subTest(name=name):
                 self.assertEqual(re.findall(contract.TOOL_PATTERN, f"Use `{name}`."), [name])
 
