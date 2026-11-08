@@ -146,7 +146,8 @@ derivative during an upgrade. Wodby stops before committing such a change so the
 moving a derivative under another compatible parent is reconciled safely.
 
 New or updated app services may need app-specific configuration that cannot be selected safely at stack-upgrade time,
-such as a build source, an external database, a compatible integration, or a required setting. These gaps do not stop
+such as a build source, an external database, a compatible integration, or a required setting. This includes a required
+setting without a default that a newer service version adds to an app service you already have. These gaps do not stop
 the stack upgrade. Wodby records them as warnings on the upgrade task, creates or updates the app service, and waits for
 you to finish the service configuration before deploying.
 
@@ -269,7 +270,19 @@ this setting is disabled.
 
 The dashboard shows `May cause data loss` below the `Volumes` option.
 
-When enabled, Wodby deletes app-service volume records that no longer exist in the latest service manifest.
+When enabled, the upgrade deletes volumes, with their data, that the latest stack revision no longer uses:
+
+- a volume that the service no longer defines;
+- the volumes of an app service whose stack service the latest stack revision no longer has. The whole app service is
+  deleted.
+
+When disabled, an upgrade that would delete such a volume stops before changing anything and names the volumes. This
+also applies to automatic upgrades, which fail with the same message. Back up anything you need, then upgrade with
+`Volumes` enabled. An app service that was never deployed has no stored data, so it is removed without asking, and
+volumes an app service only mounts from another service don't count.
+
+When an upgrade would delete volumes, the `Manual stack upgrade` card shows a warning that lists them before you
+upgrade.
 
 New volumes introduced by the service revision are created during upgrade. Existing volume sizes are not changed for
 running app environments.

@@ -1505,6 +1505,8 @@ Derivative services created from the main service.
 Each item supports:
 
 - `name`: required derivative service name.
+- `previousNames`: optional names the derivative had in earlier versions of the service. See
+  [Rename a derivative](derivatives.md#rename-a-derivative).
 - `title`: required derivative title.
 - `icon`: optional icon.
 - `type`: required derivative service type.
