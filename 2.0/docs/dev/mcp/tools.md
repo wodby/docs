@@ -18,7 +18,12 @@ These tools require `mcp:read` when using OAuth.
 | `read_wodby_docs` | Read one page of the public Wodby 2 documentation as text, taken from `search_wodby_docs`. |
 | `get_current_user` | Get the authenticated user, default organization, default projects, and available organizations. |
 | `list_orgs` | List organizations available to the authenticated user. |
-| `list_projects` | List projects in an organization by organization name or ID. |
+| `list_projects` | List projects in an organization by organization name or ID, with what you can do in each: create resources, manage the project, and view or manage its members. |
+| `list_org_members` | List organization members and pending invitations with their [organization role](../../access-control.md#organization-roles). Organization owners, admins and support also see each member's teams and project access, including access through a team. |
+| `list_project_members` | List the people and teams in a project with their [project role](../../access-control.md#project-roles) and whether they can reveal runtime secrets. |
+| `list_project_roles` | List the system and custom project roles with the project permissions and per-environment-type permissions each grants. |
+| `list_teams` | List the organization's [teams](../../teams.md) and their members. |
+| `get_resource_sharing` | Show which project owns an app, cluster, database, integration, service, stack or provider, or whether the organization owns it, and which projects it is [shared](../../sharing.md) with. Each shared project shows `READ` for `Read/Use`, `WRITE` for `Modify/Delete`, or `OWNER` for the owning project. |
 | `list_envs` | List the [environment types](../../apps/environment-types.md) an app environment can have: `PROD`, `STAGING`, `TEST`, `DEV` and `FEATURE`. They are the same in every organization. |
 | `list_integrations` | List integrations, optionally filtered by type, status, project, provider labels, or the environment type they are allowed in. Shows which integrations are outdated. |
 | `get_integration_provider_upgrade` | Check whether an outdated integration can move to its provider's current revision, which fields the update would remove, and why an update is blocked. Requires `Modify/Delete` access to the integration. See [Integration provider updates](../../integrations/updates.md). |
