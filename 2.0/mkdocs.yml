@@ -207,6 +207,7 @@ nav:
   - Apps:
       - Overview: apps/index.md
       - App environments: apps/environments.md
+      - Preview environments: apps/preview-environments.md
       - Development workspaces: apps/workspaces.md
       - Wodby Agent: apps/wodby-agent.md
       - Cluster migration: apps/migration.md
@@ -218,8 +219,9 @@ nav:
       - Endpoints: apps/endpoints.md
       - Certificate troubleshooting: apps/certificate-troubleshooting.md
       - Uptime checks: apps/uptime-checks.md
-      - Access: apps/access.md
+      - Private App Access: apps/access.md
       - Builds: apps/builds.md
+      - Vulnerability scanning: apps/vulnerability-scanning.md
       - Deploys: apps/deploys.md
       - Backups: apps/backups.md
       - Imports: apps/imports.md
@@ -268,15 +270,105 @@ nav:
       - Template: stacks/template.md
       - Catalog guides:
           - Overview: stacks/catalog/index.md
-          - Drupal:
-              - Overview: stacks/catalog/drupal/index.md
-              - Connect to Solr: stacks/catalog/drupal/solr.md
-          - WordPress: stacks/catalog/wordpress/index.md
-          - Matomo: stacks/catalog/matomo/index.md
-          - Gotenberg: stacks/catalog/gotenberg/index.md
-          - Solr: stacks/catalog/solr/index.md
-          - OpenSMTPD: stacks/catalog/opensmtpd/index.md
-          - FRP Server: stacks/catalog/frps/index.md
+          - Application stacks:
+              - Drupal:
+                  - Overview: stacks/catalog/drupal/index.md
+                  - Connect to Solr: stacks/catalog/drupal/solr.md
+              - WordPress: stacks/catalog/wordpress/index.md
+              - Ghost: stacks/catalog/ghost/index.md
+              - Matomo: stacks/catalog/matomo/index.md
+              - Mautic: stacks/catalog/mautic/index.md
+              - Moodle: stacks/catalog/moodle/index.md
+              - Discourse: stacks/catalog/discourse/index.md
+              - Chatwoot: stacks/catalog/chatwoot/index.md
+              - Mattermost: stacks/catalog/mattermost/index.md
+              - Nextcloud: stacks/catalog/nextcloud/index.md
+              - Odoo: stacks/catalog/odoo/index.md
+              - GitLab: stacks/catalog/gitlab/index.md
+              - Gitea: stacks/catalog/gitea/index.md
+              - Forgejo: stacks/catalog/forgejo/index.md
+              - Dagster: stacks/catalog/dagster/index.md
+              - Zammad: stacks/catalog/zammad/index.md
+              - n8n: stacks/catalog/n8n/index.md
+              - Metabase: stacks/catalog/metabase/index.md
+              - Slack Inviter: stacks/catalog/slack-inviter/index.md
+          - Framework stacks:
+              - HTML: stacks/catalog/html/index.md
+              - Angular: stacks/catalog/angular/index.md
+              - React: stacks/catalog/react/index.md
+              - Vue: stacks/catalog/vue/index.md
+              - PHP: stacks/catalog/php/index.md
+              - Laravel: stacks/catalog/laravel/index.md
+              - Symfony: stacks/catalog/symfony/index.md
+              - Python: stacks/catalog/python/index.md
+              - Django: stacks/catalog/django/index.md
+              - FastAPI: stacks/catalog/fastapi/index.md
+              - Flask: stacks/catalog/flask/index.md
+              - Ruby: stacks/catalog/ruby/index.md
+              - Rails: stacks/catalog/rails/index.md
+              - Go: stacks/catalog/go/index.md
+              - Rust: stacks/catalog/rust/index.md
+              - Java: stacks/catalog/java/index.md
+              - Spring Boot: stacks/catalog/spring-boot/index.md
+              - Kotlin: stacks/catalog/kotlin/index.md
+              - ASP.NET Core: stacks/catalog/aspnetcore/index.md
+              - Node.js: stacks/catalog/node/index.md
+              - Next.js: stacks/catalog/nextjs/index.md
+              - TanStack Start: stacks/catalog/tanstack-start/index.md
+              - Nuxt: stacks/catalog/nuxt/index.md
+              - SvelteKit: stacks/catalog/sveltekit/index.md
+              - Astro: stacks/catalog/astro/index.md
+              - Strapi: stacks/catalog/strapi/index.md
+          - Backend platforms:
+              - Supabase: stacks/catalog/supabase/index.md
+          - Databases:
+              - MariaDB: stacks/catalog/mariadb/index.md
+              - MySQL: stacks/catalog/mysql/index.md
+              - PostgreSQL: stacks/catalog/postgres/index.md
+              - PostGIS: stacks/catalog/postgis/index.md
+              - Cloud MySQL: stacks/catalog/cloud-mysql/index.md
+              - Cloud MariaDB: stacks/catalog/cloud-mariadb/index.md
+              - Cloud PostgreSQL: stacks/catalog/cloud-postgres/index.md
+              - MongoDB: stacks/catalog/mongodb/index.md
+          - Data, messaging and search:
+              - Valkey: stacks/catalog/valkey/index.md
+              - Redis: stacks/catalog/redis/index.md
+              - Memcached: stacks/catalog/memcached/index.md
+              - RabbitMQ: stacks/catalog/rabbitmq/index.md
+              - Distribution Registry: stacks/catalog/distribution/index.md
+              - Solr: stacks/catalog/solr/index.md
+              - Elasticsearch: stacks/catalog/elasticsearch/index.md
+              - OpenSearch: stacks/catalog/opensearch/index.md
+              - Meilisearch: stacks/catalog/meilisearch/index.md
+              - ClickHouse: stacks/catalog/clickhouse/index.md
+              - Apache Kafka: stacks/catalog/kafka/index.md
+              - Apache Spark: stacks/catalog/spark/index.md
+              - Apache Airflow: stacks/catalog/airflow/index.md
+              - ZooKeeper: stacks/catalog/zookeeper/index.md
+          - Utilities and integrations:
+              - Mailpit: stacks/catalog/mailpit/index.md
+              - OpenSMTPD: stacks/catalog/opensmtpd/index.md
+              - Gotenberg: stacks/catalog/gotenberg/index.md
+              - Tailscale: stacks/catalog/tailscale/index.md
+              - NetBird: stacks/catalog/netbird/index.md
+              - 3X UI: stacks/catalog/3xui/index.md
+              - FRP Server: stacks/catalog/frps/index.md
+              - RustDesk Server: stacks/catalog/rustdesk/index.md
+              - Open WebUI: stacks/catalog/open-webui/index.md
+              - OpenClaw: stacks/catalog/openclaw/index.md
+              - T3 Code: stacks/catalog/t3code/index.md
+          - Identity and access:
+              - Keycloak: stacks/catalog/keycloak/index.md
+          - AI inference:
+              - vLLM: stacks/catalog/vllm/index.md
+          - Observability:
+              - Prometheus: stacks/catalog/prometheus/index.md
+              - Grafana: stacks/catalog/grafana/index.md
+              - Grafana Loki: stacks/catalog/loki/index.md
+              - Grafana Tempo: stacks/catalog/tempo/index.md
+              - Observability: stacks/catalog/observability/index.md
+              - VictoriaMetrics: stacks/catalog/victoria-metrics/index.md
+          - Kubernetes system stacks: stacks/catalog/system/index.md
   - Services:
       - Overview: services/index.md
       - Create: services/create.md
@@ -348,7 +440,7 @@ nav:
           - Resend: providers/resend.md
           - SendGrid: providers/sendgrid.md
           - Custom SMTP: providers/custom-smtp.md
-      - Application Access:
+      - Private App Access:
           - Overview: providers/access.md
           - Cloudflare: providers/cloudflare.md
           - Tailscale: providers/tailscale.md
@@ -393,7 +485,7 @@ nav:
       - Teams: teams.md
       - Access control: access-control.md
       - Single Sign-On: sso.md
-      - Sharing: sharing.md
+      - Ownership and sharing: sharing.md
       - Billing: pricing.md
   - User:
       - Overview: user/index.md

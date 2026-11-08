@@ -37,15 +37,20 @@ apply to pausing and deleting the environment.
   support workspace mounts.
 - Use your own Git repository, so you can push your work. Connect an existing repository, or clone the service's
   boilerplate into a new repository with a [GitHub](../providers/github.md) or [GitLab](../providers/gitlab.md)
-  integration.
+  integration, or into an empty repository you created first with a [Bitbucket](../providers/bitbucket.md) integration.
 - Add your public key in [User settings > SSH keys](../user/ssh-keys.md). Keep the private key on your computer. Until
   you add one, the app form and the **Workspace** page warn you and link to that page. A key you add later works
   without restarting the workspace.
 - Start with fresh application data. Attaching an existing database or selecting a data import during workspace
   creation is not supported.
 
-The SSH runner uses additional compute and counts toward service usage. Its resource allocation matches the source
-service. Code and agent-home storage are also billed under normal storage rules.
+The SSH runner uses additional compute and counts toward service usage. It is where you and Wodby Agent build code
+and run tools, so it doesn't copy the CPU and memory of the source service, which are sized for running the
+application. It requests the `large` [resource preset](scalability.md#resource-presets), 250m CPU and 512 MiB of
+memory, and has no CPU or memory limit, so a build isn't stopped by a limit. A service can set a different size for
+its runner in `workspace.runner.resources` of its manifest. GPUs of the source service are kept. When you create the
+environment, Wodby counts the runner when it checks whether the environment fits on the cluster. Code and agent-home
+storage are also billed under normal storage rules.
 
 ## Create a workspace
 
@@ -54,8 +59,8 @@ service. Code and agent-home storage are also billed under normal storage rules.
 3. In the app settings, set **Deployment mode** to **Development workspace**. If the option is unavailable, hover over
    it to see why.
 4. In the services step, open the **Development workspace** section. For the source service, choose
-   **Clone boilerplate** to create a new repository from the boilerplate, or **Use my repository** and select the
-   repository and the Git reference to start from.
+   **Clone boilerplate** to create a new repository from the boilerplate (with Bitbucket, enter the name of an empty
+   repository you created first), or **Use my repository** and select the repository and the Git reference to start from.
 5. Optionally, change **Code, size (Gi)** and **Agent home, size (Gi)** in the **Workspace** group under **Volumes**.
 6. Review the services, resource usage and access settings, then create the environment.
 
@@ -250,8 +255,8 @@ interrupts your session. Turn it on in `Stack > Operations` or when you create t
 - The code services, the SSH runner and setup jobs run on one node, so that node needs room for all of them.
   With node-local storage, such as the default K3S storage class, the workspace can only run on the node that holds
   its volumes.
-- To protect HTTP previews with [App Access](access.md), choose **Selected endpoints**. **Entire app** protection
-  conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.
+- To protect HTTP previews with [Private App Access](access.md), choose **Selected endpoints**. **Entire app**
+  protection conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.
 - [Pausing](environments.md#pausing-and-resuming-an-environment) stops workloads and SSH access but preserves code and
   agent-home storage. Storage remains provisioned and billable; pausing does not delete the cluster.
 - Resume does not pull code. It can retry setup interrupted by a lifecycle operation, but an ordinary setup failure

@@ -50,11 +50,12 @@ Wodby currently exposes these MCP OAuth scopes:
 - `mcp:read` for discovery, diagnostics, deployment status, task status, bounded metrics, pod status, and logs.
 - `mcp:operate` for task-backed operations such as deployments, builds, backups, cron runs, app service actions, and
   task repeats.
-- `mcp:exec` for [container commands](#container-commands), where enabled. This is a separate, explicit OAuth grant.
+- `mcp:exec` for [container commands](#container-commands), where enabled, and for handing a task to Wodby Agent in a
+  development workspace. This is a separate, explicit OAuth grant.
 - `mcp:configure` for settings, metadata, stack configuration, and resource configuration.
 - `mcp:provision` for creating infrastructure and resource objects.
 - `mcp:destructive` for deletes, cancellations, destructive imports, and high-impact upgrades.
-- `mcp:sensitive` for submitting secret or credential values. Submitted secrets are omitted from resource summaries; logs can still contain sensitive text.
+- `mcp:sensitive` for submitting secret or credential values and for getting backup download links. Submitted secrets are omitted from resource summaries; logs can still contain sensitive text.
 
 New connections default to `mcp:read` unless the client explicitly requests other scopes. Review the client, organization,
 and requested permissions before approving. Existing grants keep their permissions.

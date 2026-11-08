@@ -26,6 +26,42 @@ those route types and also use Cilium for Kubernetes networking and NetworkPolic
 Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
 
+## Cluster components
+
+To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Components`. The
+list shows each component's version, whether an update is available, where it runs, and how many pods or nodes run it.
+It includes system pods and each node's Kubernetes agent, container runtime, operating system, and kernel. Your
+applications are not included. Infrastructure apps are hidden because the `Apps` tab reports them; choose
+`Infrastructure app` in the `Managed by` filter to show them.
+
+A healthy cluster's list appears within a few minutes and refreshes about every six hours. It also refreshes when a
+[node recycling or Kubernetes version update task](updates.md#check-what-changed-on-your-nodes) ends. The page shows when
+the cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
+
+`Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
+not count. The column is hidden when no listed component has a status. On managed clusters, only Amazon EKS add-ons show updates. See
+[component updates](updates.md#component-updates).
+
+On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
+version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy).
+
+`Managed by` tells you how a component gets updated:
+
+| Managed by | How it is updated |
+| --- | --- |
+| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates). |
+| Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
+| k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
+| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
+| Server | The operating system of your K3S server. You update it. |
+| Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
+
+The version is the image tag or the version the node reports, exactly as published. It's empty for an image referenced
+only by digest.
+
+The list is also available through the API as `GET /v1/cluster-components/{id}`, using the cluster's ID, and the GraphQL
+`clusterComponents` query.
+
 ## Cluster capability policy
 
 A cluster capability policy records which published operator stack revisions are approved for the cluster.
@@ -106,13 +142,25 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
-The latest version is `4.1.3`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
-Cloud clusters are offered upgrades up to `4.0.0`, because later versions need no upgrade on them. They can show any
-version from `4.0.0` to `4.1.3`, depending on when they were created.
+The latest version is `4.1.4`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
+Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3S servers, so once on `4.0.0` these clusters
+show the latest version automatically, with no task and no change to the cluster.
 
 Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
 
 ### Changelog
+
+#### 4.1.4
+
+Version `4.1.4` reduces the exposure of self-hosted K3S servers to the Linux kernel bug
+[CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432). It drops incoming IPv4 TCP packets that carry IP
+options, turns off MPTCP on the server, and restarts K3S and Cilium. Clusters must be on `4.1.3` first. New K3S servers
+install this version directly. Run it during a maintenance window.
+
+This version doesn't fix the bug: you also need to install a patched kernel and reboot the server. See
+[K3S host protection for CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) for the steps and limits.
+Managed Kubernetes clusters aren't changed by this version and need
+[a patched node image from their provider](updates.md#fix-cve-2026-98432-on-managed-kubernetes).
 
 #### 4.1.3
 

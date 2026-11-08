@@ -131,16 +131,29 @@ Type: `string`.
 
 Icon name shown in the Wodby dashboard.
 
+### `docs`
+
+Type: `string`. Optional.
+
+HTTPS address of a guide to the stack: how its services work together, which optional services to enable, and what
+the application's code must do. AI agents that work on an app environment created from the stack, such as
+[Wodby Agent](../apps/wodby-agent.md), get the address and read the guide before changing how the application is set
+up. A copy of the stack in another organization or project uses the guide of the stack it was copied from.
+
+```yaml
+docs: https://wodby.com/docs/2.0/stacks/catalog/go/
+```
+
 ### `access`
 
 Type: `object`.
 
-Optional [App Access](../apps/access.md) requirement for app environments created from the stack. This policy describes
-the access outcome the stack needs. The app environment still stores the actual access configuration and the user selects
-an eligible Application Access integration.
+Optional [Private App Access](../apps/access.md) requirement for app environments created from the stack. This policy
+describes the access outcome the stack needs. The app environment still stores the actual access configuration and the
+user selects an eligible Private App Access integration.
 
-- `required`: required boolean. When `true`, App Access must be configured during app creation and cannot be removed
-  while the app environment uses this stack revision.
+- `required`: required boolean. When `true`, Private App Access must be configured during app creation and cannot be
+  removed while the app environment uses this stack revision.
 - `provider`: optional provider machine name, such as `tailscale` or `cloudflare`. Omit it to accept any provider that
   supports the required mode and scope. Set it only when the stack depends on provider-specific behavior.
 - `mode`: required access type. Allowed values are `protected` and `private_network`.
@@ -327,7 +340,7 @@ For field formats, workload-kind restrictions, and precedence, see
 Type: `boolean`.
 
 Marks the main service in the stack. Only one stack service can be main, and its main endpoint must expose a public HTTP
-port. The corresponding app service owns the app environment's root technical route. This is independent of the app
+port. A port the stack makes private with [`services[].endpoints`](#servicesendpoints) doesn't count. The corresponding app service owns the app environment's root technical route. This is independent of the app
 app environment's canonical `Main` route.
 
 If no service is marked as main, Wodby will automatically pick the first eligible service. The same fallback applies
@@ -398,12 +411,16 @@ Each `services[].workloads[].containers[]` item supports:
 
 `resources` supports:
 
+- `preset`: name of a Wodby [resource preset](../apps/scalability.md#resource-presets), such as `small` or `large`.
+  Its values fill in the four values below that you leave out, and the values you write override it. Custom presets
+  of an organization can't be used in manifests.
 - `request.cpu`
 - `request.memory`
 - `limit.cpu`
 - `limit.memory`
 
-CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
+CPU values are in millicores (`1000` is one core) and must be multiples of `10`. Memory values are in MiB and must be
+multiples of `16`.
 
 Use the same workload names and container names declared by the referenced service. You only need to list the workloads
 and containers you want to override. Stack import validates these targets against the referenced service manifest.
@@ -418,6 +435,43 @@ Each item supports:
 
 - `name`: required service volume name. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `size`: required size in GB, minimum `1`.
+
+### `services[].endpoints`
+
+Type: `array`.
+
+Keeps ports of the referenced service private in this stack's app environments. A private port gets no domain, no
+certificate, and no public port. Services in the same app environment still reach it by service name and port.
+
+Use it when a service is public by default but this stack only needs it on the app environment's private network, for
+example an OpenTelemetry Collector that only the stack's own services send to.
+
+Each item supports:
+
+- `name`: required name of an endpoint of the referenced service.
+- `ports`: required list of ports, each with:
+  - `name`: required name of a port of that endpoint.
+  - `private`: required, must be `true`.
+
+```yaml
+services:
+  - name: otel-collector
+    title: OpenTelemetry Collector
+    service: opentelemetry-collector
+    endpoints:
+      - name: otlp
+        ports:
+          - name: otlp-http
+            private: true
+```
+
+A stack can only make a public port private. It can't publish a port that the service keeps private. Validation fails
+when the endpoint or port doesn't exist in the service's [`endpoints`](../services/template.md#endpoints), or when the
+port uses `routeToPublicPort`. The main service's public HTTP port on its main endpoint can't be made private, because
+it serves the app environment's root technical route. Derivatives keep the ports their service defines.
+
+When an app environment is upgraded to a stack revision that makes a port private, Wodby removes the port's technical
+routes and closes its public port. A custom domain on that port stops the upgrade; remove the domain first.
 
 ### `services[].links`
 

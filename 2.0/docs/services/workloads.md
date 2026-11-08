@@ -184,9 +184,11 @@ Each `workloads[].containers[]` item supports:
 - `name`: required pod container name
 - `image`: optional runtime image reference
 - `build`: optional boolean for build target containers
+- `routeMetadata`: optional boolean that passes the app environment's hostnames to a container that is not a build
+  target
 - `hostname`: optional container hostname
 - `env`: optional container-scoped env vars
-- `resources`: optional container-scoped resources
+- `resources`: optional default resources for the container; see the [resources object](template.md#resources-object)
 - `helm`: optional container-level Helm mappings
 
 Container names must match the real container names created by the chart.
@@ -201,12 +203,33 @@ Services with build configuration mark target containers with `build: true`.
 
 See also: [Service build](build.md).
 
+### Route hostnames
+
+Build target containers receive the app environment's hostnames in
+[`WODBY_HOSTS`, `WODBY_PRIMARY_HOST`, and `WODBY_PRIMARY_URL`](../apps/environment-variables.md#system-environment-variables).
+Other containers do not, so adding a domain doesn't affect databases, caches, and similar services.
+
+Set `routeMetadata: true` on a container that runs a ready-made application image and needs these variables, for
+example to build a trusted host list:
+
+```yaml
+containers:
+- name: nextcloud
+  image: docker.io/library/nextcloud
+  routeMetadata: true
+```
+
+When a domain or [Private App Access](../apps/access.md) hostname is added, removed, or made primary, Wodby marks
+services with such a container as needing a redeploy, the same as services with build targets.
+
 ## Helm mappings
 
 ### Workload-level Helm mappings
 
 `workloads[].helm` supports:
 
+- `replicas`
+- `managedReplicas`
 - `labels`
 - `annotations`
 - `volumes`
@@ -217,6 +240,35 @@ See also: [Service build](build.md).
 - `shutdownGracePeriod`
 
 These are Helm value paths used when Wodby injects workload-scoped data.
+
+Use `replicas` to map the app service's effective replica count to a value path for this workload. This is useful for a
+multi-workload chart whose Deployments or StatefulSets have independent replica values:
+
+```yaml
+workloads:
+- name: web
+  kind: deployment
+  primary: true
+  helm:
+    replicas: web.replicas
+
+- name: worker
+  kind: deployment
+  helm:
+    replicas: worker.replicas
+```
+
+Wodby writes the same effective app-service replica count to every mapped path, including `0` while the app service is
+disabled or its app environment is paused. Import validation verifies each mapped workload at the supported replica
+counts. A workload can omit this mapping when its replica count intentionally remains controlled by the chart.
+
+Use `managedReplicas: true` only when the chart cannot expose an ordinary replica value without also creating its own
+HorizontalPodAutoscaler. Wodby then writes `spec.replicas` directly to the rendered Deployment or StatefulSet and
+removes only the chart HPA that targets that workload. Any unrelated chart HPA still fails import validation.
+
+`managedReplicas` cannot be combined with `replicas` on the same workload and is not supported for DaemonSets. In a
+service marked as `scalable`, the primary workload cannot use `managedReplicas`: Wodby's autoscaler controls that
+workload's replica count, so use `replicas` there.
 
 The four deployment paths are required for charts with multiple workloads when the corresponding setting needs to be
 passed to Helm. Service-level deployment mapping defaults apply only to single-workload services. See
@@ -229,10 +281,28 @@ passed to Helm. Service-level deployment mapping defaults apply only to single-w
 - `resources`
 - `env`
 - `envKV`
+- `secretEnvFrom`
 - `mounts`
 - `image`
 
 These are Helm value paths used when Wodby injects container-scoped data.
+
+Use `secretEnvFrom` for a chart that accepts an `envFrom` list but cannot keep `valueFrom` entries in its environment
+list. Wodby passes an `envFrom` entry that loads the app service's secret environment variables from the
+[`service.secrets.env`](../apps/tokens.md#service) Secret, so secret values stay out of Helm values. Only secret
+variables are available this way; also map `env` when the container needs the other variables. `envKV` is ignored when
+`secretEnvFrom` is set. When a secret value changes, the next deployment restarts the workload, as it does for `env`.
+
+```yaml
+workloads:
+- name: app
+  kind: deployment
+  containers:
+  - name: app
+    helm:
+      env: app.extraEnv
+      secretEnvFrom: app.extraEnvFrom
+```
 
 ### Container image Helm mappings
 
@@ -271,6 +341,13 @@ With this configuration, Wodby writes the full repository path such as `registry
 `dagsterWebserver.image.repository` and does not inject a separate registry value.
 
 See also: [Helm](helm.md).
+
+### Fixed component image tags
+
+A service containing several components can specify an explicit tag in each container's `image`, for example
+`supabase/gotrue:v2.196.0`. That tag takes precedence over the selected service option's image tag. Untagged image
+repositories continue to use the option tag, or the option version when no tag is set. This allows one service option
+to identify a tested bundle whose components have different versions. Registry ports are not image tags.
 
 ## Validation rules
 

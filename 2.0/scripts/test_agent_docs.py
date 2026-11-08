@@ -3,6 +3,7 @@
 import unittest
 import hashlib
 import json
+import re
 from types import SimpleNamespace
 from unittest.mock import patch
 
@@ -78,10 +79,42 @@ class ContractTests(unittest.TestCase):
             contract.PublicSkillRedirectHandler().redirect_request(
                 None, None, 302, "Found", {}, "https://example.com/account")
 
-    def run_fixture(self, *, bad_hash=False, unknown_tool=False, missing_skill=False):
+    def test_tool_pattern_covers_every_tool_verb(self):
+        for name in ["add_app_service_volume", "set_app_service_env_var", "remove_stack_service", "publish_app_port",
+                     "unpublish_app_port", "pause_app_environment", "resume_app_environment", "rename_app",
+                     "retry_app_route_certificate", "rollback_app_environment_migration", "migrate_app_environment",
+                     "cleanup_app_environment_migration", "commit_git_files", "check_git_access",
+                     "discard_stack_draft", "ignore_stack_service_revision", "pull_workspace",
+                     "recycle_cluster_nodes", "exec_app_service_command", "get_wodby_guidance",
+                     "test_integration_permissions", "void_app_build", "void_backup_file"]:
+            with self.subTest(name=name):
+                self.assertEqual(re.findall(contract.TOOL_PATTERN, f"Use `{name}`."), [name])
+
+    def test_tool_pattern_skips_non_tool_identifiers(self):
+        for name in ["build_source", "build_source_type", "execution_id", "execution_mode", "git_ref", "pod_uid",
+                     "repository_id", "cleanup_id", "disable_monitoring", "preview_host", "preview_urls",
+                     "retry_ambiguous", "cache_restore"]:
+            with self.subTest(name=name):
+                self.assertEqual(re.findall(contract.TOOL_PATTERN, f"Use `{name}`."), [])
+
+    def test_every_documented_tool_is_recognized(self):
+        """A documented tool with an unknown verb is a tool the check cannot see in skills."""
+        tools = contract.documented_names((contract.DOCS / "dev/mcp/tools.md").read_text(), r"[a-z0-9_]+")
+        self.assertEqual([name for name in sorted(tools) if not re.fullmatch(contract.TOOL_PATTERN, f"`{name}`")], [])
+
+    def test_tool_rows_use_one_name_per_row(self):
+        """The check reads only single-name rows, so a shared row hides its tools from it."""
+        text = (contract.DOCS / "dev/mcp/tools.md").read_text()
+        self.assertEqual(re.findall(r"^\| `[a-z0-9_]+` / .*$", text, re.MULTILINE), [])
+
+    def run_fixture(self, *, bad_hash=False, unknown_tool=False, unknown_set_tool=False, missing_skill=False):
         """Exercise live checks entirely offline with a synthetic public distribution."""
         names = contract.documented_names((contract.DOCS / "agents/skills.md").read_text(), r"wodby2-[a-z-]+")
-        content = b"Use `get_nonexistent_contract_tool`." if unknown_tool else b"Use `get_wodby_guidance`."
+        content = b"Use `get_wodby_guidance`."
+        if unknown_tool:
+            content = b"Use `get_nonexistent_contract_tool`."
+        if unknown_set_tool:
+            content = b"Use `set_nonexistent_contract_tool`."
         digest = "invalid" if bad_hash else hashlib.sha256(content).hexdigest()
         selected = sorted(names)[1:] if missing_skill else sorted(names)
         index = {"version": "fixture", "skills": [
@@ -103,7 +136,7 @@ class ContractTests(unittest.TestCase):
 
     def test_inventory_hash_and_tool_drift_fail(self):
         for option, message in [("bad_hash", "Hash mismatch"), ("unknown_tool", "undocumented tools"),
-                                ("missing_skill", "Skill inventory drift")]:
+                                ("unknown_set_tool", "undocumented tools"), ("missing_skill", "Skill inventory drift")]:
             with self.subTest(option=option), self.assertRaisesRegex(ValueError, message):
                 self.run_fixture(**{option: True})
 

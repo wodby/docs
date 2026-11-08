@@ -16,7 +16,7 @@ permission audits, or infrastructure resources.
 | Import from git | You want Git to remain the source of truth, use automatic updates, or keep several providers in one repository. |
 
 All three methods let you select organization or project ownership. An organization-owned provider can be shared with
-projects in the same organization from its `Sharing` tab.
+projects in the same organization from its `Ownership` tab.
 
 ## Names and namespaces
 
@@ -97,8 +97,14 @@ Each field requires:
 - `label`: the user-facing label
 - `variable`: the environment variable exposed by the integration
 
-Optional field properties include `description`, `optional`, `regex`, and `editable`. A `select` field must provide a
-non-empty `options` list. A `textarea_upload` field can use `accept` to limit the files offered by the file picker.
+Optional field properties include `description`, `optional`, `regex`, `editable`, and `requireSecretsOnChange`. A
+`select` field must provide a non-empty `options` list. A `textarea_upload` field can use `accept` to limit the files
+offered by the file picker.
+
+Set `requireSecretsOnChange: true` on a field that decides where a saved secret is sent, such as a host, base URL,
+domain, or site. Changing that field then requires entering the saved secrets again, so an edit can't send them to
+another server. You don't need it when your manifest's validation fixes the address, or when the provider has no
+secret.
 
 Field names and environment-variable names must be unique across the complete manifest. At least one field must be
 defined, either at provider or kind level. The standard
@@ -201,7 +207,7 @@ current provider revision active; open the provider's `Tasks` tab to review the 
 
 ## Sharing and deletion
 
-Use the provider's `Sharing` tab to make it available to additional projects in the same organization. Sharing a
+Use the provider's `Ownership` tab to make it available to additional projects in the same organization. Sharing a
 provider does not copy integration credentials; integrations created from it keep their own ownership and sharing
 settings.
 

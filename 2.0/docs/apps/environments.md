@@ -29,7 +29,7 @@ Each app environment has its own:
 - [Endpoints](endpoints.md) to configure HTTP routes and published ports
 - [Maintenance mode](maintenance.md) to temporarily replace public HTTP routes with a maintenance response
 - [Cluster migration](migration.md) to move the environment and supported persistent data to another cluster
-- [App Access](access.md) to choose public, identity-protected, or private-network HTTP access
+- [Private App Access](access.md) to choose public, identity-protected, or private-network HTTP access
 - [Builds](builds.md) and [deploys](deploys.md), when the stack has services with build configuration
 - CI provider and container registry selections
 - [Backups](backups.md) and [imports](imports.md), when the stack provides those capabilities
@@ -38,6 +38,8 @@ Each app environment has its own:
 - live [log streaming](observability.md#live-logs)
 - [Cron](cron.md) schedules and jobs
 - [Tasks](tasks.md) history
+
+Wodby can also create temporary [preview environments](preview-environments.md) for pull requests automatically.
 
 All environments of the same app share the same stack, but different environments can run on different clusters and different stack revisions.
 
@@ -75,8 +77,8 @@ same app and confirm to prefill compatible configuration for the new environment
 - existing database selections for compatible external database services
 
 Only fields supported by the selected stack revision and integrations available to you are copied. Review both App
-settings and Services before creating the environment. App Access, imports, backups, volume data, and database data are
-not copied.
+settings and Services before creating the environment. Private App Access, imports, backups, volume data, and database
+data are not copied.
 
 When the source environment was created by cloning a boilerplate into your Git account, the new environment connects to that
 resulting repository. It does not clone the boilerplate into another repository. A public boilerplate source remains a
@@ -165,5 +167,6 @@ new one.
 - [Applications overview](index.md)
 - [App vs app environment vs app service](app-vs-environment-vs-service.md)
 - [Maintenance mode](maintenance.md)
+- [Preview environments](preview-environments.md)
 - [App environment cluster migration](migration.md)
 - [Application stack](stack.md)

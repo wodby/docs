@@ -30,13 +30,16 @@ When using token authentication:
 - Required role: `Developer` or higher for both Git and CI integrations
 - To clone build boilerplates, the token actor must be allowed to create projects in the target namespace
 - For self-hosted GitLab, specify the GitLab base URL. Leave it empty for GitLab.com
+- A self-hosted GitLab must be reachable from the public internet. Wodby can't connect to private or internal addresses,
+  so an instance available only on a private network or VPN can't be used
+- To change the base URL of an existing integration, enter the access token again
 - If you want to run GitLab CI builds from Wodby, make sure the token's actor is allowed to run pipelines for protected branches such as `main`
 
 Token authentication asks for:
 
 | Field | Required | Description |
 | --- | --- | --- |
-| GitLab Base URL | No | Base URL of a self-hosted GitLab installation. Leave empty for GitLab.com. |
+| GitLab Base URL | No | Base URL of a self-hosted GitLab installation, reachable from the public internet. Leave empty for GitLab.com. |
 | GitLab access token | Yes | Personal, group, or project access token with the scopes and role described above. |
 
 ## CI
@@ -47,3 +50,20 @@ Wodby supports GitLab CI as a third-party CI integration.
 - Link the app service to the GitLab repository and configure the branch or tag used for new pipelines
 - You can re-run the last recorded build by retrying the associated GitLab job
 - Self-hosted GitLab is supported via token authentication
+
+## Preview environments
+
+GitLab integrations can create [preview environments](../apps/preview-environments.md) for merge requests.
+
+- The connected account or token needs the `Maintainer` role on the project, and an access token needs the `api` scope.
+  This is more than a build source needs: Wodby adds its webhook to the project and writes statuses and comments on merge
+  requests.
+- If Wodby cannot add the webhook, the task shows a warning and Wodby retries every hour. Until the webhook exists, pushes
+  do not start builds or rebuild previews, and `/wodby` commands get no answer. Previews are still created and deleted
+  by the check that runs every 15 minutes.
+- Wodby reacts to merge requests that target the branch followed by the app's base environment. Merge requests from forks
+  are ignored.
+- Each deployment is reported as a `wodby/preview` commit status on the commit it built, and Wodby keeps one comment
+  on the merge request up to date with the preview's state and URL.
+- Project members with the `Developer` role or higher can comment `/wodby preview` or `/wodby reseed` on the merge
+  request. See [Pull request commands](../apps/preview-environments.md#pull-request-commands).

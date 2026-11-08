@@ -30,6 +30,13 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.1.7
+
+- Adminer:
+    - ⬆️ Adminer 6.3.0
+    - 📜 Adminer now runs on Alpine Linux with Apache and PHP-FPM instead of the Debian-based official PHP image. Default database settings, designs, plugins and PHP limits work as before
+- 🏔️ [Alpine Linux updates](https://alpinelinux.org/posts/alpine-3.21.10-3.22.8-3.23.8-3.24.4-released/) for Nginx
+
 ### 3.1.6
 
 - ⬆️ Adminer 6.2.0

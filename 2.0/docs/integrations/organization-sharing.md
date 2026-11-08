@@ -28,7 +28,7 @@ relationship.
 As an owner of the source organization:
 
 1. Open the OAuth integration.
-2. Go to `Sharing`.
+2. Go to `Ownership`.
 3. In `Share OAuth integration with another organization`, enter the target organization's exact machine name.
 4. Click `Send invitation`.
 
@@ -38,7 +38,7 @@ target is eligible, its owners receive an email with a review link. Repeated inv
 suppressed for at least 24 hours.
 
 Pending invitations are deliberately not shown to the sender. The target organization appears on the source
-integration's `Sharing` page only after one of its owners accepts.
+integration's `Ownership` page only after one of its owners accepts.
 
 ## Review an invitation
 
@@ -52,7 +52,7 @@ As an owner of the invited organization:
 
 Invitations expire after seven days. Declining an invitation does not notify the source organization.
 
-Acceptance creates an organization-owned integration in the invited organization. Use its normal `Sharing` page if
+Acceptance creates an organization-owned integration in the invited organization. Use its normal `Ownership` page if
 specific projects in that organization need access.
 
 ## Credential ownership and revocation
@@ -70,7 +70,7 @@ renewal does not interrupt the invited organization.
 The invited owner should accept only when they trust the source organization to maintain the provider connection and
 coordinate any later change that requires revocation.
 
-Source owners can see accepted organizations on the canonical integration's `Sharing` page and revoke access at any
+Source owners can see accepted organizations on the canonical integration's `Ownership` page and revoke access at any
 time. Revocation takes effect immediately: the local integration is disabled and existing references can no longer
 perform credential-backed operations. The invited organization keeps ownership of its references and can replace
 them with another integration.

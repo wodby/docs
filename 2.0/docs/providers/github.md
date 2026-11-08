@@ -8,7 +8,7 @@ A GitHub App installation can be connected to Wodby only once. If another Wodby 
 installation, do not start the GitHub connection flow again: GitHub will show only `Configure` for an existing
 installation and does not send a new installation result to Wodby.
 
-Instead, an owner of the Wodby organization that already holds the GitHub integration opens its `Sharing` page and
+Instead, an owner of the Wodby organization that already holds the GitHub integration opens its `Ownership` page and
 invites the other Wodby organization by its exact machine name. An owner of the invited organization then reviews the
 request under `Integrations > OAuth invitations` and chooses the local integration name and title.
 
@@ -39,3 +39,20 @@ Wodby supports GitHub Actions as a third-party CI integration.
 - You can also re-run the workflow run associated with the last recorded build
 - The GitHub App installation must have access to the repository with Actions permissions enabled
 - Starting a new workflow run requires the workflow to support `workflow_dispatch`
+
+## Preview environments
+
+GitHub integrations can create [preview environments](../apps/preview-environments.md) for pull requests.
+
+- The GitHub App installation needs write access to `Pull requests`, `Commit statuses`, and `Issues`, and the
+  `Pull request` and `Issue comment` events. With Wodby CI, it also needs the `Push` event. GitHub asks the installation
+  owner to approve these when they are missing.
+- Without the `Pull requests` permission, Wodby can't read pull requests, so previews are not created. With it, other
+  missing permissions or events mean no status or comment on the pull request, ignored commands, or new commits that
+  don't rebuild the preview.
+- Wodby reacts to pull requests that target the branch followed by the app's base environment. Pull requests from forks
+  are ignored.
+- Each deployment is reported as a `wodby/preview` commit status on the commit it built, and Wodby keeps one comment
+  on the pull request up to date with the preview's state and URL.
+- People with write access to the repository can comment `/wodby preview` or `/wodby reseed` on the pull request. See
+  [Pull request commands](../apps/preview-environments.md#pull-request-commands).

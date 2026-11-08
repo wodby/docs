@@ -9,11 +9,6 @@ The top-level application object in Wodby. All app environments of the same app 
 One isolated, deployed copy of an app. Each app environment has a fixed environment type and its own services, routes,
 builds, and configuration.
 
-## Application Access
-
-An app environment setting that publishes the entire app or selected HTTP endpoints through a supported access provider
-while suppressing the corresponding ordinary public routes.
-
 ## App service
 
 One service inside one app environment. An app service is the app-level representation of a stack service for that specific deployed app copy.
@@ -55,9 +50,19 @@ A Kubernetes cluster created in your own cloud account through a supported provi
 
 The top-level workspace boundary for users, teams, projects, billing, and shared settings.
 
+## Preview environment
+
+A temporary app environment that Wodby creates automatically for a pull request, copied from a base environment and
+deleted when the pull request closes or has been idle for a configured period.
+
 ## Primary route
 
 The default HTTP route for a specific app service endpoint.
+
+## Private App Access
+
+An app environment setting that publishes the entire app or selected HTTP endpoints through a supported access provider
+while suppressing the corresponding ordinary public routes.
 
 ## Project
 

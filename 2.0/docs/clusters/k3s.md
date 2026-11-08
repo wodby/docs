@@ -48,6 +48,8 @@ The generated script performs the current bootstrap flow for you. It:
 - disables swap
 - installs required NFS client packages
 - installs firewall rules that restrict public access to the K3S API endpoint
+- [reduces exposure to CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) by dropping incoming IPv4 TCP
+  packets with IP options and turning off MPTCP on the server
 - installs K3S
 - installs Helm 4
 - installs Cilium for pod networking and NetworkPolicy enforcement
@@ -144,7 +146,8 @@ The rollback command is installed at the beginning of the bootstrap script. It i
 
 The command removes:
 
-- Wodby k3s API firewall rules and systemd unit
+- Wodby k3s API firewall rules and systemd unit, including the filter for IPv4 TCP packets with IP options (MPTCP stays
+  off until the next reboot)
 - the Wodby proxy client Helm release, when Kubernetes is reachable
 - the Cilium Helm release, when Kubernetes is reachable
 - Cilium host networking artifacts and stale kube-router network policy rules

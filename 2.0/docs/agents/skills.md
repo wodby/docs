@@ -8,17 +8,18 @@ permissions, user approval, or checking the connected server's current input sch
 | Skill | Use |
 | --- | --- |
 | `wodby2-get-started` | Assess fit and prerequisites, select resources, and choose the next workflow. |
+| `wodby2-create-app` | Create a new application from what you want to build: get a recommended stack, boilerplate, repository, and cluster, hand the coding to Wodby Agent in a development workspace, and take the result to production. |
 | `wodby2-migrate` | Plan a move from another host, rehearse on staging, and separate production cutover approval. |
 | `wodby2-deploy` | Prepare a deployment, follow tasks, and verify runtime state. |
 | `wodby2-troubleshoot` | Diagnose failures with task logs, application logs, pod status, metrics, and explicitly authorized container commands where available. |
 | `wodby2-service` | Reuse or author and validate a service definition. |
-| `wodby2-stack` | Compose services into a stack and validate it. |
+| `wodby2-stack` | Compose services into a stack and validate it, or bring an existing stack up to date from its origin, its Git source, or newer service revisions. |
 | `wodby2-provider` | Reuse an integration contract or validate a custom variable-provider manifest. |
-| `wodby2-environment` | Configure and operate an existing app environment: environment variables, CPU, memory and replicas, cron schedules, domains and certificates, pausing, resuming and maintenance mode. |
+| `wodby2-environment` | Configure and operate an existing app environment: environment variables, CPU, memory and replicas, cron schedules, domains and certificates, basic auth and Private App Access, moving to another cluster, pausing, resuming and maintenance mode, a service's version and code branch, and stack upgrades. |
 | `wodby2-connect` | Connect application code to the services Wodby runs for it, such as a database, cache, search, mail or file storage, using what Wodby already sets up instead of adding settings to the code. |
 | `wodby2-ci` | Create or repair a repository's Wodby CI pipeline and post-deployment scripts, validate both, and follow the first build. Also covers running the same steps in GitHub Actions, GitLab CI or CircleCI. |
 | `wodby2-data` | Protect and move data: backup destinations and schedules, taking, verifying and restoring backups, importing dumps or files, copying data between environments, and standalone databases. |
-| `wodby2-cluster` | Choose, create, size, scale and upgrade a cluster, including infrastructure and infrastructure app upgrades. |
+| `wodby2-cluster` | Choose, create, size, scale and upgrade a cluster, including Kubernetes version, infrastructure and infrastructure app upgrades. |
 | `wodby2-review` | Review an app environment, an app or a whole organization without changing anything, and report what is unhealthy, unprotected or out of date, with what to fix first. |
 
 Provider authoring does not implement a new OAuth or infrastructure provider. Validation does not publish a manifest.

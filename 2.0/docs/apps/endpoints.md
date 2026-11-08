@@ -272,15 +272,15 @@ issuer of `Let's Encrypt` does not by itself mean that a certificate has been is
 from deployment status: a route can exist and the app can be healthy while its custom hostname is still waiting for
 DNS or points to another origin.
 
-When [App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby suppresses
-ordinary public routes in the selected scope and uses the Access primary hostname as the app environment's canonical
-address. The Domains and Redirects lists show the effective Access hostname; Cloudflare Protected and Tailscale use
-provider-facing hostnames, while Cloudflare Private network reuses the suppressed Wodby technical hostname. Routes that
-target the same app port share one Access hostname. With Selected endpoints scope, routes for unselected endpoints
-remain public.
+When [Private App Access](access.md) is configured, the provider owns the selected endpoints' connection path. Wodby
+suppresses ordinary public routes in the selected scope and uses the Access primary hostname as the app environment's
+canonical address. The Domains and Redirects lists show the effective Access hostname; Cloudflare Protected and
+Tailscale use provider-facing hostnames, while Cloudflare Private network reuses the suppressed Wodby technical
+hostname. Routes that target the same app port share one Access hostname. With Selected endpoints scope, routes for
+unselected endpoints remain public.
 
 The `private` flag on a port does not create a Cloudflare or Tailscale endpoint by itself. Private ports without an
-explicit App Access configuration remain reachable only through internal Kubernetes networking.
+explicit Private App Access configuration remain reachable only through internal Kubernetes networking.
 
 <a id="route-settings"></a>
 
@@ -449,6 +449,11 @@ detected capabilities under `Clusters > [Cluster] > Infrastructure > Operations`
 [Gateway API compatibility](../clusters/infrastructure.md#gateway-api-compatibility) for details.
 
 Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`. The first available port in that range is used.
+
+On [K3S](../clusters/k3s.md) clusters and [single-node clusters](../clusters/managed.md#single-node-clusters), a TCP port
+and a UDP port can share a public port number, which software such as a RustDesk server needs. When you publish a port
+whose counterpart on the same endpoint, with the same port number and the other protocol, is already published, it gets
+the same public port. On other clusters, every published port gets its own number.
 
 On regular managed Kubernetes clusters, published ports are exposed through the cluster load balancer. In single-node managed clusters that use direct node traffic instead of a load balancer, Wodby manages the node firewall rules for this published-port range.
 

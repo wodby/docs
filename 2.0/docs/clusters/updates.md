@@ -91,6 +91,88 @@ If the latest infrastructure version upgrade or infrastructure app stack upgrade
 dashboard shows `Retry available` and replaces the normal upgrade button with a re-run button for the failed task. Open
 the failed task from the dialog when you need to review logs before re-running it.
 
+### K3S host protection for CVE-2026-98432 (4.1.4)
+
+!!! info "Self-hosted K3S only"
+    Infrastructure version `4.1.4` applies to self-hosted K3S clusters. For managed Kubernetes clusters, see
+    [Fix CVE-2026-98432 on managed Kubernetes](#fix-cve-2026-98432-on-managed-kubernetes).
+
+[CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) is a critical Linux kernel bug. Someone on the network
+can reach it by sending specially crafted TCP connection requests, without logging in. It can lead to running code as
+root on the server.
+
+This update reduces your exposure but doesn't fix the bug. To fix it, you also need to
+[install a patched kernel](#install-a-patched-kernel).
+
+#### Apply the update
+
+Use an account with permission to upgrade the cluster.
+
+1. Open `Clusters > [Cluster] > Infrastructure > Operations` and check the current version in the
+   `Wodby infrastructure` card. If it already shows `4.1.4` or newer, this update is complete.
+2. Choose a maintenance window and start the offered infrastructure version upgrade. If earlier versions are offered
+   first, apply them in order until the cluster reaches `4.1.4`.
+3. Follow the upgrade task and confirm that it succeeds and the card shows `4.1.4`.
+
+Automatic infrastructure upgrades apply this update when enabled and permitted by the cluster's version policy and time
+window.
+
+#### What changes on the server
+
+Wodby makes these changes and applies them again each time the server boots:
+
+- It drops incoming IPv4 TCP packets that carry IP options, which is how the bug is triggered. Normal traffic doesn't use
+  IP options.
+- It turns off Multipath TCP (MPTCP) on the server, because the published exploit needs a service that accepts MPTCP.
+
+Wodby then restarts K3S and Cilium so they stop accepting MPTCP. Cluster access can be briefly interrupted during the
+restart.
+
+Check these before you upgrade:
+
+- Services you run directly on the server can't use MPTCP. Containers aren't affected, because each pod keeps its own
+  setting.
+- The server can't use IP options on TCP connections, including CIPSO security labels.
+
+#### What it doesn't cover
+
+An application running in a pod can still send these packets to other pods on the same server. If an attacker has already
+compromised a pod, only a patched kernel protects your other pods.
+
+#### Install a patched kernel
+
+1. Check your operating system's status for this bug: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432),
+   [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432),
+   [Red Hat Enterprise Linux](https://access.redhat.com/security/cve/CVE-2026-98432), or
+   [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status.
+2. Connect to the server over SSH and install the kernel update. These commands install the latest packages your
+   distribution offers, and `apt upgrade` also updates your other packages:
+
+    | Distribution | Command |
+    | --- | --- |
+    | Ubuntu, Debian | `sudo apt update && sudo apt upgrade` |
+    | Fedora, CentOS Stream, Red Hat Enterprise Linux | `sudo dnf upgrade --refresh 'kernel*'` |
+    | openSUSE, SUSE Linux Enterprise | `sudo zypper refresh && sudo zypper update kernel-default` |
+
+3. Reboot the server during a maintenance window with `sudo reboot`. Your apps are unavailable until the server and K3S
+   have started again. Wodby doesn't update or reboot your server's kernel.
+4. Run `uname -r` and compare the version with the fixed version your distribution lists. Distributions backport fixes,
+   so compare against your distribution's version rather than the upstream kernel version.
+
+If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later.
+
+The protections stay on after you install the patched kernel. You don't need to remove them, and normal traffic isn't
+affected by them. Wodby applies them again each time the server boots, whichever kernel it runs.
+
+#### If the update fails
+
+The task reports the error and leaves the infrastructure version unchanged. Wodby returns the cluster to `OK` if no
+separate health problem prevents that.
+
+The server needs `iptables` with the `u32` match or `nftables` to drop these packets. If it has neither, install
+`nftables` and retry the update. New K3S servers without either tool finish installing with a warning in the output, and
+they don't have this protection until you install one and run `/usr/local/bin/wodby-k3s-firewall`.
+
 ### K3S host CA security update (4.1.2)
 
 !!! info "Self-hosted K3S only"
@@ -155,7 +237,8 @@ later scheduled check.
 Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
 while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
 returns to `ok`. After a failed infrastructure upgrade, deployment waits until the cluster returns to `ok`. The
-[K3S host CA security update](#k3s-host-ca-security-update-412) restores that status after a failed attempt unless a
+[K3S host protection](#k3s-host-protection-for-cve-2026-98432-414) and
+[K3S host CA](#k3s-host-ca-security-update-412) security updates restore that status after a failed attempt unless a
 separate health problem prevents it.
 
 While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
@@ -220,14 +303,100 @@ the cluster infrastructure version or infrastructure app stacks.
 Wodby sends email notifications when automatic infrastructure upgrades succeed or fail. You can manage these from
 `User settings > Notifications`.
 
+## Component updates
+
+Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
+available, the `Component updates` card appears at `Clusters > [Cluster] > Infrastructure > Operations`. Choose `Update`
+and confirm to run it as a task.
+
+| Cluster | Components |
+| --- | --- |
+| K3S | Cilium, once the cluster's Wodby infrastructure version is up to date. |
+| Amazon EKS | The VPC CNI, kube-proxy, CoreDNS, and EBS CSI driver add-ons. The update moves them to the AWS default for the cluster's Kubernetes version. |
+
+Other cluster types don't offer component updates, because the provider manages these components. They change with a
+[Kubernetes version update](#kubernetes-version-updates) or the provider's own patches.
+
+Before you update:
+
+- The cluster must be in `OK` status, and deployments on it wait until the update finishes.
+- On K3S, Cilium restarts on each node, so run the update during a maintenance window for production workloads.
+- On EKS, the first update of a copy that EKS installed replaces it with an EKS-managed add-on. This restarts its pods
+  and can overwrite changes made directly to it, such as a custom configuration.
+
+If an update fails, the task shows the error and the cluster returns to `OK`. The update stays available, so you can
+run it again.
+
 ## Worker node updates
 
-For [managed Kubernetes](managed.md) clusters, the simplest way to refresh worker nodes is usually to recycle them.
+Wodby has no separate node update. On [managed Kubernetes](managed.md) clusters, worker nodes get a newer image and kernel
+in one of two ways:
+
+- **Recycle nodes** replaces nodes without changing the Kubernetes version. It's available on Amazon EKS, Azure AKS and
+  DigitalOcean Kubernetes, except for single-node clusters. Use `Recycle nodes` at
+  `Clusters > [Cluster] > Infrastructure > Kubernetes`, the
+  [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) command, or the [API](../api/index.html).
+- **A [Kubernetes version update](#kubernetes-version-updates)** moves nodes to the image that comes with the new version.
+  It's available on all managed providers that support version updates, including Google GKE.
+
+Which one delivers a given fix depends on your provider, so check its release notes first.
+
+On [K3S](k3s.md), you own the server, so you update its operating system and kernel yourself. See
+[Install a patched kernel](#install-a-patched-kernel) for the commands.
+
+### Check what changed on your nodes
+
+A successful task doesn't always mean your nodes changed. For example, Amazon EKS leaves a node group alone if it already
+runs the latest image, and a Kubernetes version update on K3S keeps your servers.
+
+To check, open the task's log. Recycling and Kubernetes version update tasks list each node's name, creation time, kernel,
+and operating system at their start and end. They then compare the two lists:
+
+```text
+Compared with the start of this task: 2 replaced or removed, 2 new, 0 not replaced
+Kernel at the start: 6.12.96 (2 nodes); at the end: 6.12.113 (2 nodes)
+```
+
+Look for these lists in the `Nodes before recycling` and `Nodes after recycling` steps of a recycling task, and in the
+`Upgrade plan` and `Outcome` steps of a Kubernetes version update. The task also lists your nodes at the end if it fails,
+because a failed task can leave some nodes replaced. If Wodby can't read your nodes, the log says so, and this doesn't
+change the task's result.
+
+The log doesn't tell you whether a kernel is fixed, because distributions backport fixes to older version numbers. Compare
+the version with the one your provider lists.
+
+When the task ends, the [`Components` list](infrastructure.md#cluster-components) also shows the new kernel and operating
+system, with the number of nodes running each.
+
+### Fix CVE-2026-98432 on managed Kubernetes
+
+[CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) is a critical Linux kernel bug in your worker nodes.
+Wodby infrastructure upgrades don't change managed nodes. Your cluster can show version `4.1.4`, but that doesn't protect it
+from this bug. To fix the bug, move your nodes to a patched image from your provider.
+
+1. Check your provider's security bulletin to confirm that it has released a patched node image. For example, see the
+   [AWS bulletin](https://aws.amazon.com/security/security-bulletins/2026-160-aws/).
+2. Replace your nodes during a maintenance window, using the option for your cluster:
+
+    | Cluster | How to replace nodes |
+    | --- | --- |
+    | Amazon EKS | Recycle nodes. Each managed node group moves to its latest image, and a group already on it isn't changed. |
+    | Azure AKS | Recycle nodes. Every node is replaced, so first confirm the latest image contains the fix. |
+    | DigitalOcean Kubernetes | Run a [Kubernetes version update](#kubernetes-version-updates) to a version that the [DigitalOcean changelog](https://docs.digitalocean.com/products/kubernetes/details/changelog/) lists with Linux kernel `6.12.113-1` or newer. DigitalOcean ships kernel updates with its Kubernetes versions. |
+    | Google GKE | Run a [Kubernetes version update](#kubernetes-version-updates) to a version that Google lists as fixed. Recycling isn't available. |
+    | OVH Managed Kubernetes | Recycling isn't available. Check with OVHcloud whether your nodes have received the fix. |
+
+    See [Worker node updates](#worker-node-updates) for how to recycle nodes.
+
+3. [Check what changed on your nodes](#check-what-changed-on-your-nodes), and confirm that they run the fixed version from
+   your provider. A successful task alone doesn't prove that the node image included the fix.
+
+Wodby operates the nodes of Wodby Cloud clusters, so you can't replace them yourself.
 
 ## Kubernetes version updates
 
 Kubernetes version updates are separate from Wodby infrastructure version and infrastructure app updates. Wodby reads
-the current cluster state and asks the provider for direct upgrade targets each time you open the upgrade operation.
+the current cluster state and asks the provider for direct upgrade targets each time you open the `Kubernetes` tab.
 The plan is cluster-specific rather than a generic list of Kubernetes releases.
 
 Wodby supports this workflow for:
@@ -246,8 +415,13 @@ managed by Wodby and cannot be changed manually.
 
 Wodby filters the provider's direct targets to keep upgrades incremental and recoverable:
 
-- If a newer patch is available in the current Kubernetes minor, only the newest available patch is offered first.
-- After the current minor is patched, you can move to the immediately following minor version.
+- If a newer patch is available in the current Kubernetes minor, only the newest available patch is offered first. On
+  DigitalOcean Kubernetes and Google GKE, this includes a newer provider build of the same Kubernetes version, such as
+  `1.36.5-do.1` to `1.36.5-do.2`, because providers can ship security fixes that way.
+- After the current minor is patched, you can move to the immediately following minor version. On K3S, it is offered only
+  after your current minor version reaches end of life. On managed clusters you can choose it earlier, but it shows as
+  an update only after end of life.
+  The dashboard labels this step `Major`, because a new Kubernetes minor version can remove APIs your workloads use.
 - Skipping a minor or changing the Kubernetes major version is not offered as a direct upgrade.
 - Preview Kubernetes versions are excluded.
 
@@ -257,18 +431,19 @@ match the version observed through the Kubernetes API. Resolve the reported cond
 
 ### Run an upgrade
 
-Open `Clusters`, select the cluster, and go to `Infrastructure > Operations`. Review the Kubernetes version operation,
-select one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window:
+Open `Clusters`, select the cluster, and go to `Infrastructure > Kubernetes`. In the `Kubernetes version` card, select
+one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window:
 the provider can rotate control-plane components and worker nodes, and the Kubernetes API can be temporarily
 unavailable.
 
 The upgrade runs as a task and puts the cluster into `Upgrading` status. Wodby:
 
-1. Records the source and target versions in the task.
+1. Records the source and target versions in the task and lists your nodes.
 2. Starts or resumes the provider upgrade.
 3. Waits for the provider operation to complete.
 4. Verifies that the Kubernetes API reports the target and that every node is `Ready`.
 5. Records the observed version and returns the cluster to normal operation.
+6. Lists your nodes again and [shows what changed](#check-what-changed-on-your-nodes).
 
 Open the task to follow progress and review provider details. If an upgrade fails after the provider has applied it to
 the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes

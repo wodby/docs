@@ -63,6 +63,7 @@ There are 6 steps of creating a new application:
   - enable/disable optional services and change their configuration
   - configure resources request and limitation
   - configure autoscaling for scalable services
+  - use the icons under `TOTAL` to reset all services to the stack's defaults or [clear their resources](scalability.md#clearing-resources-when-creating-an-app)
 
 ### Step 2
 
@@ -78,6 +79,9 @@ Select where you want to run the first environment of your application. The form
    - Enable `Single-node cluster` when one fixed node is acceptable and you do not need high availability or cluster scaling
    - Persistent Wodby Cloud clusters require a paid plan
    - For testing, enable `Demo` to create a free temporary single-node Wodby Cloud cluster that is deleted automatically after 24 hours together with its applications
+
+If you choose an existing cluster, Wodby checks that the environment fits on it. If it can't fit, you can't continue
+until you lower its resources in Step 1 or choose a larger cluster. See [Cluster capacity](scalability.md#cluster-capacity).
 
 You can also create a Wodby Cloud cluster before creating an app from `Clusters > New Wodby Cloud cluster`.
 
@@ -95,8 +99,9 @@ Configure settings that apply to the whole app environment:
 
 - Choose the deployment mode: CI/CD or development workspace.
 - Choose whether to enable stack auto-upgrades.
-- Choose Public or Protected [App Access](access.md).
+- Choose Public or Protected [Private App Access](access.md).
 - Select the default CI system and container registry when the app has an enabled service with a build source.
+- Choose whether to create [preview environments](preview-environments.md) for pull requests.
 
 When adding another environment to an existing app, use `Copy configuration from` to prefill compatible app and service
 fields from another environment. See
@@ -117,12 +122,12 @@ production environments. You can override the suggested value before creating th
 #### Access
 
 `Public` is the default and uses ordinary Wodby routes. `Protected` publishes the app through an
-[Application Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select whether the provider
+[Private App Access provider](../providers/access.md), such as Cloudflare or Tailscale. Select whether the provider
 uses protected publishing or private-network routing when it offers both, choose whether it covers the entire app or
 selected endpoints, then complete its provider-specific settings. Some stacks require
 Protected access.
 
-See [App access](access.md) for route behavior, primary hostnames, and provider requirements.
+See [Private App Access](access.md) for route behavior, primary hostnames, and provider requirements.
 
 #### CI/CD
 
@@ -134,6 +139,13 @@ Choose your [Default CI](../cicd/index.md) and [container registry](../cicd/inde
 it uses Wodby CI and Wodby Registry. You can override either choice for the new app environment without changing the
 organization defaults or existing environments. Connected build sources inherit Default CI. Public and cloned
 boilerplate sources use Wodby CI regardless of this selection.
+
+#### Preview environments
+
+Set `Pull request previews` to `Enabled` to create a temporary environment for every pull request opened against the
+Git branch of the environment you are creating. The option is available when a service has a build source and the
+deployment mode is CI/CD, and it is disabled by default. Which services are seeded with data is configured later under
+`Apps > [App] > Settings > Preview environments`. See [Preview environments](preview-environments.md).
 
 ### Step 5
 
@@ -148,8 +160,8 @@ the application code and pipeline manifests.
 
 Services often provide a public build boilerplate that you can use directly. With [GitHub](../providers/github.md) and
 [GitLab](../providers/gitlab.md), Wodby can also create a new repository and import the boilerplate contents into it.
-For [Bitbucket](../providers/bitbucket.md), create or copy the boilerplate repository manually first, then select it as
-the build source. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
+For [Bitbucket](../providers/bitbucket.md), create an empty repository first, and Wodby imports the boilerplate contents
+into it. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
 is a third-party integration.
 
 In a development workspace, this section is called **Development workspace**. It offers only **Clone boilerplate** and
@@ -201,6 +213,6 @@ Review your application configuration and click _Create new app_.
 - [Environments](environments.md)
 - [App environment cluster migration](migration.md)
 - [Maintenance mode](maintenance.md)
-- [App access](access.md)
+- [Private App Access](access.md)
 - [App services](services.md)
 - [Web terminal](web-terminal.md)

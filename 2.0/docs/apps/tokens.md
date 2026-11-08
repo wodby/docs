@@ -109,6 +109,40 @@ The other `env` tokens remain available for template compatibility.
 - `service.replicas`: app-service replica count
 - `service.secrets.env`: generated Kubernetes Secret name used for secret environment variables
 
+The `service.secrets.env` Secret holds the service's secret environment variables: those marked `secret: true` and
+those that reference a secret token, such as a generated one. Each variable is a key named after it. A chart that reads
+a password from a named Secret key can use this token as the Secret name: Wodby creates the Secret whenever the
+service has secret variables, even if no container mapping uses it. The next deployment after a secret value changes
+restarts the pods, so a chart that reads the Secret only at startup picks up a rotated password. When a container
+mapping renders the Secret, it holds only the variables of mapped containers, and only their workloads restart.
+
+Each endpoint's primary route is available as `service.endpoints.[endpoint-name].[field]`:
+
+- `primaryHost`: domain name of the endpoint's primary route
+- `primaryURL`: URL of the endpoint's primary route, with `https://` when the route has a certificate and `http://`
+  otherwise
+
+Both are empty while the endpoint has no primary route or its primary route is disabled. Use them for a chart with more
+than one public HTTP endpoint, such as an application with a separate container registry host. When one of these
+values changes, the app environment is marked as `needs redeploy`, as it is for the service's own primary domain.
+
+Named endpoint ports are available as `service.endpoints.[endpoint-name].ports.[port-name].[field]`:
+
+- `number`: manifest-defined internal port number
+- `protocol`: port protocol
+- `publicPort`: assigned public port number, or an empty value while the port is unpublished
+- `effectivePort`: assigned public port number when published, otherwise the manifest-defined internal number
+
+Use `effectivePort` when a chart needs one usable value before and after publication. Publishing or unpublishing a
+port marks the app environment as `needs redeploy` when the service reads that port's `publicPort` or `effectivePort`.
+When a chart renders its Kubernetes Service port from this value, also set the service port's
+[`routeToPublicPort`](../services/networking.md#dynamic-public-backend-ports) field.
+
+When a Helm value consists of exactly one `number`, `publicPort`, or `effectivePort` token, Wodby passes it to the
+chart as a number, so charts that validate ports as numbers accept it. An unpublished `publicPort` stays an empty string,
+so use `effectivePort` when the chart requires a number. Inside a longer value, such as
+`ssh://git@example.com:{{service.endpoints.ssh.ports.ssh.effectivePort}}`, the token is replaced as text.
+
 Legacy `service.helm.release` is still supported for backward compatibility.
 
 ## `helm`
@@ -133,6 +167,13 @@ Available when the current app-service context exposes a database.
 - `database.host`: database hostname. This is private when accessed through an app service with a private database user, otherwise public
 - `database.port`: database connection port. This is private when available, otherwise public
 - `database.driver`: database driver, based on the database kind
+- `database.url`: connection URL that includes the username and password, such as
+  `postgresql://user:password@host:5432/db`. MariaDB and MySQL use the `mysql` scheme. Mark environment variables that
+  use it `secret: true`
+- `database.jdbcUrl`: JDBC URL for Java applications, such as `jdbc:postgresql://host:5432/db`. It starts with
+  `jdbc:postgresql:`, `jdbc:mariadb:` or `jdbc:mysql:`, matching the database kind, and does not include the username or
+  password: pass `database.user.name` and `database.user.password` separately. Not available for MongoDB. No TLS
+  settings are added; for a MariaDB server that requires TLS, add `sslMode` to the URL in the application
 - `database.ssl`: `true` when Wodby connects to the database server with TLS, otherwise `false`
 - `database.root.name`: database superuser username
 - `database.root.password`: database superuser password
@@ -155,6 +196,17 @@ Accessed as `links.[name].[token]`.
 - `links.[name].database.*`: database token from the linked app service. See [`database`](#database)
 - `links.[name].database.caFile`: path of the linked managed database server's CA certificate, mounted at the link's
   [`database.ca.filepath`](../services/template.md#links). Empty when the server has no CA certificate
+- `links.[name].values.[value-name]`: a [link value](../services/template.md#links): the value a user entered for a
+  custom target, or the value's `from` evaluated against the linked app service. Empty for an optional value that is
+  not set
+- `links.[name].exports.[export-name]`: an [export](../services/template.md#exports) of the linked app service,
+  evaluated for this app service's location
+
+Inside a link's own `env` and `helm`, `link.*` is short for `links.[that link].*`.
+
+For a link to an app service of another app environment, only `values.*` and `exports.*` resolve. The other tokens are
+empty, so a service shares only what it exports. A link with a custom target has no linked app service: only
+`values.*` resolve.
 
 ## `configs`
 

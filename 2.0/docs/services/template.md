@@ -241,12 +241,20 @@ Used by `links[].helm`, `volumes[].helm.values`, `helm.values`, and `derivatives
 
 Used by `workloads[].containers[].resources` and `derivatives[].resources`.
 
+- `preset`: name of a Wodby [resource preset](../apps/scalability.md#resource-presets), such as `small` or `large`.
+  Its values fill in the four values below that you leave out, and the values you write override it. Custom presets
+  of an organization can't be used in manifests.
 - `request.cpu`
 - `request.memory`
 - `limit.cpu`
 - `limit.memory`
 
-CPU values are in millicores and must be multiples of `100`. Memory values are in MiB and must be multiples of `16`.
+CPU values are in millicores (`1000` is one core) and must be multiples of `10`. Memory values are in MiB and must be
+multiples of `16`.
+
+Resources under `workloads[].containers[].resources` are defaults. A container deploys with them unless its stack
+service or app service sets resources for it, which replace the defaults as a whole. Set a memory limit for runtimes
+that size their memory from it, such as the JVM.
 
 ### Selector object
 
@@ -555,6 +563,15 @@ Each workload declares:
 - optional workload-specific `deployment` settings
 - optional workload- and container-level Helm value mappings
 
+`workloads[].helm.replicas` maps the app service's effective replica count to a chart value for that workload.
+`workloads[].helm.managedReplicas` instead applies the count directly to the rendered workload and removes a chart HPA
+that targets it. The two fields are mutually exclusive, and `managedReplicas` is not supported for DaemonSets or for
+the primary workload of a scalable service. See
+[Workload-level Helm mappings](workloads.md#workload-level-helm-mappings).
+
+`workloads[].containers[].helm.secretEnvFrom` passes the app service's secret environment variables to a chart's
+`envFrom` value. See [Container-level Helm mappings](workloads.md#container-level-helm-mappings).
+
 If the service has multiple workloads, mark one as `primary`. The primary workload is the default target used by
 runtime features when no explicit workload is selected.
 
@@ -663,8 +680,13 @@ Each `endpoints[].ports[]` item supports:
 - `protocol`: required protocol. Allowed values: `http`, `tcp`, `udp`.
 - `private`: optional boolean.
 - `main`: marks the main port within that endpoint.
+- `routeToPublicPort`: target the assigned public port number on the rendered Kubernetes Service, and redeploy the
+  owning app service right away when the port is published or unpublished. It is not supported for HTTP or private
+  ports.
 - `routeDefaults`: optional map of [HTTP route setting](../apps/endpoints.md#route-settings) names to default string
   values. It is supported only when `protocol` is `http`.
+- `http2`: optional boolean. Domains that serve the port accept HTTP/2 from clients, for example gRPC clients. It is
+  supported only when `protocol` is `http`. See [HTTP/2 and gRPC](networking.md#http2-and-grpc).
 
 Only one endpoint can be main. If the service has a single endpoint, it becomes main automatically. If you define
 multiple endpoints, mark one of them as main.
@@ -697,6 +719,15 @@ Each item supports:
 - `database.ca.filepath`: optional absolute path where Wodby mounts the CA certificate of the linked managed database
   server, when the server has one. Use it with
   [`{{link.database.caFile}}`](../apps/tokens.md#links) to connect to the server with TLS.
+- `values`: optional values the link hands to the service, whatever the link points at. Each item has `name`,
+  optional `title`, `secret`, `optional`, and `from`. `from` says how a target service provides the value, usually
+  with [`{{link.exports.<name>}}`](../apps/tokens.md#links). Read a value with `{{link.values.<name>}}` in the link's
+  own `env`, or with `{{links.<link>.values.<name>}}` elsewhere. A variable that reads a secret value must be
+  `secret: true`.
+- `custom`: optional boolean. Lets users enter the link's `values` instead of choosing a target service, for example
+  the address and key of a hosted backend. A custom link needs `values` and cannot set `helm`, `certs`, or `database`.
+- `crossApp`: optional boolean. Lets the link point at a service of another app or app environment that accepts
+  links from other apps. See [Links](networking.md#links).
 
 Each `links[].selectors[]` item uses the selector object described above.
 
@@ -719,6 +750,95 @@ links:
 ```
 
 The path is empty for a database without a CA certificate, such as one in the cluster, so the app connects as before.
+
+When two links set the same environment variable, the link declared later wins. A link with values can use that to
+let a specific destination override a default one:
+
+```yaml
+links:
+- name: upstream
+  title: Upstream
+  custom: true
+  crossApp: true
+  selectors:
+  - type: service
+    labels:
+    - opentelemetry-collector
+  values:
+  - name: endpoint
+    title: OTLP endpoint
+    from: '{{link.exports.otlp_http_endpoint}}'
+  - name: authorization
+    title: Authorization header
+    secret: true
+    optional: true
+    from: '{{link.exports.otlp_http_authorization}}'
+  env:
+  - name: OTLP_ENDPOINT
+    value: '{{link.values.endpoint}}'
+  - name: OTLP_AUTHORIZATION
+    value: '{{link.values.authorization}}'
+    secret: true
+```
+
+### `linkGroups`
+
+Type: `array`.
+
+Link groups name links that are alternatives to one another. While the app service is enabled, at least `min` links of
+each group must point at an enabled service or hold a custom target; otherwise Wodby reports a missing required link.
+A disabled app service is not checked.
+
+Each item supports:
+
+- `name`: required group name.
+- `title`: optional title shown in messages.
+- `links`: required names of links the service declares.
+- `min`: required minimum, between 1 and the number of links.
+
+```yaml
+linkGroups:
+- name: destination
+  title: Destination
+  links: [upstream, traces, metrics, logs]
+  min: 1
+```
+
+Because a target in another app or a custom target can only be set after the app exists, start a service with a link
+group as disabled in the stack, then set its links and enable it.
+
+### `crossApp`
+
+Type: `boolean`.
+
+Lets services of other apps and app environments link to this service through links with `crossApp: true`. They read
+only this service's [`exports`](#exports). Use it for services that authenticate requests, such as a collector with an
+ingest token.
+
+### `exports`
+
+Type: `array`.
+
+Values that linking services read as [`{{link.exports.<name>}}`](../apps/tokens.md#links). Each item has `name`, `value`,
+and optional `secret`. Values use this service's tokens, and `{{url.<port>}}`, the base URL of an endpoint port as the
+linking service reaches it:
+
+- from the same app environment: `http://<service>:<port>`;
+- from another app environment on the same cluster: `http://<service>.<namespace>.svc:<port>`;
+- from another cluster: `https://<public domain of the port>`. The port needs a public domain.
+
+```yaml
+crossApp: true
+exports:
+- name: otlp_http_endpoint
+  value: '{{url.otlp-http}}'
+- name: otlp_http_authorization
+  value: 'Bearer {{tokens.ingest_token}}'
+  secret: true
+```
+
+A link that reads an export the target does not declare fails, so services that serve as the same kind of target
+export the same names, with an empty value where they have nothing to provide.
 
 ### `volumes`
 
@@ -1039,6 +1159,8 @@ Each item supports:
 - `workload`: optional workload name. If omitted, Wodby targets the primary workload.
 - `boilerplate`: optional build boilerplate name filter for `post_deploy` and `post_deploy_once` actions.
 - `depends`: optional list of actions that must run first.
+- `timeoutSeconds`: optional limit on how long the action may run, from `1` to `3600` seconds. Without it, an action is
+  stopped after 5 minutes and its deployment or task fails. Set it for slow actions such as a first install.
 
 The legacy `template` action filter remains supported for existing manifests but is deprecated. Use `boilerplate` for
 new and updated manifests.
@@ -1132,6 +1254,8 @@ The object supports:
   `infrastructure` and `operator`; those controller-oriented types opt in by mapping this property explicitly. Wodby
   uses the stack-local app-service name and verifies it reaches `app.kubernetes.io/name` in workload labels and
   selectors.
+- `disableNameOverride`: disable managed application-name injection and validation for a third-party workload chart
+  that does not implement the `nameOverride` label contract. It cannot be combined with `nameOverride`.
 - `fullnameOverride`: resource-name override path. Defaults to `fullnameOverride`.
 - `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
 - `serviceAccountCreate`: optional chart-owned service-account creation path. Wodby sets it to `false` when it supplies

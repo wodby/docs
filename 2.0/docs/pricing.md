@@ -38,8 +38,10 @@ Team includes everything in Developer, plus production-focused features such as:
 - backup presets and automatic backups
 - scheduled and manually run cron jobs
 - web shell for containers
-- Application Access for protected or private-network HTTP endpoints
+- Private App Access for protected or private-network HTTP endpoints
 - organization Single Sign-On (SSO)
+- [vulnerability scanning](apps/vulnerability-scanning.md) of deployed build images
+- [preview environments](apps/preview-environments.md) for pull requests
 - best-effort support
 - $30 of Wodby Cloud usage per month
 - 10M free [AI credits](#ai-credits) tokens in total for Wodby Agent, granted once
@@ -127,7 +129,7 @@ After a downgrade is scheduled:
 - new paid-only features and capacity above the Developer plan limit are not available
 
 To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
-features. Application Access is a paid feature, so remove it from every app environment under **Apps > your app > your
+features. Private App Access is a paid feature, so remove it from every app environment under **Apps > your app > your
 environment > Settings > Access** before scheduling a downgrade. The downgrade error identifies each affected app and
 environment.
 
@@ -152,6 +154,13 @@ requirements and behavior.
 Organization SSO is also a paid feature. Disable every provider from **Organization > SSO** before scheduling a
 downgrade. Provider configuration and verified domains can remain in the organization while it uses the Developer
 plan, but the providers cannot be enabled or used for sign-in until the organization upgrades again.
+
+[Vulnerability scanning](apps/vulnerability-scanning.md) does not block a downgrade. As soon as a downgrade is scheduled,
+Wodby stops scanning build images and hides earlier results until the organization upgrades again.
+
+[Preview environments](apps/preview-environments.md#after-a-downgrade) do not block a downgrade either. Wodby creates no
+new previews from the moment a downgrade is scheduled, and existing previews stay until their pull requests close or
+they go idle.
 
 ### Wodby CI minutes
 

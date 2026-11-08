@@ -11,7 +11,7 @@ themselves before calling `wodby ci init`.
 ## Organization defaults, app environments, and services
 
 Organization owners and admins can select the default CI provider and container registry from
-[`Organization > Settings`](../org.md#settings). The selectors offer Wodby's built-in services and available
+[`Organization > Settings > General`](../org.md#settings). The selectors offer Wodby's built-in services and available
 organization-owned integrations of the corresponding type.
 
 New app and new app environment forms start with these defaults. You can override either selection while creating the

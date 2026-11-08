@@ -20,6 +20,9 @@ Use API keys for external automation against the public REST API. Send the key i
 - The token value is shown only once after creation.
 - The list later shows metadata such as creation time, last use, and expiry, but not the token itself.
 - You can revoke keys at any time from the same user settings page.
+- A key belongs to one organization, so it can't change how your whole account signs in. Changing a password, 2FA,
+  recovery codes, email addresses or linked identities, and deleting your account, are
+  [only available in a signed-in browser session](../user/security.md#changes-to-how-you-sign-in).
 
 ## Typical uses
 

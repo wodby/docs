@@ -46,10 +46,10 @@ the maintenance response until maintenance mode is disabled.
 The following traffic is not replaced:
 
 - routes marked private
-- routes suppressed because [App Access](access.md) publishes them through a protected or private provider path
+- routes suppressed because [Private App Access](access.md) publishes them through a protected or private provider path
 - published TCP or UDP ports
 
-With Selected endpoints App Access, any ordinary public routes outside the selected scope still receive the
+With Selected endpoints Private App Access, any ordinary public routes outside the selected scope still receive the
 maintenance response. Provider-managed protected or private endpoints continue using their normal provider path.
 
 ## Workloads, tasks, and billing
@@ -98,5 +98,5 @@ environment is not needed and its workloads should release compute and memory.
 
 - [App environments](environments.md)
 - [Endpoints](endpoints.md)
-- [App access](access.md)
+- [Private App Access](access.md)
 - [Deploys and routing deployments](deploys.md#routing-deployments)

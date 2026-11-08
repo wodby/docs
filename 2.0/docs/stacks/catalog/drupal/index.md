@@ -7,6 +7,15 @@ Start with the Drupal CMS or Vanilla Drupal boilerplate offered by the stack, or
 repository. The default Drupal root subdirectory is `web`; change the PHP app service's `Drupal root subdirectory`
 setting when your repository uses a different layout.
 
+## Install Drupal
+
+After the first deployment, open the app's main domain and finish the Drupal installer. Until the installation has
+finished, Drupal PHP image `r16` and newer answer every other page with a 503 and the message `Drupal is being installed`,
+so nothing else can reach a half-installed site. If you left the installer, open `/core/install.php` to continue.
+
+A site installed on an earlier image can show `No route found`, lose its theme styles, or fail when saving a form right
+after installation. To fix it, run **Rebuild all cache** from the PHP app service.
+
 ## Runtime configuration
 
 The Drupal PHP runtime generates `wodby.settings.php` from the app environment's current environment and linked services.
@@ -53,6 +62,14 @@ The service also exposes actions to:
 
 Run these from the app service operations in the dashboard. Use the [web terminal](../../../apps/web-terminal.md) for
 other one-off Drush or Composer commands.
+
+## Traces, metrics, and logs
+
+The stack includes an OpenTelemetry Collector, disabled by default. When you enable it and set where it forwards data,
+the PHP service gets the standard OpenTelemetry SDK variables that point to it. Add the OpenTelemetry PHP SDK with
+Composer; it then starts without code changes.
+See [PHP applications](../../../apps/observability.md#php-applications) and
+[OpenTelemetry Collector in application stacks](../../../apps/observability.md#opentelemetry-collector-in-application-stacks).
 
 ## Optional services
 

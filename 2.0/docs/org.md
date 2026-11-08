@@ -26,14 +26,21 @@ In the dashboard, organization-level administration is handled by owners and adm
 
 ## Invitation
 
-You can invite users by email whether they already have a Wodby account or not. The invitation link is valid for 3 days. If the invited person does not have an account yet, they are prompted to create one after opening the link.
+You can invite users by email whether they already have a Wodby account or not. An invitation sets the email address
+and the [organization role](#roles). The invitation link is valid for 3 days. If the invited person does not have an
+account yet, they are prompted to create one after opening the link.
+
+Give the new member access to teams and projects from their page, `Organization > Members > [Member]`. Teams can be
+set right away; project access can be added once the invitation is accepted.
 
 ## Organization navigation
 
 The organization area in the dashboard includes these sections:
 
-- `Members` to invite users, review membership status, and manage organization roles
+- `Members` to invite users, review membership status, manage organization roles, and see or change each member's
+  projects and teams
 - `Projects` to create projects, review project resources, and manage project access
+- `Project roles` to review the system project roles and manage your organization's custom roles
 - `Teams` to group users and reuse project access assignments
 - `Backups` to create organization-wide backup presets reused in app and database backup flows
 - `Certificates` to review issued certificates used by application routes and supported database resources
@@ -49,6 +56,8 @@ The organization area in the dashboard includes these sections:
 - invite users by email
 - review invitation and join status
 - change organization roles
+- see each member's project access, direct or through teams, and change their direct project roles
+- add members to teams, change their team roles, or remove them from teams
 - remove members when needed
 
 See [Access control](access-control.md) for how organization roles interact with project access.
@@ -70,13 +79,15 @@ See [Billing](pricing.md) for the current plan model and Wodby Cloud billing not
 
 ## Settings
 
-`Organization > Settings` manages defaults used when creating resources. From there you can change:
+`Organization > Settings` holds organization-wide settings in four tabs:
 
-- the default time zone
-- the default CI provider
-- the default container registry
-- the default build-image retention period
-- organization-wide termination protection
+- **General**: the default time zone, the default CI provider and the default container registry
+- **Builds**: the default build-image retention period
+- **Protection**: organization-wide termination protection
+- **Resource presets**: Wodby's and your organization's [resource presets](apps/scalability.md#resource-presets)
+
+Every member can open **Resource presets**. The other tabs are available to members who can view the whole
+organization.
 
 The CI and registry selectors include Wodby's built-in services and available organization-owned integrations of the
 corresponding type. Project-owned integrations cannot be used as organization defaults because they may not be
@@ -92,7 +103,7 @@ Choose `Wodby CI` or `Wodby Container Registry (US)` to use the corresponding bu
 
 ### Build image retention
 
-In the **Wodby container registry settings** card, use **Auto-void images of unused builds for all apps older than** to
+In the **Builds** tab, use **Auto-void images of unused builds for all apps older than** to
 set the default retention period for app environments. Choose **Never**, **1 month**, **3 months**, **6 months**, or
 **1 year**. The default is **Never**, which disables automatic cleanup.
 
@@ -106,7 +117,8 @@ To set an override for one app environment, open `CI/CD > Builds > Settings` in 
 ### Termination protection
 
 Termination protection adds an organization-wide safeguard against destructive operations. It applies after the usual
-access and dependency checks, so disabling it does not grant anyone permission to delete resources.
+access and dependency checks, so disabling it does not grant anyone permission to delete resources. Change it in the
+**Protection** tab.
 
 Only an organization owner using an interactive session can change the setting. Enabling or strengthening protection
 takes effect without additional security confirmation. Weakening or disabling protection requires recent
@@ -135,9 +147,11 @@ Protection applies to deletion requests from both the dashboard and API, and a f
 It also applies when another operation would delete a protected resource, such as a stack upgrade that removes an
 app-owned database. Deletion workflows that already started before protection was enabled can finish.
 
-!!! note "Demo clusters still expire"
+!!! note "Demo clusters and preview environments still expire"
     Temporary Wodby Cloud demo clusters are deleted automatically after 24 hours, together with their applications,
-    even when termination protection is set to `All`.
+    even when termination protection is set to `All`. Automatic deletion of
+    [preview environments](apps/preview-environments.md) after their pull request closes or goes idle is not blocked
+    either.
 
 ## Editing the organization
 

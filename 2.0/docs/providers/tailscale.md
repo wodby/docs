@@ -5,7 +5,7 @@ Tailscale supports two separate integration types in Wodby:
 - `application_access` publishes an app or selected HTTP endpoints through a Wodby-managed connector.
 - `vpn` supplies credentials to a persistent Tailscale Node service deployed as part of an app stack.
 
-Both use the same Tailscale provider and OAuth setup, but they have different lifecycles. Application Access is managed
+Both use the same Tailscale provider and OAuth setup, but they have different lifecycles. Private App Access is managed
 from the app environment's Access settings; a Tailscale Node is an ordinary app service managed through its stack.
 
 ## Tailscale-side setup
@@ -30,7 +30,7 @@ Before creating the integration in Wodby:
 The Tailnet DNS name is collected in the final step of integration creation. You can find it on the Tailscale admin
 console's DNS page.
 
-## Application Access
+## Private App Access
 
 Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
 Tailscale integration and either Entire app or Selected endpoints scope.
@@ -46,12 +46,12 @@ and Wodby-held auth-key secret. Wodby does not remove the `wodby` tag, MagicDNS 
 your tailnet access rules. Temporary cluster or Tailscale API failures are retained as retryable cleanup obligations on
 the integration page; keep the integration credentials available until cleanup finishes.
 
-Tailscale Application Access endpoints are not published through Wodby's public gateway. A service port's `private`
-flag alone does not create a Tailscale hostname; configure App Access explicitly for the app environment.
+Tailscale Private App Access endpoints are not published through Wodby's public gateway. A service port's `private`
+flag alone does not create a Tailscale hostname; configure Private App Access explicitly for the app environment.
 
 ### HTTP endpoints and application ports
 
-Tailscale Application Access currently carries HTTP endpoints only. It does not advertise arbitrary app TCP or UDP
+Tailscale Private App Access currently carries HTTP endpoints only. It does not advertise arbitrary app TCP or UDP
 ports, such as SSH, database, Redis, or custom-protocol ports, into the tailnet.
 
 Entire app scope prevents public TCP or UDP port publishing while Access is active. Selected endpoints scope can
@@ -59,7 +59,7 @@ coexist with separately published TCP or UDP ports, but those ports remain publi
 protected by Tailscale. Unpublished ports remain cluster-internal.
 
 The Tailscale Node integration below is a separate service-credential workflow. Deploying a node does not
-automatically expose other app services or change the App Access endpoint set.
+automatically expose other app services or change the Private App Access endpoint set.
 
 ## Tailscale Node
 
@@ -67,15 +67,15 @@ Choose the `Tailscale Node` integration type when deploying the standalone Tails
 contains the Tailscale service. Wodby creates a scoped auth key for that app service, and the resulting persistent
 workload joins your tailnet as a node.
 
-This is different from Application Access. The node is visible and configurable as part of the app's services and can
-exist without publishing one of the app's HTTP endpoints. Removing Application Access does not remove a standalone
+This is different from Private App Access. The node is visible and configurable as part of the app's services and can
+exist without publishing one of the app's HTTP endpoints. Removing Private App Access does not remove a standalone
 Tailscale Node, and deleting the node service does not change an app environment's Access setting.
 
-OpenClaw uses Application Access and no longer embeds the Tailscale service. The standalone Tailscale stack and custom
+OpenClaw uses Private App Access and no longer embeds the Tailscale service. The standalone Tailscale stack and custom
 node-oriented stacks continue using the `vpn` integration type.
 
 ## Related pages
 
-- [App access](../apps/access.md)
-- [Application Access providers](access.md)
+- [Private App Access](../apps/access.md)
+- [Private App Access providers](access.md)
 - [VPN providers](vpn.md)
