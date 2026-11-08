@@ -16,7 +16,7 @@ TOOL_VERBS = ("add", "cancel", "check", "cleanup", "close", "commit", "create", 
               "discard", "duplicate", "enable", "exec", "find", "get", "ignore", "import", "list", "migrate", "pause",
               "prepare", "preview", "publish", "pull", "read", "reconcile", "recycle", "redeploy", "remove", "rename",
               "repeat", "restart", "resume", "retry", "rollback", "run", "scale", "search", "set", "show", "start", "stop",
-              "sync", "unpublish", "update", "upgrade", "validate", "verify", "wait")
+              "sync", "test", "unpublish", "update", "upgrade", "validate", "verify", "void", "wait")
 # Tool arguments and result fields that start with one of those verbs but are not tools.
 NON_TOOL_NAMES = ("cleanup_id", "disable_monitoring", "preview_host", "preview_urls", "retry_ambiguous")
 TOOL_PATTERN = (r"`((?!(?:" + "|".join(NON_TOOL_NAMES) + r")`)(?:" + "|".join(TOOL_VERBS) + r")_[a-z0-9_]+)`")
