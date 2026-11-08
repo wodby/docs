@@ -17,9 +17,12 @@ For one app service, open
 `Apps > [App] > [Environment] > Stack > App services > [Service] > Configuration > Deployment`. Saving an override marks
 the app environment as needing redeploy.
 
-Use `All workloads` for service-wide settings. Services with multiple workloads also show a card for each workload, so
-a setting can be overridden only for the workload that needs different behavior. Leaving a field empty inherits the
-next applicable value; if no inherited value exists, the chart default is used.
+For a service with one workload, the settings apply to that workload. For a service with multiple workloads, use the
+`Workload` selector: `All workloads` holds service-wide settings, and selecting a workload overrides a setting only for
+that workload. Changes for every workload are saved together when you select `Update`.
+
+An empty field shows the value it inherits, or `Chart default` if no value is inherited. Leave a field empty to keep
+the inherited value.
 
 ## Inheritance and precedence
 

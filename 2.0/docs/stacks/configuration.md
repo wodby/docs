@@ -98,8 +98,9 @@ zero or one replica; services whose revision supports horizontal scaling can use
 ### Deployment
 
 Configure rollout strategy, readiness timing, and graceful shutdown from
-`Stack > Stack services > [Service] > Configuration > Deployment`. Use `All workloads` for service-wide settings and,
-for services with multiple workloads, use a workload card only where different behavior is needed.
+`Stack > Stack services > [Service] > Configuration > Deployment`. For a service with multiple workloads, select
+`All workloads` in the `Workload` selector for service-wide settings, or select a workload only where it needs different
+behavior.
 
 Unset fields inherit service-manifest defaults or remain controlled by the Helm chart. Saving changes updates the
 stack draft; publish the draft and upgrade app environments to apply them. See
