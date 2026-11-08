@@ -38,7 +38,6 @@ Organization membership changes follow role hierarchy rules.
 - Owners can manage owners, admins, and members.
 - Admins can manage members, but not owners or other admins.
 - Members cannot manage organization memberships.
-- Support and robot memberships are not managed through the normal organization membership UI.
 
 An invitation sets only the email address and the organization role. Give access to projects and teams afterwards from
 the member's page, `Organization > Members > [Member]`:
