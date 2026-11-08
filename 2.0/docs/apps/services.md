@@ -240,8 +240,8 @@ values are not passed to image builds.
 ## Deployment tab
 
 The `Configuration > Deployment` subtab controls rollout strategy, readiness timing, and graceful shutdown for this app
-service. Use `All workloads` for service-wide settings. Services with multiple workloads also show workload cards for
-targeted overrides.
+service. For a service with multiple workloads, select `All workloads` in the `Workload` selector for service-wide
+settings, or select a workload to override settings only for it.
 
 Each unset field inherits independently from the stack service or service manifest. If no inherited value exists, the
 Helm chart keeps its default. Saving a deployment override marks the app environment as needing redeploy. See
