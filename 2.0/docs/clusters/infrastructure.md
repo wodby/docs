@@ -53,7 +53,7 @@ version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy)
 | Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
 | k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
 | Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
-| Server | The operating system of your K3S server. You update it. |
+| Server | The operating system and kernel of your K3S server. You [update them](k3s.md#operating-system-and-kernel-updates). |
 | Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
 
 The version is the image tag or the version the node reports, exactly as published. It's empty for an image referenced

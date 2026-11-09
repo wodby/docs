@@ -144,22 +144,14 @@ compromised a pod, only a patched kernel protects your other pods.
 1. Check your operating system's status for this bug: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432),
    [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432),
    [Red Hat Enterprise Linux](https://access.redhat.com/security/cve/CVE-2026-98432), or
-   [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status.
-2. Connect to the server over SSH and install the kernel update. These commands install the latest packages your
-   distribution offers, and `apt upgrade` also updates your other packages:
+   [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status. Note
+   the fixed kernel version for your release.
+2. Follow [Update the kernel](k3s.md#update-the-kernel) to install the kernel and reboot the server.
+3. Compare the version `uname -r` shows with the fixed version from step 1. Distributions backport fixes, so compare
+   against your distribution's version rather than the upstream kernel version.
 
-    | Distribution | Command |
-    | --- | --- |
-    | Ubuntu, Debian | `sudo apt update && sudo apt upgrade` |
-    | Fedora, CentOS Stream, Red Hat Enterprise Linux | `sudo dnf upgrade --refresh 'kernel*'` |
-    | openSUSE, SUSE Linux Enterprise | `sudo zypper refresh && sudo zypper update kernel-default` |
-
-3. Reboot the server during a maintenance window with `sudo reboot`. Your apps are unavailable until the server and K3S
-   have started again. Wodby doesn't update or reboot your server's kernel.
-4. Run `uname -r` and compare the version with the fixed version your distribution lists. Distributions backport fixes,
-   so compare against your distribution's version rather than the upstream kernel version.
-
-If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later.
+If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later. If your operating
+system release no longer gets fixes, see [Unsupported operating system releases](k3s.md#unsupported-operating-system-releases).
 
 The protections stay on after you install the patched kernel. You don't need to remove them, and normal traffic isn't
 affected by them. Wodby applies them again each time the server boots, whichever kernel it runs.
@@ -342,7 +334,7 @@ in one of two ways:
 Which one delivers a given fix depends on your provider, so check its release notes first.
 
 On [K3S](k3s.md), you own the server, so you update its operating system and kernel yourself. See
-[Install a patched kernel](#install-a-patched-kernel) for the commands.
+[Operating system and kernel updates](k3s.md#operating-system-and-kernel-updates) for the steps.
 
 ### Check what changed on your nodes
 

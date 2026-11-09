@@ -223,6 +223,55 @@ Automatic infrastructure upgrades are available for K3S clusters and are enabled
 them when automatic maintenance is not acceptable for that cluster. See
 [Kubernetes cluster updates](updates.md#automatic-infrastructure-upgrades) for the automatic upgrade settings.
 
+## Operating system and kernel updates
+
+Wodby updates K3S and the cluster infrastructure, but not the server's operating system. You install operating system
+and kernel updates yourself. Wodby never updates or reboots your server.
+
+A new kernel takes effect only after a reboot. Your distribution's automatic updates may already have installed one, so
+the server can keep running an older kernel until you reboot it. To see the kernel the server runs, open
+`Clusters > [Cluster] > Infrastructure > Components` and find the `kernel` row.
+
+### Update the kernel
+
+1. Connect to the server over SSH and install the updates:
+
+    | Distribution | Command |
+    | --- | --- |
+    | Ubuntu, Debian | `sudo apt update && sudo apt upgrade` |
+    | Fedora, CentOS Stream, Red Hat Enterprise Linux | `sudo dnf upgrade --refresh 'kernel*'` |
+    | openSUSE, SUSE Linux Enterprise | `sudo zypper refresh && sudo zypper update kernel-default` |
+
+    `apt upgrade` also updates your other packages. K3S isn't installed from your distribution's packages, so these
+    commands don't change your K3S version.
+
+2. Compare the kernel the server runs, shown by `uname -r`, with the kernels now installed:
+
+    | Distribution | Command |
+    | --- | --- |
+    | Ubuntu, Debian | `dpkg-query -W 'linux-image-*'` |
+    | Fedora, CentOS Stream, Red Hat Enterprise Linux | `rpm -q kernel` |
+    | openSUSE, SUSE Linux Enterprise | `rpm -q kernel-default` |
+
+    If no newer kernel is installed, you don't need to reboot.
+
+3. During a maintenance window, reboot the server with `sudo reboot`. All your apps on this cluster are unavailable until
+   the server and K3S have started again, usually for a few minutes. K3S and Wodby's host protections start
+   automatically.
+4. Run `uname -r` to confirm that the server runs the new kernel, then check that your apps are available. The
+   `Components` list shows the new kernel the next time it refreshes, within about six hours.
+
+When you install a kernel for a specific security fix, check your distribution's security tracker for the fixed version
+and compare it with the version you installed. Distributions backport fixes to older version numbers, so compare with
+your distribution's version, not the upstream kernel version. The newest kernel your distribution offers may not include
+the fix yet.
+
+### Unsupported operating system releases
+
+When your operating system release reaches the end of its support, it stops getting kernel fixes. Use its extended
+security support if it has one, or connect a new K3S server with a supported release and move your apps to it with
+[app environment cluster migration](../apps/migration.md).
+
 ## Single server model
 
 K3S clusters connected to Wodby are single-server clusters.
