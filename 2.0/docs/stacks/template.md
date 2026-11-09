@@ -407,7 +407,8 @@ Each `services[].workloads[].containers[]` item supports:
 
 - `name`: required container name from the referenced service manifest. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `env`: optional container-specific environment variables.
-- `resources`: optional resource overrides.
+- `resources`: optional resource overrides. Each value overrides only the service's default for that value; the values
+  you leave out keep the service's defaults.
 
 `resources` supports:
 
