@@ -119,7 +119,8 @@ window.
 
 #### What changes on the server
 
-Wodby makes these changes and applies them again each time the server boots:
+Wodby makes these changes and applies them again each time the server boots. From version `4.1.5`, the server also
+[checks them once a day](#check-the-host-protection) and puts back any that are missing:
 
 - It drops incoming IPv4 TCP packets that carry IP options, which is how the bug is triggered. Normal traffic doesn't use
   IP options.
@@ -150,11 +151,33 @@ compromised a pod, only a patched kernel protects your other pods.
 3. Compare the version `uname -r` shows with the fixed version from step 1. Distributions backport fixes, so compare
    against your distribution's version rather than the upstream kernel version.
 
-If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later. If your operating
+If your distribution hasn't released a fix yet, keep version `4.1.4` or newer in place and check again later. If your operating
 system release no longer gets fixes, see [Unsupported operating system releases](k3s.md#unsupported-operating-system-releases).
 
 The protections stay on after you install the patched kernel. You don't need to remove them, and normal traffic isn't
 affected by them. Wodby applies them again each time the server boots, whichever kernel it runs.
+
+#### Check the host protection
+
+Before infrastructure version `4.1.5`, the server applied these protections only when it booted. If something removed
+one later, for example a firewall restart that cleared the packet filter, the server stayed unprotected until the next
+reboot. From `4.1.5`, the server checks the protections after each boot and once a day, and puts back any that are
+missing.
+
+To see the result, open `Clusters > [Cluster] > Infrastructure > Operations` and find the `Host protection` card. It
+shows each protection, when the server last checked it, and the kernel the server ran. A new result can take up to six
+hours to appear.
+
+| State | What to do |
+| --- | --- |
+| **Protected** | Nothing. The protection is in place. |
+| **Not protected** | Follow the message on the card. If the server can't block the packets, install `nftables`, or `iptables` with the `u32` match. The next check adds the filter. |
+| **Unknown** | The server hasn't reported for more than two days, or the cluster is on a version before `4.1.5`. Upgrade the infrastructure, and check that the server is running and that `systemctl status wodby-k3s-host-check.timer` shows the timer as active. |
+
+The card shows whether the protections are in place, not whether the kernel is fixed. Install a patched kernel as well.
+
+The same results are available through the [API](../api/index.html) as `GET /v1/cluster-host-checks/{id}` and the
+[MCP tool](../dev/mcp/tools.md) `list_cluster_host_checks`.
 
 #### If the update fails
 
