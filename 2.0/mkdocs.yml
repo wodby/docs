@@ -397,6 +397,7 @@ nav:
           - Google Cloud Platform: providers/gcp.md
           - DigitalOcean: providers/digitalocean.md
           - OVH: providers/ovh.md
+          - UpCloud: providers/upcloud.md
       - Databases:
           - Overview: providers/databases.md
           - Amazon Web Services: providers/aws.md

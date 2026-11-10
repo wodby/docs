@@ -109,6 +109,7 @@ cluster setup:
 - DigitalOcean Kubernetes clusters, including single-node clusters
 - Google Kubernetes Engine clusters
 - OVH Managed Kubernetes clusters
+- UpCloud Managed Kubernetes clusters, including single-node clusters
 
 Wodby does not install these policies for:
 

@@ -39,6 +39,8 @@ Wodby provides a native integration with Amazon Elastic Kubernetes Service.
 - Wodby installs AWS Load Balancer Controller and Envoy Gateway, with one Network Load Balancer used for public app
   entrypoints.
 - Node disk size is configurable during cluster creation.
+- Wodby does not add or remove EKS nodes automatically. A cluster has a fixed number of nodes, which you set when you
+  create it and can change later from the cluster's settings.
 - Wodby deploys Metrics Server for basic Kubernetes monitoring.
 - The node type selector shows only instance types Wodby supports for EKS: x86_64 instances available in the selected
   zone with more than 1 CPU, more than 4 GiB RAM, at most 32 GiB RAM, and without unsupported accelerator, Mac, or
