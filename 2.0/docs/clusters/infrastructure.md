@@ -159,7 +159,7 @@ once a day, puts back any that are missing, and reports the result in the `Secur
 `Overview` page. Clusters must be on `4.1.4` first. New K3S servers install this version directly.
 
 The update doesn't restart K3S, so your apps and cluster access aren't interrupted. If the server can't add a
-protection, the update still completes and the table shows it as not protected. See
+protection, the update still completes and the table shows the advisory as not mitigated. See
 [Check the host protection](updates.md#check-the-host-protection). Managed Kubernetes clusters aren't changed by this
 version.
 

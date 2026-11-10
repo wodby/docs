@@ -164,25 +164,21 @@ one later, for example a firewall restart that cleared the packet filter, the se
 reboot. From `4.1.5`, the server checks the protections after each boot and once a day, and puts back any that are
 missing.
 
-To see the result, open `Clusters > [Cluster] > Infrastructure > Overview` and find the `Security advisories` table. It
-has a row for CVE-2026-98432 with an overall state, then each protection with its own state, when the server last
-checked it, and the kernel the server ran. A new result can take up to six hours to appear.
+To see the result, open `Clusters > [Cluster] > Infrastructure > Overview`. The `Security advisories` table at the bottom
+shows CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can
+take up to six hours to appear. Mitigated doesn't mean fixed: install a patched kernel as well.
 
-The overall state is **Mitigated** when every protection is in place, **Not protected** when any protection is missing,
-and **Unknown** when any protection hasn't been reported. Mitigated doesn't mean fixed: install a patched kernel as well.
+If it shows **Not mitigated**, one of these applies:
 
-Each protection shows one of these states:
+- The server couldn't put a protection back. If it can't block the packets, install `nftables`, or `iptables` with the
+  `u32` match. The next check adds the filter.
+- The server hasn't reported for more than two days, or the cluster is on a version before `4.1.5`. Upgrade the
+  infrastructure, and check that the server is running and that `systemctl status wodby-k3s-host-check.timer` shows
+  the timer as active.
 
-| State | What to do |
-| --- | --- |
-| **Protected** | Nothing. The protection is in place. |
-| **Not protected** | Follow the message under the protection. If the server can't block the packets, install `nftables`, or `iptables` with the `u32` match. The next check adds the filter. |
-| **Unknown** | The server hasn't reported for more than two days, or the cluster is on a version before `4.1.5`. Upgrade the infrastructure, and check that the server is running and that `systemctl status wodby-k3s-host-check.timer` shows the timer as active. |
-
-The table shows whether the protections are in place, not whether the kernel is fixed.
-
-The same results are available through the [API](../api/index.html) as `GET /v1/cluster-host-checks/{id}` and the
-[MCP tool](../dev/mcp/tools.md) `list_cluster_host_checks`.
+To see which protection is missing and why, use the [API](../api/index.html) `GET /v1/cluster-host-checks/{id}` or the
+[MCP tool](../dev/mcp/tools.md) `list_cluster_host_checks`. Each check there has its own state and a message on what to
+do.
 
 #### If the update fails
 
