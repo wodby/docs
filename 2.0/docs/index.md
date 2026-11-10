@@ -7,7 +7,7 @@ app environments let you deploy those services separately for development, stagi
 
 1. Create or choose an [organization](org.md) and a [project](projects.md).
 2. [Choose a cluster option](clusters/choose-platform.md): use your cloud account, connect your own server, or let
-   Wodby create and manage the cluster.
+   Wodby host the cluster. Wodby keeps the cluster up to date on all of them.
 3. [Create an application](apps/index.md#creating-new-application) from a catalog stack, configure its first
    environment, and deploy it. You can create a Wodby Cloud cluster during app creation.
 

@@ -1,6 +1,8 @@
 # Self-hosted Kubernetes cluster with K3S
 
-If you want to keep infrastructure under your control and avoid managed Kubernetes costs, you can connect your own server to Wodby as a K3S cluster.
+If you want to run on your own server and avoid managed Kubernetes costs, you can connect it to Wodby as a K3S cluster.
+Wodby installs K3S and keeps it and the [cluster infrastructure](infrastructure.md) up to date. You keep the server's
+[operating system and kernel](#operating-system-and-kernel-updates) updated.
 
 !!! info "Why use K3S instead of Managed Kubernetes?"
     Learn more about the <a href="https://wodby.com/blog/affordable-kubernetes-with-k3s" target="_blank">benefits of K3S</a> in our blog
