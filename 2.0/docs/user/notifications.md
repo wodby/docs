@@ -27,7 +27,7 @@ Examples include:
 - failed app builds or deployments
 - app creation results
 - cluster creation or connection events
-- successful or failed automatic cluster infrastructure upgrades
+- successful or failed automatic cluster infrastructure and Kubernetes version upgrades
 - automatic service source updates, inherited-service base revision updates, Git-backed stack updates, stack service
   revision updates, origin stack syncs, and app stack upgrades
 - cron job and backup failures and recoveries, plus failed imports, certificate renewals, custom certificate expiration, service actions, or integration installs
