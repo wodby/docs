@@ -156,6 +156,26 @@ system release no longer gets fixes, see [Unsupported operating system releases]
 The protections stay on after you install the patched kernel. You don't need to remove them, and normal traffic isn't
 affected by them. Wodby applies them again each time the server boots, whichever kernel it runs.
 
+#### Check the host protection
+
+From infrastructure version `4.1.5`, the server checks these protections after each boot and once a day. If one is
+missing, for example because a firewall restart removed the filter, the check puts it back.
+
+To see the result, open `Clusters > [Cluster] > Infrastructure > Operations` and find the `Host protection` card. It
+shows each protection, when the server last checked it, and the kernel the server ran. A new result can take up to six
+hours to appear.
+
+| State | What to do |
+| --- | --- |
+| **Protected** | Nothing. The protection is in place. |
+| **Not protected** | Follow the message on the card. If the server can't block the packets, install `nftables`, or `iptables` with the `u32` match. The next check adds the filter. |
+| **Unknown** | The server hasn't reported for more than two days, or the cluster is on a version before `4.1.5`. Upgrade the infrastructure, and check that the server is running and that `systemctl status wodby-k3s-host-check.timer` shows the timer as active. |
+
+The card shows whether the protections are in place, not whether the kernel is fixed. Install a patched kernel as well.
+
+The same results are available through the [API](../api/index.html) as `GET /v1/cluster-host-checks/{id}` and the
+[MCP tool](../dev/mcp/tools.md) `list_cluster_host_checks`.
+
 #### If the update fails
 
 The task reports the error and leaves the infrastructure version unchanged. Wodby returns the cluster to `OK` if no
