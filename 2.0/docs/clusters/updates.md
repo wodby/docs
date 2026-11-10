@@ -298,8 +298,8 @@ Wodby sends email notifications when automatic infrastructure upgrades succeed o
 ## Component updates
 
 Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
-available, the `Component updates` card appears at `Clusters > [Cluster] > Infrastructure > Operations`. Choose `Update`
-and confirm to run it as a task.
+available, the `Component updates` card appears above the component list at
+`Clusters > [Cluster] > Infrastructure > Components`. Choose `Update` and confirm to run it as a task.
 
 | Cluster | Components |
 | --- | --- |
@@ -461,12 +461,13 @@ Wodby can upgrade a cluster's Kubernetes version for you during a time window yo
 same upgrade you can start from the `Kubernetes version` card, and it follows the same
 [upgrade policy](#upgrade-policy).
 
-Automatic Kubernetes upgrades aren't available for Wodby Cloud clusters or serverless clusters such as GKE Autopilot.
+Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. Wodby Cloud clusters and
+serverless clusters such as GKE Autopilot don't have them.
 
-To turn them on:
+To change them:
 
-1. Open `Clusters > [Cluster] > Infrastructure > Operations`.
-2. In the `Kubernetes auto upgrade settings` card, turn on `Auto upgrade`.
+1. Open `Clusters > [Cluster] > Infrastructure > Kubernetes`.
+2. In the `Kubernetes auto upgrade settings` card, turn `Auto upgrade` on or off.
 3. Under `Version changes`, choose which upgrades Wodby can start. Select at least one:
     - `Patch versions`: a newer patch of the current minor version, such as `1.36.4` to `1.36.5`. This includes a newer
       provider build of the same version, such as `1.36.5-do.1` to `1.36.5-do.2`.
@@ -475,12 +476,16 @@ To turn them on:
       end of life. While its end-of-life date is unknown, Wodby doesn't start the upgrade.
 4. Set the [time window](../automation-time-windows.md) and save.
 
-Automatic Kubernetes upgrades are off by default. When you turn them on, only `Patch versions` is selected. A new minor
-version can remove Kubernetes APIs your workloads use, so check your workloads before you allow minor upgrades.
+By default only `Patch versions` is selected. Patch versions bring security and bug fixes and keep your cluster on the
+same minor version. A new minor version can remove Kubernetes APIs your workloads use, so check your workloads before
+you allow minor upgrades.
 
-New clusters get a `02:00` to `04:00` window in your organization's time zone. Clusters created before this setting
-was available get the same hours in `UTC`, so check the time zone before you turn it on. With `Time window` turned off,
-an upgrade can start at any time.
+New clusters get a `02:00` to `04:00` window in your organization's time zone. Clusters created before automatic
+Kubernetes upgrades were available get the same hours in `UTC` unless you've changed the setting, so check the window
+and its time zone. With `Time window` turned off, an upgrade can start at any time.
+
+If you don't want Wodby to upgrade a cluster's Kubernetes version automatically, turn `Auto upgrade` off. Your choice is
+kept.
 
 #### When an upgrade starts
 
