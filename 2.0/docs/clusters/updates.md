@@ -243,11 +243,14 @@ depends on such an endpoint, arrange a replacement certificate chain with its op
 
 ## App activity during infrastructure upgrades
 
-Before starting either type of infrastructure upgrade, Wodby checks for application work that could change cluster
-resources. An upgrade cannot start while the cluster has active app creation or deletion, deployments,
-post-deployment scripts, app stack upgrades, service uninstall tasks, or infrastructure app builds. Wait for those
-operations to finish and then retry the upgrade. Automatic upgrade attempts skip a busy cluster and try again during a
-later scheduled check.
+These rules apply to infrastructure upgrades, [Kubernetes version updates](#kubernetes-version-updates),
+[component updates](#component-updates), and node recycling.
+
+Before starting an upgrade, Wodby checks for application work that could change cluster resources or be cut off by
+the upgrade. An upgrade cannot start while the cluster has active app creation or deletion, deployments,
+post-deployment scripts, app stack upgrades, service uninstall tasks, infrastructure app builds, backups, cron jobs,
+app service actions, or database and database user tasks. Wait for those operations to finish and then retry the
+upgrade. Automatic upgrade attempts skip a busy cluster and try again during a later scheduled check.
 
 Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
 while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
@@ -259,6 +262,12 @@ separate health problem prevents it.
 While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
 and app stack upgrades cannot start on that cluster. Operations that are part of the infrastructure upgrade itself
 continue normally.
+
+Backups, cron jobs, app service actions, and database tasks on the cluster that start while an upgrade is running wait
+for it. Their tasks show `Waiting for cluster maintenance to finish` and run when the upgrade ends, so a scheduled
+backup or cron job that comes due during the upgrade runs a little late instead of failing. A task still stops at its
+usual time limit if the upgrade takes longer: one hour for cron jobs and app service actions, about six hours for
+backups.
 
 Manual infrastructure version upgrades and manual infrastructure app stack upgrades are not available for Wodby Cloud
 clusters. Wodby Cloud infrastructure is operated by Wodby and can still be upgraded automatically by Wodby.
@@ -321,8 +330,8 @@ Wodby sends email notifications when automatic infrastructure upgrades succeed o
 ## Component updates
 
 Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
-available, the `Component updates` card appears at `Clusters > [Cluster] > Infrastructure > Operations`. Choose `Update`
-and confirm to run it as a task.
+available, the `Component updates` card appears above the component list at
+`Clusters > [Cluster] > Infrastructure > Components`. Choose `Update` and confirm to run it as a task.
 
 | Cluster | Components |
 | --- | --- |
@@ -464,6 +473,23 @@ Open the task to follow progress and review provider details. If an upgrade fail
 the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes
 the remaining stages instead of trying to start an unrelated transition.
 
+### How upgrades affect your apps
+
+A Kubernetes version update, including a patch version, can restart your apps:
+
+- **Managed Kubernetes:** providers usually update worker nodes by replacing them. Kubernetes moves your pods from each
+  old node to its replacement, so every pod restarts once. An app that keeps a volume can take longer, because the
+  volume has to detach from the old node and attach to the new one.
+- **DigitalOcean Kubernetes:** before the upgrade, Wodby turns on surge upgrades for the cluster. DigitalOcean then
+  starts a replacement node before it removes an old one, so your pods have somewhere to move. The extra node is billed
+  while it runs, and your DigitalOcean account needs room for one more Droplet.
+- **K3S:** Wodby updates K3S in place. The server node isn't drained, so apps on it keep running, and the Kubernetes API
+  is unavailable for a short time while K3S restarts. In clusters with agent nodes, Wodby drains each agent node in
+  turn, so pods on agent nodes restart once.
+
+On a single-node cluster, an app with one replica is unavailable while its pod restarts. To keep an app available during
+upgrades, run the cluster with at least two nodes and the app with at least two replicas.
+
 ### Amazon EKS add-ons
 
 On Amazon EKS, the upgrade also updates the vpc-cni, kube-proxy, CoreDNS, and EBS CSI driver add-ons after the nodes. Each
@@ -484,12 +510,13 @@ Wodby can upgrade a cluster's Kubernetes version for you during a time window yo
 same upgrade you can start from the `Kubernetes version` card, and it follows the same
 [upgrade policy](#upgrade-policy).
 
-Automatic Kubernetes upgrades aren't available for Wodby Cloud clusters or serverless clusters such as GKE Autopilot.
+Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. Wodby Cloud clusters and
+serverless clusters such as GKE Autopilot don't have them.
 
-To turn them on:
+To change them:
 
-1. Open `Clusters > [Cluster] > Infrastructure > Operations`.
-2. In the `Kubernetes auto upgrade settings` card, turn on `Auto upgrade`.
+1. Open `Clusters > [Cluster] > Infrastructure > Kubernetes`.
+2. In the `Kubernetes auto upgrade settings` card, turn `Auto upgrade` on or off.
 3. Under `Version changes`, choose which upgrades Wodby can start. Select at least one:
     - `Patch versions`: a newer patch of the current minor version, such as `1.36.4` to `1.36.5`. This includes a newer
       provider build of the same version, such as `1.36.5-do.1` to `1.36.5-do.2`.
@@ -498,18 +525,25 @@ To turn them on:
       end of life. While its end-of-life date is unknown, Wodby doesn't start the upgrade.
 4. Set the [time window](../automation-time-windows.md) and save.
 
-Automatic Kubernetes upgrades are off by default. When you turn them on, only `Patch versions` is selected. A new minor
-version can remove Kubernetes APIs your workloads use, so check your workloads before you allow minor upgrades.
+By default only `Patch versions` is selected. Patch versions bring security and bug fixes and keep your cluster on the
+same minor version. A new minor version can remove Kubernetes APIs your workloads use, so check your workloads before
+you allow minor upgrades.
 
-New clusters get a `02:00` to `04:00` window in your organization's time zone. Clusters created before this setting
-was available get the same hours in `UTC`, so check the time zone before you turn it on. With `Time window` turned off,
-an upgrade can start at any time.
+New clusters get a `02:00` to `04:00` window in your organization's time zone. Clusters created before automatic
+Kubernetes upgrades were available get the same hours in `UTC` unless you've changed the setting, so check the window
+and its time zone. With `Time window` turned off, an upgrade can start at any time.
+
+If you don't want Wodby to upgrade a cluster's Kubernetes version automatically, turn `Auto upgrade` off. Your choice is
+kept.
 
 #### When an upgrade starts
 
 Wodby checks every 30 minutes. It starts an upgrade when the time window is open, the cluster is in `OK` status, no
 other upgrade or [blocking app activity](#app-activity-during-infrastructure-upgrades) is running, and the policy allows
 the next version.
+
+An automatic upgrade affects your apps the same way as a manual one. See
+[How upgrades affect your apps](#how-upgrades-affect-your-apps).
 
 Wodby runs one automatic upgrade on a cluster at a time. If an infrastructure version upgrade is pending and
 [automatic infrastructure upgrades](#automatic-infrastructure-upgrades) will apply it, Wodby runs it first, during its
