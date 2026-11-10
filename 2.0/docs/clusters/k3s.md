@@ -230,7 +230,7 @@ and kernel updates yourself. Wodby never updates or reboots your server.
 
 A new kernel takes effect only after a reboot. Your distribution's automatic updates may already have installed one, so
 the server can keep running an older kernel until you reboot it. To see the kernel the server runs, open
-`Clusters > [Cluster] > Infrastructure > Components` and find the `kernel` row.
+`Clusters > [Cluster] > Infrastructure > Kubernetes` and find the `kernel` row in the `Components` card.
 
 ### Update the kernel
 
@@ -259,7 +259,7 @@ the server can keep running an older kernel until you reboot it. To see the kern
    the server and K3S have started again, usually for a few minutes. K3S and Wodby's host protections start
    automatically.
 4. Run `uname -r` to confirm that the server runs the new kernel, then check that your apps are available. The
-   `Components` list shows the new kernel the next time it refreshes, within about six hours.
+   `Components` card shows the new kernel the next time it refreshes, within about six hours.
 
 When you install a kernel for a specific security fix, check your distribution's security tracker for the fixed version
 and compare it with the version you installed. Distributions backport fixes to older version numbers, so compare with

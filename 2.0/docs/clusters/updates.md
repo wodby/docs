@@ -331,8 +331,11 @@ Wodby sends email notifications when automatic infrastructure upgrades succeed o
 ## Component updates
 
 Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
-available, the `Component updates` card appears above the component list at
-`Clusters > [Cluster] > Infrastructure > Components`. Choose `Update` and confirm to run it as a task.
+available, the `Component updates` card appears under the Kubernetes version cards at
+`Clusters > [Cluster] > Infrastructure > Kubernetes`. Choose `Update` and confirm to run it as a task.
+
+[Automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) also apply component updates, so with the default
+settings you don't need to run patch updates yourself.
 
 | Cluster | Components |
 | --- | --- |
@@ -346,6 +349,7 @@ Before you update:
 
 - The cluster must be in `OK` status, and deployments on it wait until the update finishes.
 - On K3S, Cilium restarts on each node, so run the update during a maintenance window for production workloads.
+  Automatic updates start only inside the automatic Kubernetes upgrade time window.
 - On EKS, the first update of a copy that EKS installed replaces it with an EKS-managed add-on. This restarts its pods
   and can overwrite changes made directly to it, such as a custom configuration.
 
@@ -519,9 +523,9 @@ add-on updates. An EKS cluster without the EKS-managed vpc-cni or EBS CSI driver
 
 ### Automatic Kubernetes upgrades
 
-Wodby can upgrade a cluster's Kubernetes version for you during a time window you choose. An automatic upgrade is the
-same upgrade you can start from the `Kubernetes version` card, and it follows the same
-[upgrade policy](#upgrade-policy).
+Wodby can upgrade a cluster's Kubernetes version and apply its [component updates](#component-updates) for you during
+a time window you choose. An automatic upgrade is the same upgrade you can start from the `Kubernetes version` card, and
+it follows the same [upgrade policy](#upgrade-policy).
 
 Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. Wodby Cloud clusters and
 serverless clusters such as GKE Autopilot don't have them.
@@ -537,6 +541,14 @@ To change them:
       `Only after the current minor reaches end of life` selected, Wodby waits until your current minor version reaches
       end of life. While its end-of-life date is unknown, Wodby doesn't start the upgrade.
 4. Set the [time window](../automation-time-windows.md) and save.
+
+The same `Version changes` apply to component updates:
+
+- `Patch versions` allows a component update that stays within the component's minor version, such as Cilium `1.19.9`
+  to `1.19.10`.
+- `Minor versions` allows larger component updates, such as Cilium `1.18` to `1.19`. On Amazon EKS, it also allows
+  replacing an add-on copy that EKS installed with an EKS-managed add-on, which can overwrite a custom configuration.
+  `Only after the current minor reaches end of life` applies only to the Kubernetes version.
 
 By default only `Patch versions` is selected. Patch versions bring security and bug fixes and keep your cluster on the
 same minor version. A new minor version can remove Kubernetes APIs your workloads use, so check your workloads before
@@ -555,13 +567,18 @@ Wodby checks every 30 minutes. It starts an upgrade when the time window is open
 other upgrade or [blocking app activity](#app-activity-during-infrastructure-upgrades) is running, and the policy allows
 the next version.
 
+The Kubernetes version comes first. When there's no version upgrade to start, Wodby applies the next component update
+the policy allows instead. On K3S, a new Kubernetes minor version waits until the cluster runs a Cilium version that
+supports it, so a Cilium update can come before that upgrade. On Amazon EKS, a Kubernetes version upgrade already
+updates the add-ons.
+
 An automatic upgrade affects your apps the same way as a manual one. See
 [How upgrades affect your apps](#how-upgrades-affect-your-apps).
 
-Wodby runs one automatic upgrade on a cluster at a time. If an infrastructure version upgrade is pending and
-[automatic infrastructure upgrades](#automatic-infrastructure-upgrades) will apply it, Wodby runs it first, during its
-own time window. The Kubernetes upgrade starts after it. Pending infrastructure app upgrades wait for the Kubernetes
-upgrade.
+Wodby runs one automatic upgrade or component update on a cluster at a time. If an infrastructure version upgrade is
+pending and [automatic infrastructure upgrades](#automatic-infrastructure-upgrades) will apply it, Wodby runs it first,
+during its own time window. The Kubernetes upgrade starts after it. Pending infrastructure app upgrades wait for the
+Kubernetes upgrade.
 
 Some providers keep clusters up to date on their own, so automatic patch upgrades often have nothing left to do:
 
@@ -571,12 +588,17 @@ Some providers keep clusters up to date on their own, so automatic patch upgrade
 
 #### Tasks and failures
 
-An automatic upgrade runs as a task, the same as a manual one. Task history shows it as started by Wodby.
+An automatic upgrade or component update runs as a task, the same as a manual one. Task history shows it as started by
+Wodby.
 
 If an automatic upgrade fails before the provider starts changing the cluster, the cluster returns to `OK`. Wodby
 doesn't try the same version again automatically for 24 hours. If it fails after the provider has started, the cluster
 stays in an error state and Wodby stops automatic upgrades for it. Open the failed task, resolve the reported problem,
 and repeat the task. See [Run an upgrade](#run-an-upgrade).
 
-Wodby sends email notifications when an automatic Kubernetes upgrade succeeds or fails. You can manage these from
-`User settings > Notifications`. Automatic Kubernetes upgrades also appear in the weekly organization report.
+If an automatic component update fails, the cluster returns to `OK` and the update stays available. Wodby doesn't try
+the same update again automatically for 24 hours. You can run it yourself from the `Component updates` card.
+
+Wodby sends email notifications when an automatic Kubernetes version upgrade succeeds or fails. You can manage these
+from `User settings > Notifications`. Automatic Kubernetes upgrades also appear in the weekly organization report.
+Automatic component updates don't send notifications, so check the cluster's task history for them.
