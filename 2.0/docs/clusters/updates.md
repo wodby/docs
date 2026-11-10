@@ -220,11 +220,14 @@ depends on such an endpoint, arrange a replacement certificate chain with its op
 
 ## App activity during infrastructure upgrades
 
-Before starting either type of infrastructure upgrade, Wodby checks for application work that could change cluster
-resources. An upgrade cannot start while the cluster has active app creation or deletion, deployments,
-post-deployment scripts, app stack upgrades, service uninstall tasks, or infrastructure app builds. Wait for those
-operations to finish and then retry the upgrade. Automatic upgrade attempts skip a busy cluster and try again during a
-later scheduled check.
+These rules apply to infrastructure upgrades, [Kubernetes version updates](#kubernetes-version-updates),
+[component updates](#component-updates), and node recycling.
+
+Before starting an upgrade, Wodby checks for application work that could change cluster resources or be cut off by
+the upgrade. An upgrade cannot start while the cluster has active app creation or deletion, deployments,
+post-deployment scripts, app stack upgrades, service uninstall tasks, infrastructure app builds, backups, cron jobs,
+app service actions, or database and database user tasks. Wait for those operations to finish and then retry the
+upgrade. Automatic upgrade attempts skip a busy cluster and try again during a later scheduled check.
 
 Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
 while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
@@ -236,6 +239,12 @@ separate health problem prevents it.
 While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
 and app stack upgrades cannot start on that cluster. Operations that are part of the infrastructure upgrade itself
 continue normally.
+
+Backups, cron jobs, app service actions, and database tasks on the cluster that start while an upgrade is running wait
+for it. Their tasks show `Waiting for cluster maintenance to finish` and run when the upgrade ends, so a scheduled
+backup or cron job that comes due during the upgrade runs a little late instead of failing. A task still stops at its
+usual time limit if the upgrade takes longer: one hour for cron jobs and app service actions, about six hours for
+backups.
 
 Manual infrastructure version upgrades and manual infrastructure app stack upgrades are not available for Wodby Cloud
 clusters. Wodby Cloud infrastructure is operated by Wodby and can still be upgraded automatically by Wodby.
@@ -441,6 +450,23 @@ Open the task to follow progress and review provider details. If an upgrade fail
 the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes
 the remaining stages instead of trying to start an unrelated transition.
 
+### How upgrades affect your apps
+
+A Kubernetes version update, including a patch version, can restart your apps:
+
+- **Managed Kubernetes:** providers usually update worker nodes by replacing them. Kubernetes moves your pods from each
+  old node to its replacement, so every pod restarts once. An app that keeps a volume can take longer, because the
+  volume has to detach from the old node and attach to the new one.
+- **DigitalOcean Kubernetes:** before the upgrade, Wodby turns on surge upgrades for the cluster. DigitalOcean then
+  starts a replacement node before it removes an old one, so your pods have somewhere to move. The extra node is billed
+  while it runs, and your DigitalOcean account needs room for one more Droplet.
+- **K3S:** Wodby updates K3S in place. The server node isn't drained, so apps on it keep running, and the Kubernetes API
+  is unavailable for a short time while K3S restarts. In clusters with agent nodes, Wodby drains each agent node in
+  turn, so pods on agent nodes restart once.
+
+On a single-node cluster, an app with one replica is unavailable while its pod restarts. To keep an app available during
+upgrades, run the cluster with at least two nodes and the app with at least two replicas.
+
 ### Amazon EKS add-ons
 
 On Amazon EKS, the upgrade also updates the vpc-cni, kube-proxy, CoreDNS, and EBS CSI driver add-ons after the nodes. Each
@@ -492,6 +518,9 @@ kept.
 Wodby checks every 30 minutes. It starts an upgrade when the time window is open, the cluster is in `OK` status, no
 other upgrade or [blocking app activity](#app-activity-during-infrastructure-upgrades) is running, and the policy allows
 the next version.
+
+An automatic upgrade affects your apps the same way as a manual one. See
+[How upgrades affect your apps](#how-upgrades-affect-your-apps).
 
 Wodby runs one automatic upgrade on a cluster at a time. If an infrastructure version upgrade is pending and
 [automatic infrastructure upgrades](#automatic-infrastructure-upgrades) will apply it, Wodby runs it first, during its
