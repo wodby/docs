@@ -266,10 +266,10 @@ infrastructure version upgrades and infrastructure app stack upgrades can start 
 Version policy settings affect automatic upgrades only. You can still run a manual infrastructure or infrastructure app
 upgrade when the dashboard offers one.
 
-In the dashboard, auto-update settings are in the same two cards as the manual actions:
+In the dashboard, open `Infrastructure > Operations`. Each upgrade type has its own card:
 
-- `Infrastructure > Operations > Wodby infrastructure > Auto updates`
-- `Infrastructure > Operations > Infrastructure app stacks > Auto updates`
+- `Wodby infrastructure auto upgrade settings`
+- `Infrastructure apps auto upgrade settings`
 
 Each section has an `Auto upgrade` switch and `Patch versions`, `Minor versions`, and `Major versions` policy
 checkboxes. The infrastructure app stacks section also has a `Same version (newer revisions)` checkbox. Same-version,
@@ -454,3 +454,59 @@ configuration, can be overwritten.
 
 If this stage fails, repeat the failed task. The retry leaves the control plane and nodes as they are and resumes the
 add-on updates. An EKS cluster without the EKS-managed vpc-cni or EBS CSI driver add-on keeps those components unchanged.
+
+### Automatic Kubernetes upgrades
+
+Wodby can upgrade a cluster's Kubernetes version for you during a time window you choose. An automatic upgrade is the
+same upgrade you can start from the `Kubernetes version` card, and it follows the same
+[upgrade policy](#upgrade-policy).
+
+Automatic Kubernetes upgrades aren't available for Wodby Cloud clusters or serverless clusters such as GKE Autopilot.
+
+To turn them on:
+
+1. Open `Clusters > [Cluster] > Infrastructure > Operations`.
+2. In the `Kubernetes auto upgrade settings` card, turn on `Auto upgrade`.
+3. Under `Version changes`, choose which upgrades Wodby can start. Select at least one:
+    - `Patch versions`: a newer patch of the current minor version, such as `1.36.4` to `1.36.5`. This includes a newer
+      provider build of the same version, such as `1.36.5-do.1` to `1.36.5-do.2`.
+    - `Minor versions`: the next minor version, such as `1.36` to `1.37`. With
+      `Only after the current minor reaches end of life` selected, Wodby waits until your current minor version reaches
+      end of life. While its end-of-life date is unknown, Wodby doesn't start the upgrade.
+4. Set the [time window](../automation-time-windows.md) and save.
+
+Automatic Kubernetes upgrades are off by default. When you turn them on, only `Patch versions` is selected. A new minor
+version can remove Kubernetes APIs your workloads use, so check your workloads before you allow minor upgrades.
+
+New clusters get a `02:00` to `04:00` window in your organization's time zone. Clusters created before this setting
+was available get the same hours in `UTC`, so check the time zone before you turn it on. With `Time window` turned off,
+an upgrade can start at any time.
+
+#### When an upgrade starts
+
+Wodby checks every 30 minutes. It starts an upgrade when the time window is open, the cluster is in `OK` status, no
+other upgrade or [blocking app activity](#app-activity-during-infrastructure-upgrades) is running, and the policy allows
+the next version.
+
+Wodby runs one automatic upgrade on a cluster at a time. If an infrastructure version upgrade is pending and
+[automatic infrastructure upgrades](#automatic-infrastructure-upgrades) will apply it, Wodby runs it first, during its
+own time window. The Kubernetes upgrade starts after it. Pending infrastructure app upgrades wait for the Kubernetes
+upgrade.
+
+Some providers keep clusters up to date on their own, so automatic patch upgrades often have nothing left to do:
+
+- OVH Managed Kubernetes clusters created by Wodby update themselves.
+- Google upgrades GKE clusters enrolled in a release channel.
+- Amazon EKS applies control plane patches itself.
+
+#### Tasks and failures
+
+An automatic upgrade runs as a task, the same as a manual one. Task history shows it as started by Wodby.
+
+If an automatic upgrade fails before the provider starts changing the cluster, the cluster returns to `OK`. Wodby
+doesn't try the same version again automatically for 24 hours. If it fails after the provider has started, the cluster
+stays in an error state and Wodby stops automatic upgrades for it. Open the failed task, resolve the reported problem,
+and repeat the task. See [Run an upgrade](#run-an-upgrade).
+
+Wodby sends email notifications when an automatic Kubernetes upgrade succeeds or fails. You can manage these from
+`User settings > Notifications`. Automatic Kubernetes upgrades also appear in the weekly organization report.

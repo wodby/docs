@@ -201,7 +201,7 @@ configuration changes.
 | `rename_app` | Change the title an app is shown with. Its machine name, which names its Kubernetes resources and domains, never changes. |
 | `rename_app_environment` | Change the title an app environment is shown with. Its machine name, which names its namespace and generated domains, never changes. |
 | `update_cluster` | Update a cluster title. |
-| `update_cluster_settings` | Update cluster settings such as automatic infrastructure upgrades. Requires `confirm: true`. |
+| `update_cluster_settings` | Update cluster settings such as automatic infrastructure and Kubernetes version upgrades. Requires `confirm: true`. |
 | `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
 | `update_database` | Update a database title. |
 | `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
