@@ -28,19 +28,20 @@ policy controller, until their cluster infrastructure is upgraded.
 
 ## Cluster components
 
-To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Components`. The
-list shows each component's version, whether an update is available, where it runs, and how many pods or nodes run it.
-It includes system pods and each node's Kubernetes agent, container runtime, operating system, and kernel. Your
-applications are not included. Infrastructure apps are hidden because the `Apps` tab reports them; choose
-`Infrastructure app` in the `Managed by` filter to show them.
+To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Kubernetes` and
+scroll to the `Components` card. The list shows each component's version, whether an update is available, where it runs,
+and how many pods or nodes run it. It includes system pods and each node's Kubernetes agent, container runtime,
+operating system, and kernel. Your applications are not included. Infrastructure apps are hidden because the `Apps` tab
+reports them; choose `Infrastructure app` in the `Managed by` filter to show them.
 
 A healthy cluster's list appears within a few minutes and refreshes about every six hours. It also refreshes when a
 [node recycling or Kubernetes version update task](updates.md#check-what-changed-on-your-nodes) ends. The page shows when
 the cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
 
-`Status` shows an update only when Wodby can apply it, and links to where to run it. A newer upstream release alone does
-not count. The column is hidden when no listed component has a status. On managed clusters, only Amazon EKS add-ons show updates. See
-[component updates](updates.md#component-updates).
+`Status` shows an update only when Wodby can apply it. Updates that run from the `Kubernetes` tab, such as a Kubernetes
+version update, node recycling, or a component update, have no link; others link to the `Operations` or `Apps` tab that
+runs them. A newer upstream release alone does not count. The column is hidden when no listed component has a status. On
+managed clusters, only Amazon EKS add-ons show updates. See [component updates](updates.md#component-updates).
 
 On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
 version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy).
@@ -49,7 +50,7 @@ version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy)
 
 | Managed by | How it is updated |
 | --- | --- |
-| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates). |
+| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates), which [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades) can apply. |
 | Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
 | k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
 | Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
