@@ -53,7 +53,7 @@ version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy)
 | Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
 | k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
 | Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
-| Server | The operating system of your K3S server. You update it. |
+| Server | The operating system and kernel of your K3S server. You [update them](k3s.md#operating-system-and-kernel-updates). |
 | Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
 
 The version is the image tag or the version the node reports, exactly as published. It's empty for an image referenced
@@ -142,13 +142,26 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
-The latest version is `4.1.4`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
+The latest version is `4.1.5`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
 Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3S servers, so once on `4.0.0` these clusters
 show the latest version automatically, with no task and no change to the cluster.
 
 Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
 
 ### Changelog
+
+#### 4.1.5
+
+Version `4.1.5` keeps the [CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) protections from `4.1.4`
+in place on self-hosted K3S servers. Before this version, the server applied them only when it booted, so a firewall
+restart could remove the packet filter until the next reboot. The server now checks the protections after each boot and
+once a day, puts back any that are missing, and reports the result to the `Host protection` card on the cluster's
+`Operations` page. Clusters must be on `4.1.4` first. New K3S servers install this version directly.
+
+The update doesn't restart K3S, so your apps and cluster access aren't interrupted. If the server can't add a
+protection, the update still completes and the card shows it as not protected. See
+[Check the host protection](updates.md#check-the-host-protection). Managed Kubernetes clusters aren't changed by this
+version.
 
 #### 4.1.4
 

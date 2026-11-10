@@ -119,7 +119,8 @@ window.
 
 #### What changes on the server
 
-Wodby makes these changes and applies them again each time the server boots:
+Wodby makes these changes and applies them again each time the server boots. From version `4.1.5`, the server also
+[checks them once a day](#check-the-host-protection) and puts back any that are missing:
 
 - It drops incoming IPv4 TCP packets that carry IP options, which is how the bug is triggered. Normal traffic doesn't use
   IP options.
@@ -144,25 +145,39 @@ compromised a pod, only a patched kernel protects your other pods.
 1. Check your operating system's status for this bug: [Ubuntu](https://ubuntu.com/security/CVE-2026-98432),
    [Debian](https://security-tracker.debian.org/tracker/CVE-2026-98432),
    [Red Hat Enterprise Linux](https://access.redhat.com/security/cve/CVE-2026-98432), or
-   [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status.
-2. Connect to the server over SSH and install the kernel update. These commands install the latest packages your
-   distribution offers, and `apt upgrade` also updates your other packages:
+   [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status. Note
+   the fixed kernel version for your release.
+2. Follow [Update the kernel](k3s.md#update-the-kernel) to install the kernel and reboot the server.
+3. Compare the version `uname -r` shows with the fixed version from step 1. Distributions backport fixes, so compare
+   against your distribution's version rather than the upstream kernel version.
 
-    | Distribution | Command |
-    | --- | --- |
-    | Ubuntu, Debian | `sudo apt update && sudo apt upgrade` |
-    | Fedora, CentOS Stream, Red Hat Enterprise Linux | `sudo dnf upgrade --refresh 'kernel*'` |
-    | openSUSE, SUSE Linux Enterprise | `sudo zypper refresh && sudo zypper update kernel-default` |
-
-3. Reboot the server during a maintenance window with `sudo reboot`. Your apps are unavailable until the server and K3S
-   have started again. Wodby doesn't update or reboot your server's kernel.
-4. Run `uname -r` and compare the version with the fixed version your distribution lists. Distributions backport fixes,
-   so compare against your distribution's version rather than the upstream kernel version.
-
-If your distribution hasn't released a fix yet, keep version `4.1.4` in place and check again later.
+If your distribution hasn't released a fix yet, keep version `4.1.4` or newer in place and check again later. If your operating
+system release no longer gets fixes, see [Unsupported operating system releases](k3s.md#unsupported-operating-system-releases).
 
 The protections stay on after you install the patched kernel. You don't need to remove them, and normal traffic isn't
 affected by them. Wodby applies them again each time the server boots, whichever kernel it runs.
+
+#### Check the host protection
+
+Before infrastructure version `4.1.5`, the server applied these protections only when it booted. If something removed
+one later, for example a firewall restart that cleared the packet filter, the server stayed unprotected until the next
+reboot. From `4.1.5`, the server checks the protections after each boot and once a day, and puts back any that are
+missing.
+
+To see the result, open `Clusters > [Cluster] > Infrastructure > Operations` and find the `Host protection` card. It
+shows each protection, when the server last checked it, and the kernel the server ran. A new result can take up to six
+hours to appear.
+
+| State | What to do |
+| --- | --- |
+| **Protected** | Nothing. The protection is in place. |
+| **Not protected** | Follow the message on the card. If the server can't block the packets, install `nftables`, or `iptables` with the `u32` match. The next check adds the filter. |
+| **Unknown** | The server hasn't reported for more than two days, or the cluster is on a version before `4.1.5`. Upgrade the infrastructure, and check that the server is running and that `systemctl status wodby-k3s-host-check.timer` shows the timer as active. |
+
+The card shows whether the protections are in place, not whether the kernel is fixed. Install a patched kernel as well.
+
+The same results are available through the [API](../api/index.html) as `GET /v1/cluster-host-checks/{id}` and the
+[MCP tool](../dev/mcp/tools.md) `list_cluster_host_checks`.
 
 #### If the update fails
 
@@ -228,11 +243,14 @@ depends on such an endpoint, arrange a replacement certificate chain with its op
 
 ## App activity during infrastructure upgrades
 
-Before starting either type of infrastructure upgrade, Wodby checks for application work that could change cluster
-resources. An upgrade cannot start while the cluster has active app creation or deletion, deployments,
-post-deployment scripts, app stack upgrades, service uninstall tasks, or infrastructure app builds. Wait for those
-operations to finish and then retry the upgrade. Automatic upgrade attempts skip a busy cluster and try again during a
-later scheduled check.
+These rules apply to infrastructure upgrades, [Kubernetes version updates](#kubernetes-version-updates),
+[component updates](#component-updates), and node recycling.
+
+Before starting an upgrade, Wodby checks for application work that could change cluster resources or be cut off by
+the upgrade. An upgrade cannot start while the cluster has active app creation or deletion, deployments,
+post-deployment scripts, app stack upgrades, service uninstall tasks, infrastructure app builds, backups, cron jobs,
+app service actions, or database and database user tasks. Wait for those operations to finish and then retry the
+upgrade. Automatic upgrade attempts skip a busy cluster and try again during a later scheduled check.
 
 Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
 while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
@@ -244,6 +262,12 @@ separate health problem prevents it.
 While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
 and app stack upgrades cannot start on that cluster. Operations that are part of the infrastructure upgrade itself
 continue normally.
+
+Backups, cron jobs, app service actions, and database tasks on the cluster that start while an upgrade is running wait
+for it. Their tasks show `Waiting for cluster maintenance to finish` and run when the upgrade ends, so a scheduled
+backup or cron job that comes due during the upgrade runs a little late instead of failing. A task still stops at its
+usual time limit if the upgrade takes longer: one hour for cron jobs and app service actions, about six hours for
+backups.
 
 Manual infrastructure version upgrades and manual infrastructure app stack upgrades are not available for Wodby Cloud
 clusters. Wodby Cloud infrastructure is operated by Wodby and can still be upgraded automatically by Wodby.
@@ -274,10 +298,10 @@ infrastructure version upgrades and infrastructure app stack upgrades can start 
 Version policy settings affect automatic upgrades only. You can still run a manual infrastructure or infrastructure app
 upgrade when the dashboard offers one.
 
-In the dashboard, auto-update settings are in the same two cards as the manual actions:
+In the dashboard, open `Infrastructure > Operations`. Each upgrade type has its own card:
 
-- `Infrastructure > Operations > Wodby infrastructure > Auto updates`
-- `Infrastructure > Operations > Infrastructure app stacks > Auto updates`
+- `Wodby infrastructure auto upgrade settings`
+- `Infrastructure apps auto upgrade settings`
 
 Each section has an `Auto upgrade` switch and `Patch versions`, `Minor versions`, and `Major versions` policy
 checkboxes. The infrastructure app stacks section also has a `Same version (newer revisions)` checkbox. Same-version,
@@ -306,8 +330,8 @@ Wodby sends email notifications when automatic infrastructure upgrades succeed o
 ## Component updates
 
 Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
-available, the `Component updates` card appears at `Clusters > [Cluster] > Infrastructure > Operations`. Choose `Update`
-and confirm to run it as a task.
+available, the `Component updates` card appears above the component list at
+`Clusters > [Cluster] > Infrastructure > Components`. Choose `Update` and confirm to run it as a task.
 
 | Cluster | Components |
 | --- | --- |
@@ -342,7 +366,7 @@ in one of two ways:
 Which one delivers a given fix depends on your provider, so check its release notes first.
 
 On [K3S](k3s.md), you own the server, so you update its operating system and kernel yourself. See
-[Install a patched kernel](#install-a-patched-kernel) for the commands.
+[Operating system and kernel updates](k3s.md#operating-system-and-kernel-updates) for the steps.
 
 ### Check what changed on your nodes
 
@@ -449,6 +473,23 @@ Open the task to follow progress and review provider details. If an upgrade fail
 the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes
 the remaining stages instead of trying to start an unrelated transition.
 
+### How upgrades affect your apps
+
+A Kubernetes version update, including a patch version, can restart your apps:
+
+- **Managed Kubernetes:** providers usually update worker nodes by replacing them. Kubernetes moves your pods from each
+  old node to its replacement, so every pod restarts once. An app that keeps a volume can take longer, because the
+  volume has to detach from the old node and attach to the new one.
+- **DigitalOcean Kubernetes:** before the upgrade, Wodby turns on surge upgrades for the cluster. DigitalOcean then
+  starts a replacement node before it removes an old one, so your pods have somewhere to move. The extra node is billed
+  while it runs, and your DigitalOcean account needs room for one more Droplet.
+- **K3S:** Wodby updates K3S in place. The server node isn't drained, so apps on it keep running, and the Kubernetes API
+  is unavailable for a short time while K3S restarts. In clusters with agent nodes, Wodby drains each agent node in
+  turn, so pods on agent nodes restart once.
+
+On a single-node cluster, an app with one replica is unavailable while its pod restarts. To keep an app available during
+upgrades, run the cluster with at least two nodes and the app with at least two replicas.
+
 ### Amazon EKS add-ons
 
 On Amazon EKS, the upgrade also updates the vpc-cni, kube-proxy, CoreDNS, and EBS CSI driver add-ons after the nodes. Each
@@ -462,3 +503,67 @@ configuration, can be overwritten.
 
 If this stage fails, repeat the failed task. The retry leaves the control plane and nodes as they are and resumes the
 add-on updates. An EKS cluster without the EKS-managed vpc-cni or EBS CSI driver add-on keeps those components unchanged.
+
+### Automatic Kubernetes upgrades
+
+Wodby can upgrade a cluster's Kubernetes version for you during a time window you choose. An automatic upgrade is the
+same upgrade you can start from the `Kubernetes version` card, and it follows the same
+[upgrade policy](#upgrade-policy).
+
+Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. Wodby Cloud clusters and
+serverless clusters such as GKE Autopilot don't have them.
+
+To change them:
+
+1. Open `Clusters > [Cluster] > Infrastructure > Kubernetes`.
+2. In the `Kubernetes auto upgrade settings` card, turn `Auto upgrade` on or off.
+3. Under `Version changes`, choose which upgrades Wodby can start. Select at least one:
+    - `Patch versions`: a newer patch of the current minor version, such as `1.36.4` to `1.36.5`. This includes a newer
+      provider build of the same version, such as `1.36.5-do.1` to `1.36.5-do.2`.
+    - `Minor versions`: the next minor version, such as `1.36` to `1.37`. With
+      `Only after the current minor reaches end of life` selected, Wodby waits until your current minor version reaches
+      end of life. While its end-of-life date is unknown, Wodby doesn't start the upgrade.
+4. Set the [time window](../automation-time-windows.md) and save.
+
+By default only `Patch versions` is selected. Patch versions bring security and bug fixes and keep your cluster on the
+same minor version. A new minor version can remove Kubernetes APIs your workloads use, so check your workloads before
+you allow minor upgrades.
+
+New clusters get a `02:00` to `04:00` window in your organization's time zone. Clusters created before automatic
+Kubernetes upgrades were available get the same hours in `UTC` unless you've changed the setting, so check the window
+and its time zone. With `Time window` turned off, an upgrade can start at any time.
+
+If you don't want Wodby to upgrade a cluster's Kubernetes version automatically, turn `Auto upgrade` off. Your choice is
+kept.
+
+#### When an upgrade starts
+
+Wodby checks every 30 minutes. It starts an upgrade when the time window is open, the cluster is in `OK` status, no
+other upgrade or [blocking app activity](#app-activity-during-infrastructure-upgrades) is running, and the policy allows
+the next version.
+
+An automatic upgrade affects your apps the same way as a manual one. See
+[How upgrades affect your apps](#how-upgrades-affect-your-apps).
+
+Wodby runs one automatic upgrade on a cluster at a time. If an infrastructure version upgrade is pending and
+[automatic infrastructure upgrades](#automatic-infrastructure-upgrades) will apply it, Wodby runs it first, during its
+own time window. The Kubernetes upgrade starts after it. Pending infrastructure app upgrades wait for the Kubernetes
+upgrade.
+
+Some providers keep clusters up to date on their own, so automatic patch upgrades often have nothing left to do:
+
+- OVH Managed Kubernetes clusters created by Wodby update themselves.
+- Google upgrades GKE clusters enrolled in a release channel.
+- Amazon EKS applies control plane patches itself.
+
+#### Tasks and failures
+
+An automatic upgrade runs as a task, the same as a manual one. Task history shows it as started by Wodby.
+
+If an automatic upgrade fails before the provider starts changing the cluster, the cluster returns to `OK`. Wodby
+doesn't try the same version again automatically for 24 hours. If it fails after the provider has started, the cluster
+stays in an error state and Wodby stops automatic upgrades for it. Open the failed task, resolve the reported problem,
+and repeat the task. See [Run an upgrade](#run-an-upgrade).
+
+Wodby sends email notifications when an automatic Kubernetes upgrade succeeds or fails. You can manage these from
+`User settings > Notifications`. Automatic Kubernetes upgrades also appear in the weekly organization report.

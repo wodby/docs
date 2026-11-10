@@ -252,9 +252,16 @@ Used by `workloads[].containers[].resources` and `derivatives[].resources`.
 CPU values are in millicores (`1000` is one core) and must be multiples of `10`. Memory values are in MiB and must be
 multiples of `16`.
 
-Resources under `workloads[].containers[].resources` are defaults. A container deploys with them unless its stack
-service or app service sets resources for it, which replace the defaults as a whole. Set a memory limit for runtimes
-that size their memory from it, such as the JVM.
+Resources under `workloads[].containers[].resources` are defaults. A stack service or app service can override each
+value separately; the values it leaves out keep these defaults. A container that ends up with no request gets the
+minimum of 10m CPU and 16 MiB of memory. Set a memory limit for runtimes that size their memory from it, such as the
+JVM.
+
+Resources under `derivatives[].resources` are defaults for the main container (the first container of the primary
+workload) when that derivative runs. Each value replaces only that default of the main container, and the values left
+out keep it, so a worker can set a smaller memory request without repeating the rest. A value you set wins over a
+default it conflicts with, and `0` means none. A stack service or app service can still override each value.
+Derivatives can't set GPU resources.
 
 ### Selector object
 
@@ -1515,7 +1522,8 @@ Each item supports:
 - `required`: optional boolean.
 - `env`: optional environment variables.
 - `endpoints`: optional endpoint overrides.
-- `resources`: optional resource overrides.
+- `resources`: optional resource defaults for the main container when this derivative runs. See
+  [Resources object](#resources-object).
 - `helm`: optional Helm values.
 
 Derivative names must start with the parent service name followed by a dash and must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names). For example, derivatives of `php` should use names like `php-sshd`.

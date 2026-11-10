@@ -74,6 +74,7 @@ These tools require `mcp:read` when using OAuth.
 | `list_cluster_storage_classes` | List a cluster's Kubernetes storage classes, which ones can be chosen for a volume, and the default one. |
 | `get_kubernetes_version_upgrade_plan` | Read a cluster's current Kubernetes version, the versions it can move to directly, and anything blocking the upgrade or worth a warning. |
 | `get_cluster_infra_app_upgrade_changelog` | Preview what `upgrade_cluster_infra_apps` would change: per infrastructure app, the stack versions and per-service changes with release notes. |
+| `list_cluster_host_checks` | List what a K3S cluster's server last reported about its protections against the Linux kernel bug CVE-2026-98432, such as the IPv4 options filter. Each check is protected, not protected or unknown, with a message on what to do. Managed clusters have no host checks. |
 | `list_cluster_component_updates` | List the updates Wodby can apply to single components of a cluster, such as Cilium on K3S or EKS add-ons, without a Kubernetes or infrastructure upgrade. Most components can't be updated this way, so the list is often empty. |
 | `get_kubernetes_cluster_options` | Get provider-backed Kubernetes regions or zones, machine types, versions, and settings for a Kubernetes integration. |
 | `get_wodby_cloud_options` | Get Wodby Cloud regions, machine types, pricing, and creation notes. |
@@ -201,7 +202,7 @@ configuration changes.
 | `rename_app` | Change the title an app is shown with. Its machine name, which names its Kubernetes resources and domains, never changes. |
 | `rename_app_environment` | Change the title an app environment is shown with. Its machine name, which names its namespace and generated domains, never changes. |
 | `update_cluster` | Update a cluster title. |
-| `update_cluster_settings` | Update cluster settings such as automatic infrastructure upgrades. Requires `confirm: true`. |
+| `update_cluster_settings` | Update cluster settings such as automatic infrastructure and Kubernetes version upgrades. Requires `confirm: true`. |
 | `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
 | `update_database` | Update a database title. |
 | `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |

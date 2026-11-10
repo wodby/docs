@@ -8,11 +8,12 @@ Time windows are available for:
 - automatic app environment stack upgrades
 - automatic cluster infrastructure version upgrades
 - automatic cluster infrastructure app stack upgrades
+- automatic cluster Kubernetes version upgrades
 - automatic backups from app, database, and organization-wide backup presets
 
 Each supported upgrade setting has its own window. For example, a cluster can use different windows for infrastructure
-version upgrades and infrastructure app upgrades, and app environments that share a stack can use different upgrade
-windows.
+version, infrastructure app, and Kubernetes version upgrades, and app environments that share a stack can use different
+upgrade windows.
 
 Catalog operations that do not change running workloads do not use time windows. Git auto-updates of services and
 stacks, automatic stack service revision updates, and automatic sync of copied stacks with their origin can create new
