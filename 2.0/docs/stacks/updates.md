@@ -144,6 +144,32 @@ stack-level defaults changed, or stack service configuration changed.
 The update form is available only on the latest stack revision. Older stack revisions can be viewed, but they cannot be
 updated from Git.
 
+### Service versions on updates from Git
+
+By default, an update from Git moves every stack service that `stack.yml` names without a version, such as
+`service: mariadb`, to the service's latest version, including major versions. To change that, open `Operations` and
+choose `Service versions` in the `Git auto update settings` card:
+
+| Option | What an update from Git does with existing stack services |
+| --- | --- |
+| Always update to latest | Moves them to the service's latest version. This is the default. |
+| Use service auto update settings | Moves them only when `Services auto update` is enabled and its policy allows the update, for example `Update stateless only` or no major updates. Otherwise they keep their version. |
+| Do not update services | Keeps their current versions. |
+
+The setting applies to automatic and manual updates from Git. The `Update from Git` form shows the same choice, preset
+from the setting, so a single update can use a different option. When you update every stack and service that uses the
+same repository, each stack uses its own setting.
+
+In every mode:
+
+- a versioned reference such as `php:8.3` selects that version;
+- a stack service pinned with [`serviceRevPinned`](template.md#servicesservicerevpinned) keeps its version;
+- a stack service that is new in `stack.yml` uses the latest version;
+- a stack service whose `stack.yml` configuration needs a newer version, for example an option, volume, or link that
+  only the newer version has, moves to that version.
+
+The update task log lists the stack services it kept and the ones it moved anyway, with the reason.
+
 ## Delete a Git-backed stack
 
 Open `Stacks`, select the stack, and go to `Edit`. Git-backed stacks show the delete action on the `Edit` tab, not on
