@@ -146,19 +146,20 @@ updated from Git.
 
 ### Service versions on updates from Git
 
-By default, an update from Git moves every stack service that `stack.yml` names without a version, such as
-`service: mariadb`, to the service's latest version, including major versions. To change that, open `Operations` and
-choose `Service versions` in the `Git auto update settings` card:
+An update from Git decides what happens to existing stack services that `stack.yml` names without a version, such as
+`service: mariadb`:
 
-| Option | What an update from Git does with existing stack services |
+- **Automatic updates**, which run when the repository gets new commits or tags, follow `Service versions` in the
+  `Git auto update settings` card on `Operations`. The default is `Use service auto update settings`.
+- **Manual updates** move these stack services to the service's latest version, including major versions. This
+  covers the `Update from Git` form, the API, and updating every stack and service that uses the same repository. The
+  `Update from Git` form has its own `Service versions` choice for that one update.
+
+| Option | What the update does with existing stack services |
 | --- | --- |
-| Always update to latest | Moves them to the service's latest version. This is the default. |
+| Always update to latest | Moves them to the service's latest version, including major versions. |
 | Use service auto update settings | Moves them only when `Services auto update` is enabled and its policy allows the update, for example `Update stateless only` or no major updates. Otherwise they keep their version. |
 | Do not update services | Keeps their current versions. |
-
-The setting applies to automatic and manual updates from Git. The `Update from Git` form shows the same choice, preset
-from the setting, so a single update can use a different option. When you update every stack and service that uses the
-same repository, each stack uses its own setting.
 
 In every mode:
 
