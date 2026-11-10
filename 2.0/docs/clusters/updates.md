@@ -390,6 +390,18 @@ system, with the number of nodes running each.
 Wodby infrastructure upgrades don't change managed nodes. Your cluster can show version `4.1.4`, but that doesn't protect it
 from this bug. To fix the bug, move your nodes to a patched image from your provider.
 
+To see whether your nodes have the fix, open `Clusters > [Cluster] > Infrastructure > Overview`. The
+`Security advisories` table at the bottom shows CVE-2026-98432 as **Fixed** or **Not fixed**. When the nodes aren't fixed,
+the row links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a
+fixed image yet, the row has no link. Wodby reads this from the node images of EKS and AKS node pools, and from the
+kernel and GKE versions that DigitalOcean and GKE nodes report. For DigitalOcean and GKE, a new result can take up to six
+hours to appear.
+
+The row doesn't appear when Wodby can't tell, for example on OVH Managed Kubernetes, on GKE nodes that run Ubuntu or
+GKE 1.37, and on AKS FIPS node images. Follow the steps below for those clusters. The same results are available through
+the [API](../api/index.html) as `GET /v1/cluster-security-advisories/{id}` and the [MCP tool](../dev/mcp/tools.md)
+`list_cluster_security_advisories`.
+
 1. Check your provider's security bulletin to confirm that it has released a patched node image. For example, see the
    [AWS bulletin](https://aws.amazon.com/security/security-bulletins/2026-160-aws/).
 2. Replace your nodes during a maintenance window, using the option for your cluster:
