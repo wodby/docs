@@ -37,6 +37,10 @@ values replaces only that default. If you set only a memory limit, the container
 requests. If you change only the CPU request, the memory request stays as it was. A stack's values apply on top of the
 service defaults in the same way, and an app service's values on top of the stack's.
 
+A [derivative service](../services/derivatives.md), such as a cron runner or a queue worker, can have its own defaults
+for the main container in the service manifest. Each value it sets replaces only that default of the parent service,
+and stack and app service values still apply on top.
+
 Every container requests at least 10m CPU and 16 MiB of memory, even when nothing sets a request, but never more than
 its limit. Without a request, Kubernetes would reserve the whole limit for a container that sets only a limit, or
 reserve nothing at all.
@@ -44,8 +48,8 @@ reserve nothing at all.
 Kubernetes doesn't allow a request above its limit. If a value you set and a default would end up that way, your value
 wins: a default request is lowered to your limit, and a default limit is raised to your request.
 
-Autoscaling needs a CPU request set by the service, the stack, or the app service. The minimum request alone isn't
-enough.
+Autoscaling needs a CPU request of at least `100` millicores on the main container, set by the service, the stack, or
+the app service. The minimum request alone isn't enough. See [Autoscaling rules](#autoscaling-rules).
 
 App services can also request GPUs with **GPU devices**: a device name, such as `nvidia.com/gpu`, and the number of
 GPUs for each replica. A count of `0` turns off the GPU request of the service's default configuration. App services
@@ -119,7 +123,11 @@ The same refusal applies when you create an environment through the API, the CLI
 
 A check that passes doesn't guarantee a deployment:
 
-- Services that define no resource requests count as nothing, even though they use resources.
+- Services count only what they request, which can be much less than they use under load. A container that nothing
+  gives a request counts as the minimum of 10m CPU and 16 MiB of memory.
+- Short-lived jobs aren't counted. Post-deploy steps, actions, cron runs and backup creation reserve nothing, so they
+  always fit next to the service they run for, but they can use up to the service's limits. Backup uploads and imports
+  reserve at most 50m CPU and 64 MiB of memory and can use up to 1 GiB of memory.
 - Enough capacity in total can still be split across nodes so that a replica doesn't fit on any one of them.
 - Only creating an environment is checked. Enabling a service or raising its resources later isn't.
 
@@ -139,9 +147,17 @@ Turn **Autoscaling** on to reveal:
 - **Maximum replicas**
 - **Avg. CPU utilization**, as a percentage of requested CPU
 
-**Requested CPU** must be at least `100` millicores. If the primary container already has a CPU request, the field is
-pre-filled with that value. Changing it here updates the same app-service resource override shown on the
-**Resources** tab before Wodby enables the autoscaling rule.
+**Requested CPU** must be at least `100` millicores. Set it to what one replica uses under normal load: autoscaling
+compares CPU use with this request, so a request near idle use adds replicas at almost any traffic.
+
+When you turn autoscaling on, the field keeps a CPU request of at least `100` millicores that the app service or the
+stack already sets. Otherwise it suggests `500` millicores, or the service's default if that is higher. Service
+defaults are sized close to idle use, which is too low for autoscaling. Changing the field updates only the CPU request
+on the **Resources** tab before Wodby enables the autoscaling rule; the other resource values stay as they are.
+
+While autoscaling is on, the main container's CPU request can't be removed or lowered below `100` millicores. A rule
+set up earlier with a smaller request keeps working until you change its autoscaling settings or the main container's
+resources.
 
 While autoscaling is on, the manual **Replicas** field is disabled. Wodby controls the replica count between the
 configured minimum and maximum, using the minimum as the baseline. Turn **Autoscaling** off to clear the saved rule
