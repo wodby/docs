@@ -144,6 +144,45 @@ up. A copy of the stack in another organization or project uses the guide of the
 docs: https://wodby.com/docs/2.0/stacks/catalog/go/
 ```
 
+### `variantOf`
+
+Type: `string`. Optional.
+
+Name of the main stack this stack is a variant of. Use it for stacks that run the same application in a different way,
+for example a stack that builds Matomo from your repository next to a stack that runs the prebuilt Matomo image. The
+stack page in the dashboard lists the other variants under `Other variants of this stack`, so people can find the one
+that fits.
+
+- The main stack must belong to the same organization.
+- The main stack can't be a variant itself, and a stack that has variants can't become one.
+- The main stack can be imported later. The variants appear once both stacks exist.
+- A copy of the stack, for example one added from the catalog, is not a variant.
+
+```yaml
+name: matomo-buildable
+title: Matomo (buildable)
+variantOf: matomo
+```
+
+### `variant`
+
+Type: `string`. Optional. Requires `variantOf`.
+
+Short label that tells this variant apart, such as `Buildable`. Up to 64 characters.
+
+### `variantDescription`
+
+Type: `string`. Optional.
+
+When to choose this stack over its other variants. The stack page shows it under the link to this stack on the other
+variants' pages. Up to 500 characters. The main stack can have one too, without `variantOf`.
+
+```yaml
+variantDescription: >-
+  Choose this when you want to customize Matomo: pin the Matomo version and add
+  your own plugins in a Git repository, and Wodby builds Matomo from it.
+```
+
 ### `access`
 
 Type: `object`.

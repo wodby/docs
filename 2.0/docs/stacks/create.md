@@ -46,6 +46,10 @@ The copied stack can be customized and deployed like any other stack. It keeps a
 [sync catalog changes](updates.md#sync-with-origin). The add form lets you decide whether `Services auto update` and
 `Auto sync with origin` start enabled.
 
+Some catalog stacks come in variants, such as Matomo, which runs the prebuilt image, and Matomo (buildable), which builds
+Matomo from your own repository. The stack page lists them under `Other variants of this stack`, with a note on when to
+choose each one.
+
 ## Create a stack from scratch
 
 Use the dashboard when you want to assemble the stack interactively.
