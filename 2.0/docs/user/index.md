@@ -1,3 +1,7 @@
+---
+description: User settings hold your personal Wodby account and security controls, including profile, preferences, emails, notifications and security.
+---
+
 # User settings
 
 User settings contain personal account and security controls that apply to your Wodby user, not just to a single project.

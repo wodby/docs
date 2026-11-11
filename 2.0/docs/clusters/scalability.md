@@ -1,3 +1,7 @@
+---
+description: Scale the worker capacity of a managed Kubernetes cluster in Wodby with minimum and maximum node counts and autoscaling.
+---
+
 # Cluster scalability
 
 ## Manual scaling

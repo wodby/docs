@@ -18,11 +18,10 @@ DANGLING = " ,;:-–—(/"
 
 def on_page_content(html, *, page, config, files):
     """Describe the page before the theme renders its head; a description set in front matter wins."""
-    if not page.meta.get("description"):
-        description = describe(html)
-        if description:
-            # The theme writes the value into a double-quoted attribute as is, so it must already be safe there.
-            page.meta["description"] = escape(description, quote=False).replace('"', "&quot;")
+    description = str(page.meta.get("description") or "").strip() or describe(html)
+    if description:
+        # The theme writes the value into a double-quoted attribute as is, so it must already be safe there.
+        page.meta["description"] = escape(description, quote=False).replace('"', "&quot;")
     return html
 
 

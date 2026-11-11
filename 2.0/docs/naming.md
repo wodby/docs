@@ -1,3 +1,7 @@
+---
+description: Rules for machine names in Wodby, including Kubernetes names, service names, port names, generated resource names and database names.
+---
+
 # Naming rules
 
 Machine names are permanent identifiers used in URLs, generated Kubernetes resources, stack and service templates, and provider APIs. Prefer short, descriptive names.

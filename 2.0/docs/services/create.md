@@ -1,3 +1,7 @@
+---
+description: Create a reusable Wodby service from a Wodby repository, your own Git repository, a local manifest or a Helm chart, then add it to a stack.
+---
+
 # Create a service
 
 A service is a reusable definition of software or behavior that can be added to a [stack](../stacks/index.md). Creating

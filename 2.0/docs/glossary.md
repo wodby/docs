@@ -1,3 +1,7 @@
+---
+description: Definitions of Wodby terms such as app, app environment, app service, endpoint, integration, backup preset and preview environment.
+---
+
 # Glossary
 
 ## App

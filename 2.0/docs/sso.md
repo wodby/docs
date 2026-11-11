@@ -1,3 +1,7 @@
+---
+description: Set up Single Sign-On for a Wodby organization with OIDC, Google Workspace, GitHub Organization or SAML 2.0, including domain verification.
+---
+
 # Single Sign-On
 
 Single Sign-On (SSO) lets users sign in to Wodby through your organization's identity provider.

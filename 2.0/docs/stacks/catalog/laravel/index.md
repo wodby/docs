@@ -1,3 +1,7 @@
+---
+description: Deploy Laravel on Wodby with the Laravel catalog stack, which runs PHP-FPM behind Nginx with MariaDB, Valkey, shared file storage and Mailpit.
+---
+
 # Laravel
 
 The Wodby Laravel catalog stack runs Laravel on PHP-FPM behind Nginx, with MariaDB, Valkey, shared file storage and

@@ -1,3 +1,7 @@
+---
+description: Deploy Dagster on Wodby with the Dagster catalog stack, which runs the Dagster webserver and daemon with the PostgreSQL database that stores its data.
+---
+
 # Dagster
 
 The Wodby Dagster catalog stack runs the Dagster webserver and daemon with a PostgreSQL database. Dagster stores its

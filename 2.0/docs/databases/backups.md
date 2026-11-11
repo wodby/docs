@@ -1,3 +1,7 @@
+---
+description: Run one-off database backups and manage backup presets in Wodby, with automatic schedules, storage destinations and failure notifications.
+---
+
 # Database backups
 
 From `Databases > [Database] > Backups` you can run one-off backups and manage backup presets.

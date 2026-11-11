@@ -1,3 +1,7 @@
+---
+description: Deploy Chatwoot on Wodby with the Chatwoot catalog stack, which runs it with a Sidekiq worker, PostgreSQL with pgvector, Redis and shared storage.
+---
+
 # Chatwoot
 
 The Wodby Chatwoot catalog stack runs Chatwoot with a Sidekiq worker, PostgreSQL with pgvector, Redis, shared

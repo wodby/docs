@@ -1,3 +1,7 @@
+---
+description: Make a Wodby app highly available across the Kubernetes cluster, stateless and stateful app services, and the distributed storage they depend on.
+---
+
 # Application High Availability
 
 High availability depends on more than one layer. To make an app highly available, look at the cluster, the app services themselves, and the storage they depend on.

@@ -1,3 +1,7 @@
+---
+description: Automation time windows set when Wodby may start automatic stack, infrastructure and Kubernetes upgrades and automatic backups.
+---
+
 # Automation time windows
 
 Automation time windows define when Wodby may start scheduled automation. Upgrade windows restrict changes to running

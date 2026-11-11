@@ -1,3 +1,7 @@
+---
+description: Run an frps server on Wodby with the FRP Server catalog stack to publish HTTP hostnames for workloads outside the cluster through a tunnel.
+---
+
 # FRP Server
 
 The Wodby FRP Server catalog stack runs an [`frps`](https://gofrp.org/en/)

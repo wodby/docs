@@ -1,3 +1,7 @@
+---
+description: Run Grafana on its own on Wodby with the Grafana catalog stack. Open the Grafana domain and sign in with the generated admin username and password.
+---
+
 # Grafana
 
 The Wodby Grafana catalog stack runs Grafana on its own. The current composition and defaults are in

@@ -1,3 +1,7 @@
+---
+description: Deploy Mautic marketing automation on Wodby with the Mautic catalog stack, which runs it with MariaDB, shared NFS storage, OpenSMTPD and two workers.
+---
+
 # Mautic
 
 The Wodby Mautic catalog stack runs [Mautic](https://www.mautic.org/), the open source marketing automation platform,

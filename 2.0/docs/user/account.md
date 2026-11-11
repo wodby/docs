@@ -1,3 +1,7 @@
+---
+description: Update your display name or permanently delete your Wodby account from the Account page in user settings, and see what to review first.
+---
+
 # Account
 
 The `Account` page in user settings is the basic profile page for your Wodby user.

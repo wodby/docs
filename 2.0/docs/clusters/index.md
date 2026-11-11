@@ -1,3 +1,7 @@
+---
+description: Manage Kubernetes clusters in Wodby. Set the environment type of a cluster, control which app environments may use it, and find related guides.
+---
+
 # Clusters
 
 Manage your clusters from `Clusters` in the dashboard. To create or connect your first cluster,

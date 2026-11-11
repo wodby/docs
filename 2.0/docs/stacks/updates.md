@@ -1,3 +1,7 @@
+---
+description: Update a Wodby stack by moving to new service revisions, updating from Git or syncing with its origin, then publish the draft and upgrade apps.
+---
+
 # Stack updates
 
 Stacks are versioned. Dashboard-managed stack configuration edits create or update an unpublished draft revision first.

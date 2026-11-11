@@ -1,3 +1,7 @@
+---
+description: Use managed databases such as Cloud SQL, AWS RDS, Azure and DigitalOcean with Wodby apps, with encrypted connections and placement near a cluster.
+---
+
 # Managed Databases
 
 ## Overview

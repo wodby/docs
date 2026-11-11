@@ -1,3 +1,7 @@
+---
+description: Wodby Blob Storage is the built-in destination for app and database backups, with no bucket or integration to manage. Availability and billing.
+---
+
 # Wodby Blob Storage
 
 Wodby Blob Storage is the built-in object storage destination for application and database backups. Choose it when

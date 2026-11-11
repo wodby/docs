@@ -1,3 +1,7 @@
+---
+description: Wodby CI/CD uses one CLI workflow for Wodby CI and third-party CI providers. Follow the init, build, push and deploy steps.
+---
+
 # CI/CD
 
 Wodby uses the same CLI-driven workflow for both the built-in [Wodby CI](wodby-ci.md) and [third-party CI providers](third-party.md). The main difference is the identifier passed to `wodby ci init`:

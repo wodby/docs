@@ -1,3 +1,7 @@
+---
+description: Create database users in Wodby, choose which DBs each user can access, reveal passwords on demand, and delete users you no longer need.
+---
+
 # Database users
 
 From `Databases > [Database] > Users` you can create database users.

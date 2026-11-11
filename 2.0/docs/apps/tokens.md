@@ -1,3 +1,7 @@
+---
+description: Tokens are named values you reference from environment variables and generated configuration. See the token names and every available token group.
+---
+
 # Tokens
 
 Tokens are named text values that can be referenced from environment variables and other generated configuration.

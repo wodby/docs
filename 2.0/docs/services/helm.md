@@ -1,3 +1,7 @@
+---
+description: How Wodby services use Helm, including chart sources, CRD charts, value mappings for injected configuration, and import validation.
+---
+
 # Service Helm Integration
 
 We use [Helm](https://helm.sh/) to deploy non-external services to Kubernetes.

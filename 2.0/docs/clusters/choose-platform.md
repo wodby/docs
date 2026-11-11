@@ -1,3 +1,7 @@
+---
+description: Choose where your applications run on Wodby. Compare managed Kubernetes in your cloud account, a self-hosted K3S server, and Wodby Cloud.
+---
+
 # Choose a cluster option
 
 Choose where your applications will run and who will manage the cluster:

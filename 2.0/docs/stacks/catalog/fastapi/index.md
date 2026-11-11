@@ -1,3 +1,7 @@
+---
+description: Deploy a FastAPI application on Wodby with the FastAPI catalog stack, a Python app service with optional PostgreSQL, Valkey, Mailpit and OpenSMTPD.
+---
+
 # FastAPI
 
 The Wodby FastAPI catalog stack runs a Python (FastAPI) app service with optional PostgreSQL, Valkey, Mailpit,

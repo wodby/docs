@@ -1,3 +1,7 @@
+---
+description: Run a single Apache Kafka node in KRaft mode on Wodby with the Apache Kafka catalog stack. The node is both broker and controller, with no ZooKeeper.
+---
+
 # Apache Kafka
 
 The Wodby Apache Kafka catalog stack runs a single Apache Kafka node. The current composition and defaults are in

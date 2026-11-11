@@ -1,3 +1,7 @@
+---
+description: Use the Stripe provider in Wodby to inject Stripe keys and a webhook signing secret into app services and stacks as environment variables.
+---
+
 # Stripe
 
 Stripe is available in Wodby as a `variable` provider. Use it when you want to inject Stripe keys into app services or stacks through an integration.

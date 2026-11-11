@@ -1,3 +1,7 @@
+---
+description: Deploy Keycloak in production mode with a PostgreSQL database on Wodby with the Keycloak catalog stack, and sign in with the generated admin password.
+---
+
 # Keycloak
 
 The Wodby Keycloak catalog stack runs Keycloak in production mode with a PostgreSQL database. The current composition is

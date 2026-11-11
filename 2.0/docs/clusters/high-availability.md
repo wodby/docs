@@ -1,3 +1,7 @@
+---
+description: Make a Kubernetes cluster highly available with a highly available control plane and nodes in several availability zones, and see the multi-region limits.
+---
+
 # Cluster high availability
 
 ## Overview

@@ -1,3 +1,7 @@
+---
+description: Add a build section to a Wodby service so it can receive images built in CI/CD, as a build source or as a build image target.
+---
+
 # Service build
 
 ## Overview

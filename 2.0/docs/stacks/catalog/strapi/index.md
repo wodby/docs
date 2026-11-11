@@ -1,3 +1,7 @@
+---
+description: Deploy Strapi on Wodby with the Strapi catalog stack, a Node.js app service that keeps content in PostgreSQL and uploaded media on a volume.
+---
+
 # Strapi
 
 The Wodby Strapi catalog stack runs a Node.js (Strapi) app service with PostgreSQL and optional Mailpit, OpenSMTPD, and

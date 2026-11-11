@@ -1,3 +1,7 @@
+---
+description: Run a self-hosted NetBird server on Wodby with the NetBird catalog stack, a WireGuard-based private network that connects your devices and servers.
+---
+
 # NetBird
 
 The Wodby NetBird catalog stack runs a self-hosted [NetBird](https://netbird.io/) server: a WireGuard-based private

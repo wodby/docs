@@ -1,3 +1,7 @@
+---
+description: Connect Twilio SendGrid to Wodby with one API key to relay email over SMTP, inject the key into application containers, or both.
+---
+
 # SendGrid
 
 Twilio SendGrid exposes `smtp` and `variable` integration kinds in Wodby. Both kinds use the same API key, so select

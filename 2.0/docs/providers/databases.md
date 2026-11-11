@@ -1,3 +1,7 @@
+---
+description: Database providers let Wodby create and manage database servers in your cloud account. Where they are used and which providers are supported.
+---
+
 # Database providers
 
 Database providers are third-party services whose integrations expose the `db` type. Use this group when you want Wodby to create and manage provider-managed database servers inside your cloud account.

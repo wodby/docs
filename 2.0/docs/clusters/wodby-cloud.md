@@ -1,3 +1,7 @@
+---
+description: Wodby Cloud is managed Kubernetes that Wodby creates and operates for you. Create a cluster and learn about upgrades, Demo clusters and billing.
+---
+
 # Wodby Cloud
 
 If you do not want to bring your own cloud account or server, you can use Wodby Cloud.

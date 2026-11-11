@@ -1,3 +1,7 @@
+---
+description: Projects isolate resources by default. Learn how ownership and sharing make a Wodby resource available to other projects, and what sharing does not do.
+---
+
 # Ownership and sharing
 
 Projects isolate resources by default. Sharing is how a resource becomes visible or usable outside its owner scope.

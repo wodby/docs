@@ -1,3 +1,7 @@
+---
+description: Manage the email addresses on your Wodby account. Add and verify a secondary email, change your primary email, or delete an address.
+---
+
 # Emails
 
 Manage your email addresses from `User settings > Emails`.

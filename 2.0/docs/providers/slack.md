@@ -1,3 +1,7 @@
+---
+description: Use the Slack provider in Wodby to store a Slack API token and inject it as SLACK_TOKEN into the services that request the Slack integration.
+---
+
 # Slack
 
 Slack is available in Wodby as a `variable` provider. It stores a Slack API token and exposes it only to services that

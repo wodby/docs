@@ -1,3 +1,7 @@
+---
+description: Deploy a Python web application with Gunicorn on Wodby with the Python catalog stack and optional PostgreSQL, Valkey, Mailpit and OpenSMTPD services.
+---
+
 # Python
 
 The Wodby Python catalog stack runs a Python web application with Gunicorn. PostgreSQL, Valkey, Mailpit, OpenSMTPD,

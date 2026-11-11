@@ -1,3 +1,7 @@
+---
+description: Run single-node Elasticsearch with Kibana on Wodby with the Elasticsearch catalog stack, and link your application to it to receive connection variables.
+---
+
 # Elasticsearch
 
 The Wodby Elasticsearch catalog stack runs a single-node Elasticsearch with Kibana. The current services and defaults

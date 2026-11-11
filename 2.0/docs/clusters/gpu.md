@@ -1,3 +1,7 @@
+---
+description: Add a GPU node pool to a managed Kubernetes cluster in Wodby and run app services that need GPUs, such as model inference, on those nodes.
+---
+
 # GPU node pools
 
 A GPU node pool adds GPU nodes to a [managed Kubernetes](managed.md) cluster, next to its default node pool. Use it

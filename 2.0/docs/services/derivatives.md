@@ -1,3 +1,7 @@
+---
+description: Derivative services are additional services created from a parent service, such as an SSH variant of PHP. How they are defined and renamed.
+---
+
 # Derivative services
 
 A derivative service reuses most of a parent service's configuration. Unlike [inheritance](template.md#from),

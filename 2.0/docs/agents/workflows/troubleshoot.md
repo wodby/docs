@@ -1,3 +1,7 @@
+---
+description: Use an AI agent with read access to diagnose a failed Wodby task or deployment, collect evidence, watch logs and review any fix separately.
+---
+
 # Diagnose failures and watch logs
 
 Use read access to investigate an existing Wodby application. Diagnosis does not authorize restarts, deployments,

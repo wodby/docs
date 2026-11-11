@@ -1,3 +1,7 @@
+---
+description: Wodby skills guide AI agents through multi-step workflows. Choose a workflow, load guidance without installing anything, and check compatibility.
+---
+
 # Skills and compatibility
 
 Wodby skills describe multi-step workflows. MCP tools perform individual operations. A skill does not replace tool

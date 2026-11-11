@@ -1,3 +1,7 @@
+---
+description: Wodby Agent is the assistant built into the dashboard. Use it as a coding agent in a workspace or across an organization, with approvals and AI credits.
+---
+
 # Wodby Agent
 
 Wodby Agent is the assistant built into Wodby. You chat with it in the dashboard, in two places:

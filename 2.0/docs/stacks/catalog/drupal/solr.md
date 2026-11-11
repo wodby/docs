@@ -1,3 +1,7 @@
+---
+description: Connect Drupal to SolrCloud in the Wodby Drupal catalog stack. Enable the Solr and ZooKeeper services, then configure the Search API Solr module.
+---
+
 # Connect Drupal to Solr
 
 The Wodby Drupal catalog stack supports SolrCloud with ZooKeeper. Both the `solr` and `zookeeper` stack services are

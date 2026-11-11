@@ -1,3 +1,7 @@
+---
+description: A provider defines how Wodby connects to a third-party service. An integration stores your connection settings and credentials for that provider.
+---
+
 # Provider vs Integration
 
 A **provider** defines how Wodby connects to a third-party service. An **integration** stores your connection settings

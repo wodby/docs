@@ -1,3 +1,7 @@
+---
+description: Deploy a Vue application on Wodby with the Vue catalog stack, which builds the app in the pipeline and serves it with Nginx.
+---
+
 # Vue
 
 The Wodby Vue catalog stack serves a built Vue application with Nginx. The current service and defaults are

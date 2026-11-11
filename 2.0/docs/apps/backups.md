@@ -1,3 +1,7 @@
+---
+description: Back up app services in Wodby to Wodby Blob Storage or your own object storage, with backup presets, automatic schedules and failure notifications.
+---
+
 # Application Backups
 
 ## Overview

@@ -1,3 +1,7 @@
+---
+description: Use the PostHog provider in Wodby to inject a project token and an optional instance address into app services and stacks as environment variables.
+---
+
 # PostHog
 
 PostHog is available in Wodby as a `variable` provider. Use it to inject a project token and optional PostHog instance

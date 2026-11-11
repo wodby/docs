@@ -1,3 +1,7 @@
+---
+description: Preview environments are temporary app environments that Wodby creates for a pull request, built from its branch and seeded from a base environment.
+---
+
 # Preview environments
 
 A preview environment is a temporary [app environment](environments.md) that Wodby creates for a pull request. When a

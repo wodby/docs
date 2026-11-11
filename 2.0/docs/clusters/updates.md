@@ -1,3 +1,7 @@
+---
+description: Keep a cluster up to date in Wodby. Covers infrastructure upgrades, automatic upgrades, component updates, node updates and Kubernetes versions.
+---
+
 # Cluster updates
 
 Cluster updates are managed from the dashboard at `Clusters > [Cluster] > Infrastructure`.

@@ -1,3 +1,7 @@
+---
+description: Control what an AI agent can do in Wodby with user permissions, OAuth scopes and API keys, then review or revoke grants and inspect agent activity.
+---
+
 # Permissions, credentials, and audit history
 
 Use a separate connection for each agent or automation, and grant only the access needed for its current job.

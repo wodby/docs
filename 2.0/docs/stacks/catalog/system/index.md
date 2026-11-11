@@ -1,3 +1,7 @@
+---
+description: The Kubernetes system stacks that Wodby deploys as infrastructure apps to operate a cluster. Which ones run depends on the provider and features.
+---
+
 # Kubernetes system stacks
 
 Wodby deploys these stacks as [infrastructure apps](../../../clusters/infrastructure.md) that operate a cluster. You

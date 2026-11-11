@@ -1,3 +1,7 @@
+---
+description: Use the Discord provider in Wodby to store a Discord bot token and inject it into app services and stacks as DISCORD_BOT_TOKEN.
+---
+
 # Discord
 
 Discord is available in Wodby as a `variable` provider. Use it when you want to inject a Discord bot token into app services or stacks through an integration.

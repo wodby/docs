@@ -1,3 +1,7 @@
+---
+description: Deploy a SvelteKit application on Wodby with the SvelteKit catalog stack, a Node.js server with optional PostgreSQL, Valkey and mail services.
+---
+
 # SvelteKit
 
 The Wodby SvelteKit catalog stack runs a Node.js (SvelteKit) app service with optional PostgreSQL, Valkey, Mailpit,

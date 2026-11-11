@@ -1,3 +1,7 @@
+---
+description: Push the images built in CI to the container registry of your application with wodby ci push, using credentials set up by wodby ci init.
+---
+
 # Container Registry
 
 `wodby ci init` requests registry credentials for the current build and logs Docker in to the registry associated with your application.

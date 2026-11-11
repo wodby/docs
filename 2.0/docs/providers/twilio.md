@@ -1,3 +1,7 @@
+---
+description: Use the Twilio provider in Wodby to store Twilio credentials once and inject them into app services and stacks as environment variables.
+---
+
 # Twilio
 
 Twilio is available in Wodby as a `variable` provider. Use it when you want to inject Twilio credentials into app services or stacks through an integration.

@@ -1,3 +1,7 @@
+---
+description: Connect CircleCI to Wodby with a personal API token to start builds from the dashboard and to build and deploy apps with Wodby CLI.
+---
+
 # CircleCI
 
 CircleCI is available in Wodby as a `ci` provider. Create a personal API token in CircleCI under **User settings >

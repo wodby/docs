@@ -1,3 +1,7 @@
+---
+description: Environment types such as prod, staging and dev are fixed classifications in Wodby that drive configuration, cluster placement and integration use.
+---
+
 # Environment types
 
 Environment types are Wodby's fixed deployment classifications. They are not organization-level records and cannot be

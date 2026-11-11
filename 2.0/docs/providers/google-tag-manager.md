@@ -1,3 +1,7 @@
+---
+description: Use the Google Tag Manager provider in Wodby to inject a web container ID into app services and stacks as an environment variable.
+---
+
 # Google Tag Manager
 
 Google Tag Manager is available in Wodby as a `variable` provider. Use it to inject a web container ID into app

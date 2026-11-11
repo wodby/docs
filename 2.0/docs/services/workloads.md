@@ -1,3 +1,7 @@
+---
+description: Workloads describe the Kubernetes controllers and containers that Wodby manages for a service, and where it injects Helm values.
+---
+
 # Service workloads
 
 ## Overview

@@ -1,3 +1,7 @@
+---
+description: Deploy a React application on Wodby with the React catalog stack, which builds the app in the pipeline and serves it with Nginx.
+---
+
 # React
 
 The Wodby React catalog stack serves a built React application with Nginx. The current service and defaults are

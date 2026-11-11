@@ -1,3 +1,7 @@
+---
+description: The catalog of Wodby MCP tools grouped by scope, from read and operation tools to configuration, provisioning, sensitive and destructive tools.
+---
+
 # MCP tools
 
 Use the connected server's `tools/list` response for input schemas and currently available tools. Do not assume

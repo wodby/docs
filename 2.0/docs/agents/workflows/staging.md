@@ -1,3 +1,7 @@
+---
+description: Use an AI agent to prepare, deploy and verify a staging environment on Wodby, with a reviewed authorization step and a plan for failures.
+---
+
 # Deploy and verify staging
 
 Use this walkthrough after selecting an application, stack, and target environment. For an application running

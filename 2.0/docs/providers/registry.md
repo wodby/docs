@@ -1,3 +1,7 @@
+---
+description: Registry providers let Wodby store build and deployment images in an external container registry instead of Wodby Registry. Supported options.
+---
+
 # Registry providers
 
 Registry providers are third-party services whose integrations expose the `registry` type. Use this group when you want build output and deployment images stored in an external container registry.

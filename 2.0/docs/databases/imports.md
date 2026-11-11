@@ -1,3 +1,7 @@
+---
+description: Import data into an individual DB from an uploaded archive, a public URL, or an existing or fresh backup of a compatible database.
+---
+
 # Database Import
 
 From `Databases > [Database] > Import` you can run an import for an individual DB.

@@ -1,3 +1,7 @@
+---
+description: Every provider exposes one or more integration types, which decide where an integration can be used in Wodby. Browse the types and their providers.
+---
+
 # Integration types
 
 Every provider can expose one or more integration types. When you create an integration, the selected type determines where that integration can be used in Wodby.

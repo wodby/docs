@@ -1,3 +1,7 @@
+---
+description: Keep an app environment private with Private App Access. Learn the modes, access types and supported providers, and how routes and domains behave.
+---
+
 # Private App Access
 
 Private App Access controls whether an app environment is published through ordinary Wodby routes or through a supported

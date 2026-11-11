@@ -1,3 +1,7 @@
+---
+description: Run a MariaDB database server on Wodby with the MariaDB catalog stack, with a 20 GB data volume by default and optional Adminer and phpMyAdmin.
+---
+
 # MariaDB
 
 The Wodby MariaDB catalog stack runs a MariaDB database server, with optional Adminer and phpMyAdmin. The current

@@ -1,3 +1,7 @@
+---
+description: Define actions, backups, imports and cron schedules in a Wodby service so applications can run maintenance and data workflows.
+---
+
 # Service operations
 
 Service operations are workflows a service can expose for application maintenance, lifecycle hooks, recurring tasks,

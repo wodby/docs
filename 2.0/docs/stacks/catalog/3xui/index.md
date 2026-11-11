@@ -1,3 +1,7 @@
+---
+description: Deploy the 3X UI panel on Wodby with the 3X UI catalog stack. The panel listens on port 2053 and its public domains use basic auth by default.
+---
+
 # 3X UI
 
 The Wodby 3X UI catalog stack runs the 3X UI panel. The current composition and defaults are in

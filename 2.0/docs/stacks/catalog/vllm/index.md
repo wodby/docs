@@ -1,3 +1,7 @@
+---
+description: Serve a Hugging Face model through an OpenAI-compatible API on Wodby with the vLLM catalog stack. A preview release that needs GPU capacity.
+---
+
 # vLLM
 
 The Wodby vLLM catalog stack runs one vLLM service that serves a Hugging Face model through an OpenAI-compatible API.

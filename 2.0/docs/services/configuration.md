@@ -1,3 +1,7 @@
+---
+description: Configure a Wodby service template with options, settings, configs, volumes, tokens, annotations, certificates and integrations.
+---
+
 # Service configuration
 
 Service configuration covers the values and generated resources that can be exposed from a service template and then

@@ -1,3 +1,7 @@
+---
+description: An organization is the top-level scope in Wodby for users, teams, projects, shared defaults and billing. Members, invitations and settings.
+---
+
 # Organization
 
 ## Overview

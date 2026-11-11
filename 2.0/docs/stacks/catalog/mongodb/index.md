@@ -1,3 +1,7 @@
+---
+description: Run a MongoDB database server on Wodby with the MongoDB catalog stack, with a 10 GB data volume by default and an optional Mongoku web interface.
+---
+
 # MongoDB
 
 The Wodby MongoDB catalog stack runs a MongoDB database server from the official MongoDB image, with an optional

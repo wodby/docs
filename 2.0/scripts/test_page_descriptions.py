@@ -58,9 +58,9 @@ class PageDescriptionTests(unittest.TestCase):
         self.assertEqual(descriptions.shorten("word " * 30 + "last, " + "x" * 50), "word " * 30 + "last…")
 
     def test_front_matter_description_wins(self):
-        written = page(description="Written by hand.")
+        written = page(description='Written by hand for "Apps" & stacks. ')
         descriptions.on_page_content("<p>Derived text.</p>", page=written, config={}, files=None)
-        self.assertEqual(written.meta["description"], "Written by hand.")
+        self.assertEqual(written.meta["description"], "Written by hand for &quot;Apps&quot; &amp; stacks.")
 
     def test_derived_description_is_safe_in_the_tag(self):
         derived = page()

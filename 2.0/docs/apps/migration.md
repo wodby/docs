@@ -1,3 +1,7 @@
+---
+description: Move an app environment and its persistent data to another Kubernetes cluster in the same organization. Requirements, steps, rollback and cleanup.
+---
+
 # App environment cluster migration
 
 App environment cluster migration moves an existing environment and its persistent data from one Kubernetes cluster to

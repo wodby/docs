@@ -1,3 +1,7 @@
+---
+description: An app environment is one isolated deployment of your application on a Kubernetes cluster. Copy, pause, resume, migrate or delete environments.
+---
+
 # App environments
 
 ```mermaid
