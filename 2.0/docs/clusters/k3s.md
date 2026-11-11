@@ -30,7 +30,10 @@ outbound access to those ports; its FRPC connection uses `frps.wodby.com:31225`.
 4. Decide whether to leave `Enable monitoring` turned on. It is enabled by default.
 5. Decide whether to leave automatic infrastructure upgrades enabled. They are enabled by default and can be changed later
    from `Clusters > [Cluster] > Infrastructure > Operations`.
-6. Create the cluster.
+6. Decide whether to leave `Auto upgrade Kubernetes and components` selected. It is selected by default and can be
+   changed later from `Clusters > [Cluster] > Infrastructure > Kubernetes`. See
+   [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades).
+7. Create the cluster.
 
 New K3S clusters are created in the `Awaiting` state. This means Wodby is waiting for you to run the generated installation command on your server.
 
@@ -230,7 +233,7 @@ and kernel updates yourself. Wodby never updates or reboots your server.
 
 A new kernel takes effect only after a reboot. Your distribution's automatic updates may already have installed one, so
 the server can keep running an older kernel until you reboot it. To see the kernel the server runs, open
-`Clusters > [Cluster] > Infrastructure > Kubernetes` and find the `kernel` row in the `Components` card.
+`Clusters > [Cluster] > Infrastructure > Kubernetes` and find the `kernel` row in the component table.
 
 ### Update the kernel
 
@@ -259,7 +262,7 @@ the server can keep running an older kernel until you reboot it. To see the kern
    the server and K3S have started again, usually for a few minutes. K3S and Wodby's host protections start
    automatically.
 4. Run `uname -r` to confirm that the server runs the new kernel, then check that your apps are available. The
-   `Components` card shows the new kernel the next time it refreshes, within about six hours.
+   component table shows the new kernel the next time it refreshes, within about six hours.
 
 When you install a kernel for a specific security fix, check your distribution's security tracker for the fixed version
 and compare it with the version you installed. Distributions backport fixes to older version numbers, so compare with

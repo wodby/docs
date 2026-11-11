@@ -331,11 +331,12 @@ Wodby sends email notifications when automatic infrastructure upgrades succeed o
 ## Component updates
 
 Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
-available, the `Component updates` card appears under the Kubernetes version cards at
+available, the `Component updates` card appears under the `Kubernetes version` card at
 `Clusters > [Cluster] > Infrastructure > Kubernetes`. Choose `Update` and confirm to run it as a task.
 
 [Automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) also apply component updates, so with the default
-settings you don't need to run patch updates yourself.
+settings you don't need to run patch updates yourself. To run them only yourself, clear `Include component updates`
+in the `Kubernetes auto upgrade settings` card.
 
 | Cluster | Components |
 | --- | --- |
@@ -527,8 +528,9 @@ Wodby can upgrade a cluster's Kubernetes version and apply its [component update
 a time window you choose. An automatic upgrade is the same upgrade you can start from the `Kubernetes version` card, and
 it follows the same [upgrade policy](#upgrade-policy).
 
-Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. Wodby Cloud clusters and
-serverless clusters such as GKE Autopilot don't have them.
+Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. To create a cluster without
+them, clear `Auto upgrade Kubernetes and components` in the cluster creation form. Wodby Cloud clusters and serverless
+clusters such as GKE Autopilot don't have them.
 
 To change them:
 
@@ -540,9 +542,11 @@ To change them:
     - `Minor versions`: the next minor version, such as `1.36` to `1.37`. With
       `Only after the current minor reaches end of life` selected, Wodby waits until your current minor version reaches
       end of life. While its end-of-life date is unknown, Wodby doesn't start the upgrade.
-4. Set the [time window](../automation-time-windows.md) and save.
+4. Under `Components`, keep `Include component updates` selected to let Wodby also apply
+   [component updates](#component-updates), or clear it to run them yourself. It's selected by default.
+5. Set the [time window](../automation-time-windows.md) and save.
 
-The same `Version changes` apply to component updates:
+When component updates are included, the same `Version changes` apply to them:
 
 - `Patch versions` allows a component update that stays within the component's minor version, such as Cilium `1.19.9`
   to `1.19.10`.
@@ -569,7 +573,8 @@ the next version.
 
 The Kubernetes version comes first. When there's no version upgrade to start, Wodby applies the next component update
 the policy allows instead. On K3S, a new Kubernetes minor version waits until the cluster runs a Cilium version that
-supports it, so a Cilium update can come before that upgrade. On Amazon EKS, a Kubernetes version upgrade already
+supports it, so a Cilium update can come before that upgrade. Without `Include component updates`, that upgrade
+waits until you update Cilium yourself. On Amazon EKS, a Kubernetes version upgrade already
 updates the add-ons.
 
 An automatic upgrade affects your apps the same way as a manual one. See
