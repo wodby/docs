@@ -331,7 +331,7 @@ Wodby sends email notifications when automatic infrastructure upgrades succeed o
 ## Component updates
 
 Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
-available, the `Component updates` card appears under the Kubernetes version cards at
+available, the `Component updates` card appears under the `Kubernetes version` card at
 `Clusters > [Cluster] > Infrastructure > Kubernetes`. Choose `Update` and confirm to run it as a task.
 
 [Automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) also apply component updates, so with the default
@@ -528,8 +528,9 @@ Wodby can upgrade a cluster's Kubernetes version and apply its [component update
 a time window you choose. An automatic upgrade is the same upgrade you can start from the `Kubernetes version` card, and
 it follows the same [upgrade policy](#upgrade-policy).
 
-Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. Wodby Cloud clusters and
-serverless clusters such as GKE Autopilot don't have them.
+Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. To create a cluster without
+them, clear `Auto upgrade Kubernetes and components` in the cluster creation form. Wodby Cloud clusters and serverless
+clusters such as GKE Autopilot don't have them.
 
 To change them:
 

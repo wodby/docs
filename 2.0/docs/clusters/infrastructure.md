@@ -28,15 +28,16 @@ policy controller, until their cluster infrastructure is upgraded.
 
 ## Cluster components
 
-To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Kubernetes` and
-scroll to the `Components` card. The list shows each component's version, whether an update is available, where it runs,
+To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Kubernetes`. The
+component table at the bottom of the tab shows each component's version, whether an update is available, where it runs,
 and how many pods or nodes run it. It includes system pods and each node's Kubernetes agent, container runtime,
-operating system, and kernel. Your applications are not included. Infrastructure apps are hidden because the `Apps` tab
-reports them; choose `Infrastructure app` in the `Managed by` filter to show them.
+operating system, and kernel. Your applications are not included, and neither are infrastructure apps, which the `Apps`
+tab reports.
 
 A healthy cluster's list appears within a few minutes and refreshes about every six hours. It also refreshes when a
-[node recycling or Kubernetes version update task](updates.md#check-what-changed-on-your-nodes) ends. The page shows when
-the cluster was last checked. A cluster that isn't healthy keeps its last list until it recovers.
+component update or a [node recycling or Kubernetes version update task](updates.md#check-what-changed-on-your-nodes)
+ends, and the table shows the new versions without reloading the page. A cluster that isn't healthy keeps its last list
+until it recovers.
 
 `Status` shows an update only when Wodby can apply it. Updates that run from the `Kubernetes` tab, such as a Kubernetes
 version update, node recycling, or a component update, have no link; others link to the `Operations` or `Apps` tab that

@@ -34,6 +34,10 @@ In the cluster creation form, choose an `Owner`:
 Automatic infrastructure upgrades are enabled by default during cluster creation for managed Kubernetes clusters. You can
 disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Operations`.
 
+[Automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades), which also apply component updates, are
+enabled by default too. To create the cluster without them, clear `Auto upgrade Kubernetes and components`. You can
+change them later from `Clusters > [Cluster] > Infrastructure > Kubernetes`.
+
 Use the cluster `Ownership` page later if other projects need `Read/Use` or `Modify/Delete` access.
 
 When you delete a managed cluster from Wodby, Wodby also deletes it in the cloud provider account.
