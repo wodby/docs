@@ -1,3 +1,7 @@
+---
+description: An application in Wodby is built on a stack and has one or more app environments. Learn the model and how to create a new application.
+---
+
 # Applications
 
 ## Overview

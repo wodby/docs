@@ -1,3 +1,7 @@
+---
+description: A development workspace is an app environment where you or a coding agent edit a persistent Git checkout and test changes against the running app.
+---
+
 # Development workspaces
 
 A development workspace is an app environment where you or a coding agent can edit a persistent Git checkout and test

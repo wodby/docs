@@ -1,3 +1,7 @@
+---
+description: Wodby services are versioned. Update a service from Git, turn on auto-update, and see how new revisions reach stacks and inherited services.
+---
+
 # Service updates
 
 Services are versioned. Updating a service creates a new service revision. Stacks that use the service decide when to

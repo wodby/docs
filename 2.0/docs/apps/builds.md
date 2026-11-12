@@ -1,3 +1,7 @@
+---
+description: How Wodby builds container images for app services, including build sources, vulnerability scanning, image cleanup and rolling back to a previous build.
+---
+
 # Application Builds
 
 Some app services have [build configuration](../services/build.md). For those services, a [CI system](../cicd/index.md) can build container images and then trigger deployment through the Wodby CLI.

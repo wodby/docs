@@ -1,3 +1,7 @@
+---
+description: SMTP providers connect an outbound email service to the Wodby services that send mail, with reusable credentials. Use cases and supported providers.
+---
+
 # SMTP providers
 
 SMTP providers are third-party services whose integrations expose the `smtp` type. Use this group when you want an outbound email provider connected to Wodby services that need to send mail.

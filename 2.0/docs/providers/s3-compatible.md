@@ -1,3 +1,7 @@
+---
+description: Use any object storage that implements the Amazon S3 API, such as MinIO or Ceph, as a destination for Wodby app and database backups.
+---
+
 # S3-compatible storage
 
 ## Object storage

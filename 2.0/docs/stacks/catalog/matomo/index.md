@@ -1,3 +1,7 @@
+---
+description: Deploy Matomo web analytics on Wodby with the Matomo catalog stack, which runs a prebuilt Matomo image with MariaDB, shared NFS storage and OpenSMTPD.
+---
+
 # Matomo
 
 The Wodby Matomo catalog stack runs [Matomo](https://matomo.org/) web analytics with MariaDB, shared NFS storage for

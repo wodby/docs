@@ -1,3 +1,7 @@
+---
+description: How Wodby compiles environment variables for each app service from service, stack and integration sources, app overrides, secrets and reserved names.
+---
+
 # Environment variables
 
 Wodby compiles environment variables for each app service from its service and stack configuration, connected

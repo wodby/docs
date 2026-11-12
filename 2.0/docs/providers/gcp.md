@@ -1,3 +1,7 @@
+---
+description: Connect Google Cloud to Wodby to create GKE clusters and Cloud SQL databases and to store backups in Cloud Storage. Two authentication methods.
+---
+
 # Google Cloud Platform
 
 ## Auth

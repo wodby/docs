@@ -1,3 +1,7 @@
+---
+description: Create a custom variable provider in Wodby to define reusable environment variables for a third-party service, in the dashboard, from a manifest or from Git.
+---
+
 # Custom variable providers
 
 Custom variable providers define reusable environment-variable contracts for services that Wodby does not provide in

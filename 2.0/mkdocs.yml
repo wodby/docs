@@ -186,6 +186,7 @@ plugins:
 hooks:
   - ../scripts/version_assets.py
   - scripts/include_generated_reference_sitemap.py
+  - scripts/page_descriptions.py
   - scripts/agent_docs.py
 
 not_in_nav: |

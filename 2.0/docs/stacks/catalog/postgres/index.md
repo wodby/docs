@@ -1,3 +1,7 @@
+---
+description: Run a PostgreSQL database server on Wodby with the PostgreSQL catalog stack, with a 20 GB data volume by default and optional Adminer and pgAdmin.
+---
+
 # PostgreSQL
 
 The Wodby PostgreSQL catalog stack runs a PostgreSQL database server, with optional Adminer and pgAdmin. The current

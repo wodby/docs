@@ -1,3 +1,7 @@
+---
+description: Providers are the definitions Wodby uses for supported third-party services. Each one defines its integration types, required fields and variables.
+---
+
 # Providers
 
 Providers are Wodby's definitions for supported third-party services. A provider defines:

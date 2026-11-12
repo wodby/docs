@@ -1,3 +1,7 @@
+---
+description: Teams are reusable groups of organization members. Add a team to a project once to give its members the same access, and manage team roles.
+---
+
 # Teams
 
 Teams are reusable groups of organization members.

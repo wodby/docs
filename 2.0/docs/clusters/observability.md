@@ -1,3 +1,7 @@
+---
+description: View live CPU, memory, storage and pod metrics for a Kubernetes cluster and its nodes from the Wodby dashboard.
+---
+
 # Cluster observability
 
 As part of the cluster [infrastructure apps](infrastructure.md), Wodby deploys components that collect metrics from cluster nodes and Kubernetes resources.

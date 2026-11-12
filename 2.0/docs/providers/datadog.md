@@ -1,3 +1,7 @@
+---
+description: Use the Datadog provider in Wodby to inject a Datadog API key and an optional site into app services and stacks as environment variables.
+---
+
 # Datadog
 
 Datadog is available in Wodby as a `variable` provider. Use it to inject a Datadog API key and optional site into app

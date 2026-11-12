@@ -1,3 +1,7 @@
+---
+description: Connect a Git repository from GitHub, GitLab or Bitbucket as the build source of an app service, and choose the branch, tag or commit to build.
+---
+
 # Git repository
 
 Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md),

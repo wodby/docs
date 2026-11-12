@@ -1,3 +1,7 @@
+---
+description: Import files or data into an app service from an uploaded archive, a public URL or a backup, including imports from another app.
+---
+
 # Application Imports
 
 If an application's stack includes services that provide [import functionality](../services/operations.md#imports), you can run imports for the corresponding app service.

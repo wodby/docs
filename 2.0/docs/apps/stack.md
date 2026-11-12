@@ -1,3 +1,7 @@
+---
+description: Every Wodby application is built from a stack. Learn how app environments move between stack revisions with manual upgrades and auto-upgrade.
+---
+
 # Application stack
 
 ```mermaid

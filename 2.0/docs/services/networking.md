@@ -1,3 +1,7 @@
+---
+description: Define how a Wodby service exposes ports through endpoints and connects to other services in the same app environment through links.
+---
+
 # Service networking
 
 Service networking covers how a service exposes ports and how it connects to other services in the same app environment.

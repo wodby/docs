@@ -1,3 +1,7 @@
+---
+description: Integrations are reusable connections between Wodby and third-party services such as cloud accounts, Git providers, SMTP relays and registries.
+---
+
 # Integrations
 
 Integrations are reusable connections between Wodby and third-party services. You create an integration from a [provider](../providers/index.md), choose an owner, and then use sharing when the integration should be available to additional projects.

@@ -1,3 +1,7 @@
+---
+description: Deploy Apache Airflow on Wodby with the Apache Airflow catalog stack, which runs Airflow together with a PostgreSQL service for its metadata.
+---
+
 # Apache Airflow
 
 The Wodby Apache Airflow catalog stack runs Apache Airflow with a PostgreSQL service for its metadata. The current

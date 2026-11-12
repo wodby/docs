@@ -1,3 +1,7 @@
+---
+description: Deploy Nextcloud file storage and sharing on Wodby with the Nextcloud catalog stack, which runs it with PostgreSQL, Redis and an optional mail relay.
+---
+
 # Nextcloud
 
 The Wodby Nextcloud catalog stack runs [Nextcloud](https://nextcloud.com/) file storage and sharing with PostgreSQL,

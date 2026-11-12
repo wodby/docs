@@ -1,3 +1,7 @@
+---
+description: Maintenance mode replaces the public HTTP routes of an app environment with a maintenance page while workloads keep running. How to turn it on and off.
+---
+
 # Maintenance mode
 
 App environment maintenance mode temporarily replaces enabled public HTTP and HTTPS routes with a Wodby maintenance

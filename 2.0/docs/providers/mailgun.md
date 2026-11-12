@@ -1,3 +1,7 @@
+---
+description: Connect Mailgun to Wodby to relay outbound email over SMTP, inject Mailgun API credentials into application containers, or both.
+---
+
 # Mailgun
 
 Mailgun exposes `smtp` and `variable` integration kinds in Wodby. Select SMTP to relay outbound mail, Variable to

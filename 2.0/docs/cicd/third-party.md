@@ -1,3 +1,7 @@
+---
+description: Build and deploy Wodby apps from GitHub Actions, GitLab CI, CircleCI or another CI provider with Wodby CLI. Required variables, flow and examples.
+---
+
 # Building with third-party CI
 
 If you prefer GitHub Actions, GitLab CI, CircleCI, or another CI provider, use [Wodby CLI](../dev/cli.md) inside that pipeline.

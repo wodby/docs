@@ -1,3 +1,7 @@
+---
+description: Connect Docker Hub to Wodby as a registry provider so that app builds push images to Docker Hub and deployments pull them from there.
+---
+
 # Docker Hub
 
 Docker Hub is available in Wodby as a `registry` provider. Use it when you want Wodby to authenticate against an external Docker Hub registry for image push and pull operations.

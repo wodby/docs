@@ -1,3 +1,7 @@
+---
+description: Technical reference for the Wodby MCP server, covering transport, authentication, response handling, diagnostic logs and container commands.
+---
+
 # MCP technical reference
 
 For client setup and a first request, start with [MCP](../mcp.md). This reference covers custom integrations,

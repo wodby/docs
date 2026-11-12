@@ -1,3 +1,7 @@
+---
+description: Create and delete individual DBs inside a database server in Wodby, choosing the name, charset and collation of each DB.
+---
+
 # DBs
 
 Inside a database server, you can create and delete individual DBs.

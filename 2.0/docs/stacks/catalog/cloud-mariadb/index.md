@@ -1,3 +1,7 @@
+---
+description: The Wodby Cloud MariaDB catalog stack declares a MariaDB database server that runs at a cloud provider, outside the cluster, with no containers of its own.
+---
+
 # Cloud MariaDB
 
 The Wodby Cloud MariaDB catalog stack declares a MariaDB database server that runs at a cloud provider, outside the

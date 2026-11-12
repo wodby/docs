@@ -1,3 +1,7 @@
+---
+description: Providers change through revisions. Find outdated integrations in Wodby, update them, and handle provider updates that require migration.
+---
+
 # Integration provider updates
 
 Providers can change after you create an integration. Wodby publishes each provider change as a new revision. A

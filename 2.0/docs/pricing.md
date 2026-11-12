@@ -1,3 +1,7 @@
+---
+description: How Wodby billing works, covering plans, what is billed separately, addons, spending limits, payment methods and downgrading a subscription.
+---
+
 # Billing
 
 ## Plans

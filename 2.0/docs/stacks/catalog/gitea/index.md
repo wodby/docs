@@ -1,3 +1,7 @@
+---
+description: Deploy Gitea, a self-hosted Git service, on Wodby with the Gitea catalog stack, which runs it with PostgreSQL and an optional OpenSMTPD service.
+---
+
 # Gitea
 
 The Wodby Gitea catalog stack runs [Gitea](https://about.gitea.com/), a self-hosted Git service, with PostgreSQL and an

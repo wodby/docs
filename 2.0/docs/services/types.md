@@ -1,3 +1,7 @@
+---
+description: Wodby service types, such as service, db, storage, datastore, search, operator and ssh, control how a service is deployed and what it can define.
+---
+
 # Service types
 
 Every service has a `type`. The type controls how the service is deployed and which sections are valid in the service

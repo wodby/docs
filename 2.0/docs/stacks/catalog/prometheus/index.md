@@ -1,3 +1,7 @@
+---
+description: Run Prometheus on Wodby with the Prometheus catalog stack and an optional Grafana service that comes with a Prometheus data source set up for you.
+---
+
 # Prometheus
 
 The Wodby Prometheus catalog stack runs Prometheus and an optional Grafana service. The current composition and defaults

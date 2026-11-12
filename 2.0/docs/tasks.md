@@ -1,3 +1,7 @@
+---
+description: Most operations in Wodby run as tasks, which give you an audit trail of changes. Learn about jobs and steps, task types, reruns and cron runs.
+---
+
 # Tasks
 
 Most operations in Wodby run as tasks.

@@ -1,3 +1,7 @@
+---
+description: Collect traces, metrics and logs from your applications in one Wodby app with the Observability catalog stack, built on OpenTelemetry and Grafana.
+---
+
 # Observability
 
 The Wodby Observability catalog stack collects traces, metrics, and logs from your applications in one app. The

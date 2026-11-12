@@ -1,3 +1,7 @@
+---
+description: Run single-node OpenSearch with OpenSearch Dashboards on Wodby with the OpenSearch catalog stack, and link your application to it.
+---
+
 # OpenSearch
 
 The Wodby OpenSearch catalog stack runs a single-node OpenSearch with OpenSearch Dashboards. The current services and

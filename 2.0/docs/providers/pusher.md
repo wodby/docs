@@ -1,3 +1,7 @@
+---
+description: Use the Pusher provider in Wodby to store Pusher application credentials once and inject them into app services and stacks.
+---
+
 # Pusher
 
 Pusher is available in Wodby as a `variable` provider. Use it when you want to inject Pusher application credentials into app services or stacks through an integration.

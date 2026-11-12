@@ -1,3 +1,7 @@
+---
+description: Connect GitLab to Wodby to build applications from your repositories, with build boilerplates, GitLab CI and preview environments.
+---
+
 # GitLab
 
 After connecting your GitLab account you can use your repositories as a build source for applications deployed via Wodby.

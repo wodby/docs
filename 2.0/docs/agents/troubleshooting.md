@@ -1,3 +1,7 @@
+---
+description: Fix AI agent connection problems with Wodby MCP, starting from a read-only connection check, and see what to include in a support request.
+---
+
 # Agent connection troubleshooting
 
 Start with the [read-only connection check](../dev/mcp.md#verify-the-connection).

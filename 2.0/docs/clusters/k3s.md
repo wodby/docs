@@ -1,3 +1,7 @@
+---
+description: Connect your own server to Wodby as a K3S cluster. Requirements, installation command, disk capacity, upgrades, OS updates and troubleshooting.
+---
+
 # Self-hosted Kubernetes cluster with K3S
 
 If you want to keep infrastructure under your control and avoid managed Kubernetes costs, you can connect your own server to Wodby as a K3S cluster.

@@ -1,3 +1,7 @@
+---
+description: Change your Wodby password, set up two-factor authentication, manage recovery codes, and confirm it is you before revealing secrets.
+---
+
 # Security
 
 The `Security` section in user settings covers password management, two-factor authentication, and recovery codes.

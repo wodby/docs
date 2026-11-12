@@ -1,3 +1,7 @@
+---
+description: Deploy a Kotlin application, such as a Ktor app, on Wodby with the Kotlin catalog stack and optional PostgreSQL, Valkey, Mailpit and OpenSMTPD services.
+---
+
 # Kotlin
 
 The Wodby Kotlin catalog stack runs a Kotlin app service with optional PostgreSQL, Valkey, Mailpit,

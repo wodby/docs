@@ -1,3 +1,7 @@
+---
+description: Wodby runs infrastructure apps such as Envoy Gateway and monitoring on every cluster. Components, capability policy, network policies and versions.
+---
+
 # Cluster infrastructure
 
 Wodby provides core cluster capabilities through infrastructure apps deployed during cluster creation.

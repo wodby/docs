@@ -1,3 +1,7 @@
+---
+description: Open an interactive shell in a running app service container from the Wodby dashboard, without an SSH service or a published port.
+---
+
 # Web Terminal
 
 The web terminal opens an interactive shell session in a running app-service container directly from the dashboard.

@@ -1,3 +1,7 @@
+---
+description: Get started with Wodby, the platform that deploys and manages web applications on Kubernetes. Deploy your first application and learn the key concepts.
+---
+
 # Get Started
 
 Wodby deploys and manages web applications on Kubernetes. A stack defines the services your application needs;

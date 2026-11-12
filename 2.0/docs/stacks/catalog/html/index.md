@@ -1,3 +1,7 @@
+---
+description: Serve a static HTML site on Wodby with the HTML catalog stack, using Nginx by default or Apache HTTP Server as an option.
+---
+
 # HTML
 
 The Wodby HTML catalog stack serves static HTML sites with Nginx or, optionally, Apache HTTP Server. The current

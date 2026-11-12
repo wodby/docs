@@ -1,3 +1,7 @@
+---
+description: The difference between an app, an app environment and an app service in Wodby, how the three relate, and a rule of thumb for telling them apart.
+---
+
 # App vs App Environment vs App Service
 
 These three terms describe different layers of the same application model.

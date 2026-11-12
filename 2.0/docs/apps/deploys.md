@@ -1,3 +1,7 @@
+---
+description: Deploy all or selected services of an app environment. Covers service ordering, automatic rollback, queueing, first deployments and redeployments.
+---
+
 # Application Deployments
 
 Deployments can target all services in an app environment or only selected services.

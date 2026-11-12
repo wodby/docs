@@ -1,3 +1,7 @@
+---
+description: Reference for service.yml, the manifest that defines a custom Wodby service imported from Git, with an example, general rules and every field.
+---
+
 # Service template
 
 Custom services imported from Git are defined by `service.yml`.

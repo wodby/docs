@@ -1,3 +1,7 @@
+---
+description: VPN integrations supply credentials to services that run as private-network nodes in an app environment. How they differ from Private App Access.
+---
+
 # VPN providers
 
 VPN integrations supply credentials to services that run as persistent private-network nodes inside an app environment.

@@ -1,3 +1,7 @@
+---
+description: Connect Postmark to Wodby with one Server API token to relay email over SMTP, inject the token into application containers, or both.
+---
+
 # Postmark
 
 Postmark exposes `smtp` and `variable` integration kinds in Wodby. Both kinds use the same Server API token, so select

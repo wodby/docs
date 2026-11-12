@@ -1,3 +1,7 @@
+---
+description: The Wodby Cloud MySQL catalog stack declares a MySQL database server that runs at a cloud provider, outside the cluster, with no containers of its own.
+---
+
 # Cloud MySQL
 
 The Wodby Cloud MySQL catalog stack declares a MySQL database server that runs at a cloud provider, outside the

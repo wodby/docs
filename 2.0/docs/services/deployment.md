@@ -1,3 +1,7 @@
+---
+description: Control how Kubernetes replaces pods during an update, with deployment settings and wait times set at service, stack or app service level.
+---
+
 # Deployment configuration
 
 Deployment configuration controls how Kubernetes replaces pods during an update, how long a new pod must stay ready,

@@ -1,3 +1,7 @@
+---
+description: Run the open-source RustDesk server on Wodby with the RustDesk Server catalog stack, so your devices use your own server for remote desktop sessions.
+---
+
 # RustDesk Server
 
 The Wodby RustDesk Server catalog stack runs the open-source [RustDesk](https://rustdesk.com/) server, so your devices

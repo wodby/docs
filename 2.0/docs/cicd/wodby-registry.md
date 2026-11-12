@@ -1,3 +1,7 @@
+---
+description: Wodby Registry is the private container registry for your application images. Repositories, included storage, image retention and authentication.
+---
+
 # Wodby Registry
 
 Wodby Registry is the private container registry used to store your application images. It is available at `us-docker.wodby.com`.

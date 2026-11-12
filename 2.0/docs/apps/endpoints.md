@@ -1,3 +1,7 @@
+---
+description: Manage the endpoints of an app environment in Wodby, including domains, redirects, TLS certificates, HTTP settings, auths and published ports.
+---
+
 # Endpoints
 
 Endpoints are the public or private entry points to your app services. They consist of HTTP domains, redirects, and

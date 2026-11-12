@@ -1,3 +1,7 @@
+---
+description: Use the PagerDuty provider in Wodby to inject an Events API v2 routing key into app services and stacks as PAGERDUTY_ROUTING_KEY.
+---
+
 # PagerDuty
 
 PagerDuty is available in Wodby as a `variable` provider. Use it to inject an Events API v2 routing key into app

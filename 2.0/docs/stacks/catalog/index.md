@@ -1,3 +1,7 @@
+---
+description: Guides for every stack in the Wodby catalog. Each explains what to set when creating an environment, how to sign in or connect, and what to back up.
+---
+
 # Catalog stack guides
 
 Every stack in the catalog has a guide here. Guides explain what to set when creating an environment, how to sign in

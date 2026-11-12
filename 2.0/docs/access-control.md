@@ -1,3 +1,7 @@
+---
+description: Understand how Wodby access is layered across organization roles, teams and project roles, and how ownership, sharing and secret reveal permissions apply.
+---
+
 # Access control
 
 Wodby access is layered. A user can have:

@@ -1,3 +1,7 @@
+---
+description: Connect an AI client to Wodby over MCP to inspect applications, plan migrations, deploy and troubleshoot. Setup, verification and first tasks.
+---
+
 # MCP
 
 Connect your AI client to Wodby to inspect applications, plan migrations, deploy, and troubleshoot.

@@ -1,3 +1,7 @@
+---
+description: See the external sign-in providers linked to your Wodby user, such as Google, GitHub and organization SSO, and unlink an identity.
+---
+
 # Identities
 
 The `Identities` page lists external sign-in providers linked to your Wodby user.

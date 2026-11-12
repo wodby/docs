@@ -1,3 +1,7 @@
+---
+description: Git providers let Wodby list repositories, branches and tags and use remote repositories as build sources. Push events and supported providers.
+---
+
 # Git providers
 
 Git providers are third-party services whose integrations expose the `git` type. Use this group when you want Wodby to list repositories, branches, and tags and use remote repositories as build sources.

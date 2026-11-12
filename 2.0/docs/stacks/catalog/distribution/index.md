@@ -1,3 +1,7 @@
+---
+description: Run a private CNCF Distribution Registry v3 on Wodby with the Distribution Registry catalog stack, basic authentication and an optional Valkey cache.
+---
+
 # Distribution Registry
 
 The Wodby Distribution Registry catalog stack runs a private CNCF Distribution Registry v3 with an optional Valkey

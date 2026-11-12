@@ -1,3 +1,7 @@
+---
+description: Projects are the main isolation boundary inside a Wodby organization. Group resources, control access, and share resources between projects.
+---
+
 # Projects
 
 Projects are the main isolation boundary inside your [organization](org.md).

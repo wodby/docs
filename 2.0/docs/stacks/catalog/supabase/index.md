@@ -1,3 +1,7 @@
+---
+description: Run one self-hosted Supabase project per app environment on Wodby, with a dedicated PostgreSQL database and Auth, REST, Realtime, Storage and Studio.
+---
+
 # Supabase
 
 The Supabase stack runs one self-hosted Supabase project per app environment, with a dedicated PostgreSQL database and

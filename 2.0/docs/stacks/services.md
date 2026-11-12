@@ -1,3 +1,7 @@
+---
+description: A stack service is a service included in a stack at a specific revision, combined with stack-level options, variables, resources and links.
+---
+
 # Stack services
 
 A stack service is a [service](../services/index.md) as included in a stack. It always points to a specific service revision.

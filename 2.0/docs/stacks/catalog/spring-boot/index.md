@@ -1,3 +1,7 @@
+---
+description: Deploy a Spring Boot application with PostgreSQL on Wodby with the Spring Boot catalog stack and optional Valkey, Mailpit, OpenSMTPD and Gotenberg.
+---
+
 # Spring Boot
 
 The Wodby Spring Boot catalog stack runs a Spring Boot app service with PostgreSQL, and optional

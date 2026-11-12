@@ -1,3 +1,7 @@
+---
+description: Choose and change storage classes for the persistent volumes of your app services on managed Kubernetes and K3S clusters in Wodby.
+---
+
 # Application Persistent Storage
 
 Persistent storage options depend on the type of cluster you run: [managed Kubernetes](../clusters/managed.md) or [K3S](../clusters/k3s.md).

@@ -1,3 +1,7 @@
+---
+description: Deploy an Astro application on Wodby with the Astro catalog stack, which runs the Astro Node.js server with optional PostgreSQL, Valkey and mail services.
+---
+
 # Astro
 
 The Wodby Astro catalog stack runs a Node.js (Astro) app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD,

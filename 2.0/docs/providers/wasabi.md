@@ -1,3 +1,7 @@
+---
+description: Use a Wasabi bucket you own for Wodby app and database backups through the S3-compatible API. Policy and user setup in the Wasabi Console.
+---
+
 # Wasabi
 
 ## Object storage

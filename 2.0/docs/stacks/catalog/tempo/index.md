@@ -1,3 +1,7 @@
+---
+description: Collect and store distributed traces from your applications on Wodby with the Grafana Tempo catalog stack, an OpenTelemetry Collector and Grafana.
+---
+
 # Grafana Tempo
 
 The Wodby Grafana Tempo catalog stack collects and stores distributed traces from your applications. The OpenTelemetry

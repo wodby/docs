@@ -1,3 +1,7 @@
+---
+description: Create a Wodby stack from the catalog, from scratch, by duplicating one, from a Git repository, from a local manifest or from a Helm scaffold.
+---
+
 # Create a stack
 
 A stack is the blueprint used to create an app. It selects the [services](../services/index.md) an app uses and defines

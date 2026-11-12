@@ -1,3 +1,7 @@
+---
+description: Invite another Wodby organization to use an existing OAuth integration without reconnecting the account or copying its credentials.
+---
+
 # Share an OAuth integration with another organization
 
 OAuth providers may allow a third-party account or installation to be connected to Wodby only once. Instead of

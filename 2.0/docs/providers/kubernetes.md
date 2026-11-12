@@ -1,3 +1,7 @@
+---
+description: Kubernetes providers let Wodby create and manage a managed Kubernetes cluster in your own cloud account. Use cases and supported providers.
+---
+
 # Kubernetes providers
 
 Kubernetes providers are third-party services whose integrations expose the `kubernetes` type. Use this group when you want Wodby to create and manage a managed Kubernetes cluster inside your cloud account.

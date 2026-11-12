@@ -1,3 +1,7 @@
+---
+description: Run the T3 Code server on Wodby with the T3 Code catalog stack, a web interface for the Codex, Claude Code and OpenCode coding agents.
+---
+
 # T3 Code
 
 The Wodby T3 Code catalog stack runs the [T3 Code](https://github.com/pingdotgg/t3code) server, a web interface for the

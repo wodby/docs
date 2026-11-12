@@ -25,5 +25,5 @@ jobs:
       - name: Check Markdown exports and documentation contracts
         run: |
           python -m unittest discover -s scripts
-          python -m unittest discover -s 2.0/scripts -p 'test_agent_docs.py'
+          python -m unittest discover -s 2.0/scripts -p 'test_*.py'
           python 2.0/scripts/check_agent_contract.py --live

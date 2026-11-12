@@ -1,3 +1,7 @@
+---
+description: Build service images in CI with wodby ci build. Covers Dockerfile resolution, using your own Dockerfile, build arguments, cache and examples.
+---
+
 # CI build
 
 This page covers image builds in CI. To learn more about builds in general see [app builds](../apps/builds.md).
