@@ -154,6 +154,7 @@ An organization-wide preset stores:
 - the destination bucket for a third-party integration
 - an optional storage class override
 - an environment scope: any environment, one exact environment, or one or more environment types
+- a project scope: any project, or one or more projects
 - a backup category: any backup, files only, or databases only
 - an optional automatic schedule
 
@@ -161,6 +162,11 @@ Use an exact environment when the preset should apply only to that environment. 
 should follow every current and future environment of the selected types. Available types are `Production`, `Staging`,
 `Testing`, `Development`, and `Feature`. You cannot combine an exact environment with environment types. Leaving both
 selections empty applies the preset to every environment.
+
+Select projects when the preset should back up only the apps and databases of those projects. A project's apps and
+databases are the ones it owns and the ones shared with it. Leaving `Projects` empty applies the preset to every
+project, including apps and databases that are not in any project. A project that is the only project of a preset
+cannot be deleted; change or delete the preset first.
 
 The backup category is based on the resource that owns the backup:
 
@@ -174,13 +180,13 @@ storage integration must be available in all environments.
 When you create a manual backup, the dashboard combines:
 
 - matching app environment presets
-- organization-wide presets that match the app environment and the selected app service's backup category
+- organization-wide presets that match the app environment, its projects, and the selected app service's backup category
 
 If only one preset matches the selected app service and backup type, the dashboard can prefill it automatically.
 
-Automatic organization-wide presets use the same environment and category filters when selecting resources. An
-organization-wide override suppresses another matching scheduled preset only when the override also applies to that
-resource's environment and backup category.
+Automatic organization-wide presets use the same environment, project, and category filters when selecting resources.
+An organization-wide override suppresses another matching scheduled preset only when the override also applies to that
+resource's environment, projects, and backup category.
 
 Organization-wide presets are also available in [Database backups](../databases/backups.md).
 
