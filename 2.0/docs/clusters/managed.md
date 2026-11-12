@@ -60,11 +60,33 @@ When enabled, Wodby creates a fixed one-node cluster:
 - Wodby does not create a cloud provider load balancer
 - public app traffic is routed directly to the node IP
 
-Use this mode for small clusters where reducing infrastructure cost matters more than high availability or scaling.
+Use single-node clusters for development environments that use only technical domains. For production, create a
+scalable cluster, even with one node: its load balancer keeps the cluster's public IP when nodes are replaced.
 
 Endpoint values are still shown in the cluster overview as `Public IPs` or `Hostname`.
 
 Single-node clusters are currently available for DigitalOcean-backed Kubernetes clusters.
+
+### Public IP changes
+
+A single-node cluster has no load balancer, so its public IP is its node's IP. The node, and with it the IP, is
+replaced when:
+
+- the cluster's [Kubernetes version is upgraded](updates.md#kubernetes-version-updates)
+- you [recycle its node](updates.md#recycle-a-single-node-cluster)
+- the provider replaces a failed node
+
+When the IP changes:
+
+- Wodby points the cluster's technical domains at the new IP within a few minutes.
+- Wodby emails the organization's owners and admins the old and the new IP, with the cluster's custom domains that
+  still resolve to the old IP. See [Cluster public IP changes](../user/notifications.md#cluster-public-ip-changes).
+- Custom domains with a DNS A record that points to the old IP stop working until you change the record to the new
+  IP. The cluster overview shows the new IP under `Public IPs`.
+
+Because each upgrade changes the IP, [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades) aren't
+available for a single-node cluster with custom domains. Upgrade it manually during a maintenance window, then update
+the custom domains' DNS records.
 
 !!! warning "Do not modify your cluster from cloud provider panel"
     Clusters created from Wodby should not be modified directly from the cloud provider control panel. Doing so can lead to drift and unexpected errors.

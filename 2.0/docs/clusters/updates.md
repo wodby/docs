@@ -367,8 +367,9 @@ run it again.
 Wodby has no separate node update. On [managed Kubernetes](managed.md) clusters, worker nodes get a newer image and kernel
 in one of two ways:
 
-- **Recycle nodes** replaces nodes without changing the Kubernetes version. It's available on Amazon EKS, Azure AKS and
-  DigitalOcean Kubernetes, except for single-node clusters. Use `Recycle nodes` at
+- **Recycle nodes** replaces nodes with new ones that run the provider's latest node image, without changing the
+  Kubernetes version. Recycle them to pick up operating system and kernel security fixes, or to replace nodes that
+  misbehave. It's available on Amazon EKS, Azure AKS and DigitalOcean Kubernetes. Use `Recycle nodes` at
   `Clusters > [Cluster] > Infrastructure > Kubernetes`, the
   [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) command, or the [API](../api/index.html).
 - **A [Kubernetes version update](#kubernetes-version-updates)** moves nodes to the image that comes with the new version.
@@ -378,6 +379,20 @@ Which one delivers a given fix depends on your provider, so check its release no
 
 On [K3S](k3s.md), you own the server, so you update its operating system and kernel yourself. See
 [Operating system and kernel updates](k3s.md#operating-system-and-kernel-updates) for the steps.
+
+When you recycle nodes on DigitalOcean Kubernetes, Wodby replaces one node at a time, and the cluster runs one node short
+during each replacement. A single-node cluster gets a second node first instead.
+
+### Recycle a single-node cluster
+
+On a [single-node](managed.md#single-node-clusters) DigitalOcean cluster, Wodby starts a second node first. Once it
+runs, Wodby moves your apps to it and deletes the old node, so apps are unavailable only while they restart. The extra
+node is billed while it runs, and your DigitalOcean account needs room for one more Droplet. If the new node doesn't
+start, Wodby deletes it again and the old node keeps running.
+
+The new node has a new public IP, and custom domains with an A record to the old IP stop working until you update the
+record. See [Public IP changes](managed.md#public-ip-changes). The confirmation shows the cluster's current IP, and
+`Recycle nodes` stays disabled until you confirm that you understand the IP will change.
 
 ### Check what changed on your nodes
 
@@ -514,8 +529,9 @@ A Kubernetes version update, including a patch version, can restart your apps:
   turn, so pods on agent nodes restart once.
 
 On a single-node cluster, an app with one replica is unavailable while its pod restarts. On a single-node managed
-cluster, all apps are unavailable for a few minutes, because the only node is replaced. To keep an app available during
-upgrades, run the cluster with at least two nodes and the app with at least two replicas.
+cluster, all apps are unavailable for a few minutes, because the only node is replaced, and the cluster's public IP
+changes. See [Public IP changes](managed.md#public-ip-changes). To keep an app available during upgrades, run the
+cluster with at least two nodes and the app with at least two replicas.
 
 ### Amazon EKS add-ons
 
@@ -550,6 +566,11 @@ cluster creation form. Managed clusters that already had them on were switched o
 on again in the `Kubernetes auto upgrade settings` card if you want them.
 
 Wodby Cloud clusters and serverless clusters such as GKE Autopilot don't have them.
+
+On a [single-node](managed.md#single-node-clusters) managed cluster with custom domains, you can't turn them on,
+because each upgrade changes the cluster's public IP and the custom domains stop working until their DNS records are
+updated. If they were on before you added a custom domain, they stay on but start no upgrades, and the
+`Kubernetes auto upgrade settings` card says they're paused. Upgrade the cluster manually instead.
 
 To change them:
 

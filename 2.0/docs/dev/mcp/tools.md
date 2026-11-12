@@ -207,7 +207,7 @@ configuration changes.
 | `rename_app` | Change the title an app is shown with. Its machine name, which names its Kubernetes resources and domains, never changes. |
 | `rename_app_environment` | Change the title an app environment is shown with. Its machine name, which names its namespace and generated domains, never changes. |
 | `update_cluster` | Update a cluster title. |
-| `update_cluster_settings` | Update cluster settings such as automatic infrastructure and Kubernetes version upgrades. Requires `confirm: true`. |
+| `update_cluster_settings` | Update cluster settings such as automatic infrastructure and Kubernetes version upgrades. Turning automatic Kubernetes upgrades on is refused for a single-node managed cluster with custom domains. Requires `confirm: true`. |
 | `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
 | `update_database` | Update a database title. |
 | `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
@@ -340,7 +340,7 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |
 | `update_cluster_component` | Apply one update that `list_cluster_component_updates` lists. Read the update's note first, then follow the task for the result. |
 | `upgrade_kubernetes_version` | Upgrade a cluster's Kubernetes to a version `get_kubernetes_version_upgrade_plan` lists. The provider can rotate control-plane components and worker nodes, and the Kubernetes API can be briefly unavailable, so run it for production in a maintenance window. It can't be undone. Supported for EKS, AKS, GKE Standard, DigitalOcean, OVH, and K3S clusters; Wodby Cloud and serverless clusters are refused. |
-| `recycle_cluster_nodes` | Refresh a managed cluster's worker nodes. EKS moves each node group to its latest node image and leaves a group that already runs it in place; AKS and DigitalOcean replace every node. Workloads move to the new nodes, so applications restart, and new deployments wait until it ends. The cluster must be in OK status with no active application operations. GKE, OVHcloud, Wodby Cloud, serverless, and single-node clusters are refused. |
+| `recycle_cluster_nodes` | Refresh a managed cluster's worker nodes. EKS moves each node group to its latest node image and leaves a group that already runs it in place; AKS and DigitalOcean replace every node; a single-node DigitalOcean cluster gets a temporary second node first and its public IP changes. Workloads move to the new nodes, so applications restart, and new deployments wait until it ends. The cluster must be in OK status with no active application operations. GKE, OVHcloud, Wodby Cloud, and serverless clusters are refused. |
 | `restart_wodby1_migration` | Start a Wodby 1 migration over with a new preview's choices: first delete what the migration created in Wodby 2, including its imported data, then apply the new plan. Apps and integrations that existed before stay, and so does the cluster. Preview again first and pass that preview's `planHash`. Takes no `confirm`. |
 | `rollback_wodby1_migration` | Delete the Wodby 2 resources a migration created, including its imported data. Apps and resources that existed before stay, and Wodby 1 isn't touched. Refused once the migration is verified. Takes no `confirm`. |
 

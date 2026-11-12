@@ -20,6 +20,9 @@ Clusters created with `Single-node cluster` cannot be scaled or changed into sca
 one node, and the dashboard does not show scaling controls for them. Create a regular managed Kubernetes or Wodby Cloud
 cluster if you need cluster autoscaling or future node growth.
 
+A scalable cluster with one node also keeps a stable public IP: its load balancer stays when the node is replaced,
+while a single-node cluster's IP [changes with its node](managed.md#public-ip-changes).
+
 ## Autoscaling
 
 Managed Kubernetes providers usually support a cluster autoscaler. You configure the minimum and maximum number of worker nodes, and the autoscaler adds or removes nodes as needed.
