@@ -122,8 +122,10 @@ build config.
 
 ## Provider examples
 
-The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository contains complete provider examples for
-common PHP, Node.js, Python, Ruby, Go, and static application patterns:
+The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository has an example for every Wodby build
+boilerplate, plus a static frontend built with npm. Each example runs the same build as the boilerplate in GitHub
+Actions, GitLab CI, and CircleCI. Find your stack in the
+[example table](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example).
 
 - GitHub Actions examples use [`wodby/actions/setup-wodby-cli@v1`](https://github.com/wodby/actions/tree/main/setup-wodby-cli), which restores dependency caches detected from lockfiles, installs the CLI, exports `WODBY_API_KEY`, and runs `wodby ci init` automatically when `app-service-id` is provided.
 - CircleCI examples use [`wodby/setup-wodby-cli@1`](https://circleci.com/developer/orbs/orb/wodby/setup-wodby-cli), which installs the latest Wodby 2 CLI and runs `wodby ci init` when `app-service-id` is provided.
