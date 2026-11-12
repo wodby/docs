@@ -41,10 +41,12 @@ jobs:
       - run: wodby ci deploy
 ```
 
-You can find more examples in [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0):
+[`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) has a Wodby CI pipeline for every Wodby build
+boilerplate:
 
 - [PHP Wodby CI pipeline](https://github.com/wodby/wodby-ci/blob/2.0/php/wodby/pipeline.yml)
 - [Node Wodby CI pipeline](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/pipeline.yml)
+- [All examples by application stack](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example)
 
 If you need tooling that is not part of your stack, `wodby ci run` can use an explicit image, for example `wodby ci run -i wodby/node:24 -- npm ci`.
 
@@ -148,10 +150,11 @@ jobs:
       - run: drush status
 ```
 
-See also the example files in [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0):
+Every example in [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) has a post-deployment script:
 
 - [PHP post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/php/wodby/post-deployment.yml)
 - [Node post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/post-deployment.yml)
+- [All examples by application stack](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example)
 
 You can skip execution of post-deployment scripts by passing `--skip-post-deploy` to `wodby ci deploy`. Wodby also skips
 these scripts when some automated redeployments reuse an unchanged build, including a redeploy-only service after an
