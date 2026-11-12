@@ -148,13 +148,23 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
-The latest version is `4.1.5`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
+The latest version is `4.1.6`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
 Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3S servers, so once on `4.0.0` these clusters
 show the latest version automatically, with no task and no change to the cluster.
 
 Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
 
 ### Changelog
+
+#### 4.1.6
+
+Version `4.1.6` prepares self-hosted K3S servers for [worker nodes](k3s.md#worker-nodes). When the server has a private
+network address next to its public one, Kubernetes inside the cluster is now reached at the private address, which
+worker nodes can reach. Clusters must be on `4.1.5` first. New K3S servers install this version directly.
+
+On a server that changes its address, the update restarts K3S once. Your apps keep running, and access to the cluster
+from Wodby pauses for about a minute. Servers without a private address, and servers that already use it, aren't
+restarted. Managed Kubernetes clusters aren't changed by this version.
 
 #### 4.1.5
 

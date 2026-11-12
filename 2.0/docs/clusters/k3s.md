@@ -164,6 +164,9 @@ The command removes:
 
 The command does not remove NFS client packages and does not re-enable swap. After it completes, reload the cluster page to generate a fresh installation command and run it again.
 
+On a [worker node](#worker-nodes), the same command removes only the worker's own setup: the host firewall, Cilium host
+networking artifacts and the K3S agent. It never removes Cilium or the proxy client from the cluster.
+
 ## What happens next
 
 After the script completes successfully, Wodby initializes the cluster and deploys the required infrastructure components.
@@ -279,25 +282,83 @@ When your operating system release reaches the end of its support, it stops gett
 security support if it has one, or connect a new K3S server with a supported release and move your apps to it with
 [app environment cluster migration](../apps/migration.md).
 
-## Single server model
+## Worker nodes
 
-K3S clusters connected to Wodby are single-server clusters.
+A K3S cluster has one server, which runs Kubernetes itself and receives public traffic, and can have worker nodes that
+run your apps. Add worker nodes when your apps need more CPU, memory or disk than one server has.
 
-Wodby does not support joining additional K3S nodes to the cluster. Multi-node self-hosted Kubernetes requires extra decisions around networking, storage, and node operations that are outside the supported K3S flow.
+Worker nodes don't make the cluster highly available. When the K3S server is down, Kubernetes and public traffic stop
+for the whole cluster.
 
-In the dashboard, K3S clusters are shown as one-node clusters. They do not have scalable Kubernetes controls and cannot
-be scaled from Wodby.
+### Worker node requirements
+
+- The cluster status is `OK` and its infrastructure is on [version `4.1.6`](infrastructure.md#416) or newer. If an
+  infrastructure upgrade is available, apply it from `Clusters > [Cluster] > Infrastructure > Operations` first.
+- The worker meets the same [requirements](#requirements) as the K3S server, including outbound access to Wodby and
+  `frps.wodby.com:31225`.
+- The worker and the K3S server share a private network, such as a cloud VPC, a Hetzner vSwitch or Cloud Network, or a
+  WireGuard or Tailscale network. Their addresses on it are in `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` or
+  `100.64.0.0/10`.
+- The K3S server uses its private address for cluster traffic. K3S picks its address at installation, so connect the
+  private network before you install K3S on the server. The join command refuses to run when the server uses a public
+  address.
+- The private network allows TCP `6443`, `4240` and `10250`, and UDP `8473`, between the servers. Wodby's host firewall
+  allows these ports from private addresses only.
+- Each server has a different hostname. The hostname becomes the node name.
+- Behind an outbound proxy, export the same proxy variables as for the K3S server before you run the join command. See
+  [Install behind an outbound proxy](#install-behind-an-outbound-proxy).
+
+### Add a worker node
+
+1. Open `Clusters > [Cluster] > Infrastructure > Nodes` and click `Add node`.
+2. Run the command on the new server as `root` or with `sudo` within 15 minutes.
+3. Wait until the node shows as `Ready` in the node list.
+
+The join command checks the worker's network access, then sets up the worker the same way as the K3S server: the
+rollback command, host CA certificates, NFS client packages, the host firewall and
+[protections against CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414), and the daily host check.
+It installs the same K3S version as the server.
+
+### How apps use worker nodes
+
+- New pods run on any `Ready` node.
+- Public traffic keeps entering through the K3S server's public IP. A worker doesn't need a public IP and doesn't
+  accept public traffic for your apps.
+- A persistent volume on the default local-path storage is kept on the node where its app first started, and the app
+  always runs on that node. If that node is lost, the volume's data is lost. Back up data you need.
+- When you create an app, Wodby checks that its new volumes fit on the nodes. If they fit on some nodes but not all, you
+  see a warning and the app is created; it's refused only when they fit on none. See
+  [Disk capacity and persistent volumes](#disk-capacity-and-persistent-volumes).
+- Kubernetes upgrades update the K3S server first and then each worker, one at a time. Before a worker is upgraded,
+  its pods move to other nodes.
+
+### Remove a worker node
+
+1. Open `Clusters > [Cluster] > Infrastructure > Nodes` and click `Remove` on the worker.
+2. Wodby moves the worker's pods to other nodes, stops K3S on it and removes it from the cluster.
+3. Run `sudo /usr/local/bin/wodby-k3s-uninstall` on that server to remove K3S and Wodby's setup from it.
+
+Wodby refuses to remove a worker that stores persistent volumes, because their data would be lost. Delete or
+[migrate](../apps/migration.md) the app environments that use them first. If the worker is already lost, remove it with
+`Force`, which accepts the loss of those volumes' data.
+
+You can't remove the K3S server.
+
+## Public traffic
 
 If Wodby cannot detect the correct public ingress IP for a K3S cluster, update it from
 `Clusters > [Cluster] > Infrastructure > Settings`. The update is available only while the cluster status is `OK`.
 
-Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles that service through its built-in ServiceLB controller, so Wodby does not create a cloud provider load balancer for K3S.
+Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles that service through its built-in
+ServiceLB controller on the K3S server, so Wodby does not create a cloud provider load balancer for K3S.
 
 ## Troubleshooting
 
 - If the command has expired, reload the cluster page and use the new command.
 - If the cluster stays in `Awaiting`, the bootstrap script likely never completed the final initialization step.
 - If the script fails, fix the server issue, run `sudo /usr/local/bin/wodby-k3s-uninstall`, and then rerun a fresh command from the cluster page.
+- If the join command can't connect to the K3S server on port `6443`, check that both servers are on the same private
+  network and that its firewall allows the [worker node ports](#worker-node-requirements).
 - Without a proxy, make sure the server can reach the public internet, Wodby API endpoints, and
   `frps.wodby.com:31225` directly during installation.
 - Behind a proxy, `HTTP 403` during the FRPS check usually means the CONNECT destination or port is denied by proxy
