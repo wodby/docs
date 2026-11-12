@@ -200,7 +200,7 @@ the cycle.
 
 Wodby Cloud is billed in dollars as Wodby Cloud usage.
 
-Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
+Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Each persistent Wodby Cloud cluster also incurs a cluster fee.
 
 Paid plans include $30 of Wodby Cloud usage per month.
 

@@ -12,7 +12,7 @@ To ensure high availability of the kubernetes cluster, you need to ensure that t
 
 Not all managed kubernetes services provide option to use multiple availability zones.
 
-Clusters created with `Single-node cluster` are not highly available. They have one worker node, so node maintenance or failure can interrupt applications.
+[Single-node clusters](managed.md#single-node-clusters) and K3S servers are not highly available. They have one worker node, so node maintenance or failure can interrupt applications.
 
 ## Multi-regional deployment
 

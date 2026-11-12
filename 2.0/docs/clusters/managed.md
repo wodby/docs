@@ -1,5 +1,5 @@
 ---
-description: Create managed Kubernetes clusters on GKE, EKS, AKS, DigitalOcean or OVH from Wodby. Supported versions, GPU node pools and single-node clusters.
+description: Create managed Kubernetes clusters on GKE, EKS, AKS, DigitalOcean or OVH from Wodby. Supported versions and GPU node pools.
 ---
 
 # Managed Kubernetes cluster
@@ -55,21 +55,17 @@ services that need GPUs.
 
 ## Single-node clusters
 
-Some managed Kubernetes providers expose a `Single-node cluster` option in Wodby's cluster creation form. The option is available only for standard, non-serverless clusters after you select a supported Kubernetes integration.
+New single-node clusters are no longer available. To run a small cluster, create one with a minimum and maximum of one
+node; it can grow later.
 
-When enabled, Wodby creates a fixed one-node cluster:
+Existing single-node clusters keep running with one fixed node and no cloud provider load balancer. Public app traffic
+goes directly to the node's IP, shown in the cluster overview as `Public IPs`. You can't scale them or recycle their
+nodes.
 
-- minimum node count is fixed to `1`
-- maximum node count is fixed to `1`
-- cluster scaling is unavailable from `Infrastructure > Kubernetes`
-- Wodby does not create a cloud provider load balancer
-- public app traffic is routed directly to the node IP
-
-Use this mode for small clusters where reducing infrastructure cost matters more than high availability or scaling.
-
-Endpoint values are still shown in the cluster overview as `Public IPs` or `Hostname`.
-
-Single-node clusters are currently available for DigitalOcean-backed Kubernetes clusters.
+!!! warning "The public IP changes when the node is replaced"
+    A Kubernetes version upgrade replaces the cluster's only node, and the new node gets a new public IP. Wodby does not
+    move your domains to the new IP, so the apps on the cluster stop being reachable. Before you upgrade Kubernetes on
+    a single-node cluster, move its apps to a cluster with a minimum and maximum node count.
 
 !!! warning "Do not modify your cluster from cloud provider panel"
     Clusters created from Wodby should not be modified directly from the cloud provider control panel. Doing so can lead to drift and unexpected errors.
