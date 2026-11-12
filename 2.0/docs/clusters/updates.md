@@ -469,7 +469,8 @@ Wodby filters the provider's direct targets to keep upgrades incremental and rec
   after your current minor version reaches end of life. On managed clusters you can choose it earlier, but it shows as
   an update only after end of life.
   The dashboard labels this step `Major`, because a new Kubernetes minor version can remove APIs your workloads use.
-- A minor version Wodby doesn't support yet is not offered. Patches of your current minor version are still offered.
+- On K3S, a minor version the cluster's Cilium doesn't support yet is not offered, and the plan names the Cilium version
+  to update to first. Patches of your current minor version are still offered.
 - Skipping a minor or changing the Kubernetes major version is not offered as a direct upgrade.
 - Preview Kubernetes versions are excluded.
 
@@ -590,8 +591,7 @@ Wodby checks every 30 minutes. It starts an upgrade when the time window is open
 other upgrade or [blocking app activity](#app-activity-during-infrastructure-upgrades) is running, and the policy allows
 the next version.
 
-The Kubernetes version comes first. Wodby doesn't upgrade to a minor version it doesn't support yet, even when
-`Minor versions` is selected. When there's no version upgrade to start, Wodby applies the next component update
+The Kubernetes version comes first. When there's no version upgrade to start, Wodby applies the next component update
 the policy allows instead. On K3S, a new Kubernetes minor version waits until the cluster runs a Cilium version that
 supports it, so a Cilium update can come before that upgrade. Without `Include component updates`, that upgrade
 waits until you update Cilium yourself. On Amazon EKS, a Kubernetes version upgrade already
