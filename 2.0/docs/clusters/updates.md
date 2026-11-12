@@ -338,9 +338,10 @@ Some cluster components can be updated on their own, without a Kubernetes or inf
 available, the `Component updates` card appears under the `Kubernetes version` card at
 `Clusters > [Cluster] > Infrastructure > Kubernetes`. Choose `Update` and confirm to run it as a task.
 
-[Automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) also apply component updates, so with the default
-settings you don't need to run patch updates yourself. To run them only yourself, clear `Include component updates`
-in the `Kubernetes auto upgrade settings` card.
+[Automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) also apply component updates. They're on by default for
+K3S clusters, so with the default settings you don't need to run K3S patch updates yourself. On managed clusters they're
+off by default, so you run component updates yourself unless you turn automatic Kubernetes upgrades on. To run them only
+yourself, clear `Include component updates` in the `Kubernetes auto upgrade settings` card.
 
 | Cluster | Components |
 | --- | --- |
@@ -478,9 +479,10 @@ match the version observed through the Kubernetes API. Resolve the reported cond
 ### Run an upgrade
 
 Open `Clusters`, select the cluster, and go to `Infrastructure > Kubernetes`. In the `Kubernetes version` card, select
-one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window:
-the provider can rotate control-plane components and worker nodes, and the Kubernetes API can be temporarily
-unavailable.
+one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window: on a
+managed cluster the provider replaces every worker node, even for a patch, and the Kubernetes API can be temporarily
+unavailable. The confirmation dialog of a managed cluster warns that all nodes will be replaced. See
+[How upgrades affect your apps](#how-upgrades-affect-your-apps).
 
 The upgrade runs as a task and puts the cluster into `Upgrading` status. Wodby:
 
@@ -499,9 +501,10 @@ the remaining stages instead of trying to start an unrelated transition.
 
 A Kubernetes version update, including a patch version, can restart your apps:
 
-- **Managed Kubernetes:** providers usually update worker nodes by replacing them. Kubernetes moves your pods from each
-  old node to its replacement, so every pod restarts once. An app that keeps a volume can take longer, because the
-  volume has to detach from the old node and attach to the new one.
+- **Managed Kubernetes:** providers update worker nodes by replacing them, even for a patch or a newer provider build
+  of the same version, such as `1.36.5-do.2` to `1.36.5-do.3`. Kubernetes moves your pods from each old node to its
+  replacement, so every pod restarts once. An app that keeps a volume can take longer, because the volume has to detach
+  from the old node and attach to the new one.
 - **DigitalOcean Kubernetes:** before the upgrade, Wodby turns on surge upgrades for the cluster. DigitalOcean then
   starts a replacement node before it removes an old one, so your pods have somewhere to move. The extra node is billed
   while it runs, and your DigitalOcean account needs room for one more Droplet.
@@ -509,7 +512,8 @@ A Kubernetes version update, including a patch version, can restart your apps:
   is unavailable for a short time while K3S restarts. In clusters with agent nodes, Wodby drains each agent node in
   turn, so pods on agent nodes restart once.
 
-On a single-node cluster, an app with one replica is unavailable while its pod restarts. To keep an app available during
+On a single-node cluster, an app with one replica is unavailable while its pod restarts. On a single-node managed
+cluster, all apps are unavailable for a few minutes, because the only node is replaced. To keep an app available during
 upgrades, run the cluster with at least two nodes and the app with at least two replicas.
 
 ### Amazon EKS add-ons
@@ -532,9 +536,19 @@ Wodby can upgrade a cluster's Kubernetes version and apply its [component update
 a time window you choose. An automatic upgrade is the same upgrade you can start from the `Kubernetes version` card, and
 it follows the same [upgrade policy](#upgrade-policy).
 
-Automatic Kubernetes upgrades are on by default for every cluster, for patch versions only. To create a cluster without
-them, clear `Auto upgrade Kubernetes and components` in the cluster creation form. Wodby Cloud clusters and serverless
-clusters such as GKE Autopilot don't have them.
+Automatic Kubernetes upgrades are on by default for K3S clusters, for patch versions only. Wodby upgrades K3S in place,
+so apps on the server node keep running. To create a K3S cluster without them, clear
+`Auto upgrade Kubernetes and components` in the cluster creation form.
+
+On managed Kubernetes clusters, automatic Kubernetes upgrades are off by default. Every upgrade of a managed cluster
+replaces all of its nodes, even for a patch, so every pod restarts and a single-node cluster is unavailable for a few
+minutes. See [How upgrades affect your apps](#how-upgrades-affect-your-apps). Turn them on only if your apps can be
+unavailable for a few minutes during the time window, for example on a cluster with at least two nodes and apps with at
+least two replicas. To create a managed cluster with them, select `Auto upgrade Kubernetes and components` in the
+cluster creation form. Managed clusters that already had them on were switched off when this default changed; turn them
+on again in the `Kubernetes auto upgrade settings` card if you want them.
+
+Wodby Cloud clusters and serverless clusters such as GKE Autopilot don't have them.
 
 To change them:
 

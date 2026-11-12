@@ -38,9 +38,11 @@ In the cluster creation form, choose an `Owner`:
 Automatic infrastructure upgrades are enabled by default during cluster creation for managed Kubernetes clusters. You can
 disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Operations`.
 
-[Automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades), which also apply component updates, are
-enabled by default too. To create the cluster without them, clear `Auto upgrade Kubernetes and components`. You can
-change them later from `Clusters > [Cluster] > Infrastructure > Kubernetes`.
+[Automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades), which also apply component updates, are off
+by default for managed clusters. Every Kubernetes upgrade of a managed cluster replaces all of its nodes, even for a
+patch, so every pod restarts and a single-node cluster is unavailable for a few minutes. To create the cluster with
+them, select `Auto upgrade Kubernetes and components`. You can change them later from
+`Clusters > [Cluster] > Infrastructure > Kubernetes`.
 
 Use the cluster `Ownership` page later if other projects need `Read/Use` or `Modify/Delete` access.
 
