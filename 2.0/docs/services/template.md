@@ -271,7 +271,7 @@ Derivatives can't set GPU resources.
 
 Used by `links[].selectors`.
 
-- `type`: service type to match.
+- `type`: required service type to match.
 - `option`: optional service option version to match.
 - `labels`: optional labels that the matching service must have.
 
@@ -531,8 +531,9 @@ Use `build: true` when a service Dockerfile needs the value as a build argument.
 
 Type: `array`.
 
-Application versions or deployment variants. Services that do not inherit from another service usually define at least
-one option, unless they are infrastructure services.
+Application versions or deployment variants. Every service except an infrastructure service needs at least one option,
+defined in its own manifest or inherited from its base service. Wodby refuses a service without one, because app
+environments need a version of each service. An empty list counts as no options.
 
 Each item supports:
 
@@ -816,7 +817,8 @@ linkGroups:
 ```
 
 Because a target in another app or a custom target can only be set after the app exists, start a service with a link
-group as disabled in the stack, then set its links and enable it.
+group as disabled in the stack, then set its links and enable it. Wodby refuses a stack in which an enabled service
+links fewer than `min` links of a group to enabled stack services, because no app environment could be created from it.
 
 ### `crossApp`
 
