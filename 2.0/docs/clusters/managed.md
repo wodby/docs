@@ -16,10 +16,11 @@ To create a managed cluster, first connect your cloud account to Wodby by creati
 
 ## Kubernetes versions
 
-The cluster creation form lists the Kubernetes versions Wodby supports for the selected provider and location, with the
-recommended version selected. A version the cloud provider offers is not listed until Wodby supports it. When a
-provider publishes full patch or build versions, Wodby selects the latest available release of the recommended
-version. When a provider accepts only a minor version, the provider selects and maintains the patch release.
+The cluster creation form lists the Kubernetes versions the cloud provider offers for the selected location, starting
+from the oldest version Wodby supports, with the recommended version selected. A new version appears as soon as the
+provider offers it. When a provider publishes full patch or build versions, Wodby selects the latest available release
+of the recommended version. When a provider accepts only a minor version, the provider selects and maintains the patch
+release.
 
 Existing clusters use a provider-specific upgrade plan based on their current version. A cluster on a version that new
 clusters can no longer use may need to install a provider-approved patch before it can upgrade to the next minor
