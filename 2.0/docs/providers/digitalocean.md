@@ -19,7 +19,7 @@ Wodby provides a native integration with DigitalOcean Kubernetes Service.
 - DOKS has a limit of maximum 25 nodes per cluster. If you need to increase this limit please contact DigitalOcean support, then contact us
 - Node disk is not configurable upon creation
 - We create a single load balancer per regular cluster and deploy Envoy Gateway for public app entrypoints
-- In single-node mode, Wodby does not create a DigitalOcean Load Balancer. Public app traffic is routed directly to the cluster node IP, and the endpoint is still shown in Wodby as a public IP or hostname.
+- In single-node mode, Wodby does not create a DigitalOcean Load Balancer. Public app traffic is routed directly to the cluster node IP, and the endpoint is still shown in Wodby as a public IP or hostname. The IP changes when the node is replaced; see [Public IP changes](../clusters/managed.md#public-ip-changes).
 
 ### Storage
 

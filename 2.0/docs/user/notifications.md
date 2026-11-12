@@ -26,6 +26,9 @@ The page groups notification types by category, such as apps, clusters, automati
 
 Each optional notification has its own toggle. Turning a notification off stops that type of email for your user in the selected organization.
 
+Some notifications report something you must act on and are always sent. Their toggle stays on and can't be changed,
+`Unsubscribe from all` leaves them on, and their emails have no unsubscribe link.
+
 Examples include:
 
 - failed app builds or deployments
@@ -37,6 +40,15 @@ Examples include:
 - cron job and backup failures and recoveries, plus failed imports, certificate renewals, custom certificate expiration, service actions, or integration installs
 - breached spending limits
 - weekly organization reports
+
+## Cluster public IP changes
+
+When a [single-node cluster's public IP changes](../clusters/managed.md#public-ip-changes) because its node was
+replaced, Wodby emails the organization's owners and admins. The email names the old and the new IP and lists the
+cluster's custom domains that still resolve to the old IP, so you know which DNS records to update. Wodby sends it once
+for each new IP.
+
+`Cluster public IP changed` is always sent: you can't turn it off.
 
 ## Security infrastructure upgrade notices (upcoming)
 

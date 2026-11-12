@@ -60,7 +60,11 @@ You can also create a persistent Wodby Cloud cluster with the `Single-node clust
 
 Single-node Wodby Cloud clusters cannot be changed into scalable clusters later. If you need node scaling after creation, create a regular Wodby Cloud cluster and move the application there.
 
-Use single-node Wodby Cloud only when a small non-high-availability cluster is acceptable.
+The node's public IP changes when the node is replaced, for example during a Kubernetes version upgrade, and custom
+domains with an A record to the old IP then need a DNS update. See
+[Public IP changes](managed.md#public-ip-changes). Use single-node Wodby Cloud for development environments that use
+only technical domains. For production, create a scalable Wodby Cloud cluster, even with one node: its load balancer
+keeps the public IP.
 
 ## Demo
 
