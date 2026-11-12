@@ -65,9 +65,16 @@ There are 6 steps of creating a new application:
 - In the selected stack you can:
   - select a version (option) of a service 
   - enable/disable optional services and change their configuration
+  - set the number of [replicas](services.md#replicas) for each service. Each service starts with its stack's replica
+    count. Services that don't support horizontal scaling run at most one replica, and a service with autoscaling
+    starts with autoscaling's minimum replicas
   - configure resources request and limitation
   - configure autoscaling for scalable services
-  - use the icons under `TOTAL` to reset all services to the stack's defaults or [clear their resources](scalability.md#clearing-resources-when-creating-an-app)
+  - use the icons in the `TOTAL` row to reset all services to the stack's defaults, including replicas, or
+    [clear their resources](scalability.md#clearing-resources-when-creating-an-app)
+- The `TOTAL` row adds up the requests and limits of all enabled services: every container each service runs, times
+  its replicas. In step 2, Wodby [compares these requests](scalability.md#cluster-capacity) with what the selected
+  cluster can offer
 
 ### Step 2
 
