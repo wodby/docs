@@ -106,8 +106,8 @@ See the
 
 #### Clearing resources when creating an app
 
-When you create an app, the icons under `TOTAL` in the services table reset all services to the stack's defaults or
-clear their resources. You can also clear the values of one service in its resources dialog.
+When you create an app, the icons in the `TOTAL` row of the services table reset all services to the stack's defaults,
+including their replicas, or clear their resources. You can also clear the values of one service in its resources dialog.
 
 A cleared service reserves nothing and has no limit. It is the first to suffer when a node runs short of memory or CPU.
 Clearing all services also turns off their autoscaling, because autoscaling needs a CPU request.
@@ -115,7 +115,9 @@ Clearing all services also turns off their autoscaling, because autoscaling need
 ### Cluster capacity
 
 When you create an app or an app environment on an existing cluster, Wodby adds up the resource requests of its enabled
-services and compares them with what the cluster can offer: the capacity free now, plus any nodes it can still add.
+services, counting every container and replica, and compares them with what the cluster can offer: the capacity free
+now, plus any nodes it can still add. When you create an app, the `TOTAL` row of the services table shows the same
+requests. A development workspace also counts its workspace container.
 
 - **It can't fit:** Wodby refuses to create the environment and shows both amounts. This also applies when one replica
   of a service is larger than a node. Lower the resources, choose a larger cluster, or
