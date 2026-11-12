@@ -6,7 +6,7 @@ description: Scale app services in Wodby by changing replica counts manually, ad
 
 Before you scale an app, make sure the underlying [Kubernetes cluster](../clusters/index.md) can scale with it.
 
-[Managed Kubernetes clusters](../clusters/managed.md) give you the most flexibility because they can scale worker nodes dynamically through a cluster autoscaler. With [K3S](../clusters/k3s.md), app scaling is limited by the number of servers you connect to the cluster.
+[Managed Kubernetes clusters](../clusters/managed.md) give you the most flexibility because they can scale worker nodes dynamically through a cluster autoscaler. With [K3S](../clusters/k3s.md), app scaling is limited by the K3S server and the [worker nodes](../clusters/k3s.md#worker-nodes) you add to the cluster.
 
 ## Manual scaling
 
