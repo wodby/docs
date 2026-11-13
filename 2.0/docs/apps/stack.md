@@ -149,6 +149,13 @@ An existing app service cannot silently change into an unrelated service or swit
 derivative during an upgrade. Wodby stops before committing such a change so the stack can be corrected. Renaming or
 moving a derivative under another compatible parent is reconciled safely.
 
+An upgrade also stops before changing anything when the new stack revision changes where a volume keeps its data, for
+example when a service that mounted another service's files now has storage of its own, or the other way round. An
+upgrade cannot move the data, and the service would see an empty or different volume. The error names the service and
+the volume, and the environment keeps running on its current stack revision. To use the new revision, back up the
+volume, create a new environment from the latest stack revision, and [import](imports.md) the backup into it. Automatic
+upgrades stop with the same message.
+
 New or updated app services may need app-specific configuration that cannot be selected safely at stack-upgrade time,
 such as a build source, an external database, a compatible integration, or a required setting. This includes a required
 setting without a default that a newer service version adds to an app service you already have. These gaps do not stop
@@ -265,10 +272,16 @@ overrides are kept when this setting is disabled.
 
 ### Override cron schedules
 
-When enabled, Wodby updates cron schedules to match the latest service and stack configuration.
+New cron schedules introduced by the service or stack are created during upgrade, and schedules they no longer define
+are removed. Cron schedules you created yourself are never changed.
 
-New cron schedules introduced by the service or stack are created during upgrade. Existing cron schedules are kept when
-this setting is disabled.
+When disabled, a cron schedule from the service or stack follows the latest definition in everything you have not
+changed: its title, command, workload, schedule, environment type, and whether it is enabled. What you changed is
+kept. For example, if you moved a nightly job to 3 AM and the service changes its command, the job gets the new command
+and still runs at 3 AM.
+
+When enabled, Wodby replaces your changes too, and every cron schedule from the service or stack matches the latest
+service and stack configuration.
 
 ### Override volumes
 
