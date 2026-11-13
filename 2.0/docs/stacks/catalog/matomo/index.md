@@ -13,7 +13,7 @@ The stack runs Wodby's prebuilt Matomo image, so there's nothing to build and no
 ## Your own plugins
 
 To add your own Matomo plugins, use the
-[buildable Matomo stack](https://github.com/wodby/stack-matomo-buildable) instead. You keep them in a Git repository
+[buildable Matomo stack](../matomo-buildable/index.md) instead. You keep them in a Git repository
 started from the [Matomo boilerplate](https://github.com/wodby/matomo-boilerplate), which also sets the Matomo release to
 run, and Wodby builds Matomo with them on every push. You decide when to upgrade Matomo, so watch Matomo's releases for
 security fixes.

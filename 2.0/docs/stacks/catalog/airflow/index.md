@@ -10,7 +10,7 @@ composition and defaults are in [`wodby/stack-airflow`](https://github.com/wodby
 ## DAGs from Git
 
 To keep your DAGs, plugins and Python packages in Git, use the
-[buildable Airflow stack](https://github.com/wodby/stack-airflow-buildable) instead. You start a repository from the
+[buildable Airflow stack](../airflow-buildable/index.md) instead. You start a repository from the
 [Airflow boilerplate](https://github.com/wodby/airflow-boilerplate), and Wodby builds Airflow with your code and
 packages on every push. Every Airflow component runs that build.
 

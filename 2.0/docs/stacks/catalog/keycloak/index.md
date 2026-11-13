@@ -10,7 +10,7 @@ documented in [`wodby/stack-keycloak`](https://github.com/wodby/stack-keycloak).
 ## Your own themes and providers
 
 To add your own login, account or email themes, or custom providers, use the
-[buildable Keycloak stack](https://github.com/wodby/stack-keycloak-buildable) instead. You keep them in a Git repository
+[buildable Keycloak stack](../keycloak-buildable/index.md) instead. You keep them in a Git repository
 started from the [Keycloak boilerplate](https://github.com/wodby/keycloak-boilerplate), and Wodby builds Keycloak with
 them on every push. Select a theme for a realm under **Realm settings > Themes**.
 

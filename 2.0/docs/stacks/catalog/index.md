@@ -7,6 +7,9 @@ description: Guides for every stack in the Wodby catalog. Each explains what to 
 Every stack in the catalog has a guide here. Guides explain what to set when creating an environment, how to sign in
 or connect, and what to back up. Use them together with the stack and service configuration shown in the dashboard.
 
+A buildable stack runs the same application built from your Git repository, with your own modules, plugins, themes
+or code. Its guide covers what differs from the stack it is a variant of.
+
 The source repository for each stack remains the authoritative reference for its current services, versions, links,
 storage, and defaults. Browse all available stacks in the [Wodby stack catalog](https://wodby.com/stacks) or the
 [`wodby/stacks`](https://github.com/wodby/stacks) repository.
@@ -14,10 +17,10 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 ## Application stacks
 
 [Drupal](drupal/index.md) ([connect to Solr](drupal/solr.md)), [WordPress](wordpress/index.md),
-[Ghost](ghost/index.md), [Matomo](matomo/index.md), [Mautic](mautic/index.md), [Moodle](moodle/index.md),
-[Discourse](discourse/index.md), [Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md),
-[Nextcloud](nextcloud/index.md), [Odoo](odoo/index.md), [GitLab](gitlab/index.md), [Gitea](gitea/index.md),
-[Forgejo](forgejo/index.md), [Dagster](dagster/index.md), [Zammad](zammad/index.md), [n8n](n8n/index.md),
+[Ghost](ghost/index.md), [Matomo](matomo/index.md) ([buildable](matomo-buildable/index.md)), [Mautic](mautic/index.md) ([buildable](mautic-buildable/index.md)), [Moodle](moodle/index.md) ([buildable](moodle-buildable/index.md)),
+[Discourse](discourse/index.md) ([buildable](discourse-buildable/index.md)), [Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md),
+[Nextcloud](nextcloud/index.md), [Odoo](odoo/index.md) ([buildable](odoo-buildable/index.md)), [GitLab](gitlab/index.md), [Gitea](gitea/index.md),
+[Forgejo](forgejo/index.md), [Dagster](dagster/index.md) ([buildable](dagster-buildable/index.md)), [Zammad](zammad/index.md), [n8n](n8n/index.md),
 [Metabase](metabase/index.md), [Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
@@ -45,7 +48,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [Valkey](valkey/index.md), [Redis](redis/index.md), [Memcached](memcached/index.md), [RabbitMQ](rabbitmq/index.md),
 [Distribution Registry](distribution/index.md), [Solr](solr/index.md), [Elasticsearch](elasticsearch/index.md),
 [OpenSearch](opensearch/index.md), [Meilisearch](meilisearch/index.md), [ClickHouse](clickhouse/index.md),
-[Apache Kafka](kafka/index.md), [Apache Spark](spark/index.md), [Apache Airflow](airflow/index.md),
+[Apache Kafka](kafka/index.md), [Apache Spark](spark/index.md), [Apache Airflow](airflow/index.md) ([buildable](airflow-buildable/index.md)),
 [ZooKeeper](zookeeper/index.md)
 
 ## Utilities and integrations
@@ -57,7 +60,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 
 ## Identity and access
 
-[Keycloak](keycloak/index.md)
+[Keycloak](keycloak/index.md) ([buildable](keycloak-buildable/index.md))
 
 ## AI inference
 
