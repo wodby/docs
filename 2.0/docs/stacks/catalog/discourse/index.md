@@ -13,7 +13,7 @@ The stack runs Wodby's prebuilt Discourse image, so there's nothing to build and
 ## Your own plugins
 
 To add plugins that don't ship with Discourse, use the
-[buildable Discourse stack](https://github.com/wodby/stack-discourse-buildable) instead. You list plugins by Git URL, or
+[buildable Discourse stack](../discourse-buildable/index.md) instead. You list plugins by Git URL, or
 commit your own, in a repository started from the
 [Discourse boilerplate](https://github.com/wodby/discourse-boilerplate), and Wodby builds Discourse with them on every
 push.

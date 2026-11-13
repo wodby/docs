@@ -11,7 +11,7 @@ data in that database, so both services are required and cannot be excluded. The
 ## Your own code
 
 This stack runs no code of yours: add code locations that run elsewhere to its workspace. To run your own assets, jobs
-and schedules on Wodby, use the [buildable Dagster stack](https://github.com/wodby/stack-dagster-buildable) instead. You
+and schedules on Wodby, use the [buildable Dagster stack](../dagster-buildable/index.md) instead. You
 keep a Dagster project in a Git repository started from the
 [Dagster boilerplate](https://github.com/wodby/dagster-boilerplate), and Wodby builds it as a code location that Dagster
 loads. Runs execute inside that code location.

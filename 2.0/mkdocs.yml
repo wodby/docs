@@ -277,17 +277,23 @@ nav:
               - WordPress: stacks/catalog/wordpress/index.md
               - Ghost: stacks/catalog/ghost/index.md
               - Matomo: stacks/catalog/matomo/index.md
+              - Matomo (buildable): stacks/catalog/matomo-buildable/index.md
               - Mautic: stacks/catalog/mautic/index.md
+              - Mautic (buildable): stacks/catalog/mautic-buildable/index.md
               - Moodle: stacks/catalog/moodle/index.md
+              - Moodle (buildable): stacks/catalog/moodle-buildable/index.md
               - Discourse: stacks/catalog/discourse/index.md
+              - Discourse (buildable): stacks/catalog/discourse-buildable/index.md
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
               - Nextcloud: stacks/catalog/nextcloud/index.md
               - Odoo: stacks/catalog/odoo/index.md
+              - Odoo (buildable): stacks/catalog/odoo-buildable/index.md
               - GitLab: stacks/catalog/gitlab/index.md
               - Gitea: stacks/catalog/gitea/index.md
               - Forgejo: stacks/catalog/forgejo/index.md
               - Dagster: stacks/catalog/dagster/index.md
+              - Dagster (buildable): stacks/catalog/dagster-buildable/index.md
               - Zammad: stacks/catalog/zammad/index.md
               - n8n: stacks/catalog/n8n/index.md
               - Metabase: stacks/catalog/metabase/index.md
@@ -344,6 +350,7 @@ nav:
               - Apache Kafka: stacks/catalog/kafka/index.md
               - Apache Spark: stacks/catalog/spark/index.md
               - Apache Airflow: stacks/catalog/airflow/index.md
+              - Apache Airflow (buildable): stacks/catalog/airflow-buildable/index.md
               - ZooKeeper: stacks/catalog/zookeeper/index.md
           - Utilities and integrations:
               - Mailpit: stacks/catalog/mailpit/index.md
@@ -359,6 +366,7 @@ nav:
               - T3 Code: stacks/catalog/t3code/index.md
           - Identity and access:
               - Keycloak: stacks/catalog/keycloak/index.md
+              - Keycloak (buildable): stacks/catalog/keycloak-buildable/index.md
           - AI inference:
               - vLLM: stacks/catalog/vllm/index.md
           - Observability:

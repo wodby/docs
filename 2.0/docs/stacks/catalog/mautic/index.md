@@ -13,7 +13,7 @@ The stack runs Wodby's prebuilt Mautic image, so there's nothing to build and no
 ## Your own plugins and themes
 
 To add your own plugins or themes, use the
-[buildable Mautic stack](https://github.com/wodby/stack-mautic-buildable) instead. You keep Mautic as a Composer project
+[buildable Mautic stack](../mautic-buildable/index.md) instead. You keep Mautic as a Composer project
 in a Git repository started from the [Mautic boilerplate](https://github.com/wodby/mautic-boilerplate), and Wodby builds
 it on every push. Each deployment runs Mautic's database migrations and registers new plugins. You decide when to update
 Mautic, so watch Mautic's releases for security fixes.

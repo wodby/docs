@@ -14,7 +14,7 @@ The stack needs no repository: Odoo and every Community app come with the servic
 ## Your own modules
 
 To add your own or community modules, use the
-[buildable Odoo stack](https://github.com/wodby/stack-odoo-buildable) instead. You keep the modules and their Python
+[buildable Odoo stack](../odoo-buildable/index.md) instead. You keep the modules and their Python
 packages in a Git repository started from the [Odoo boilerplate](https://github.com/wodby/odoo-boilerplate), and Wodby
 builds Odoo with them on every push. Installed modules whose files change are updated when you deploy; new modules
 appear in the **Apps** menu.
@@ -45,8 +45,7 @@ post-deploy step fails with the reason. Fix it and deploy again.
 Odoo updates arrive with new revisions of the service's image. After each deployment, Odoo updates the installed apps
 whose version went up. To update every installed app, run the **Update all modules** action of the Odoo service.
 
-To add your own or community modules, build an image `FROM wodby/odoo` with the modules in `/usr/src/app`, and use it
-from a [custom service](../../../services/create.md) based on the Odoo service.
+To add your own or community modules, use the [buildable Odoo stack](../odoo-buildable/index.md).
 
 ## Workers and live updates
 
@@ -70,6 +69,6 @@ app before you move to a new major Odoo version: Odoo doesn't migrate a database
 
 ## Limits
 
-- Odoo Community Edition only. Enterprise modules need a custom image, like your own modules.
+- Odoo Community Edition only. Enterprise modules need the [buildable Odoo stack](../odoo-buildable/index.md), like your own modules.
 - One database per app environment.
 - Uploads are limited to 128 MB.
