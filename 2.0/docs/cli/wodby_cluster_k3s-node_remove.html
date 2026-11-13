@@ -8580,7 +8580,7 @@
 
     <h1>wodby cluster k3s-node remove</h1>
     <p class="lead">Remove a worker node from a k3s cluster</p>
-    <p>Remove a worker node from a k3s cluster: its pods move to other nodes, k3s stops on it and the node is deleted. The server can&#39;t be removed. A node that stores persistent volumes is refused unless --force is given, which loses their data; k3s-node list shows them. Afterwards run sudo /usr/local/bin/wodby-k3s-uninstall on that server to remove k3s from it.</p>
+    <p>Remove a worker node from a k3s cluster: its pods move to other nodes, k3s stops on it and the node is deleted. The server can&#39;t be removed. A node that stores persistent volumes is refused unless --force is given, which loses their data; k3s-node list -o vertical lists them. Afterwards run sudo /usr/local/bin/wodby-k3s-uninstall on that server to remove k3s from it.</p>
 
     
 
