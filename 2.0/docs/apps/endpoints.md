@@ -446,7 +446,7 @@ On clusters with Wodby infrastructure version `4.0.0` or newer, TCP publishing r
 capability and UDP publishing requires its `UDPRoute` capability. Some provider-managed Gateway API installations use
 the Standard channel, which can support Wodby's HTTP/HTTPS routing without these optional route types. When a protocol
 is unavailable, the port page explains the limitation and prevents the port from being published. You can review the
-detected capabilities under `Clusters > [Cluster] > Infrastructure > Operations`; see
+detected capabilities under `Clusters > [Cluster] > Infrastructure > Overview`; see
 [Gateway API compatibility](../clusters/infrastructure.md#gateway-api-compatibility) for details.
 
 Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`. The first available port in that range is used.

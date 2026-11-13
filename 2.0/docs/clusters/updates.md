@@ -26,8 +26,8 @@ are enabled.
 Infrastructure app updates can include changes to platform services such as Envoy Gateway, monitoring, the FRPC proxy
 tunnel, or provider-specific controller apps.
 
-In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure > Operations`. The
-`Infrastructure app stacks` card shows whether stack updates are available. When Wodby can identify the affected
+In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure > Updates`. The
+`Infrastructure apps` card shows whether stack updates are available. When Wodby can identify the affected
 infrastructure apps, the card lists each app and the current and target stack revision numbers.
 
 ### Review an infrastructure app changelog
@@ -87,7 +87,7 @@ If both an infrastructure version upgrade and infrastructure app stack upgrade a
 infrastructure version upgrade first. Infrastructure app upgrades are checked again after the cluster is no longer
 outdated at the infrastructure version level.
 
-In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure > Operations`. The
+In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure > Updates`. The
 `Wodby infrastructure` card shows the current infrastructure version, the target version when an upgrade is available,
 and a manual upgrade button. The manual button is disabled when no infrastructure version upgrade is available.
 
@@ -112,7 +112,7 @@ This update reduces your exposure but doesn't fix the bug. To fix it, you also n
 
 Use an account with permission to upgrade the cluster.
 
-1. Open `Clusters > [Cluster] > Infrastructure > Operations` and check the current version in the
+1. Open `Clusters > [Cluster] > Infrastructure > Updates` and check the current version in the
    `Wodby infrastructure` card. If it already shows `4.1.4` or newer, this update is complete.
 2. Choose a maintenance window and start the offered infrastructure version upgrade. If earlier versions are offered
    first, apply them in order until the cluster reaches `4.1.4`.
@@ -207,7 +207,7 @@ This update addresses host trust in certificate chains affected by the eMudhra i
 
 Use an account with permission to upgrade the cluster.
 
-1. Open `Clusters > [Cluster] > Infrastructure > Operations` and check the current version in the
+1. Open `Clusters > [Cluster] > Infrastructure > Updates` and check the current version in the
    `Wodby infrastructure` card. If it already shows `4.1.2` or newer, this infrastructure update is complete.
 2. Choose a maintenance window and start the offered infrastructure version upgrade. If earlier versions are offered
    first, review their changelog and apply them in order until the cluster reaches `4.1.2` or newer.
@@ -303,7 +303,7 @@ infrastructure version upgrades and infrastructure app stack upgrades can start 
 Version policy settings affect automatic upgrades only. You can still run a manual infrastructure or infrastructure app
 upgrade when the dashboard offers one.
 
-In the dashboard, open `Infrastructure > Operations`. Each upgrade type has its own card:
+In the dashboard, open `Infrastructure > Updates`. Each upgrade type has its own card:
 
 - `Wodby infrastructure auto upgrade settings`
 - `Infrastructure apps auto upgrade settings`
@@ -317,8 +317,8 @@ patch, and minor updates are enabled by default. `Major versions` is visible but
 | Cluster type | Default |
 | --- | --- |
 | Wodby Cloud | Enabled and locked on. Major automatic upgrades are not allowed. |
-| Managed Kubernetes in your cloud account | Enabled in the dashboard creation form. You can disable it during creation or later from `Infrastructure > Operations`. |
-| K3S | Enabled in the dashboard creation form. You can disable it during creation or later from `Infrastructure > Operations`. |
+| Managed Kubernetes in your cloud account | Enabled in the dashboard creation form. You can disable it during creation or later from `Infrastructure > Updates`. |
+| K3S | Enabled in the dashboard creation form. You can disable it during creation or later from `Infrastructure > Updates`. |
 
 Wodby Cloud clusters always keep automatic infrastructure upgrades enabled because Wodby operates the cluster
 infrastructure. The dashboard shows these settings as managed by Wodby. Major automatic upgrades remain disabled for
@@ -336,7 +336,7 @@ Wodby sends email notifications when automatic infrastructure upgrades succeed o
 
 Some cluster components can be updated on their own, without a Kubernetes or infrastructure upgrade. When an update is
 available, the `Component updates` card appears under the `Kubernetes version` card at
-`Clusters > [Cluster] > Infrastructure > Kubernetes`. Choose `Update` and confirm to run it as a task.
+`Clusters > [Cluster] > Kubernetes > Updates`. Choose `Update` and confirm to run it as a task.
 
 [Automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) also apply component updates. They're on by default for
 K3S clusters, so with the default settings you don't need to run K3S patch updates yourself. On managed clusters they're
@@ -369,7 +369,7 @@ in one of two ways:
 
 - **Recycle nodes** replaces nodes without changing the Kubernetes version. It's available on Amazon EKS, Azure AKS and
   DigitalOcean Kubernetes, except for single-node clusters. Use `Recycle nodes` at
-  `Clusters > [Cluster] > Infrastructure > Kubernetes`, the
+  `Clusters > [Cluster] > Kubernetes > Operations`, the
   [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) command, or the [API](../api/index.html).
 - **A [Kubernetes version update](#kubernetes-version-updates)** moves nodes to the image that comes with the new version.
   It's available on all managed providers that support version updates, including Google GKE.
@@ -443,8 +443,8 @@ Wodby operates the nodes of Wodby Cloud clusters, so you can't replace them your
 ## Kubernetes version updates
 
 Kubernetes version updates are separate from Wodby infrastructure version and infrastructure app updates. Wodby reads
-the current cluster state and asks the provider for direct upgrade targets each time you open the `Kubernetes` tab.
-The plan is cluster-specific rather than a generic list of Kubernetes releases.
+the current cluster state and asks the provider for direct upgrade targets each time you open the `Kubernetes > Updates`
+tab. The plan is cluster-specific rather than a generic list of Kubernetes releases.
 
 Wodby supports this workflow for:
 
@@ -480,7 +480,7 @@ match the version observed through the Kubernetes API. Resolve the reported cond
 
 ### Run an upgrade
 
-Open `Clusters`, select the cluster, and go to `Infrastructure > Kubernetes`. In the `Kubernetes version` card, select
+Open `Clusters`, select the cluster, and go to `Kubernetes > Updates`. In the `Kubernetes version` card, select
 one of the available direct targets, and start the upgrade. Run production upgrades during a maintenance window: on a
 managed cluster the provider replaces every worker node, even for a patch, and the Kubernetes API can be temporarily
 unavailable. The confirmation dialog of a managed cluster warns that all nodes will be replaced. See
@@ -554,7 +554,7 @@ Wodby Cloud clusters and serverless clusters such as GKE Autopilot don't have th
 
 To change them:
 
-1. Open `Clusters > [Cluster] > Infrastructure > Kubernetes`.
+1. Open `Clusters > [Cluster] > Kubernetes > Updates`.
 2. In the `Kubernetes auto upgrade settings` card, turn `Auto upgrade` on or off.
 3. Under `Version changes`, choose which upgrades Wodby can start. Select at least one:
     - `Patch versions`: a newer patch of the current minor version, such as `1.36.4` to `1.36.5`. This includes a newer
