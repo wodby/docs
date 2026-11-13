@@ -347,7 +347,7 @@ You can't remove the K3S server.
 ## Public traffic
 
 If Wodby cannot detect the correct public ingress IP for a K3S cluster, update it from
-`Clusters > [Cluster] > Infrastructure > Settings`. The update is available only while the cluster status is `OK`.
+`Clusters > [Cluster] > Settings`. The update is available only while the cluster status is `OK`.
 
 Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles that service through its built-in
 ServiceLB controller on the K3S server, so Wodby does not create a cloud provider load balancer for K3S.
