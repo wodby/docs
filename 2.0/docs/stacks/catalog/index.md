@@ -20,7 +20,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [Ghost](ghost/index.md), [Matomo](matomo/index.md) ([buildable](matomo-buildable/index.md)), [Mautic](mautic/index.md) ([buildable](mautic-buildable/index.md)), [Moodle](moodle/index.md) ([buildable](moodle-buildable/index.md)),
 [Discourse](discourse/index.md) ([buildable](discourse-buildable/index.md)), [Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md),
 [Nextcloud](nextcloud/index.md), [Odoo](odoo/index.md) ([buildable](odoo-buildable/index.md)), [GitLab](gitlab/index.md), [Gitea](gitea/index.md),
-[Forgejo](forgejo/index.md), [Dagster](dagster/index.md) ([buildable](dagster-buildable/index.md)), [Zammad](zammad/index.md), [n8n](n8n/index.md),
+[Forgejo](forgejo/index.md), [Dagster](dagster/index.md), [Zammad](zammad/index.md), [n8n](n8n/index.md),
 [Metabase](metabase/index.md), [Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
@@ -48,7 +48,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [Valkey](valkey/index.md), [Redis](redis/index.md), [Memcached](memcached/index.md), [RabbitMQ](rabbitmq/index.md),
 [Distribution Registry](distribution/index.md), [Solr](solr/index.md), [Elasticsearch](elasticsearch/index.md),
 [OpenSearch](opensearch/index.md), [Meilisearch](meilisearch/index.md), [ClickHouse](clickhouse/index.md),
-[Apache Kafka](kafka/index.md), [Apache Spark](spark/index.md), [Apache Airflow](airflow/index.md) ([buildable](airflow-buildable/index.md)),
+[Apache Kafka](kafka/index.md), [Apache Spark](spark/index.md), [Apache Airflow](airflow/index.md),
 [ZooKeeper](zookeeper/index.md)
 
 ## Utilities and integrations

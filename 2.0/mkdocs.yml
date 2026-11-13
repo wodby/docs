@@ -182,6 +182,8 @@ plugins:
         'services/storage.md': 'services/types.md#storage'
         'services/tokens.md': 'services/configuration.md#tokens'
         'services/volumes.md': 'services/configuration.md#volumes'
+        'stacks/catalog/dagster-buildable/index.md': 'stacks/catalog/dagster/index.md'
+        'stacks/catalog/airflow-buildable/index.md': 'stacks/catalog/airflow/index.md'
 
 hooks:
   - ../scripts/version_assets.py
@@ -293,7 +295,6 @@ nav:
               - Gitea: stacks/catalog/gitea/index.md
               - Forgejo: stacks/catalog/forgejo/index.md
               - Dagster: stacks/catalog/dagster/index.md
-              - Dagster (buildable): stacks/catalog/dagster-buildable/index.md
               - Zammad: stacks/catalog/zammad/index.md
               - n8n: stacks/catalog/n8n/index.md
               - Metabase: stacks/catalog/metabase/index.md
@@ -350,7 +351,6 @@ nav:
               - Apache Kafka: stacks/catalog/kafka/index.md
               - Apache Spark: stacks/catalog/spark/index.md
               - Apache Airflow: stacks/catalog/airflow/index.md
-              - Apache Airflow (buildable): stacks/catalog/airflow-buildable/index.md
               - ZooKeeper: stacks/catalog/zookeeper/index.md
           - Utilities and integrations:
               - Mailpit: stacks/catalog/mailpit/index.md
