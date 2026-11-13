@@ -32,7 +32,7 @@ policy controller, until their cluster infrastructure is upgraded.
 
 ## Cluster components
 
-To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Infrastructure > Kubernetes`. The
+To see the infrastructure software running on a cluster, open `Clusters > [Cluster] > Kubernetes > Updates`. The
 component table at the bottom of the tab shows each component's version, whether an update is available, where it runs,
 and how many pods or nodes run it. It includes system pods and each node's Kubernetes agent, container runtime,
 operating system, and kernel. Your applications are not included, and neither are infrastructure apps, which the `Apps`
@@ -43,10 +43,11 @@ component update or a [node recycling or Kubernetes version update task](updates
 ends, and the table shows the new versions without reloading the page. A cluster that isn't healthy keeps its last list
 until it recovers.
 
-`Status` shows an update only when Wodby can apply it. Updates that run from the `Kubernetes` tab, such as a Kubernetes
-version update, node recycling, or a component update, have no link; others link to the `Operations` or `Apps` tab that
-runs them. A newer upstream release alone does not count. The column is hidden when no listed component has a status. On
-managed clusters, only Amazon EKS add-ons show updates. See [component updates](updates.md#component-updates).
+`Status` shows an update only when Wodby can apply it. Updates that run from the same tab, such as a Kubernetes version
+update or a component update, have no link. Others link to the tab that runs them: `Kubernetes > Operations` for node
+recycling, `Infrastructure > Updates` for an infrastructure version upgrade, and `Infrastructure > Apps` for
+infrastructure apps. A newer upstream release alone does not count. The column is hidden when no listed component has
+a status. On managed clusters, only Amazon EKS add-ons show updates. See [component updates](updates.md#component-updates).
 
 On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
 version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy).
@@ -152,7 +153,7 @@ The latest version is `4.1.6`. Self-hosted K3S clusters are offered each version
 Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3S servers, so once on `4.0.0` these clusters
 show the latest version automatically, with no task and no change to the cluster.
 
-Open `Clusters > [Cluster] > Infrastructure > Operations` to see a cluster's current version and any upgrade on offer.
+Open `Clusters > [Cluster] > Infrastructure > Updates` to see a cluster's current version and any upgrade on offer.
 
 ### Changelog
 

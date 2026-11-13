@@ -7,7 +7,7 @@ description: Scale the worker capacity of a managed Kubernetes cluster in Wodby 
 ## Manual scaling
 
 For [managed Kubernetes](managed.md) clusters, you can scale worker capacity manually from
-`Clusters > [Cluster] > Infrastructure > Kubernetes`.
+`Clusters > [Cluster] > Kubernetes > Operations`.
 
 You can set:
 

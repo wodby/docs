@@ -33,9 +33,9 @@ outbound access to those ports; its FRPC connection uses `frps.wodby.com:31225`.
 3. Enter the cluster name and title.
 4. Decide whether to leave `Enable monitoring` turned on. It is enabled by default.
 5. Decide whether to leave automatic infrastructure upgrades enabled. They are enabled by default and can be changed later
-   from `Clusters > [Cluster] > Infrastructure > Operations`.
+   from `Clusters > [Cluster] > Infrastructure > Updates`.
 6. Decide whether to leave `Auto upgrade Kubernetes and components` selected. It is selected by default and can be
-   changed later from `Clusters > [Cluster] > Infrastructure > Kubernetes`. See
+   changed later from `Clusters > [Cluster] > Kubernetes > Updates`. See
    [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades).
 7. Create the cluster.
 
@@ -240,7 +240,7 @@ and kernel updates yourself. Wodby never updates or reboots your server.
 
 A new kernel takes effect only after a reboot. Your distribution's automatic updates may already have installed one, so
 the server can keep running an older kernel until you reboot it. To see the kernel the server runs, open
-`Clusters > [Cluster] > Infrastructure > Kubernetes` and find the `kernel` row in the component table.
+`Clusters > [Cluster] > Kubernetes > Updates` and find the `kernel` row in the component table.
 
 ### Update the kernel
 
@@ -293,7 +293,7 @@ for the whole cluster.
 ### Worker node requirements
 
 - The cluster status is `OK` and its infrastructure is on [version `4.1.6`](infrastructure.md#416) or newer. If an
-  infrastructure upgrade is available, apply it from `Clusters > [Cluster] > Infrastructure > Operations` first.
+  infrastructure upgrade is available, apply it from `Clusters > [Cluster] > Infrastructure > Updates` first.
 - The worker meets the same [requirements](#requirements) as the K3S server, including outbound access to Wodby and
   `frps.wodby.com:31225`.
 - The worker and the K3S server share a private network, such as a cloud VPC, a Hetzner vSwitch or Cloud Network, or a
@@ -310,7 +310,7 @@ for the whole cluster.
 
 ### Add a worker node
 
-1. Open `Clusters > [Cluster] > Infrastructure > Nodes` and click `Add node`.
+1. Open `Clusters > [Cluster] > Nodes` and click `Add node`.
 2. Run the command on the new server as `root` or with `sudo` within 15 minutes.
 3. Wait until the node shows as `Ready` in the node list.
 
@@ -334,7 +334,7 @@ It installs the same K3S version as the server.
 
 ### Remove a worker node
 
-1. Open `Clusters > [Cluster] > Infrastructure > Nodes` and click `Remove` on the worker.
+1. Open `Clusters > [Cluster] > Nodes` and click `Remove` on the worker.
 2. Wodby moves the worker's pods to other nodes, stops K3S on it and removes it from the cluster.
 3. Run `sudo /usr/local/bin/wodby-k3s-uninstall` on that server to remove K3S and Wodby's setup from it.
 
@@ -347,7 +347,7 @@ You can't remove the K3S server.
 ## Public traffic
 
 If Wodby cannot detect the correct public ingress IP for a K3S cluster, update it from
-`Clusters > [Cluster] > Infrastructure > Settings`. The update is available only while the cluster status is `OK`.
+`Clusters > [Cluster] > Settings`. The update is available only while the cluster status is `OK`.
 
 Envoy Gateway still uses a Kubernetes `LoadBalancer` service on K3S. K3S handles that service through its built-in
 ServiceLB controller on the K3S server, so Wodby does not create a cloud provider load balancer for K3S.

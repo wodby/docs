@@ -32,13 +32,13 @@ In the cluster creation form, choose an `Owner`:
 - `Project <project>` creates a project-owned cluster
 
 Automatic infrastructure upgrades are enabled by default during cluster creation for managed Kubernetes clusters. You can
-disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Operations`.
+disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Updates`.
 
 [Automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades), which also apply component updates, are off
 by default for managed clusters. Every Kubernetes upgrade of a managed cluster replaces all of its nodes, even for a
 patch, so every pod restarts and a single-node cluster is unavailable for a few minutes. To create the cluster with
 them, select `Auto upgrade Kubernetes and components`. You can change them later from
-`Clusters > [Cluster] > Infrastructure > Kubernetes`.
+`Clusters > [Cluster] > Kubernetes > Updates`.
 
 Use the cluster `Ownership` page later if other projects need `Read/Use` or `Modify/Delete` access.
 
@@ -57,7 +57,7 @@ When enabled, Wodby creates a fixed one-node cluster:
 
 - minimum node count is fixed to `1`
 - maximum node count is fixed to `1`
-- cluster scaling is unavailable from `Infrastructure > Kubernetes`
+- cluster scaling is unavailable from `Kubernetes > Operations`
 - Wodby does not create a cloud provider load balancer
 - public app traffic is routed directly to the node IP
 
