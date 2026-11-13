@@ -299,9 +299,10 @@ for the whole cluster.
 - The worker and the K3S server share a private network, such as a cloud VPC, a Hetzner vSwitch or Cloud Network (see
   [Connect Hetzner servers](#connect-hetzner-servers)), or a WireGuard or Tailscale network. Their addresses on it are
   in `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` or `100.64.0.0/10`.
-- The K3S server uses its private address for cluster traffic. K3S picks its address at installation, so connect the
-  private network before you install K3S on the server. The join command refuses to run when the server uses a public
-  address.
+- The K3S server uses its private address for cluster traffic. K3S picks its address at installation: connect the
+  private network before you install K3S on the server, or
+  [switch an installed server to its private address](#switch-an-installed-server-to-its-private-address). The join
+  command refuses to run while the server uses a public address.
 - The private network allows TCP `6443`, `4240` and `10250`, and UDP `8473`, between the servers. Wodby's host firewall
   allows these ports from private addresses only.
 - Each server has a different hostname. The hostname becomes the node name.
@@ -310,9 +311,8 @@ for the whole cluster.
 
 ### Connect Hetzner servers
 
-Connect the servers through one of Hetzner's private networks before you install K3S on the K3S server. Traffic on
-these networks is free. Keep the servers in one location: traffic between nodes in different locations slows down
-requests between apps on different nodes.
+Connect the servers through one of Hetzner's private networks. Traffic on these networks is free. Keep the servers in
+one location: traffic between nodes in different locations slows down requests between apps on different nodes.
 
 | Your servers | Private network |
 | --- | --- |
@@ -376,11 +376,31 @@ requests between apps on different nodes.
 Hetzner couples a vSwitch to a Cloud Network only in Falkenstein, Nuremberg and Helsinki, and a Cloud Network takes
 one vSwitch.
 
-#### Then install K3S
+#### Then install K3S or switch the server
 
 Install K3S on the K3S server once its private address works. The installation picks the private address for cluster
-traffic and keeps the public one for public traffic. In `Clusters > [Cluster] > Infrastructure > Nodes`, the K3S
-server's internal IP is then its private address, and workers can join.
+traffic and keeps the public one for public traffic. If K3S is already installed on the server,
+[switch it to its private address](#switch-an-installed-server-to-its-private-address). In
+`Clusters > [Cluster] > Nodes`, the K3S server's internal IP is then its private address, and workers can join.
+
+### Switch an installed server to its private address
+
+A K3S server installed before it had a private network uses its public address for cluster traffic, and workers can't
+join it. Once you have connected the server to a private network, switch it to its private address:
+
+1. Open `Clusters > [Cluster] > Nodes` and click `Switch to private address` in the warning above the node list.
+2. Choose the address on the private network your workers share. Wodby lists the private addresses it finds on the
+   server and shows whether the server's network configuration keeps each one after a reboot. An address that isn't
+   kept needs your confirmation, because K3S doesn't start when its address is gone.
+3. Click `Switch address` and wait until the switch finishes.
+
+K3S restarts once. Wodby's connection to the cluster pauses for about a minute while your apps keep running, and new
+deployments wait until the switch ends. The server keeps its public IP for public traffic, so your domains and DNS
+records stay the same. If K3S doesn't come back on the private address, the server restores its previous settings and
+keeps working on its public address.
+
+The switch needs the cluster status `OK` and infrastructure version [`4.1.6`](infrastructure.md#416) or newer. Wodby
+refuses it while app operations, such as deployments, are running; start it again once they finish.
 
 ### Add a worker node
 
@@ -433,6 +453,8 @@ ServiceLB controller on the K3S server, so Wodby does not create a cloud provide
 - If the script fails, fix the server issue, run `sudo /usr/local/bin/wodby-k3s-uninstall`, and then rerun a fresh command from the cluster page.
 - If the join command can't connect to the K3S server on port `6443`, check that both servers are on the same private
   network and that its firewall allows the [worker node ports](#worker-node-requirements).
+- If the join command says the K3S server uses its public address, connect the server to a private network and
+  [switch it to its private address](#switch-an-installed-server-to-its-private-address).
 - Without a proxy, make sure the server can reach the public internet, Wodby API endpoints, and
   `frps.wodby.com:31225` directly during installation.
 - Behind a proxy, `HTTP 403` during the FRPS check usually means the CONNECT destination or port is denied by proxy
