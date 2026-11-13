@@ -7,6 +7,13 @@ description: Deploy Apache Airflow on Wodby with the Apache Airflow catalog stac
 The Wodby Apache Airflow catalog stack runs Apache Airflow with a PostgreSQL service for its metadata. The current
 composition and defaults are in [`wodby/stack-airflow`](https://github.com/wodby/stack-airflow).
 
+## DAGs from Git
+
+To keep your DAGs, plugins and Python packages in Git, use the
+[buildable Airflow stack](https://github.com/wodby/stack-airflow-buildable) instead. You start a repository from the
+[Airflow boilerplate](https://github.com/wodby/airflow-boilerplate), and Wodby builds Airflow with your code and
+packages on every push. Every Airflow component runs that build.
+
 ## What the stack runs
 
 Both services are required. One Airflow app service runs four containers on the same volume: the API server and web

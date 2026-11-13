@@ -7,6 +7,13 @@ description: Deploy Keycloak in production mode with a PostgreSQL database on Wo
 The Wodby Keycloak catalog stack runs Keycloak in production mode with a PostgreSQL database. The current composition is
 documented in [`wodby/stack-keycloak`](https://github.com/wodby/stack-keycloak).
 
+## Your own themes and providers
+
+To add your own login, account or email themes, or custom providers, use the
+[buildable Keycloak stack](https://github.com/wodby/stack-keycloak-buildable) instead. You keep them in a Git repository
+started from the [Keycloak boilerplate](https://github.com/wodby/keycloak-boilerplate), and Wodby builds Keycloak with
+them on every push. Select a theme for a realm under **Realm settings > Themes**.
+
 ## First sign-in
 
 Open the app's main route. Sign in with the `admin_username` token, which is `admin`, and the generated `admin_password`
