@@ -316,6 +316,7 @@ workloads:
 - `tag`
 - `registry`
 - `pullPolicy`
+- `references`
 
 Defaults:
 
@@ -343,6 +344,27 @@ image:
 
 With this configuration, Wodby writes the full repository path such as `registry.example.com/team/app` into
 `dagsterWebserver.image.repository` and does not inject a separate registry value.
+
+#### Image references for other containers
+
+`references` lists more Helm value paths that receive the container's whole image, such as
+`registry.example.com/team/app:1.2.3`. Use it when a chart runs sidecars or init containers that must run the same
+image, built or not, and takes their images as single strings. A path can point into a list, such as
+`extraContainers[0].image`. Wodby sets each path after the service's own Helm values, and only when that list item
+exists, so a stack or app that removes a sidecar doesn't get an image without a container.
+
+```yaml
+workloads:
+- name: main
+  containers:
+  - name: airflow-api-server
+    build: true
+    helm:
+      image:
+        references:
+        - initContainers[0].image
+        - extraContainers[0].image
+```
 
 See also: [Helm](helm.md).
 

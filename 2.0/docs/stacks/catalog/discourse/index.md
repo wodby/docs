@@ -10,6 +10,14 @@ All four services are required. The current composition is documented in
 
 The stack runs Wodby's prebuilt Discourse image, so there's nothing to build and no repository to connect.
 
+## Your own plugins
+
+To add plugins that don't ship with Discourse, use the
+[buildable Discourse stack](https://github.com/wodby/stack-discourse-buildable) instead. You list plugins by Git URL, or
+commit your own, in a repository started from the
+[Discourse boilerplate](https://github.com/wodby/discourse-boilerplate), and Wodby builds Discourse with them on every
+push.
+
 ## Before you create the app
 
 - Choose a Discourse release line as the Discourse service's version: the monthly release, the default, or the extended
@@ -22,7 +30,7 @@ The stack runs Wodby's prebuilt Discourse image, so there's nothing to build and
 ## Plugins and themes
 
 The plugins bundled with Discourse, such as chat, AI, solved, assign, reactions and voting, are available. Install
-themes and theme components from the Discourse administration interface. Other plugins are not supported.
+themes and theme components from the Discourse administration interface. Other plugins need the buildable Discourse stack.
 
 ## Mail delivery
 

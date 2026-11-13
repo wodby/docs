@@ -10,6 +10,14 @@ The current composition is documented in [`wodby/stack-moodle`](https://github.c
 
 The stack runs Wodby's prebuilt Moodle image, so there's nothing to build and no repository to connect.
 
+## Your own plugins and themes
+
+To add your own plugins or themes, use the
+[buildable Moodle stack](https://github.com/wodby/stack-moodle-buildable) instead. You keep them in a Git repository
+started from the [Moodle boilerplate](https://github.com/wodby/moodle-boilerplate), which also sets the Moodle release
+to run, and Wodby builds Moodle with them on every push. Each deployment installs new plugins and upgrades changed ones.
+You decide when to upgrade Moodle, so watch Moodle's releases for security fixes.
+
 ## Administrator account
 
 Moodle is installed during the app's first deployment, so you never use Moodle's web installer. Set the administrator

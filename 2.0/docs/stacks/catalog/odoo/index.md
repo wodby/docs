@@ -11,6 +11,14 @@ in [`wodby/stack-odoo`](https://github.com/wodby/stack-odoo).
 The stack needs no repository: Odoo and every Community app come with the service's image. Install apps from Odoo's
 **Apps** menu, or list them in the **Apps to install** setting when you create the app.
 
+## Your own modules
+
+To add your own or community modules, use the
+[buildable Odoo stack](https://github.com/wodby/stack-odoo-buildable) instead. You keep the modules and their Python
+packages in a Git repository started from the [Odoo boilerplate](https://github.com/wodby/odoo-boilerplate), and Wodby
+builds Odoo with them on every push. Installed modules whose files change are updated when you deploy; new modules
+appear in the **Apps** menu.
+
 ## Administrator account
 
 Odoo is installed during the app's first deployment. Its database manager is turned off, so databases can't be created,

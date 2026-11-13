@@ -10,6 +10,14 @@ its queue. The current composition is documented in [`wodby/stack-mautic`](https
 
 The stack runs Wodby's prebuilt Mautic image, so there's nothing to build and no repository to connect.
 
+## Your own plugins and themes
+
+To add your own plugins or themes, use the
+[buildable Mautic stack](https://github.com/wodby/stack-mautic-buildable) instead. You keep Mautic as a Composer project
+in a Git repository started from the [Mautic boilerplate](https://github.com/wodby/mautic-boilerplate), and Wodby builds
+it on every push. Each deployment runs Mautic's database migrations and registers new plugins. You decide when to update
+Mautic, so watch Mautic's releases for security fixes.
+
 ## Administrator account
 
 Mautic is installed during the app's first deployment, so you never use Mautic's web installer. Set the administrator
