@@ -183,8 +183,8 @@ restarted. Managed Kubernetes clusters aren't changed by this version.
 Version `4.1.5` keeps the [CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) protections from `4.1.4`
 in place on self-hosted K3s servers. Before this version, the server applied them only when it booted, so a firewall
 restart could remove the packet filter until the next reboot. The server now checks the protections after each boot and
-once a day, puts back any that are missing, and reports the result in the `Security advisories` table on the cluster's
-`Overview` page. Clusters must be on `4.1.4` first. New K3s servers install this version directly.
+once a day, puts back any that are missing, and reports the result on the cluster's `Infrastructure > Security` tab.
+Clusters must be on `4.1.4` first. New K3s servers install this version directly.
 
 The update doesn't restart K3s, so your apps and cluster access aren't interrupted. If the server can't add a
 protection, the update still completes and the table shows the advisory as not mitigated. See
