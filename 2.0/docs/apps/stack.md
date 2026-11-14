@@ -82,6 +82,21 @@ the new stack requires but preserves existing app environment choices where poss
 configuration` to review the options that let the stack replace those existing choices. The control stays collapsed
 by default and shows how many options are selected.
 
+### Deploy without rebuilding
+
+By default, an upgrade builds the services whose build inputs or service revision changed before deploying them. To
+deploy the new stack configuration now and let a later build pick up the image changes, clear `Rebuild affected services
+before deploying` and select `Upgrade`. The option is available only when `Deploy affected services after upgrade` is
+selected. API clients set `rebuild` to `false` in the stack upgrade request.
+
+Without the rebuild:
+
+- Each of those services is deployed with its last successfully deployed build and is marked
+  [`needs rebuild`](builds.md#needs-rebuild). Changes that need a new image, such as a new service version, take effect
+  after the service's next build, for example the next push your CI builds.
+- A service with no build to reuse, such as one the upgrade adds, is built as usual.
+- As with any reused build, the build's `.wodby/post-deployment.yml` scripts are skipped.
+
 ### Review the upgrade changelog
 
 Select `Show changelog` in the `Manual stack upgrade` card to load published release notes for service revision changes.
