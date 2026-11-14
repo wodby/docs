@@ -30,7 +30,7 @@ Below it, each volume shows:
 | Owner | `App service`, `Infrastructure` for Wodby's cluster components such as monitoring, `System` for Kubernetes system volumes, or `Other`, including a volume whose app service no longer exists |
 | Class | The volume's [storage class](../apps/storage.md#choose-a-storage-class) |
 | Size | The volume's size |
-| Used | Used space and the share of the volume's filesystem it takes |
+| Used | Used space and the share of the volume it takes |
 | Pods | How many running pods mount the volume, or `Not mounted` |
 
 Use the filters above the list to show only one storage class, app, app environment or owner, or only volumes that are
@@ -45,11 +45,10 @@ Usage comes from the cluster's [metrics](observability.md). A volume shows `Not 
 report usage, for example NFS volumes, or when the cluster was created without `Enable monitoring`. Its size, storage
 class and owner still show.
 
-Local volumes on [K3S](k3s.md) clusters show used space without a percentage. They share their server's disk, so they
-have no filesystem size of their own and don't count toward `85% full or more`. To see how full the server's disk is,
-open the cluster's [metrics](observability.md). If they show `Not reported`, apply the available
-[infrastructure app updates](updates.md#infrastructure-updates) to the cluster. Used space is measured every few
-minutes.
+Local volumes on [K3S](k3s.md) clusters are folders on their server's disk. Their used space is measured every few
+minutes and shown as a share of the volume's size. All of them share the server's disk, so also check how full the disk
+is in the cluster's [metrics](observability.md). If they show `Not reported`, apply the available
+[infrastructure app updates](updates.md#infrastructure-updates) to the cluster.
 
 ### Volumes of other app environments
 
