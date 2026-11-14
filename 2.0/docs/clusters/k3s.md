@@ -31,13 +31,16 @@ outbound access to those ports; its FRPC connection uses `frps.wodby.com:31225`.
 1. Open `Clusters > Connect server` in the dashboard.
 2. Select the cluster `Owner`. Choose `Organization <organization>` for an organization-owned cluster or `Project <project>` for a project-owned cluster.
 3. Enter the cluster name and title.
-4. Decide whether to leave `Enable monitoring` turned on. It is enabled by default.
-5. Decide whether to leave automatic infrastructure upgrades enabled. They are enabled by default and can be changed later
+4. Select the `Provider` your server runs on, such as Hetzner or OVHcloud, or leave `Custom`. The cluster shows the
+   provider's icon, and the Nodes tab links to the provider's private network instructions. You can change it later
+   from `Clusters > [Cluster] > Edit`.
+5. Decide whether to leave `Enable monitoring` turned on. It is enabled by default.
+6. Decide whether to leave automatic infrastructure upgrades enabled. They are enabled by default and can be changed later
    from `Clusters > [Cluster] > Infrastructure > Updates`.
-6. Decide whether to leave `Auto upgrade Kubernetes and components` selected. It is selected by default and can be
+7. Decide whether to leave `Auto upgrade Kubernetes and components` selected. It is selected by default and can be
    changed later from `Clusters > [Cluster] > Kubernetes > Updates`. See
    [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades).
-7. Create the cluster.
+8. Create the cluster.
 
 New K3S clusters are created in the `Awaiting` state. This means Wodby is waiting for you to run the generated installation command on your server.
 
@@ -297,7 +300,8 @@ for the whole cluster.
 - The worker meets the same [requirements](#requirements) as the K3S server, including outbound access to Wodby and
   `frps.wodby.com:31225`.
 - The worker and the K3S server share a private network, such as a cloud VPC, a Hetzner vSwitch or Cloud Network (see
-  [Connect Hetzner servers](#connect-hetzner-servers)), or a WireGuard or Tailscale network. Their addresses on it are
+  [Connect Hetzner servers](#connect-hetzner-servers)), an OVHcloud vRack (see
+  [Connect OVHcloud servers](#connect-ovhcloud-servers)), or a WireGuard or Tailscale network. Their addresses on it are
   in `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16` or `100.64.0.0/10`.
 - The K3S server uses its private address for cluster traffic. K3S picks its address at installation: connect the
   private network before you install K3S on the server, or
@@ -376,7 +380,68 @@ one location: traffic between nodes in different locations slows down requests b
 Hetzner couples a vSwitch to a Cloud Network only in Falkenstein, Nuremberg and Helsinki, and a Cloud Network takes
 one vSwitch.
 
-#### Then install K3S or switch the server
+### Connect OVHcloud servers
+
+Connect the servers through a vRack, OVHcloud's private network. A vRack is free and its traffic isn't metered. A vRack
+can span OVHcloud regions, but keep the servers in one region: traffic between nodes in different regions slows down
+requests between apps on different nodes.
+
+| Your servers | Private network |
+| --- | --- |
+| Dedicated servers | A vRack |
+| Public Cloud instances | A private network of your Public Cloud project |
+| Both | One vRack with the dedicated servers and the Public Cloud project |
+
+Rise, Advance, Scale and High Grade dedicated servers support the vRack. Kimsufi servers don't, and on other Eco servers
+it may be missing or limited: check the server's private bandwidth before you order it.
+
+#### Dedicated servers
+
+1. In the OVHcloud Control Panel, order a vRack from `Add a service`, then open it in the network section and add the
+   K3S server and every worker to it.
+2. On each server, find the private network interface. The server's `Network interfaces` tab in the Control Panel shows
+   the MAC address of its private interface, and `ip -brief link` on the server lists each interface's name with its
+   MAC address.
+3. Give the interface a private address of its own. On Ubuntu, create `/etc/netplan/60-vrack.yaml` with your interface
+   name and the server's address:
+
+    ```yaml
+    network:
+      version: 2
+      ethernets:
+        eno2:
+          dhcp4: false
+          addresses:
+            - 192.168.0.2/16
+    ```
+
+    Run `sudo chmod 600 /etc/netplan/60-vrack.yaml`, then `sudo netplan try`. It applies the change and rolls it back
+    unless you confirm it within two minutes, so a mistake doesn't cut off your SSH access.
+
+    If the server's network interfaces are bonded with OVHcloud Link Aggregation, put the address on the private bond
+    instead of the interface.
+
+4. On each server, check that `ip -brief address` lists the private address, and that the servers answer `ping` on
+   each other's private addresses.
+
+#### Public Cloud instances
+
+1. In your Public Cloud project, open `Network > Private Network` and create a private network in the instances'
+   region. New projects come with a vRack; add an older project to a vRack first.
+2. Attach the K3S server and every worker to the network: choose it when you create an instance, or attach it from the
+   `Private network` card of an existing instance.
+3. On each instance, check that `ip -brief address` lists the private address, and that the instances answer `ping` on
+   each other's private addresses.
+
+#### Dedicated servers and Public Cloud instances together
+
+1. Add the dedicated servers and the Public Cloud project to the same vRack.
+2. Create the Public Cloud private network with `Set VLAN ID` turned on and VLAN ID `0`, the VLAN that dedicated
+   servers use, and without a gateway.
+3. Configure the interface on each dedicated server as in step 3 for dedicated servers, with an address from the
+   private network's range that its DHCP pool doesn't hand out.
+
+### Install K3S or switch the server
 
 Install K3S on the K3S server once its private address works. The installation picks the private address for cluster
 traffic and keeps the public one for public traffic. If K3S is already installed on the server,
