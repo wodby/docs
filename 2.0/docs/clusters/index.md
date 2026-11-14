@@ -28,6 +28,7 @@ non-infrastructure `prod` app environment is deployed there; otherwise it is cla
 ## Manage a cluster
 
 - [Monitor cluster health and resource usage](observability.md).
+- [See the cluster's volumes and storage classes](storage.md).
 - [Scale cluster capacity](scalability.md).
 - [Update infrastructure and infrastructure apps](updates.md).
 - [Plan for high availability](high-availability.md).

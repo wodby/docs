@@ -65,6 +65,8 @@ class used by the volume and warns if it differs from your selection or cannot b
 Refresh the app-service volume state after provisioning or a cluster storage change if the result is temporarily
 unknown.
 
+To see every volume on a cluster with its usage and owner, open the cluster's [Storage tab](../clusters/storage.md).
+
 ## Changing a storage class
 
 You can choose a class for a new volume during app creation or when adding an omitted optional volume later, but
