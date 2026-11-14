@@ -168,9 +168,12 @@ one later, for example a firewall restart that cleared the packet filter, the se
 reboot. From `4.1.5`, the server checks the protections after each boot and once a day, and puts back any that are
 missing.
 
-To see the result, open `Clusters > [Cluster] > Infrastructure > Overview`. The `Security advisories` table at the bottom
-shows CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can
-take up to six hours to appear. Mitigated doesn't mean fixed: install a patched kernel as well.
+To see the result, open `Clusters > [Cluster] > Infrastructure > Security`. The `Security advisories` table shows
+CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can take
+up to six hours to appear. Mitigated doesn't mean fixed: install a patched kernel as well.
+
+While the server isn't mitigated, the cluster shows a red bug icon next to its name in the `Clusters` list, and a red
+dot on its `Infrastructure` and `Security` tabs.
 
 If it shows **Not mitigated**, one of these applies:
 
@@ -409,12 +412,17 @@ system, with the number of nodes running each.
 Wodby infrastructure upgrades don't change managed nodes. Your cluster can show version `4.1.4`, but that doesn't protect it
 from this bug. To fix the bug, move your nodes to a patched image from your provider.
 
-To see whether your nodes have the fix, open `Clusters > [Cluster] > Infrastructure > Overview`. The
-`Security advisories` table at the bottom shows CVE-2026-98432 as **Fixed** or **Not fixed**. When the nodes aren't fixed,
-the row links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a
-fixed image yet, the row has no link. Wodby reads this from the node images of EKS and AKS node pools, and from the
-kernel and GKE versions that DigitalOcean and GKE nodes report. For DigitalOcean and GKE, a new result can take up to six
-hours to appear.
+To see whether your nodes have the fix, open `Clusters > [Cluster] > Infrastructure > Security`. The
+`Security advisories` table shows CVE-2026-98432 as **Fixed** or **Not fixed**. When the nodes aren't fixed, the row
+links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a fixed
+image yet, the row has no link. While the nodes aren't fixed, the cluster shows a red bug icon next to its name in the
+`Clusters` list, and a red dot on its `Infrastructure` and `Security` tabs.
+
+Wodby reads this from the node images of EKS and AKS node pools, and from the kernel and GKE versions that DigitalOcean
+and GKE nodes report. It checks once a day, and again when a task that replaces nodes, such as `Recycle nodes` or a
+Kubernetes version update, finishes. If your provider replaces nodes on its own, for example through automatic
+upgrades, the new result can take up to a day to appear. A new cluster shows its first result within about 15
+minutes.
 
 The row doesn't appear when Wodby can't tell, for example on OVH Managed Kubernetes, on GKE nodes that run Ubuntu or
 GKE 1.37, and on AKS FIPS node images. Follow the steps below for those clusters. The same results are available through
