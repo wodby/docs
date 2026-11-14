@@ -149,13 +149,24 @@ Wodby marks a cluster as outdated only when there is an applicable infrastructur
 example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
-The latest version is `4.1.6`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
+The latest version is `4.1.7`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
 Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3S servers, so once on `4.0.0` these clusters
 show the latest version automatically, with no task and no change to the cluster.
 
 Open `Clusters > [Cluster] > Infrastructure > Updates` to see a cluster's current version and any upgrade on offer.
 
 ### Changelog
+
+#### 4.1.7
+
+Version `4.1.7` lets each node of a self-hosted K3S cluster run up to 250 pods instead of the Kubernetes default of 110,
+and lets you [change the limit](k3s.md#pods-per-node) from the cluster's `Settings`. Clusters must be on `4.1.6`
+first. New K3S servers and worker nodes install this version directly.
+
+The update restarts K3S once on each node, one node at a time, with the K3S server last. Your apps keep running, and
+access to the cluster from Wodby pauses for about a minute while the server restarts. A node that already runs as many
+pods as its limit allows fails the update, and the cluster stays on `4.1.6`: delete or scale down a pod on that node
+and retry. Managed Kubernetes clusters aren't changed by this version.
 
 #### 4.1.6
 
