@@ -128,7 +128,7 @@ When cluster monitoring is enabled, non-external enabled app services expose a `
 
 It shows aggregate runtime metrics for the service and detailed per-pod and per-container metrics, including:
 
-- CPU and memory usage
+- CPU and memory usage, with the service's share of its limit, or of its request when only a request is set
 - CPU and memory requests and limits
 - persistent volume storage usage and capacity for volumes associated with the service
 - pod and container readiness
