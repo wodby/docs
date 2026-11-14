@@ -42,8 +42,14 @@ left behind after its app service was removed.
 ### Usage that isn't reported
 
 Usage comes from the cluster's [metrics](observability.md). A volume shows `Not reported` when its storage doesn't
-report usage, for example local volumes on K3S clusters or NFS volumes, or when the cluster was created without
-`Enable monitoring`. Its size, storage class and owner still show.
+report usage, for example NFS volumes, or when the cluster was created without `Enable monitoring`. Its size, storage
+class and owner still show.
+
+Local volumes on [K3S](k3s.md) clusters show used space without a percentage. They share their server's disk, so they
+have no filesystem size of their own and don't count toward `85% full or more`. To see how full the server's disk is,
+open the cluster's [metrics](observability.md). If they show `Not reported`, apply the available
+[infrastructure app updates](updates.md#infrastructure-updates) to the cluster. Used space is measured every few
+minutes.
 
 ### Volumes of other app environments
 
