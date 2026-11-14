@@ -21,6 +21,9 @@ For one app service, open
 `Apps > [App] > [Environment] > Stack > App services > [Service] > Configuration > Deployment`. Saving an override marks
 the app environment as needing redeploy.
 
+You can also change the same app service settings from `Apps > [App] > [Environment] > CI/CD > Deploys > Settings`.
+Select the service in the `App service` selector.
+
 For a service with one workload, the settings apply to that workload. For a service with multiple workloads, use the
 `Workload` selector: `All workloads` holds service-wide settings, and selecting a workload overrides a setting only for
 that workload. Changes for every workload are saved together when you select `Update`.

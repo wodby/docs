@@ -365,6 +365,13 @@ builds become ready during the upgrade, the deployment remains `awaiting` withou
 automatically after the cluster returns to `ok`; you do not need to trigger the deployment again. If the infrastructure
 upgrade fails, the deployment continues waiting until the cluster recovers to `ok`.
 
+## Deployment settings
+
+To change how an app service's pods are replaced during a deployment, open
+`Apps > [App] > [Environment] > CI/CD > Deploys > Settings` and select the service in the `App service` selector. See
+[Deployment configuration](../services/deployment.md) for the available settings. Saving a change marks the app
+environment as needing redeploy.
+
 ## Needs redeploy
 
 When app-service configuration changes, the app environment can be marked as `needs redeploy`.
