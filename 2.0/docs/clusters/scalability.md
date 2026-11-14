@@ -14,6 +14,10 @@ You can set:
 - minimum node count
 - maximum node count
 
+[Amazon EKS](../providers/aws.md#eks) and [UpCloud](../providers/upcloud.md#kubernetes) clusters don't add or remove
+nodes automatically, so they have a fixed number of nodes. For these clusters you set one node count when you create
+the cluster and when you scale it.
+
 A [GPU node pool](gpu.md) has its own minimum and maximum node counts, set on the same page.
 
 Clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later. They always have
