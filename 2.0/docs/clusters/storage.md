@@ -15,10 +15,10 @@ and serverless clusters don't have it. The tab only shows information; to change
 `Storage > Volumes` starts with an overview of the whole cluster:
 
 - number of volumes
-- requested space
+- requested space of the volumes that have a disk
 - used space, and how many volumes reported it
 - volumes that are 85% full or more
-- volumes that no running pod mounts
+- volumes with a disk that no running pod mounts
 
 Below it, the volumes are listed by app environment. Each app environment is shown once for all of its volumes.
 
@@ -30,13 +30,24 @@ Below it, the volumes are listed by app environment. Each app environment is sho
 | Class | The volume's [storage class](../apps/storage.md#choose-a-storage-class) and where it comes from |
 | Size | The volume's size |
 | Used | Used space and the share of the volume it takes |
-| Pods | How many running pods mount the volume, or `Not mounted` |
+| Pods | How many running pods mount the volume, or why none does |
 
 Use the filters above the list to show only one storage class, app, app environment or owner, or only volumes that are
 85% full or more or not mounted. Sort by volume, size, used space or pods to see the whole cluster in that order.
 
-A volume that isn't mounted still takes up disk space. It can be a volume of a stopped or paused app service, or one
-left behind after its app service was removed.
+### Volumes that aren't mounted
+
+When no running pod mounts a volume, the `Pods` column says why:
+
+| Tag | What it means |
+| --- | --- |
+| `Environment paused` | The volume's app environment is paused. Resume it to use the volume again |
+| `Service disabled` | The volume's app service is disabled. Its data is kept for when you enable the service again |
+| `No disk yet` | No disk has been created for the volume. Some storage classes create the disk only for the first pod that uses the volume. It takes no space and isn't counted in the requested space |
+| `Not mounted` | Nothing explains why the volume isn't used. It may be left behind after its app service was removed |
+
+Volumes that are paused, disabled or not mounted still take up disk space. A disabled service's volume can also show
+`Service disabled` while it has no disk yet; it then takes no space either.
 
 ### Usage that isn't reported
 
