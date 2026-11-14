@@ -253,6 +253,7 @@ nav:
       - Infrastructure: clusters/infrastructure.md
       - High availability: clusters/high-availability.md
       - Scalability: clusters/scalability.md
+      - Storage: clusters/storage.md
       - GPU node pools: clusters/gpu.md
       - Observability: clusters/observability.md
       - Updates: clusters/updates.md
