@@ -61,7 +61,7 @@ separately; you do not need to run the separate infrastructure app stack upgrade
 See [Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions) for infrastructure version details,
 the changelog, current versions, and cluster-type-specific upgrade behavior.
 
-Run K3S infrastructure version upgrades during a maintenance window for production workloads. Some updates restart K3S
+Run K3s infrastructure version upgrades during a maintenance window for production workloads. Some updates restart K3s
 or change networking and can briefly interrupt cluster access or application traffic. Review the changelog for the
 offered update before starting it.
 
@@ -95,10 +95,10 @@ If the latest infrastructure version upgrade or infrastructure app stack upgrade
 dashboard shows `Retry available` and replaces the normal upgrade button with a re-run button for the failed task. Open
 the failed task from the dialog when you need to review logs before re-running it.
 
-### K3S host protection for CVE-2026-98432 (4.1.4)
+### K3s host protection for CVE-2026-98432 (4.1.4)
 
-!!! info "Self-hosted K3S only"
-    Infrastructure version `4.1.4` applies to self-hosted K3S clusters. For managed Kubernetes clusters, see
+!!! info "Self-hosted K3s only"
+    Infrastructure version `4.1.4` applies to self-hosted K3s clusters. For managed Kubernetes clusters, see
     [Fix CVE-2026-98432 on managed Kubernetes](#fix-cve-2026-98432-on-managed-kubernetes).
 
 [CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) is a critical Linux kernel bug. Someone on the network
@@ -130,7 +130,7 @@ Wodby makes these changes and applies them again each time the server boots. Fro
   IP options.
 - It turns off Multipath TCP (MPTCP) on the server, because the published exploit needs a service that accepts MPTCP.
 
-Wodby then restarts K3S and Cilium so they stop accepting MPTCP. Cluster access can be briefly interrupted during the
+Wodby then restarts K3s and Cilium so they stop accepting MPTCP. Cluster access can be briefly interrupted during the
 restart.
 
 Check these before you upgrade:
@@ -190,13 +190,13 @@ The task reports the error and leaves the infrastructure version unchanged. Wodb
 separate health problem prevents that.
 
 The server needs `iptables` with the `u32` match or `nftables` to drop these packets. If it has neither, install
-`nftables` and retry the update. New K3S servers without either tool finish installing with a warning in the output, and
+`nftables` and retry the update. New K3s servers without either tool finish installing with a warning in the output, and
 they don't have this protection until you install one and run `/usr/local/bin/wodby-k3s-firewall`.
 
-### K3S host CA security update (4.1.2)
+### K3s host CA security update (4.1.2)
 
-!!! info "Self-hosted K3S only"
-    Infrastructure version `4.1.2` applies to self-hosted K3S clusters. Managed Kubernetes clusters do not use this host
+!!! info "Self-hosted K3s only"
+    Infrastructure version `4.1.2` applies to self-hosted K3s clusters. Managed Kubernetes clusters do not use this host
     update.
 
 This update addresses host trust in certificate chains affected by the eMudhra intermediate CA compromise. See
@@ -222,7 +222,7 @@ Wodby checks the host CA trust stores, updates the operating system's CA package
 affected CA keys are no longer trusted. The update uses the distribution's package manager and requires a CA package
 that removes the affected trust. Package mirrors must be reachable when a package update is needed.
 
-If the host trust stores already pass verification, Wodby skips package downloads. It still restarts K3S so the running
+If the host trust stores already pass verification, Wodby skips package downloads. It still restarts K3s so the running
 service reloads trust instead of retaining cached certificates. Cluster access can be temporarily interrupted during
 the restart. Wodby verifies the connection and host trust again before recording the new infrastructure version.
 
@@ -260,8 +260,8 @@ upgrade. Automatic upgrade attempts skip a busy cluster and try again during a l
 Regular app builds can continue and do not prevent an upgrade from starting. If a build makes its deployment ready
 while the cluster is upgrading, the deployment remains `awaiting` and Wodby starts it automatically after the cluster
 returns to `ok`. After a failed infrastructure upgrade, deployment waits until the cluster returns to `ok`. The
-[K3S host protection](#k3s-host-protection-for-cve-2026-98432-414) and
-[K3S host CA](#k3s-host-ca-security-update-412) security updates restore that status after a failed attempt unless a
+[K3s host protection](#k3s-host-protection-for-cve-2026-98432-414) and
+[K3s host CA](#k3s-host-ca-security-update-412) security updates restore that status after a failed attempt unless a
 separate health problem prevents it.
 
 While an upgrade is running, new app environment creation or deletion, direct deployments, post-deployment script retries,
@@ -318,7 +318,7 @@ patch, and minor updates are enabled by default. `Major versions` is visible but
 | --- | --- |
 | Wodby Cloud | Enabled and locked on. Major automatic upgrades are not allowed. |
 | Managed Kubernetes in your cloud account | Enabled in the dashboard creation form. You can disable it during creation or later from `Infrastructure > Updates`. |
-| K3S | Enabled in the dashboard creation form. You can disable it during creation or later from `Infrastructure > Updates`. |
+| K3s | Enabled in the dashboard creation form. You can disable it during creation or later from `Infrastructure > Updates`. |
 
 Wodby Cloud clusters always keep automatic infrastructure upgrades enabled because Wodby operates the cluster
 infrastructure. The dashboard shows these settings as managed by Wodby. Major automatic upgrades remain disabled for
@@ -339,13 +339,13 @@ available, the `Component updates` card appears under the `Kubernetes version` c
 `Clusters > [Cluster] > Kubernetes > Updates`. Choose `Update` and confirm to run it as a task.
 
 [Automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) also apply component updates. They're on by default for
-K3S clusters, so with the default settings you don't need to run K3S patch updates yourself. On managed clusters they're
+K3s clusters, so with the default settings you don't need to run K3s patch updates yourself. On managed clusters they're
 off by default, so you run component updates yourself unless you turn automatic Kubernetes upgrades on. To run them only
 yourself, clear `Include component updates` in the `Kubernetes auto upgrade settings` card.
 
 | Cluster | Components |
 | --- | --- |
-| K3S | Cilium, once the cluster's Wodby infrastructure version is up to date. |
+| K3s | Cilium, once the cluster's Wodby infrastructure version is up to date. |
 | Amazon EKS | The VPC CNI, kube-proxy, CoreDNS, and EBS CSI driver add-ons. The update moves them to the AWS default for the cluster's Kubernetes version. |
 
 Other cluster types don't offer component updates, because the provider manages these components. They change with a
@@ -354,7 +354,7 @@ Other cluster types don't offer component updates, because the provider manages 
 Before you update:
 
 - The cluster must be in `OK` status, and deployments on it wait until the update finishes.
-- On K3S, Cilium restarts on each node, so run the update during a maintenance window for production workloads.
+- On K3s, Cilium restarts on each node, so run the update during a maintenance window for production workloads.
   Automatic updates start only inside the automatic Kubernetes upgrade time window.
 - On EKS, the first update of a copy that EKS installed replaces it with an EKS-managed add-on. This restarts its pods
   and can overwrite changes made directly to it, such as a custom configuration.
@@ -376,13 +376,13 @@ in one of two ways:
 
 Which one delivers a given fix depends on your provider, so check its release notes first.
 
-On [K3S](k3s.md), you own the server, so you update its operating system and kernel yourself. See
+On [K3s](k3s.md), you own the server, so you update its operating system and kernel yourself. See
 [Operating system and kernel updates](k3s.md#operating-system-and-kernel-updates) for the steps.
 
 ### Check what changed on your nodes
 
 A successful task doesn't always mean your nodes changed. For example, Amazon EKS leaves a node group alone if it already
-runs the latest image, and a Kubernetes version update on K3S keeps your servers.
+runs the latest image, and a Kubernetes version update on K3s keeps your servers.
 
 To check, open the task's log. Recycling and Kubernetes version update tasks list each node's name, creation time, kernel,
 and operating system at their start and end. They then compare the two lists:
@@ -453,7 +453,7 @@ Wodby supports this workflow for:
 - Google GKE Standard clusters
 - DigitalOcean Kubernetes
 - OVH Managed Kubernetes
-- self-hosted K3S clusters
+- self-hosted K3s clusters
 
 GKE Autopilot and other serverless clusters do not use this workflow. Kubernetes versions for Wodby Cloud clusters are
 managed by Wodby and cannot be changed manually.
@@ -465,11 +465,11 @@ Wodby filters the provider's direct targets to keep upgrades incremental and rec
 - If a newer patch is available in the current Kubernetes minor, only the newest available patch is offered first. On
   DigitalOcean Kubernetes and Google GKE, this includes a newer provider build of the same Kubernetes version, such as
   `1.36.5-do.1` to `1.36.5-do.2`, because providers can ship security fixes that way.
-- After the current minor is patched, you can move to the immediately following minor version. On K3S, it is offered only
+- After the current minor is patched, you can move to the immediately following minor version. On K3s, it is offered only
   after your current minor version reaches end of life. On managed clusters you can choose it earlier, but it shows as
   an update only after end of life.
   The dashboard labels this step `Major`, because a new Kubernetes minor version can remove APIs your workloads use.
-- On K3S, a minor version the cluster's Cilium doesn't support yet is not offered, and the plan names the Cilium version
+- On K3s, a minor version the cluster's Cilium doesn't support yet is not offered, and the plan names the Cilium version
   to update to first. Patches of your current minor version are still offered.
 - Skipping a minor or changing the Kubernetes major version is not offered as a direct upgrade.
 - Preview Kubernetes versions are excluded.
@@ -510,8 +510,8 @@ A Kubernetes version update, including a patch version, can restart your apps:
 - **DigitalOcean Kubernetes:** before the upgrade, Wodby turns on surge upgrades for the cluster. DigitalOcean then
   starts a replacement node before it removes an old one, so your pods have somewhere to move. The extra node is billed
   while it runs, and your DigitalOcean account needs room for one more Droplet.
-- **K3S:** Wodby updates K3S in place. The server node isn't drained, so apps on it keep running, and the Kubernetes API
-  is unavailable for a short time while K3S restarts. In clusters with agent nodes, Wodby drains each agent node in
+- **K3s:** Wodby updates K3s in place. The server node isn't drained, so apps on it keep running, and the Kubernetes API
+  is unavailable for a short time while K3s restarts. In clusters with agent nodes, Wodby drains each agent node in
   turn, so pods on agent nodes restart once.
 
 On a single-node cluster, an app with one replica is unavailable while its pod restarts. On a single-node managed
@@ -538,8 +538,8 @@ Wodby can upgrade a cluster's Kubernetes version and apply its [component update
 a time window you choose. An automatic upgrade is the same upgrade you can start from the `Kubernetes version` card, and
 it follows the same [upgrade policy](#upgrade-policy).
 
-Automatic Kubernetes upgrades are on by default for K3S clusters, for patch versions only. Wodby upgrades K3S in place,
-so apps on the server node keep running. To create a K3S cluster without them, clear
+Automatic Kubernetes upgrades are on by default for K3s clusters, for patch versions only. Wodby upgrades K3s in place,
+so apps on the server node keep running. To create a K3s cluster without them, clear
 `Auto upgrade Kubernetes and components` in the cluster creation form.
 
 On managed Kubernetes clusters, automatic Kubernetes upgrades are off by default. Every upgrade of a managed cluster
@@ -592,7 +592,7 @@ other upgrade or [blocking app activity](#app-activity-during-infrastructure-upg
 the next version.
 
 The Kubernetes version comes first. When there's no version upgrade to start, Wodby applies the next component update
-the policy allows instead. On K3S, a new Kubernetes minor version waits until the cluster runs a Cilium version that
+the policy allows instead. On K3s, a new Kubernetes minor version waits until the cluster runs a Cilium version that
 supports it, so a Cilium update can come before that upgrade. Without `Include component updates`, that upgrade
 waits until you update Cilium yourself. On Amazon EKS, a Kubernetes version upgrade already
 updates the add-ons.

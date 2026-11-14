@@ -12,7 +12,7 @@ Use a Kubernetes provider when:
 
 - you want Wodby to provision a managed Kubernetes cluster in your own cloud account
 - you want cluster lifecycle operations to stay tied to a provider-backed integration
-- you want to deploy apps to managed Kubernetes rather than to Wodby Cloud or K3S
+- you want to deploy apps to managed Kubernetes rather than to Wodby Cloud or K3s
 
 ## Where it is used in Wodby
 
@@ -33,7 +33,7 @@ Kubernetes integrations are used for:
 | [OVH EU, OVH CA, OVH US](ovh.md#kubernetes) | Managed Kubernetes |
 
 - Use [Wodby Cloud](../clusters/wodby-cloud.md) or [Demo Cluster](../clusters/demo.md) when you do not want to bring your own cloud account.
-- Use [K3S](../clusters/k3s.md) when you want to connect your own server instead of provisioning a managed Kubernetes service.
+- Use [K3s](../clusters/k3s.md) when you want to connect your own server instead of provisioning a managed Kubernetes service.
 
 ## Related pages
 

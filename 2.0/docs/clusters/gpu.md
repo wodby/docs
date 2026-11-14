@@ -20,7 +20,7 @@ GPU node pools are available for these managed Kubernetes clusters:
 | [Google Cloud (GKE)](../providers/gcp.md#gke) | G2 (NVIDIA L4), A2 (NVIDIA A100) and A3 (NVIDIA H100/H200) | `0` or more |
 
 GPU node pools are not available for AKS, OVH, serverless clusters, [single-node clusters](managed.md#single-node-clusters),
-[K3S](k3s.md) clusters, [Wodby Cloud](wodby-cloud.md) or the [demo cluster](demo.md).
+[K3s](k3s.md) clusters, [Wodby Cloud](wodby-cloud.md) or the [demo cluster](demo.md).
 
 GPU nodes use images with NVIDIA drivers from the cloud provider, so you do not need to install drivers yourself.
 

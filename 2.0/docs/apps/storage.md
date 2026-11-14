@@ -1,10 +1,10 @@
 ---
-description: Choose and change storage classes for the persistent volumes of your app services on managed Kubernetes and K3S clusters in Wodby.
+description: Choose and change storage classes for the persistent volumes of your app services on managed Kubernetes and K3s clusters in Wodby.
 ---
 
 # Application Persistent Storage
 
-Persistent storage options depend on the type of cluster you run: [managed Kubernetes](../clusters/managed.md) or [K3S](../clusters/k3s.md).
+Persistent storage options depend on the type of cluster you run: [managed Kubernetes](../clusters/managed.md) or [K3s](../clusters/k3s.md).
 
 ## Choose a storage class
 
@@ -96,12 +96,12 @@ Block storage is typically single-writer and attached to one node at a time.
 
 ### Local storage
 
-Local storage is typical for K3S clusters. By default, persistent volume claims use storage from the server where the
+Local storage is typical for K3s clusters. By default, persistent volume claims use storage from the server where the
 app service is running. New app creation, deployments that can create persistent volume claims, app-service backups,
 and imports perform a
 [storage-capacity preflight](../clusters/k3s.md#disk-capacity-and-persistent-volumes) before storage work begins.
 
-For a new app on an existing K3S cluster, Wodby adds the requested sizes of enabled, physical local-path volumes and
+For a new app on an existing K3s cluster, Wodby adds the requested sizes of enabled, physical local-path volumes and
 checks them against measured free space after keeping a 10% host-disk safety reserve. It also compares the combined
 size claimed by existing and requested local-path volumes with usable host capacity. Shared volumes, volumes that reuse
 another claim, disabled services, and unselected optional volumes do not add another allocation. Wodby repeats the
@@ -110,7 +110,7 @@ existing app service; retries exclude claims that already exist.
 
 When the requested allocation does not fit in measured free space after the safety reserve, or Kubernetes reports
 `DiskPressure`, Wodby stops creation or deployment with an error. If only the combined claimed volume sizes exceed
-usable capacity, Wodby warns and continues because claims are maximum sizes rather than current disk usage. If K3S
+usable capacity, Wodby warns and continues because claims are maximum sizes rather than current disk usage. If K3s
 cannot report authoritative host-filesystem capacity, or a selected storage class uses a provisioner without a
 capacity resolver, Wodby also warns and continues instead of treating unknown capacity as zero.
 

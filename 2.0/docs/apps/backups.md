@@ -75,10 +75,10 @@ Scheduled backups created from that preset use the saved exclusions. If the pres
 scheduled backup resolves the service default when it is created and stores that effective list with its own backup
 record. Presets that apply to any service or backup type, and organization-wide presets, do not store table exclusions.
 
-## K3S storage capacity preflight
+## K3s storage capacity preflight
 
-Before an app-service backup runs on K3S, its task includes a `Check storage capacity` step. For volumes using the
-default K3S local-path provisioner, Wodby checks the backing node for Kubernetes `DiskPressure` and reads available
+Before an app-service backup runs on K3s, its task includes a `Check storage capacity` step. For volumes using the
+default K3s local-path provisioner, Wodby checks the backing node for Kubernetes `DiskPressure` and reads available
 bytes reported by the kubelet.
 
 Known disk pressure stops the backup before the backup job is created. For a file backup or a database backup selected
@@ -94,7 +94,7 @@ If Kubernetes does not expose volume statistics, the API permission is unavailab
 not have a capacity resolver, Wodby records that capacity could not be verified and allows the backup to continue.
 This task-time check is not continuous low-disk monitoring.
 
-K3S backup and import tasks share a cluster storage-operation slot so two preflights cannot approve competing work
+K3s backup and import tasks share a cluster storage-operation slot so two preflights cannot approve competing work
 against the same local disk at the same time.
 
 ## Backup destination
@@ -232,7 +232,7 @@ Recovery is reported only after every artifact in a later preset occurrence comp
 backup still emails the user who started it. Enabled presets that remain failed also appear in the weekly organization
 report's `Automation health` section.
 
-Failure emails link to the backup task logs. For a K3S storage preflight failure, the `Check storage capacity` step
+Failure emails link to the backup task logs. For a K3s storage preflight failure, the `Check storage capacity` step
 shows the exact error.
 
 ## Related pages

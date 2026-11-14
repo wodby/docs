@@ -7,7 +7,7 @@ description: See every persistent volume on a Kubernetes cluster with its size, 
 The `Storage` tab of a cluster shows where the cluster's disk space goes: every persistent volume, how full it is, which
 app service uses it, and how much each storage class holds. Open it from `Clusters > [Cluster] > Storage`.
 
-The tab is available on [managed Kubernetes](managed.md) and [K3S](k3s.md) clusters. [Wodby Cloud](wodby-cloud.md)
+The tab is available on [managed Kubernetes](managed.md) and [K3s](k3s.md) clusters. [Wodby Cloud](wodby-cloud.md)
 and serverless clusters don't have it. The tab only shows information; to change a volume, open its app service.
 
 ## Volumes
@@ -55,7 +55,7 @@ Usage comes from the cluster's [metrics](observability.md). A volume shows `Not 
 report usage, for example NFS volumes, or when the cluster was created without `Enable monitoring`. Its size, storage
 class and owner still show.
 
-Local volumes on [K3S](k3s.md) clusters are folders on their server's disk. Their used space is measured every few
+Local volumes on [K3s](k3s.md) clusters are folders on their server's disk. Their used space is measured every few
 minutes and shown as a share of the volume's size. All of them share the server's disk, so also check how full the disk
 is in the cluster's [metrics](observability.md). If they show `Not reported`, apply the available
 [infrastructure app updates](updates.md#infrastructure-updates) to the cluster.
@@ -85,6 +85,6 @@ An icon next to a class shows where it comes from:
 - on [managed Kubernetes](managed.md) clusters, the icon of the cluster's integration for the cloud provider's block
   storage
 
-K3S local storage has no icon. Neither does a storage service in an app environment you can't open.
+K3s local storage has no icon. Neither does a storage service in an app environment you can't open.
 
 To choose a class for a new volume, see [Application persistent storage](../apps/storage.md).

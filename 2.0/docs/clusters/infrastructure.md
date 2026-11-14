@@ -24,10 +24,10 @@ Wodby tracks two separate kinds of cluster infrastructure updates:
 See [Kubernetes cluster updates](updates.md) for manual and automatic infrastructure upgrade behavior.
 
 New clusters use Envoy Gateway for public HTTP and HTTPS entrypoints. TCP and UDP entrypoints are also available when the
-cluster's Gateway API bundle includes the corresponding experimental route types. New self-hosted K3S clusters include
+cluster's Gateway API bundle includes the corresponding experimental route types. New self-hosted K3s clusters include
 those route types and also use Cilium for Kubernetes networking and NetworkPolicy enforcement.
 
-Older clusters may still run Ingress Nginx, or may run K3S with the default flannel networking and kube-router network
+Older clusters may still run Ingress Nginx, or may run K3s with the default flannel networking and kube-router network
 policy controller, until their cluster infrastructure is upgraded.
 
 ## Cluster components
@@ -49,7 +49,7 @@ recycling, `Infrastructure > Updates` for an infrastructure version upgrade, and
 infrastructure apps. A newer upstream release alone does not count. The column is hidden when no listed component has
 a status. On managed clusters, only Amazon EKS add-ons show updates. See [component updates](updates.md#component-updates).
 
-On K3S, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
+On K3s, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
 version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy).
 
 `Managed by` tells you how a component gets updated:
@@ -58,9 +58,9 @@ version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy)
 | --- | --- |
 | Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates), which [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades) can apply. |
 | Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
-| k3s | Comes with the K3S release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
+| k3s | Comes with the K3s release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
 | Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
-| Server | The operating system and kernel of your K3S server. You [update them](k3s.md#operating-system-and-kernel-updates). |
+| Server | The operating system and kernel of your K3s server. You [update them](k3s.md#operating-system-and-kernel-updates). |
 | Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
 
 The version is the image tag or the version the node reports, exactly as published. It's empty for an image referenced
@@ -110,7 +110,7 @@ environment namespace. These policies provide namespace-level ingress isolation 
 Wodby installs app environment network policies on clusters where NetworkPolicy enforcement is supported in the Wodby
 cluster setup:
 
-- self-hosted K3S clusters on infrastructure version `3.0.0` or newer
+- self-hosted K3s clusters on infrastructure version `3.0.0` or newer
 - AWS EKS clusters
 - Azure AKS clusters created by Wodby with Azure CNI Overlay and the AKS-managed Cilium dataplane
 - DigitalOcean Kubernetes clusters, including single-node clusters
@@ -120,7 +120,7 @@ cluster setup:
 Wodby does not install these policies for:
 
 - cluster and infrastructure apps
-- self-hosted K3S clusters with infrastructure version older than `3.0.0`
+- self-hosted K3s clusters with infrastructure version older than `3.0.0`
 - legacy or imported Azure AKS clusters whose NetworkPolicy capability is not tracked by Wodby
 - clusters where the provider or NetworkPolicy enforcement capability is unknown
 
@@ -132,7 +132,7 @@ For each supported app environment namespace, Wodby manages these ingress polici
 | `wodby-allow-same-namespace` | Allows ingress from other pods in the same app environment namespace. App services inside the same app environment can still communicate with each other. |
 | `wodby-allow-edge` | Allows ingress from the `envoy-gateway` and `ingress-nginx` namespaces so Wodby's public edge components can reach app services. |
 
-On self-hosted K3S and DigitalOcean Kubernetes clusters, Wodby also allows the cluster's own nodes to reach pods in
+On self-hosted K3s and DigitalOcean Kubernetes clusters, Wodby also allows the cluster's own nodes to reach pods in
 app environment namespaces. Without this, a node cannot reach an app pod that runs on another node, and an app that
 mounts shared storage served from inside the cluster can stay in `ContainerCreating` on a cluster with several nodes.
 App environments remain isolated from each other.
@@ -146,11 +146,11 @@ Infrastructure versions describe Wodby's cluster-level platform wiring. They are
 versions or infrastructure app stack revisions.
 
 Wodby marks a cluster as outdated only when there is an applicable infrastructure upgrade for that cluster type. For
-example, version `3.0.0` is a K3S-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
+example, version `3.0.0` is a K3s-specific networking upgrade. Managed Kubernetes clusters on version `2.0.0` are not
 marked as outdated solely because `3.0.0` exists.
 
-The latest version is `4.1.7`. Self-hosted K3S clusters are offered each version in order. Managed Kubernetes and Wodby
-Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3S servers, so once on `4.0.0` these clusters
+The latest version is `4.1.7`. Self-hosted K3s clusters are offered each version in order. Managed Kubernetes and Wodby
+Cloud clusters are offered upgrades up to `4.0.0`. Later versions only change K3s servers, so once on `4.0.0` these clusters
 show the latest version automatically, with no task and no change to the cluster.
 
 Open `Clusters > [Cluster] > Infrastructure > Updates` to see a cluster's current version and any upgrade on offer.
@@ -159,54 +159,54 @@ Open `Clusters > [Cluster] > Infrastructure > Updates` to see a cluster's curren
 
 #### 4.1.7
 
-Version `4.1.7` lets each node of a self-hosted K3S cluster run up to 250 pods instead of the Kubernetes default of 110,
+Version `4.1.7` lets each node of a self-hosted K3s cluster run up to 250 pods instead of the Kubernetes default of 110,
 and lets you [change the limit](k3s.md#pods-per-node) from the cluster's `Settings`. Clusters must be on `4.1.6`
-first. New K3S servers and worker nodes install this version directly.
+first. New K3s servers and worker nodes install this version directly.
 
-The update restarts K3S once on each node, one node at a time, with the K3S server last. Your apps keep running, and
+The update restarts K3s once on each node, one node at a time, with the K3s server last. Your apps keep running, and
 access to the cluster from Wodby pauses for about a minute while the server restarts. A node that already runs as many
 pods as its limit allows fails the update, and the cluster stays on `4.1.6`: delete or scale down a pod on that node
 and retry. Managed Kubernetes clusters aren't changed by this version.
 
 #### 4.1.6
 
-Version `4.1.6` prepares self-hosted K3S servers for [worker nodes](k3s.md#worker-nodes). When the server has a private
+Version `4.1.6` prepares self-hosted K3s servers for [worker nodes](k3s.md#worker-nodes). When the server has a private
 network address next to its public one, Kubernetes inside the cluster is now reached at the private address, which
-worker nodes can reach. Clusters must be on `4.1.5` first. New K3S servers install this version directly.
+worker nodes can reach. Clusters must be on `4.1.5` first. New K3s servers install this version directly.
 
-On a server that changes its address, the update restarts K3S once. Your apps keep running, and access to the cluster
+On a server that changes its address, the update restarts K3s once. Your apps keep running, and access to the cluster
 from Wodby pauses for about a minute. Servers without a private address, and servers that already use it, aren't
 restarted. Managed Kubernetes clusters aren't changed by this version.
 
 #### 4.1.5
 
 Version `4.1.5` keeps the [CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432) protections from `4.1.4`
-in place on self-hosted K3S servers. Before this version, the server applied them only when it booted, so a firewall
+in place on self-hosted K3s servers. Before this version, the server applied them only when it booted, so a firewall
 restart could remove the packet filter until the next reboot. The server now checks the protections after each boot and
 once a day, puts back any that are missing, and reports the result in the `Security advisories` table on the cluster's
-`Overview` page. Clusters must be on `4.1.4` first. New K3S servers install this version directly.
+`Overview` page. Clusters must be on `4.1.4` first. New K3s servers install this version directly.
 
-The update doesn't restart K3S, so your apps and cluster access aren't interrupted. If the server can't add a
+The update doesn't restart K3s, so your apps and cluster access aren't interrupted. If the server can't add a
 protection, the update still completes and the table shows the advisory as not mitigated. See
 [Check the host protection](updates.md#check-the-host-protection). Managed Kubernetes clusters aren't changed by this
 version.
 
 #### 4.1.4
 
-Version `4.1.4` reduces the exposure of self-hosted K3S servers to the Linux kernel bug
+Version `4.1.4` reduces the exposure of self-hosted K3s servers to the Linux kernel bug
 [CVE-2026-98432](https://nvd.nist.gov/vuln/detail/CVE-2026-98432). It drops incoming IPv4 TCP packets that carry IP
-options, turns off MPTCP on the server, and restarts K3S and Cilium. Clusters must be on `4.1.3` first. New K3S servers
+options, turns off MPTCP on the server, and restarts K3s and Cilium. Clusters must be on `4.1.3` first. New K3s servers
 install this version directly. Run it during a maintenance window.
 
 This version doesn't fix the bug: you also need to install a patched kernel and reboot the server. See
-[K3S host protection for CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) for the steps and limits.
+[K3s host protection for CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) for the steps and limits.
 Managed Kubernetes clusters aren't changed by this version and need
 [a patched node image from their provider](updates.md#fix-cve-2026-98432-on-managed-kubernetes).
 
 #### 4.1.3
 
-Version `4.1.3` updates Cilium on self-hosted K3S clusters to `1.19.10` and keeps your Cilium settings. Clusters must be
-on `4.1.2` first. New K3S servers install this version directly. Managed Kubernetes clusters are not changed.
+Version `4.1.3` updates Cilium on self-hosted K3s clusters to `1.19.10` and keeps your Cilium settings. Clusters must be
+on `4.1.2` first. New K3s servers install this version directly. Managed Kubernetes clusters are not changed.
 
 The new Cilium release includes these security fixes:
 
@@ -223,30 +223,30 @@ again.
 
 #### 4.1.2
 
-Version `4.1.2` updates and verifies the host CA trust store on self-hosted K3S servers following the eMudhra
-intermediate CA compromise. It restarts K3S to reload trust, including when the operating system has already applied
+Version `4.1.2` updates and verifies the host CA trust store on self-hosted K3s servers following the eMudhra
+intermediate CA compromise. It restarts K3s to reload trust, including when the operating system has already applied
 the CA fix. Run it during a maintenance window.
 
-See the [K3S host CA security update](updates.md#k3s-host-ca-security-update-412) for upgrade steps, retry behavior,
+See the [K3s host CA security update](updates.md#k3s-host-ca-security-update-412) for upgrade steps, retry behavior,
 and the separate updates needed for application CA bundles.
 
 #### 4.1.1
 
-Version `4.1.1` lets the nodes of a self-hosted K3S cluster reach app pods on other nodes. It fixes apps with shared
-storage that could not start on K3S clusters with several nodes. The upgrade does not restart apps.
+Version `4.1.1` lets the nodes of a self-hosted K3s cluster reach app pods on other nodes. It fixes apps with shared
+storage that could not start on K3s clusters with several nodes. The upgrade does not restart apps.
 
-New K3S and DigitalOcean Kubernetes clusters are set up this way when they are created. Existing DigitalOcean
+New K3s and DigitalOcean Kubernetes clusters are set up this way when they are created. Existing DigitalOcean
 Kubernetes clusters get the same change with their next app deployment. Other managed Kubernetes clusters are not
 changed by this version and need no upgrade.
 
 #### 4.1.0
 
-Version `4.1.0` enables Kubernetes Secret encryption at rest for new and existing self-hosted K3S clusters, improving
+Version `4.1.0` enables Kubernetes Secret encryption at rest for new and existing self-hosted K3s clusters, improving
 protection for Secret values stored in the cluster datastore.
 
 #### 4.0.1
 
-Version `4.0.1` strengthens network security for self-hosted K3S clusters.
+Version `4.0.1` strengthens network security for self-hosted K3s clusters.
 
 #### 4.0.0
 
@@ -284,7 +284,7 @@ Provider handling during the `4.0.0` upgrade is:
 | --- | --- |
 | DigitalOcean Kubernetes | A compatible provider-managed bundle is retained. If it is too old, Wodby uses DigitalOcean's supported handoff to stop provider management before upgrading it. |
 | GKE or AKS provider integration | A compatible provider-managed bundle is retained. An incompatible bundle is not overwritten; upgrade the cluster or its provider-managed Gateway API integration, then retry. |
-| Wodby-managed bundle, normally used on Wodby-created EKS, OVH, and K3S clusters | Wodby upgrades the bundle. |
+| Wodby-managed bundle, normally used on Wodby-created EKS, OVH, and K3s clusters | Wodby upgrades the bundle. |
 | Other externally managed bundle | A compatible bundle is retained. Its external owner must upgrade an incompatible bundle before the infrastructure upgrade can continue. |
 
 Imported or customized clusters can differ from their provider's usual setup, so the live ownership and capability
@@ -310,16 +310,16 @@ redeploying application services. See [routing deployments](../apps/deploys.md#r
 
 #### 3.0.0
 
-For K3S clusters, version `3.0.0` means Cilium is used for pod networking and NetworkPolicy enforcement.
+For K3s clusters, version `3.0.0` means Cilium is used for pod networking and NetworkPolicy enforcement.
 
-For new K3S clusters, the bootstrap script installs K3S with flannel disabled and the built-in K3S network policy
+For new K3s clusters, the bootstrap script installs K3s with flannel disabled and the built-in K3s network policy
 controller disabled, then installs Cilium.
 
-For existing K3S clusters on version `2.0.0`, the infrastructure upgrade:
+For existing K3s clusters on version `2.0.0`, the infrastructure upgrade:
 
-- hardens public access to the K3S API endpoint
-- disables K3S flannel networking
-- disables the built-in K3S network policy controller
+- hardens public access to the K3s API endpoint
+- disables K3s flannel networking
+- disables the built-in K3s network policy controller
 - removes stale kube-router network policy rules from the host
 - installs Cilium
 - redeploys user applications so app environment network policies are applied
