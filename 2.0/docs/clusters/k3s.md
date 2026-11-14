@@ -1,5 +1,5 @@
 ---
-description: Connect your own server to Wodby as a K3S cluster. Requirements, installation command, disk capacity, upgrades, OS updates and troubleshooting.
+description: Connect your own server to Wodby as a K3S cluster. Requirements, installation command, disk capacity, pods per node, upgrades, OS updates and troubleshooting.
 ---
 
 # Self-hosted Kubernetes cluster with K3S
@@ -57,7 +57,7 @@ The generated script performs the current bootstrap flow for you. It:
 - installs firewall rules that restrict public access to the K3S API endpoint
 - [reduces exposure to CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) by dropping incoming IPv4 TCP
   packets with IP options and turning off MPTCP on the server
-- installs K3S
+- installs K3S, with each node running up to [250 pods](#pods-per-node)
 - installs Helm 4
 - installs Cilium for pod networking and NetworkPolicy enforcement
 - prepares local kubeconfig on the server
@@ -438,6 +438,34 @@ Wodby refuses to remove a worker that stores persistent volumes, because their d
 
 You can't remove the K3S server.
 
+## Pods per node
+
+Each node runs a limited number of pods. A node that reaches its limit takes no new pods, even with CPU and memory to
+spare, and new pods wait in `Pending` until another node has room. Kubernetes uses a limit of 110 pods unless it's
+changed. Wodby sets K3S nodes to 250, the most that a node's pod network allows.
+
+New K3S clusters and new worker nodes start at 250. Existing clusters move to 250 with infrastructure version
+[`4.1.7`](infrastructure.md#417). Until then, their nodes run up to 110 pods.
+
+To change the limit:
+
+1. Open `Clusters > [Cluster] > Settings`.
+2. Under `Pods per node`, enter a number from 50 to 250 and click `Update pods per node`.
+3. Confirm the K3S restart and wait until the task finishes.
+
+The limit applies to every node of the cluster. K3S restarts on each node whose limit changes, one node at a time. Your
+apps keep running. Wodby's connection to the cluster pauses for about a minute while the K3S server restarts, and new
+deployments wait until the change finishes.
+
+Wodby refuses the change when:
+
+- the cluster status isn't `OK`, or app operations such as deployments are running. Retry once they finish.
+- a node already runs more pods than the new limit. Choose a higher number or move apps off that node.
+- a node runs as many pods as its current limit allows. Wodby runs a short job on each node to apply the change, and it
+  needs one free pod slot. Delete or scale down a pod on that node, then retry.
+- your own K3S configuration on a node sets `max-pods`, for example in `/etc/rancher/k3s/config.yaml`. Remove it and
+  retry; Wodby keeps its own setting in `/etc/rancher/k3s/config.yaml.d/60-wodby-max-pods.yaml`.
+
 ## Public traffic
 
 If Wodby cannot detect the correct public ingress IP for a K3S cluster, update it from
@@ -453,6 +481,8 @@ ServiceLB controller on the K3S server, so Wodby does not create a cloud provide
 - If the script fails, fix the server issue, run `sudo /usr/local/bin/wodby-k3s-uninstall`, and then rerun a fresh command from the cluster page.
 - If the join command can't connect to the K3S server on port `6443`, check that both servers are on the same private
   network and that its firewall allows the [worker node ports](#worker-node-requirements).
+- If new pods stay `Pending` while the node has free CPU and memory, the node may have reached its
+  [pods per node](#pods-per-node) limit. Raise the limit or add a [worker node](#worker-nodes).
 - If the join command says the K3S server uses its public address, connect the server to a private network and
   [switch it to its private address](#switch-an-installed-server-to-its-private-address).
 - Without a proxy, make sure the server can reach the public internet, Wodby API endpoints, and
