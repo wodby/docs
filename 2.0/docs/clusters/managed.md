@@ -44,6 +44,17 @@ Use the cluster `Ownership` page later if other projects need `Read/Use` or `Mod
 
 When you delete a managed cluster from Wodby, Wodby also deletes it in the cloud provider account.
 
+## Nodes
+
+`Clusters > [Cluster] > Nodes` lists the cluster's nodes as Kubernetes reports them. For each node you see its status,
+machine type, zone, Kubernetes version, CPU, memory, disk, private and public IP, and when it was created. When the
+cluster has a [GPU node pool](gpu.md), the list also shows each node's pool and its GPUs.
+
+A node marked `Cordoned` takes no new pods, for example while the provider replaces it during an upgrade.
+
+The cloud provider adds, replaces and removes the nodes, so you can't add or remove a node from the list. To change how
+many nodes the cluster has, see [Cluster scalability](scalability.md).
+
 ## GPU node pools
 
 DOKS, EKS and GKE clusters can have an optional [GPU node pool](gpu.md) next to the default node pool, for app

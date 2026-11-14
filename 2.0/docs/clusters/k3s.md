@@ -290,6 +290,9 @@ run your apps. Add worker nodes when your apps need more CPU, memory or disk tha
 Worker nodes don't make the cluster highly available. When the K3S server is down, Kubernetes and public traffic stop
 for the whole cluster.
 
+`Clusters > [Cluster] > Nodes` lists the server and the worker nodes with their status, K3S version, CPU, memory, disk,
+GPUs when a node has them, and private and public IP.
+
 ### Worker node requirements
 
 - The cluster status is `OK` and its infrastructure is on [version `4.1.6`](infrastructure.md#416) or newer. If an

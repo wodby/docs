@@ -42,11 +42,12 @@ You can add a GPU node pool when you create a cluster, or later.
 - **Maximum # of GPU nodes**
 - **GPU node disk size**, in GB, on providers where you choose the node disk size; at least `20`
 
-**For an existing cluster**, go to `Clusters > [Cluster] > Settings`, and use **Add GPU node pool**
+**For an existing cluster**, go to `Clusters > [Cluster] > Nodes > Settings`, and use **Add GPU node pool**
 in the **GPU node pool** card. The cluster must be in the `OK` status. While Wodby creates the pool, the cluster status
 is `Scaling`.
 
-The cluster overview shows the pool's machine type and node counts in the **GPU node pool** row.
+The cluster overview shows the pool's machine type and node counts in the **GPU node pool** row. The pool's nodes are
+marked `GPU` in the [node list](managed.md#nodes), which also shows how many GPUs each one has.
 
 ### Minimum and maximum nodes
 
@@ -63,7 +64,7 @@ the selected machine type.
 
 ## Change or remove the pool
 
-Go to `Clusters > [Cluster] > Settings` and use the **GPU node pool** card:
+Go to `Clusters > [Cluster] > Nodes > Settings` and use the **GPU node pool** card:
 
 - **Update GPU node pool** with the same machine type resizes the pool.
 - **Update GPU node pool** with a different machine type creates a new pool first and removes the old pool after the new
