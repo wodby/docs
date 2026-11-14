@@ -45,7 +45,7 @@ clusters. These notices are separate from optional upgrade result emails and are
 toggles or newsletter preferences.
 
 A notice identifies clusters you can upgrade and explains the required action. The upcoming
-[K3S host CA security update](../clusters/updates.md#k3s-host-ca-security-update-412) applies only to self-hosted K3S
+[K3s host CA security update](../clusters/updates.md#k3s-host-ca-security-update-412) applies only to self-hosted K3s
 servers. Check the cluster's current version and task history before acting: an automatic upgrade may have completed
 since the notice was prepared.
 

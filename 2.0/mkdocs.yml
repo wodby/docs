@@ -247,7 +247,7 @@ nav:
   - Clusters:
       - Overview: clusters/index.md
       - Managed: clusters/managed.md
-      - K3S: clusters/k3s.md
+      - K3s: clusters/k3s.md
       - Demo Cluster: clusters/demo.md
       - Wodby Cloud: clusters/wodby-cloud.md
       - Infrastructure: clusters/infrastructure.md

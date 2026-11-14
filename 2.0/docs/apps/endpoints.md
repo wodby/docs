@@ -451,7 +451,7 @@ detected capabilities under `Clusters > [Cluster] > Infrastructure > Overview`; 
 
 Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`. The first available port in that range is used.
 
-On [K3S](../clusters/k3s.md) clusters and [single-node clusters](../clusters/managed.md#single-node-clusters), a TCP port
+On [K3s](../clusters/k3s.md) clusters and [single-node clusters](../clusters/managed.md#single-node-clusters), a TCP port
 and a UDP port can share a public port number, which software such as a RustDesk server needs. When you publish a port
 whose counterpart on the same endpoint, with the same port number and the other protocol, is already published, it gets
 the same public port. On other clusters, every published port gets its own number.

@@ -257,7 +257,7 @@ interrupts your session. Turn it on in `Stack > Operations` or when you create t
 - Changing the repository, source links or storage, deploying a built image into the workspace, and moving it to
   another cluster are not supported. Create a new environment for those changes.
 - The code services, the SSH runner and setup jobs run on one node, so that node needs room for all of them.
-  With node-local storage, such as the default K3S storage class, the workspace can only run on the node that holds
+  With node-local storage, such as the default K3s storage class, the workspace can only run on the node that holds
   its volumes.
 - To protect HTTP previews with [Private App Access](access.md), choose **Selected endpoints**. **Entire app**
   protection conflicts with the workspace's published SSH port. HTTP access policies do not protect that SSH endpoint.

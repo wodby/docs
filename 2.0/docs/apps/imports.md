@@ -42,9 +42,9 @@ credentials, the import task reports a credential conflict instead of replacing 
 for this workflow should normally contain the application database schema and data, not server-level user or role
 definitions.
 
-## K3S storage capacity preflight
+## K3s storage capacity preflight
 
-Before an app-service import runs on K3S, its task checks the capacity of the destination volume.
+Before an app-service import runs on K3s, its task checks the capacity of the destination volume.
 
 For a transactional init-volume import using the default local-path provisioner, Wodby accounts for the replacement
 data volume and the temporary 10 GiB import volume while the current volume still exists. The import stops before
@@ -57,6 +57,6 @@ Kubernetes volume statistics or a provisioner-specific capacity resolver are una
 
 When the import source is a pending app-service backup, Wodby checks the destination before creating that backup,
 checks the source backup volume through its own preflight, and checks the destination again before import
-provisioning. Storage operations are serialized for every involved K3S cluster.
+provisioning. Storage operations are serialized for every involved K3s cluster.
 
 External database imports do not use this Kubernetes volume preflight.

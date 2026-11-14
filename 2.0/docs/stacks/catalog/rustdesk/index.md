@@ -30,7 +30,7 @@ use your server. The page on the app's domain shows the other values, but not th
 
 ## Connect devices without WebSocket
 
-On [K3S](../../../clusters/k3s.md) clusters and
+On [K3s](../../../clusters/k3s.md) clusters and
 [single-node clusters](../../../clusters/managed.md#single-node-clusters), devices can also connect without
 **Use WebSocket**:
 

@@ -38,7 +38,7 @@ clusters, databases, integration policies, and backup presets use the same enum.
 
 A configured connection to a third-party service, created from a provider.
 
-## K3S
+## K3s
 
 A lightweight Kubernetes distribution used for self-hosted clusters connected from your own server.
 
