@@ -11,6 +11,7 @@ Wodby can deploy your applications to managed Kubernetes clusters in supported c
 - [Azure Kubernetes Service (AKS)](../providers/azure.md#aks)
 - [DigitalOcean Kubernetes (DOKS)](../providers/digitalocean.md#doks)
 - [OVH Kubernetes](../providers/ovh.md#kubernetes)
+- [UpCloud Managed Kubernetes](../providers/upcloud.md#kubernetes)
 
 To create a managed cluster, first connect your cloud account to Wodby by creating an integration of type `Kubernetes`.
 
