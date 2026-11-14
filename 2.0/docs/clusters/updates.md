@@ -1,5 +1,5 @@
 ---
-description: Keep a cluster up to date in Wodby. Covers infrastructure upgrades, automatic upgrades, component updates, node updates and Kubernetes versions.
+description: Keep a cluster up to date in Wodby. Covers infrastructure upgrades, component and node updates, Kubernetes versions and their known vulnerabilities.
 ---
 
 # Cluster updates
@@ -477,6 +477,36 @@ Wodby filters the provider's direct targets to keep upgrades incremental and rec
 The plan shows provider warnings and blockers before an upgrade starts. An upgrade is blocked when the cluster is not
 in `OK` status, when the provider integration is unavailable, or when the version reported by the provider does not
 match the version observed through the Kubernetes API. Resolve the reported condition and load the plan again.
+
+### Known vulnerabilities
+
+The `Known vulnerabilities in Kubernetes <version>` card on the `Kubernetes > Updates` tab lists the publicly known
+security vulnerabilities of the Kubernetes version your cluster runs. Wodby looks them up in the
+[OSV](https://osv.dev) vulnerability database for the upstream Kubernetes version. For example, a cluster that reports
+`v1.33.5+k3s1` or `v1.33.5-eks-113cf36` is checked as Kubernetes `1.33.5`.
+
+For each vulnerability, the card shows:
+
+- its ID, linked to its public record
+- its severity
+- a short summary
+- `Fixed in`: the closest Kubernetes version that fixes it, a patch of your current minor version when there is one
+
+To fix a vulnerability, upgrade Kubernetes to the `Fixed in` version or later. The `Kubernetes version` card shows the
+versions you can upgrade to. If the fixed version isn't offered yet, your provider hasn't released it, or the
+[upgrade policy](#upgrade-policy) offers it in a later step.
+
+Keep in mind:
+
+- Managed Kubernetes providers and K3S can ship fixes in their own builds before the upstream version number changes,
+  so a listed vulnerability can already be fixed on your cluster. Check your provider's security bulletins to confirm.
+- The list covers Kubernetes itself. It doesn't cover your nodes' operating system, K3S's own components, the
+  infrastructure apps Wodby installs, or your apps.
+- The list can be up to 12 hours old.
+- Wodby Cloud and serverless clusters don't show the card, because Wodby or the provider manages their Kubernetes
+  version. Other clusters show it once they have reported their Kubernetes version.
+
+The same list is available through the [MCP tool](../dev/mcp/tools.md) `list_cluster_kubernetes_vulnerabilities`.
 
 ### Run an upgrade
 
