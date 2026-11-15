@@ -9,13 +9,23 @@ Cluster vulnerability checks run on every plan.
 
 Wodby Cloud and serverless clusters don't list vulnerabilities, because Wodby or the provider runs every part of them.
 
-While a cluster has critical or high vulnerabilities that aren't fixed, mitigated, or
+While a cluster has vulnerabilities that raise an alert and aren't fixed, mitigated, or
 [ignored](#ignore-a-vulnerability), its `Security` tab shows a red dot. The cluster's status also shows a red bug tag
 with their number, in the `Clusters` list, at the top of the cluster page and on its `Overview` tab.
 
+A vulnerability raises an alert when it's known to be exploited, or at least 10% likely to be exploited in the next 30
+days, whatever its severity. See [Vulnerabilities that raise an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert).
+The [security advisories](#security-advisories) Wodby tracks always raise an alert until they're fixed or mitigated.
+Wodby has no exploitation data for the vulnerabilities of a [Kubernetes version](#kubernetes-version) or for outdated
+node images, so these don't raise an alert.
+
+When nothing raises an alert, the cluster page shows the number of critical and high vulnerabilities that aren't fixed
+in a grey bug tag, and the `Clusters` list shows none.
+
 ## Read the table
 
-Each row is one vulnerability in one part of your cluster. Rows that still need a fix come first, then the most severe.
+Each row is one vulnerability in one part of your cluster. Rows that still need a fix come first, then those that raise
+an alert, then the most severe.
 The same vulnerability can appear several times, once for each server or image it affects.
 
 | Column | What it shows |
@@ -24,7 +34,7 @@ The same vulnerability can appear several times, once for each server or image i
 | `Summary` | A short description, or the affected package and its version |
 | `Component` | Where the vulnerability is: `Operating system`, `Node image`, `Kubernetes`, or `Infrastructure app` |
 | `Affected` | The server, node pool, or image that has it. An infrastructure app's image starts with the app's name, for example `Monitoring` |
-| `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown` |
+| `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown`, with `Exploited` or `Likely exploited` when the vulnerability raises an alert |
 | `Status` | `Not fixed`, `Not mitigated`, `Fixed after restart`, `Mitigated`, `Fixed`, or `Ignored` |
 | `Fixed in` | The version that fixes it, when one is known |
 | `Fix` | A link to the operation that fixes it, when there is one |
