@@ -21,7 +21,7 @@ Wodby tracks two separate kinds of cluster infrastructure updates:
 - infrastructure app stack revisions, for updates to the apps that provide platform capabilities
 - infrastructure versions, for cluster-level platform wiring changes such as networking or routing behavior
 
-See [Kubernetes cluster updates](updates.md) for manual and automatic infrastructure upgrade behavior.
+See [Cluster updates](updates.md) for manual and automatic infrastructure upgrade behavior.
 
 New clusters use Envoy Gateway for public HTTP and HTTPS entrypoints. TCP and UDP entrypoints are also available when the
 cluster's Gateway API bundle includes the corresponding experimental route types. New self-hosted K3s clusters include
@@ -39,7 +39,7 @@ operating system, and kernel. Your applications are not included, and neither ar
 tab reports.
 
 A healthy cluster's list appears within a few minutes and refreshes about every six hours. It also refreshes when a
-component update or a [node recycling or Kubernetes version update task](updates.md#check-what-changed-on-your-nodes)
+component update or a [node recycling or Kubernetes version update task](kubernetes.md#check-what-changed-on-your-nodes)
 ends, and the table shows the new versions without reloading the page. A cluster that isn't healthy keeps its last list
 until it recovers.
 
@@ -47,19 +47,19 @@ until it recovers.
 update or a component update, have no link. Others link to the tab that runs them: `Kubernetes > Operations` for node
 recycling, `Infrastructure > Updates` for an infrastructure version upgrade, and `Infrastructure > Apps` for
 infrastructure apps. A newer upstream release alone does not count. The column is hidden when no listed component has
-a status. On managed clusters, only Amazon EKS add-ons show updates. See [component updates](updates.md#component-updates).
+a status. On managed clusters, only Amazon EKS add-ons show updates. See [component updates](kubernetes.md#component-updates).
 
 On K3s, a newer patch always shows as an update. The next Kubernetes minor version shows only after your current minor
-version reaches end of life. See the [upgrade policy](updates.md#upgrade-policy).
+version reaches end of life. See the [upgrade policy](kubernetes.md#upgrade-policy).
 
 `Managed by` tells you how a component gets updated:
 
 | Managed by | How it is updated |
 | --- | --- |
-| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](updates.md#component-updates), which [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades) can apply. |
+| Wodby | An [infrastructure version upgrade](updates.md#infrastructure-version-upgrades) or a [component update](kubernetes.md#component-updates), which [automatic Kubernetes upgrades](kubernetes.md#automatic-kubernetes-upgrades) can apply. |
 | Infrastructure app | An [infrastructure app upgrade](updates.md#infrastructure-updates). |
-| k3s | Comes with the K3s release. A [Kubernetes version update](updates.md#kubernetes-version-updates) updates it. |
-| Provider | Run by your Kubernetes provider. A [Kubernetes version update](updates.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](updates.md#component-updates) can update add-ons. |
+| k3s | Comes with the K3s release. A [Kubernetes version update](kubernetes.md#kubernetes-version-updates) updates it. |
+| Provider | Run by your Kubernetes provider. A [Kubernetes version update](kubernetes.md#kubernetes-version-updates) can update it. On Amazon EKS, a [component update](kubernetes.md#component-updates) can update add-ons. |
 | Server | The operating system and kernel of your K3s server. You [update them](k3s.md#operating-system-and-kernel-updates). |
 | Other | Installed outside Wodby, or not recognized. Update it however it was installed. |
 
@@ -202,7 +202,7 @@ install this version directly. Run it during a maintenance window.
 This version doesn't fix the bug: you also need to install a patched kernel and reboot the server. See
 [K3s host protection for CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) for the steps and limits.
 Managed Kubernetes clusters aren't changed by this version and need
-[a patched node image from their provider](updates.md#fix-cve-2026-98432-on-managed-kubernetes).
+[a patched node image from their provider](kubernetes.md#fix-cve-2026-98432-on-managed-kubernetes).
 
 #### 4.1.3
 

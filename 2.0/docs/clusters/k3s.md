@@ -39,7 +39,7 @@ outbound access to those ports; its FRPC connection uses `frps.wodby.com:31225`.
    from `Clusters > [Cluster] > Infrastructure > Updates`.
 7. Decide whether to leave `Auto upgrade Kubernetes and components` selected. It is selected by default and can be
    changed later from `Clusters > [Cluster] > Kubernetes > Updates`. See
-   [automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades).
+   [automatic Kubernetes upgrades](kubernetes.md#automatic-kubernetes-upgrades).
 8. Create the cluster.
 
 New K3s clusters are created in the `Awaiting` state. This means Wodby is waiting for you to run the generated installation command on your server.

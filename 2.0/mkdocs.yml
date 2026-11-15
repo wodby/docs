@@ -252,6 +252,7 @@ nav:
       - Demo Cluster: clusters/demo.md
       - Wodby Cloud: clusters/wodby-cloud.md
       - Infrastructure: clusters/infrastructure.md
+      - Kubernetes: clusters/kubernetes.md
       - High availability: clusters/high-availability.md
       - Scalability: clusters/scalability.md
       - Storage: clusters/storage.md

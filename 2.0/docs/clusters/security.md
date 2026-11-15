@@ -50,8 +50,8 @@ The `Fix` column links to what fixes the vulnerability:
 | Fix | What to do |
 | --- | --- |
 | `Update server packages` | Install your distribution's updates on the server. See [Server packages on K3s](#server-packages-on-k3s). |
-| `Recycle nodes` | Replace the nodes with the provider's newest image. See [Worker node updates](updates.md#worker-node-updates). |
-| `Update Kubernetes` | Upgrade to the `Fixed in` version or later. See [Kubernetes version updates](updates.md#kubernetes-version-updates). |
+| `Recycle nodes` | Replace the nodes with the provider's newest image. See [Worker node updates](kubernetes.md#worker-node-updates). |
+| `Update Kubernetes` | Upgrade to the `Fixed in` version or later. See [Kubernetes version updates](kubernetes.md#kubernetes-version-updates). |
 | `Upgrade infrastructure` | Run the infrastructure version upgrade. See [Infrastructure version upgrades](updates.md#infrastructure-version-upgrades). |
 | `Upgrade infrastructure apps` | Upgrade the infrastructure app stacks. See [Infrastructure updates](updates.md#infrastructure-updates). |
 
@@ -104,7 +104,7 @@ database, for the upstream Kubernetes version. For example, a cluster that repor
 vulnerability, a patch of your current minor version when there is one.
 
 If the fixed version isn't offered on `Kubernetes > Updates` yet, your provider hasn't released it, or the
-[upgrade policy](updates.md#upgrade-policy) offers it in a later step.
+[upgrade policy](kubernetes.md#upgrade-policy) offers it in a later step.
 
 Managed Kubernetes providers and K3s can ship fixes in their own builds before the upstream version number changes, so a
 listed vulnerability can already be fixed on your cluster. Check your provider's security bulletins to confirm.
@@ -126,7 +126,7 @@ separately and lists them in the same table:
 - On K3s, the row shows whether Wodby's host protections are in place: `Mitigated` or `Not mitigated`. See
   [Check the host protection](updates.md#check-the-host-protection).
 - On managed Kubernetes, the row shows whether your nodes have the fix: `Fixed` or `Not fixed`. See
-  [Fix CVE-2026-98432 on managed Kubernetes](updates.md#fix-cve-2026-98432-on-managed-kubernetes).
+  [Fix CVE-2026-98432 on managed Kubernetes](kubernetes.md#fix-cve-2026-98432-on-managed-kubernetes).
 
 While a tracked advisory isn't fixed or mitigated, the cluster shows a red bug icon next to its name in the `Clusters`
 list, and a red dot on its `Infrastructure` and `Security` tabs.
