@@ -172,7 +172,7 @@ To see the result, open `Clusters > [Cluster] > Security`. The [vulnerabilities 
 CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can take
 up to six hours to appear. Mitigated doesn't mean fixed: install a patched kernel as well.
 
-While the server isn't mitigated, the cluster shows a red bug icon next to its name in the `Clusters` list, and a red
+While the server isn't mitigated, the vulnerability counts toward the red bug tag in the cluster's status and the red
 dot on its `Security` tab.
 
 If it shows **Not mitigated**, one of these applies:

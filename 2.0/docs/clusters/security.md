@@ -1,5 +1,5 @@
 ---
-description: See the known vulnerabilities of a cluster in Wodby, from its servers and node images to Kubernetes and infrastructure apps, and how to fix each one.
+description: See the known vulnerabilities of a cluster in Wodby, from its servers and node images to Kubernetes and infrastructure apps, and how to fix or ignore each one.
 ---
 
 # Cluster security
@@ -9,9 +9,9 @@ Cluster vulnerability checks run on every plan.
 
 Wodby Cloud and serverless clusters don't list vulnerabilities, because Wodby or the provider runs every part of them.
 
-While a cluster has critical or high vulnerabilities that aren't fixed or mitigated, its `Security` tab shows a red dot.
-The cluster's status also shows a red bug tag with their number, in the `Clusters` list, at the top of the cluster page
-and on its `Overview` tab.
+While a cluster has critical or high vulnerabilities that aren't fixed, mitigated, or
+[ignored](#ignore-a-vulnerability), its `Security` tab shows a red dot. The cluster's status also shows a red bug tag
+with their number, in the `Clusters` list, at the top of the cluster page and on its `Overview` tab.
 
 ## Read the table
 
@@ -23,9 +23,9 @@ The same vulnerability can appear several times, once for each server or image i
 | `Vulnerability` | Its ID, linked to its public record, or a Wodby check such as `Outdated node image` |
 | `Summary` | A short description, or the affected package and its version |
 | `Component` | Where the vulnerability is: `Operating system`, `Node image`, `Kubernetes`, or `Infrastructure app` |
-| `Affected` | The server, node pool, or image that has it |
+| `Affected` | The server, node pool, or image that has it. An infrastructure app's image starts with the app's name, for example `Monitoring` |
 | `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown` |
-| `Status` | `Not fixed`, `Not mitigated`, `Mitigated`, or `Fixed` |
+| `Status` | `Not fixed`, `Not mitigated`, `Mitigated`, `Fixed`, or `Ignored` |
 | `Fixed in` | The version that fixes it, when one is known |
 | `Fix` | A link to the operation that fixes it, when there is one |
 
@@ -61,6 +61,29 @@ The `Fix` column links to what fixes the vulnerability:
 
 When a row has no fix, either nothing is needed or no fix has been released yet. The table shows the result of the
 latest check, so a fixed vulnerability leaves the table after the next check, usually within a day.
+
+## Ignore a vulnerability
+
+Ignore a vulnerability that you have reviewed and accepted, for example one that doesn't apply to how you use the
+cluster or has no fix yet.
+
+1. Open `Clusters > [Cluster] > Security`.
+2. Click `Ignore` in the vulnerability's row.
+3. Enter a reason if you want to keep one, then click `Ignore`.
+
+Wodby ignores that vulnerability in every component of the cluster, including in later checks. Other clusters aren't
+affected. An ignored vulnerability:
+
+- Shows `Ignored` as its status. Hover over the status to see the real status and the reason.
+- Moves to the end of the table.
+- Doesn't count toward the red dot on the `Security` tab or the red bug tag in the cluster's status.
+- Isn't shown by the `Not fixed or mitigated` filter.
+
+To count it again, click `Stop ignoring` in its row.
+
+Ignoring a vulnerability and taking that back require permission to modify the cluster. The
+[security advisories](#security-advisories) Wodby tracks and the `Outdated node image` and `Restart required` rows
+can't be ignored.
 
 ## Server packages on K3s
 
@@ -131,9 +154,6 @@ separately and lists them in the same table:
   [Check the host protection](updates.md#check-the-host-protection).
 - On managed Kubernetes, the row shows whether your nodes have the fix: `Fixed` or `Not fixed`. See
   [Fix CVE-2026-98432 on managed Kubernetes](kubernetes.md#fix-cve-2026-98432-on-managed-kubernetes).
-
-While a tracked advisory isn't fixed or mitigated, the cluster also shows a red bug icon next to its name in the
-`Clusters` list.
 
 ## API and MCP
 
