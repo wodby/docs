@@ -67,6 +67,12 @@ The enrollment flow is:
 
 Recovery codes are shown before final verification so you can store them safely.
 
+### Wodby Registry with 2FA
+
+`docker login` cannot ask for a one-time code, so Wodby Registry does not accept the password of an account with 2FA.
+Sign in with your email and an [API key](api-keys.md) as the password. See
+[Wodby Registry](../cicd/wodby-registry.md#auth).
+
 ### Disabling 2FA
 
 Disabling 2FA also requires a [recent confirmation](#changes-to-how-you-sign-in).
