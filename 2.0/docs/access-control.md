@@ -91,10 +91,19 @@ Organization owners and admins have every permission in every project. Project r
 
 ### Environment permissions
 
-Environment permissions apply to app environments of the matching type. For a database that belongs to an environment,
-they also decide backups, restores, deletion, and secret reveal; creating a database and changing its settings or users
-needs `Manage resources`. App-wide settings, creating apps, and other project resources also need `Manage resources`.
-Preview environments use the environment type configured for the app's previews.
+Environment permissions apply to app environments of the matching type. Preview environments use the environment type
+configured for the app's previews.
+
+Some actions need `Manage resources` and an environment permission together:
+
+- Creating an app also needs `Create` for the type of its first environment.
+- Deleting an app also needs `Delete` in every environment of the app.
+- For a database that belongs to an environment, creating a DB and adding, changing, or deleting database users also
+  need `Configure` in that environment type. Deleting a DB needs `Delete`.
+
+For a database that belongs to an environment, environment permissions also decide backups, restores, deletion, and
+secret reveal. Creating a database, changing its other settings, app-wide settings, and other project resources need
+`Manage resources` only.
 
 | Permission                | Allows                                                                                                         |
 |---------------------------|----------------------------------------------------------------------------------------------------------------|
@@ -102,10 +111,10 @@ Preview environments use the environment type configured for the app's previews.
 | `Logs`                    | Reading application logs.                                                                                      |
 | `Deploy`                  | Running builds and deployments, redeploying, and cancelling them.                                              |
 | `Operate`                 | Restarting, pausing, maintenance mode, and running actions and crons.                                          |
-| `Configure`               | Changing settings, variables, Helm values, resources, routes, ports, endpoint auth, tokens, links, integrations, and schedules. |
-| `Upgrade`                 | Upgrading and reconciling the stack, and moving the environment to another cluster.                            |
-| `Shell`                   | Opening the [web terminal](apps/web-terminal.md), running commands, controlling workspaces, and using workspace agents. A shell exposes the credentials the workload receives. |
-| `Back up`                 | Creating and downloading backups, managing backup presets, and voiding backup files.                           |
+| `Configure`               | Changing settings, variables, Helm values, resources, routes, ports, endpoint auth, tokens, links, integrations, and when cron jobs run. |
+| `Upgrade`                 | Upgrading and reconciling the stack, changing stack auto-upgrade, and moving the environment to another cluster. |
+| `Shell`                   | Opening the [web terminal](apps/web-terminal.md), running commands, setting the commands of cron jobs, controlling workspaces, and using workspace agents. A shell exposes the credentials the workload receives. |
+| `Back up`                 | Creating and downloading backups, importing the environment's backups elsewhere, seeding preview environments from it, managing backup presets, and voiding backup files. |
 | `Restore`                 | Importing data, which replaces existing data.                                                                  |
 | `Create`                  | Creating environments of this type.                                                                            |
 | `Delete`                  | Deleting environments and databases of this type.                                                              |
@@ -181,10 +190,10 @@ Organization owners/admins and members whose role includes `Manage project` can:
 In the dashboard, only organization owners and admins can pick any member or team to add. Others with `Manage project`
 can change or remove existing memberships and add teams they lead.
 
-!!! warning "`Manage project` has no upper limit"
-    Someone with `Manage project` can give any project role to any membership in that project, including `Admin` for
-    themselves. Give it only to people you would trust with full access to the project, including its production
-    environments and master passwords.
+Members with `Manage project` can only give, change, or remove roles that grant no more than they hold in the project
+themselves. For example, a member whose custom role manages the project but cannot deploy to production cannot make
+anyone an `Admin`, and cannot change or remove an `Admin` membership. The system `Admin` role holds every permission,
+so this limit only affects custom roles. Organization owners and admins are not limited.
 
 ## Secret reveal permissions
 

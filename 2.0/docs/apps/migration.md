@@ -22,6 +22,7 @@ Before starting a migration, make sure:
   mode.
 - The source and target clusters have status `OK`, belong to the same organization, and the target cluster is available
   to the app's owner project when the app is project-owned.
+- The target cluster allows the environment's type. See [Cluster environments](../clusters/index.md#cluster-environments).
 - The source cluster supports the maintenance response required to freeze public traffic, and the target cluster supports
   the current app-owned routing resources. Upgrade cluster infrastructure first if the migration reports a missing
   routing capability.
