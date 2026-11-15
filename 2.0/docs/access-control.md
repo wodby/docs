@@ -98,6 +98,8 @@ Some actions need `Manage resources` and an environment permission together:
 
 - Creating an app also needs `Create` for the type of its first environment.
 - Deleting an app also needs `Delete` in every environment of the app.
+- Turning on [preview environments](apps/preview-environments.md), or changing their base environment or environment
+  type, also needs `Configure` and `Shell` on the base environment and `Create` for the type of previews.
 - For a database that belongs to an environment, creating a DB and adding, changing, or deleting database users also
   need `Configure` in that environment type. Deleting a DB needs `Delete`.
 
