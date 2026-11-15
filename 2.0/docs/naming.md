@@ -1,5 +1,5 @@
 ---
-description: Rules for machine names in Wodby, including Kubernetes names, service names, port names, generated resource names and database names.
+description: Rules for machine names in Wodby, including Kubernetes names, environment namespaces, service names, port names, generated resource names and database names.
 ---
 
 # Naming rules
@@ -16,13 +16,23 @@ Names must:
 - start and end with a lowercase letter or number
 - be 63 characters or shorter
 
-App environment Kubernetes namespaces are generated as:
+### App environment namespaces
+
+Each app environment runs in its own Kubernetes namespace, generated as:
 
 ```text
 <app-name>-<environment-name>
 ```
 
-The generated namespace must also be 63 characters or shorter, so keep app and environment names short enough for the combined value.
+The generated namespace must:
+
+- be 63 characters or shorter, so keep app and environment names short enough for the combined value
+- be unique in its cluster. Two different pairs of names can produce the same namespace: app `shop-eu` with environment `prod` and app `shop` with environment `eu-prod` both produce `shop-eu-prod`
+- not be a reserved namespace: `default`, any name starting with `kube-`, or a namespace of a Wodby cluster component (`envoy-gateway`, `frpc`, `ingress-nginx`, `monitoring`, `wsp-client`)
+
+Wodby checks these rules when you create an app or an environment and when you [move an environment to another cluster](apps/migration.md). If the namespace is reserved or already used in the cluster, choose a different app or environment name.
+
+Wodby deploys an environment only into a namespace it created for that environment. If the cluster already has a namespace with the generated name that was created outside Wodby, the deployment stops with an error and that namespace is left unchanged. Remove the namespace from the cluster, or use a different app or environment name. Deleting the environment also leaves such a namespace in place.
 
 Some dashboard route words are reserved, such as `new`, `settings`, and `clusters`, even if they otherwise match the character rules.
 

@@ -87,7 +87,7 @@ The top-level manifest supports:
 | `name` | Yes | Local machine-name slug using lowercase letters, numbers, and hyphens. |
 | `title` | Yes | Display name shown in the dashboard. |
 | `icon` | Yes | Provider icon identifier. Use `variable` for the generic variable-provider icon. |
-| `instructions` | No | Setup guidance shown when users configure an integration. |
+| `instructions` | No | Setup guidance shown when users configure an integration. See [Instructions](#instructions). |
 | `fields` | No | Fields shared by every kind in the provider. |
 | `kinds` | Yes | One or more variable integration kinds. |
 
@@ -121,6 +121,35 @@ unambiguous and prevents unsupported provider capabilities from being enabled ac
 Custom provider manifests do not use a top-level `version`; Wodby records their history with provider revision
 numbers. Legacy custom manifests that still contain a semantic `version` remain importable during the transition, but
 Wodby ignores and removes that field from the stored manifest.
+
+### Instructions
+
+`instructions` is shown under `Setup instructions` when someone creates or edits an integration from the provider. It
+can be plain text or use formatting markup:
+
+```yaml
+instructions: |
+  <ol>
+    <li>Open <a href="https://example.com/settings/tokens">API tokens</a> and create a token.</li>
+    <li>Give the token the <Text code>read</Text> scope.</li>
+    <li>Paste this policy into the token settings:<CopyableCode text={`{"access": "read"}`} /></li>
+  </ol>
+```
+
+Supported markup:
+
+| Markup | Use |
+| --- | --- |
+| `p`, `div`, `span`, `br`, `hr`, `h1` to `h6` | Paragraphs, line breaks and headings. |
+| `ul`, `ol`, `li` | Lists. `ol` accepts `start`. |
+| `b`, `strong`, `i`, `em`, `u`, `small`, `sub`, `sup`, `code`, `pre` | Text formatting. |
+| `table`, `thead`, `tbody`, `tr`, `th`, `td` | Tables. Cells accept `colSpan` and `rowSpan`. |
+| `a` | A link. `href` must start with `http://`, `https://` or `mailto:`. Links open in a new tab. |
+| `Text` | Styled text: `<Text code>`, `<Text strong>`, `<Text italic>`, `<Text underline>`, `<Text mark>`, `<Text keyboard>`. |
+| `CopyableCode` | A code block with a copy button: ``<CopyableCode text={`...`} />``. |
+
+Any other tag or attribute is left out of the page, including images, embedded pages, forms, scripts, styles and class
+names. A link with any other kind of address is shown as plain text.
 
 ## Import from git
 

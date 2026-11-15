@@ -49,7 +49,7 @@ All environments of the same app share the same stack, but different environment
 
 App environments do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
 
-The environment machine name is permanent and must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter.
+The environment machine name is permanent and must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter, unique in the cluster and not reserved. See [App environment namespaces](../naming.md#app-environment-namespaces).
 
 You add or remove environments from `Apps > [App] > Environments`.
 
