@@ -2,7 +2,7 @@
 description: Run a single Valkey service on Wodby with the Valkey catalog stack. It listens on port 6379 and speaks the Redis protocol, so Redis clients work unchanged.
 ---
 
-# Valkey stack
+# Valkey stack guide
 
 The Wodby Valkey catalog stack runs a single Valkey service. The current composition and defaults are documented in
 [`wodby/stack-valkey`](https://github.com/wodby/stack-valkey).

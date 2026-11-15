@@ -2,7 +2,7 @@
 description: Deploy Mautic with your own plugins and themes on Wodby with the buildable Mautic stack, which builds the Mautic Composer project in your Git repository.
 ---
 
-# Mautic stack (buildable)
+# Mautic (buildable) stack guide
 
 The buildable Mautic stack runs [Mautic](https://www.mautic.org/) built from your Git repository: a Mautic Composer
 project whose lock file pins Mautic and the plugins and themes you install with Composer. The stack has the same

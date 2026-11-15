@@ -2,7 +2,7 @@
 description: Deploy Odoo with your own and community modules on Wodby with the buildable Odoo stack, which builds Odoo with the modules and packages in your Git repository.
 ---
 
-# Odoo stack (buildable)
+# Odoo (buildable) stack guide
 
 The buildable Odoo stack runs [Odoo](https://www.odoo.com/) Community Edition 20, 19 or 18 built from your Git
 repository: the repository holds your own and community modules and the Python packages they need. The stack has the

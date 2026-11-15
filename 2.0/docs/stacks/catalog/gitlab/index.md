@@ -2,7 +2,7 @@
 description: Deploy GitLab Community Edition on Wodby with the GitLab catalog stack, built on the official Helm chart with PostgreSQL, Valkey and OpenSMTPD.
 ---
 
-# GitLab stack
+# GitLab stack guide
 
 The Wodby GitLab catalog stack runs GitLab Community Edition from the official GitLab Helm chart, with PostgreSQL,
 Valkey, OpenSMTPD, and an optional GitLab Runner. The current composition is documented in

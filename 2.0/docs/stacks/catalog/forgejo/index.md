@@ -2,7 +2,7 @@
 description: Deploy Forgejo, a self-hosted Git service, on Wodby with the Forgejo catalog stack, which runs it with PostgreSQL and an optional OpenSMTPD service.
 ---
 
-# Forgejo stack
+# Forgejo stack guide
 
 The Wodby Forgejo catalog stack runs [Forgejo](https://forgejo.org/), a self-hosted Git service, with PostgreSQL and an
 optional OpenSMTPD service. The current services and defaults are documented in

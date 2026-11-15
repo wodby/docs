@@ -2,7 +2,7 @@
 description: Deploy a Rails application on Wodby with the Rails catalog stack, which runs it with a Sidekiq worker, PostgreSQL and Valkey.
 ---
 
-# Rails stack
+# Rails stack guide
 
 The Wodby Rails catalog stack runs a Ruby (Rails) app service with a Sidekiq worker, PostgreSQL, and Valkey. Mailpit,
 OpenSMTPD, Gotenberg, and Cloud PostgreSQL are optional. The current services and defaults are documented in

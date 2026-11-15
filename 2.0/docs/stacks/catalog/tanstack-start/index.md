@@ -2,7 +2,7 @@
 description: Deploy a TanStack Start application on Wodby with the TanStack Start catalog stack, a Node.js server with optional PostgreSQL, Valkey and mail services.
 ---
 
-# TanStack Start stack
+# TanStack Start stack guide
 
 The Wodby TanStack Start catalog stack runs a Node.js (TanStack Start) app service with optional PostgreSQL, Valkey,
 Mailpit, OpenSMTPD, and Gotenberg services. The app renders pages and runs server functions on a Node.js server. The

@@ -2,7 +2,7 @@
 description: Deploy Keycloak with your own themes and providers on Wodby with the buildable Keycloak stack, which builds them in from your Git repository.
 ---
 
-# Keycloak stack (buildable)
+# Keycloak (buildable) stack guide
 
 The buildable Keycloak stack runs [Keycloak](https://www.keycloak.org/) built from your Git repository: the repository
 holds your own login, account, email or admin themes and your custom providers. The stack has the same services as the

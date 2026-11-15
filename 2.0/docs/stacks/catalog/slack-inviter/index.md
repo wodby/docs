@@ -2,7 +2,7 @@
 description: Run a public invitation page for a Slack community on Wodby with the Slack Inviter catalog stack. It needs a legacy administrator API token.
 ---
 
-# Slack Inviter stack
+# Slack Inviter stack guide
 
 The Wodby Slack Inviter catalog stack runs a public invitation page for a Slack community on the Node.js service. The
 source is the [`wodby/slack-inviter`](https://github.com/wodby/slack-inviter) project. The current composition is

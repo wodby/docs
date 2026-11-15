@@ -2,7 +2,7 @@
 description: Run SolrCloud with a required ZooKeeper service on Wodby with the Solr catalog stack. Linked applications receive the hostname and generated credentials.
 ---
 
-# Solr stack
+# Solr stack guide
 
 The Wodby Solr catalog stack runs SolrCloud with a required ZooKeeper service. The current service composition and Solr
 version are documented in [`wodby/stack-solr`](https://github.com/wodby/stack-solr).

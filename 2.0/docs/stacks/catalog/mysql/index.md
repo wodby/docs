@@ -2,7 +2,7 @@
 description: Run a MySQL database server on Wodby with the MySQL catalog stack, with a 20 GB data volume by default and an optional phpMyAdmin interface.
 ---
 
-# MySQL stack
+# MySQL stack guide
 
 The Wodby MySQL catalog stack runs a MySQL database server, with an optional phpMyAdmin. The current composition is
 documented in [`wodby/stack-mysql`](https://github.com/wodby/stack-mysql).

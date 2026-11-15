@@ -2,7 +2,7 @@
 description: Deploy an ASP.NET Core application on .NET 10 with the Wodby ASP.NET Core catalog stack and optional PostgreSQL, Valkey, Mailpit and OpenSMTPD services.
 ---
 
-# ASP.NET Core stack
+# ASP.NET Core stack guide
 
 The Wodby ASP.NET Core catalog stack runs an ASP.NET Core app service on .NET 10 with optional PostgreSQL, Valkey,
 Mailpit, OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in

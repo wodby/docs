@@ -2,7 +2,7 @@
 description: Run a PostgreSQL database server that bundles PostGIS on Wodby with the PostGIS catalog stack, a single service with a 20 GB data volume.
 ---
 
-# PostGIS stack
+# PostGIS stack guide
 
 The Wodby PostGIS catalog stack runs a PostgreSQL database server that bundles PostGIS. The current composition is
 documented in [`wodby/stack-postgis`](https://github.com/wodby/stack-postgis). It has one service, with a 20 GB `data`

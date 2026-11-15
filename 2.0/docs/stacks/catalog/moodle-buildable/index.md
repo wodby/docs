@@ -2,7 +2,7 @@
 description: Deploy Moodle with your own plugins and themes on Wodby with the buildable Moodle stack, which builds the Moodle release you pin in Git with your plugins.
 ---
 
-# Moodle stack (buildable)
+# Moodle (buildable) stack guide
 
 The buildable Moodle stack runs [Moodle](https://moodle.org/) built from your Git repository: the repository pins the
 Moodle release and holds your own plugins and themes. The stack has the same services as the

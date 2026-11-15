@@ -2,7 +2,7 @@
 description: Deploy an Angular application on Wodby with the Angular catalog stack, which builds the app in the pipeline and serves it with Nginx.
 ---
 
-# Angular stack
+# Angular stack guide
 
 The Wodby Angular catalog stack serves a built Angular application with Nginx. The current service and defaults are
 documented in [`wodby/stack-angular`](https://github.com/wodby/stack-angular).

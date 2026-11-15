@@ -2,7 +2,7 @@
 description: Run Meilisearch, a search engine for websites and apps, as a single instance on Wodby with the Meilisearch catalog stack and a generated master key.
 ---
 
-# Meilisearch stack
+# Meilisearch stack guide
 
 The Wodby Meilisearch catalog stack runs [Meilisearch](https://www.meilisearch.com/), a search engine for websites and
 apps, as a single instance. The current services and defaults are documented in

@@ -2,7 +2,7 @@
 description: Run a single Memcached service on Wodby with the Memcached catalog stack and link your application to it. The service listens on TCP port 11211.
 ---
 
-# Memcached stack
+# Memcached stack guide
 
 The Wodby Memcached catalog stack runs a single Memcached service. The current composition and defaults are documented
 in [`wodby/stack-memcached`](https://github.com/wodby/stack-memcached).

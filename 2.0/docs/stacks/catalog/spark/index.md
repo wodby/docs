@@ -2,7 +2,7 @@
 description: Run an Apache Spark standalone cluster on Wodby with the Apache Spark catalog stack, with a Spark master and worker services linked for you.
 ---
 
-# Apache Spark stack
+# Apache Spark stack guide
 
 The Wodby Apache Spark catalog stack runs a Spark standalone cluster with a Spark master and Spark worker services.
 The current composition and defaults are in [`wodby/stack-spark`](https://github.com/wodby/stack-spark).
