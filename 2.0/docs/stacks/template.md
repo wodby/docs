@@ -2,7 +2,7 @@
 description: Reference for stack.yml, the manifest that defines a custom Wodby stack imported from Git, with an example and every supported field.
 ---
 
-# Stack Template
+# Stack template
 
 Custom stacks imported from Git are defined by `stack.yml`.
 

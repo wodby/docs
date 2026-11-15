@@ -2,7 +2,7 @@
 description: Connect a self-hosted container registry that is compatible with Docker Distribution to Wodby with the Distribution Registry provider.
 ---
 
-# Distribution Registry
+# Distribution Registry provider
 
 Distribution Registry is available in Wodby as a `registry` provider. Use it to connect a self-hosted registry that is compatible with Docker Distribution.
 

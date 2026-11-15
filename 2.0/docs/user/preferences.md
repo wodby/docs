@@ -1,4 +1,5 @@
 ---
+title: Dashboard preferences
 description: Set the Wodby dashboard theme to light, dark or system, and choose the default organization that opens after you sign in.
 ---
 

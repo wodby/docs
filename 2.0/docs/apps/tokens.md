@@ -1,4 +1,5 @@
 ---
+title: Tokens for environment variables and configuration
 description: Tokens are named values you reference from environment variables and generated configuration. See the token names and every available token group.
 ---
 

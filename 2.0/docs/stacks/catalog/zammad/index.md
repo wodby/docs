@@ -2,7 +2,7 @@
 description: Deploy the Zammad helpdesk on Wodby with the Zammad catalog stack, which runs it with PostgreSQL, Redis, Memcached, Elasticsearch and OpenSMTPD.
 ---
 
-# Zammad
+# Zammad stack
 
 The Wodby Zammad catalog stack runs the [Zammad](https://zammad.org/) helpdesk with PostgreSQL, Redis, Memcached,
 Elasticsearch, and an OpenSMTPD mail relay. The current services and defaults are documented in

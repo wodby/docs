@@ -2,7 +2,7 @@
 description: Use the Google Analytics provider in Wodby to inject a Google Analytics 4 measurement ID into app services and stacks as an environment variable.
 ---
 
-# Google Analytics
+# Google Analytics provider
 
 Google Analytics is available in Wodby as a `variable` provider. Use it to inject a Google Analytics 4 web data stream
 measurement ID into app services or stacks through an integration.

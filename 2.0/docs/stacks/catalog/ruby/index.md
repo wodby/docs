@@ -2,7 +2,7 @@
 description: Deploy a Ruby application on Wodby with the Ruby catalog stack, a Ruby app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD and Gotenberg.
 ---
 
-# Ruby
+# Ruby stack
 
 The Wodby Ruby catalog stack runs a Ruby app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD, Gotenberg,
 and Cloud PostgreSQL services. The current services and defaults are documented in

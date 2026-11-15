@@ -1,4 +1,5 @@
 ---
+title: Account security
 description: Change your Wodby password, set up two-factor authentication, manage recovery codes, and confirm it is you before revealing secrets.
 ---
 

@@ -1,4 +1,8 @@
-# UpCloud
+---
+description: Connect UpCloud to Wodby with an API token to create managed Kubernetes clusters in your UpCloud account. Token setup, expiry and cluster behavior.
+---
+
+# UpCloud provider
 
 ## Auth
 

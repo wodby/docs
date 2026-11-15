@@ -2,7 +2,7 @@
 description: Deploy a Flask application on Wodby with the Flask catalog stack, a Python app service with optional PostgreSQL, Valkey, Mailpit and OpenSMTPD.
 ---
 
-# Flask
+# Flask stack
 
 The Wodby Flask catalog stack runs a Python (Flask) app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD,
 Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in

@@ -2,7 +2,7 @@
 description: Deploy a Django application on Wodby with the Django catalog stack, which runs Gunicorn, PostgreSQL and Valkey, with an optional Celery worker.
 ---
 
-# Django
+# Django stack
 
 The Wodby Django catalog stack runs a Django application with Gunicorn, PostgreSQL and Valkey. A Celery worker, Mailpit,
 OpenSMTPD, Gotenberg and Cloud PostgreSQL are optional. The current services and defaults are documented in

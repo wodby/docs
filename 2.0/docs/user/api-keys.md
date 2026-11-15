@@ -1,4 +1,5 @@
 ---
+title: Create and manage API keys
 description: Create and manage API keys in Wodby user settings. Choose the organization and expiration, and store the token when it is shown once.
 ---
 

@@ -2,7 +2,7 @@
 description: Use the Gemini provider in Wodby to store a Gemini API key and inject it into app services and stacks as GEMINI_API_KEY.
 ---
 
-# Gemini
+# Gemini provider
 
 Gemini is available in Wodby as a `variable` provider. Use it when you want to inject a Gemini API key into app services or stacks through an integration.
 

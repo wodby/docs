@@ -2,7 +2,7 @@
 description: Scale app services in Wodby by changing replica counts manually, adding autoscaling rules, or adjusting CPU and memory with vertical scaling.
 ---
 
-# Application Scalability
+# Application scalability
 
 Before you scale an app, make sure the underlying [Kubernetes cluster](../clusters/index.md) can scale with it.
 

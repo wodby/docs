@@ -1,4 +1,5 @@
 ---
+title: Account email addresses
 description: Manage the email addresses on your Wodby account. Add and verify a secondary email, change your primary email, or delete an address.
 ---
 

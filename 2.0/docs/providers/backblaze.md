@@ -2,7 +2,7 @@
 description: Use a Backblaze B2 bucket you own for Wodby app and database backups through the S3-compatible API. Bucket endpoint and application key setup.
 ---
 
-# Backblaze
+# Backblaze provider
 
 ## B2 Cloud Storage
 

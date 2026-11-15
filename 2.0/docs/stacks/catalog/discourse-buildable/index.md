@@ -1,8 +1,8 @@
 ---
-description: Deploy Discourse with plugins that don't ship with it on Wodby with the buildable Discourse stack, which adds the plugins listed or committed in your Git repository.
+description: Deploy Discourse with extra plugins on Wodby with the buildable Discourse stack, which adds the plugins listed or committed in your Git repository.
 ---
 
-# Discourse (buildable)
+# Discourse stack (buildable)
 
 The buildable Discourse stack runs [Discourse](https://www.discourse.org/) with plugins that don't ship with it: your
 Git repository lists them or holds them, and Wodby builds Discourse with them. The stack has the same services as the

@@ -2,7 +2,7 @@
 description: Deploy a Next.js application on Wodby with the Next.js catalog stack, a Node.js app service with optional PostgreSQL, Valkey, Mailpit and OpenSMTPD.
 ---
 
-# Next.js
+# Next.js stack
 
 The Wodby Next.js catalog stack runs a Node.js (Next.js) app service with optional PostgreSQL, Valkey, Mailpit,
 OpenSMTPD, and Gotenberg services. The current services and defaults are documented in

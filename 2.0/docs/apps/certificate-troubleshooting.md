@@ -1,4 +1,5 @@
 ---
+title: Troubleshoot certificate issuance and renewal
 description: Troubleshoot a failed Let's Encrypt certificate, a custom domain that stays pending, or a renewal that does not complete, then retry safely.
 ---
 

@@ -2,7 +2,7 @@
 description: Get help with Wodby through community support on Slack, Discord and GitHub, best-effort support for paid customers, or premium support.
 ---
 
-# Getting Support
+# Getting support
 
 Wodby offers three support levels.
 

@@ -28,6 +28,12 @@ page's subject changes. Write plain text without Markdown; quote the value if it
 sentence or a word; a paragraph that introduces a list is completed with the list items, and notes, tables, lists and
 code are skipped. `site_description` remains the fallback for a page with no paragraph text.
 
+`page_titles.py` sets the browser and search title of a page to its first heading, so write the heading to make sense
+on its own: "Cluster updates", not "Updates". A catalog stack guide is headed "<Product> stack" and a provider page
+"<Product> provider". The navigation label in `mkdocs.yml` stays short and does not affect the title. Add a `title` to
+the front matter only when the title should say more than the heading; quote it if it contains `: `. A test fails when
+two pages share a title or a page is titled with a menu label such as "Overview".
+
 Run `python3 2.0/scripts/check_agent_contract.py --live` to compare the skill table with the current public distribution,
 verify skill hashes, and ensure tool names referenced by those skills have descriptions. The check fetches public
 guidance only and needs no account credential. It recognizes tool names by their leading verb in `TOOL_VERBS`, so add

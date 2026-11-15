@@ -2,7 +2,7 @@
 description: Deploy Metabase, the open source business intelligence tool, on Wodby with the Metabase catalog stack, PostgreSQL and an optional OpenSMTPD service.
 ---
 
-# Metabase
+# Metabase stack
 
 The Wodby Metabase catalog stack runs [Metabase](https://www.metabase.com/), the open source business intelligence
 tool, with PostgreSQL and an optional OpenSMTPD service for mail. Metabase uses the official open source edition image.

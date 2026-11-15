@@ -2,7 +2,7 @@
 description: Run an SMTP relay on Wodby with the OpenSMTPD catalog stack, on its own or inside application stacks such as Drupal, WordPress and Matomo.
 ---
 
-# OpenSMTPD
+# OpenSMTPD stack
 
 The Wodby OpenSMTPD catalog stack provides an SMTP relay service on internal port `25`. It can also be included in
 application stacks such as Drupal, WordPress, and Matomo. The current service definition is documented in

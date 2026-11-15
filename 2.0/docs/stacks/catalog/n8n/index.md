@@ -2,7 +2,7 @@
 description: Deploy n8n, the workflow automation tool, on Wodby with the n8n catalog stack, which runs the Community Edition with PostgreSQL and optional OpenSMTPD.
 ---
 
-# n8n
+# n8n stack
 
 The Wodby n8n catalog stack runs [n8n](https://n8n.io/), the workflow automation tool, from the official Community
 Edition image, with PostgreSQL and an optional OpenSMTPD service for mail. The current composition is documented in

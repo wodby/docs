@@ -1,8 +1,8 @@
 ---
-description: Run your own Dagster assets, jobs and schedules on Wodby with the Dagster stack, which builds your Dagster project from Git as a code location that Dagster loads.
+description: Run your own Dagster assets, jobs and schedules on Wodby with the Dagster stack, which builds your project from Git as a code location for Dagster.
 ---
 
-# Dagster
+# Dagster stack
 
 The Wodby Dagster stack runs [Dagster](https://dagster.io/) with your own code: your Git repository holds a Dagster
 project, and Wodby builds it as a code location that Dagster's webserver and daemon load. The stack runs the Dagster

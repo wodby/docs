@@ -1,4 +1,5 @@
 ---
+title: Deploy and verify staging with an AI agent
 description: Use an AI agent to prepare, deploy and verify a staging environment on Wodby, with a reviewed authorization step and a plan for failures.
 ---
 

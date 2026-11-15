@@ -2,7 +2,7 @@
 description: Collect traces, metrics and logs from your applications in one Wodby app with the Observability catalog stack, built on OpenTelemetry and Grafana.
 ---
 
-# Observability
+# Observability stack
 
 The Wodby Observability catalog stack collects traces, metrics, and logs from your applications in one app. The
 OpenTelemetry Collector receives all three on one endpoint. Grafana Tempo stores traces, VictoriaMetrics stores metrics,

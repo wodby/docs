@@ -1,4 +1,5 @@
 ---
+title: Diagnose failures with an AI agent
 description: Use an AI agent with read access to diagnose a failed Wodby task or deployment, collect evidence, watch logs and review any fix separately.
 ---
 

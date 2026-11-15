@@ -2,7 +2,7 @@
 description: Connect GitHub to Wodby to build applications from your repositories, with build boilerplate import, GitHub Actions and preview environments.
 ---
 
-# GitHub
+# GitHub provider
 
 After connecting your GitHub account you can use your repositories as a build source for applications deployed via Wodby.
 

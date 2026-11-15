@@ -1,4 +1,5 @@
 ---
+title: Stacks
 description: A stack is the blueprint for a Wodby application. It defines the services an app uses and their default configuration, and it is versioned.
 ---
 

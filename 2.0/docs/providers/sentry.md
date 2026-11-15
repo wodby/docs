@@ -2,7 +2,7 @@
 description: Use the Sentry provider in Wodby to store your Sentry DSN and inject it into app services and stacks as the SENTRY_DSN environment variable.
 ---
 
-# Sentry
+# Sentry provider
 
 Sentry is available in Wodby as a `variable` provider. Use it when you want to inject your Sentry DSN into app services or stacks through an integration.
 
