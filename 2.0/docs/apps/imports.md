@@ -20,8 +20,9 @@ A backup-based import must stay within the destination app's [ownership boundary
 - for a project-owned destination, the source app must be owned by or shared with the destination's owner project, including when the source app is organization-owned
 
 Your access to both apps through separate projects does not combine their resource boundaries. Share the source app
-with the destination project before starting the import. You also need permission to view an existing source backup or
-to create a fresh one.
+with the destination project before starting the import. You also need the `Back up`
+[permission](../access-control.md#environment-permissions) on the source environment, both to use one of its existing
+backups and to create a fresh one.
 
 ## 1. Simple files import
 

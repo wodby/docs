@@ -22,5 +22,6 @@ The source must stay within the destination database's [ownership boundary](../s
 - for a project-owned destination, the source database must be owned by or shared with the destination's owner project, including when the source database is organization-owned
 
 Your access to both databases through separate projects does not combine their resource boundaries. Share the source
-database with the destination project before starting the import. You also need permission to view an existing source
-backup or to create a fresh one.
+database with the destination project before starting the import. You also need the `Back up`
+[permission](../access-control.md#environment-permissions) on the source database, both to use one of its existing
+backups and to create a fresh one.

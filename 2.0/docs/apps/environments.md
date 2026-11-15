@@ -150,7 +150,8 @@ tasks for the environment and waits for each task to stop. It then removes the e
 generated resources. Follow the deletion task logs to see which active tasks were canceled and whether cleanup
 completed.
 
-Deleting an app applies the same process to all of its environments.
+Deleting an app applies the same process to all of its environments. It needs the `Delete`
+[permission](../access-control.md#environment-permissions) in every environment of the app.
 
 ## Errored environments
 

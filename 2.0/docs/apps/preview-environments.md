@@ -75,6 +75,9 @@ Seeding a service requires a [backup preset](backups.md) for the chosen backup i
 without one are listed with a `No backup preset` tag and cannot be selected until a preset exists; the tag links to the
 base environment's presets.
 
+Selecting or changing seed data needs the `Back up` [permission](../access-control.md#environment-permissions) on the
+base environment, because every new preview receives a copy of its data.
+
 If seeding a selected service is not possible when a preview is created, the preview is still created and that service
 starts without data. This happens when the preset was deleted, or the service was removed, disabled, or not in `OK`
 status in the base environment. Wodby reports it on the pull request (see [Pull request feedback](#pull-request-feedback)).

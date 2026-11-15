@@ -19,6 +19,10 @@ From `Databases > [Database] > Users > [User]` you can:
 - change which DBs the user can access
 - delete the user
 
+Creating, changing, and deleting users requires permission to modify the database. For a database that belongs to an
+app environment, it also requires the `Configure` [permission](../access-control.md#environment-permissions) in that
+environment type.
+
 Revealing the current password requires
 [runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent
 [secret reveal confirmation](../user/security.md#secret-reveal-confirmation).

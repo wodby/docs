@@ -124,6 +124,9 @@ they belong to the same app.
 Auto-upgrade uses the same settings as the manual `Upgrade stack` form. The saved settings decide which app environment
 overrides Wodby replaces with values from the latest stack revision.
 
+Turning auto-upgrade on or off, or changing its settings, needs the `Upgrade`
+[permission](../access-control.md#environment-permissions) in the environment, the same as upgrading the stack manually.
+
 Automatic stack updates, such as Git-backed stack auto-updates, automatic stack service revision updates, and automatic
 sync with origin, start auto-upgrades right away. Wodby also regularly checks for app environments with auto-upgrade
 enabled that run an older revision, so revisions you publish yourself are applied too.
