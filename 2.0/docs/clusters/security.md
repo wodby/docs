@@ -1,5 +1,5 @@
 ---
-description: See the known vulnerabilities of a cluster in Wodby, from its servers and node images to Kubernetes and infrastructure apps, and how to fix each one.
+description: See the known vulnerabilities of a cluster in Wodby, from its servers and node images to Kubernetes and infrastructure apps, and how to fix or ignore each one.
 ---
 
 # Cluster security
@@ -9,9 +9,9 @@ Cluster vulnerability checks run on every plan.
 
 Wodby Cloud and serverless clusters don't list vulnerabilities, because Wodby or the provider runs every part of them.
 
-While a cluster has critical or high vulnerabilities that aren't fixed or mitigated, its `Security` tab shows a red dot.
-The cluster's status also shows a red bug tag with their number, in the `Clusters` list, at the top of the cluster page
-and on its `Overview` tab.
+While a cluster has critical or high vulnerabilities that aren't fixed, mitigated, or
+[ignored](#ignore-a-vulnerability), its `Security` tab shows a red dot. The cluster's status also shows a red bug tag
+with their number, in the `Clusters` list, at the top of the cluster page and on its `Overview` tab.
 
 ## Read the table
 
@@ -23,9 +23,9 @@ The same vulnerability can appear several times, once for each server or image i
 | `Vulnerability` | Its ID, linked to its public record, or a Wodby check such as `Outdated node image` |
 | `Summary` | A short description, or the affected package and its version |
 | `Component` | Where the vulnerability is: `Operating system`, `Node image`, `Kubernetes`, or `Infrastructure app` |
-| `Affected` | The server, node pool, or image that has it |
+| `Affected` | The server, node pool, or image that has it. An infrastructure app's image starts with the app's name, for example `Monitoring` |
 | `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown` |
-| `Status` | `Not fixed`, `Not mitigated`, `Fixed after restart`, `Mitigated`, or `Fixed` |
+| `Status` | `Not fixed`, `Not mitigated`, `Fixed after restart`, `Mitigated`, `Fixed`, or `Ignored` |
 | `Fixed in` | The version that fixes it, when one is known |
 | `Fix` | A link to the operation that fixes it, when there is one |
 
@@ -53,8 +53,8 @@ The `Fix` column links to what fixes the vulnerability:
 
 | Fix | What to do |
 | --- | --- |
-| `Update server packages` | Install your distribution's updates on the server. See [Server packages on K3s](#server-packages-on-k3s). |
-| `Restart server` | Restart the server so it runs the updates already installed on it, such as a new kernel. See [Update the kernel](k3s.md#update-the-kernel). |
+| `Update server packages` | Install your distribution's updates on the server. Clicking the fix opens [Update server packages](k3s.md#update-server-packages). |
+| `Restart server` | Restart the server so it runs the updates already installed on it, such as a new kernel. Clicking the fix opens [Restart servers](k3s.md#restart-servers). |
 | `Recycle nodes` | Replace the nodes with the provider's newest image. See [Worker node updates](kubernetes.md#worker-node-updates). |
 | `Update Kubernetes` | Upgrade to the `Fixed in` version or later. See [Kubernetes version updates](kubernetes.md#kubernetes-version-updates). |
 | `Upgrade infrastructure` | Run the infrastructure version upgrade. See [Infrastructure version upgrades](updates.md#infrastructure-version-upgrades). |
@@ -63,12 +63,36 @@ The `Fix` column links to what fixes the vulnerability:
 When a row has no fix, either nothing is needed or no fix has been released yet. The table shows the result of the
 latest check, so a fixed vulnerability leaves the table after the next check, usually within a day.
 
+## Ignore a vulnerability
+
+Ignore a vulnerability that you have reviewed and accepted, for example one that doesn't apply to how you use the
+cluster or has no fix yet.
+
+1. Open `Clusters > [Cluster] > Security`.
+2. Click `Ignore` in the vulnerability's row.
+3. Enter a reason if you want to keep one, then click `Ignore`.
+
+Wodby ignores that vulnerability in every component of the cluster, including in later checks. Other clusters aren't
+affected. An ignored vulnerability:
+
+- Shows `Ignored` as its status. Hover over the status to see the real status and the reason.
+- Moves to the end of the table.
+- Doesn't count toward the red dot on the `Security` tab or the red bug tag in the cluster's status.
+- Isn't shown by the `Not fixed or mitigated` filter.
+
+To count it again, click `Stop ignoring` in its row.
+
+Ignoring a vulnerability and taking that back require permission to modify the cluster. The
+[security advisories](#security-advisories) Wodby tracks and the `Outdated node image` and `Restart required` rows
+can't be ignored.
+
 ## Server packages on K3s
 
 Once a day, Wodby runs a short job on each server and worker node of a K3s cluster. The job only reads: it lists the
 operating system release, the running kernel, whether a restart is pending, and the installed packages. Wodby then
 matches the packages against your distribution's own security data, which includes the fixes it backports to older
-version numbers. Wodby never installs updates or restarts your servers.
+version numbers. The check never changes the server. To install the updates or restart servers, see
+[Operating system and kernel updates](k3s.md#operating-system-and-kernel-updates).
 
 Servers that use `dpkg` (Debian, Ubuntu), `rpm` (for example Red Hat Enterprise Linux, Rocky Linux, AlmaLinux, Fedora,
 openSUSE), or `apk` (Alpine) are supported. For a server with another package manager, the warning above the table says
@@ -82,7 +106,8 @@ Vulnerabilities of the running kernel that the newer kernel doesn't have show as
 `Restart server` as the fix. The fix is already on the server, but the server stays exposed until it restarts into the
 new kernel, so these rows still count as not fixed. Vulnerabilities that the newer kernel has too stay `Not fixed`.
 
-To fix the listed packages, connect to the server over SSH and install your distribution's updates:
+To fix the listed packages, start [Update server packages](k3s.md#update-server-packages), or connect to the server over
+SSH and install your distribution's updates:
 
 | Distribution | Command |
 | --- | --- |
@@ -93,10 +118,11 @@ To fix the listed packages, connect to the server over SSH and install your dist
 
 A server that has installed updates it can't use until it restarts shows a `Restart required` row. The row names the new
 kernel and, on Debian and Ubuntu, the other updates waiting for the restart, such as `libc6`. Restart the server during
-a maintenance window. See [Update the kernel](k3s.md#update-the-kernel) for what happens to your apps while the server
-restarts.
+a maintenance window with [Restart servers](k3s.md#restart-servers), which also says what happens to your apps while
+the server restarts.
 
-The table shows the new state after the next daily scan.
+After you update or restart servers from Wodby, the table shows the new state within about 15 minutes. After changes
+you make over SSH, it shows it after the next daily scan.
 
 ## Node images on managed Kubernetes
 
@@ -138,9 +164,6 @@ separately and lists them in the same table:
   [Check the host protection](updates.md#check-the-host-protection).
 - On managed Kubernetes, the row shows whether your nodes have the fix: `Fixed` or `Not fixed`. See
   [Fix CVE-2026-98432 on managed Kubernetes](kubernetes.md#fix-cve-2026-98432-on-managed-kubernetes).
-
-While a tracked advisory isn't fixed or mitigated, the cluster also shows a red bug icon next to its name in the
-`Clusters` list.
 
 ## API and MCP
 

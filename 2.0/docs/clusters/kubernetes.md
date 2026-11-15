@@ -308,8 +308,8 @@ from this bug. To fix the bug, move your nodes to a patched image from your prov
 To see whether your nodes have the fix, open `Clusters > [Cluster] > Security`. The
 [vulnerabilities table](security.md) shows CVE-2026-98432 as **Fixed** or **Not fixed**. When the nodes aren't fixed,
 the row links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a
-fixed image yet, the row has no link. While the nodes aren't fixed, the cluster shows a red bug icon next to its name in
-the `Clusters` list, and a red dot on its `Security` tab.
+fixed image yet, the row has no link. While the nodes aren't fixed, the vulnerability counts toward the red bug tag in
+the cluster's status and the red dot on its `Security` tab.
 
 Wodby reads this from the node images of EKS and AKS node pools, and from the kernel and GKE versions that DigitalOcean
 and GKE nodes report. It checks once a day, and again when a task that replaces nodes, such as `Recycle nodes` or a

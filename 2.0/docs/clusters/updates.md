@@ -151,7 +151,8 @@ compromised a pod, only a patched kernel protects your other pods.
    [Red Hat Enterprise Linux](https://access.redhat.com/security/cve/CVE-2026-98432), or
    [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status. Note
    the fixed kernel version for your release.
-2. Follow [Update the kernel](k3s.md#update-the-kernel) to install the kernel and reboot the server.
+2. Install the kernel and restart the server with [Update server packages](k3s.md#update-server-packages) and
+   [Restart servers](k3s.md#restart-servers), or [update the kernel](k3s.md#update-the-kernel) over SSH.
 3. Compare the version `uname -r` shows with the fixed version from step 1. Distributions backport fixes, so compare
    against your distribution's version rather than the upstream kernel version.
 
@@ -172,7 +173,7 @@ To see the result, open `Clusters > [Cluster] > Security`. The [vulnerabilities 
 CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can take
 up to six hours to appear. Mitigated doesn't mean fixed: install a patched kernel as well.
 
-While the server isn't mitigated, the cluster shows a red bug icon next to its name in the `Clusters` list, and a red
+While the server isn't mitigated, the vulnerability counts toward the red bug tag in the cluster's status and the red
 dot on its `Security` tab.
 
 If it shows **Not mitigated**, one of these applies:
