@@ -34,14 +34,17 @@ Wodby creates clusters in UpCloud Managed Kubernetes.
 - UDP ports can be published only on single-node clusters. UpCloud's load balancer forwards TCP only.
 - Kubernetes version upgrades and node recycling are not available for UpCloud clusters yet.
 
-### Billing options
+### Tiers
 
-Choose one when you create a cluster:
+Choose a tier when you create a cluster:
 
-| Option | Control plane | Load balancer |
+| Tier | Control plane | Load balancer |
 | --- | --- | --- |
 | Development | One API server, free | One server, free |
 | Production | Three API servers, highly available | Two servers, highly available |
+
+Single-node clusters use the Development tier. They have no load balancer, and their one node can't be highly
+available, so Production would only add the cost of the control plane.
 
 UpCloud bills the Production control plane and load balancer, the worker nodes, and the disks. An UpCloud account can
 have five free load balancers. When they are used up, a new Development cluster gets UpCloud's cheapest paid load
