@@ -21,7 +21,8 @@ entry points move; the build fails for a missing entry. Wodby 1 has a separate b
 
 Every page has a `description` in its front matter: one or two plain sentences of 110 to 160 characters that say what
 the page covers. Search engines show it under the page title, so write one for each new page and update it when the
-page's subject changes. Write plain text without Markdown; quote the value if it contains `: ` or ` #`.
+page's subject changes. Write plain text without Markdown; quote the value if it contains `: ` or ` #`. A test fails
+when a page has no description, or one that is outside those limits or contains Markdown.
 
 `page_descriptions.py` writes that text into the page's `<meta name="description">`. For a page without a
 `description`, it uses the page's opening paragraphs as plain text instead, cut to about 160 characters at the end of a

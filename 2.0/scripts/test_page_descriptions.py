@@ -1,9 +1,25 @@
 """Offline regression checks for per-page meta descriptions."""
 
+import re
 import unittest
+from pathlib import Path
 from types import SimpleNamespace
 
 import page_descriptions as descriptions
+
+DOCS = Path(__file__).resolve().parents[1] / "docs"
+# A description is shown as plain text, so links, code spans and emphasis would appear as raw characters.
+MARKDOWN = re.compile(r"`|\*\*|\]\(|<[a-z/]")
+
+
+def source_description(path):
+    """Return the description in a source page's front matter, or an empty string when it has none."""
+    front_matter = re.match(r"---\n(.*?)\n---\n", path.read_text(encoding="utf-8"), re.S)
+    written = re.search(r"^description:\s*(.+)$", front_matter.group(1), re.M) if front_matter else None
+    if not written:
+        return ""
+    value = written.group(1).strip()
+    return value[1:-1] if value[:1] in "\"'" and value[-1:] == value[:1] else value
 
 
 def page(**meta):
@@ -74,6 +90,20 @@ class PageDescriptionTests(unittest.TestCase):
         html = '<h1>Reference</h1><table><tr><td><p>Cell.</p></td></tr></table><pre><code>code</code></pre>'
         descriptions.on_page_content(html, page=empty, config={}, files=None)
         self.assertNotIn("description", empty.meta)
+
+    def test_every_source_page_has_a_description_of_the_right_length(self):
+        problems = []
+        for path in sorted(DOCS.rglob("*.md")):
+            name = str(path.relative_to(DOCS))
+            description = source_description(path)
+            if not description:
+                problems.append(f"{name}: no description in the front matter")
+            elif not descriptions.MIN_LENGTH <= len(description) <= descriptions.MAX_LENGTH:
+                problems.append(f"{name}: description is {len(description)} characters, expected "
+                                f"{descriptions.MIN_LENGTH} to {descriptions.MAX_LENGTH}")
+            elif MARKDOWN.search(description):
+                problems.append(f"{name}: description contains Markdown")
+        self.assertEqual(problems, [])
 
 
 if __name__ == "__main__":
