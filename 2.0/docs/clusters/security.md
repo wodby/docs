@@ -4,10 +4,14 @@ description: See the known vulnerabilities of a cluster in Wodby, from its serve
 
 # Cluster security
 
-Wodby lists the known vulnerabilities of each cluster in one table. Open `Clusters > [Cluster] > Infrastructure > Security`.
+Wodby lists the known vulnerabilities of each cluster in one table. Open `Clusters > [Cluster] > Security`.
 Cluster vulnerability checks run on every plan.
 
 Wodby Cloud and serverless clusters don't list vulnerabilities, because Wodby or the provider runs every part of them.
+
+While a cluster has critical or high vulnerabilities that aren't fixed or mitigated, its `Security` tab shows a red dot.
+The cluster's status also shows a red bug tag with their number, in the `Clusters` list, at the top of the cluster page
+and on its `Overview` tab.
 
 ## Read the table
 
@@ -128,8 +132,8 @@ separately and lists them in the same table:
 - On managed Kubernetes, the row shows whether your nodes have the fix: `Fixed` or `Not fixed`. See
   [Fix CVE-2026-98432 on managed Kubernetes](kubernetes.md#fix-cve-2026-98432-on-managed-kubernetes).
 
-While a tracked advisory isn't fixed or mitigated, the cluster shows a red bug icon next to its name in the `Clusters`
-list, and a red dot on its `Infrastructure` and `Security` tabs.
+While a tracked advisory isn't fixed or mitigated, the cluster also shows a red bug icon next to its name in the
+`Clusters` list.
 
 ## API and MCP
 

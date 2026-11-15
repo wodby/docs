@@ -66,8 +66,8 @@ match the version observed through the Kubernetes API. Resolve the reported cond
 ### Known vulnerabilities
 
 The known vulnerabilities of your cluster's Kubernetes version are listed with the cluster's other vulnerabilities on
-`Clusters > [Cluster] > Infrastructure > Security`. See [Cluster security](security.md#kubernetes-version). A row with a
-fixed version links to `Update Kubernetes`, which opens `Kubernetes > Updates`.
+`Clusters > [Cluster] > Security`. See [Cluster security](security.md#kubernetes-version). A row with a fixed version
+links to `Update Kubernetes`, which opens `Kubernetes > Updates`.
 
 The same list for Kubernetes alone is available through the [MCP tool](../dev/mcp/tools.md)
 `list_cluster_kubernetes_vulnerabilities`.
@@ -305,11 +305,11 @@ system, with the number of nodes running each.
 Wodby infrastructure upgrades don't change managed nodes. Your cluster can show version `4.1.4`, but that doesn't protect it
 from this bug. To fix the bug, move your nodes to a patched image from your provider.
 
-To see whether your nodes have the fix, open `Clusters > [Cluster] > Infrastructure > Security`. The
+To see whether your nodes have the fix, open `Clusters > [Cluster] > Security`. The
 [vulnerabilities table](security.md) shows CVE-2026-98432 as **Fixed** or **Not fixed**. When the nodes aren't fixed,
-the row links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a fixed
-image yet, the row has no link. While the nodes aren't fixed, the cluster shows a red bug icon next to its name in the
-`Clusters` list, and a red dot on its `Infrastructure` and `Security` tabs.
+the row links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a
+fixed image yet, the row has no link. While the nodes aren't fixed, the cluster shows a red bug icon next to its name in
+the `Clusters` list, and a red dot on its `Security` tab.
 
 Wodby reads this from the node images of EKS and AKS node pools, and from the kernel and GKE versions that DigitalOcean
 and GKE nodes report. It checks once a day, and again when a task that replaces nodes, such as `Recycle nodes` or a
