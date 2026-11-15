@@ -1888,22 +1888,10 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_create.html</loc>
-  </url>
-  <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_delete.html</loc>
-  </url>
-  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_get.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_list.html</loc>
-  </url>
-  <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_update.html</loc>
-  </url>
-  <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_verify-domain.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_subscription.html</loc>

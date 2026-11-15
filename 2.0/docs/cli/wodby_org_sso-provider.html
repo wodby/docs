@@ -6,17 +6,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>wodby org sso-provider | Wodby CLI</title>
-  <meta name="description" content="wodby org sso-provider command reference for Wodby CLI. Manage single sign-on providers.">
+  <meta name="description" content="wodby org sso-provider command reference for Wodby CLI. View single sign-on providers.">
   <link rel="canonical" href="https://wodby.com/docs/2.0/cli/wodby_org_sso-provider.html">
   <link rel="icon" href="../assets/images/favicon.svg">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Wodby Documentation">
   <meta property="og:title" content="wodby org sso-provider | Wodby CLI">
-  <meta property="og:description" content="wodby org sso-provider command reference for Wodby CLI. Manage single sign-on providers.">
+  <meta property="og:description" content="wodby org sso-provider command reference for Wodby CLI. View single sign-on providers.">
   <meta property="og:url" content="https://wodby.com/docs/2.0/cli/wodby_org_sso-provider.html">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="wodby org sso-provider | Wodby CLI">
-  <meta name="twitter:description" content="wodby org sso-provider command reference for Wodby CLI. Manage single sign-on providers.">
+  <meta name="twitter:description" content="wodby org sso-provider command reference for Wodby CLI. View single sign-on providers.">
   <link rel="sitemap" type="application/xml" href="https://wodby.com/docs/2.0/cli/sitemap.xml">
   <link rel="stylesheet" href="manual.css">
 </head>
@@ -6457,24 +6457,6 @@
   
   <div class="nav-item">
     
-      <a class="nav-link " href="wodby_org_sso-provider_create.html">create</a>
-    
-  </div>
-
-        
-          
-  
-  <div class="nav-item">
-    
-      <a class="nav-link " href="wodby_org_sso-provider_delete.html">delete</a>
-    
-  </div>
-
-        
-          
-  
-  <div class="nav-item">
-    
       <a class="nav-link " href="wodby_org_sso-provider_get.html">get</a>
     
   </div>
@@ -6485,24 +6467,6 @@
   <div class="nav-item">
     
       <a class="nav-link " href="wodby_org_sso-provider_list.html">list</a>
-    
-  </div>
-
-        
-          
-  
-  <div class="nav-item">
-    
-      <a class="nav-link " href="wodby_org_sso-provider_update.html">update</a>
-    
-  </div>
-
-        
-          
-  
-  <div class="nav-item">
-    
-      <a class="nav-link " href="wodby_org_sso-provider_verify-domain.html">verify-domain</a>
     
   </div>
 
@@ -8675,23 +8639,15 @@
     </div>
 
     <h1>wodby org sso-provider</h1>
-    <p class="lead">Manage single sign-on providers</p>
-    
+    <p class="lead">View single sign-on providers</p>
+    <p>View the single sign-on providers of an organization.
+
+Providers are read-only here. An organization owner adds, changes and removes providers and verifies their email domains in the dashboard.</p>
 
     
       <section class="section">
         <h2>Commands</h2>
         <div class="command-list">
-          
-            <a class="command-row" href="wodby_org_sso-provider_create.html">
-              <code>wodby org sso-provider create</code>
-              <span>Create an SSO provider (JSON body: orgId, kind, name, issuerUrl, clientId, clientSecret, enabled, jitEnabled, domains)</span>
-            </a>
-          
-            <a class="command-row" href="wodby_org_sso-provider_delete.html">
-              <code>wodby org sso-provider delete</code>
-              <span>Delete SSO provider</span>
-            </a>
           
             <a class="command-row" href="wodby_org_sso-provider_get.html">
               <code>wodby org sso-provider get</code>
@@ -8701,16 +8657,6 @@
             <a class="command-row" href="wodby_org_sso-provider_list.html">
               <code>wodby org sso-provider list</code>
               <span>List SSO providers</span>
-            </a>
-          
-            <a class="command-row" href="wodby_org_sso-provider_update.html">
-              <code>wodby org sso-provider update</code>
-              <span>Replace SSO provider settings; leave clientSecret out to keep it</span>
-            </a>
-          
-            <a class="command-row" href="wodby_org_sso-provider_verify-domain.html">
-              <code>wodby org sso-provider verify-domain</code>
-              <span>Check the DNS record that proves the organization owns an SSO domain</span>
             </a>
           
         </div>
