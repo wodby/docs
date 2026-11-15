@@ -7,7 +7,7 @@ builds; a change to one does not apply to the other.
 
 - The first heading of a page is its browser and search title. Write it so it makes sense on its own: "Cluster
   updates", not "Updates". Use sentence case.
-- Head a catalog stack guide "<Product> stack", or "<Product> stack (buildable)", and a provider page
+- Head a catalog stack guide "<Product> stack guide", or "<Product> (buildable) stack guide", and a provider page
   "<Product> provider".
 - Keep the navigation label in `2.0/mkdocs.yml` short. It does not affect the title.
 - Add a `title` to the front matter only when the title should say more than the heading.

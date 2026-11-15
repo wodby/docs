@@ -2,7 +2,7 @@
 description: Run a single Redis service on Wodby with the Redis catalog stack and link your application to it. The service listens on port 6379.
 ---
 
-# Redis stack
+# Redis stack guide
 
 The Wodby Redis catalog stack runs a single Redis service. The current composition and defaults are documented in
 [`wodby/stack-redis`](https://github.com/wodby/stack-redis).

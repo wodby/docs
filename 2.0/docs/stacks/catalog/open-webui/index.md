@@ -2,7 +2,7 @@
 description: Deploy Open WebUI, a self-hosted chat interface for AI models, on Wodby with the Open WebUI catalog stack and PostgreSQL, and connect it to model APIs.
 ---
 
-# Open WebUI stack
+# Open WebUI stack guide
 
 The Wodby Open WebUI catalog stack runs [Open WebUI](https://openwebui.com/), a self-hosted chat interface for AI
 models, with PostgreSQL. The current composition is documented in

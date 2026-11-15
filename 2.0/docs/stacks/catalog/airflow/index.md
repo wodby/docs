@@ -2,7 +2,7 @@
 description: Deploy Apache Airflow on Wodby with DAGs, plugins and Python packages from your Git repository. PostgreSQL holds the metadata in the Apache Airflow stack.
 ---
 
-# Apache Airflow stack
+# Apache Airflow stack guide
 
 The Wodby Apache Airflow stack runs [Apache Airflow](https://airflow.apache.org/) built from your Git repository: the
 repository holds your DAGs, plugins and the Python packages they need, and every Airflow component runs the build.

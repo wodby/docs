@@ -2,7 +2,7 @@
 description: Run the OpenClaw gateway and its Control UI on Wodby with the OpenClaw catalog stack, which requires Private App Access for the entire app.
 ---
 
-# OpenClaw stack
+# OpenClaw stack guide
 
 The Wodby OpenClaw catalog stack runs the OpenClaw gateway and its Control UI. The current composition is documented in
 [`wodby/stack-openclaw`](https://github.com/wodby/stack-openclaw).

@@ -2,7 +2,7 @@
 description: Deploy Mattermost Team Edition on Wodby with the Mattermost catalog stack, a single-replica installation with PostgreSQL and optional OpenSMTPD.
 ---
 
-# Mattermost stack
+# Mattermost stack guide
 
 The Wodby Mattermost catalog stack runs Mattermost Team Edition with PostgreSQL and an optional OpenSMTPD service. The
 current composition is documented in [`wodby/stack-mattermost`](https://github.com/wodby/stack-mattermost).

@@ -2,7 +2,7 @@
 description: Deploy Matomo with your own plugins on Wodby with the buildable Matomo stack, which builds the Matomo release you pin in Git with your plugins.
 ---
 
-# Matomo stack (buildable)
+# Matomo (buildable) stack guide
 
 The buildable Matomo stack runs [Matomo](https://matomo.org/) built from your Git repository: the repository pins the
 Matomo release and holds your own plugins. The stack has the same services as the [Matomo stack](../matomo/index.md):

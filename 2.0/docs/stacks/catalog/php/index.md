@@ -2,7 +2,7 @@
 description: Deploy a PHP application on Wodby with the PHP catalog stack, which runs PHP-FPM behind Nginx with MariaDB and Mailpit enabled by default.
 ---
 
-# PHP stack
+# PHP stack guide
 
 The Wodby PHP catalog stack runs a PHP-FPM service behind Nginx, with MariaDB and Mailpit enabled by default. Apache
 HTTP Server, PostgreSQL, Valkey, OpenSMTPD and Gotenberg are available as optional services. The current services and

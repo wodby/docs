@@ -2,7 +2,7 @@
 description: Deploy Moodle LMS on Wodby with the Moodle catalog stack, which runs it with Nginx, MariaDB, shared NFS storage, OpenSMTPD and a cron worker.
 ---
 
-# Moodle stack
+# Moodle stack guide
 
 The Wodby Moodle catalog stack runs [Moodle LMS](https://moodle.org/) with Nginx, MariaDB, shared NFS storage for
 Moodle's files, OpenSMTPD for mail, and an optional Valkey service for sessions. A separate worker runs Moodle's cron.

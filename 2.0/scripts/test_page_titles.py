@@ -67,7 +67,8 @@ class PageTitleTests(unittest.TestCase):
 
     def test_catalog_and_provider_pages_say_what_they_are(self):
         for path in sorted((DOCS / "stacks" / "catalog").glob("*/index.md")):
-            self.assertIn("stack", source_title(path).lower(), path)
+            expected = "stacks" if path.parent.name == "system" else " stack guide"
+            self.assertTrue(source_title(path).endswith(expected), path)
         concept_pages = {"index", "wodby-blob-storage"}
         for path in sorted((DOCS / "providers").glob("*.md")):
             if path.stem not in concept_pages:

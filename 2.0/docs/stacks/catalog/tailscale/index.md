@@ -2,7 +2,7 @@
 description: Run a persistent Tailscale node as an app service on Wodby with the Tailscale catalog stack. The node joins your tailnet through a Tailscale integration.
 ---
 
-# Tailscale stack
+# Tailscale stack guide
 
 The Wodby Tailscale catalog stack runs a persistent Tailscale node as an app service. The node joins your tailnet. The
 current composition and defaults are in [`wodby/stack-tailscale`](https://github.com/wodby/stack-tailscale).
