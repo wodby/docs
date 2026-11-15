@@ -62,6 +62,10 @@ The integration form asks for:
 - **Region**: the region the storage expects. Leave it empty to use `us-east-1`.
 - **Access Key ID** and **Secret Access Key**.
 
+To change the endpoint URL of an existing integration, enter the secret access key again. Wodby signs its requests
+to the endpoint with the key and backups are uploaded there, so a new endpoint can't reuse the saved key without you
+entering it.
+
 Enter the exact bucket name when creating a backup or backup preset. To pick from existing buckets instead, add this
 statement to the policy:
 
