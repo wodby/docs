@@ -8,7 +8,7 @@ Wodby Registry is the private container registry used to store your application 
 
 Each billing cycle includes 5 GB of registry storage. Storage above that amount is billed at $0.15 per GB, see [billing](../pricing.md#wodby-registry-storage).
 
-You can authenticate to Wodby Registry using your Wodby account credentials.
+You can sign in to Wodby Registry with your Wodby account. See [Auth](#auth).
 
 ## Repositories
 
@@ -33,4 +33,13 @@ for the available periods, cleanup timing, and deployment safeguards.
 
 ## Auth
 
-You can access images in your organization's namespace with your Wodby account credentials via `docker login us-docker.wodby.com`.
+Run `docker login us-docker.wodby.com` to access images in your organization's namespace:
+
+- Username: the primary email of your Wodby account.
+- Password: your account password, or an [API key](../user/api-keys.md).
+
+If your account uses [two-factor authentication](../user/security.md#two-factor-authentication), the registry does not
+accept your password. Use an API key as the password instead.
+
+An API key gives access to the images of the organization it was created for. To work with another organization's
+images, sign in with an API key of that organization.
