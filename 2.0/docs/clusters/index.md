@@ -32,6 +32,7 @@ non-infrastructure `prod` app environment is deployed there; otherwise it is cla
 - [See the cluster's volumes and storage classes](storage.md).
 - [Scale cluster capacity](scalability.md).
 - [Update infrastructure and infrastructure apps](updates.md).
+- [Update the Kubernetes version, cluster components and worker nodes](kubernetes.md).
 - [Plan for high availability](high-availability.md).
 
 ## Related pages
@@ -40,5 +41,6 @@ non-infrastructure `prod` app environment is deployed there; otherwise it is cla
 - [Wodby Cloud](wodby-cloud.md)
 - [K3s](k3s.md)
 - [Cluster updates](updates.md)
+- [Kubernetes updates and node operations](kubernetes.md)
 - [App environments](../apps/environments.md)
 - [Environment types](../apps/environment-types.md)

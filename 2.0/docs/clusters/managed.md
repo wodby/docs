@@ -17,15 +17,8 @@ To create a managed cluster, first connect your cloud account to Wodby by creati
 
 ## Kubernetes versions
 
-The cluster creation form lists the Kubernetes versions the cloud provider offers for the selected location, starting
-from the oldest version Wodby supports, with the recommended version selected. A new version appears as soon as the
-provider offers it. When a provider publishes full patch or build versions, Wodby selects the latest available release
-of the recommended version. When a provider accepts only a minor version, the provider selects and maintains the patch
-release.
-
-Existing clusters use a provider-specific upgrade plan based on their current version. A cluster on a version that new
-clusters can no longer use may need to install a provider-approved patch before it can upgrade to the next minor
-version.
+The cluster creation form lists the Kubernetes versions your cloud provider offers. See
+[Kubernetes versions for new clusters](kubernetes.md#kubernetes-versions-for-new-clusters).
 
 In the cluster creation form, choose an `Owner`:
 
@@ -35,7 +28,7 @@ In the cluster creation form, choose an `Owner`:
 Automatic infrastructure upgrades are enabled by default during cluster creation for managed Kubernetes clusters. You can
 disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Updates`.
 
-[Automatic Kubernetes upgrades](updates.md#automatic-kubernetes-upgrades), which also apply component updates, are off
+[Automatic Kubernetes upgrades](kubernetes.md#automatic-kubernetes-upgrades), which also apply component updates, are off
 by default for managed clusters. Every Kubernetes upgrade of a managed cluster replaces all of its nodes, even for a
 patch, so every pod restarts and a single-node cluster is unavailable for a few minutes. To create the cluster with
 them, select `Auto upgrade Kubernetes and components`. You can change them later from
