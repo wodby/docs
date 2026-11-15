@@ -245,6 +245,9 @@ A new kernel takes effect only after a reboot. Your distribution's automatic upd
 the server can keep running an older kernel until you reboot it. To see the kernel the server runs, open
 `Clusters > [Cluster] > Kubernetes > Updates` and find the `kernel` row in the component table.
 
+Wodby checks your servers' packages for known vulnerabilities once a day and lists them on the cluster's
+`Infrastructure > Security` tab. See [Server packages on K3s](security.md#server-packages-on-k3s).
+
 ### Update the kernel
 
 1. Connect to the server over SSH and install the updates:
