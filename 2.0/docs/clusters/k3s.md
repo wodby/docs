@@ -238,8 +238,9 @@ them when automatic maintenance is not acceptable for that cluster. See
 
 ## Operating system and kernel updates
 
-Wodby updates K3s and the cluster infrastructure, but not the server's operating system. You install operating system
-and kernel updates yourself. Wodby never updates or reboots your server.
+Wodby keeps K3s and the cluster infrastructure up to date. The server's operating system changes only when you choose:
+start [Update server packages](#update-server-packages) and [Restart servers](#restart-servers) from Wodby, or
+[update the kernel](#update-the-kernel) over SSH yourself. Wodby never updates or restarts your servers on its own.
 
 A new kernel takes effect only after a reboot. Your distribution's automatic updates may already have installed one, so
 the server can keep running an older kernel until you reboot it. To see the kernel the server runs, open
@@ -248,7 +249,59 @@ the server can keep running an older kernel until you reboot it. To see the kern
 Wodby checks your servers' packages for known vulnerabilities once a day and lists them on the cluster's
 `Security` tab. See [Server packages on K3s](security.md#server-packages-on-k3s).
 
+### Update server packages
+
+Wodby installs your distribution's available updates on each node, one node at a time. Your apps keep running.
+
+1. Open `Clusters > [Cluster] > Nodes`, or the cluster's `Security` tab, and click `Update server packages`.
+2. Leave `Nodes` empty to update every node, or choose the nodes to update.
+3. Click `Update packages`.
+
+The task log shows the package manager's output for each node. Wodby:
+
+- Installs the updates of the operating system release the server runs. It never upgrades to a new release, for
+  example from Ubuntu 24.04 to 26.04.
+- Keeps configuration files you changed.
+- Installs the new packages an update needs, such as a new kernel.
+- Doesn't restart your services. A package may restart its own service while it updates; other services that use
+  updated libraries pick up the update when they restart, or when the server does.
+
+Debian, Ubuntu, the Red Hat Enterprise Linux family (such as Rocky Linux, AlmaLinux, CentOS Stream and Fedora) and SUSE
+servers are supported when they run systemd. On SUSE, Wodby installs the available patches. On other servers the task
+fails and says so; update them over SSH. When
+another update, such as your distribution's automatic updates, is running, Wodby waits up to 10 minutes for it to finish.
+
+The log ends by saying whether the server needs a restart, for example to run a new kernel. Within about 15 minutes, the
+cluster's `Security` tab shows the result.
+
+### Restart servers
+
+Wodby restarts one node at a time and waits until it's back and `Ready` before the next one.
+
+1. Open `Clusters > [Cluster] > Nodes`, or the cluster's `Security` tab, and click `Restart servers`.
+2. Leave `Nodes` empty to restart only the nodes that need a restart, or choose the nodes to restart.
+3. Click `Restart`.
+
+Before it restarts a node, Wodby moves the node's apps to the other nodes when they have room. While the K3s server
+restarts, the Kubernetes API is unavailable. New deployments wait until the restarts end.
+
+!!! warning "One-node clusters"
+
+    When the cluster has only its server, every app on the cluster is unavailable until the server and K3s have started
+    again, usually for a few minutes. Restart it during a maintenance window.
+
+If Wodby can't move a node's apps within 20 minutes, for example because a pod disruption budget doesn't allow it, the
+task fails before that node restarts. If a node isn't back within 20 minutes, the task fails and Wodby doesn't restart
+the other nodes; check the server in your provider's console.
+
+Within about 15 minutes of the restarts, the cluster's `Security` tab shows the result.
+
+Updating packages and restarting servers require permission to modify the cluster, and the cluster must be in `OK`
+status.
+
 ### Update the kernel
+
+To update the kernel yourself over SSH:
 
 1. Connect to the server over SSH and install the updates:
 

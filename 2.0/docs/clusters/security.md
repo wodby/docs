@@ -53,7 +53,7 @@ The `Fix` column links to what fixes the vulnerability:
 
 | Fix | What to do |
 | --- | --- |
-| `Update server packages` | Install your distribution's updates on the server. See [Server packages on K3s](#server-packages-on-k3s). |
+| `Update server packages` | Install your distribution's updates on the server. Clicking the fix opens [Update server packages](k3s.md#update-server-packages). |
 | `Recycle nodes` | Replace the nodes with the provider's newest image. See [Worker node updates](kubernetes.md#worker-node-updates). |
 | `Update Kubernetes` | Upgrade to the `Fixed in` version or later. See [Kubernetes version updates](kubernetes.md#kubernetes-version-updates). |
 | `Upgrade infrastructure` | Run the infrastructure version upgrade. See [Infrastructure version upgrades](updates.md#infrastructure-version-upgrades). |
@@ -90,7 +90,8 @@ can't be ignored.
 Once a day, Wodby runs a short job on each server and worker node of a K3s cluster. The job only reads: it lists the
 operating system release, the running kernel, whether a restart is pending, and the installed packages. Wodby then
 matches the packages against your distribution's own security data, which includes the fixes it backports to older
-version numbers. Wodby never installs updates or restarts your servers.
+version numbers. The check never changes the server. To install the updates or restart servers, see
+[Operating system and kernel updates](k3s.md#operating-system-and-kernel-updates).
 
 Servers that use `dpkg` (Debian, Ubuntu), `rpm` (for example Red Hat Enterprise Linux, Rocky Linux, AlmaLinux, Fedora,
 openSUSE), or `apk` (Alpine) are supported. For a server with another package manager, the warning above the table says

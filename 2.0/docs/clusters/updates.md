@@ -151,7 +151,8 @@ compromised a pod, only a patched kernel protects your other pods.
    [Red Hat Enterprise Linux](https://access.redhat.com/security/cve/CVE-2026-98432), or
    [SUSE](https://www.suse.com/security/cve/CVE-2026-98432.html). Other distributions publish their own status. Note
    the fixed kernel version for your release.
-2. Follow [Update the kernel](k3s.md#update-the-kernel) to install the kernel and reboot the server.
+2. Install the kernel and restart the server with [Update server packages](k3s.md#update-server-packages) and
+   [Restart servers](k3s.md#restart-servers), or [update the kernel](k3s.md#update-the-kernel) over SSH.
 3. Compare the version `uname -r` shows with the fixed version from step 1. Distributions backport fixes, so compare
    against your distribution's version rather than the upstream kernel version.
 
