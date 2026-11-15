@@ -25,7 +25,7 @@ The same vulnerability can appear several times, once for each server or image i
 | `Component` | Where the vulnerability is: `Operating system`, `Node image`, `Kubernetes`, or `Infrastructure app` |
 | `Affected` | The server, node pool, or image that has it. An infrastructure app's image starts with the app's name, for example `Monitoring` |
 | `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown` |
-| `Status` | `Not fixed`, `Not mitigated`, `Mitigated`, `Fixed`, or `Ignored` |
+| `Status` | `Not fixed`, `Not mitigated`, `Fixed after restart`, `Mitigated`, `Fixed`, or `Ignored` |
 | `Fixed in` | The version that fixes it, when one is known |
 | `Fix` | A link to the operation that fixes it, when there is one |
 
@@ -54,6 +54,7 @@ The `Fix` column links to what fixes the vulnerability:
 | Fix | What to do |
 | --- | --- |
 | `Update server packages` | Install your distribution's updates on the server. Clicking the fix opens [Update server packages](k3s.md#update-server-packages). |
+| `Restart server` | Restart the server so it runs the updates already installed on it, such as a new kernel. Clicking the fix opens [Restart servers](k3s.md#restart-servers). |
 | `Recycle nodes` | Replace the nodes with the provider's newest image. See [Worker node updates](kubernetes.md#worker-node-updates). |
 | `Update Kubernetes` | Upgrade to the `Fixed in` version or later. See [Kubernetes version updates](kubernetes.md#kubernetes-version-updates). |
 | `Upgrade infrastructure` | Run the infrastructure version upgrade. See [Infrastructure version upgrades](updates.md#infrastructure-version-upgrades). |
@@ -97,10 +98,16 @@ Servers that use `dpkg` (Debian, Ubuntu), `rpm` (for example Red Hat Enterprise 
 openSUSE), or `apk` (Alpine) are supported. For a server with another package manager, the warning above the table says
 that its package manager isn't supported.
 
-Only the running kernel is checked. Older kernels that stay installed after an update aren't listed, because the server
-doesn't run them.
+Only the running kernel's packages are listed. Older kernels that stay installed after an update aren't listed, because
+the server doesn't run them.
 
-To fix the listed packages, connect to the server over SSH and install your distribution's updates:
+If a newer kernel is installed but the server still runs an older one, Wodby checks the newer kernel too.
+Vulnerabilities of the running kernel that the newer kernel doesn't have show as `Fixed after restart`, with
+`Restart server` as the fix. The fix is already on the server, but the server stays exposed until it restarts into the
+new kernel, so these rows still count as not fixed. Vulnerabilities that the newer kernel has too stay `Not fixed`.
+
+To fix the listed packages, start [Update server packages](k3s.md#update-server-packages), or connect to the server over
+SSH and install your distribution's updates:
 
 | Distribution | Command |
 | --- | --- |
@@ -109,11 +116,13 @@ To fix the listed packages, connect to the server over SSH and install your dist
 | openSUSE, SUSE Linux Enterprise | `sudo zypper refresh && sudo zypper update` |
 | Alpine | `sudo apk upgrade --update-cache` |
 
-A server that has installed updates it can't use until it restarts, such as a new kernel, shows a `Restart required`
-row. Restart it during a maintenance window. See [Update the kernel](k3s.md#update-the-kernel) for what happens to your
-apps while the server restarts.
+A server that has installed updates it can't use until it restarts shows a `Restart required` row. The row names the new
+kernel and, on Debian and Ubuntu, the other updates waiting for the restart, such as `libc6`. Restart the server during
+a maintenance window with [Restart servers](k3s.md#restart-servers), which also says what happens to your apps while
+the server restarts.
 
-The table shows the new state after the next daily scan.
+After you update or restart servers from Wodby, the table shows the new state within about 15 minutes. After changes
+you make over SSH, it shows it after the next daily scan.
 
 ## Node images on managed Kubernetes
 
