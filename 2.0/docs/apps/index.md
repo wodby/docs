@@ -100,7 +100,7 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
 
 - Enter the name of your application and your environment. Application and environment names are used to generate machine names. Machine names are permanent and cannot be changed
   - Application and environment machine names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names)
-  - The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter
+  - The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter, unique in the cluster and not reserved. See [App environment namespaces](../naming.md#app-environment-namespaces)
 - Select the [environment type](environment-types.md) (_Development_ by default)
 - Optionally, edit the root domain. By default it is `*.[environment-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose public HTTP ports; ports marked `private` do not receive technical domains
 
