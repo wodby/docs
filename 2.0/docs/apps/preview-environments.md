@@ -57,6 +57,15 @@ CI/CD. You choose which services are seeded with data after the application is c
 For an existing application, open `Apps > [App] > Settings > Preview environments`. You need permission to modify the
 app.
 
+Turning previews on, choosing another base environment, or changing the environment type of previews also needs these
+[environment permissions](../access-control.md#environment-permissions):
+
+- `Configure` and `Shell` on the base environment. Previews are copies of it, with its variables and secrets, and the
+  pull request's code runs with them.
+- `Create` for the environment type of previews.
+
+Other preview settings, such as `Concurrent previews` or `Idle expiry (days)`, need only permission to modify the app.
+
 ## Settings
 
 | Setting | Description |
