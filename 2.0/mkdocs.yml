@@ -257,6 +257,7 @@ nav:
       - GPU node pools: clusters/gpu.md
       - Observability: clusters/observability.md
       - Updates: clusters/updates.md
+      - Security: clusters/security.md
   - Databases:
       - Overview: databases/index.md
       - Managed: databases/managed.md

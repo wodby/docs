@@ -168,8 +168,8 @@ one later, for example a firewall restart that cleared the packet filter, the se
 reboot. From `4.1.5`, the server checks the protections after each boot and once a day, and puts back any that are
 missing.
 
-To see the result, open `Clusters > [Cluster] > Infrastructure > Security`. The `Security advisories` table shows
-CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can take
+To see the result, open `Clusters > [Cluster] > Infrastructure > Security`. The [vulnerabilities table](security.md)
+shows CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can take
 up to six hours to appear. Mitigated doesn't mean fixed: install a patched kernel as well.
 
 While the server isn't mitigated, the cluster shows a red bug icon next to its name in the `Clusters` list, and a red
@@ -413,8 +413,8 @@ Wodby infrastructure upgrades don't change managed nodes. Your cluster can show 
 from this bug. To fix the bug, move your nodes to a patched image from your provider.
 
 To see whether your nodes have the fix, open `Clusters > [Cluster] > Infrastructure > Security`. The
-`Security advisories` table shows CVE-2026-98432 as **Fixed** or **Not fixed**. When the nodes aren't fixed, the row
-links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a fixed
+[vulnerabilities table](security.md) shows CVE-2026-98432 as **Fixed** or **Not fixed**. When the nodes aren't fixed,
+the row links to the operation that fixes them, `Recycle nodes` or `Update Kubernetes`. If your provider doesn't offer a fixed
 image yet, the row has no link. While the nodes aren't fixed, the cluster shows a red bug icon next to its name in the
 `Clusters` list, and a red dot on its `Infrastructure` and `Security` tabs.
 
@@ -488,35 +488,12 @@ match the version observed through the Kubernetes API. Resolve the reported cond
 
 ### Known vulnerabilities
 
-To see the publicly known security vulnerabilities of the Kubernetes version your cluster runs, open
-`Clusters > [Cluster] > Infrastructure > Security`. The `Known vulnerabilities in Kubernetes <version>` table follows the
-security advisories. Wodby looks up the vulnerabilities in the [OSV](https://osv.dev) vulnerability database for the
-upstream Kubernetes version. For example, a cluster that reports
-`v1.33.5+k3s1` or `v1.33.5-eks-113cf36` is checked as Kubernetes `1.33.5`.
+The known vulnerabilities of your cluster's Kubernetes version are listed with the cluster's other vulnerabilities on
+`Clusters > [Cluster] > Infrastructure > Security`. See [Cluster security](security.md#kubernetes-version). A row with a
+fixed version links to `Update Kubernetes`, which opens `Kubernetes > Updates`.
 
-For each vulnerability, the table shows:
-
-- its ID, linked to its public record
-- its severity
-- a short summary
-- `Fixed in`: the closest Kubernetes version that fixes it, a patch of your current minor version when there is one
-
-To fix a vulnerability, upgrade Kubernetes to the `Fixed in` version or later. When a listed vulnerability has a fixed
-version, `Update Kubernetes` next to the table title opens `Kubernetes > Updates`, where the `Kubernetes version` card
-shows the versions you can upgrade to. If the fixed version isn't offered yet, your provider hasn't released it, or the
-[upgrade policy](#upgrade-policy) offers it in a later step.
-
-Keep in mind:
-
-- Managed Kubernetes providers and K3s can ship fixes in their own builds before the upstream version number changes,
-  so a listed vulnerability can already be fixed on your cluster. Check your provider's security bulletins to confirm.
-- The list covers Kubernetes itself. It doesn't cover your nodes' operating system, K3s's own components, the
-  infrastructure apps Wodby installs, or your apps.
-- The list can be up to 12 hours old.
-- Wodby Cloud and serverless clusters don't list Kubernetes vulnerabilities, because Wodby or the provider manages
-  their Kubernetes version. Other clusters list them once they have reported their Kubernetes version.
-
-The same list is available through the [MCP tool](../dev/mcp/tools.md) `list_cluster_kubernetes_vulnerabilities`.
+The same list for Kubernetes alone is available through the [MCP tool](../dev/mcp/tools.md)
+`list_cluster_kubernetes_vulnerabilities`.
 
 ### Run an upgrade
 
