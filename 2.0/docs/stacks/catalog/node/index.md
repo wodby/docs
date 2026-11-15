@@ -2,7 +2,7 @@
 description: Deploy a Node.js application on Wodby with the Node.js catalog stack, starting from the Express.js boilerplate, with optional PostgreSQL and Valkey.
 ---
 
-# Node.js
+# Node.js stack
 
 The Wodby Node.js catalog stack runs a Node.js app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD,
 Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in

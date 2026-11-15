@@ -2,7 +2,7 @@
 description: Connect AWS to Wodby for EKS clusters, RDS databases, S3 backup storage, SES email relay and variables. Authentication and required IAM permissions.
 ---
 
-# Amazon Web Services
+# Amazon Web Services provider
 
 Wodby AWS integrations can be used for EKS clusters, RDS managed databases, S3 backup storage, SES SMTP relay, and
 variables. Select only the integration kinds you need, and grant permissions for those kinds.

@@ -2,7 +2,7 @@
 description: Monitor Wodby applications with metrics for clusters, environments, services and pods, view logs, and add an OpenTelemetry Collector to a stack.
 ---
 
-# Application Observability
+# Application observability
 
 ## Monitoring
 

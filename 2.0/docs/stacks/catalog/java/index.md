@@ -2,7 +2,7 @@
 description: Deploy a Java application built into a runnable jar with Maven or Gradle on Wodby with the Java catalog stack and optional PostgreSQL and Valkey.
 ---
 
-# Java
+# Java stack
 
 The Wodby Java catalog stack runs a Java app service with optional PostgreSQL, Valkey, Mailpit,
 OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in

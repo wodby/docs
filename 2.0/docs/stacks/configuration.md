@@ -2,7 +2,7 @@
 description: Customize a Wodby stack through draft revisions, with environment variables, annotations, Helm values, tokens and stack service settings.
 ---
 
-# Stack Configuration
+# Stack configuration
 
 Unlike Wodby 1, there is no separate managed stack mode. Stacks are meant to be customized to your needs while still
 receiving updates from the services they include.

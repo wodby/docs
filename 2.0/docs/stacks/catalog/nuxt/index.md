@@ -2,7 +2,7 @@
 description: Deploy a Nuxt application on Wodby with the Nuxt catalog stack, which runs the Nuxt Node.js server with optional PostgreSQL, Valkey and mail services.
 ---
 
-# Nuxt
+# Nuxt stack
 
 The Wodby Nuxt catalog stack runs a Node.js (Nuxt) app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD,
 Gotenberg, and OpenTelemetry Collector services. The app renders pages and runs server routes on Nuxt's Node.js server.

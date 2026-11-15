@@ -2,7 +2,7 @@
 description: Deploy pushed images from CI with wodby ci deploy, review the deployment history of an app environment, and run post-deployment scripts.
 ---
 
-# Continuous Deployments
+# Continuous deployments
 
 This page covers deployments triggered by CI. For more information about deployments in general see [app deploys](../apps/deploys.md).
 

@@ -2,7 +2,7 @@
 description: Custom CI lets an app environment build in any external pipeline with Wodby CLI, without connecting that CI provider to Wodby or entering credentials.
 ---
 
-# Custom CI
+# Custom CI provider
 
 Custom CI is a CI provider for app environments that build in an external pipeline without connecting that CI provider to
 Wodby. Use it for unsupported CI systems, self-managed pipelines, or cases where you want Wodby CLI to create and deploy

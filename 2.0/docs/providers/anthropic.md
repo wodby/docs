@@ -2,7 +2,7 @@
 description: Use the Anthropic provider in Wodby to store an Anthropic API key and inject it into app services and stacks as ANTHROPIC_API_KEY.
 ---
 
-# Anthropic
+# Anthropic provider
 
 Anthropic is available in Wodby as a `variable` provider. Use it when you want to inject an Anthropic API key into app services or stacks through an integration.
 

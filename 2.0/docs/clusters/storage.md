@@ -1,5 +1,5 @@
 ---
-description: See every persistent volume on a Kubernetes cluster with its size, usage, storage class and owner, and the storage classes the cluster offers, in the Wodby dashboard.
+description: See every persistent volume on a Kubernetes cluster in Wodby with its size, usage, storage class and owner, and the storage classes the cluster offers.
 ---
 
 # Cluster storage

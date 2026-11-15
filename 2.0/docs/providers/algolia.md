@@ -2,7 +2,7 @@
 description: Use the Algolia provider in Wodby to store Algolia credentials once and inject them as environment variables into app services and stacks.
 ---
 
-# Algolia
+# Algolia provider
 
 Algolia is available in Wodby as a `variable` provider. Use it when you want to manage Algolia credentials once and expose them to app services or stacks through integrations.
 

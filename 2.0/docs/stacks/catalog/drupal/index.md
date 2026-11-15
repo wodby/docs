@@ -2,7 +2,7 @@
 description: Deploy Drupal 10 or Drupal 11 on Wodby with the Drupal catalog stack. Start from the Drupal CMS or Vanilla Drupal boilerplate or connect your repository.
 ---
 
-# Drupal
+# Drupal stack
 
 The Wodby Drupal catalog stack provides separate Drupal 10 and Drupal 11 entries. The current service composition and
 version choices are documented in [`wodby/stack-drupal`](https://github.com/wodby/stack-drupal).

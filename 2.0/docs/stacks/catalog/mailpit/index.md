@@ -2,7 +2,7 @@
 description: Run Mailpit on Wodby with the Mailpit catalog stack, a mail catcher for development and testing that accepts SMTP mail and shows it in a web interface.
 ---
 
-# Mailpit
+# Mailpit stack
 
 The Wodby Mailpit catalog stack runs Mailpit, a mail catcher for development and testing. It accepts mail over SMTP and
 shows it in a web interface. It does not deliver mail to recipients. The current composition and defaults are in

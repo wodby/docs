@@ -2,7 +2,7 @@
 description: Deploy a Go application on Wodby with the Go catalog stack, a Go app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD and Gotenberg.
 ---
 
-# Go
+# Go stack
 
 The Wodby Go catalog stack runs a Go app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD, Gotenberg, and
 Cloud PostgreSQL services. The current services and defaults are documented in

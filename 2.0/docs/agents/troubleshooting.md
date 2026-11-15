@@ -1,4 +1,5 @@
 ---
+title: AI agent connection troubleshooting
 description: Fix AI agent connection problems with Wodby MCP, starting from a read-only connection check, and see what to include in a support request.
 ---
 

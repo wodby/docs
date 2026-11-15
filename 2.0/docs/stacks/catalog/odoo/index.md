@@ -2,7 +2,7 @@
 description: Deploy Odoo Community Edition 20, 19 or 18 on Wodby with the Odoo catalog stack, which runs it with Nginx, PostgreSQL and shared NFS storage.
 ---
 
-# Odoo
+# Odoo stack
 
 The Wodby Odoo catalog stack runs [Odoo](https://www.odoo.com/) Community Edition 20, 19 or 18 with Nginx, PostgreSQL,
 shared NFS storage for Odoo's files, and an optional OpenSMTPD service for mail. The current composition is documented

@@ -1,4 +1,5 @@
 ---
+title: Application endpoints
 description: Manage the endpoints of an app environment in Wodby, including domains, redirects, TLS certificates, HTTP settings, auths and published ports.
 ---
 

@@ -1,4 +1,5 @@
 ---
+title: AI agent skills and compatibility
 description: Wodby skills guide AI agents through multi-step workflows. Choose a workflow, load guidance without installing anything, and check compatibility.
 ---
 

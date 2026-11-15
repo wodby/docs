@@ -1,4 +1,5 @@
 ---
+title: Email notifications
 description: Choose which email notifications Wodby sends you for each organization, including cron and backup failures, certificates and weekly reports.
 ---
 

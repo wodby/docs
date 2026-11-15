@@ -2,7 +2,7 @@
 description: Deploy a Rust application, such as an axum web app, on Wodby with the Rust catalog stack on the latest stable Rust release, with optional PostgreSQL.
 ---
 
-# Rust
+# Rust stack
 
 The Wodby Rust catalog stack runs a Rust app service on the latest stable Rust release, with optional PostgreSQL,
 Valkey, Mailpit, OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented

@@ -1,4 +1,5 @@
 ---
+title: MCP tool reference
 description: The catalog of Wodby MCP tools grouped by scope, from read and operation tools to configuration, provisioning, sensitive and destructive tools.
 ---
 

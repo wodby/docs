@@ -2,7 +2,7 @@
 description: Run Grafana Loki with Grafana as its interface on Wodby with the Grafana Loki catalog stack to store and explore application logs.
 ---
 
-# Grafana Loki
+# Grafana Loki stack
 
 The Wodby Grafana Loki catalog stack runs Loki with Grafana as its interface. The current composition and defaults are
 in [`wodby/stack-loki`](https://github.com/wodby/stack-loki).

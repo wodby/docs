@@ -2,7 +2,7 @@
 description: Deploy Discourse on Wodby with the Discourse catalog stack, which runs a prebuilt Discourse image with PostgreSQL, Redis and OpenSMTPD.
 ---
 
-# Discourse
+# Discourse stack
 
 The Wodby Discourse catalog stack runs [Discourse](https://www.discourse.org/) with PostgreSQL, Redis, and OpenSMTPD.
 All four services are required. The current composition is documented in

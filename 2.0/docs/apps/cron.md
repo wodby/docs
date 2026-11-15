@@ -2,7 +2,7 @@
 description: Define cron schedules for app services at service, stack or app level, run cron jobs manually, and control overlapping runs and failure notifications.
 ---
 
-# Application Cron Schedules
+# Application cron schedules
 
 You can run cron jobs manually for app services that expose cron schedules.
 

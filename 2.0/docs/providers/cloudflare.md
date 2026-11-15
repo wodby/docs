@@ -2,7 +2,7 @@
 description: Connect Cloudflare to Wodby for API variables, SMTP email relay, R2 backup storage, Private App Access and Turnstile keys.
 ---
 
-# Cloudflare
+# Cloudflare provider
 
 Cloudflare exposes five integration kinds in Wodby:
 

@@ -2,7 +2,7 @@
 description: Use the LaunchDarkly provider in Wodby to store a server-side SDK key and inject it into app services and stacks as LD_SDK_KEY.
 ---
 
-# LaunchDarkly
+# LaunchDarkly provider
 
 LaunchDarkly is available in Wodby as a `variable` provider. Use it to inject a server-side LaunchDarkly SDK key into
 app services or stacks through an integration.

@@ -2,7 +2,7 @@
 description: Run a ZooKeeper service on Wodby with the ZooKeeper catalog stack. In Wodby stacks, ZooKeeper is the coordination store of SolrCloud.
 ---
 
-# ZooKeeper
+# ZooKeeper stack
 
 The Wodby ZooKeeper catalog stack runs a ZooKeeper service. The current composition and defaults are in
 [`wodby/stack-zookeeper`](https://github.com/wodby/stack-zookeeper).

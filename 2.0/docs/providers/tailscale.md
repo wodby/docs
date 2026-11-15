@@ -2,7 +2,7 @@
 description: Connect Tailscale to Wodby for Private App Access to an app, or to run a persistent Tailscale Node service as part of an app stack.
 ---
 
-# Tailscale
+# Tailscale provider
 
 Tailscale supports two separate integration types in Wodby:
 

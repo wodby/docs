@@ -2,7 +2,7 @@
 description: Deploy Symfony on Wodby with the Symfony catalog stack, which runs PHP-FPM behind Nginx with PostgreSQL and Mailpit, and optional OpenSMTPD.
 ---
 
-# Symfony
+# Symfony stack
 
 The Wodby Symfony catalog stack runs Symfony on PHP-FPM behind Nginx, with PostgreSQL and Mailpit. OpenSMTPD and a
 managed PostgreSQL database are optional. The current services and defaults are documented in

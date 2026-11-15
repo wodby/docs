@@ -2,7 +2,7 @@
 description: Custom SMTP connects any standards-compatible SMTP relay to Wodby over an encrypted connection, for use with services such as OpenSMTPD.
 ---
 
-# Custom SMTP
+# Custom SMTP provider
 
 Custom SMTP connects any standards-compatible SMTP relay to Wodby without requiring a provider-specific integration.
 Use it with services such as OpenSMTPD when your mail provider is not listed separately in the provider catalog.

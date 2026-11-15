@@ -2,7 +2,7 @@
 description: Use the OpenCode Zen provider in Wodby to store an OpenCode Zen API key and inject it into app services and stacks as OPENCODE_API_KEY.
 ---
 
-# OpenCode Zen
+# OpenCode Zen provider
 
 OpenCode Zen is available in Wodby as a `variable` provider. Use it when you want to inject an
 [OpenCode Zen](https://opencode.ai/docs/zen/) API key into app services or stacks through an integration.

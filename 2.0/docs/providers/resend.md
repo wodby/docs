@@ -2,7 +2,7 @@
 description: Connect Resend to Wodby with one API key to relay email over SMTP, inject the key as RESEND_API_KEY into application containers, or both.
 ---
 
-# Resend
+# Resend provider
 
 Resend exposes `smtp` and `variable` integration kinds in Wodby. Both kinds use the same API key, so select SMTP,
 Variable, or both without entering the credential twice.

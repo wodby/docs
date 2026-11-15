@@ -2,7 +2,7 @@
 description: Connect Bitbucket to Wodby to build applications from your repositories, with build boilerplates and preview environments for pull requests.
 ---
 
-# Bitbucket
+# Bitbucket provider
 
 After connecting your Bitbucket account you can use its repositories as a build source for applications deployed via Wodby.
 
