@@ -1,3 +1,7 @@
+---
+description: The containers in the Wodby 1 Drupal stack, such as PHP, Nginx, Apache, MariaDB, Redis and Crond, with their settings and resource limits.
+---
+
 # Drupal stack containers
 
 ## Apache

@@ -1,4 +1,8 @@
-# Deploying new application
+---
+description: "Deploy a new application in Wodby 1: choose a stack and a server, configure the first instance and set up code deployment or import."
+---
+
+# Deploy a new application
 
 ## Step 1 – choose stack and destination server/cluster
 

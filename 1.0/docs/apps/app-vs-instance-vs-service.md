@@ -1,4 +1,8 @@
-# App vs Instance vs Service
+---
+description: "How apps, instances and services relate in Wodby 1: an app groups instances, and each instance runs the services defined by its stack."
+---
+
+# App vs instance vs service
 
 An app groups the deployed copies of your application. Each copy is an instance, and each instance runs the services defined by its stack.
 

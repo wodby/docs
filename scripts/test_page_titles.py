@@ -8,7 +8,9 @@ from types import SimpleNamespace
 
 import page_titles as titles
 
-DOCS = Path(__file__).resolve().parents[1] / "docs"
+ROOT = Path(__file__).resolve().parents[1]
+# Wodby 1 and Wodby 2 are separate sites; a title must be unique within its own site.
+SITES = {"1.0": ROOT / "1.0" / "docs", "2.0": ROOT / "2.0" / "docs"}
 # Labels that only make sense inside the navigation menu.
 MENU_ONLY = {"overview", "create", "updates", "types", "template", "managed", "configuration"}
 
@@ -55,24 +57,34 @@ class PageTitleTests(unittest.TestCase):
         self.assertNotIn("title", subject.meta)
 
     def test_source_pages_have_distinct_titles_that_name_their_subject(self):
-        by_title = defaultdict(list)
-        for path in sorted(DOCS.rglob("*.md")):
-            title = source_title(path)
-            name = str(path.relative_to(DOCS))
-            self.assertTrue(title, f"{name} has no heading and no title")
-            self.assertNotIn(title.lower(), MENU_ONLY, f"{name} is titled with a menu label")
-            by_title[title.lower()].append(name)
-        repeated = {title: paths for title, paths in by_title.items() if len(paths) > 1}
-        self.assertEqual(repeated, {})
+        for site, docs in SITES.items():
+            with self.subTest(site=site):
+                by_title = defaultdict(list)
+                for path in sorted(docs.rglob("*.md")):
+                    title = source_title(path)
+                    name = str(path.relative_to(docs))
+                    self.assertTrue(title, f"{site}/{name} has no heading and no title")
+                    self.assertNotIn(title.lower(), MENU_ONLY, f"{site}/{name} is titled with a menu label")
+                    by_title[title.lower()].append(name)
+                repeated = {title: paths for title, paths in by_title.items() if len(paths) > 1}
+                self.assertEqual(repeated, {})
 
     def test_catalog_and_provider_pages_say_what_they_are(self):
-        for path in sorted((DOCS / "stacks" / "catalog").glob("*/index.md")):
+        docs = SITES["2.0"]
+        for path in sorted((docs / "stacks" / "catalog").glob("*/index.md")):
             expected = "stacks" if path.parent.name == "system" else " stack guide"
             self.assertTrue(source_title(path).endswith(expected), path)
         concept_pages = {"index", "wodby-blob-storage"}
-        for path in sorted((DOCS / "providers").glob("*.md")):
+        for path in sorted((docs / "providers").glob("*.md")):
             if path.stem not in concept_pages:
                 self.assertIn("provider", source_title(path).lower(), path)
+
+    def test_wodby_1_stack_and_integration_pages_say_what_they_are(self):
+        docs = SITES["1.0"]
+        for path in sorted((docs / "stacks").glob("*/index.md")):
+            self.assertTrue(source_title(path).endswith(" stack guide"), path)
+        for path in sorted((docs / "integrations").glob("*.md")):
+            self.assertTrue(source_title(path).endswith(" integration"), path)
 
 
 if __name__ == "__main__":

@@ -1,3 +1,7 @@
+---
+description: Choose which optional emails Wodby 1 sends you for each organization, such as deployment and server notices, and unsubscribe from an email.
+---
+
 # Email notifications
 
 Choose which optional emails you receive from Wodby under `Account > Notifications`.

@@ -1,3 +1,7 @@
+---
+description: The containers in the Wodby 1 WordPress stack, such as PHP, Nginx, Apache, MariaDB, Redis and SSHd, with their settings and resource limits.
+---
+
 # WordPress stack containers
 
 ## Apache

@@ -1,4 +1,8 @@
-# Custom provider
+---
+description: Connect a Git repository from any provider to Wodby 1 with a deploy key and webhook, or connect a server from any cloud or data center.
+---
+
+# Custom Git and server integration
 
 ## Connecting custom git repository
 

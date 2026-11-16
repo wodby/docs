@@ -1,3 +1,7 @@
+---
+description: Release notes for the Wodby 1 Drupal stack, with the updated services and upgrade instructions to read before you upgrade an application.
+---
+
 # Drupal stack changelog
 
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).

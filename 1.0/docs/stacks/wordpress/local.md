@@ -1,3 +1,7 @@
+---
+description: Run WordPress locally with Docker4WordPress, a Docker Compose environment consistent with the Wodby stack, including Xdebug and database import.
+---
+
 # Local environment with Docker4WordPress
 
 Docker4WordPress is an open-source project ([GitHub page](https://github.com/wodby/docker4wordpress)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 

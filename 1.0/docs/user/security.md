@@ -1,3 +1,7 @@
+---
+description: Turn on two-factor authentication for your Wodby 1 account, sign in with a code, use recovery codes and regain access if you lose your authenticator.
+---
+
 # Account security
 
 Wodby 1 supports two-factor authentication (2FA) for individual user accounts.

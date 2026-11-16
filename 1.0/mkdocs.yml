@@ -1,5 +1,5 @@
-site_name: Wodby Documentation
-site_description: Wodby 1 Documentation
+site_name: Wodby 1 documentation
+site_description: Wodby 1 documentation for deploying and managing applications on your own servers with stacks, CI/CD, backups and server infrastructure.
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/1.0
 
@@ -58,6 +58,8 @@ theme:
 
 hooks:
   - ../scripts/version_assets.py
+  - ../scripts/page_descriptions.py
+  - ../scripts/page_titles.py
 
 extra_css: ["assets/wodby.css"]
 extra_javascript: ["assets/intercom.js"]
@@ -195,8 +197,8 @@ nav:
 - Integrations:
   - AWS: integrations/aws.md
   - Azure: integrations/azure.md
-  - BitBucket: integrations/bitbucket.md
-  - CloudFlare: integrations/cloudflare.md
+  - Bitbucket: integrations/bitbucket.md
+  - Cloudflare: integrations/cloudflare.md
   - DigitalOcean: integrations/digitalocean.md
   - GCP: integrations/gcp.md
   - GitHub: integrations/github.md

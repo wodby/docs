@@ -1,3 +1,7 @@
+---
+description: "Configure the UFW firewall on a Wodby 1 server: allow forwarding for Docker and Kubernetes, open SSH and web ports, then re-enable UFW."
+---
+
 # UFW configuration
 
 The installer rejects an active UFW configuration because Docker and Kubernetes need forwarding and networking rules during installation. Temporarily disable UFW before connecting the server, then configure and re-enable it after installation.

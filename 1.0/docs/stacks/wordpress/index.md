@@ -1,4 +1,8 @@
-# WordPress stack documentation
+---
+description: "Deploy and run WordPress on Wodby 1: code deployment, vanilla WordPress, import, upgrades, wp-config, mail, cron, cache control and multisite."
+---
+
+# WordPress stack guide
 
 [WordPress stack](https://cloud.wodby.com/stacks/wordpress)
 

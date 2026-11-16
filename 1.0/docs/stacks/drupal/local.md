@@ -1,3 +1,7 @@
+---
+description: Run Drupal locally with Docker4Drupal, a Docker Compose environment consistent with the Wodby stack, including Xdebug, Solr and database import.
+---
+
 # Local environment with Docker4Drupal
 
 Docker4Drupal is an open-source project ([GitHub page](https://github.com/wodby/docker4drupal)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 

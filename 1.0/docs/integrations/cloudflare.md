@@ -1,4 +1,8 @@
-# CloudFlare integration
+---
+description: Use Cloudflare in front of a Wodby 1 application with HTTPS, and allow the HTTP requests Let's Encrypt needs to issue a certificate.
+---
+
+# Cloudflare integration
 
 ## HTTPS
 

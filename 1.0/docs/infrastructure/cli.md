@@ -1,4 +1,8 @@
-# CLI commands
+---
+description: Commands to run as root on a Wodby 1 server to check Kubernetes, Docker, Wodby system workloads and host resources for each infrastructure version.
+---
+
+# Server CLI commands
 
 Run infrastructure commands as root on the connected server. Infrastructure 7 configures `/root/.kube/config` during installation. If the default config is unavailable, add `--kubeconfig=/etc/kubernetes/admin.conf` to each `kubectl` command.
 

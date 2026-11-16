@@ -1,4 +1,8 @@
-# FAQ
+---
+description: Answers to common Wodby 1 questions about upgrading applications, data location, server IP changes, maintenance mode and SSH access.
+---
+
+# Frequently asked questions
 
 ## How to access applications data from host?
 

@@ -1,3 +1,7 @@
+---
+description: Connect a GitHub repository to Wodby 1 and add a webhook so that pushes to a branch deploy your application automatically.
+---
+
 # GitHub integration
 
 ## Connecting repository

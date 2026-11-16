@@ -1,3 +1,7 @@
+---
+description: Build, push and deploy service images to Wodby 1 from any CI tool with the Wodby CLI, with examples for popular CI providers.
+---
+
 # Third-party CI
 
 Sometimes direct git integration may not be enough for a few reasons:

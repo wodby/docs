@@ -1,4 +1,4 @@
-site_name: Wodby Documentation
+site_name: Wodby 2 documentation
 site_description: Wodby 2 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/2.0
@@ -188,8 +188,8 @@ plugins:
 hooks:
   - ../scripts/version_assets.py
   - scripts/include_generated_reference_sitemap.py
-  - scripts/page_descriptions.py
-  - scripts/page_titles.py
+  - ../scripts/page_descriptions.py
+  - ../scripts/page_titles.py
   - scripts/agent_docs.py
 
 not_in_nav: |

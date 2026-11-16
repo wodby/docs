@@ -1,4 +1,8 @@
-# Google Cloud Platform
+---
+description: Create a Google Compute Engine virtual machine with a supported operating system and connect it to Wodby 1 as a server for your applications.
+---
+
+# Google Cloud Platform integration
 
 ## Connecting GCE virtual machine
 

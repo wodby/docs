@@ -1,3 +1,7 @@
+---
+description: Add a container registry integration so Wodby 1 can pull service images from a private registry, and rotate its credentials safely.
+---
+
 # Container registry integration
 
 Add a container registry integration when a stack references images from a

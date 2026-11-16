@@ -1,4 +1,8 @@
-# Solr stack documentation
+---
+description: "Run Solr on Wodby 1: protect the admin UI, and create, reload and customize Solr cores and collections. Includes the stack changelog."
+---
+
+# Solr stack guide
 
 Solr can be configured via environment variables available listed at https://github.com/wodby/solr
 

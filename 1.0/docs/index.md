@@ -1,3 +1,8 @@
+---
+title: Get started with Wodby 1
+description: "Get started with Wodby 1: connect a server, deploy your first application and learn the key concepts of apps, instances, stacks and infrastructure."
+---
+
 # Getting started
 
 Wodby 1 helps developers deploy and manage applications across their own servers. Before deploying your first application, connect at least one server and, optionally, a Git repository.

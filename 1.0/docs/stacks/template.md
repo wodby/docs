@@ -1,3 +1,7 @@
+---
+description: "Write a custom Wodby 1 stack template in YAML: top-level sections, services, volumes, variables and generated values, with a complete example."
+---
+
 # Stack template
 
 Create a custom stack by writing a YAML template or by forking a stack provided

@@ -1,6 +1,10 @@
+---
+description: Automate Wodby 1 with API keys, the API and SDKs, the Wodby CLI and MCP for AI clients, and run local environments with Docker4x projects.
+---
+
 <span id="developers-knowledge-base"></span>
 
-# Development
+# Developer tools
 
 Use the Wodby 1 API, SDKs, and CLI to automate application management and deployments, or connect an AI client through [MCP](mcp.md).
 

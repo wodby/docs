@@ -1,3 +1,7 @@
+---
+description: "Keep a Wodby 1 server up to date: check infrastructure component versions, update Agent and Edge, watch Kubernetes certificate renewal and read the changelog."
+---
+
 # Infrastructure maintenance
 
 Check your server's infrastructure version on the servers list in the Dashboard. The current releases are **7.0.8** for Infrastructure 7 and **6.1.2** for existing Infrastructure 6 servers. Infrastructure and [stacks](../stacks/maintenance.md) are updated separately.

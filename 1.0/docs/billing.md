@@ -1,4 +1,8 @@
-# Billing and Payment
+---
+description: How Wodby 1 subscriptions are billed per application instance, how to pay with Stripe, and how registry storage, invoices and discounts work.
+---
+
+# Billing and payment
 
 ## Overview
 

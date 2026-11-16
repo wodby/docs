@@ -1,3 +1,7 @@
+---
+description: Deploy Drupal and WordPress code in Wodby 1 straight from a connected Git repository, with automatic deployment when you push to a branch.
+---
+
 # Direct Git deployment
 
 !!! info "Only for Drupal and WP"

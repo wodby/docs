@@ -1,3 +1,7 @@
+---
+description: Connect a GitLab repository to Wodby 1 with a deploy key and add a webhook so that pushes to a branch deploy your application automatically.
+---
+
 # GitLab integration
 
 ## Connecting repository 

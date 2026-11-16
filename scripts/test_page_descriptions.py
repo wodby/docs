@@ -7,7 +7,8 @@ from types import SimpleNamespace
 
 import page_descriptions as descriptions
 
-DOCS = Path(__file__).resolve().parents[1] / "docs"
+ROOT = Path(__file__).resolve().parents[1]
+SITES = {"1.0": ROOT / "1.0" / "docs", "2.0": ROOT / "2.0" / "docs"}
 # A description is shown as plain text, so links, code spans and emphasis would appear as raw characters.
 MARKDOWN = re.compile(r"`|\*\*|\]\(|<[a-z/]")
 
@@ -93,8 +94,8 @@ class PageDescriptionTests(unittest.TestCase):
 
     def test_every_source_page_has_a_description_of_the_right_length(self):
         problems = []
-        for path in sorted(DOCS.rglob("*.md")):
-            name = str(path.relative_to(DOCS))
+        for path in sorted(path for docs in SITES.values() for path in docs.rglob("*.md")):
+            name = str(path.relative_to(ROOT))
             description = source_description(path)
             if not description:
                 problems.append(f"{name}: no description in the front matter")

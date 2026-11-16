@@ -1,3 +1,7 @@
+---
+description: "Choose how to deploy code to a Wodby 1 app instance: direct Git deployment for Drupal and WordPress, or third-party CI with the Wodby CLI."
+---
+
 # Code deployment
 
 Choose a deployment workflow for your app instance, then manage its builds and stored images.

@@ -1,4 +1,8 @@
-# Stacks maintenance
+---
+description: Update your organization's Wodby 1 stacks to new versions and upgrade application instances safely after reviewing the stack changelog.
+---
+
+# Stack maintenance
 
 We regularly update stacks by releasing new versions, such updates can include security updates and performance improvements. You can find more details under the Changelog tab on a stack page.
 
