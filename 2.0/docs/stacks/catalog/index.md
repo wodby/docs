@@ -60,7 +60,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 
 ## Identity and access
 
-[Keycloak](keycloak/index.md) ([buildable](keycloak-buildable/index.md))
+[authentik](authentik/index.md), [Keycloak](keycloak/index.md) ([buildable](keycloak-buildable/index.md))
 
 ## AI inference
 
