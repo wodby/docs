@@ -2,7 +2,7 @@
 description: Run Slackin on Wodby 1 to let people join your Slack team, set the team name and token it needs, and read the stack changelog.
 ---
 
-# Slackin stack
+# Slackin stack guide
 
 After deployment add the following environment variables:
 

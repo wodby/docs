@@ -2,7 +2,7 @@
 description: Run MariaDB on Wodby 1, configure it with environment variables and connect from outside through a published port or an SSH tunnel.
 ---
 
-# MariaDB stack
+# MariaDB stack guide
 
 MariaDB can be configured with the following [environment variables](https://github.com/wodby/mariadb#environment-variables)
 

@@ -2,7 +2,7 @@
 description: Host static HTML sites on Wodby 1 with Nginx or Apache, deploy them through CI, and see the stack's containers and changelog.
 ---
 
-# HTML stack
+# HTML stack guide
 
 ## Deployment
 

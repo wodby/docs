@@ -2,7 +2,7 @@
 description: "Set up Matomo analytics on Wodby 1: database credentials, geolocation, customization, Redis, mail delivery, cron and the stack changelog."
 ---
 
-# Matomo stack
+# Matomo stack guide
 
 ## Setup
 

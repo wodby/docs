@@ -11,7 +11,7 @@ These rules apply to both sites.
   updates", not "Updates". Use sentence case.
 - Wodby 2: head a catalog stack guide "<Product> stack guide", or "<Product> (buildable) stack guide", and a provider
   page "<Product> provider".
-- Wodby 1: head a stack page "<Product> stack" and an integration page "<Product> integration".
+- Wodby 1: head a stack page "<Product> stack guide" and an integration page "<Product> integration".
 - Keep the navigation label in `mkdocs.yml` short. It does not affect the title.
 - Add a `title` to the front matter only when the title should say more than the heading.
 - Give every page a `description` in its front matter: one or two plain sentences, 110 to 160 characters, no Markdown.

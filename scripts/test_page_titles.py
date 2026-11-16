@@ -82,7 +82,7 @@ class PageTitleTests(unittest.TestCase):
     def test_wodby_1_stack_and_integration_pages_say_what_they_are(self):
         docs = SITES["1.0"]
         for path in sorted((docs / "stacks").glob("*/index.md")):
-            self.assertTrue(source_title(path).endswith(" stack"), path)
+            self.assertTrue(source_title(path).endswith(" stack guide"), path)
         for path in sorted((docs / "integrations").glob("*.md")):
             self.assertTrue(source_title(path).endswith(" integration"), path)
 

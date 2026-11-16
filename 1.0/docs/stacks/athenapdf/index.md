@@ -2,7 +2,7 @@
 description: Convert HTML to PDF in Wodby 1 applications with the AthenaPDF stack, a drop-in replacement for wkhtmltopdf. Usage, variables and changelog.
 ---
 
-# AthenaPDF stack
+# AthenaPDF stack guide
 
 AthenaPDF is an HTML to PDF converter and drop-in replacement for wkhtmltopdf
 

@@ -2,7 +2,7 @@
 description: Run Redis on Wodby 1, configure it with environment variables and connect from the same server or from outside through a published port.
 ---
 
-# Redis stack
+# Redis stack guide
 
 Redis can be configured with the following [environment variables](https://github.com/wodby/redis#environment-variables)
 

@@ -2,7 +2,7 @@
 description: "Run Varnish on Wodby 1: inspect traffic from the command line, reload the configuration without a restart and troubleshoot 503 errors."
 ---
 
-# Varnish stack
+# Varnish stack guide
 
 Varnish can be configured with the following [environment variables](https://github.com/wodby/varnish#environment-variables)
 

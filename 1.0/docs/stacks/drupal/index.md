@@ -2,7 +2,7 @@
 description: "Deploy and run Drupal 6 to 11 on Wodby 1: code deployment, Drush, import, backups, settings, mail, cron, multisite and cache control."
 ---
 
-# Drupal stack
+# Drupal stack guide
 
 Stack pages:
 
