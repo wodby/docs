@@ -369,6 +369,7 @@ nav:
               - OpenClaw: stacks/catalog/openclaw/index.md
               - T3 Code: stacks/catalog/t3code/index.md
           - Identity and access:
+              - authentik: stacks/catalog/authentik/index.md
               - Keycloak: stacks/catalog/keycloak/index.md
               - Keycloak (buildable): stacks/catalog/keycloak-buildable/index.md
           - AI inference:
