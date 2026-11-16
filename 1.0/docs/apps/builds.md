@@ -1,4 +1,8 @@
-# Builds
+---
+description: Review CI build history for a Wodby 1 instance, inspect service images, deploy a previous build and clean up unused build images.
+---
+
+# Application builds
 
 Open **Instance > Builds** to review CI build history, inspect service images, deploy a previous build, or configure image cleanup. The tab has **List** and **Settings** views. Use [third-party CI](../cicd/third-party.md) to create and deploy new builds.
 

@@ -1,4 +1,8 @@
-# Logging
+---
+description: View Wodby 1 application logs by streaming them from the dashboard or by running kubectl on the server, and keep the logs you need elsewhere.
+---
+
+# Application logs
 
 Most containers in Wodby-managed stacks send application logs to standard output and standard error, where Docker and Kubernetes collect them. Container logs are not persistent application storage and may be lost after Pod replacement, log rotation, or server maintenance.
 

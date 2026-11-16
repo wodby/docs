@@ -1,3 +1,7 @@
+---
+description: Require two-factor authentication for every member of a Wodby 1 organization, see who has it enabled, and learn what happens to members without it.
+---
+
 # Organization security
 
 The **Security** tab under **Organization** lets organization owners require two-factor authentication (2FA) for every active member. Only owners can manage this policy, and they must first enable 2FA on their own account.

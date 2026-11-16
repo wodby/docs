@@ -1,4 +1,8 @@
-# Stack
+---
+description: A Wodby 1 stack is a preconfigured set of services for your application. Learn how services make up a stack and when to redeploy it.
+---
+
+# Application stacks
 
 ## Overview
 

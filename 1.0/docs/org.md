@@ -1,3 +1,7 @@
+---
+description: "Manage a Wodby 1 organization: invite members, assign roles, require two-factor authentication, and delete the organization or your account."
+---
+
 # Organizations and membership
 
 An organization owns its applications, servers, repositories, integrations,

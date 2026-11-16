@@ -1,4 +1,8 @@
-# Connecting server to Wodby
+---
+description: "Connect a server to Wodby 1: check the Infrastructure 7 requirements and supported operating systems, use a proxy, or uninstall the infrastructure."
+---
+
+# Connect a server
 
 ## Instructions
 

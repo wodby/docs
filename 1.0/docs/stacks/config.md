@@ -1,4 +1,8 @@
-# Stack configuration 
+---
+description: "Customize a Wodby 1 instance's stack: edit service environment variables, switch implementations, scale replicas, or fork a stack to use your image."
+---
+
+# Stack configuration
 
 ## Service configuration
 

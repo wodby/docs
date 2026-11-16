@@ -1,3 +1,7 @@
+---
+description: Move a Wodby 1 app from an older Drupal stack to a newer major version after upgrading its codebase, for example from Drupal 9 to Drupal 10.
+---
+
 # Migrate a Drupal stack to a newer major version
 
 An app can continue to show an older Drupal stack after its codebase has been

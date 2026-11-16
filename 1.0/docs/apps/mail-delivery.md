@@ -1,3 +1,7 @@
+---
+description: Send email from Wodby 1 applications with OpenSMTPD, relay production mail through a transactional provider and catch development mail in Mailhog.
+---
+
 # Mail delivery
 
 Many managed stacks include OpenSMTPD as their mail transfer agent. By default,

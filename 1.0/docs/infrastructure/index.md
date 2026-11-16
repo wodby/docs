@@ -1,3 +1,7 @@
+---
+description: Wodby 1 installs a single-node Docker and Kubernetes infrastructure on each connected server. Learn the infrastructure generations and how it is built.
+---
+
 # Single-server infrastructure
 
 ## Overview

@@ -1,4 +1,8 @@
-# Cachet stack documentation
+---
+description: "Run the Cachet status page on Wodby 1: configure it with environment variables, see its scheduled cron job and containers, and read the changelog."
+---
+
+# Cachet stack
 
 Cachet can be configured with the following [environment variables](https://github.com/wodby/cachet#environment-variables)
 

@@ -1,4 +1,8 @@
-# Environment Variables
+---
+description: Global environment variables available in every Wodby 1 container, such as instance and app names, and how to add your own service variables.
+---
+
+# Environment variables
 
 ## Global
 

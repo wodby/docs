@@ -1,4 +1,8 @@
-# Cluster
+---
+description: Wodby 1 runs each application instance on a single server and does not support multi-node clusters. Use Wodby 2 for scalable Kubernetes clusters.
+---
+
+# Multi-node clusters
 
 Wodby 1 currently supports only single-node setups. Each connected server runs its own infrastructure, and an application instance runs on one server.
 

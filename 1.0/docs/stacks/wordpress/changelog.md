@@ -1,3 +1,7 @@
+---
+description: Release notes for the Wodby 1 WordPress stack, with the updated services and upgrade instructions to read before you upgrade an application.
+---
+
 # WordPress stack changelog
 
 This is the changelog for WordPress stack deployed via Wodby, for docker4wordpress changes see [GitHub releases page](https://github.com/wodby/docker4wordpress/releases).

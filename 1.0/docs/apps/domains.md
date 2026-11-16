@@ -1,4 +1,8 @@
-# Domains
+---
+description: Use the technical wodby.cloud domain or attach a custom domain to a Wodby 1 instance, and configure HTTPS, WWW redirects, basic auth and indexing.
+---
+
+# Domains and HTTPS
 
 ## Technical *.wodby.cloud domain name
 

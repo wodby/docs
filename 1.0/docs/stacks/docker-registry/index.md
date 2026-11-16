@@ -1,4 +1,8 @@
-# Docker registry stack documentation
+---
+description: Run a private Docker registry on Wodby 1 and use Redis as its layer metadata cache. Configuration variables and the stack changelog.
+---
+
+# Docker registry stack
 
 Add the following environment variables to use redis for layer metadata cache:
 ```

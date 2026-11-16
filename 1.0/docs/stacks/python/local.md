@@ -1,3 +1,7 @@
+---
+description: Run Python applications locally with Docker4Python, a Docker Compose environment consistent with the Wodby stack, including database import.
+---
+
 # Local environment with Docker4Python
 
 Docker4Python is an open-source project ([GitHub page](https://github.com/wodby/docker4python)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 

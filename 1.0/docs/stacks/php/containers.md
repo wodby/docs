@@ -1,3 +1,7 @@
+---
+description: The containers available to PHP projects in the Wodby stack, such as PHP, Nginx, Apache, MariaDB, PostgreSQL, Redis and Crond, and their settings.
+---
+
 # PHP stack containers
 
 ## Apache

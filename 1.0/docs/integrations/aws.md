@@ -1,4 +1,8 @@
-# AWS
+---
+description: Connect an AWS EC2 instance to Wodby 1 as a server, send application email through Amazon SES and mirror backups to an S3 bucket.
+---
+
+# AWS integration
 
 ## Connecting EC2 node 
 

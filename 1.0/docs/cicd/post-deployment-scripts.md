@@ -1,3 +1,7 @@
+---
+description: Run commands after each Wodby 1 deployment of a PHP stack with pipelines in wodby.yml, including custom stages, git submodules and logs.
+---
+
 # Post-deployment scripts
 
 !!! info "Only for PHP"

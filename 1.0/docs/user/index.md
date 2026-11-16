@@ -1,4 +1,8 @@
-# User
+---
+description: "Manage your personal Wodby 1 account: organization membership, two-factor authentication, API keys, SSH keys and email notifications."
+---
+
+# Your account
 
 Manage your personal account from the **Account** menu in the Wodby dashboard.
 

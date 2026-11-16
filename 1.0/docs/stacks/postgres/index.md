@@ -1,4 +1,8 @@
-# PostgreSQL stack documentation
+---
+description: Run PostgreSQL on Wodby 1, configure it with environment variables and connect from outside through a published port or an SSH tunnel.
+---
+
+# PostgreSQL stack
 
 PostgreSQL can be configured with the following [environment variables](https://github.com/wodby/postgres#environment-variables)
 

@@ -1,4 +1,8 @@
-# Security
+---
+description: How Wodby 1 applies operating-system and infrastructure security updates on your servers, and which ports to keep closed to the public internet.
+---
+
+# Server security
 
 When you connect a server, Wodby enables automatic operating-system security updates. Significant updates to the Linux kernel and Wodby-managed runtime components should be coordinated through [infrastructure maintenance](maintenance.md).
 

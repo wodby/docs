@@ -1,4 +1,8 @@
-# BitBucket integration
+---
+description: Connect a Bitbucket repository to Wodby 1 and add a webhook so that pushes to a branch deploy your application automatically.
+---
+
+# Bitbucket integration
 
 ## Connecting repository
 

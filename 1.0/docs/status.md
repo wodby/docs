@@ -1,3 +1,7 @@
+---
+description: Where to find Wodby platform incidents and maintenance notices, how a control plane outage affects your applications and what to send support.
+---
+
 # Wodby platform status
 
 Current platform incidents and maintenance notices are published at

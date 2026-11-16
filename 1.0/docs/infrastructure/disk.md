@@ -1,3 +1,7 @@
+---
+description: Check disk use on a Wodby 1 server, add an external volume, reclaim space safely after a full disk and plan capacity for images, data and backups.
+---
+
 # Disk space management
 
 Keep enough free space for container images, application data, temporary task

@@ -1,3 +1,7 @@
+---
+description: Add public SSH keys to your Wodby 1 account to reach instance SSHd containers. Supported key types, review and deletion, and how to connect.
+---
+
 # SSH keys
 
 Manage your public SSH keys under `Account > SSH Keys` in the dashboard. Wodby adds these keys to the SSHd container of each instance you can access, when the stack provides one.

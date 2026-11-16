@@ -1,4 +1,8 @@
-# DigitalOcean
+---
+description: Create a DigitalOcean droplet from the Wodby 1 dashboard with the infrastructure installed automatically, and access the droplet by SSH.
+---
+
+# DigitalOcean integration
 
 ## Connecting droplet
 

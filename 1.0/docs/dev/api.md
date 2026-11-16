@@ -1,4 +1,8 @@
-# Wodby API
+---
+description: Automate Wodby 1 with the API v3 reference and the PHP, Go and Python SDKs, using organization-scoped API keys. API v2 is deprecated.
+---
+
+# Wodby API and SDKs
 
 We provide an API for common tasks such as creating applications and instances and deploying code. Create an [organization-scoped API key](../user/api-keys.md) under `Account > API Keys` to authenticate requests.
 

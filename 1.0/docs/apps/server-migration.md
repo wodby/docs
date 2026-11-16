@@ -1,3 +1,7 @@
+---
+description: Copy a Wodby 1 instance to another server, for example from Infrastructure 6 to Infrastructure 7, then verify the copy and switch traffic.
+---
+
 # Migrate an instance to another server
 
 Wodby can migrate a supported application instance to another server in the

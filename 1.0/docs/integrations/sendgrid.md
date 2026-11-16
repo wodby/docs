@@ -1,3 +1,7 @@
+---
+description: Send email from Wodby 1 applications through SendGrid by configuring the OpenSMTPD service as an SMTP relay with your SendGrid API key.
+---
+
 # SendGrid integration
 
 You can send emails from your applications via SendGrid by configuring mail transfer agent OpenSMTPD:

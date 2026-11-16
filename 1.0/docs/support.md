@@ -1,4 +1,8 @@
-# Getting Support
+---
+description: How to contact Wodby support by live chat or email, when to expect a reply, and where to ask the community about Docker4x local environments.
+---
+
+# Get support
 
 We provide best-effort support without a guaranteed response time, except for premium support customers. We usually respond during EU business hours and aim to provide an initial response within one business day.
 

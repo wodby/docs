@@ -1,3 +1,7 @@
+---
+description: The containers available to Ruby projects in the Wodby stack, such as Ruby, Sidekiq, Nginx, MariaDB, PostgreSQL and Redis, and their settings.
+---
+
 # Ruby stack containers
 
 ## AthenaPDF

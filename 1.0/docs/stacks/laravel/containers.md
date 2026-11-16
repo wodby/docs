@@ -1,4 +1,8 @@
-# PHP stack containers
+---
+description: The containers available to Laravel projects in the Wodby stack, such as PHP, Nginx, Apache, MariaDB, PostgreSQL, Redis and Crond, and their settings.
+---
+
+# Laravel stack containers
 
 ## Apache
 
