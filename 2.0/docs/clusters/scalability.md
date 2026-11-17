@@ -7,7 +7,7 @@ description: Scale the worker capacity of a managed Kubernetes cluster in Wodby 
 ## Manual scaling
 
 For [managed Kubernetes](managed.md) clusters, you can scale worker capacity manually from
-`Clusters > [Cluster] > Kubernetes > Operations`.
+`Clusters > [Cluster] > Nodes > Operations`.
 
 You can set:
 
@@ -18,7 +18,7 @@ You can set:
 nodes automatically, so they have a fixed number of nodes. For these clusters you set one node count when you create
 the cluster and when you scale it.
 
-A [GPU node pool](gpu.md) has its own minimum and maximum node counts, set on the same page.
+A [GPU node pool](gpu.md) has its own minimum and maximum node counts, set at `Clusters > [Cluster] > Nodes > Settings`.
 
 Managed Kubernetes clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later.
 They always have one node, and the dashboard does not show scaling controls for them. Create a regular managed

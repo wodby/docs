@@ -44,7 +44,7 @@ ends, and the table shows the new versions without reloading the page. A cluster
 until it recovers.
 
 `Status` shows an update only when Wodby can apply it. Updates that run from the same tab, such as a Kubernetes version
-update or a component update, have no link. Others link to the tab that runs them: `Kubernetes > Operations` for node
+update or a component update, have no link. Others link to the tab that runs them: `Nodes > Operations` for node
 recycling, `Infrastructure > Updates` for an infrastructure version upgrade, and `Infrastructure > Apps` for
 infrastructure apps. A newer upstream release alone does not count. The column is hidden when no listed component has
 a status. On managed clusters, only Amazon EKS add-ons show updates. See [component updates](kubernetes.md#component-updates).
