@@ -34,6 +34,37 @@ Sign in to Studio at the public URL with user name `supabase` and the `dashboard
 Don't generate Supabase keys by hand or copy them from another project. Data encrypted with the service's signing and
 encryption tokens can't be read after those tokens change.
 
+## Social sign-in
+
+To let users sign in with GitHub, Google or another provider, register an OAuth application with the provider and
+give Supabase Auth its credentials:
+
+1. In the provider's developer settings, create an OAuth application. Set its callback URL to the public Supabase URL
+   followed by `/auth/v1/callback`, for example `https://supabase.example.com/auth/v1/callback`, and create a client
+   secret.
+2. On the Supabase app service, add these [environment variables](../../../apps/environment-variables.md), each
+   scoped to the `auth` workload and the `auth` container. Replace `GITHUB` with the provider's name, such as `GOOGLE`
+   or `GITLAB`.
+
+   | Variable | Value |
+   | --- | --- |
+   | `GOTRUE_EXTERNAL_GITHUB_ENABLED` | `true` |
+   | `GOTRUE_EXTERNAL_GITHUB_CLIENT_ID` | the application's client ID |
+   | `GOTRUE_EXTERNAL_GITHUB_SECRET` | the client secret, marked as secret |
+   | `GOTRUE_EXTERNAL_GITHUB_REDIRECT_URI` | the callback URL from step 1 |
+
+3. Deploy the app service. The provider then appears as enabled at `/auth/v1/settings` on the public Supabase URL.
+
+In your application, start the sign-in with the Supabase client, for example
+`supabase.auth.signInWithOAuth({ provider: 'github' })`. After sign-in, users return to the **Application site URL**,
+or to a `redirectTo` address that matches the site URL or an **Additional allowed redirect URL**.
+
+Supabase needs the user's email address. For a GitHub App, set the **Email addresses** account permission to
+read-only; a GitHub OAuth App has access by default. Without it, sign-in fails and the user returns to the site URL
+with an error in the address. GitLab and Keycloak also need `GOTRUE_EXTERNAL_<PROVIDER>_URL` for a self-hosted
+instance. The full list of providers and settings is in the
+[Supabase Auth documentation](https://github.com/supabase/auth#external-authentication-providers).
+
 ## Database
 
 The database is always `postgres`. Its port is private and gets no public route. Manage tables and policies with
