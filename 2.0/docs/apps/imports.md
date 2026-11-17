@@ -27,6 +27,7 @@ backups and to create a fresh one.
 ## 1. Simple files import
 
 Wodby imports files directly into the running volume by unpacking the provided tar archive to the specified path.
+The import replaces the volume's content: files that aren't in the archive are removed.
 
 This method is not transactional.
 

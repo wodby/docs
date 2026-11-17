@@ -62,6 +62,12 @@ same Supabase bundle. An ordinary SQL dump isn't accepted. It restores into a ne
 accepts connections. If an initialization or import fails, the database won't start normally; run a new import on a
 fresh volume.
 
+To restore files, run the Supabase service's `objects` [import](../../../apps/imports.md) with the `objects` backup
+taken at the same point as the database backup. It replaces everything on the Storage volume with the backup's content,
+so files added after that backup are removed. Restore the database and the objects together: the database holds the
+file records, so a file without its record isn't visible, and a record without its file fails to download. The
+`snippets` import restores Studio snippets the same way. Objects in an S3 bucket are restored outside Wodby.
+
 ## Limits
 
 Components run as single replicas. Edge Functions, connection pooling, analytics and high-availability PostgreSQL aren't
