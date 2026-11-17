@@ -47,7 +47,8 @@ cluster has a [GPU node pool](gpu.md), the list also shows each node's pool and 
 A node marked `Cordoned` takes no new pods, for example while the provider replaces it during an upgrade.
 
 The cloud provider adds, replaces and removes the nodes, so you can't add or remove a node from the list. To change how
-many nodes the cluster has, see [Cluster scalability](scalability.md).
+many nodes the cluster has or replace its nodes, use `Nodes > Operations`. See [Cluster scalability](scalability.md) and
+[Worker node updates](kubernetes.md#worker-node-updates).
 
 ## GPU node pools
 
@@ -62,7 +63,7 @@ When enabled, Wodby creates a fixed one-node cluster:
 
 - minimum node count is fixed to `1`
 - maximum node count is fixed to `1`
-- cluster scaling is unavailable from `Kubernetes > Operations`
+- cluster scaling is unavailable from `Nodes > Operations`
 - Wodby does not create a cloud provider load balancer
 - public app traffic is routed directly to the node IP
 

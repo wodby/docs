@@ -4,12 +4,12 @@ description: Upgrade a cluster's Kubernetes version in Wodby, turn on automatic 
 
 # Kubernetes updates and node operations
 
-Manage a cluster's Kubernetes version, its components and its worker nodes at `Clusters > [Cluster] > Kubernetes`:
+Manage a cluster's Kubernetes version and components at `Clusters > [Cluster] > Kubernetes`: [upgrade the Kubernetes
+version](#kubernetes-version-updates), set up [automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) and run
+[component updates](#component-updates).
 
-- `Updates`: [upgrade the Kubernetes version](#kubernetes-version-updates), set up
-  [automatic Kubernetes upgrades](#automatic-kubernetes-upgrades) and run [component updates](#component-updates).
-- `Operations`, on managed Kubernetes clusters: [scale the cluster](#scale-the-cluster) and
-  [recycle worker nodes](#worker-node-updates).
+On managed Kubernetes clusters, use `Clusters > [Cluster] > Nodes > Operations` to [scale the cluster](#scale-the-cluster)
+and [recycle worker nodes](#worker-node-updates).
 
 Wodby infrastructure version and infrastructure app updates are separate. See [Cluster updates](updates.md).
 
@@ -255,7 +255,7 @@ run it again.
 ## Scale the cluster
 
 Set the minimum and maximum node counts of a [managed Kubernetes](managed.md) cluster at
-`Clusters > [Cluster] > Kubernetes > Operations`. See [Cluster scalability](scalability.md) for the node count rules of
+`Clusters > [Cluster] > Nodes > Operations`. See [Cluster scalability](scalability.md) for the node count rules of
 each provider and how autoscaling works.
 
 ## Worker node updates
@@ -265,7 +265,7 @@ in one of two ways:
 
 - **Recycle nodes** replaces nodes without changing the Kubernetes version. It's available on Amazon EKS, Azure AKS and
   DigitalOcean Kubernetes, except for single-node clusters. Use `Recycle nodes` at
-  `Clusters > [Cluster] > Kubernetes > Operations`, the
+  `Clusters > [Cluster] > Nodes > Operations`, the
   [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) command, or the [API](../api/index.html).
 - **A [Kubernetes version update](#kubernetes-version-updates)** moves nodes to the image that comes with the new version.
   It's available on all managed providers that support version updates, including Google GKE.
