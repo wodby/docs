@@ -46,7 +46,6 @@ Team includes everything in Developer, plus production-focused features such as:
 - [vulnerability scanning](apps/vulnerability-scanning.md) of deployed build images
 - [preview environments](apps/preview-environments.md) for pull requests
 - best-effort support
-- $30 of Wodby Cloud usage per month
 - 10M free [AI credits](#ai-credits) tokens in total for Wodby Agent, granted once
 
 The Team plan has a $48 minimum for each monthly billing cycle. It includes up to 24 billable
@@ -122,7 +121,7 @@ Invoices are in the Stripe customer portal.
 
 When you downgrade a paid subscription, the downgrade is scheduled for the end of the current billing cycle. The existing paid billing period continues for billing and existing resource usage until the current period ends, and the organization moves to the free Developer plan after that.
 
-Usage-based charges can still accrue until the end of the billing cycle. The final invoice can include addon usage and Wodby Cloud usage above the included amounts for the period.
+Usage-based charges can still accrue until the end of the billing cycle. The final invoice can include addon usage above the included amounts and Wodby Cloud usage for the period.
 
 After a downgrade is scheduled:
 
@@ -200,9 +199,9 @@ the cycle.
 
 Wodby Cloud is billed in dollars as Wodby Cloud usage.
 
-Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
+Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Each persistent Wodby Cloud cluster also has a cluster fee.
 
-Paid plans include $30 of Wodby Cloud usage per month.
+Paid plans don't include Wodby Cloud usage. All of it is billed.
 
 ### AI credits
 
