@@ -27,8 +27,9 @@ Before connecting a server, make sure it satisfies the [Infrastructure 7 require
 * Allow public inbound traffic to 80 and 443. Allow 31222-32222/TCP when applications expose SSH or another direct NodePort service. Do not expose Kubernetes or etcd control-plane ports publicly.
 * Active UFW must be temporarily disabled during installation and may be re-enabled afterward using the [UFW instructions](ufw.md).
 * Swap is disabled by the Infrastructure 7 installer, including active entries in `/etc/fstab`.
+* An x86-64-v2 CPU, which supports SSE4.2 and POPCNT. Server CPUs from the last decade have them, but a virtual machine must be given these features by its hypervisor: in Hyper-V, turn off processor compatibility mode; on KVM or Proxmox, use the host CPU type or a CPU model that includes them instead of a baseline model such as `kvm64`. Without these features, the installation fails.
 * At least 2 vCPU are required. At least 4 GB RAM and 20 GB of disk are recommended, with additional disk capacity for application data, images, backups, and logs.
-* Outbound HTTPS and DNS access are required for Wodby, operating-system package repositories, Docker Hub, and the pinned GitHub release artifacts used by the installer.
+* Outbound HTTPS and DNS access are required for Wodby, operating-system package repositories, Docker Hub, Quay (`quay.io`), and the pinned GitHub release artifacts used by the installer.
 
 ## Supported operating systems
 
@@ -44,9 +45,10 @@ Check a host before connecting it:
 ```shell
 uname -m
 . /etc/os-release && printf '%s %s\n' "$ID" "$VERSION_ID"
+/lib64/ld-linux-x86-64.so.2 --help | grep 'x86-64-v2'
 ```
 
-The expected architecture is `x86_64`; the operating system must report either `ubuntu 26.04` or `debian 13`.
+The expected architecture is `x86_64`; the operating system must report either `ubuntu 26.04` or `debian 13`; and the last command must print `x86-64-v2 (supported, searched)`.
 
 ## Proxy support
 
