@@ -263,8 +263,8 @@ each provider and how autoscaling works.
 Wodby has no separate node update. On [managed Kubernetes](managed.md) clusters, worker nodes get a newer image and kernel
 in one of two ways:
 
-- **Recycle nodes** replaces nodes without changing the Kubernetes version. It's available on Amazon EKS, Azure AKS and
-  DigitalOcean Kubernetes, except for single-node clusters. Use `Recycle nodes` at
+- **Recycle nodes** replaces nodes without changing the Kubernetes version. It's available on Amazon EKS, Azure AKS,
+  DigitalOcean Kubernetes and UpCloud Managed Kubernetes. Use `Recycle nodes` at
   `Clusters > [Cluster] > Nodes > Operations`, the
   [`wodby cluster recycle-nodes`](../cli/wodby_cluster_recycle-nodes.html) command, or the [API](../api/index.html).
 - **A [Kubernetes version update](#kubernetes-version-updates)** moves nodes to the image that comes with the new version.
@@ -332,6 +332,7 @@ the [API](../api/index.html) as `GET /v1/cluster-security-advisories/{id}` and t
     | Azure AKS | Recycle nodes. Every node is replaced, so first confirm the latest image contains the fix. |
     | DigitalOcean Kubernetes | Run a [Kubernetes version update](#kubernetes-version-updates) to a version that the [DigitalOcean changelog](https://docs.digitalocean.com/products/kubernetes/details/changelog/) lists with Linux kernel `6.12.113-1` or newer. DigitalOcean ships kernel updates with its Kubernetes versions. |
     | Google GKE | Run a [Kubernetes version update](#kubernetes-version-updates) to a version that Google lists as fixed. Recycling isn't available. |
+    | UpCloud Managed Kubernetes | Recycle nodes. Every node is replaced, so first confirm with UpCloud that its current node image contains the fix. |
     | OVH Managed Kubernetes | Recycling isn't available. Check with OVHcloud whether your nodes have received the fix. |
 
     See [Worker node updates](#worker-node-updates) for how to recycle nodes.
