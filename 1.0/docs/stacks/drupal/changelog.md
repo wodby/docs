@@ -11,6 +11,24 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.17
+
+Applies to the Drupal 7–11 stacks.
+
+- ⬆️ Vanilla Drupal 11.4.13, 10.6.22
+- PHP 8.2–8.5:
+    - ⭐️ Added the sysvsem, sysvshm and sysvmsg extensions that ship with PHP. They let PHP processes in one container share locks, memory and message queues
+    - ⬆️ MongoDB extension 2.5.7 with security fixes in its bundled client libraries (CVE-2026-120954, CVE-2026-120678, CVE-2026-114655)
+    - ⬆️ Event extension 3.2.0, which fixes heap buffer overflows in `EventBuffer::read()`, `copyout()` and `pullup()`
+    - ⬆️ OpenTelemetry extension 1.5.0, which fixes a crash in instrumentation hooks
+    - ⬆️ Brotli extension 0.21.1
+    - ⬆️ ast extension 1.1.4
+    - 🐞 Fixed security issues in the PostgreSQL client library used by the `pgsql` and `pdo_pgsql` extensions: libpq 18.7 fixes 52 CVEs, including CVE-2026-6460, CVE-2026-6467, CVE-2026-14661 and CVE-2026-18447
+- ⬆️ MariaDB 11.8.10, 11.4.14, 10.11.20
+- ⬆️ Nginx 1.31.9, 1.30.7
+- ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163), also in Adminer
+- 🏔️ Alpine Linux updates for MariaDB, Nginx and Apache, including a zlib security fix (CVE-2026-4738)
+
 ## 6.2.16
 
 Applies to the Drupal 7–11 stacks.
