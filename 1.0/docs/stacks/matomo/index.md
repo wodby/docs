@@ -83,6 +83,14 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.20
+
+- ⬆️ MariaDB 10.11.20
+- ⬆️ Nginx 1.31.9, 1.30.7
+- Adminer:
+    - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
+- 🏔️ Alpine Linux updates for MariaDB and Nginx, including a zlib security fix (CVE-2026-4738)
+
 ### 1.4.19
 
 - Matomo PHP runtime:

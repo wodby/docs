@@ -34,6 +34,13 @@ By default, we run the following cron command from [crond container](#crond) eve
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
 
+### 3.1.8
+
+- ⬆️ Nginx 1.31.9, 1.30.7
+- Adminer:
+    - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
+- 🏔️ Alpine Linux updates for Nginx, including a zlib security fix (CVE-2026-4738)
+
 ### 3.1.7
 
 - Adminer:

@@ -31,6 +31,12 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
 
+### 1.1.23
+
+- ⬆️ Nginx 1.31.9, 1.30.7
+- ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
+- 🏔️ Alpine Linux updates for Nginx and Apache, including a zlib security fix (CVE-2026-4738)
+
 ### 1.1.22
 
 🏔️ [Alpine Linux updates](https://alpinelinux.org/posts/alpine-3.21.10-3.22.8-3.23.8-3.24.4-released/) for Nginx and Apache
