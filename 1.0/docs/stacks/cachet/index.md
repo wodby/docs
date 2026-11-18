@@ -36,7 +36,7 @@ This changelog is for Cachet stack on Wodby, to see image changes see tags descr
 
 ### 3.1.8
 
-- ⬆️ Nginx 1.31.9, 1.30.7
+- ⬆️ Nginx 1.31.9, 1.30.7 with fixes for the [nginx2root](https://xint.io/blog/nginx2root-remote-code-execution) remote code execution vulnerabilities (CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, CVE-2026-113425) and other [security issues](https://nginx.org/en/security_advisories.html)
 - Adminer:
     - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
 - 🏔️ Alpine Linux updates for Nginx, including a zlib security fix (CVE-2026-4738)

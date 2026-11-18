@@ -23,7 +23,7 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
     - ⬆️ ast extension 1.1.4
     - 🐞 Fixed security issues in the PostgreSQL client library used by the `pgsql` and `pdo_pgsql` extensions: libpq 18.7 fixes 52 CVEs, including CVE-2026-6460, CVE-2026-6467, CVE-2026-14661 and CVE-2026-18447
 - ⬆️ MariaDB 11.8.10, 11.4.14, 10.11.20
-- ⬆️ Nginx 1.31.9, 1.30.7
+- ⬆️ Nginx 1.31.9, 1.30.7 with fixes for the [nginx2root](https://xint.io/blog/nginx2root-remote-code-execution) remote code execution vulnerabilities (CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, CVE-2026-113425) and other [security issues](https://nginx.org/en/security_advisories.html)
 - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163), also in Adminer
 - 🏔️ Alpine Linux updates for MariaDB, Nginx and Apache, including a zlib security fix (CVE-2026-4738)
 
