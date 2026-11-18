@@ -83,6 +83,19 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.21
+
+- ⬆️ Matomo 5.14.3
+- Matomo PHP runtime:
+    - ⭐️ Added the sysvsem, sysvshm and sysvmsg extensions that ship with PHP. They let PHP processes in one container share locks, memory and message queues
+    - ⬆️ MongoDB extension 2.5.7 with security fixes in its bundled client libraries (CVE-2026-120954, CVE-2026-120678, CVE-2026-114655)
+    - ⬆️ Event extension 3.2.0, which fixes heap buffer overflows in `EventBuffer::read()`, `copyout()` and `pullup()`
+    - ⬆️ OpenTelemetry extension 1.5.0, which fixes a crash in instrumentation hooks
+    - ⬆️ Brotli extension 0.21.1
+    - ⬆️ ast extension 1.1.4
+    - 🐞 Fixed security issues in the PostgreSQL client library used by the `pgsql` and `pdo_pgsql` extensions: libpq 18.7 fixes 52 CVEs, including CVE-2026-6460, CVE-2026-6467, CVE-2026-14661 and CVE-2026-18447
+- 🏔️ Alpine Linux updates for the Matomo PHP runtime, including a zlib security fix (CVE-2026-4738)
+
 ### 1.4.20
 
 - ⬆️ MariaDB 10.11.20
