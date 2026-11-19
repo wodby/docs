@@ -16,8 +16,7 @@ with their number, in the `Clusters` list, at the top of the cluster page and on
 A vulnerability raises an alert when it's known to be exploited, or at least 10% likely to be exploited in the next 30
 days, whatever its severity. See [Vulnerabilities that raise an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert).
 The [security advisories](#security-advisories) Wodby tracks always raise an alert until they're fixed or mitigated.
-Wodby has no exploitation data for the vulnerabilities of a [Kubernetes version](#kubernetes-version) or for outdated
-node images, so these don't raise an alert.
+An outdated node image isn't a single vulnerability, so it doesn't raise an alert.
 
 When nothing raises an alert, the cluster page shows the number of critical and high vulnerabilities that aren't fixed
 in a grey bug tag, and the `Clusters` list shows none.
@@ -150,6 +149,10 @@ Wodby looks up the vulnerabilities of your cluster's Kubernetes version in the [
 database, for the upstream Kubernetes version. For example, a cluster that reports `v1.33.5+k3s1` or
 `v1.33.5-eks-113cf36` is checked as Kubernetes `1.33.5`. `Fixed in` shows the closest Kubernetes version that fixes the
 vulnerability, a patch of your current minor version when there is one.
+
+Wodby also checks each of these vulnerabilities against CISA's catalog and EPSS whenever it refreshes the list, so one
+that is known or likely to be exploited [raises an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert)
+like any other. A vulnerability without a CVE ID has no exploitation data and shows as `Unknown`.
 
 If the fixed version isn't offered on `Kubernetes > Updates` yet, your provider hasn't released it, or the
 [upgrade policy](kubernetes.md#upgrade-policy) offers it in a later step.
