@@ -83,6 +83,10 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.22
+
+- 🐞 Fixed deployments of existing Matomo sites failing after the update to 1.4.21 with `rm: can't remove '/var/www/html/plugins/CoreConsole/Commands/GenerateAngularComponent.php'`. If a deployment failed, Matomo asks for a database upgrade. Upgrade the instance to this stack version to complete it
+
 ### 1.4.21
 
 - ⬆️ Matomo 5.14.3
