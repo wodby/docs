@@ -34,7 +34,8 @@ The same vulnerability can appear several times, once for each server or image i
 | `Summary` | A short description, or the affected package and its version |
 | `Component` | Where the vulnerability is: `Operating system`, `Node image`, `Kubernetes`, or `Infrastructure app` |
 | `Affected` | The server, node pool, or image that has it. An infrastructure app's image starts with the app's name, for example `Monitoring` |
-| `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown`, with `Exploited` or `Likely exploited` when the vulnerability raises an alert |
+| `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown` |
+| `Exploitable` | `Exploited` or `Likely exploited` when the vulnerability raises an alert, `Tracked by Wodby` for a [security advisory](#security-advisories) that isn't fixed or mitigated, `Unlikely` when its EPSS chance is below 10%, or `Unknown` when there's no exploitation data. Empty for a Wodby check such as `Outdated node image` |
 | `Status` | `Not fixed`, `Not mitigated`, `Fixed after restart`, `Mitigated`, `Fixed`, or `Ignored` |
 | `Fixed in` | The version that fixes it, when one is known |
 | `Fix` | A link to the operation that fixes it, when there is one |
