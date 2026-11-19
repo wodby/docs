@@ -83,6 +83,13 @@ By default we run the following cron command from [crond container](#crond) ever
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
 
+### 1.4.23
+
+- Matomo PHP runtime:
+    - ⬆️ PHP 8.2.36 with [security fixes](https://www.php.net/ChangeLog-8.php#8.2.36), including request smuggling into PHP-FPM and use-after-free bugs that can let an attacker run code on the server
+    - 📜 Session upload progress is now off by default, because PHP 8.2.36 refuses session setting changes at runtime while it is on, which Matomo makes
+- ⬆️ PHP 8.4.28 with [security fixes](https://www.php.net/ChangeLog-8.php#8.4.28) in Adminer
+
 ### 1.4.22
 
 - 🐞 Fixed deployments of existing Matomo sites failing after the update to 1.4.21 with `rm: can't remove '/var/www/html/plugins/CoreConsole/Commands/GenerateAngularComponent.php'`. If a deployment failed, Matomo asks for a database upgrade. Upgrade the instance to this stack version to complete it

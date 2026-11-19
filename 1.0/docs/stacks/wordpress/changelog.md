@@ -11,6 +11,12 @@ This is the changelog for WordPress stack deployed via Wodby, for docker4wordpre
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
 
+## 6.2.18
+
+- PHP 8.2–8.5:
+    - ⬆️ PHP 8.5.13, 8.4.28, 8.3.37, 8.2.36 with [security fixes](https://www.php.net/ChangeLog-8.php#8.5.13), including request smuggling into PHP-FPM and use-after-free bugs that can let an attacker run code on the server, also in Adminer
+    - 📜 Session upload progress is now off by default. With it on, these PHP releases refuse session setting changes at runtime, which many plugins and applications make. Set `PHP_SESSION_UPLOAD_PROGRESS_ENABLED=1` on the PHP service to turn it on again only if your application does not change session settings at runtime
+
 ## 6.2.17
 
 - ⬆️ Vanilla WordPress 7.1.5
