@@ -109,15 +109,44 @@ certificate expires. Each stage is sent once for a certificate's current expirat
 
 ## Weekly organization report
 
-The weekly organization report includes an `Automation health` section with enabled cron schedules and automatic
-backup presets whose latest conclusive result is still failed. It also shows ongoing issues when a cron schedule has
-not produced another run eligible for a reminder.
+Wodby emails a weekly report to each organization's owners and admins. It covers the previous week, Saturday through
+Friday (UTC). An organization gets the report when it has a working cluster, a paid subscription, or member activity
+during that week.
 
-On the Team and Enterprise plans, the report also lists currently deployed builds with vulnerabilities that are known or
-likely to be exploited. See [Vulnerability scanning](../apps/vulnerability-scanning.md#weekly-organization-report).
+The report has these sections:
 
-The report also lists clusters with such vulnerabilities, and with security advisories that aren't fixed or mitigated
-yet. See [Cluster security](../clusters/security.md).
+- **Action required:** clusters that need attention, app environments in an error state, environments waiting for a
+  rebuild or redeploy, expired certificates, and production backups that need attention.
+- **Automation health:** enabled cron schedules and automatic backup presets whose latest conclusive result is still
+  failed. It also shows ongoing issues when a cron schedule has not produced another run eligible for a reminder.
+- **Automated maintenance:** automatic stack, Git, app stack, cluster infrastructure and Kubernetes updates that changed
+  something, completed with warnings, or failed during the week.
+- **Outdated stacks:** stacks with newer service versions, stack copies whose origin updates aren't applied
+  automatically, and app environments on older stack revisions.
+- **Cluster infrastructure:** outdated infrastructure versions and infrastructure apps, and clusters that run a
+  Kubernetes version past its upstream end of life or within 90 days of it. Wodby Cloud clusters aren't listed because
+  Wodby manages their Kubernetes versions. See
+  [Automatic Kubernetes upgrades](../clusters/kubernetes.md#automatic-kubernetes-upgrades).
+- **Weekly activity:** completed and failed backups, cron jobs, deployments, builds and certificate renewals.
+- **Access and API keys:** pending and recently expired invites, API keys never used, API keys unused for 90 days or
+  more, and API keys that expire within 14 days.
+- **Security:** app services on versions past end of life, API keys without an expiration date, and members without
+  two-factor authentication. On the Team and Enterprise plans, it also lists currently deployed builds with
+  vulnerabilities that are known or likely to be exploited. See
+  [Vulnerability scanning](../apps/vulnerability-scanning.md#weekly-organization-report). It also lists clusters with
+  such vulnerabilities, and with security advisories that aren't fixed or mitigated yet. See
+  [Cluster security](../clusters/security.md).
+
+### Production backup coverage
+
+The `Action required` section lists each production app service backup and standalone production database that:
+
+- no enabled automatic backup preset covers
+- has no successful backup
+- has no successful backup in the last eight days
+
+An [organization-wide preset](../apps/backups.md#organization-wide-presets) covers only the environments, projects and
+backup category it's limited to.
 
 ## Defaults
 
