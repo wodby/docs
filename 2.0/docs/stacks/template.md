@@ -24,6 +24,7 @@ Only the fields documented on this page are supported. Unknown fields will be re
 name: php
 title: PHP
 icon: php
+category: runtimes
 
 env:
   - name: APP_TYPE
@@ -185,6 +186,37 @@ variants' pages. Up to 500 characters. The main stack can have one too, without 
 variantDescription: >-
   Choose this when you want to customize Matomo: pin the Matomo version and add
   your own plugins in a Git repository, and Wodby builds Matomo from it.
+```
+
+### `category`
+
+Type: `string`. Optional.
+
+Catalog category of the stack. The stack catalog in the dashboard can be filtered by category, and a catalog stack's
+page suggests other stacks of the same category. A copy of the stack, for example one added from the catalog, keeps
+its category. Variants are listed in the catalog under their category but aren't suggested on other stacks' pages.
+
+| Value | Category in the dashboard |
+| --- | --- |
+| `javascript` | JavaScript frameworks |
+| `frameworks` | Backend frameworks |
+| `runtimes` | Language runtimes |
+| `cms` | CMS & publishing |
+| `databases` | Databases |
+| `datastores` | Datastores & messaging |
+| `search` | Search & indexing |
+| `observability` | Observability |
+| `data` | Data & automation |
+| `ai` | AI |
+| `devtools` | Developer platforms |
+| `collaboration` | Business apps |
+| `networking` | Networking & identity |
+| `platform` | Email & platform services |
+
+Any other value is rejected during import.
+
+```yaml
+category: cms
 ```
 
 ### `access`
