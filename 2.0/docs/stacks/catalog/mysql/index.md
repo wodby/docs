@@ -45,8 +45,8 @@ To open a shell in the database container, use the [web terminal](../../../apps/
 ## phpMyAdmin
 
 phpMyAdmin has no persistent data and connects only to the linked MySQL server. Wodby protects its public domains
-with basic auth by default. Reveal the generated password on the environment's **Endpoints > Auths** page. See
-[Auths](../../../apps/endpoints.md#auths). On the phpMyAdmin login page, sign in with the environment's database user
+with basic auth by default. Reveal the generated password on the environment's **Endpoints > Basic Auth** page. See
+[Basic Auth](../../../apps/endpoints.md#basic-auth). On the phpMyAdmin login page, sign in with the environment's database user
 to see its database, or with `root` to see all databases.
 
 ## Server settings

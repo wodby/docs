@@ -198,7 +198,7 @@ The integration form asks for the Account ID and API token. Wodby does not reque
 
 ### Configure an app
 
-Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
+Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Endpoints > Private App Access`. Choose the
 Cloudflare Private App Access integration, an access type, and whether the scope covers the Entire app or Selected
 endpoints.
 

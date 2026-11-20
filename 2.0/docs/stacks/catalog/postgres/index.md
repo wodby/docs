@@ -62,7 +62,7 @@ but not enabled. Add `vector` to the list to enable it. To list the extensions i
 ## Adminer and pgAdmin
 
 Wodby protects their public domains with basic auth by default. Reveal the generated password on the environment's
-**Endpoints > Auths** page. See [Auths](../../../apps/endpoints.md#auths).
+**Endpoints > Basic Auth** page. See [Basic Auth](../../../apps/endpoints.md#basic-auth).
 
 - **Adminer:** it has no persistent data. The login form is prefilled with the system, server, and database. Type the
   user name and password.

@@ -15,8 +15,8 @@ Wodby provisions a Prometheus data source in Grafana for you, and the Prometheus
 ## Open Prometheus
 
 Prometheus listens on port `9090`. Wodby protects the service's public domains with basic auth by default. Each app
-service gets its own generated password. Reveal it under **Endpoints > Auths** for the app environment. See
-[Auths](../../../apps/endpoints.md#auths).
+service gets its own generated password. Reveal it under **Endpoints > Basic Auth** for the app environment. See
+[Basic Auth](../../../apps/endpoints.md#basic-auth).
 
 ## Change the Prometheus configuration
 

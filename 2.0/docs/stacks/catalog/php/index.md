@@ -33,7 +33,7 @@ exists and the linked service is enabled:
 PHP's `mail()` is delivered through the linked mail service, so no SMTP library or credentials are needed.
 
 Mailpit captures every message and delivers none of them. Use it to inspect mail in non-production environments. Its
-web interface is protected with basic auth. Reveal the password in **Endpoints > Auths**. For real delivery, enable
+web interface is protected with basic auth. Reveal the password in **Endpoints > Basic Auth**. For real delivery, enable
 OpenSMTPD, point the PHP service's **Mail Transfer Agent** link at it, and attach an [SMTP
 provider](../../../providers/smtp.md). See the [OpenSMTPD guide](../opensmtpd/index.md).
 

@@ -36,7 +36,7 @@ console's DNS page.
 
 ## Private App Access
 
-Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
+Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Endpoints > Private App Access`. Choose the
 Tailscale integration and either Entire app or Selected endpoints scope.
 Tailscale provides the Private network access type automatically; there is no separate protected-publishing type.
 

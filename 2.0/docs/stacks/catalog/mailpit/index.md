@@ -28,8 +28,8 @@ Port `8025` serves the web interface and Mailpit's REST API under `/api/v1/`. Us
 messages.
 
 Captured mail can include password reset links and other secrets, so Wodby protects the public domains with basic auth
-by default. Each Mailpit app service gets its own generated password. Reveal it under **Endpoints > Auths** for the app
-environment. See [Auths](../../../apps/endpoints.md#auths). Services inside the environment reach port `8025`
+by default. Each Mailpit app service gets its own generated password. Reveal it under **Endpoints > Basic Auth** for the app
+environment. See [Basic Auth](../../../apps/endpoints.md#basic-auth). Services inside the environment reach port `8025`
 directly, without the password. A request to the REST API from outside the environment sends the same username and
 password.
 

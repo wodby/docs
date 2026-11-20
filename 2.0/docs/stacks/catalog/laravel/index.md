@@ -62,7 +62,7 @@ Do not use this Valkey instance for Laravel's cache. Cache pressure would block 
 service with an LRU policy.
 
 Mailpit captures every message and delivers none of them. Its web interface is protected with basic auth. Reveal the
-password in **Endpoints > Auths**. For real delivery, enable OpenSMTPD, point the PHP service's **Mail Transfer Agent**
+password in **Endpoints > Basic Auth**. For real delivery, enable OpenSMTPD, point the PHP service's **Mail Transfer Agent**
 link at it, and attach an [SMTP provider](../../../providers/smtp.md). See the [OpenSMTPD guide](../opensmtpd/index.md).
 
 To use a Cloud MariaDB or Cloud MySQL service, see [Managed Databases](../../../databases/managed.md). Laravel connects

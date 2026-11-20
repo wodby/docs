@@ -31,9 +31,9 @@ don't list `dagster` itself, and use Dagster libraries that match its version.
 ## Open the Dagster interface
 
 Wodby protects the Dagster app service's public domains with HTTP basic authentication. Find the generated password in
-**Apps > [App] > [Environment] > Endpoints > Auths**. Other services in the same app environment reach Dagster without
+**Apps > [App] > [Environment] > Endpoints > Basic Auth**. Other services in the same app environment reach Dagster without
 the password. You can turn the protection off when you create the app, or later by deleting the entry. See
-[Auths](../../../apps/endpoints.md#auths).
+[Basic Auth](../../../apps/endpoints.md#basic-auth).
 
 ## Code locations
 
