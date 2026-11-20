@@ -132,7 +132,7 @@ After a downgrade is scheduled:
 
 To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
 features. Private App Access is a paid feature, so remove it from every app environment under **Apps > your app > your
-environment > Settings > Access** before scheduling a downgrade. The downgrade error identifies each affected app and
+environment > Endpoints > Private App Access** before scheduling a downgrade. The downgrade error identifies each affected app and
 environment.
 
 App environment pausing is also a paid feature, so no environment can be `Pausing` or `Paused` when a downgrade is

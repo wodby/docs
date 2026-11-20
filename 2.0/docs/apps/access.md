@@ -50,7 +50,7 @@ In Step 4, `App settings`, select `Protected` under `Access` and then configure:
 For Entire app scope, Wodby automatically includes every enabled HTTP destination that normally has an external route.
 Routes and paths that target the same app port share one provider address. For Selected endpoints, the form lists the
 eligible HTTP destinations from the enabled stack services and starts with the main destination selected. You can
-change the selection before creation or later from `Apps > [App] > [Environment] > Settings > Access`.
+change the selection before creation or later from `Apps > [App] > [Environment] > Endpoints > Private App Access`.
 
 Wodby waits until the first successful workload deployment before creating the provider resources. Public routes in
 the selected scope are suppressed from the beginning, so the app is not temporarily published while provider access
@@ -190,7 +190,7 @@ A temporary provider or cluster API failure does not prevent app deletion or lea
 The task finishes with a warning and Wodby tries the cleanup again separately. You can review the warning and select
 `Retry cleanup` from either:
 
-- `Apps > [App] > [Environment] > Settings > Access`, while the app environment still exists
+- `Apps > [App] > [Environment] > Endpoints > Private App Access`, while the app environment still exists
 - the access integration page, including after the app environment has been deleted
 
 The integration cannot be deleted while cleanup is outstanding because Wodby still needs its credentials. Correct an

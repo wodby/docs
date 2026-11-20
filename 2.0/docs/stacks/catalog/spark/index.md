@@ -20,8 +20,8 @@ services in the same app environment can reach it, and Wodby creates no public r
 ## Open the master web interface
 
 The master web interface is on port 8080 and is protected with basic auth by default. Each app service gets its own
-generated password. Reveal it under **Endpoints > Auths** for the app environment. See
-[Auths](../../../apps/endpoints.md#auths). Services inside the environment reach the master directly, without the
+generated password. Reveal it under **Endpoints > Basic Auth** for the app environment. See
+[Basic Auth](../../../apps/endpoints.md#basic-auth). Services inside the environment reach the master directly, without the
 password.
 
 ## Add workers and size them

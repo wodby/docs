@@ -10,8 +10,8 @@ The Wodby 3X UI catalog stack runs the 3X UI panel. The current composition and 
 ## Open the panel
 
 The panel listens on port `2053`, the only endpoint of the service. Wodby protects the service's public domains with
-basic auth by default. Each app service gets its own generated password. Reveal it under **Endpoints > Auths** for the
-app environment. See [Auths](../../../apps/endpoints.md#auths). You can turn the protection off when you create the
+basic auth by default. Each app service gets its own generated password. Reveal it under **Endpoints > Basic Auth** for the
+app environment. See [Basic Auth](../../../apps/endpoints.md#basic-auth). You can turn the protection off when you create the
 app, or later by deleting the auth entry.
 
 On the first start with an empty database, the panel creates its default administrator account. Wodby generates no

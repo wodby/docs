@@ -62,7 +62,7 @@ With a managed database that requires TLS, the boilerplate connects with the ser
 in the container. See [Managed databases](../../../databases/managed.md).
 
 Mailpit captures every message and delivers none. Its public domains are protected by basic auth by default. Find the
-password under **Endpoints > Auths**, see [Endpoints](../../../apps/endpoints.md#auths). For real delivery, enable
+password under **Endpoints > Basic Auth**, see [Endpoints](../../../apps/endpoints.md#basic-auth). For real delivery, enable
 OpenSMTPD, point the PHP service's **Mail Transfer Agent** link to it, and attach an
 [SMTP provider](../../../providers/smtp.md). See the [OpenSMTPD guide](../opensmtpd/index.md).
 

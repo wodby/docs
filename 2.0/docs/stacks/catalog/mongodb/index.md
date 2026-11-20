@@ -71,7 +71,7 @@ Mongoku gets its own technical domain. Find it under **Endpoints > Domains**. Se
 URL, so open it at its primary domain.
 
 Mongoku asks for its own user name and password. This sign-in is part of Mongoku, separate from the basic auth you can
-add under **Endpoints > Auths**. Sign in with:
+add under **Endpoints > Basic Auth**. Sign in with:
 
 - user name: `admin`
 - password: the `admin_password` token on the Mongoku app service's **Configuration > Tokens** tab. See

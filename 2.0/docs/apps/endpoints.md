@@ -12,9 +12,10 @@ From `Apps > [App] > [Environment] > Endpoints` you can manage:
 
 - `Domains`
 - `Ports`
-- `Settings` for HTTP routes and published ports
-- `Auths`
 - `Redirects`
+- `Basic Auth`
+- `Private App Access`, see [Private App Access](access.md)
+- `Settings` for HTTP routes and published ports
 
 The API, CLI, task logs, and infrastructure documentation call both domains and redirects _routes_. The dashboard
 separates them by what users configure.
@@ -386,9 +387,9 @@ needing redeploy.
 !!! note "Legacy ingress settings"
     Older clusters that still use Ingress Nginx may expose legacy ingress annotation settings. Envoy Gateway clusters use the route settings above. Kubernetes annotations are still available separately where service or stack templates support Kubernetes resource annotations.
 
-## Auths
+## Basic Auth
 
-The `Auths` screen manages HTTP basic authentication.
+The `Basic Auth` screen manages HTTP basic authentication.
 
 Each auth entry has:
 
