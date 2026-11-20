@@ -172,8 +172,7 @@ Example:
 - team project membership is a custom role that can deploy and upgrade production
 - the user can work in staging, development, test, and feature environments, and deploy and upgrade production
 
-Team access never includes managing the project. Even if older data contains an admin role for a team, Wodby treats that
-team role as `Write` during access checks.
+Team access never includes managing the project.
 
 ### Managing project access
 
@@ -220,11 +219,11 @@ organization owners and admins.
 
 The `Reveal secrets` switch is set per membership, on the project's `Access` page or the member's page. If a user has
 several memberships in the same project, secret reveal is allowed when at least one of them allows it. Access through a
-project that merely shares the resource does not grant direct reveal—the permission is evaluated through the resource's
-owner project.
+project that the resource is only shared with does not allow revealing its secrets; only access through the resource's
+owner project counts.
 
-Existing `Write` assignments may initially have `Reveal secrets` turned on to preserve their previous access. Project
-administrators should review those assignments from the project's `Access` page and turn it off where it is not needed.
+`Write` memberships can have `Reveal secrets` turned on. Project administrators should review them from the project's
+`Access` page and turn it off where it is not needed.
 
 Every direct reveal also requires an interactive user session with a recent login or step-up confirmation. Depending
 on the account, Wodby asks for a password, authenticator/recovery code, or a code sent to the verified primary email.
@@ -316,11 +315,11 @@ Access rules:
 | Modify/delete       | Users whose role in the owner project includes `Manage resources`, plus organization owners/admins. App environments and their databases follow the [environment permissions](#environment-permissions) |
 | Ownership & sharing | Organization owners/admins. For project-owned resources that remain project-owned, users with owner-scope write access can update sharing or owner project when they also have project `Admin` access to every affected project |
 
-Sharing a project-owned resource to another project does not move ownership. A `Read/Use` share grants visibility and use only. A `Modify/Delete` share includes read/use and marks the project-resource link as write-capable for project-scoped ACL checks, but direct resource update/delete mutations still require access through the owner project or organization admin/owner access.
+Sharing a project-owned resource to another project does not move ownership. A `Read/Use` share grants visibility and use only. A `Modify/Delete` share includes read/use and lets the project change the resource where a workflow supports it, but changing or deleting the resource itself still requires access through the owner project or organization admin/owner access.
 
 ## Sharing
 
-Sharing makes a resource visible or usable outside its owner scope. A `Modify/Delete` share also marks the project-resource link as write-capable for workflows that check project-resource access.
+Sharing makes a resource visible or usable outside its owner scope. A `Modify/Delete` share also lets the project change the resource where a workflow supports it.
 
 Use sharing when:
 
@@ -334,7 +333,7 @@ Sharing does not grant project administration rights and does not transfer owner
 Project access entries have two access levels:
 
 - `Read/Use` lets the target project view, select, or reference the resource.
-- `Modify/Delete` includes `Read/Use` and marks the project-resource link as write-capable for workflows that check project-resource access.
+- `Modify/Delete` includes `Read/Use` and lets the project change the resource where a workflow supports it.
 
 For organization-owned resources, only organization owners and admins can change the resource owner or project access list. Changing any resource to organization ownership also requires organization owner/admin access. For project-owned resources that remain project-owned, a user must have resource write access through the owner scope and `Admin` access to each project whose share or owner is changed. Organization owners and admins satisfy these checks across the organization.
 

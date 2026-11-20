@@ -137,7 +137,7 @@ It shows aggregate runtime metrics for the service and detailed per-pod and per-
 - container start, finish, and exit data
 
 Storage usage is shown at the app service level. Per-pod and per-container storage usage is not reported separately,
-because Kubernetes exposes PVC usage for volumes rather than individual containers.
+because storage usage is measured per volume rather than per container.
 
 ## Actions
 
@@ -322,7 +322,7 @@ After changing a link, deploy the app service so it picks up the new values.
 ## Volumes tab
 
 The `Runtime > Volumes` subtab lists the volumes declared by the current service revision. Configured volumes show their app-level
-values and the effective storage class observed on the live Kubernetes claim. A healthy volume shows its effective
+values and the storage class the volume actually uses. A healthy volume shows its effective
 class once. When the selected and effective classes differ or cannot be verified, the dashboard expands the value to
 show both and adds a `Mismatch`, `Mixed`, `Unknown`, or `Unavailable` status.
 
@@ -330,7 +330,7 @@ An optional volume omitted during app creation remains in the table with an `Opt
 class values, and an `Add volume` action. This is a valid configuration, not a warning or configuration issue. Adding
 the volume asks for a positive size and, when supported, a storage class. Shared volumes and volumes that reuse a
 linked claim inherit their storage configuration. Saving the volume marks the app service and environment for redeploy;
-the claim is created by the subsequent deployment.
+the volume is created by the next deployment.
 
 After a volume has been added, it cannot be resized or removed from app-service settings, and its storage class cannot
 be changed. See [Current storage class](storage.md#current-storage-class) for the status definitions and
@@ -352,8 +352,7 @@ service. The dashboard identifies whether a default comes from the service repos
 image and shows image source details when available.
 
 An app override takes precedence over the displayed default. Use `Reset override` to delete it. For an image-backed
-config, resetting means the next deployment stops mounting the override and the container uses the file supplied by its
-image; Wodby does not save a copy of the image default as another override.
+config, the container uses the file supplied by its image again after the next deployment.
 
 A changed or reset config takes effect when you deploy the app service. If Wodby mounts the config as a file in the
 container, that deployment restarts the service's pods so the application reads the new file. A config that Wodby passes

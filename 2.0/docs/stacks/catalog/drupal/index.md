@@ -14,16 +14,16 @@ setting when your repository uses a different layout.
 ## Install Drupal
 
 After the first deployment, open the app's main domain and finish the Drupal installer. Until the installation has
-finished, Drupal PHP image `r16` and newer answer every other page with a 503 and the message `Drupal is being installed`,
-so nothing else can reach a half-installed site. If you left the installer, open `/core/install.php` to continue.
+finished, every other page answers with a 503 and the message `Drupal is being installed`, so nothing else can reach a
+half-installed site. If you left the installer, open `/core/install.php` to continue.
 
-A site installed on an earlier image can show `No route found`, lose its theme styles, or fail when saving a form right
-after installation. To fix it, run **Rebuild all cache** from the PHP app service.
+If a site shows `No route found`, loses its theme styles, or fails when saving a form right after installation, run
+**Rebuild all cache** from the PHP app service.
 
 ## Runtime configuration
 
-The Drupal PHP runtime generates `wodby.settings.php` from the app environment's current environment and linked services.
-The runtime setup adds this file to the active Drupal site's `settings.php` when it initializes the site.
+Wodby generates `wodby.settings.php` from the app environment and its linked services, and includes it from the active
+Drupal site's `settings.php`.
 
 The generated settings provide:
 
@@ -43,11 +43,9 @@ include getenv('CONF_DIR') . '/wodby.settings.php';
 
 ## Files and configuration sync
 
-The Drupal PHP service mounts shared file storage and links it to the active site's public files directory. Private
-files and Wodby's default configuration-sync directory use the same persistent storage.
-
-The generated sync directory contains a stable per-app salt. You can override `$settings['config_sync_directory']` in
-your own `settings.php` when configuration belongs in the application repository instead.
+The active site's public files, private files, and Wodby's default configuration-sync directory are on persistent
+shared file storage. You can override `$settings['config_sync_directory']` in your own `settings.php` when configuration
+belongs in the application repository instead.
 
 Use [application imports](../../../apps/imports.md) for service files and [database imports](../../../databases/imports.md)
 for database content. Use the [web terminal](../../../apps/web-terminal.md) when you need interactive access to a

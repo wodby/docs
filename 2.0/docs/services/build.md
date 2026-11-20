@@ -84,8 +84,7 @@ build:
 ```
 
 The value is a subdirectory, applied to both the source and the destination, so the path is preserved: the codebase at
-`web` in the repository lands at `web` under the image working directory. Both sides use the same value because a web
-server and the application it passes requests to must resolve the docroot to the same absolute path.
+`web` in the repository lands at `web` under the image working directory.
 
 It may reference a service setting as `{{settings.<name>}}`, so the value follows whatever the user configures rather
 than being fixed in the manifest. The setting must be declared by the same manifest and must not be secret; import
@@ -97,8 +96,7 @@ Leave `copySubdir` unset to copy the whole build context, which is the default.
 
 Docker build arguments are explicit. If a Dockerfile declares an `ARG`, Wodby passes a value only when the
 corresponding service setting, service environment variable, or app-service environment variable is marked
-`build: true`. This applies to a Dockerfile provided by the service and to one provided by the app being built; the
-generated Dockerfile declares only `WODBY_BASE_IMAGE`, `COPY_FROM` and `COPY_TO`.
+`build: true`. This applies to a Dockerfile provided by the service and to one provided by the app being built.
 
 An `ARG` with no matching build-scoped value is not an error. Docker expands it to an empty string, so a `COPY` written
 in terms of it silently copies a different path.

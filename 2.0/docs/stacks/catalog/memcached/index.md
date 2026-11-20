@@ -33,8 +33,8 @@ file.
 
 ## Data loss
 
-Memcached stores nothing on disk, and the service has no volume. Every restart and every deployment empties the cache,
-because the service is replaced rather than updated in place. When the item memory is full, Memcached evicts the least
+Memcached stores nothing on disk, and the service has no volume. Every restart and every deployment empties the cache.
+When the item memory is full, Memcached evicts the least
 recently used items. Do not keep data here that you cannot rebuild.
 
 ## Check that it works
@@ -42,8 +42,7 @@ recently used items. Do not keep data here that you cannot rebuild.
 Open a [web terminal](../../../apps/web-terminal.md) on the Memcached app service and run:
 
 ```bash
-make check-ready -f /usr/local/bin/actions.mk
 printf 'stats\r\nquit\r\n' | nc localhost 11211
 ```
 
-The first command reports whether the server answers. The second shows `limit_maxbytes`, `curr_items` and `evictions`.
+The output shows `limit_maxbytes`, `curr_items` and `evictions`.

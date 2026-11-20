@@ -38,7 +38,7 @@ ARG WODBY_BASE_IMAGE
 FROM ${WODBY_BASE_IMAGE}
 ```
 
-In a multi-stage build the final stage must be the one that uses it. After the build the CLI compares image layers to confirm this, and fails when the image is not derived from the service image. Such an image stops receiving service image updates while Wodby continues to report the app service as running the service image version.
+In a multi-stage build the final stage must be the one that uses it. The build fails when the image is not derived from the service image. Such an image stops receiving service image updates while Wodby continues to report the app service as running the service image version.
 
 Pass `--allow-unmanaged-image` to build anyway. The build then warns, and the image is recorded as unmanaged so the app build view shows that it no longer tracks service image versions.
 

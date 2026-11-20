@@ -28,9 +28,8 @@ Wodby creates clusters in UpCloud Managed Kubernetes.
 - Single-node clusters are supported. Their gateway listens on the node's public IP address, so they need no load
   balancer.
 - Node disk size comes with the selected machine type and cannot be changed.
-- Wodby deploys Metrics Server for basic Kubernetes monitoring.
-- Wodby deploys Envoy Gateway behind one UpCloud load balancer per cluster for public app entrypoints. The load balancer
-  passes the visitor's IP address to your apps.
+- Wodby creates one UpCloud load balancer per cluster for public app traffic. The load balancer passes the visitor's IP
+  address to your apps.
 - UDP ports can be published only on single-node clusters. UpCloud's load balancer forwards TCP only.
 - [Kubernetes version updates](../clusters/kubernetes.md#kubernetes-version-updates) go one minor version at a time.
   UpCloud upgrades the control plane first, then replaces each node: a node on the new version joins before an old one

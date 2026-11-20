@@ -46,8 +46,7 @@ for the main container in the service manifest. Each value it sets replaces only
 and stack and app service values still apply on top.
 
 Every container requests at least 10m CPU and 16 MiB of memory, even when nothing sets a request, but never more than
-its limit. Without a request, Kubernetes would reserve the whole limit for a container that sets only a limit, or
-reserve nothing at all.
+its limit.
 
 Kubernetes doesn't allow a request above its limit. If a value you set and a default would end up that way, your value
 wins: a default request is lowered to your limit, and a default limit is raised to your request.

@@ -16,8 +16,9 @@ Instead, an owner of the Wodby organization that already holds the GitHub integr
 invites the other Wodby organization by its exact machine name. An owner of the invited organization then reviews the
 request under `Integrations > OAuth invitations` and chooses the local integration name and title.
 
-Wodby keeps the GitHub App installation and OAuth credentials only on the canonical integration. The accepted
-organization receives a credentialless local handle, and source owners can revoke it at any time. See
+The GitHub App installation and OAuth credentials stay with the original integration. The invited organization can use
+the integration without receiving those credentials, and owners of the original integration can revoke access at any
+time. See
 [Share an OAuth integration with another organization](../integrations/organization-sharing.md) for the complete
 owner, privacy, expiration, and revocation rules.
 

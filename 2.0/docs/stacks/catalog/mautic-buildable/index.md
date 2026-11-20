@@ -27,8 +27,7 @@ volume.
 
 ## Build
 
-The build runs `composer install`, which installs Mautic and your packages, runs `npm` and generates Mautic's assets,
-then adds Wodby's settings on top of Wodby's PHP image for Mautic.
+The build runs `composer install`, which installs Mautic and your packages, runs `npm` and generates Mautic's assets.
 
 The build fails when `composer.json` or `composer.lock` is missing, or when the repository has a `config/local.php`.
 

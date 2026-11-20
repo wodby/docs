@@ -4,10 +4,10 @@ description: Providers change through revisions. Find outdated integrations in W
 
 # Integration provider updates
 
-Providers can change after you create an integration. Wodby publishes each provider change as a new revision. A
-compatible managed-provider rollout can advance integrations automatically; otherwise, an existing integration stays
-on the revision it was configured against. Revision pinning prevents an incompatible provider update from silently
-changing how existing credentials, selected kinds, or environment variables are interpreted.
+Providers can change after you create an integration. Wodby publishes each provider change as a new revision. Wodby
+can move existing integrations to a compatible revision of a built-in provider automatically; otherwise, an existing
+integration stays on the revision it was configured against, so an incompatible provider change cannot silently change
+how its credentials, selected kinds, or environment variables are used.
 
 New integrations use the provider's current revision. Existing integrations continue working with their pinned
 revision until you update them explicitly.
@@ -36,8 +36,8 @@ To update an integration:
 5. If every incompatibility comes from fields removed by the new provider revision, select
    `Drop fields and update`, review the fields, and confirm the permanent deletion.
 
-Wodby checks compatibility again when you submit the update. A successful update changes the integration's provider
-revision and related selected-kind metadata together. A confirmed destructive update also deletes the listed stored
+Wodby checks compatibility again when you submit the update. A successful update moves the integration to the new
+provider revision. A confirmed destructive update also deletes the listed stored
 field values and any secrets owned by those fields in the same operation. Variables exported by those fields stop
 being available to resources that use the integration. Wodby marks affected app services for redeploy so their next
 deployment uses the new variable set.
@@ -82,11 +82,11 @@ require a provider-specific migration or a replacement integration before they c
 
 ## Shared OAuth integrations
 
-An OAuth integration shared with another organization has one canonical source integration and one or more receiving
-organization handles. The source owner controls provider revision updates. Wodby updates the source and all handles as
-one operation so they cannot interpret the shared credentials using different provider revisions.
+An OAuth integration shared with another organization has one canonical source integration and a shared integration
+in each receiving organization. The source owner controls provider revision updates. Updating the source integration
+also updates every shared integration at the same time.
 
-A receiving organization can see that its handle is outdated, but it cannot initiate the update. Ask the source
+A receiving organization can see that its shared integration is outdated, but it cannot initiate the update. Ask the source
 organization owner to update the canonical integration.
 
 ## Related pages

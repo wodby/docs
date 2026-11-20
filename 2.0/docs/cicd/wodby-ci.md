@@ -50,10 +50,8 @@ boilerplate:
 
 If you need tooling that is not part of your stack, `wodby ci run` can use an explicit image, for example `wodby ci run -i wodby/node:24 -- npm ci`.
 
-Wodby CI runs the CLI natively against its local Docker daemon. For supported images, `wodby ci run` automatically
-mounts npm, Composer, Bundler, and uv download caches from `~/.npm`, `~/.composer/cache`, `~/.bundle/cache`, and
-`~/.cache/uv`. Wodby runtime images declare their cache profile in image metadata, and derived application images
-inherit it. Persist the applicable home path with `cache_restore` and `cache_save`, as shown above. Use `--cache` to
+For supported images, `wodby ci run` automatically mounts npm, Composer, Bundler, and uv download caches from `~/.npm`,
+`~/.composer/cache`, `~/.bundle/cache`, and `~/.cache/uv`. Persist the applicable home path with `cache_restore` and `cache_save`, as shown above. Use `--cache` to
 force a profile for another image or `--no-cache` to disable automatic caching. See the
 [CI/CD overview](index.md#2-run-commands-in-the-build-environment) for ownership, override, and docker-in-docker
 behavior.

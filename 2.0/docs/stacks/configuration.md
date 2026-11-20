@@ -68,9 +68,8 @@ This is a stack update: Wodby updates the stack service revisions in a new stack
 stack are upgraded to that published revision separately. See [Stack updates](updates.md) for update paths such as
 service revision updates, Git updates, and sync with origin.
 
-Stack services have their own primary tab before `Configuration`. Open `Stack > Stack services > [Service]` to view a
-service. Its pages are grouped under `Overview`, `Configuration`, `Connections`, and `Runtime`, with `Edit` remaining a
-direct tab.
+Open `Stack > Stack services > [Service]` to view a service. Its pages are grouped under `Overview`, `Configuration`,
+`Connections`, and `Runtime`.
 
 The `Configuration > General` page contains a `Main settings` card. A service can be enabled or disabled and marked as
 required or optional. Required services cannot be excluded during new app creation.
@@ -168,8 +167,7 @@ Set CPU and memory limits. Limits help control bursty workloads and reduce their
 
 Options represent different versions or variants of a service. A stack can limit which options are enabled, for
 example to enforce compatibility or exclude end-of-life versions. You can change the default option and enabled options
-from `Stack > Stack services > [Service] > Configuration > Options`. The table shows lifecycle dates in the neutral
-`End of Life` column.
+from `Stack > Stack services > [Service] > Configuration > Options`.
 
 An `EOL` flag on a stack means at least one enabled stack service defaults to an end-of-life version. If you do not see
 the expected replacement versions or exact EOL dates, first [update the stack service revisions](updates.md#update-stack-service-revisions).
@@ -195,12 +193,12 @@ comes from links cannot be edited.
 If a service defines [configs](../services/configuration.md#configs), the stack can provide default overrides for them. These
 defaults apply to app environments created from the stack revision and can still be overridden later at the app level.
 Open them from `Stack > Stack services > [Service] > Configuration > Configs`.
-Stack overrides replace only the config content or disable the config. The service template still defines whether the
-config is delivered via Helm, mounted from a generated ConfigMap, or exposed by filename only.
+Stack overrides replace only the config content or disable the config. How the config is delivered to the service is
+still defined by the service template.
 
 The dashboard identifies whether the underlying service default comes from the service repository or the selected
 service image. Resetting a stack override deletes it instead of copying that displayed default into the stack. New app
-app environments then inherit the service behavior; for an image-backed config with no other override, the container uses its
+environments then inherit the service behavior; for an image-backed config with no other override, the container uses its
 native image file.
 
 ### Cron

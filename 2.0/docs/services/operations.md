@@ -58,9 +58,6 @@ The app-service `Actions` tab shows only user-runnable service actions from the 
 - `button`
 - `output`
 
-The dashboard does not derive runnable app-service actions from the raw service manifest. Wodby evaluates the app
-service state and exposes only actions that can be considered for manual execution.
-
 An app-service action can be disabled even when it appears in the tab. Actions are disabled when the app service or app
 environment is not in a healthy `OK` state, and actions are not available for external or derivative app services.
 
@@ -72,27 +69,19 @@ Services can define data-backup behavior. There are three main backup methods.
 
 ### Simple files backup
 
-Wodby creates a tar stream from the specified directory. The stream can optionally be gzipped.
-
-The result is uploaded directly to the configured object-storage destination without staging a complete archive in
-the service's persistent volume.
+Wodby archives the specified directory, optionally gzipped, and uploads it to the configured object storage. The
+archive is not staged on the service's persistent volume.
 
 ### Staged backup through action
 
-Wodby runs a Kubernetes job with the configured command or args override to create the backup archive. That job is
-expected to place the archive in the specified volume path, after which Wodby uploads it to the configured
-object-storage bucket.
+Wodby runs the configured command or args override to create the backup archive. The command must place the archive
+in the specified volume path, after which Wodby uploads it to the configured object storage.
 
 ### Streamed backup through action
 
-For compatible service and image versions, Wodby runs the service's streaming action as a producer and sends its
-output directly to Wodby Blob Storage or supported third-party object storage. The producer and uploader share only an
-in-memory stream and status file; they do not create a complete archive on the service's persistent volume.
-
-For third-party storage, Wodby streams to the final object name but keeps the multipart or resumable upload incomplete
-until the producer reports success. If the producer or upload fails, Wodby terminates the incomplete upload without
-publishing a completed object. Wodby Blob Storage uses a backup-specific signed upload and removes its object if the
-producer or upload fails.
+For compatible service and image versions, Wodby runs the service's streaming action and sends its output directly to
+Wodby Blob Storage or supported third-party object storage, without creating a complete archive on the service's
+persistent volume. If the action or the upload fails, no completed backup is left in storage.
 
 Services declare exactly which option versions support this action. They must also retain the staged `create` and
 `upload.filepath` definitions so older service revisions and unsupported versions have a compatible fallback.
@@ -113,7 +102,8 @@ This method is not transactional.
 
 Wodby mounts the import archive into the init volume provided by the service, and a container performs the import during startup. This pattern is commonly used for databases.
 
-This method is transactional. Wodby starts a copy of the app service with a new persistent volume. If the import succeeds, Wodby redeploys the service using the new volume that contains the imported data.
+This method is transactional: the import runs on a new persistent volume, and the service switches to that volume
+only if the import succeeds.
 
 Service imports are defined under the [`imports` section](template.md#imports) in a service template.
 

@@ -64,8 +64,7 @@ endpoints:
 HTTP ports can define `routeDefaults` when the service normally needs specific
 [HTTP route settings](../apps/endpoints.md#route-settings). These are defaults, not restrictions. Wodby resolves the
 effective value from app environment defaults, then the active service revision's port defaults, then an explicit domain
-override. A service revision upgrade or rollback therefore selects the matching revision's defaults without copying
-them into every app route.
+override. A service revision upgrade or rollback therefore uses the matching revision's defaults.
 
 `routeDefaults` is not supported on TCP or UDP ports. Service import validates setting names and values, including the
 relationship between request and backend request timeouts. Inherited services merge route defaults by endpoint name,

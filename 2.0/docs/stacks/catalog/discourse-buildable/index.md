@@ -31,8 +31,8 @@ https://github.com/example/discourse-my-plugin.git v1.2.0
 
 ## Build
 
-Choose the Discourse release line when you create the app. The build starts from Wodby's Discourse image of that line,
-adds your plugins, installs their gems and compiles only their JavaScript: Discourse's own is reused from the image.
+Choose the Discourse release line when you create the app. The build adds your plugins to Discourse of that line and
+installs their gems.
 
 The build fails when a plugin has the name of a plugin that ships with Discourse, such as chat, solved or data
 explorer, when a directory has no `plugin.rb`, or when a repository can't be cloned. Turn the plugins that ship with

@@ -76,13 +76,7 @@ A failed manual cron job or backup still emails the user who started it.
 For automatic Let's Encrypt renewal, Wodby notifies organization admins after every failed attempt. The first email
 uses **Certificate renewal failed**; later failures use **Certificate renewal still failing**.
 
-Retry delays increase with consecutive failures: **1 day, 2 days, 3 days, 4 days, 5 days, 6 days, then 7 days** between
-attempts. Further retries stay seven days apart. A small offset spreads attempts across certificates, and a longer
-certificate-authority retry delay takes precedence. Successful renewal resets the failure history.
-
-If a certificate expires before the next retry, Wodby schedules one additional renewal attempt at expiry, or when the
-app and cluster next become eligible. A later retry time required by the certificate authority still takes precedence.
-After this attempt, the ordinary backoff resumes.
+Wodby keeps retrying, with longer delays after each consecutive failure, up to seven days between attempts.
 
 If the certificate is already expired when a failure email is prepared, its subject says
 **Certificate expired; renewal failed**. The Cloudflare action suffix remains when that attempt confirmed a browser

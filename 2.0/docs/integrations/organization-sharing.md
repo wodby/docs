@@ -62,8 +62,7 @@ specific projects in that organization need access.
 ## Credential ownership and revocation
 
 Wodby does not copy OAuth tokens, provider installation IDs, keys, or other credential material to the invited
-organization. The new integration is a local handle, and Wodby validates the accepted relationship whenever it uses
-the source credentials.
+organization. The invited organization's integration can use the source credentials only while the share is active.
 
 The source organization remains responsible for the provider connection. After an invitation is accepted, Wodby
 freezes user-driven changes to the canonical integration while another organization depends on it. Its metadata,

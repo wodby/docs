@@ -12,8 +12,6 @@ We support two methods of authenticating your GCP account:
 
 This is the simplest method. After creating the integration and passing through the OAuth2 authentication flow you will be asked to select an appropriate GCP project. All resources we create will be created under the selected project.
 
-The selected project ID is stored as `GOOGLE_CLOUD_PROJECT` for provider operations.
-
 
 ### 2. Creating service account for GKE
 
@@ -39,7 +37,6 @@ Wodby provides native integration with Google Kubernetes Engine.
 - We currently do not support serverless clusters
 - All resources we create have `wodby-gke-` prefix
 - GKE cluster can be either highly available (multi-AZ) or not (single zone)
-- Since GKE cluster comes with a metrics server we use it for the basic Wodby kubernetes monitoring
 - Node disk size can be configured upon creation
 
 ### Storage
@@ -58,7 +55,6 @@ Wodby provides native integration with Google Cloud SQL.
 - We create database with SSD disks
 - Auto resize can be optionally enabled (with the limit of twice the size)
 - Database server can either be highly available (regional) or not (zonal)
-- We use backend type `SECOND_GEN`
 - You can manage your DBs and users form Wodby dashboard
 
 ## Cloud Storage

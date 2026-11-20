@@ -67,8 +67,8 @@ show their plaintext values in the dashboard after they are saved.
 
 An environment variable that directly references a named service, stack, or app-service token automatically inherits
 the effective token's secret classification. This includes values that embed the named token in a larger string. If
-the token is secret, the complete resolved environment-variable value is stored in a Kubernetes Secret without also
-marking the environment variable as secret.
+the token is secret, the complete resolved environment-variable value is treated as secret without also marking the
+environment variable as secret.
 
 This automatic classification does not apply to sensitive literal values or structured references such as linked
 service tokens, integration variables, database passwords, certificates, or keys. The service or stack author must
@@ -102,9 +102,7 @@ other ready-made services don't receive them.
 [Private App Access](access.md#primary-hostname) change, `WODBY_HOSTS` can temporarily contain both current and desired
 hostnames so the workload continues accepting traffic throughout the transition.
 
-Before the app-environment terminology change, `WODBY_ENV_NAME` contained the assigned organization environment record
-name. It now contains the app environment machine name. Code that needs deployment classification should use
-`WODBY_ENV_TYPE`, whose meaning is unchanged.
+Code that needs the deployment classification should use `WODBY_ENV_TYPE`, not `WODBY_ENV_NAME`.
 
 ### Legacy Wodby 2 variables
 

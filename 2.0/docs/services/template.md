@@ -203,7 +203,7 @@ At least one of `runtime` or `build` must be enabled.
 When an environment-variable value directly references a named service, stack, or app-service token, Wodby carries
 that token's secret classification into the environment variable. This applies when the token is the complete value,
 such as `{{hash_salt}}`, and when it is embedded in a larger value. If any directly referenced named token is secret,
-Wodby stores the complete resolved environment-variable value in a Kubernetes Secret. Generated tokens are always
+the complete environment-variable value is stored as a secret. Generated tokens are always
 secret; fixed-value tokens are secret when their effective definition uses `secret: true`.
 
 Do not repeat `secret: true` on an environment variable solely because it references a secret named token. Continue
@@ -327,11 +327,10 @@ Type: `string`.
 
 Exact base service version used when Wodby imports and merges the inherited service.
 
-When `from` is set, Wodby finds the base service revision with this version and merges that revision into the inherited
-service. The imported inherited service keeps this value so future automation can see the current base service version.
+When `from` is set, Wodby merges the base service revision with this version into the inherited service.
 
-Wodby searches the base service's revision history, not only its current revision. An exact version therefore remains
-usable after the base service publishes a newer revision. When the selected revision is older than the current base
+The version can be any revision in the base service's history, not only its current revision. An exact version
+therefore remains usable after the base service publishes a newer revision. When the selected revision is older than the current base
 service revision, the service page shows both versions and service update logs include a warning. The warning does not
 change the selected revision or fail the update. If the exact version does not exist in the available revision history,
 the import or update fails.
@@ -402,7 +401,7 @@ Rules:
 - The file must be UTF-8 text of at most 16 KiB.
 - A service that inherits another with [`from`](#from) gets the base service's notes followed by its own. Describe
   only what your service adds.
-- Wodby stores the text with the service revision, so an app sees the notes of the revision it runs.
+- An app sees the notes of the service revision it runs.
 - Everyone who can use the service can read the notes. Don't put secrets or internal host names in them.
 - Don't name the file `AGENTS.md`: agents that edit the service's own repository read that file as instructions for
   themselves.
@@ -488,8 +487,8 @@ it merely because the chart renders a Deployment or StatefulSet. Databases, queu
 other workloads with service-specific clustering or singleton semantics should remain fixed unless their scaling model
 has been explicitly integrated and validated.
 
-Wodby uses this flag for API validation, dashboard controls, Helm chart conformance, and backend-managed autoscaling.
-Fixed services accept zero or one replica; scalable services must render the requested replica count exactly.
+Only scalable services can run more than one replica and use autoscaling. Fixed services accept zero or one replica;
+scalable services must render the requested replica count exactly.
 
 ### `deployment`
 
@@ -928,8 +927,7 @@ created by Wodby. Wodby applies the selected class directly to that claim.
 When the Helm chart creates the PVC, the volume must:
 
 - map the exact `{{volumes.<name>.storageClassName}}` token to the chart's storage-class value
-- set `volumes[].helm.labels` to the chart value path used for PVC labels, allowing Wodby to associate the live claim
-  with the app-service volume
+- set `volumes[].helm.labels` to the chart value path used for PVC labels
 
 For example:
 
@@ -1005,8 +1003,7 @@ contract.
 
 When `variables` is present without `env`, Wodby injects only the variables declared by the service, using their
 provider variable names. Deployment fails if a required value is missing, resolves more than once, or is not stored
-with the declared secret classification. Without `variables`, the existing behavior remains: Wodby injects
-provider-wide fields plus fields belonging to the matching selected kinds. Fields belonging only to another selected
+with the declared secret classification. Without `variables`, Wodby injects provider-wide fields plus fields belonging to the matching selected kinds. Fields belonging only to another selected
 kind are not exposed through that service integration slot.
 
 Define `integrations[].env` when the service should own the final runtime names or add service-specific literal values.
@@ -1048,7 +1045,7 @@ Service-defined integration environment variables follow these rules:
 - Literal values are allowed. Every output is runtime-only and is never passed to an image build.
 
 This lets a service depend on a stable provider input shape while retaining control of the application-facing
-environment names. Existing service manifests without `env` keep the direct-export behavior.
+environment names.
 
 Do not combine `variables` with `providers`. A native variable contract consumes provider environment variables by
 their declared names, while `providers` defines provider-specific environment variables.
@@ -1099,8 +1096,7 @@ settings:
     secret: true
 ```
 
-Wodby never returns the configured value for a secret setting. API responses retain an empty `value` for compatibility
-and expose `secret` and `hasValue` so clients can render a password control and configured state without revealing the
+Wodby never returns the configured value for a secret setting. API responses return an empty `value` and expose `secret` and `hasValue` so clients can render a password control and configured state without revealing the
 credential.
 
 ### `imports`
@@ -1160,8 +1156,8 @@ Each item supports:
 
 Wodby generates a named key once per app service. The private key is encoded as PKCS#8 PEM and stored as an encrypted
 secret; the public key is encoded as PKIX PEM. Ordinary deployments and service or stack upgrades preserve the pair.
-Changing the type or length of an existing named key fails deployment instead of rotating it. Key rotation is an
-explicit migration, not a manifest side effect; automatic rotation is not currently supported.
+Changing the type or length of an existing named key fails deployment instead of rotating it. Key rotation is not
+supported.
 
 ```yaml
 keys:
@@ -1270,8 +1266,7 @@ The object supports:
 - `chart`: required chart name.
 - `version`: required chart version.
 - `imagePullSecrets`: optional Helm value path for image pull secrets. Defaults to `image.pullSecrets`.
-- `valueMappings`: optional paths for backend-managed app-service values. Omitted mappings retain the documented
-  compatibility defaults.
+- `valueMappings`: optional paths for Wodby-managed app-service values. Omitted mappings use the documented defaults.
 - `crds`: optional CRD file list.
 - `crdCharts`: optional list of separate CRD charts. Each entry requires `name`, `chart`, and `version`, and can include
   `source` and `values` using the same value-entry format as `helm.values`. Available only to infrastructure services
@@ -1282,16 +1277,16 @@ The object supports:
 Workload- and container-specific Helm mappings are defined under `workloads[].helm` and
 `workloads[].containers[].helm`.
 
-When a service is imported, Wodby validates configured Helm value paths against the chart's merged values and schema
-when they are available. It also performs semantic rendering checks for backend-managed application names, replicas,
-and service-account values. See [Service Helm Integration](helm.md#backend-managed-value-mappings).
+When a service is imported, Wodby validates configured Helm value paths against the chart and checks that the chart
+renders Wodby-managed application names, replicas, and service-account values. See
+[Service Helm Integration](helm.md#wodby-managed-value-mappings).
 
 #### `helm.valueMappings`
 
 Type: `object`.
 
-Maps backend-managed app-service settings to chart-specific Helm value paths. The object and all its properties are
-optional. An omitted property uses its current compatibility default.
+Maps Wodby-managed app-service settings to chart-specific Helm value paths. The object and all its properties are
+optional. An omitted property uses its default.
 
 The object supports:
 
@@ -1306,7 +1301,7 @@ The object supports:
 - `fullnameOverride`: resource-name override path. Defaults to `fullnameOverride`.
 - `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
 - `serviceAccountCreate`: optional chart-owned service-account creation path. Wodby sets it to `false` when it supplies
-  an annotated service account. There is no compatibility default because not every chart creates an account.
+  an annotated service account. There is no default because not every chart creates an account.
 - `strategy`: rollout-strategy path. Defaults to `strategy` for a Deployment and `updateStrategy` for a StatefulSet or
   DaemonSet.
 - `minReady`: minimum-ready-seconds path. Defaults to `minReadySeconds`.
@@ -1316,8 +1311,7 @@ The object supports:
 `serviceAccountName` must be explicit for service revisions that can use workload identity for an external database.
 If the chart creates the named account, `serviceAccountCreate` is required as well.
 
-Autoscaling paths are intentionally not part of `valueMappings`. Wodby owns the HorizontalPodAutoscaler and continues
-to pass the ordinary replica value to the chart.
+`valueMappings` has no autoscaling paths. Wodby manages autoscaling and passes the ordinary replica value to the chart.
 
 Deployment mappings at this level apply only to a service with one workload. Charts with multiple workloads define
 these mappings under `workloads[].helm`. Wodby writes only deployment fields that have an effective configured value;
@@ -1336,7 +1330,7 @@ helm:
 ```
 
 For the deployment contract, defaults, and import-time rendering checks, see
-[Service Helm Integration](helm.md#backend-managed-value-mappings).
+[Service Helm Integration](helm.md#wodby-managed-value-mappings).
 
 ### `certs`
 
@@ -1390,8 +1384,7 @@ Each item supports:
   config is used as the fallback.
 
 Each config must specify at least one default with `config`, `configContent`, or `default`. Do not specify both `config`
-and `configContent`. A content or file default can be present alongside `default` during migration, in which case it
-remains a fallback for service revisions created before import-time image resolution was enabled.
+and `configContent`. A content or file default can be present alongside `default`.
 
 `default` supports:
 

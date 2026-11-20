@@ -43,8 +43,8 @@ client address headers Nextcloud trusts. Do not enter a range wider than your cl
 
 ## Background jobs
 
-A cron container in the Nextcloud pod runs Nextcloud's background jobs every five minutes. On the first run, Nextcloud
-switches its background jobs setting to **Cron**. You do not need a Wodby [cron schedule](../../../apps/cron.md). Keep
+Wodby runs Nextcloud's background jobs every five minutes. On the first run, Nextcloud switches its background jobs
+setting to **Cron**. You do not need a Wodby [cron schedule](../../../apps/cron.md). Keep
 **Cron** selected under **Administration settings > Basic settings > Background jobs**.
 
 ## Mail delivery
@@ -144,6 +144,5 @@ minutes before the container is restarted.
 
 ## Limits
 
-- Nextcloud runs as one replica, and the old pod stops before the new one starts. Nextcloud is unavailable while its
-  service is deployed.
+- Nextcloud runs as one replica. Nextcloud is unavailable while its service is deployed.
 - The stack does not include an online office server, such as Collabora Online.

@@ -36,9 +36,9 @@ Bitbucket integrations can create [preview environments](../apps/preview-environ
 
 - The integration's Bitbucket account needs the `Admin` permission on the repository. Wodby needs it to add its webhook
   and to check who gave a command, because Bitbucket shows permissions only to admins.
-- If Wodby cannot add the webhook, the task shows a warning and Wodby retries every hour. Until the webhook exists, pushes
-  do not start builds or rebuild previews, and `/wodby` commands get no answer. Previews are still created and deleted
-  by the check that runs every 15 minutes. To fix it, reconnect the integration with an account that has the `Admin`
+- If Wodby cannot add the webhook, the task shows a warning and Wodby keeps retrying. Until the webhook exists, pushes
+  do not start builds or rebuild previews, and `/wodby` commands get no answer. Previews are still created and deleted,
+  but can take up to 15 minutes to follow pull request changes. To fix it, reconnect the integration with an account that has the `Admin`
   permission.
 - Wodby reacts to pull requests that target the branch followed by the app's base environment. Pull requests from forks
   are ignored.

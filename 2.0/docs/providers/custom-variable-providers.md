@@ -29,7 +29,7 @@ organization, producing a full name such as `acme/payments`. This lets different
 without colliding.
 
 Use the full namespaced name when a workflow asks for the provider machine name. The manifest itself keeps the local
-slug. Existing custom providers also appear under their organization namespace.
+slug.
 
 ## Create a variable provider in the dashboard
 
@@ -115,12 +115,10 @@ defined, either at provider or kind level. The standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
 apply. Each manifest is limited to 1 MiB.
 
-Unknown manifest properties, duplicate YAML keys, and YAML aliases are rejected. This keeps the stored manifest
-unambiguous and prevents unsupported provider capabilities from being enabled accidentally.
+Unknown manifest properties, duplicate YAML keys, and YAML aliases are rejected.
 
-Custom provider manifests do not use a top-level `version`; Wodby records their history with provider revision
-numbers. Legacy custom manifests that still contain a semantic `version` remain importable during the transition, but
-Wodby ignores and removes that field from the stored manifest.
+Custom provider manifests do not use a top-level `version`; Wodby numbers provider revisions itself. A semantic
+`version` in an older manifest is ignored.
 
 ### Instructions
 
@@ -220,8 +218,7 @@ connection, so changing them from one resource also changes them for the other r
 - Compatible integrations can be updated explicitly from the integration detail page.
 - Incompatible integrations continue using their pinned revision until a migration or replacement path is available.
 
-Before updating an integration, Wodby checks its selected kinds, authentication, scope, stored fields, environment
-variables, secret storage, and validation against the current provider revision. Removing a stored field, adding a
+Before updating an integration, Wodby checks that it is compatible with the current provider revision. Removing a stored field, adding a
 required field without a value, or changing a field's type or variable mapping can require migration. See
 [Integration provider updates](../integrations/updates.md) for the full workflow.
 

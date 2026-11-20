@@ -22,9 +22,6 @@ Restrictions use the same fixed environment types used by app environments, inte
 presets. Infrastructure apps that operate the cluster are not restricted by this setting. Wodby rejects a restriction
 change if an existing app environment on the cluster would become disallowed.
 
-Existing clusters are initially unrestricted. Their visual type is classified as `prod` when at least one
-non-infrastructure `prod` app environment is deployed there; otherwise it is classified as `dev`.
-
 ## Manage a cluster
 
 - [Monitor cluster health and resource usage](observability.md).

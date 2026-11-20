@@ -7,8 +7,7 @@ description: Serve a Hugging Face model through an OpenAI-compatible API on Wodb
 The Wodby vLLM catalog stack runs one vLLM service that serves a Hugging Face model through an OpenAI-compatible API.
 The current composition and defaults are in [`wodby/stack-vllm`](https://github.com/wodby/stack-vllm).
 
-This stack is a preview release. End-to-end GPU inference and private-access validation are still required before
-production use.
+This stack is a preview release and is not ready for production use.
 
 ## Before you create the app
 
@@ -60,7 +59,7 @@ By default, the model cache is per pod and limited to 20 GiB. It survives a cont
 is replaced, and every replica downloads its own copy.
 
 The optional **Model cache** volume (50 GiB by default) keeps the cache across pod replacements, so the model is not
-downloaded again. Its claim attaches to one node, so use it with a single replica. Add it from the app service's
+downloaded again. The volume attaches to one node, so use it with a single replica. Add it from the app service's
 volumes, or give it a size in the stack.
 
 ## Limits

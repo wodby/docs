@@ -10,8 +10,8 @@ variables. Select only the integration kinds you need, and grant permissions for
 ## Auth
 
 Use an IAM access key pair and an AWS region for EKS, RDS, S3, SES, and variables. The access key belongs to the AWS
-identity whose permissions are described below. For SES, Wodby derives the region-specific SMTP password from the raw
-secret access key at runtime; no AWS API request is needed for this derivation. See [SES](#ses).
+identity whose permissions are described below. For SES, you don't need to create separate SES SMTP credentials. See
+[SES](#ses).
 
 Existing integrations that store Amazon SES SMTP credentials remain supported. Those legacy credentials can relay mail,
 but they cannot authenticate AWS API operations such as EKS, RDS, or S3 until you replace them with a raw IAM access key
@@ -40,12 +40,10 @@ Wodby provides a native integration with Amazon Elastic Kubernetes Service.
 
 - Wodby creates CloudFormation stacks for the VPC, networking, EKS control plane, add-ons, and default node group.
 - New EKS clusters are created across multiple Availability Zones in the selected region.
-- Wodby installs AWS Load Balancer Controller and Envoy Gateway, with one Network Load Balancer used for public app
-  entrypoints.
+- Wodby creates one Network Load Balancer per cluster for public app traffic.
 - Node disk size is configurable during cluster creation.
 - Wodby does not add or remove EKS nodes automatically. A cluster has a fixed number of nodes, which you set when you
   create it and can change later from the cluster's settings.
-- Wodby deploys Metrics Server for basic Kubernetes monitoring.
 - The node type selector shows only instance types Wodby supports for EKS: x86_64 instances available in the selected
   zone with more than 1 CPU, more than 4 GiB RAM, at most 32 GiB RAM, and without unsupported accelerator, Mac, or
   burstable families.
@@ -81,10 +79,6 @@ Wodby provides a native integration with Amazon Simple Storage Service. You can 
 - The storage class override is optional. If you leave it empty, the bucket's default storage class is used.
 - Supported storage classes are `STANDARD`, `STANDARD_IA`, `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER`,
   `GLACIER_IR`, and `DEEP_ARCHIVE`.
-- Streaming backup jobs upload directly to the final object key but do not complete it until the backup producer
-  succeeds. Failed uploads are aborted instead of publishing and deleting a temporary object.
-- Wodby creates pre-signed S3 URLs when a backup must be downloaded by a client or restore job.
-- Wodby backups do not use AWS Lambda or S3 Object Lambda.
 
 If backups are stored in archive classes such as `GLACIER` or `DEEP_ARCHIVE`, AWS requires restoring the archived object
 before it can be read for a Wodby download or restore.
@@ -100,9 +94,8 @@ Use a raw IAM access key pair in the Wodby AWS integration form:
 - `Secret Access Key` is the raw IAM secret access key.
 - `Region` is the AWS region where you use SES.
 
-Wodby derives the region-specific SES SMTP password when it builds the mail relay configuration. The raw secret remains
-available to other selected AWS kinds, so one integration can support SES together with EKS, RDS, S3, or variables when
-the IAM identity has their combined permissions.
+You don't need to create SES SMTP credentials. One integration can support SES together with EKS, RDS, S3, or
+variables when the IAM identity has their combined permissions.
 
 Existing SES integrations that already contain an SMTP username and password continue to work. If you add an API-based
 kind to one of these integrations, replace the stored values with a raw IAM access key pair. The update itself is not
@@ -168,7 +161,7 @@ The connected AWS credentials must be able to:
 - read backup objects for downloads and restores: `s3:GetObject` on `arn:aws:s3:::BUCKET_NAME/*`
 - clean up failed multipart uploads: `s3:AbortMultipartUpload` on `arn:aws:s3:::BUCKET_NAME/*`
 
-`s3:DeleteObject` is not required. Wodby does not create a completed temporary object when streaming a backup.
+`s3:DeleteObject` is not required.
 
 ```json
 {

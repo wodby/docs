@@ -32,7 +32,7 @@ A network entry point exposed by an app service. In practice, endpoints back HTT
 ## Environment type
 
 A fixed deployment classification chosen from `prod`, `staging`, `test`, `dev`, or `feature`. App environments,
-clusters, databases, integration policies, and backup presets use the same enum.
+clusters, databases, integration policies, and backup presets use the same types.
 
 ## Integration
 

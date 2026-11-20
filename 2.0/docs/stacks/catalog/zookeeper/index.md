@@ -18,8 +18,7 @@ Use these values from a service in the same app environment:
 - Client port: `2181`
 
 No client authentication or TLS is configured, and Wodby generates no token. Only the environment's internal network
-reaches the service. A linked Solr service uses the host as its `ZK_HOST` and protects its own znodes with digest
-credentials.
+reaches the service.
 
 ## Change configuration
 

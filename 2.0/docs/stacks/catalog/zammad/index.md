@@ -80,8 +80,7 @@ Wodby sets this address on every deployment, so changes made to it in Zammad are
 primary domain, deploy the Zammad app service again.
 
 The browser keeps WebSocket connections open, so the route has no request timeout by default. Do not set the route's
-request body size: it makes the route hold each request in memory until it is complete, and live connections stop
-working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
+request body size: live connections stop working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
 
 ## Change configuration
 
@@ -103,11 +102,10 @@ See [Backups](../../../apps/backups.md) and [Imports](../../../apps/imports.md).
 To keep attachments in S3-compatible storage instead, add the `S3_URL` variable through the
 **Additional Zammad environment variables** integration, deploy, then choose S3 under **Admin > System > Storage**. See
 [Zammad's storage settings](https://admin-docs.zammad.org/en/latest/settings/system/storage.html). File system storage
-is not supported, because Zammad's processes share no volume. With S3, back up the bucket together with the database.
+is not supported. With S3, back up the bucket together with the database.
 
 ## Limits
 
-- Every Zammad process runs one replica, and the service does not scale. The background worker must never run twice, so
-  it is replaced, not updated in place, on each deployment.
+- Every Zammad process runs one replica, and the service does not scale.
 - Imports from other helpdesks (OTRS, Zendesk, Freshdesk, Kayako) on Zammad's getting started page are not available,
   because Wodby has already set up the system.

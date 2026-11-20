@@ -11,15 +11,8 @@ run backups for the corresponding app service. Wodby runs the service's backup o
 Wodby Blob Storage or a supported third-party object storage provider.
 
 File backups stream directly to their destination. A database backup also streams when its deployed service revision
-declares streaming support for the selected database version. This applies to Wodby Blob Storage and supported
-third-party object storage destinations. The complete archive is not staged on the source persistent volume.
-
-For a streamed upload to third-party object storage, Wodby publishes the final object only after the backup producer
-reports success. A failed or canceled backup does not leave a completed partial or temporary object.
-
-For Wodby Blob Storage, Wodby prepares a backup-specific signed upload and sends the stream directly to that endpoint.
-The backup job succeeds only after the producer reports success. If the producer or upload fails, Wodby removes the
-backup object.
+supports streaming for the selected database version. A streamed backup does not store the complete archive on the
+source persistent volume. A failed or canceled backup does not leave a partial backup object in the destination.
 
 Backups are managed from `Apps > [App] > [Environment] > Data > Backups`.
 
@@ -38,17 +31,13 @@ that do not enable an automatic schedule.
 
 ## Streaming compatibility
 
-Streaming is selected from the app service's deployed service revision and selected version. Existing apps continue
-using their revision's behavior until they are updated to a service revision that declares streaming support. Wodby
-does not infer support from an image tag or attempt an unsupported command in an older container.
+Streaming depends on the app service's deployed service revision and selected version. Existing apps keep their
+current behavior until they are updated to a service revision that supports streaming.
 
-Database backups use the established staged workflow when the deployed service revision is older or the selected
-version is not listed for streaming. In that workflow, the database action creates a complete archive at the service's
-configured volume path, Wodby uploads it, and a cleanup job removes the local archive.
+Other database backups first create the complete archive on the service's persistent volume, then upload it and remove
+the local copy.
 
-For external object storage, a streamed backup keeps its final multipart or resumable upload incomplete until the
-producer reports success. A producer failure or cancellation aborts the upload, so a failed backup does not publish a
-partial object and the storage integration does not need permission to delete completed objects.
+A streamed backup to external object storage does not need permission to delete completed objects.
 
 !!! note
     Streaming removes the full backup archive from the source persistent-volume demand. It does not remove normal
@@ -77,25 +66,14 @@ record. Presets that apply to any service or backup type, and organization-wide 
 
 ## K3s storage capacity preflight
 
-Before an app-service backup runs on K3s, its task includes a `Check storage capacity` step. For volumes using the
-default K3s local-path provisioner, Wodby checks the backing node for Kubernetes `DiskPressure` and reads available
-bytes reported by the kubelet.
+Before an app-service backup runs on K3s, its task includes a `Check storage capacity` step. If the node that stores
+the volume reports disk pressure, the backup stops before it starts.
 
-Known disk pressure stops the backup before the backup job is created. For a file backup or a database backup selected
-for streaming, Wodby knows that the operation needs zero additional persistent-volume bytes because it does not stage
-an archive there. The preflight still checks the volume's node for `DiskPressure`, but it does not show the unknown
-peak-demand warning solely because of backup size.
+For a database backup that does not stream, Wodby cannot know in advance how much temporary space it needs. It can show
+the available capacity as a warning and continue unless the node reports disk pressure.
 
-Staged database backup definitions do not declare their peak temporary-space requirement, so a byte-for-byte capacity
-comparison is not possible. For those backups, Wodby can show the available capacity as a warning and continue unless
-Kubernetes reports disk pressure.
-
-If Kubernetes does not expose volume statistics, the API permission is unavailable, or the storage provisioner does
-not have a capacity resolver, Wodby records that capacity could not be verified and allows the backup to continue.
-This task-time check is not continuous low-disk monitoring.
-
-K3s backup and import tasks share a cluster storage-operation slot so two preflights cannot approve competing work
-against the same local disk at the same time.
+If capacity cannot be verified, Wodby notes this in the step and lets the backup continue. This check runs only when a
+backup starts; it is not continuous low-disk monitoring.
 
 ## Backup destination
 
@@ -212,9 +190,7 @@ Turning it on again resumes the saved schedule. A new preset saved with `Auto ba
 
 Use override when one preset should win over other matching scheduled presets.
 
-Automatic schedules created by the previous dashboard used exact UTC launch times. Daily and single-weekday schedules
-are migrated to three-hour UTC windows beginning at the same time, without changing the selected day or backup
-timeout. Custom cron expressions remain on the legacy exact-time schedule.
+Presets that use a custom cron expression run at the exact times it specifies.
 
 An automatic backup targeting an app environment, app service, or container-backed database runs only while its app
 environment is running. If the backup becomes due while the environment is `Pausing`, `Paused`, `Resuming`, or `Errored`,
@@ -223,12 +199,11 @@ becomes runnable again.
 
 ## Failure and recovery notifications
 
-Wodby groups all backup artifacts created by the same preset occurrence into one result. Any failed artifact makes the
-occurrence fail and emails organization admins who have `Backup failures and recoveries` enabled under
-`User settings > Notifications`. Additional artifact failures and later failed occurrences are suppressed while the
-preset remains failed.
+All backups created by one scheduled run of a preset count as one result. If any of them fails, the run fails and
+Wodby emails organization admins who have `Backup failures and recoveries` enabled under
+`User settings > Notifications`. Further failures are not emailed while the preset remains failed.
 
-Recovery is reported only after every artifact in a later preset occurrence completes successfully. A failed manual
+Recovery is reported only after every backup in a later run of the preset completes successfully. A failed manual
 backup still emails the user who started it. Enabled presets that remain failed also appear in the weekly organization
 report's `Automation health` section.
 

@@ -53,9 +53,8 @@ Disabled presets imported from Wodby 1 require a paid subscription before you ca
 ## Billing
 
 Wodby Blob Storage costs **$0.05 per stored GB**. There is no included free storage, and data transfer is not billed.
-Usage is based on the organization's current completed backup data stored by Wodby. Failed, expired, and deleted
-backup objects stop contributing after storage cleanup and the next usage synchronization. A successfully voided file
-also stops contributing after the next usage synchronization.
+Usage is based on the completed backup data your organization currently stores. Failed, expired, deleted, and voided
+backup files stop counting shortly after they are removed.
 
 ## Related pages
 

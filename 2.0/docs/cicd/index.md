@@ -67,11 +67,9 @@ wodby ci deploy
 
 `wodby ci init` creates or loads the app build, logs Docker in to the associated [registry](docker-registry.md), prepares the working directory, and reads `.wodby/post-deployment.yml` from the build context when present.
 
-Use `--dind` when your CI provider builds through docker-in-docker. In that mode the CLI prepares internal code and
-cache volumes; it does not depend on the Docker daemon being able to see host paths from inside the CLI container.
-The CLI resolves the main service image user to a numeric user and group, then prepares the code volume with its
-utility image. The application image does not need to provide `chown`, a shell, or a special entrypoint, and subsequent
-commands continue to use the selected image's default user and entrypoint.
+Use `--dind` when your CI provider builds through docker-in-docker. In that mode the Docker daemon does not need to
+see host paths. The application image does not need to provide `chown`, a shell, or a special entrypoint, and
+subsequent commands continue to use the selected image's default user and entrypoint.
 
 For a normal bind-mounted build context, the CLI does not change checkout ownership automatically. Use
 `--fix-permissions` only when you explicitly want it to recursively change codebase ownership to the main service image
@@ -100,19 +98,15 @@ automatically:
 
 When the CLI runs natively against the host Docker daemon, it bind-mounts each profile from the package manager's
 conventional path under the current user's home directory. Configure the CI provider to persist the applicable native
-host path. Cache support is declared by Wodby image metadata, with compatibility detection for older Wodby images and
-selected official images. Cache ownership is handled separately from the container runtime user: the CLI keeps using
-the resolved workspace user and group when preparing host cache directories, including when a matching image UID means
-that no Docker `--user` override is needed.
+host path.
 
-In docker-in-docker mode, commands keep the image's default user and entrypoint. The CLI uses a shared internal
-`/tmp/wodby-cache` volume, imports persisted cache contents during `wodby ci init`, and exports updated profiles back to
-project-local `.wodby-ci-cache/<profile>` staging directories after each cache-enabled `wodby ci run`. Configure the CI
-provider to persist the applicable staging directory and add `.wodby-ci-cache/` to `.gitignore`. The staging directory
+In docker-in-docker mode, commands keep the image's default user and entrypoint. The CLI restores caches from
+project-local `.wodby-ci-cache/<profile>` staging directories during `wodby ci init` and saves updated profiles there
+after each cache-enabled `wodby ci run`. Configure the CI provider to persist the applicable staging directory and add `.wodby-ci-cache/` to `.gitignore`. The staging directory
 is automatically excluded from Docker build contexts.
 
-Cache persistence is optional. Missing staging directories require no setup, and failures while importing, preparing,
-or exporting automatically detected caches produce a warning instead of failing initialization or the command. A
+Cache persistence is optional. Missing staging directories require no setup, and failures while restoring, preparing,
+or saving automatically detected caches produce a warning instead of failing initialization or the command. A
 profile explicitly requested with `--cache PROFILE` remains strict during command setup and export.
 
 Use `--cache npm`, `--cache composer`, `--cache bundler`, or `--cache uv` to force a profile for another image. Use
