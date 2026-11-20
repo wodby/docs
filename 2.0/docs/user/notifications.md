@@ -109,15 +109,12 @@ certificate expires. Each stage is sent once for a certificate's current expirat
 
 ## Weekly organization report
 
-The weekly organization report includes an `Automation health` section with enabled cron schedules and automatic
-backup presets whose latest conclusive result is still failed. It also shows ongoing issues when a cron schedule has
-not produced another run eligible for a reminder.
+Organization owners and admins get a weekly email that sums up the organization's previous week: items that need
+attention, failed automation, automatic updates, outdated stacks and clusters, activity, and access and security
+issues.
 
-On the Team and Enterprise plans, the report also lists currently deployed builds with vulnerabilities that are known or
-likely to be exploited. See [Vulnerability scanning](../apps/vulnerability-scanning.md#weekly-organization-report).
-
-The report also lists clusters with such vulnerabilities, and with security advisories that aren't fixed or mitigated
-yet. See [Cluster security](../clusters/security.md).
+To stop or restart it for an organization, use the weekly organization report toggle on this page, or the unsubscribe
+link in the email.
 
 ## Defaults
 
