@@ -19,6 +19,5 @@ Tracked metrics include:
 - node disk usage
 - node inode usage
 
-Namespace metrics include CPU, memory, pod and container readiness, restart totals, and PVC storage usage where
-Kubernetes exposes kubelet volume stats for matching persistent volume claims. To see usage for each volume, open the
-cluster's [Storage tab](storage.md).
+Namespace metrics include CPU, memory, pod and container readiness, restart totals, and volume storage usage where
+available. To see usage for each volume, open the cluster's [Storage tab](storage.md).

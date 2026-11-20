@@ -21,9 +21,7 @@ External services do not define workloads.
 
 ## Why workloads exist
 
-A service is no longer treated as a single Deployment with a single container.
-
-Charts can expose multiple resources, for example:
+A service is not limited to a single Deployment with a single container. Charts can expose multiple resources, for example:
 
 - a web workload and a daemon workload
 - a Deployment plus a StatefulSet
@@ -117,7 +115,7 @@ Workload deployment settings override service-wide defaults one field at a time.
 
 ### Workload names
 
-`workloads[].name` is a Wodby identifier, not the rendered Kubernetes workload resource name. It must still follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names), because Wodby also uses it in generated Kubernetes configuration.
+`workloads[].name` is a Wodby identifier, not the rendered Kubernetes workload resource name. It must still follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 
 Use it consistently in:
 
@@ -155,10 +153,8 @@ a workload or component label.
 For Wodby charts, use stable workload labels whenever possible. For third-party charts, use the labels that uniquely
 identify each workload in the rendered chart.
 
-Resolvable selectors are also required for force deployments. During a forced app-service upgrade, Wodby uses these
-selectors to find each rendered Deployment, StatefulSet, or DaemonSet and update its pod template so Kubernetes starts a
-new rollout. If the selector contains unresolved tokens or does not point to the rendered workload, Wodby cannot force a
-restart for that workload.
+Resolvable selectors are also required for force deployments. If the selector contains unresolved tokens or does not
+point to the rendered workload, Wodby cannot force a restart for that workload.
 
 ## Primary workload
 
@@ -373,7 +369,7 @@ See also: [Helm](helm.md).
 A service containing several components can specify an explicit tag in each container's `image`, for example
 `supabase/gotrue:v2.196.0`. That tag takes precedence over the selected service option's image tag. Untagged image
 repositories continue to use the option tag, or the option version when no tag is set. This allows one service option
-to identify a tested bundle whose components have different versions. Registry ports are not image tags.
+to identify a bundle whose components have different versions. Registry ports are not image tags.
 
 ## Validation rules
 

@@ -35,8 +35,8 @@ SMTP provider integrations are used for:
 | [SendGrid](sendgrid.md) | Twilio SendGrid SMTP |
 | [Custom SMTP](custom-smtp.md) | Any standards-compatible SMTP relay |
 
-For AWS SES, enter a raw IAM access key pair. Wodby derives the region-specific SMTP password at runtime. Existing AWS
-integrations that store legacy SES SMTP credentials remain supported; see [Amazon Web Services](aws.md#ses).
+For AWS SES, enter a raw IAM access key pair; you don't need to create separate SES SMTP credentials. Existing AWS
+integrations that store SES SMTP credentials remain supported; see [Amazon Web Services](aws.md#ses).
 
 Use [Custom SMTP](custom-smtp.md) when the relay is not represented by a provider-specific integration. It supports
 mandatory STARTTLS and implicit TLS and can be attached directly to OpenSMTPD.

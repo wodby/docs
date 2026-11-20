@@ -22,8 +22,7 @@ the same token name and the same environment type:
 Tokens with different environment types are separate definitions. When a token is resolved at runtime, an
 environment-specific token takes precedence over a token without an environment type.
 
-After tokens are materialized on an app service, the app-service token records are the effective runtime values. During
-a stack upgrade, enabling `Override tokens` recreates those app-service tokens from the latest service and stack
+Once an app service is created, its own tokens hold the effective runtime values. During a stack upgrade, enabling `Override tokens` recreates those app-service tokens from the latest service and stack
 definitions; leaving it disabled keeps the existing app-service token values. Existing generated values are preserved
 when the latest definition still generates the same token name for the same environment type. This prevents a stack
 upgrade from rotating database passwords and other generated credentials. Rotate such a credential explicitly when a

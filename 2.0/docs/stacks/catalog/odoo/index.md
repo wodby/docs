@@ -50,8 +50,7 @@ To add your own or community modules, use the [buildable Odoo stack](../odoo-bui
 ## Workers and live updates
 
 Each Odoo replica runs 2 worker processes and 1 process for scheduled actions by default; change the **Workers** and
-**Scheduled action workers** settings to match the service's memory. A separate process serves live updates such as
-chat and notifications, and the Nginx service sends them to it. Keep at least 1 worker.
+**Scheduled action workers** settings to match the service's memory. Keep at least 1 worker.
 
 ## Mail
 

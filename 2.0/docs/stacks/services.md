@@ -20,8 +20,8 @@ Links are defined between stack services, so the stack describes how services wo
 When you create an app environment, each stack service becomes an [app service](../apps/services.md) for that deployed copy of the app.
 
 When a later stack revision adds a stack service, upgrading an app environment creates the corresponding app service for
-that environment. When a later stack revision removes a stack service, upgrading an app environment marks the obsolete app
-service for deletion and uninstalls its Kubernetes resources after the upgrade.
+that environment. When a later stack revision removes a stack service, upgrading an app environment removes the obsolete app
+service and its Kubernetes resources after the upgrade.
 
 Stack service machine names must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names) and be unique within the stack, including derivative stack services.
 

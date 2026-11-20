@@ -48,8 +48,7 @@ the following are true:
 
 After a successful compatible base service revision is published, Wodby imports the inherited service from its tracked
 branch and creates a new inherited service revision. The setting is independent of `Auto update from Git`, so the
-inherited service does not need a new commit. Wodby rebuilds the effective service definition against the compatible
-base revision, and the base service itself does not have to be Git-backed.
+inherited service does not need a new commit. The base service itself does not have to be Git-backed.
 
 Tag-backed, commit-pinned, non-Git-backed, and non-inherited services cannot enable base service auto-update. An exact
 `fromVersion` also remains pinned. Update the inherited service's source or manifest explicitly when it should move to
@@ -70,8 +69,7 @@ A base service cannot be deleted while inherited service revisions reference its
 ## Auto-update from Git
 
 Git-backed services can be updated automatically when a supported Git provider sends a push event for the service
-source. Auto-update uses the same import logic as manual `Update from Git`, but it is started by the webhook instead of
-a dashboard action.
+source. Auto-update works like manual `Update from Git`, but starts on the push event instead of a dashboard action.
 
 The auto-update settings decide which push events are allowed:
 

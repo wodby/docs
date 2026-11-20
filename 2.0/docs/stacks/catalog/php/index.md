@@ -11,8 +11,7 @@ defaults are documented in [`wodby/stack-php`](https://github.com/wodby/stack-ph
 ## Build and deployment
 
 Start from the [Composer boilerplate](https://github.com/wodby/php-package-boilerplate) or connect your own repository.
-The web server has no repository of its own. Its image is built from the PHP service's source, so both images contain
-the code at the same path. A changed static file needs a new build and deployment. See
+The web server has no repository of its own. Its image is built from the PHP service's source. A changed static file needs a new build and deployment. See
 [Application Builds](../../../apps/builds.md).
 
 The **Nginx docroot** setting defaults to `public`. It must be the directory that holds your front controller.

@@ -27,9 +27,8 @@ version.
 
 ## Kubernetes version updates
 
-Kubernetes version updates are separate from Wodby infrastructure version and infrastructure app updates. Wodby reads
-the current cluster state and asks the provider for direct upgrade targets each time you open the `Kubernetes > Updates`
-tab. The plan is cluster-specific rather than a generic list of Kubernetes releases.
+Kubernetes version updates are separate from Wodby infrastructure version and infrastructure app updates. The
+`Kubernetes > Updates` tab shows the direct upgrade targets your provider currently offers for this cluster.
 
 Wodby supports this workflow for:
 
@@ -80,18 +79,12 @@ managed cluster the provider replaces every worker node, even for a patch, and t
 unavailable. The confirmation dialog of a managed cluster warns that all nodes will be replaced. See
 [How upgrades affect your apps](#how-upgrades-affect-your-apps).
 
-The upgrade runs as a task and puts the cluster into `Upgrading` status. Wodby:
-
-1. Records the source and target versions in the task and lists your nodes.
-2. Starts or resumes the provider upgrade.
-3. Waits for the provider operation to complete.
-4. Verifies that the Kubernetes API reports the target and that every node is `Ready`.
-5. Records the observed version and returns the cluster to normal operation.
-6. Lists your nodes again and [shows what changed](#check-what-changed-on-your-nodes).
+The upgrade runs as a task and puts the cluster into `Upgrading` status. The upgrade finishes when the Kubernetes API
+reports the target version and every node is `Ready`. The task then [shows what changed](#check-what-changed-on-your-nodes)
+on your nodes.
 
 Open the task to follow progress and review provider details. If an upgrade fails after the provider has applied it to
-the control plane or some node pools, repeat the failed task. The retry detects the partially applied target and resumes
-the remaining stages instead of trying to start an unrelated transition.
+the control plane or some node pools, repeat the failed task. The retry resumes the remaining stages.
 
 ### How upgrades affect your apps
 
@@ -181,7 +174,7 @@ kept.
 
 #### When an upgrade starts
 
-Wodby checks every 30 minutes. It starts an upgrade when the time window is open, the cluster is in `OK` status, no
+Wodby starts an upgrade when the time window is open, the cluster is in `OK` status, no
 other upgrade or [blocking app activity](updates.md#app-activity-during-infrastructure-upgrades) is running, and the
 policy allows the next version.
 
@@ -311,8 +304,7 @@ the row links to the operation that fixes them, `Recycle nodes` or `Update Kuber
 fixed image yet, the row has no link. While the nodes aren't fixed, the vulnerability counts toward the red bug tag in
 the cluster's status and the red dot on its `Security` tab.
 
-Wodby reads this from the node images of EKS and AKS node pools, and from the kernel and GKE versions that DigitalOcean
-and GKE nodes report. It checks once a day, and again when a task that replaces nodes, such as `Recycle nodes` or a
+Wodby updates this result once a day, and again when a task that replaces nodes, such as `Recycle nodes` or a
 Kubernetes version update, finishes. If your provider replaces nodes on its own, for example through automatic
 upgrades, the new result can take up to a day to appear. A new cluster shows its first result within about 15
 minutes.

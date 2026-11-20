@@ -62,11 +62,10 @@ Capability-providing operators have additional [stack-composition permissions](t
 Declaring capabilities does not automatically install an operator for a dependent application. CRD chart support
 does not remove the need to review the chart's CRD upgrade and data-compatibility requirements.
 
-## Backend-managed value mappings
+## Wodby-managed value mappings
 
 Wodby injects several values that control the app service itself. The optional `helm.valueMappings` object maps those
-settings to paths exposed by the chart. Existing service manifests remain compatible because every omitted mapping
-uses its documented compatibility default:
+settings to paths exposed by the chart. Every omitted mapping uses its default:
 
 | App-service setting | Default Helm value path |
 | --- | --- |
@@ -101,7 +100,7 @@ helm:
     shutdownGracePeriod: workload.terminationGracePeriodSeconds
 ```
 
-An explicit `replicas` mapping replaces both legacy replica aliases with the configured path. Each other property is
+An explicit `replicas` mapping replaces both default replica paths with the configured path. Each other property is
 resolved independently, so a partial `valueMappings` object continues to use the defaults for omitted properties.
 `serviceAccountCreate` has no default because not every chart creates a service account. When configured, Wodby sets it
 to `false` whenever it supplies an annotated service account and points the workload at that account.
@@ -112,8 +111,8 @@ name when it creates a new app service. This makes two services based on the sam
 the value consistently in workload metadata labels, immutable selectors, and pod-template labels.
 
 Use `helm.valueMappings.nameOverride` only when the chart exposes this behavior at another path. Infrastructure and
-operator charts do not receive a managed application name by default because their label commonly identifies the
-controller product. They can opt in by mapping a supported path explicitly.
+operator charts do not receive a managed application name by default. They can opt in by mapping a supported path
+explicitly.
 
 Set `helm.valueMappings.disableNameOverride: true` when a third-party workload chart deliberately does not implement
 this application-name label contract. New app services then get no managed `nameOverride`, and Wodby skips the
@@ -122,9 +121,8 @@ their deployments fail. The chart must still expose stable labels that let every
 selector resolve unambiguously, such as the Helm release plus a component label. Do not combine `disableNameOverride`
 with a custom `nameOverride` path.
 
-The application name is selected when the app service is installed. Existing app services are not relabeled when this
-capability becomes available or when their stack is upgraded, because changing a Deployment or StatefulSet selector
-would require replacing the workload. Copies are new app services and select their own names.
+The application name is selected when the app service is installed and does not change when its stack is upgraded.
+Copies are new app services and select their own names.
 
 When an external database connection requires workload identity, `serviceAccountName` must be mapped explicitly in the
 selected service revision. Wodby stops the deployment with a user-facing compatibility error before running Helm if
@@ -133,9 +131,8 @@ map `serviceAccountCreate` so Wodby can disable that duplicate resource.
 
 Wodby supplies the effective replica count on every deployment, including `0` while an app service is disabled or its
 app environment is paused. A chart should therefore render `spec.replicas` from the mapped value for Deployments and
-StatefulSets. Wodby does not enable chart autoscaling values. When autoscaling is configured, Wodby creates and
-reconciles the HorizontalPodAutoscaler while the chart continues to render its ordinary replica value. A chart-owned
-autoscaler must therefore remain disabled with the service manifest's Helm values. Wodby-maintained charts always
+StatefulSets. Autoscaling is managed by Wodby, not by the chart, so a chart-owned autoscaler must remain disabled
+with the service manifest's Helm values. Wodby-maintained charts always
 render `spec.replicas` and do not expose chart-owned autoscaling values.
 
 For a chart with multiple workloads, set `workloads[].helm.replicas` on every additional Deployment or StatefulSet
@@ -143,10 +140,10 @@ whose replicas must follow the app service. When a chart exposes replicas only t
 `workloads[].helm.managedReplicas: true` instead. Wodby then writes the replica count to the rendered workload and
 removes only the HPA that targets it. See [Workload-level Helm mappings](workloads.md#workload-level-helm-mappings).
 
-Service-level `helm.values` are applied after the backend-managed defaults. Do not set the same paths there unless the
-service intentionally replaces the backend-managed value. Replica overrides and explicit service-account mappings
-that break the rendered workload contract are rejected by import validation. A stored application-name override is
-reapplied after service, stack, and app Helm values, and a conflicting value is rejected.
+Service-level `helm.values` override the values Wodby manages. Do not set the same paths there unless the service
+intentionally replaces the Wodby-managed value. Replica overrides and explicit service-account mappings that break the
+rendered workload contract are rejected by import validation. The application name cannot be changed with service,
+stack, or app Helm values; a conflicting value is rejected.
 
 When a chart keeps the full image path inside one repository value and does not expose a separate registry field, set
 `workloads[].containers[].helm.image.registry: ""`. This disables separate registry injection and makes Wodby write the
@@ -157,7 +154,7 @@ full repository path into the configured `repository` value instead.
 Deployment configuration is optional. Wodby writes only the fields configured by the service, stack, or app service;
 an unset field remains absent from the generated Helm values so the chart can apply its own default.
 
-For a service with one workload, the compatibility defaults are:
+For a service with one workload, the defaults are:
 
 | Mapping | Deployment | StatefulSet | DaemonSet |
 | --- | --- | --- | --- |
@@ -199,8 +196,8 @@ rules.
 
 ## Import validation
 
-During service import, Wodby validates explicit Helm value paths against the chart's merged values and schema when they
-are available. It also renders the chart with the same backend-managed values used during deployment.
+During service import, Wodby validates the chart against the service manifest. If the chart fails to render, or
+does not meet the requirements below, the import fails.
 
 A value path passes when the chart's `values.yaml` or values schema defines it, or when a chart template reads it.
 This covers charts that leave optional values commented out in `values.yaml`:
@@ -212,26 +209,21 @@ This covers charts that leave optional values commented out in `values.yaml`:
 
 A path that no template reads is rejected, which catches misspelled values and values the chart ignores.
 
-For the primary Deployment or StatefulSet, Wodby renders replica counts `0` and `1` and verifies that the matching
-workload has the same `spec.replicas` value. It performs the same check for every additional workload that declares
-`helm.replicas` or `helm.managedReplicas`. Services marked as scalable are also rendered with `2` replicas and must
-preserve that exact count. Fixed services may normalize values above one to a singleton. This semantic check detects
-charts that accept a Helm value but do not use it. DaemonSets do not have a replica-count check.
+The primary Deployment or StatefulSet, and every additional workload that declares `helm.replicas` or
+`helm.managedReplicas`, must render `spec.replicas` from the mapped replica value, including `0`. Services marked as
+scalable must render any requested count exactly; fixed services may render counts above one as a single replica.
+DaemonSets are not checked.
 
-Validation rejects any HorizontalPodAutoscaler rendered with the service manifest's Helm values. The exception is an
-HPA that targets a workload with `helm.managedReplicas: true`; Wodby removes that HPA before performing the same check. An HPA for any other workload remains an error because app-service autoscaling is managed by
-Wodby.
+The chart must not render a HorizontalPodAutoscaler with the service manifest's Helm values, because app-service
+autoscaling is managed by Wodby. The exception is an HPA that targets a workload with `helm.managedReplicas: true`.
 
-For services with managed application names, Wodby renders a sentinel `nameOverride` and verifies that
-`app.kubernetes.io/name` has that value in workload metadata labels, `spec.selector.matchLabels`, and pod-template
-labels. This checks the rendered behavior even when the conventional root value is not declared in `values.yaml`.
-Services with `helm.valueMappings.disableNameOverride: true` deliberately skip this check.
+For services with managed application names, the `nameOverride` value must reach `app.kubernetes.io/name` in workload
+metadata labels, `spec.selector.matchLabels`, and pod-template labels, even when the value is not declared in
+`values.yaml`. Services with `helm.valueMappings.disableNameOverride: true` are not checked.
 
-When `helm.valueMappings.serviceAccountName` is explicit, Wodby also renders a sentinel service account and verifies
-that it reaches `spec.template.spec.serviceAccountName`. If `serviceAccountCreate` is configured, validation also
-checks that setting it to `false` prevents the chart from rendering the backend-managed account. Build-image workloads
-must similarly render the configured image pull secret; services without build-image workloads do not need that
-capability. A chart-rendering failure during these checks fails the service import instead of skipping validation.
+When `helm.valueMappings.serviceAccountName` is explicit, the mapped value must reach
+`spec.template.spec.serviceAccountName`. If `serviceAccountCreate` is configured, setting it to `false` must stop the
+chart from rendering its own service account. Build-image workloads must render the configured image pull secret.
 
 If you're creating a custom Helm chart, we recommend starting from one of the existing
 [charts by Wodby](https://github.com/wodby/charts) or [by Bitnami](https://github.com/bitnami/charts). The

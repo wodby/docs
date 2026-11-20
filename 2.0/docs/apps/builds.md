@@ -19,13 +19,12 @@ The two common patterns are:
 
 For example, an app may have `php` and `nginx` services while a single Git repository contains both backend and frontend code. The repository may be connected to the PHP service as the main build source, but the build still produces images for both services. After the images are built, you push them with `wodby ci push` and deploy them with `wodby ci deploy`.
 
-Wodby exports one source owner and its linked image targets to each CI build. A different app service with its own build
-source is excluded and receives a separate build. The service selected by `build.link` must accept connected builds and
-must have a build source configured on the app environment.
+Each CI build covers one source owner and its linked image targets. A different app service with its own build source
+receives a separate build. The service selected by `build.link` must accept connected builds and must have a build
+source configured on the app environment.
 
-Existing service revisions without `build.link` remain compatible. Wodby first looks for a single linked service with a
-build source. If none is linked and the app has exactly one build-source owner, Wodby uses that owner. When multiple
-owners are possible, Wodby excludes the image target instead of guessing; update the service manifest with `build.link`
+Service revisions without `build.link` still work when the app has only one possible source owner for the image target.
+When several owners are possible, the image target is left out of builds; update the service manifest with `build.link`
 to make the relationship explicit.
 
 When a connected source inherits third-party CI, linking its Git repository in Wodby is optional.
@@ -35,26 +34,20 @@ must match that selection. Leave it unlinked when the external pipeline should c
 sources instead require the repository and pipeline used by Wodby CI. See
 [third-party CI source selection](../cicd/third-party.md#source-selection).
 
-An app environment can include source owners using both CI paths. Each build operation records the exact source owners it
-starts or expects. The resulting deployment waits for those owners only; another buildable service in the same app
-does not block the deployment unless it was selected for that operation.
+An app environment can include source owners using both CI paths. A deployment waits only for the source owners
+selected for it; another buildable service in the same app does not block the deployment unless it was selected.
 
-Selecting **New build** for multiple source owners creates one build group. Wodby starts every supported build in that
-group and begins the deployment after every selected owner supplies a deployable build. Selecting one owner creates a
-single-owner group, while an explicit full new-build operation includes every build-source owner. A source owner that
+Selecting **New build** for multiple source owners starts a build for each of them, and the deployment begins after
+every selected owner has a deployable build. A full new build includes every build-source owner. A source owner that
 is not selected keeps its current deployment, or remains undeployed, until its own build or a later full deployment.
 
-Linked image targets are part of their source owner's build; they are not separate source owners and do not add another
-build requirement to the group.
+Linked image targets are part of their source owner's build; they are not separate source owners. When a source owner
+gets a new build, the linked image targets and derivatives that use its output deploy the new output as well, never an
+older image in the same deployment.
 
-When a source owner is selected for a new build, every selected linked image target or derivative that consumes its
-artifact follows the new output. Wodby does not combine that new owner build with an older image selection for one of
-its consumers in the same deployment.
-
-A previous successful build can still be selected as the image for another service. That reused image records what
-will run, but Wodby does not wait for it again or count it as the result of a selected new source-owner build. If a
-required new build fails or finishes without reporting its expected output, Wodby cancels the deployment that was
-waiting for it; deployments that only reuse an already successful image from that build are unaffected.
+A previous successful build can still be selected as the image for another service. If a required new build fails or
+finishes without its expected output, Wodby cancels the deployment that was waiting for it; deployments that only reuse
+an already successful image from that build are unaffected.
 
 Build image targets without their own build source are optional. If a build does not produce an image for one of those services, Wodby deploys the service with the configured image from the service manifest or chart. This lets pipelines build `nginx` only when the app needs custom static assets, while still allowing `nginx` to deploy normally as part of the stack.
 
@@ -95,9 +88,8 @@ period:
 3. Select **Save settings**.
 
 **Never** is the default and disables automatic image voiding. The other periods are measured from the time the build
-ended. Wodby checks for eligible images hourly, so voiding may happen after the selected period rather than at the exact
-expiration time. Enabling cleanup or selecting a shorter period can make existing images eligible during the next
-check.
+ended. Voiding may happen some time after the selected period rather than at the exact expiration time. Enabling
+cleanup or selecting a shorter period can make existing images eligible soon after you save.
 
 Automatic cleanup considers only completed, canceled, and failed builds. Wodby keeps all images from a build when any
 of them is:
@@ -106,8 +98,7 @@ of them is:
 - selected by an awaiting, pending, or in-progress deployment
 - retained as the previous image for rollback by an awaiting, pending, or in-progress deployment
 
-If an image is older than the selected period, it becomes eligible during a later check after these references are
-gone. Cleanup removes the image from Wodby Registry and prevents future deployment or rollback from using it, but the
+If an image is older than the selected period, it becomes eligible after these references are gone. Cleanup removes the image from Wodby Registry and prevents future deployment or rollback from using it, but the
 build record remains in build history.
 
 Automatic voiding does not apply to Docker Hub, Distribution Registry, or another customer-managed registry. Use that

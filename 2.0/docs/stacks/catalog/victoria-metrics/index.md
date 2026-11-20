@@ -72,8 +72,7 @@ same app environment.
 
 ## Data
 
-The stack creates a 20 GB **VictoriaMetrics data** volume, mounted at `/victoria-metrics-data`. Grafana has its own
-10 GB volume. Wodby defines no backups or imports for these services.
+The stack creates a 20 GB **VictoriaMetrics data** volume. Grafana has its own 10 GB volume. Wodby defines no backups or imports for these services.
 
 ## Check that it is ready
 

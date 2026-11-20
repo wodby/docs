@@ -18,7 +18,7 @@ A VPN node and [Private App Access](access.md) solve different problems:
 | Capability | VPN node | Private App Access |
 | --- | --- | --- |
 | Managed as | An app service in the stack | An app environment Access setting |
-| Lifetime | Persists with the service | Reconciled with selected HTTP endpoints |
+| Lifetime | Persists with the service | Follows the selected HTTP endpoints |
 | Primary use | Join the tailnet as a node | Make app endpoints reachable privately |
 | Requires an HTTP endpoint | No | Yes |
 

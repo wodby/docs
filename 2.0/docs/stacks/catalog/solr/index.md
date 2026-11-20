@@ -18,8 +18,8 @@ send two independent Basic authorization headers.
 
 ## Default collection
 
-The Solr post-deployment initialization creates a collection named `default` when the cluster has no collections. It
-uses Solr's `_default` configset.
+After a deployment, Wodby creates a collection named `default` when the cluster has no collections. It uses Solr's
+`_default` configset.
 
 `_default` is only a starting point. Applications that require a particular schema must install their own configset.
 For Drupal, follow [Connect Drupal to Solr](../drupal/solr.md) so Search API Solr generates and uploads a compatible

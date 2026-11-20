@@ -27,8 +27,8 @@ You don't need SSH or an account with a model provider. It pays with your organi
 Your first message starts a new chat, named after that message. Your chats are listed beside the open one: select one
 to continue it, or select **New chat**. To interrupt the agent, select the stop button in the message box.
 
-Only the workspace owner can use the agent. Chats are kept in the owner's private home in the workspace, so they
-survive runner restarts and pauses.
+Only the workspace owner can use the agent. Chats are kept in the workspace, private to the owner, and survive runner
+restarts and pauses.
 
 The agent sends the whole chat with every request, so a longer chat uses more AI credits for each step. **Context**,
 below the message box, shows how full the chat is. When it fills up, the agent summarizes the earlier conversation

@@ -10,9 +10,8 @@ connects to the server's published control port and registers one or more HTTP
 hostnames. Wodby terminates public TLS for those hostnames and forwards HTTP to
 FRPS, which sends the requests through the tunnel to the external workload.
 
-This application stack is separate from the FRPC infrastructure component
-installed on Kubernetes machines. It does not configure cluster connectivity
-or require Kubernetes permissions.
+This application stack is not related to how Wodby connects to your clusters.
+It does not require Kubernetes permissions.
 
 ## Deploy and expose FRPS
 

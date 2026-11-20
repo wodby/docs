@@ -43,19 +43,18 @@ See [TLS certificates](endpoints.md#tls-certificates) for certificate ownership 
    See [Let's Encrypt's HTTP-01 requirements](https://letsencrypt.org/docs/challenge-types/#http-01-challenge).
 3. Check proxy routing and security logs at the failure's UTC timestamp. Keep the exact validation path out of browser
    authentication and response rewriting, and avoid caching temporary challenge responses.
-4. Test while the solver is running. Wodby removes temporary solver resources after the attempt, so a later `404` on an
-   old token does not prove that the solver failed during renewal.
+4. Test while the validation attempt is running. The verification response exists only during the attempt, so a later
+   `404` on an old token does not prove that validation failed during renewal.
 
-A successful browser request from your computer does not prove that the renewal worker or certificate authority can
-reach the same response. Security products may treat requests differently by source network or client characteristics.
+A successful browser request from your computer does not prove that Wodby or the certificate authority can reach the
+same response. Security products may treat requests differently by source network or client characteristics.
 If results differ, share the task link, hostname, UTC time, and any proxy request identifier with support.
 
 ## Retry and recovery
 
-Failed renewal attempts are retried after increasing delays of one through seven days, then weekly. A longer delay
-requested by the certificate authority takes precedence. Each failed attempt sends an email with the next scheduled
-retry time, and the task log records it too. If backoff would cross expiry, Wodby schedules one additional attempt at
-expiry, subject to the certificate authority's retry delay and app/cluster availability. See [renewal notifications](../user/notifications.md#certificate-renewal-notifications).
+Wodby retries failed renewals automatically, with increasing delays between attempts. Each failed attempt sends an
+email with the next scheduled retry time, and the task log records it too. If the next retry would come after expiry,
+Wodby makes one more attempt at expiry when the certificate authority and the app's cluster allow it. See [renewal notifications](../user/notifications.md#certificate-renewal-notifications).
 
 After correcting the cause:
 

@@ -54,8 +54,8 @@ See [Endpoints](../../../apps/endpoints.md).
 ## How devices connect
 
 Devices connect to each other directly when their networks allow it. To find their public addresses they use
-Cloudflare's public STUN server (`stun:stun.cloudflare.com:3478`). NetBird's own STUN server isn't used: behind the
-cluster's gateway it can't see the devices' addresses. To use other STUN servers, set the `NETBIRD_STUN_URIS`
+Cloudflare's public STUN server (`stun:stun.cloudflare.com:3478`). NetBird's own STUN server isn't used. To use other
+STUN servers, set the `NETBIRD_STUN_URIS`
 [environment variable](../../../apps/environment-variables.md) to a space-separated list of `stun:` URLs, or to an
 empty value for none, and deploy the app service.
 

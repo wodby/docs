@@ -16,7 +16,7 @@ The database backup area has two tabs:
 - `Backups` for one-off backups
 - `Presets` for reusable destinations and automatic schedules
 
-Backups are different from snapshots. A backup is created by the database or service backup workflow and then mirrored to object storage.
+Backups are different from snapshots. Backups are stored in object storage.
 
 When preparing a new backup, you can select one of the backup presets for this database or an organization-wide backup preset.
 
@@ -38,8 +38,8 @@ backup, including exclusions inherited from the service default.
 
 A database backup preset can save explicit table exclusions only when it selects one backup type for a container-based
 database. Scheduled backups created from that preset use the saved exclusions. If the preset leaves the field
-untouched, each scheduled backup resolves the service default when it is created and stores that effective list with
-its own backup record. Presets that apply to any backup type, and organization-wide presets, do not store table
+untouched, each scheduled backup uses the service default at the time it runs, and its backup record shows the list
+used. Presets that apply to any backup type, and organization-wide presets, do not store table
 exclusions.
 
 ## Backup destination
@@ -154,9 +154,8 @@ Turning it on again resumes the saved schedule. A new preset saved with `Auto ba
 
 Use override when one preset should win over other matching scheduled presets.
 
-Automatic schedules created by the previous dashboard used exact UTC launch times. Daily and single-weekday schedules
-are migrated to three-hour UTC windows beginning at the same time, without changing the selected day or backup
-timeout. Custom cron expressions remain on the legacy exact-time schedule.
+A preset with a custom cron expression from an earlier version of the dashboard keeps starting at the exact times that
+expression sets.
 
 ## Failure and recovery notifications
 

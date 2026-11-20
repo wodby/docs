@@ -47,7 +47,7 @@ for your account:
 An email code expires after five minutes, and requests and verification attempts are limited. After confirmation, the
 secret is displayed for 30 seconds and is then removed from the dialog. Closing the dialog removes it immediately.
 
-Secret reveal responses are not cached. API-key and token authentication cannot use direct reveal operations.
+API-key and token authentication cannot use direct reveal operations.
 
 Copying a value places it on your device's clipboard; Wodby cannot clear that copy automatically. Move long-lived
 credentials into an approved secrets manager and rotate any value that may have been exposed.

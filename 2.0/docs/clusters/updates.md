@@ -33,14 +33,10 @@ infrastructure apps, the card lists each app and the current and target stack re
 ### Review an infrastructure app changelog
 
 Select `Show changelog` in the `Infrastructure app stacks` card to load the changes for the currently available upgrade.
-Wodby recalculates the current upgrade targets when you open the changelog. The result is grouped by infrastructure app
-and shows its current and target stack versions and revision numbers.
+The result is grouped by infrastructure app and shows its current and target stack versions and revision numbers.
 
 For each app, the changelog identifies stack services that will be added, removed, or moved to another service
-revision. For a newer semantic service version, published notes include stable release tags after the current version
-through the target version. For same-version revision changes or other version formats, Wodby can show the target tag's
-notes when the service is tag-backed. Release notes come from the Git provider, so some service updates show that no
-published release notes were found.
+revision, with their published release notes. Some service updates show that no published release notes were found.
 
 The changelog summarizes stack service membership and service revision changes. A newer stack revision can contain no
 service revision changes and still change configuration such as environment variables, Helm values, links, or
@@ -54,9 +50,8 @@ the app list or open an individual infrastructure app page.
 Some changes affect the cluster-level infrastructure version rather than only an infrastructure app stack revision.
 These upgrades can change cluster networking, routing, platform controllers, or host security.
 
-An infrastructure version upgrade can include an upgrade of a required infrastructure app. This prerequisite is part
-of the infrastructure version workflow even though the dashboard tracks general infrastructure app stack updates
-separately; you do not need to run the separate infrastructure app stack upgrade first.
+An infrastructure version upgrade can include an upgrade of a required infrastructure app. You do not need to run the
+separate infrastructure app stack upgrade first.
 
 See [Kubernetes cluster infrastructure](infrastructure.md#infrastructure-versions) for infrastructure version details,
 the changelog, current versions, and cluster-type-specific upgrade behavior.
@@ -65,27 +60,21 @@ Run K3s infrastructure version upgrades during a maintenance window for producti
 or change networking and can briefly interrupt cluster access or application traffic. Review the changelog for the
 offered update before starting it.
 
-Infrastructure version `4.0.0` also performs a one-time routing ownership migration. Wodby first upgrades the Envoy
-Gateway infrastructure app when required, reconciles the cluster entrypoint, and verifies Gateway API compatibility.
-It then removes legacy routing resources from eligible app-service releases and creates independent app routing
-releases without rebuilding or redeploying application workloads. HTTP and HTTPS traffic can be briefly interrupted
-while an app environment is handed over from its service releases to its routing release. Run this upgrade during a
-maintenance window for production applications.
+Infrastructure version `4.0.0` deploys each app environment's routing separately from its app services, without
+rebuilding or redeploying application workloads. HTTP and HTTPS traffic of an app environment can be briefly
+interrupted while its routing moves. Run this upgrade during a maintenance window for production applications.
 
-The upgrade verifies the provider's Gateway API resources before beginning the ownership migration. HTTP/HTTPS
-ListenerSet support is required. TCPRoute and UDPRoute support is optional, but the upgrade is blocked when an existing
-published port uses an unavailable protocol so no port is silently disconnected. When a protocol is unavailable, the
-cluster `Infrastructure > Overview` page and port page show the limitation and new ports of that protocol cannot be
-published. See
-[Gateway API compatibility](infrastructure.md#gateway-api-compatibility) for provider-specific ownership and upgrade
-behavior.
+The upgrade needs compatible Gateway API resources on the cluster. TCP and UDP support is optional, but the upgrade is
+blocked when an existing published port uses an unavailable protocol, so no port is silently disconnected. When a
+protocol is unavailable, the cluster `Infrastructure > Overview` page and port page show the limitation and new ports
+of that protocol cannot be published. See
+[Gateway API compatibility](infrastructure.md#gateway-api-compatibility) for provider-specific upgrade behavior.
 
 Paused app environments are skipped during the cluster-wide 4.0 migration. They migrate automatically during their next
 full deployment after being resumed; you do not need to unpause every environment before upgrading the cluster.
 
 If both an infrastructure version upgrade and infrastructure app stack upgrade are pending, Wodby handles the
-infrastructure version upgrade first. Infrastructure app upgrades are checked again after the cluster is no longer
-outdated at the infrastructure version level.
+infrastructure version upgrade first.
 
 In the dashboard, open `Clusters`, select the cluster, and go to `Infrastructure > Updates`. The
 `Wodby infrastructure` card shows the current infrastructure version, the target version when an upgrade is available,
@@ -164,10 +153,8 @@ affected by them. Wodby applies them again each time the server boots, whichever
 
 #### Check the host protection
 
-Before infrastructure version `4.1.5`, the server applied these protections only when it booted. If something removed
-one later, for example a firewall restart that cleared the packet filter, the server stayed unprotected until the next
-reboot. From `4.1.5`, the server checks the protections after each boot and once a day, and puts back any that are
-missing.
+From infrastructure version `4.1.5`, the server checks the protections after each boot and once a day, and puts back
+any that are missing.
 
 To see the result, open `Clusters > [Cluster] > Security`. The [vulnerabilities table](security.md) shows
 CVE-2026-98432 as **Mitigated** when every protection is in place, or **Not mitigated** otherwise. A new result can take
@@ -227,8 +214,7 @@ affected CA keys are no longer trusted. The update uses the distribution's packa
 that removes the affected trust. Package mirrors must be reachable when a package update is needed.
 
 If the host trust stores already pass verification, Wodby skips package downloads. It still restarts K3s so the running
-service reloads trust instead of retaining cached certificates. Cluster access can be temporarily interrupted during
-the restart. Wodby verifies the connection and host trust again before recording the new infrastructure version.
+service reloads trust. Cluster access can be temporarily interrupted during the restart.
 
 #### If the update fails
 

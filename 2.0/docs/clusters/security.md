@@ -98,10 +98,10 @@ can't be ignored.
 
 ## Server packages on K3s
 
-Once a day, Wodby runs a short job on each server and worker node of a K3s cluster. The job only reads: it lists the
-operating system release, the running kernel, whether a restart is pending, and the installed packages. Wodby then
-matches the packages against your distribution's own security data, which includes the fixes it backports to older
-version numbers. The check never changes the server. To install the updates or restart servers, see
+Once a day, Wodby checks the operating system release, the running kernel, whether a restart is pending, and the
+installed packages of each server and worker node of a K3s cluster. Packages are matched against your distribution's
+own security data, which includes the fixes it backports to older version numbers. The check only reads and never
+changes the server. To install the updates or restart servers, see
 [Operating system and kernel updates](k3s.md#operating-system-and-kernel-updates).
 
 Servers that use `dpkg` (Debian, Ubuntu), `rpm` (for example Red Hat Enterprise Linux, Rocky Linux, AlmaLinux, Fedora,
@@ -150,7 +150,7 @@ database, for the upstream Kubernetes version. For example, a cluster that repor
 `v1.33.5-eks-113cf36` is checked as Kubernetes `1.33.5`. `Fixed in` shows the closest Kubernetes version that fixes the
 vulnerability, a patch of your current minor version when there is one.
 
-Wodby also checks each of these vulnerabilities against CISA's catalog and EPSS whenever it refreshes the list, so one
+Wodby also checks each of these vulnerabilities against CISA's catalog and EPSS, so one
 that is known or likely to be exploited [raises an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert)
 like any other. A vulnerability without a CVE ID has no exploitation data and shows as `Unknown`.
 
@@ -164,7 +164,7 @@ listed vulnerability can already be fixed on your cluster. Check your provider's
 
 Once a day, Wodby scans the container images of the [infrastructure apps](infrastructure.md) and other components that
 Wodby installs on your cluster, such as Envoy Gateway and monitoring. Results cover operating system packages and
-application dependencies in the images. An image that several clusters run is scanned once.
+application dependencies in the images.
 
 When an infrastructure app update is available and the vulnerability has a fix, the row links to
 `Upgrade infrastructure apps`. Otherwise, Wodby includes the fix in a later infrastructure app update.

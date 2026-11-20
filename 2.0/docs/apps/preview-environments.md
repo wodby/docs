@@ -134,7 +134,7 @@ plan usage like any other environment while they exist.
 | Draft pull request | No preview is created unless `Draft pull requests` is enabled. |
 | Concurrent preview limit reached | The pull request is skipped and gets a failed `wodby/preview` status. It gets a preview on its next push once a preview has been deleted. |
 
-Wodby also checks open pull requests every 15 minutes, in case it missed a notification from your Git provider. A
+Wodby also checks open pull requests periodically, in case it missed a notification from your Git provider. A
 preview whose pull request was closed or merged is deleted. An open pull request that should have a preview gets one, for
 example right after you enable previews for an app with open pull requests. A pull request whose latest commit already has a
 `wodby/preview` status is left alone, so a preview you deleted is not recreated until the next push.

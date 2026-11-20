@@ -179,8 +179,8 @@ converts it to GiB, and rounds a non-whole value up to the next whole unit for b
 billing quantity of 6 GiB, of which 1 GiB is above the included amount.
 
 When the stored quantity changes, the storage charge is prorated for the portion of the billing cycle during which each
-quantity applied. Deleting images can therefore reduce the remaining storage charge after the next usage
-synchronization; it does not retroactively remove storage already used earlier in the cycle.
+quantity applied. Deleting images can therefore reduce the remaining storage charge; it does not retroactively remove
+storage already used earlier in the cycle.
 
 When you delete your app environment, we automatically delete all images associated with it.
 
@@ -191,9 +191,8 @@ You can selectively void older build images to clean up docker images while keep
 [Wodby Blob Storage](providers/wodby-blob-storage.md) is the built-in destination for backup archives. It costs $0.05
 per stored GB and has no included free storage. Data transfer is not billed.
 
-Usage reflects the organization's current completed backup data stored by Wodby. Removing backup objects reduces the
-quantity after cleanup and the next usage synchronization; it does not retroactively remove storage billed earlier in
-the cycle.
+Usage reflects the organization's completed backup data currently stored in Wodby Blob Storage. Removing backups
+reduces the remaining storage charge; it does not retroactively remove storage billed earlier in the cycle.
 
 ### Wodby Cloud usage
 

@@ -19,7 +19,7 @@ Wodby provides a native integration with DigitalOcean Kubernetes Service.
 - We require at least 4GB of RAM per node to avoid performance issues. Droplets with more than 16 vCPUs are offered only for [GPU node pools](../clusters/gpu.md)
 - DOKS has a limit of maximum 25 nodes per cluster. If you need to increase this limit please contact DigitalOcean support, then contact us
 - Node disk is not configurable upon creation
-- We create a single load balancer per regular cluster and deploy Envoy Gateway for public app entrypoints
+- We create a single load balancer per regular cluster for public app traffic
 - In single-node mode, Wodby does not create a DigitalOcean Load Balancer. Public app traffic is routed directly to the cluster node IP, and the endpoint is still shown in Wodby as a public IP or hostname.
 
 ### Storage

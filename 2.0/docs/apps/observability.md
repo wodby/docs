@@ -77,9 +77,8 @@ That page shows:
 - pod readiness
 - per-pod and per-container metrics such as requests, limits, restarts, node placement, and lifecycle timestamps
 
-Storage metrics come from Kubernetes PVC stats. They are available at app environment, app service, and namespace levels.
-Per-pod and per-container tables do not show separate storage usage because PVC usage is reported for volumes rather
-than individual containers.
+Storage metrics are available at app environment, app service, and namespace levels. Per-pod and per-container tables
+do not show separate storage usage because storage usage is measured per volume rather than per container.
 
 If cluster monitoring is disabled, app environment and app-service metrics pages are not available.
 

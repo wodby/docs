@@ -192,7 +192,7 @@ variantDescription: >-
 Type: `object`.
 
 Optional [Private App Access](../apps/access.md) requirement for app environments created from the stack. This policy
-describes the access outcome the stack needs. The app environment still stores the actual access configuration and the
+describes the access outcome the stack needs. The actual access configuration is set on each app environment, where the
 user selects an eligible Private App Access integration.
 
 - `required`: required boolean. When `true`, Private App Access must be configured during app creation and cannot be
@@ -383,7 +383,7 @@ For field formats, workload-kind restrictions, and precedence, see
 Type: `boolean`.
 
 Marks the main service in the stack. Only one stack service can be main, and its main endpoint must expose a public HTTP
-port. A port the stack makes private with [`services[].endpoints`](#servicesendpoints) doesn't count. The corresponding app service owns the app environment's root technical route. This is independent of the app
+port. A port the stack makes private with [`services[].endpoints`](#servicesendpoints) doesn't count. The corresponding app service owns the app environment's root technical route. This is independent of the
 app environment's canonical `Main` route.
 
 If no service is marked as main, Wodby will automatically pick the first eligible service. The same fallback applies

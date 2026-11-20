@@ -12,9 +12,8 @@ Amazon S3, Cloudflare R2, Backblaze B2, DigitalOcean Spaces and Wasabi, use thei
 
 ### Requirements
 
-- The storage must be reachable over HTTPS from the public internet. Wodby checks buckets, reads backup sizes and
-  creates download links itself, so endpoints on a private network, `localhost` or internal addresses are not
-  accepted.
+- The storage must be reachable over HTTPS from the public internet. Wodby connects to it directly, so endpoints on a
+  private network, `localhost` or internal addresses are not accepted.
 - The storage must accept path-style requests, such as `https://s3.example.com/BUCKET/backup.sql.gz`. MinIO and Ceph
   do.
 

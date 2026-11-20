@@ -74,16 +74,15 @@ want to change a pinned/versioned service reference from Git.
 Use this for stacks that should follow newer service revisions without a manual stack update step.
 
 When auto-update is enabled for stack service revisions, Wodby can create a new stack revision after a service used by
-the stack gets a newer revision. Before creating the revision, Wodby checks the eligible service updates against the
-stack's complete link graph. A service revision that would introduce an unresolved required link is skipped and the
+the stack gets a newer revision. A service revision that would introduce an unresolved required link is skipped and the
 update outcome reports why. Other safe service revision updates can continue in the same run.
 
-Automatic reconciliation preserves compatible mappings and removes invalid optional mappings. When an existing
+Automatic updates preserve compatible link mappings and remove invalid optional mappings. When an existing
 compatible mapping becomes required, its target and required dependencies are enabled automatically. Wodby never
 chooses a target for a missing required mapping.
 
 For custom stacks, auto-update is disabled by default. Git-backed stacks can use this setting for service revision
-updates; Wodby updates stack service rows in a new stack revision without fetching the stack repository.
+updates; Wodby updates the stack services in a new stack revision without fetching the stack repository.
 
 In the dashboard, open `Stacks`, select the stack, and go to `Operations`. Service revision automation is configured in
 the `Services auto update` card. For Git-backed stacks, this card is shown separately from `Auto update from git`, which
@@ -183,8 +182,7 @@ the `Operations` tab. The delete action is available only on the latest stack re
 ## Auto-update from Git
 
 Git-backed stacks can be updated automatically when a supported Git provider sends a push event for the stack source.
-Auto-update uses the same import logic as manual `Update from Git`, but it is started by the webhook instead of a
-dashboard action.
+Auto-update works like a manual `Update from Git`, but it is started by the push event instead of a dashboard action.
 
 In the dashboard, Git auto-update settings for stacks are shown in `Operations > Auto update from git`. Keep them
 separate from `Services auto update`: Git auto-update imports the stack manifest from Git, while service revision
@@ -218,8 +216,7 @@ card appears with a `Sync with origin` button.
 
 ### How sync merges changes
 
-Sync compares three versions of each item: your stack, the origin revision your stack last synced to, and the latest
-origin revision. Items include stack services, their settings, options, volumes, tokens, environment variables, Helm
+Sync applies what changed in the origin since your stack was copied or last synced, item by item. Items include stack services, their settings, options, volumes, tokens, environment variables, Helm
 values, configs, cron schedules, annotations, links, resources, and fields such as the title or replicas.
 
 - What you left unchanged follows the origin: new items are added, changed values are updated, and items the origin
@@ -273,16 +270,15 @@ items that the origin doesn't have, including items you added or changed yoursel
 Use the deletion options only when you are comfortable removing local stack customizations that are no longer present in
 the origin.
 
-After merging, Wodby enables explicitly configured required-link targets and validates the complete link graph. Sync
-does not publish a revision with a missing or incompatible required link.
+Sync enables explicitly configured required-link targets and does not publish a revision with a missing or
+incompatible required link.
 
 ## Auto-sync with origin
 
 Use this for copied catalog stacks that should follow their origin stack automatically.
 
 When origin auto-sync is enabled, Wodby can create a new stack revision after the origin stack publishes a new
-revision. The first check is revision-based: if your stack still points to an older origin revision, it becomes a
-candidate for sync.
+revision.
 
 When you add a Wodby catalog stack, the `Add stack` form shows `Auto sync with origin` enabled by default. Turning that
 switch off creates the stack with origin auto-sync disabled. When enabled by default, origin auto-sync uses

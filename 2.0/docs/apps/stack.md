@@ -59,9 +59,6 @@ revision, the button says `Stack is up to date`.
 
 Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app environment overrides.
 
-The reason is that app services can be customized per environment. Wodby cannot always tell whether an app-level value was
-changed intentionally or whether it simply has not received a newer stack default yet.
-
 Stack upgrades deploy only the app services affected by the target revision and the configuration changes applied during
 the upgrade. Changes to a build-source service's build inputs or selected service revision require a new build.
 Runtime-only changes reuse the last safely deployable build and redeploy that image without rebuilding it. Unaffected
@@ -100,8 +97,7 @@ Without the rebuild:
 ### Review the upgrade changelog
 
 Select `Show changelog` in the `Manual stack upgrade` card to load published release notes for service revision changes.
-Wodby recalculates the latest published stack upgrade target when the changelog opens, so it can reflect an update that
-was published after the page initially loaded.
+The changelog reflects the latest published stack revision, including one published after the page loaded.
 
 For a newer semantic service version, the changelog includes stable release tags after the current version through the
 target version. For same-version revision changes and other version formats, Wodby can show the target tag's notes when
@@ -148,7 +144,7 @@ During upgrade, Wodby matches existing app services to stack services by stack s
 
 - If a matching stack service still exists, the app service is moved to the new stack revision and the upgrade settings below decide which app-level values are replaced.
 - If a stack service was added, Wodby creates the missing app service during the upgrade.
-- If a stack service was removed, the obsolete app service is marked for deletion and its Kubernetes resources are uninstalled after the upgrade task.
+- If a stack service was removed, the obsolete app service is deleted and removed from the cluster after the upgrade.
 
 Wodby does not delete a customer route implicitly when its target disappears. If the target stack revision would
 remove an app service, endpoint, or port still used by a custom route, the upgrade stops before committing. Retarget or
@@ -219,8 +215,8 @@ root technical route does not target a service with no running pods.
 
 When enabled, Wodby updates resource requests and limits to the values from the latest stack revision.
 
-If disabled, existing app-level resource values are kept. Resource records for stack-defined containers can still be
-created when they did not exist before.
+If disabled, existing app-level resource values are kept. Stack-defined containers that had no resource values still
+receive them.
 
 ### Override integrations
 
@@ -322,10 +318,9 @@ upgrade.
 New volumes introduced by the service revision are created during upgrade. Existing volume sizes are not changed for
 running app environments.
 
-Existing volume storage classes are also kept. For a new owned volume, Wodby refreshes the cluster's live
-storage-class inventory and reuses one class configured consistently across existing owned volumes when possible;
-otherwise it uses the one selectable default. The upgrade stops if the inventory cannot be refreshed or no unambiguous
-class is available.
+Existing volume storage classes are also kept. A new volume uses the storage class that the environment's existing
+volumes share when possible; otherwise it uses the cluster's single default class. The upgrade stops if Wodby cannot
+read the cluster's storage classes or cannot choose one class unambiguously.
 See [Application persistent storage](storage.md#changing-a-storage-class).
 
 ### Override main app service

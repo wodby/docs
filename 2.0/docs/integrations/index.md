@@ -52,9 +52,7 @@ An integration can have a primary [environment type](../apps/environment-types.m
 - `Any environment type` allows the integration to be used by app environments and resources of every type.
 - `Restricted` allows only the selected environment types.
 
-The primary type is descriptive and must be included when a restricted policy is used. The same fixed type list is
-used for clusters, managed databases, backup presets, and app environments, so policies do not depend on custom
-organization-level environment records.
+The primary type is descriptive and must be included when a restricted policy is used.
 
 ### Add kinds to an existing integration
 
@@ -62,8 +60,8 @@ When a provider supports more than one kind, you can open the integration's **Ed
 Existing kinds stay selected and cannot be removed. Create another integration when you need a narrower set of kinds,
 different credentials, or a different permission scope.
 
-The dashboard submits the integration details, selected kinds, and changed credential fields as one update. If any part
-is invalid, none of the changes are saved.
+The integration details, selected kinds, and changed credential fields are saved together. If any part is invalid,
+none of the changes are saved.
 
 Most new kinds become available immediately. AWS, GCP, and Azure integrations also start a read-only permission test.
 GCP and Azure OAuth integrations may first start a provider setup task; only the new kinds remain in **Activating**

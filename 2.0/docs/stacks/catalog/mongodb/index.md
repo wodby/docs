@@ -14,8 +14,8 @@ MongoDB is enabled by default with a 10 GB `data` volume. Mongoku is disabled by
 browser interface for the database. It is linked to the MongoDB service automatically.
 
 Wodby creates the database and its user. Both are named `<app>_<environment>`, after the app and the app environment.
-The application does not create them. Wodby creates the database by adding a collection named `__wodby` to it. Leave
-that collection in place.
+The application does not create them. The database contains a collection named `__wodby`. Leave that collection in
+place.
 
 Add further [DBs](../../../databases/dbs.md) and [users](../../../databases/users.md) on Wodby. A user gets the
 `readWrite` role on each DB it has access to, and no other permissions.

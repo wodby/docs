@@ -47,8 +47,6 @@ Names must:
 - end with a lowercase letter or number
 - be 63 characters or shorter
 
-These names become Kubernetes service-facing identifiers, so they are stricter than the general Kubernetes name rule.
-
 Because derivative service names include the parent service name as a prefix, services that define or inherit derivatives should use service names that start with a letter.
 
 ## Port names
@@ -63,12 +61,12 @@ Service endpoint port names must:
 
 ## Generated resource names
 
-Wodby validates generated Kubernetes names before app services are created or deployed. This includes namespaces, app service names, generated PVC names, generated ConfigMap names, storage class names for shared storage, and additional Kubernetes manifests.
+Wodby builds some Kubernetes names from your names, and these must also fit Kubernetes length limits. Wodby checks them before app services are created or deployed.
 
 If deployment fails because a generated name is too long, shorten the app, environment, stack service, storage service, volume, or config name that contributes to it.
 
 ## Database names
 
-For app-created container databases, Wodby generates internal database entity names from the app, environment, and service names.
+For app-created container databases, Wodby generates database names from the app, environment, and service names.
 
 For managed provider databases, the provider-facing database name must use lowercase letters, numbers, and dashes, start with a letter, end with a letter or number, and be 3 to 32 characters long.

@@ -96,11 +96,10 @@ The CI and registry selectors include Wodby's built-in services and available or
 corresponding type. Project-owned integrations cannot be used as organization defaults because they may not be
 available to apps in other projects.
 
-The selected CI and registry initialize new apps and new app environments. Each app environment stores CI as its Default CI
-for connected build sources and stores the registry as its environment-wide selection. Changing an organization default
-does not change existing app environments or historical builds. Public and cloned boilerplate sources use Wodby CI regardless
-of Default CI. The selections are retained when an app environment has no enabled service with build configuration, allowing
-a buildable service to be enabled or added later without changing the intended providers.
+The selected CI and registry become the starting CI and registry of new apps and new app environments. Changing an
+organization default does not change existing app environments or past builds. Public and cloned boilerplate sources
+use Wodby CI regardless of Default CI. An app environment keeps its CI and registry selections even when none of its
+services builds, so a buildable service enabled or added later uses them.
 
 Choose `Wodby CI` or `Wodby Container Registry (US)` to use the corresponding built-in service as the organization default.
 

@@ -97,4 +97,4 @@ In a [development workspace](../../../apps/workspaces.md):
 - The application starts with `bundle exec rails server` on port `8080`, and `RAILS_ENV` is `development` whatever the
   environment type.
 - Starting the server does not run migrations or seeds. Keep Rails' default `config.file_watcher`,
-  `ActiveSupport::FileUpdateChecker`, because an evented file watcher is not reliable on the checkout's network storage.
+  `ActiveSupport::FileUpdateChecker`, because an evented file watcher is not reliable in a workspace.

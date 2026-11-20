@@ -22,8 +22,7 @@ create the app.
 | `.matomo-version` | The Matomo release to run, such as `5.14.2`. Required. |
 | `plugins/` | Your plugins, one directory per plugin, named like the plugin |
 
-Matomo 5 releases are supported. The build downloads the release from Matomo, checks its signature and installs it
-with your plugins on Wodby's PHP image for Matomo.
+Matomo 5 releases are supported. The build installs the pinned release with your plugins.
 
 The build fails when `.matomo-version` is missing, when a directory in `plugins/` has no `plugin.json`, or when a
 plugin has the name of one of Matomo's own plugins.

@@ -100,8 +100,7 @@ A backup carries no role names and no grants. You can import it into a database 
 
 To restore, run a database import from a backup or an uploaded file. See
 [Application imports](../../../apps/imports.md). The import accepts `.gz`, `.tar.gz`, `.tgz`, and `.zip` archives.
-Wodby hands the imported objects to the database's owner role. Roles that a dump names, which this server does not
-have, exist only while the dump is loaded.
+Imported objects belong to the database's owner role.
 
 !!! warning
     A database import replaces the contents of the `data` volume. Data that is not in the dump is not kept.

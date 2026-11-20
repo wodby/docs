@@ -35,8 +35,7 @@ primary domain, deploy the n8n service so that n8n shows webhook URLs with the n
 domain, update the webhook URLs in the systems that call them. See [Domains](../../../apps/endpoints.md#domains).
 
 The route has no request timeout, so a webhook can wait for its workflow to finish before it answers. Do not set the
-route's request body size: it makes the route hold each request in memory until it is complete, and the editor's live
-connection stops working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
+route's request body size: the editor's live connection stops working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
 
 ## Code nodes
 
