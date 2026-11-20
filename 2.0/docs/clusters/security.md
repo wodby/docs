@@ -13,8 +13,8 @@ While a cluster has vulnerabilities that raise an alert and aren't fixed, mitiga
 [ignored](#ignore-a-vulnerability), its `Security` tab shows a red dot. The cluster's status also shows a red bug tag
 with their number, in the `Clusters` list, at the top of the cluster page and on its `Overview` tab.
 
-A vulnerability raises an alert when it's known to be exploited, or at least 10% likely to be exploited in the next 30
-days, whatever its severity. See [Vulnerabilities that raise an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert).
+A vulnerability raises an alert when it's known to be exploited, at least 10% likely to be exploited in the next 30
+days, or tracked by Wodby, whatever its severity. See [Vulnerabilities that raise an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert).
 The [security advisories](#security-advisories) Wodby tracks always raise an alert until they're fixed or mitigated.
 An outdated node image isn't a single vulnerability, so it doesn't raise an alert.
 
@@ -34,7 +34,7 @@ The same vulnerability can appear several times, once for each server or image i
 | `Component` | Where the vulnerability is: `Operating system`, `Node image`, `Kubernetes`, or `Infrastructure app` |
 | `Affected` | The server, node pool, or image that has it. An infrastructure app's image starts with the app's name, for example `Monitoring` |
 | `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown` |
-| `Exploitable` | `Exploited` or `Likely exploited` when the vulnerability raises an alert, `Tracked by Wodby` for a [security advisory](#security-advisories) that isn't fixed or mitigated, `Unlikely` when its EPSS chance is below 10%, or `Unknown` when there's no exploitation data. Empty for a Wodby check such as `Outdated node image` |
+| `Exploitable` | `Exploited` or `Likely exploited` when the vulnerability raises an alert, `Tracked by Wodby` for a vulnerability or [security advisory](#security-advisories) that Wodby tracks itself and that isn't fixed or mitigated, `Unlikely` when its EPSS chance is below 10%, or `Unknown` when there's no exploitation data. Empty for a Wodby check such as `Outdated node image` |
 | `Status` | `Not fixed`, `Not mitigated`, `Fixed after restart`, `Mitigated`, `Fixed`, or `Ignored` |
 | `Fixed in` | The version that fixes it, when one is known |
 | `Fix` | A link to the operation that fixes it, when there is one |
@@ -91,6 +91,12 @@ affected. An ignored vulnerability:
 - Isn't shown by the `Not fixed or mitigated` filter.
 
 To count it again, click `Stop ignoring` in its row.
+
+You may ignore a vulnerability while it doesn't raise an alert, and it may start raising one later: it's added to CISA's
+catalog, its EPSS chance reaches 10%, or Wodby starts tracking it. Your ignore then stops applying. The vulnerability
+counts again and raises the alert, and its status shows an orange `Ignored before alert` tag. Hover over the tag to see
+your earlier reason. To keep ignoring it, click `Ignore again`. The ignore then applies while the vulnerability raises
+the alert, and your earlier reason stays unless you enter a new one.
 
 Ignoring a vulnerability and taking that back require permission to modify the cluster. The
 [security advisories](#security-advisories) Wodby tracks and the `Outdated node image` and `Restart required` rows
