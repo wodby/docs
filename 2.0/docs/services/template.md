@@ -539,6 +539,7 @@ Each item supports:
 
 - `version`: required option version.
 - `tag`: optional image tag for that version.
+- `digest`: optional image digest that pins one build of the tag. See [Pin an image build](#pin-an-image-build).
 - `default`: optional boolean.
 - `eol`: optional end-of-life date in ISO datetime format.
 
@@ -559,6 +560,39 @@ product versions. Previously published image tags remain available. See the
 
 Wodby-managed service and stack release tags keep semantic versions for compatibility and automatic updates. An image
 revision number does not indicate compatibility; review the image's release notes before changing its tag.
+
+#### Pin an image build
+
+Image publishers can replace the build behind a tag, often to ship security fixes. A cluster that already has the tag
+keeps running the build it pulled first, and nothing in the service shows that a newer build exists.
+
+Set `digest` to deploy one exact build. The digest is `sha256:` followed by 64 lowercase hexadecimal characters:
+
+```yaml
+options:
+  - version: "5.2"
+    tag: "5.2.3"
+    digest: sha256:7d0b1d9826aa1345a4cab1feded7b19b5f8b1d90579b3180fbc1353157e35c7b
+    default: true
+```
+
+Wodby then deploys the image as `tag@digest`, so every cluster runs the same build. To move to a newer build, release
+a new service version with the new digest. Stacks that use the service see it as a regular service update.
+
+Use the digest of the tag's multi-platform image, which works on every node architecture. For example:
+
+```bash
+docker buildx imagetools inspect phpmyadmin:5.2.3
+```
+
+The `Digest` line at the top of the output is the value to use.
+
+- Wodby checks that the image with this digest exists when you create or update the service.
+- A digest identifies a single image. If the option's tag applies to more than one container image in the service,
+  Wodby refuses the digest. A container whose `image` already includes its own tag keeps that tag and is not pinned.
+- An inherited service keeps its base service's digest only for options that use the same tag. If it sets a
+  different `tag` without a `digest`, Wodby deploys that tag as before.
+- Options without a `digest` deploy by tag only.
 
 ### `workloads`
 
