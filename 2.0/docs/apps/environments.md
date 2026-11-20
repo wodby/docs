@@ -58,8 +58,8 @@ values are copied at creation time rather than inherited dynamically: changing a
 environments only. An environment retains its selection even when it currently has no enabled service with build
 configuration, so the same provider is ready if a buildable service is enabled or added later.
 
-To change an existing environment, open `Apps > [App] > [Environment] > Settings > CI/CD`. The tab remains available when
-the environment has no active buildable services, and saves the selection for services that are enabled or added later.
+To change an existing environment, open `Apps > [App] > [Environment] > CI/CD > Builds > Settings`. The **Builds** tab is
+shown when the environment has a service with a build source, including a disabled service, or has earlier builds.
 Changes apply to future builds. Existing builds keep the CI provider, registry, and registry repository recorded when
 those builds were created.
 
