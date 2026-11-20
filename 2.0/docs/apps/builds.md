@@ -74,7 +74,7 @@ See [Sharing](../sharing.md#changing-sharing-with-active-references) for the gen
 ## Vulnerability scanning
 
 On the Team and Enterprise plans, Wodby scans the images of deployed builds for known vulnerabilities and shows the
-results on each build. See [Vulnerability scanning](vulnerability-scanning.md).
+results on each environment's **Security** tab. See [Vulnerability scanning](vulnerability-scanning.md).
 
 ## Automatically void old build images
 
