@@ -1,0 +1,131 @@
+Source: https://wodby.com/docs/2.0/glossary/
+
+# Glossary
+
+## App
+
+The top-level application object in Wodby. All app environments of the same app share one stack and app identity, but the app itself is not the running deployment.
+
+## App environment
+
+One isolated, deployed copy of an app. Each app environment has a fixed environment type and its own services, routes,
+builds, and configuration.
+
+## App service
+
+One service inside one app environment. An app service is the app-level representation of a stack service for that specific deployed app copy.
+
+## Backup preset
+
+A reusable backup configuration that stores storage destination settings and can optionally schedule automatic backups.
+
+## Demo
+
+The temporary Wodby Cloud option for testing. Demo clusters are deleted automatically after 24 hours, and applications deployed to them are deleted with them.
+
+## Endpoint
+
+A network entry point exposed by an app service. In practice, endpoints back HTTP routes and published ports.
+
+## Environment type
+
+A fixed deployment classification chosen from `prod`, `staging`, `test`, `dev`, or `feature`. App environments,
+clusters, databases, integration policies, and backup presets use the same enum.
+
+## Integration
+
+A configured connection to a third-party service, created from a provider.
+
+## K3s
+
+A lightweight Kubernetes distribution used for self-hosted clusters connected from your own server.
+
+## Main route
+
+The main HTTP route for the whole app environment. The main route is always also primary.
+
+## Managed Kubernetes
+
+A Kubernetes cluster created in your own cloud account through a supported provider integration.
+
+## Organization
+
+The top-level workspace boundary for users, teams, projects, billing, and shared settings.
+
+## Preview environment
+
+A temporary app environment that Wodby creates automatically for a pull request, copied from a base environment and
+deleted when the pull request closes or has been idle for a configured period.
+
+## Primary route
+
+The default HTTP route for a specific app service endpoint.
+
+## Private App Access
+
+An app environment setting that publishes the entire app or selected HTTP endpoints through a supported access provider
+while suppressing the corresponding ordinary public routes.
+
+## Project
+
+The main resource and access boundary inside an organization.
+
+## Provider
+
+Wodby's definition of how to work with a third-party service, including fields, kinds, and exposed variables.
+
+## Resource owner
+
+The organization or project that owns a resource. The owner determines the direct write/delete boundary, while sharing controls which other projects can read or use the resource.
+
+## Route
+
+An HTTP entrypoint for an app service endpoint. A route matches a hostname and path, then sends traffic to an app service endpoint or redirects the request.
+
+## Service
+
+Wodby's representation of one piece of software, a Helm-based workload, or a workflow. Most services deploy containers; external services represent software that runs outside Wodby.
+
+## Sharing
+
+The project access list for a resource. Sharing can grant `Read/Use` or `Modify/Delete` access without changing the resource owner.
+
+## Stack
+
+The blueprint from which an app is created.
+
+## Stack draft revision
+
+An unpublished version of stack configuration. Stack edits update the draft until it is either published as a stack
+revision or discarded.
+
+## Stack revision
+
+A published versioned snapshot of the stack configuration. App environments can be upgraded between stack revisions.
+
+## Stack service
+
+A service as included in a stack, tied to a specific service revision plus stack-level configuration such as options, settings, links, integrations, and defaults.
+
+## Team
+
+A reusable group of organization members used to assign project access more efficiently.
+
+## Variable integration
+
+An integration whose main purpose is to inject reusable environment variables into apps or stacks.
+
+## Variable provider
+
+A provider that exposes environment variables instead of, or in addition to, infrastructure actions.
+
+## Wodby Cloud
+
+Wodby's managed Kubernetes offering. Wodby Cloud clusters can be created from the Clusters page or during the new app flow.
+
+## Related pages
+
+- [Get Started](https://wodby.com/docs/2.0/)
+- [Applications overview](https://wodby.com/docs/2.0/apps/)
+- [Clusters overview](https://wodby.com/docs/2.0/clusters/)
+- [Integrations overview](https://wodby.com/docs/2.0/integrations/)

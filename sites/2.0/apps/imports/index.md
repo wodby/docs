@@ -1,0 +1,62 @@
+Source: https://wodby.com/docs/2.0/apps/imports/
+
+# Application imports
+
+If an application's stack includes services that provide [import functionality](https://wodby.com/docs/2.0/services/operations/#imports), you can run imports for the corresponding app service.
+
+There are two main import methods.
+
+The source can be an uploaded archive, a public URL, or a completed backup from a compatible app service. When the
+source app service has a usable backup preset, Wodby can also create a fresh backup to use for the import.
+
+## Importing from another app
+
+A backup-based import must stay within the destination app's [ownership boundary](https://wodby.com/docs/2.0/sharing/#creation-import-and-copy-forms):
+
+- the source and destination apps must belong to the same organization
+- an organization-owned destination can import only from an organization-owned source
+- for a project-owned destination, the source app must be owned by or shared with the destination's owner project, including when the source app is organization-owned
+
+Your access to both apps through separate projects does not combine their resource boundaries. Share the source app
+with the destination project before starting the import. You also need the `Back up`
+[permission](https://wodby.com/docs/2.0/access-control/#environment-permissions) on the source environment, both to use one of its existing
+backups and to create a fresh one.
+
+## 1. Simple files import
+
+Wodby imports files directly into the running volume by unpacking the provided tar archive to the specified path.
+The import replaces the volume's content: files that aren't in the archive are removed.
+
+This method is not transactional.
+
+## 2. Through init volume
+
+Wodby mounts the import archive into the init volume provided by the service, and a container performs the import during startup. This pattern is commonly used for databases.
+
+This method is transactional. Wodby starts a copy of the app service with a new persistent volume. If the import succeeds, Wodby redeploys the service using the new volume that contains the imported data.
+
+For a container-based database service, Wodby provisions the app's database user on the replacement volume and
+reapplies its managed database grants before redeployment. A missing user is created, and an existing user is accepted
+when it already uses the expected credentials. If an uploaded dump creates a same-named user or role with different
+credentials, the import task reports a credential conflict instead of replacing that account. Database dumps intended
+for this workflow should normally contain the application database schema and data, not server-level user or role
+definitions.
+
+## K3s storage capacity preflight
+
+Before an app-service import runs on K3s, its task checks the capacity of the destination volume.
+
+For a transactional init-volume import using the default local-path provisioner, Wodby accounts for the replacement
+data volume and the temporary 10 GiB import volume while the current volume still exists. The import stops before
+creating replacement claims when known available capacity is insufficient or the backing node reports
+`DiskPressure`.
+
+For an in-place files import, the service contract does not declare the incoming archive's expanded size. Wodby still
+checks disk pressure, but reports byte capacity as unverified and continues. The same warning behavior applies when
+Kubernetes volume statistics or a provisioner-specific capacity resolver are unavailable.
+
+When the import source is a pending app-service backup, Wodby checks the destination before creating that backup,
+checks the source backup volume through its own preflight, and checks the destination again before import
+provisioning. Storage operations are serialized for every involved K3s cluster.
+
+External database imports do not use this Kubernetes volume preflight.

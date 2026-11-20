@@ -1,0 +1,243 @@
+Source: https://wodby.com/docs/2.0/stacks/create/
+
+# Create a stack
+
+A stack is the blueprint used to create an app. It selects the [services](https://wodby.com/docs/2.0/services/) an app uses and defines
+the default configuration for those services.
+
+Create or import the services you need before creating a custom stack. See [Create a service](https://wodby.com/docs/2.0/services/create/).
+
+## Choose a creation method
+
+Use the method that matches how you want to manage the stack:
+
+| Method | Use when |
+| --- | --- |
+| Dashboard catalog | You want to copy an existing public Wodby stack and customize it. |
+| Dashboard from scratch | You want to choose services and defaults in the dashboard. |
+| Duplicate stack | You want an independent copy of an existing owned stack. |
+| Dashboard from Git | You maintain `stack.yml` in a Git repository and want Wodby to track that repository. |
+| CLI Git import | You want the same Git-backed stack import from automation or scripts. |
+| Dashboard manifest creation | You have a local `stack.yml` and want to create a non-Git-backed stack. |
+| CLI manifest creation | You want the same non-Git-backed stack creation from automation or scripts. |
+| Helm scaffold | You want to generate a starter service and one-service stack from a simple Helm chart. |
+
+## Start from Wodby repositories
+
+Use Wodby's public repositories as working examples before writing a stack from scratch:
+
+- [`wodby/stack`](https://github.com/wodby/stack) is the boilerplate for a Git-backed stack. It includes a small
+  `stack.yml` with one required nginx service and README guidance for service references, links, and overrides.
+- [`wodby/stacks`](https://github.com/wodby/stacks) is the index of Wodby-managed stacks. It links to the source
+  repository for each public stack.
+
+The boilerplate stack is a working baseline. Replace its metadata and `services[].service` references with the services
+your stack should manage. Keep `services[].name` as the stack-local service name, use `services[].links` to satisfy
+required service links, and use stack-level overrides only for defaults that should apply to apps created from the stack.
+
+## Add a catalog stack
+
+Use a catalog stack when an existing public Wodby stack is close to what you need.
+
+1. Open `Stacks`.
+2. Select a public catalog stack.
+3. Use `Add stack` to copy it into your organization or project.
+4. Review the add form before creating it.
+
+The copied stack can be customized and deployed like any other stack. It keeps an origin, so you can later
+[sync catalog changes](https://wodby.com/docs/2.0/stacks/updates/#sync-with-origin). The add form lets you decide whether `Services auto update` and
+`Auto sync with origin` start enabled.
+
+Some catalog stacks come in variants, such as Matomo, which runs the prebuilt image, and Matomo (buildable), which builds
+Matomo from your own repository. The stack page lists them under `Other variants of this stack`, with a note on when to
+choose each one.
+
+## Create a stack from scratch
+
+Use the dashboard when you want to assemble the stack interactively.
+
+1. Open `Stacks`.
+2. Create a new stack.
+3. Add stack services from available service revisions.
+4. Configure required services, main service, replicas, options, links, volumes, settings, env vars, tokens, configs,
+   Helm values, and resource defaults as needed.
+5. Publish the draft revision.
+
+See [Stack configuration](https://wodby.com/docs/2.0/stacks/configuration/) for the available stack and stack-service settings.
+
+## Duplicate a stack
+
+Use `Duplicate stack` on an owned stack when you need an independent copy.
+
+The duplicate is not linked to the original stack. Later changes to one stack do not change the other. If you duplicate
+a Git-backed stack, the duplicate is created as a regular dashboard-managed stack and does not stay linked to the Git
+repository.
+
+## Create a Git-backed stack
+
+Use Git when you want the stack manifest to remain the source of truth.
+
+The repository must contain a `stack.yml`, or an `index.yml` that lists multiple stack directories:
+
+```
+stacks:
+  - php
+  - node
+
+```
+
+Each listed directory must contain its own `stack.yml`. See the [stack template reference](https://wodby.com/docs/2.0/stacks/template/).
+
+### Dashboard
+
+1. Connect a Git provider integration if the repository is not already available. See [Git provider](https://wodby.com/docs/2.0/providers/git/).
+2. Open `Stacks`.
+3. Select `Import from git`.
+4. Select the organization or project, Git integration, repository, ref type, and ref.
+5. Create the stack.
+
+Git-backed stacks can later be updated from the same repository manually or automatically. See [Stack updates](https://wodby.com/docs/2.0/stacks/updates/).
+
+### CLI
+
+Use `wodby stack import` for a Git-backed stack:
+
+```
+wodby stack import \
+  --org 123 \
+  --integration github-main \
+  --remote-git-repo acme/custom-stacks \
+  --git-ref main \
+  --git-ref-type branch \
+  --wait
+
+```
+
+To create the stack in a project scope, include `--project`:
+
+```
+wodby stack import \
+  --org 123 \
+  --project 456 \
+  --integration github-main \
+  --remote-git-repo acme/custom-stacks \
+  --git-ref v1.0.0 \
+  --git-ref-type tag \
+  --wait
+
+```
+
+See [`wodby stack import`](https://wodby.com/docs/2.0/cli/wodby_stack_import.html) for all flags.
+
+## Create from a local manifest
+
+Use manifest creation when you have a `stack.yml` file and do not need Wodby to track a Git repository.
+
+### Dashboard
+
+1. Open `Stacks`.
+2. Select `New from manifest`.
+3. Select the organization or project that should own the stack.
+4. Paste the manifest YAML, or read it from a local `stack.yml` file.
+5. Enter the stack version.
+6. Create the stack.
+
+If the stack manifest references local files such as stack configs, use the CLI workflow with `--include`.
+
+### CLI
+
+Validate the manifest first:
+
+```
+wodby stack validate-manifest stack.yml --org 123
+
+```
+
+Create the stack:
+
+```
+wodby stack create-from-manifest stack.yml --org 123 --version 1.0.0
+
+```
+
+Create it in a project scope:
+
+```
+wodby stack create-from-manifest stack.yml --org 123 --project 456 --version 1.0.0
+
+```
+
+Use `--include` for referenced files such as stack configs when the manifest points to local files:
+
+```
+wodby stack create-from-manifest stack.yml \
+  --org 123 \
+  --version 1.0.0 \
+  --include configs/php.ini
+
+```
+
+See:
+
+- [`wodby stack validate-manifest`](https://wodby.com/docs/2.0/cli/wodby_stack_validate-manifest.html)
+- [`wodby stack create-from-manifest`](https://wodby.com/docs/2.0/cli/wodby_stack_create-from-manifest.html)
+
+## Create from a Helm scaffold
+
+Use the Helm scaffold workflow when a chart represents one logical service and you want a minimal stack for deploying it.
+The Wodby CLI can generate both a service manifest and a one-service stack manifest:
+
+```
+wodby helm scaffold-stack \
+  oci://registry-1.docker.io/bitnamicharts/memcached \
+  --version 8.6.9 \
+  --service-out service.yml \
+  --stack-out stack.yml
+
+```
+
+If the chart needs non-default values to render the right workload shape, pass them during scaffolding:
+
+```
+wodby helm scaffold-stack \
+  oci://registry-1.docker.io/bitnamicharts/memcached \
+  --version 8.6.9 \
+  --values-yaml values.yml \
+  --service-out service.yml \
+  --stack-out stack.yml
+
+```
+
+Create the generated service first:
+
+```
+wodby service validate-manifest service.yml --org 123
+wodby service create-from-manifest service.yml --org 123 --version 1.0.0
+
+```
+
+Then create the generated stack:
+
+```
+wodby stack validate-manifest stack.yml --org 123
+wodby stack create-from-manifest stack.yml --org 123 --version 1.0.0
+
+```
+
+The generated stack is intentionally minimal. Review stack-service defaults such as options, Helm values, settings,
+volumes, links, env vars, resource limits, and whether the service should be required or main before using it for apps.
+
+For service-level chart inspection and generated `service.yml` details, see
+[Create from a Helm chart](https://wodby.com/docs/2.0/services/create/#create-from-a-helm-chart).
+
+See [`wodby helm scaffold-stack`](https://wodby.com/docs/2.0/cli/wodby_helm_scaffold-stack.html) for all flags.
+
+## After creating the stack
+
+Use the stack to create an app or an app environment.
+
+If you created a dashboard-managed stack, publish the draft before using it in apps. If you imported or created a stack
+from a manifest, Wodby creates a versioned stack revision from that manifest.
+
+When the stack changes later, app environments using older revisions can be upgraded. See [Application stack](https://wodby.com/docs/2.0/apps/stack/)
+and [Stack updates](https://wodby.com/docs/2.0/stacks/updates/).

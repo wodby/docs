@@ -1,0 +1,38 @@
+Source: https://wodby.com/docs/2.0/clusters/scalability/
+
+# Cluster scalability
+
+## Manual scaling
+
+For [managed Kubernetes](https://wodby.com/docs/2.0/clusters/managed/) clusters, you can scale worker capacity manually from
+`Clusters > [Cluster] > Nodes > Operations`.
+
+You can set:
+
+- minimum node count
+- maximum node count
+
+[Amazon EKS](https://wodby.com/docs/2.0/providers/aws/#eks) and [UpCloud](https://wodby.com/docs/2.0/providers/upcloud/#kubernetes) clusters don't add or remove
+nodes automatically, so they have a fixed number of nodes. For these clusters you set one node count when you create
+the cluster and when you scale it.
+
+A [GPU node pool](https://wodby.com/docs/2.0/clusters/gpu/) has its own minimum and maximum node counts, set at `Clusters > [Cluster] > Nodes > Settings`.
+
+Managed Kubernetes clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later.
+They always have one node, and the dashboard does not show scaling controls for them. Create a regular managed
+Kubernetes or Wodby Cloud cluster if you need cluster autoscaling or future node growth. Persistent Wodby Cloud
+clusters are never single-node.
+
+## Autoscaling
+
+Managed Kubernetes providers usually support a cluster autoscaler. You configure the minimum and maximum number of worker nodes, and the autoscaler adds or removes nodes as needed.
+
+In practice, cluster autoscaling reacts more to total scheduled demand than to raw node metrics alone. The key input is the total amount of CPU and memory [requested](https://wodby.com/docs/2.0/apps/scalability/#resources-management) by your workloads compared with the capacity available on worker nodes.
+
+This means app-level pod autoscaling and cluster autoscaling work together:
+
+- pod autoscaling increases replicas based on workload metrics such as average CPU utilization
+- more replicas increase total requested resources
+- if the cluster no longer has enough capacity, the cluster autoscaler adds nodes
+
+Downscaling follows the reverse pattern. When workload demand falls, pod autoscaling reduces replicas. If the remaining requested resources fit on fewer nodes, the cluster autoscaler can remove nodes again.

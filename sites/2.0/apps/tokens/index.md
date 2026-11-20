@@ -1,0 +1,247 @@
+Source: https://wodby.com/docs/2.0/apps/tokens/
+
+# Tokens
+
+Tokens are named text values that can be referenced from environment variables and other generated configuration.
+
+A token can either:
+
+- have a fixed plain value
+- use a regular expression to generate a random secret value when the app environment or app service is created or updated
+
+In an app service, token definitions are composed across several levels. Later levels override earlier ones when they use
+the same token name and the same environment type:
+
+1. service-defined tokens
+2. stack-wide tokens
+3. stack-service tokens
+
+Tokens with different environment types are separate definitions. When a token is resolved at runtime, an
+environment-specific token takes precedence over a token without an environment type.
+
+After tokens are materialized on an app service, the app-service token records are the effective runtime values. During
+a stack upgrade, enabling `Override tokens` recreates those app-service tokens from the latest service and stack
+definitions; leaving it disabled keeps the existing app-service token values. Existing generated values are preserved
+when the latest definition still generates the same token name for the same environment type. This prevents a stack
+upgrade from rotating database passwords and other generated credentials. Rotate such a credential explicitly when a
+new value is required.
+
+## Token names
+
+Token names that start with `wodby_` are reserved for tokens that Wodby provides. You cannot define a token with such a
+name in a service or stack template, or add one to an app service, stack, or stack service. Importing or updating a
+service or stack template also fails when an environment variable references a `wodby_` token that Wodby does not
+provide, so the mistake is reported before deployment.
+
+If a deployment fails with `Unknown wodby token`, rename the token so that it does not start with `wodby_`, and update
+the environment variables that reference it.
+
+## Where tokens are supported
+
+Tokens are commonly supported in:
+
+- environment variable values defined by services, stacks, apps, links, imports, and workloads
+- Helm values such as `helm.values[].value` and other service manifest fields that feed values into a Helm chart
+- config contents when `configs[].processTokens: true` is enabled
+- action arguments, database actions, backup actions, and similar generated runtime configuration
+
+## Secret tokens in environment variables
+
+Generated tokens are always secret. A fixed-value token is secret when its effective service, stack, stack-service, or
+app-service definition marks it as secret.
+
+When an environment variable directly references a named token, Wodby automatically carries that classification into
+the resolved environment variable. The destination becomes secret even when the token is embedded in a larger value,
+and the complete resolved value is stored in a Kubernetes Secret. The environment-variable definition does not need a
+duplicate secret flag.
+
+This propagation is intentionally limited to direct named tokens. References under structured namespaces such as
+`links`, `integrations`, `database`, `certs`, and `keys` still require the destination environment variable to be
+marked secret explicitly. See [Environment variables](https://wodby.com/docs/2.0/apps/environment-variables/#secrets).
+
+## `app`
+
+- `app.id`: application ID, not app environment ID
+- `app.name`: application machine name
+- `app.title`: application title
+
+Legacy `wodby_app_name` still resolves to the same value as `app.name`. Use `app.name` in new templates.
+
+## `instance`
+
+`instance` is the legacy token namespace for an app environment. It remains available for template compatibility.
+
+- `instance.id`: [app environment](https://wodby.com/docs/2.0/apps/environments/) ID
+- `instance.name`: app environment machine name
+- `instance.namespace`: Kubernetes namespace for the app environment
+- `instance.title`: app environment title
+
+## `kubernetes`
+
+- `kubernetes.id`: [Kubernetes cluster](https://wodby.com/docs/2.0/clusters/) ID
+- `kubernetes.externalID`: cluster external ID
+- `kubernetes.name`: cluster machine name
+- `kubernetes.fullName`: cluster full name
+
+## `env`
+
+Use `env.type` for behavior that depends on an environment type. Use `instance` for app environment identity.
+The other `env` tokens remain available for template compatibility.
+
+- `env.id`: [environment](https://wodby.com/docs/2.0/apps/environment-types/) ID
+- `env.name`: environment machine name
+- `env.title`: environment title
+- `env.type`: environment type
+
+## `org`
+
+- `org.id`: organization ID
+
+## `service`
+
+- `service.id`: app-service ID
+- `service.name`: app-service machine name
+- `service.title`: app-service title
+- `service.host`: app-service hostname
+- `service.fqdnPrefix`: generated host prefix used for domains
+- `service.primaryURL`: primary URL for the service, including scheme when a primary domain exists
+- `service.primaryHost`: primary domain name for the service
+- `service.mainPort.number`: port number of the primary port on the primary endpoint
+- `service.mainPort.protocol`: protocol of the primary port on the primary endpoint
+- `service.replicas`: app-service replica count
+- `service.secrets.env`: generated Kubernetes Secret name used for secret environment variables
+
+The `service.secrets.env` Secret holds the service's secret environment variables: those marked `secret: true` and
+those that reference a secret token, such as a generated one. Each variable is a key named after it. A chart that reads
+a password from a named Secret key can use this token as the Secret name: Wodby creates the Secret whenever the
+service has secret variables, even if no container mapping uses it. The next deployment after a secret value changes
+restarts the pods, so a chart that reads the Secret only at startup picks up a rotated password. When a container
+mapping renders the Secret, it holds only the variables of mapped containers, and only their workloads restart.
+
+Each endpoint's primary route is available as `service.endpoints.[endpoint-name].[field]`:
+
+- `primaryHost`: domain name of the endpoint's primary route
+- `primaryURL`: URL of the endpoint's primary route, with `https://` when the route has a certificate and `http://`
+  otherwise
+
+Both are empty while the endpoint has no primary route or its primary route is disabled. Use them for a chart with more
+than one public HTTP endpoint, such as an application with a separate container registry host. When one of these
+values changes, the app environment is marked as `needs redeploy`, as it is for the service's own primary domain.
+
+Named endpoint ports are available as `service.endpoints.[endpoint-name].ports.[port-name].[field]`:
+
+- `number`: manifest-defined internal port number
+- `protocol`: port protocol
+- `publicPort`: assigned public port number, or an empty value while the port is unpublished
+- `effectivePort`: assigned public port number when published, otherwise the manifest-defined internal number
+
+Use `effectivePort` when a chart needs one usable value before and after publication. Publishing or unpublishing a
+port marks the app environment as `needs redeploy` when the service reads that port's `publicPort` or `effectivePort`.
+When a chart renders its Kubernetes Service port from this value, also set the service port's
+[`routeToPublicPort`](https://wodby.com/docs/2.0/services/networking/#dynamic-public-backend-ports) field.
+
+When a Helm value consists of exactly one `number`, `publicPort`, or `effectivePort` token, Wodby passes it to the
+chart as a number, so charts that validate ports as numbers accept it. An unpublished `publicPort` stays an empty string,
+so use `effectivePort` when the chart requires a number. Inside a longer value, such as
+`ssh://git@example.com:{{service.endpoints.ssh.ports.ssh.effectivePort}}`, the token is replaced as text.
+
+Legacy `service.helm.release` is still supported for backward compatibility.
+
+## `helm`
+
+- `helm.release`: resolved Helm release name for the current app service
+
+Use this token when a chart exposes labels, selectors, or values keyed by the Helm release name.
+
+## `stack`
+
+- `stack.id`: stack ID
+- `stack.name`: stack machine name
+- `stack.title`: stack title
+- `stack.version`: stack version
+- `stack.rev.id`: stack revision ID
+- `stack.rev.number`: stack revision number
+
+## `database`
+
+Available when the current app-service context exposes a database.
+
+- `database.host`: database hostname. This is private when accessed through an app service with a private database user, otherwise public
+- `database.port`: database connection port. This is private when available, otherwise public
+- `database.driver`: database driver, based on the database kind
+- `database.url`: connection URL that includes the username and password, such as
+  `postgresql://user:password@host:5432/db`. MariaDB and MySQL use the `mysql` scheme. Mark environment variables that
+  use it `secret: true`
+- `database.jdbcUrl`: JDBC URL for Java applications, such as `jdbc:postgresql://host:5432/db`. It starts with
+  `jdbc:postgresql:`, `jdbc:mariadb:` or `jdbc:mysql:`, matching the database kind, and does not include the username or
+  password: pass `database.user.name` and `database.user.password` separately. Not available for MongoDB. No TLS
+  settings are added; for a MariaDB server that requires TLS, add `sslMode` to the URL in the application
+- `database.ssl`: `true` when Wodby connects to the database server with TLS, otherwise `false`
+- `database.root.name`: database superuser username
+- `database.root.password`: database superuser password
+- `database.user.name`: database username for the current app-service context
+- `database.user.password`: database user password for the current app-service context
+- `database.db.name`: database name for the current app-service context
+- `database.db.charset`: database charset for the current app-service context
+- `database.db.collation`: database collation for the current app-service context
+
+## `links`
+
+Accessed as `links.[name].[token]`.
+
+- `links.[name].host`: linked app-service hostname
+- `links.[name].port`: primary port of the linked app service's primary endpoint
+- `links.[name].service.*`: service token from the linked app service. See [`service`](https://wodby.com/docs/2.0/apps/tokens/#service)
+- `links.[name].instance.*`: app environment token from the linked app service. See [`instance`](https://wodby.com/docs/2.0/apps/tokens/#instance)
+- `links.[name].env.[env-var-name]`: environment-variable value from the linked app service
+- `links.[name].tokens.[token-name]`: token value from the linked app service
+- `links.[name].database.*`: database token from the linked app service. See [`database`](https://wodby.com/docs/2.0/apps/tokens/#database)
+- `links.[name].database.caFile`: path of the linked managed database server's CA certificate, mounted at the link's
+  [`database.ca.filepath`](https://wodby.com/docs/2.0/services/template/#links). Empty when the server has no CA certificate
+- `links.[name].values.[value-name]`: a [link value](https://wodby.com/docs/2.0/services/template/#links): the value a user entered for a
+  custom target, or the value's `from` evaluated against the linked app service. Empty for an optional value that is
+  not set
+- `links.[name].exports.[export-name]`: an [export](https://wodby.com/docs/2.0/services/template/#exports) of the linked app service,
+  evaluated for this app service's location
+
+Inside a link's own `env` and `helm`, `link.*` is short for `links.[that link].*`.
+
+For a link to an app service of another app environment, only `values.*` and `exports.*` resolve. The other tokens are
+empty, so a service shares only what it exports. A link with a custom target has no linked app service: only
+`values.*` resolve.
+
+## `configs`
+
+Accessed as `configs.[name].[token]`.
+
+- `configs.[name].configMap`: generated Kubernetes ConfigMap name for the named config
+
+## `keys`
+
+Available to a service that declares a generated key in its
+[`service.yml`](https://wodby.com/docs/2.0/services/template/#keys). Accessed as `keys.[name].[field]`:
+
+- `keys.[name].privateKey`: PKCS#8 private-key PEM
+- `keys.[name].privateKeyBase64`: base64-encoded PKCS#8 private-key PEM
+- `keys.[name].publicKey`: PKIX public-key PEM
+- `keys.[name].publicKeyBase64`: base64-encoded PKIX public-key PEM
+- `keys.[name].fingerprint`: unpadded base64url-encoded SHA-256 fingerprint of the PKIX public key
+
+The `keys` namespace is available only in the owning app-service context and is not exposed under `links`. Environment
+variables that use a private-key field must be marked `secret: true`.
+
+## `volumes`
+
+Accessed as `volumes.[name].[token]`.
+
+- `volumes.[name].size`: effective volume size in GB
+- `volumes.[name].claim`: generated PVC name for the named volume
+- `volumes.[name].storageClassName`: configured Kubernetes storage class. An unset class resolves as an omitted Helm
+  value so the cluster can apply default storage-class admission.
+
+## `integrations`
+
+Accessed as `integrations.[name].[token]`.
+
+- `integrations.[name].key`: integration key or secret value
+- `integrations.[name].variables.[variable-name]`: exported integration variable by name

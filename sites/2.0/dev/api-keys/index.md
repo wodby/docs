@@ -1,0 +1,60 @@
+Source: https://wodby.com/docs/2.0/dev/api-keys/
+
+# Wodby API keys
+
+Wodby API keys are created from [User settings > API keys](https://wodby.com/docs/2.0/user/api-keys/).
+
+Each key belongs to a single organization and authenticates as the user who created it. In practice, that means:
+
+- the key is scoped to one organization
+- requests made with the key run with that user's permissions inside that organization
+
+Use API keys for external automation against the public REST API. Send the key in the `X-API-KEY` header.
+
+## What you choose when creating a key
+
+- organization
+- description
+- expiration: `No expiration`, `1 month`, `3 months`, or `6 months`
+
+## Important behavior
+
+- The token value is shown only once after creation.
+- The list later shows metadata such as creation time, last use, and expiry, but not the token itself.
+- You can revoke keys at any time from the same user settings page.
+- A key belongs to one organization, so it can't change how your whole account signs in. Changing a password, 2FA,
+  recovery codes, email addresses or linked identities, and deleting your account, are
+  [only available in a signed-in browser session](https://wodby.com/docs/2.0/user/security/#changes-to-how-you-sign-in).
+
+## Typical uses
+
+- authenticating automation against the Wodby API
+- using the [Wodby CLI](https://wodby.com/docs/2.0/dev/cli/)
+- connecting [Wodby MCP](https://wodby.com/docs/2.0/dev/mcp/) clients that use API-key authentication
+- scripting organization-specific operational tasks
+
+## Header example
+
+```
+curl -sS \
+  -H "X-API-KEY: ${WODBY_API_KEY}" \
+  https://api.wodby.com/v1/orgs
+
+```
+
+## Recommended practices
+
+- create separate keys per automation or CI system
+- set an expiration unless the workflow needs a long-lived key
+- store the value in your secrets manager, not in repository files
+- rotate keys instead of reusing one key everywhere
+- revoke keys that are no longer attached to an active workflow
+
+See [User API keys](https://wodby.com/docs/2.0/user/api-keys/) for key management in the dashboard.
+
+## Related pages
+
+- [Wodby API](https://wodby.com/docs/2.0/dev/api/)
+- [Wodby MCP](https://wodby.com/docs/2.0/dev/mcp/)
+- [Wodby CLI](https://wodby.com/docs/2.0/dev/cli/)
+- [User API keys](https://wodby.com/docs/2.0/user/api-keys/)

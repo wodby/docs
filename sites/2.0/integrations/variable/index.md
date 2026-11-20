@@ -1,0 +1,123 @@
+Source: https://wodby.com/docs/2.0/integrations/variable/
+
+# Variable integration
+
+Variable integrations let you manage third-party credentials and configuration as reusable provider-backed environment variables.
+
+They have the same end result as adding environment variables directly to an app service, but they are easier to reuse and maintain because the values are stored once in an integration and then attached where needed.
+
+Machine name: `variable`
+
+Typical use cases include:
+
+- API keys for third-party services
+- DSNs and license keys
+- shared credentials reused across multiple apps
+- stack-level defaults applied to all app environments created from that stack
+
+Variable integrations are a good fit when:
+
+- the same third-party credentials are reused in more than one app or environment
+- you want to centralize sensitive values instead of repeating them in raw env vars
+- you want a provider page to define the expected fields and resulting environment variables
+
+Use plain app-service environment variables instead when a value is one-off and not worth centralizing.
+
+## Where it is used in Wodby
+
+Variable integrations are typically attached to:
+
+- app services that need provider-backed environment variables
+- stacks that should pass shared variables into every app environment created from that stack
+- reusable project-level workflows where the same credentials are needed in multiple places
+
+## Supported providers
+
+### Multi-type providers
+
+- [Amazon Web Services variables](https://wodby.com/docs/2.0/providers/aws/#variables)
+- [Brevo API](https://wodby.com/docs/2.0/providers/brevo/#api-variable)
+- [Cloudflare API](https://wodby.com/docs/2.0/providers/cloudflare/#api)
+- [Cloudflare Turnstile](https://wodby.com/docs/2.0/providers/cloudflare/#turnstile)
+- [Mailgun API](https://wodby.com/docs/2.0/providers/mailgun/#api-variable)
+- [Postmark](https://wodby.com/docs/2.0/providers/postmark/#setup-field)
+- [Resend](https://wodby.com/docs/2.0/providers/resend/#setup-field)
+- [SendGrid](https://wodby.com/docs/2.0/providers/sendgrid/#setup-field)
+
+### Variable-only built-in providers
+
+- [Algolia](https://wodby.com/docs/2.0/providers/algolia/)
+- [Anthropic](https://wodby.com/docs/2.0/providers/anthropic/)
+- [Auth0](https://wodby.com/docs/2.0/providers/auth0/)
+- [Datadog](https://wodby.com/docs/2.0/providers/datadog/)
+- [Discord](https://wodby.com/docs/2.0/providers/discord/)
+- [Gemini](https://wodby.com/docs/2.0/providers/gemini/)
+- [Google Analytics](https://wodby.com/docs/2.0/providers/google-analytics/)
+- [Google Tag Manager](https://wodby.com/docs/2.0/providers/google-tag-manager/)
+- [Intercom](https://wodby.com/docs/2.0/providers/intercom/)
+- [LaunchDarkly](https://wodby.com/docs/2.0/providers/launchdarkly/)
+- [Mailchimp](https://wodby.com/docs/2.0/providers/mailchimp/)
+- [New Relic](https://wodby.com/docs/2.0/providers/newrelic/)
+- [OpenAI](https://wodby.com/docs/2.0/providers/openai/)
+- [OpenCode Zen](https://wodby.com/docs/2.0/providers/opencode/)
+- [PagerDuty](https://wodby.com/docs/2.0/providers/pagerduty/)
+- [PostHog](https://wodby.com/docs/2.0/providers/posthog/)
+- [Pusher](https://wodby.com/docs/2.0/providers/pusher/)
+- [Sentry](https://wodby.com/docs/2.0/providers/sentry/)
+- [Slack](https://wodby.com/docs/2.0/providers/slack/)
+- [Stripe](https://wodby.com/docs/2.0/providers/stripe/)
+- [Telegram](https://wodby.com/docs/2.0/providers/telegram/)
+- [Twilio](https://wodby.com/docs/2.0/providers/twilio/)
+
+## How it works
+
+1. Create or choose a provider.
+2. Create an integration from that provider and fill in its fields.
+3. Attach the integration to an app service or stack.
+4. Wodby injects the provider's environment variables into the container. When the service defines integration
+   environment variables, Wodby injects those instead.
+
+Variable integration env vars are runtime-only. They are not passed to Docker image builds or exported as CI build
+arguments. Use a build-scoped app-service environment variable or service setting when a Dockerfile needs a value
+during build.
+
+## Service-defined environment variables
+
+By default, a variable integration exports matched provider variables under the names defined by the provider. A
+service author can instead declare the provider variables the service needs and define the application-facing runtime
+environment variables that Wodby injects. The service can also inject literal values it owns, such as a driver or mode
+name.
+
+With service-defined environment variables:
+
+- the integration still matches a provider by the declared variable contract rather than a hard-coded provider name
+- only the service-defined environment variables are injected, so extra provider variables are not exposed to the container
+- secret inputs must remain secret outputs
+- an environment variable that directly references a missing optional input is omitted
+- services without an `env` definition retain the default direct-export behavior
+
+See [`integrations` in the service template reference](https://wodby.com/docs/2.0/services/template/#integrations) for the manifest syntax,
+validation rules, and a complete example.
+
+## Built-in vs custom variable providers
+
+Wodby ships a growing set of built-in variable providers such as Sentry, OpenAI, Stripe, Algolia, and others.
+
+If a provider is missing, you can [create a custom variable provider](https://wodby.com/docs/2.0/providers/custom-variable-providers/)
+interactively, from a local manifest, or from a Git repository containing one or several provider manifests. The
+standard
+[environment-variable naming and reserved-name rules](https://wodby.com/docs/2.0/apps/environment-variables/#names-and-reserved-variables)
+apply to service-defined integration environment variables.
+
+Services can declare an exact variable contract instead of naming a particular provider. Wodby then accepts only
+integrations whose selected provider kind supplies the required names, secret classifications, and optionality. This is
+useful for reusable services that need credentials such as `BILLING_API_TOKEN` but should not depend on one globally
+defined provider. See the [`integrations[].variables` service template reference](https://wodby.com/docs/2.0/services/template/#integrations)
+and [matching custom provider requirements](https://wodby.com/docs/2.0/providers/variable/#matching-service-requirements).
+
+## Related pages
+
+- [Integration types](https://wodby.com/docs/2.0/integrations/types/)
+- [Providers overview](https://wodby.com/docs/2.0/providers/)
+- [Provider vs integration](https://wodby.com/docs/2.0/integrations/providers-vs-integrations/)
+- [Environment variables](https://wodby.com/docs/2.0/apps/environment-variables/)

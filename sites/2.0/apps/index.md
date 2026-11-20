@@ -1,0 +1,226 @@
+Source: https://wodby.com/docs/2.0/apps/
+
+# Applications
+
+## Overview
+
+An application in Wodby is built on a [stack](https://wodby.com/docs/2.0/apps/stack/) and can contain multiple [app environments](https://wodby.com/docs/2.0/apps/environments/).
+Each app environment is an isolated deployment with a fixed [environment type](https://wodby.com/docs/2.0/apps/environment-types/), such as `prod`,
+`staging`, or `dev`. Creating a new application automatically creates its first app environment.
+
+- Every app can have an unlimited number of environments but at least one
+- You can deploy as many environments as you want
+- You can deploy environments of the same app across different [Kubernetes clusters](https://wodby.com/docs/2.0/clusters/), including self-hosted K3s clusters on different servers
+- One stack per application
+- Different environments can have different revisions of the same stack
+
+```
+flowchart TD
+    subgraph App2["<div style='margin-top:10px; white-space: nowrap;'>Your app</div>"]
+        subgraph group[ ]
+            Dev["Dev environment"]
+            Staging["Staging environment"]
+            Prod["Production Environment"]
+        end
+        style group fill:none,stroke:none,stroke-width:0px
+    end   
+
+    subgraph Stack["<div style='margin-top:10px; margin-right: 60px; white-space: nowrap;'>App stack</div>"]
+        subgraph group3[ ]
+            Rev1["Revision #1"]
+            Rev2["Revision #2"]
+        end
+        style group3 fill:none,stroke:none,stroke-width:0px            
+    end
+
+    Dev --> Rev1
+    Staging --> Rev2
+    Prod --> Rev2
+```
+
+Use this section to create apps, understand how apps, environments, and app services relate, and deploy the same app across multiple environments.
+
+## Quick model
+
+| Object | What it means |
+| --- | --- |
+| App | The top-level application record |
+| App environment | One deployed copy of that app with an environment type |
+| App service | One service inside one app environment |
+
+See [App vs app environment vs app service](https://wodby.com/docs/2.0/apps/app-vs-environment-vs-service/) for the fuller explanation.
+
+## Creating New Application
+
+There are 6 steps of creating a new application:
+
+### Step 1
+
+- Select the app `Owner`.
+- Choose `Organization <organization>` to create an organization-owned app.
+- Choose `Project <project>` to create a project-owned app.
+- Select a stack
+- In the selected stack you can:
+- select a version (option) of a service
+- enable/disable optional services and change their configuration
+- set the number of [replicas](https://wodby.com/docs/2.0/apps/services/#replicas) for each service. Each service starts with its stack's replica
+  count. Services that don't support horizontal scaling run at most one replica, and a service with autoscaling
+  starts with autoscaling's minimum replicas
+- configure resources request and limitation
+- configure autoscaling for scalable services
+- use the icons in the `TOTAL` row to reset all services to the stack's defaults, including replicas, or
+  [clear their resources](https://wodby.com/docs/2.0/apps/scalability/#clearing-resources-when-creating-an-app)
+- The `TOTAL` row adds up the requests and limits of all enabled services: every container each service runs, times
+  its replicas. In step 2, Wodby [compares these requests](https://wodby.com/docs/2.0/apps/scalability/#cluster-capacity) with what the selected
+  cluster can offer
+
+### Step 2
+
+Select where you want to run the first environment of your application. The form offers two destinations:
+
+1. **My clusters**
+2. Choose one of your existing clusters
+3. This can be a managed Kubernetes cluster created from a cloud [integration](https://wodby.com/docs/2.0/integrations/)
+4. It can also be a self-hosted [K3s](https://wodby.com/docs/2.0/clusters/k3s/) cluster connected from *Clusters > Connect server*
+5. **Wodby Cloud**
+6. Wodby creates and manages a new cluster for this application
+7. For persistent Wodby Cloud clusters you choose region, CPU type, machine type, and minimum and maximum node counts
+8. Persistent Wodby Cloud clusters require a paid plan
+9. For testing, enable `Demo` to create a free temporary single-node Wodby Cloud cluster that is deleted automatically after 24 hours together with its applications
+
+If you choose an existing cluster, Wodby checks that the environment fits on it. If it can't fit, you can't continue
+until you lower its resources in Step 1 or choose a larger cluster. See [Cluster capacity](https://wodby.com/docs/2.0/apps/scalability/#cluster-capacity).
+
+You can also create a Wodby Cloud cluster before creating an app from `Clusters > New Wodby Cloud cluster`.
+
+### Step 3
+
+- Enter the name of your application and your environment. Application and environment names are used to generate machine names. Machine names are permanent and cannot be changed
+- Application and environment machine names must follow the [general Kubernetes name rules](https://wodby.com/docs/2.0/naming/#general-kubernetes-names)
+- The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter, unique in the cluster and not reserved. See [App environment namespaces](https://wodby.com/docs/2.0/naming/#app-environment-namespaces)
+- Select the [environment type](https://wodby.com/docs/2.0/apps/environment-types/) (*Development* by default)
+- Optionally, edit the root domain. By default it is `*.[environment-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](https://wodby.com/docs/2.0/apps/) for services that expose public HTTP ports; ports marked `private` do not receive technical domains
+
+### Step 4
+
+Configure settings that apply to the whole app environment:
+
+- Choose the deployment mode: CI/CD or development workspace.
+- Choose whether to enable stack auto-upgrades.
+- Choose Public or Protected [Private App Access](https://wodby.com/docs/2.0/apps/access/).
+- Select the default CI system and container registry when the app has an enabled service with a build source.
+- Choose whether to create [preview environments](https://wodby.com/docs/2.0/apps/preview-environments/) for pull requests.
+
+When adding another environment to an existing app, use `Copy configuration from` to prefill compatible app and service
+fields from another environment. See
+[Copying configuration to a new environment](https://wodby.com/docs/2.0/apps/environments/#copying-configuration-to-a-new-environment) for what is copied and
+the database-sharing behavior to review.
+
+#### Deployment mode
+
+Choose **CI/CD** to build and deploy the app through a CI pipeline. This is the right mode for production. Choose
+**Development workspace** to connect your editor or coding agent over SSH and preview changes live. You cannot change the mode after creating the environment. If **Development workspace** is unavailable, hover
+over it to see why. See [Development workspaces](https://wodby.com/docs/2.0/apps/workspaces/).
+
+#### Auto-upgrades
+
+Stack auto-upgrades default to enabled for development, staging, test, and feature environments and disabled for
+production environments. You can override the suggested value before creating the app.
+
+#### Access
+
+`Public` is the default and uses ordinary Wodby routes. `Protected` publishes the app through an
+[Private App Access provider](https://wodby.com/docs/2.0/providers/access/), such as Cloudflare or Tailscale. Select whether the provider
+uses protected publishing or private-network routing when it offers both, choose whether it covers the entire app or
+selected endpoints, then complete its provider-specific settings. Some stacks require
+Protected access.
+
+See [Private App Access](https://wodby.com/docs/2.0/apps/access/) for route behavior, primary hostnames, and provider requirements.
+
+#### CI/CD
+
+The Default CI and registry settings remain visible at the bottom of the step. They are enabled when the app has at
+least one enabled service with a build source and disabled otherwise.
+
+Choose your [Default CI](https://wodby.com/docs/2.0/cicd/) and [container registry](https://wodby.com/docs/2.0/cicd/). The form starts with the
+[organization's configured defaults](https://wodby.com/docs/2.0/org/#settings); if the organization has not selected external integrations,
+it uses Wodby CI and Wodby Registry. You can override either choice for the new app environment without changing the
+organization defaults or existing environments. Connected build sources inherit Default CI. Public and cloned
+boilerplate sources use Wodby CI regardless of this selection.
+
+#### Preview environments
+
+Set `Pull request previews` to `Enabled` to create a temporary environment for every pull request opened against the
+Git branch of the environment you are creating. The option is available when a service has a build source and the
+deployment mode is CI/CD, and it is disabled by default. Which services are seeded with data is configured later under
+`Apps > [App] > Settings > Preview environments`. See [Preview environments](https://wodby.com/docs/2.0/apps/preview-environments/).
+
+### Step 5
+
+Configure individual app services. Sections only appear when the selected stack provides the corresponding capability.
+
+#### Build sources
+
+For services that support a build source, select how the source will be provided. A connected source inherits the app
+environment's Default CI. With third-party Default CI it can be external, with builds created from
+`WODBY_APP_SERVICE_ID` and the provider checkout. With Wodby CI it must identify the Git repository and ref containing
+the application code and pipeline manifests.
+
+Services often provide a public build boilerplate that you can use directly. With [GitHub](https://wodby.com/docs/2.0/providers/github/) and
+[GitLab](https://wodby.com/docs/2.0/providers/gitlab/), Wodby can also create a new repository and import the boilerplate contents into it.
+For [Bitbucket](https://wodby.com/docs/2.0/providers/bitbucket/), create an empty repository first, and Wodby imports the boilerplate contents
+into it. Public and cloned boilerplates always use Wodby CI, so these choices remain available when Default CI
+is a third-party integration.
+
+In a development workspace, this section is called **Development workspace**. It offers only **Clone boilerplate** and
+**Use my repository**, and shows the generated working branch. See
+[Create a workspace](https://wodby.com/docs/2.0/apps/workspaces/#create-a-workspace).
+
+#### Settings
+
+Configure [settings](https://wodby.com/docs/2.0/services/configuration/#settings) for services that provide them.
+
+#### Volumes
+
+Specify sizes and, when supported by the service revision, select a
+[storage class](https://wodby.com/docs/2.0/apps/storage/#choose-a-storage-class) for each persistent volume. The selector lists classes from the
+chosen destination cluster, shows their provisioners, and marks and preselects the sole cluster default. Some services,
+such as Redis, may provide optional volumes. For those, specifying size `0` means no persistent storage will be created.
+The omitted volume remains available on the app service's `Volumes` tab and can be added later when persistent storage
+is needed. Leaving an optional volume omitted is a valid configuration and does not produce a warning.
+
+In a development workspace, the **Workspace** group sets the sizes of the code checkout and the agent home.
+
+When a service-owned volume cannot apply an explicit class, the dashboard shows the safe cluster default in the same
+selector but disables the control. A shared volume instead shows its linked storage service in a disabled selector; use
+that linked service's own volume settings to choose the underlying storage class.
+
+The storage-class choice applies when the volume is created. Existing bound volumes cannot be moved to another class
+by editing the app. After creation, the app service's `Volumes` tab shows the
+[configured and effective classes](https://wodby.com/docs/2.0/apps/storage/#current-storage-class).
+
+#### Integrations
+
+Select [integrations](https://wodby.com/docs/2.0/integrations/). If a service does not provide a dedicated integration, you can still attach a [*variable*](https://wodby.com/docs/2.0/integrations/variable/) integration to a non-external service.
+
+#### Databases
+
+For internal database services, Wodby creates a new database server. For external cloud-database services, select the existing managed database server that the service should use.
+
+#### Imports
+
+Specify imports. For services that provide import functionality, such as database services, you can upload an archive or specify a public URL to import from.
+
+### Step 6
+
+Review your application configuration and click *Create new app*.
+
+## Related pages
+
+- [App vs app environment vs app service](https://wodby.com/docs/2.0/apps/app-vs-environment-vs-service/)
+- [Environments](https://wodby.com/docs/2.0/apps/environments/)
+- [App environment cluster migration](https://wodby.com/docs/2.0/apps/migration/)
+- [Maintenance mode](https://wodby.com/docs/2.0/apps/maintenance/)
+- [Private App Access](https://wodby.com/docs/2.0/apps/access/)
+- [App services](https://wodby.com/docs/2.0/apps/services/)
+- [Web terminal](https://wodby.com/docs/2.0/apps/web-terminal/)

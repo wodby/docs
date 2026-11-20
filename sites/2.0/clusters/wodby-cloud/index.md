@@ -1,0 +1,84 @@
+Source: https://wodby.com/docs/2.0/clusters/wodby-cloud/
+
+# Wodby Cloud
+
+If you do not want to bring your own cloud account or server, you can use Wodby Cloud.
+
+Wodby Cloud is Wodby's managed Kubernetes infrastructure. Wodby creates and operates the cluster for you.
+
+## Creating a Wodby Cloud cluster
+
+You can create a Wodby Cloud cluster directly from the Clusters page, or as part of the new application flow.
+
+### From the Clusters page
+
+Use this flow when you want to provision a cluster before creating an application:
+
+1. Open `Clusters`
+2. Click `New Wodby Cloud cluster`
+3. Select the cluster `Owner`. Choose `Organization <organization>` for an organization-owned cluster or `Project <project>` for a project-owned cluster
+4. Either enable `Demo` or configure a persistent cluster
+5. Create the cluster
+
+The cluster is created immediately in Wodby, then provisioning continues in a background task. You can follow progress from the cluster page and its `Tasks` tab.
+
+### From the new application flow
+
+Use this flow when you want Wodby to create a cluster and deploy the first application to it:
+
+1. Start creating a new application
+2. In Step 2 choose `Wodby Cloud`
+3. Either enable `Demo` or configure a persistent cluster
+4. Complete the app creation flow
+
+Wodby creates the cluster and deploys the application to it.
+
+## Automatic infrastructure upgrades
+
+Wodby Cloud clusters have automatic infrastructure upgrades enabled by default, and the setting cannot be turned off.
+Wodby uses this to keep the cluster infrastructure and infrastructure apps current. In the dashboard, the settings are
+shown under `Clusters > [Cluster] > Infrastructure > Updates` as managed by Wodby.
+
+Automatic upgrades for Wodby Cloud allow patch and minor updates by default. Major automatic upgrades are not allowed.
+
+See [Kubernetes cluster updates](https://wodby.com/docs/2.0/clusters/updates/#automatic-infrastructure-upgrades) for details.
+
+## Persistent Wodby Cloud clusters
+
+Persistent Wodby Cloud clusters require a paid subscription.
+
+When creating one, you choose:
+
+- region
+- CPU type
+- machine type
+- minimum and maximum number of nodes
+
+Every persistent Wodby Cloud cluster has a load balancer and scales between its minimum and maximum number of nodes.
+A minimum of one node is allowed, but the cluster is then not highly available. You can change the node counts later;
+see [Cluster scalability](https://wodby.com/docs/2.0/clusters/scalability/).
+
+## Demo
+
+Demo is the temporary Wodby Cloud mode for testing.
+
+- free of charge
+- created as a single-node cluster
+- created from `Clusters > New Wodby Cloud cluster` or from the same Step 2 application flow
+- automatically deleted after 24 hours; applications deployed to the demo cluster are deleted with it
+
+## Billing
+
+Wodby Cloud is billed in dollars as Wodby Cloud usage. See the live pricing page for current rates:
+<https://wodby.com/pricing>
+
+Compute usage is driven by:
+
+- selected cluster machine type
+- node count
+- cluster fee, charged for every persistent cluster
+- provisioned persistent storage for apps deployed to the cluster
+
+Wodby Cloud is available in two regions: US and EU.
+
+Paid plans don't include Wodby Cloud usage. All of it is billed.

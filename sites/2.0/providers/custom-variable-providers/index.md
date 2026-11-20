@@ -1,0 +1,259 @@
+Source: https://wodby.com/docs/2.0/providers/custom-variable-providers/
+
+# Custom variable providers
+
+Custom variable providers define reusable environment-variable contracts for services that Wodby does not provide in
+the built-in catalog. After creating a provider, create one or more integrations from it, enter the integration values,
+and attach those integrations to app services or stacks.
+
+Custom providers support the `variable` integration type only. They cannot define OAuth flows, account scopes,
+permission audits, or infrastructure resources.
+
+## Choose a creation method
+
+| Method | Use when |
+| --- | --- |
+| New variable provider | You want to define a small set of environment variables in the dashboard. |
+| New from manifest | You have a local `provider.yml` and do not need Wodby to track a Git repository. |
+| Import from git | You want Git to remain the source of truth, use automatic updates, or keep several providers in one repository. |
+
+All three methods let you select organization or project ownership. An organization-owned provider can be shared with
+projects in the same organization from its `Ownership` tab.
+
+## Names and namespaces
+
+The manifest `name` is a local slug such as `payments`. Wodby namespaces custom provider machine names with the owning
+organization, producing a full name such as `acme/payments`. This lets different organizations use the same local slug
+without colliding.
+
+Use the full namespaced name when a workflow asks for the provider machine name. The manifest itself keeps the local
+slug. Existing custom providers also appear under their organization namespace.
+
+## Create a variable provider in the dashboard
+
+Use quick create when you do not need to write a manifest first:
+
+1. Open `Providers`.
+2. Select `New variable provider`.
+3. Select the owner and enter the provider name and title.
+4. Add the fields and environment-variable names that integrations should expose.
+5. Create the provider.
+
+Open the created provider to review its generated manifest. Later updates use the same revision workflow as providers
+created from a local manifest.
+
+## Create from a manifest
+
+1. Open `Providers`.
+2. Select `New from manifest`.
+3. Select the organization or project that should own the provider.
+4. Paste the YAML manifest, or read it from a local `.yml` or `.yaml` file.
+5. Create the provider.
+
+A minimal manifest looks like this:
+
+```
+name: acme-api
+title: Acme API
+icon: variable
+
+kinds:
+  - name: credentials
+    title: Acme API credentials
+    type: variable
+    fields:
+      - type: secret
+        name: api_token
+        label: API token
+        variable: ACME_API_TOKEN
+      - type: select
+        name: region
+        label: Region
+        variable: ACME_REGION
+        optional: true
+        options:
+          - us
+          - eu
+
+```
+
+### Manifest fields
+
+The top-level manifest supports:
+
+| Field | Required | Description |
+| --- | --- | --- |
+| `name` | Yes | Local machine-name slug using lowercase letters, numbers, and hyphens. |
+| `title` | Yes | Display name shown in the dashboard. |
+| `icon` | Yes | Provider icon identifier. Use `variable` for the generic variable-provider icon. |
+| `instructions` | No | Setup guidance shown when users configure an integration. See [Instructions](https://wodby.com/docs/2.0/providers/custom-variable-providers/#instructions). |
+| `fields` | No | Fields shared by every kind in the provider. |
+| `kinds` | Yes | One or more variable integration kinds. |
+
+Each kind requires `name`, `title`, and `type: variable`. A kind can also define its own `fields`, searchable `labels`,
+and named `options` with optional version lists.
+
+Each field requires:
+
+- `type`: `text`, `secret`, `textarea_upload`, or `select`
+- `name`: a unique lowercase field name
+- `label`: the user-facing label
+- `variable`: the environment variable exposed by the integration
+
+Optional field properties include `description`, `optional`, `regex`, `editable`, and `requireSecretsOnChange`. A
+`select` field must provide a non-empty `options` list. A `textarea_upload` field can use `accept` to limit the files
+offered by the file picker.
+
+Set `requireSecretsOnChange: true` on a field that decides where a saved secret is sent, such as a host, base URL,
+domain, or site. Changing that field then requires entering the saved secrets again, so an edit can't send them to
+another server. You don't need it when your manifest's validation fixes the address, or when the provider has no
+secret.
+
+Field names and environment-variable names must be unique across the complete manifest. At least one field must be
+defined, either at provider or kind level. The standard
+[environment-variable naming and reserved-name rules](https://wodby.com/docs/2.0/apps/environment-variables/#names-and-reserved-variables)
+apply. Each manifest is limited to 1 MiB.
+
+Unknown manifest properties, duplicate YAML keys, and YAML aliases are rejected. This keeps the stored manifest
+unambiguous and prevents unsupported provider capabilities from being enabled accidentally.
+
+Custom provider manifests do not use a top-level `version`; Wodby records their history with provider revision
+numbers. Legacy custom manifests that still contain a semantic `version` remain importable during the transition, but
+Wodby ignores and removes that field from the stored manifest.
+
+### Instructions
+
+`instructions` is shown under `Setup instructions` when someone creates or edits an integration from the provider. It
+can be plain text or use formatting markup:
+
+```
+instructions: |
+  <ol>
+    <li>Open <a href="https://example.com/settings/tokens">API tokens</a> and create a token.</li>
+    <li>Give the token the <Text code>read</Text> scope.</li>
+    <li>Paste this policy into the token settings:<CopyableCode text={`{"access": "read"}`} /></li>
+  </ol>
+
+```
+
+Supported markup:
+
+| Markup | Use |
+| --- | --- |
+| `p`, `div`, `span`, `br`, `hr`, `h1` to `h6` | Paragraphs, line breaks and headings. |
+| `ul`, `ol`, `li` | Lists. `ol` accepts `start`. |
+| `b`, `strong`, `i`, `em`, `u`, `small`, `sub`, `sup`, `code`, `pre` | Text formatting. |
+| `table`, `thead`, `tbody`, `tr`, `th`, `td` | Tables. Cells accept `colSpan` and `rowSpan`. |
+| `a` | A link. `href` must start with `http://`, `https://` or `mailto:`. Links open in a new tab. |
+| `Text` | Styled text: `<Text code>`, `<Text strong>`, `<Text italic>`, `<Text underline>`, `<Text mark>`, `<Text keyboard>`. |
+| `CopyableCode` | A code block with a copy button: `` <CopyableCode text={`...`} /> ``. |
+
+Any other tag or attribute is left out of the page, including images, embedded pages, forms, scripts, styles and class
+names. A link with any other kind of address is shown as plain text.
+
+## Import from git
+
+Connect a [Git provider integration](https://wodby.com/docs/2.0/providers/git/) before importing a provider from a repository.
+
+For one provider, place `provider.yml` at the repository root. For several providers, place `index.yml` at the root and
+list the relative directory for each provider:
+
+```
+providers:
+  - providers/acme-api
+  - providers/monitoring
+
+```
+
+The corresponding repository layout is:
+
+```
+index.yml
+providers/
+  acme-api/
+    provider.yml
+  monitoring/
+    provider.yml
+
+```
+
+An index can contain up to 100 providers. Paths must be unique, relative to the repository root, and must not traverse
+outside the repository.
+
+To import:
+
+1. Open `Providers`.
+2. Select `Import from git`.
+3. Select the owner, Git integration, repository, ref type, and branch or tag.
+4. Configure automatic update settings if required.
+5. Select `Import` and review the task log.
+
+Wodby imports every new provider listed by the repository. A provider whose namespaced machine name already exists is
+skipped and reported in the import task.
+
+## Update a provider
+
+Provider content changes create a new revision. Open the provider's `Manifest` tab to see the current source and
+revision number, and use `Tasks` to review import and update logs. Reapplying identical manifest content does not create
+a duplicate revision.
+
+### Update from a local manifest
+
+For a provider created without Git, open `Edit`, update or upload the manifest under `Manual update from manifest`, and
+select `Update`.
+
+### Update from Git
+
+For a Git-backed provider, open `Operations`, select the branch or tag under `Manual update from Git`, and select
+`Update`.
+
+If the repository is also used by other providers, services, or stacks, the form shows those usages. Changing the
+tracked ref can update all resources using that repository together. When changing the ref, select the option to update
+all shared usages so they remain aligned. The tracked ref and Git auto-update settings belong to the repository
+connection, so changing them from one resource also changes them for the other resources that share it.
+
+### Revision and compatibility rules
+
+- Keep the manifest `name` unchanged.
+- Every valid content change creates a new provider revision, including credential-contract changes.
+- New integrations use the current provider revision.
+- Existing integrations remain pinned to the revision they were configured against and are marked **Outdated** when a
+  newer revision exists.
+- Compatible integrations can be updated explicitly from the integration detail page.
+- Incompatible integrations continue using their pinned revision until a migration or replacement path is available.
+
+Before updating an integration, Wodby checks its selected kinds, authentication, scope, stored fields, environment
+variables, secret storage, and validation against the current provider revision. Removing a stored field, adding a
+required field without a value, or changing a field's type or variable mapping can require migration. See
+[Integration provider updates](https://wodby.com/docs/2.0/integrations/updates/) for the full workflow.
+
+## Automatic updates from Git
+
+Git-backed providers can update when a supported Git integration receives a matching push event:
+
+- a tracked branch updates when that same branch receives a push
+- a tracked semantic-version Git tag can follow newer tags, limited to patch, minor, or major changes
+- commit-pinned sources cannot use automatic updates
+
+Configure this under `Operations > Git auto update settings`. Tag matching applies to Git refs and is independent of
+the provider manifest revision. Automatic updates use the same manifest validation rules as manual updates. A valid
+change publishes a new provider revision and leaves existing integrations pinned. A rejected manifest update leaves the
+current provider revision active; open the provider's `Tasks` tab to review the error.
+
+## Sharing and deletion
+
+Use the provider's `Ownership` tab to make it available to additional projects in the same organization. Sharing a
+provider does not copy integration credentials; integrations created from it keep their own ownership and sharing
+settings.
+
+A provider cannot be deleted while integrations still use it. For Git-backed providers, deleting one provider does not
+disconnect a repository that is still used by another provider, service, or stack.
+
+## Related pages
+
+- [Variable providers](https://wodby.com/docs/2.0/providers/variable/)
+- [Variable integrations](https://wodby.com/docs/2.0/integrations/variable/)
+- [Integration provider updates](https://wodby.com/docs/2.0/integrations/updates/)
+- [Provider vs integration](https://wodby.com/docs/2.0/integrations/providers-vs-integrations/)
+- [Git providers](https://wodby.com/docs/2.0/providers/git/)
+- [Sharing](https://wodby.com/docs/2.0/sharing/)

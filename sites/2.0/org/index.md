@@ -1,0 +1,184 @@
+Source: https://wodby.com/docs/2.0/org/
+
+# Organization
+
+## Overview
+
+An organization is the top-level scope for your users, teams, projects, shared defaults, and billing.
+
+Day-to-day resources such as apps, Kubernetes clusters, databases, integrations, services, and providers are used through [projects](https://wodby.com/docs/2.0/projects/), while organization-level pages are used to manage the overall workspace.
+
+An organization has a title, a machine name, and a default time zone. The machine name cannot be changed and may contain only lowercase letters `a-z`, numbers `0-9`, and a hyphen. It is used in technical domains for your app environments and Kubernetes clusters, and in the repository namespace of Wodby Registry.
+
+When an organization is created, the dashboard preselects the creator's browser time zone and lets them change it before
+creation. If browser time zone detection is unavailable, Wodby uses `UTC`. The default supplies the time zone for new
+[automation time windows](https://wodby.com/docs/2.0/automation-time-windows/); changing it does not alter windows already stored on resources.
+
+### Roles
+
+Organization members have one of the following roles:
+
+- **Owners** have full access to all resources and billing
+- **Admins** have full access to all resources and can view, but not manage, billing
+- **Members** have access to resources in projects they are added to directly or through teams
+
+In the dashboard, organization-level administration is handled by owners and admins. Members typically work from project-scoped areas such as apps, clusters, databases, integrations, stacks, services, providers, and tasks.
+
+## Invitation
+
+You can invite users by email whether they already have a Wodby account or not. An invitation sets the email address
+and the [organization role](https://wodby.com/docs/2.0/org/#roles). The invitation link is valid for 3 days. If the invited person does not have an
+account yet, they are prompted to create one after opening the link.
+
+Give the new member access to teams and projects from their page, `Organization > Members > [Member]`. Teams can be
+set right away; project access can be added once the invitation is accepted.
+
+## Organization navigation
+
+The organization area in the dashboard includes these sections:
+
+- `Members` to invite users, review membership status, manage organization roles, and see or change each member's
+  projects and teams
+- `Projects` to create projects, review project resources, and manage project access
+- `Project roles` to review the system project roles and manage your organization's custom roles
+- `Teams` to group users and reuse project access assignments
+- `Backups` to create organization-wide backup presets reused in app and database backup flows
+- `Certificates` to review issued certificates used by application routes and supported database resources
+- `SSO` to configure organization-level Single Sign-On providers
+- `Billing` for subscription and plan-related operations
+- `Settings` to manage organization-wide defaults
+- `Edit` to review and edit the organization record or delete the organization
+
+## Members
+
+`Organization > Members` is where you manage organization membership.
+
+- invite users by email
+- review invitation and join status
+- change organization roles
+- see each member's project access, direct or through teams, and change their direct project roles
+- add members to teams, change their team roles, or remove them from teams
+- remove members when needed
+
+See [Access control](https://wodby.com/docs/2.0/access-control/) for how organization roles interact with project access.
+
+## Projects and teams
+
+Projects and teams are the main access-management tools inside an organization.
+
+- [Projects](https://wodby.com/docs/2.0/projects/) define resource boundaries
+- [Teams](https://wodby.com/docs/2.0/teams/) help you assign access repeatedly
+- [Access control](https://wodby.com/docs/2.0/access-control/) explains how roles are evaluated
+- [Sharing](https://wodby.com/docs/2.0/sharing/) explains how resources can cross project boundaries safely
+
+## Billing
+
+Billing is managed at the organization level.
+
+See [Billing](https://wodby.com/docs/2.0/pricing/) for the current plan model and Wodby Cloud billing notes.
+
+## Settings
+
+`Organization > Settings` holds organization-wide settings in four tabs:
+
+- **General**: the default time zone, the default CI provider and the default container registry
+- **Builds**: the default build-image retention period
+- **Protection**: organization-wide termination protection
+- **Resource presets**: Wodby's and your organization's [resource presets](https://wodby.com/docs/2.0/apps/scalability/#resource-presets)
+
+Every member can open **Resource presets**. The other tabs are available to members who can view the whole
+organization.
+
+The CI and registry selectors include Wodby's built-in services and available organization-owned integrations of the
+corresponding type. Project-owned integrations cannot be used as organization defaults because they may not be
+available to apps in other projects.
+
+The selected CI and registry initialize new apps and new app environments. Each app environment stores CI as its Default CI
+for connected build sources and stores the registry as its environment-wide selection. Changing an organization default
+does not change existing app environments or historical builds. Public and cloned boilerplate sources use Wodby CI regardless
+of Default CI. The selections are retained when an app environment has no enabled service with build configuration, allowing
+a buildable service to be enabled or added later without changing the intended providers.
+
+Choose `Wodby CI` or `Wodby Container Registry (US)` to use the corresponding built-in service as the organization default.
+
+### Build image retention
+
+In the **Builds** tab, use **Auto-void images of unused builds for all apps older than** to
+set the default retention period for app environments. Choose **Never**, **1 month**, **3 months**, **6 months**, or
+**1 year**. The default is **Never**, which disables automatic cleanup.
+
+Saving a different organization value updates existing app environments only when their current retention period
+matches the organization's previous value. An app environment with another value is treated as an override and remains
+unchanged. New app environments inherit the organization's current value.
+
+To set an override for one app environment, open `CI/CD > Builds > Settings` in that environment. See
+[Application Builds](https://wodby.com/docs/2.0/apps/builds/) for cleanup timing, image eligibility, deployment safeguards, and registry scope.
+
+### Termination protection
+
+Termination protection adds an organization-wide safeguard against destructive operations. It applies after the usual
+access and dependency checks, so disabling it does not grant anyone permission to delete resources. Change it in the
+**Protection** tab.
+
+Only an organization owner using an interactive session can change the setting. Enabling or strengthening protection
+takes effect without additional security confirmation. Weakening or disabling protection requires recent
+authentication; depending on the account, Wodby asks for a password, an authenticator or recovery code, or a code sent
+to the verified primary email address. A successful login or confirmation remains recent for 5 minutes. API keys and
+other non-interactive credentials cannot change the setting. Wodby sends the organization's owners a security
+notification after it changes.
+
+| Mode | Apps and clusters | Databases | Integrations, services, stacks, and providers |
+| --- | --- | --- | --- |
+| `Disabled` | No additional deletion blocks | No additional deletion blocks | No additional deletion blocks |
+| `Production` | Blocks deleting a non-infrastructure app environment with the `prod` type. It also blocks deleting an app when that operation would delete such an environment. A cluster is protected when its own type is `prod` or when it hosts a non-infrastructure `prod` app environment. | Blocks deleting a database server with the `prod` type or an individual DB inside it. | Blocks deleting an integration when its primary environment type is `prod`. Integrations with another or no primary type, plus services, stacks, and providers, remain deletable. |
+| `All` | Blocks deleting every cluster and every non-infrastructure app environment. It also blocks deleting an app when that operation would delete one or more such environments. | Blocks deleting every database server and every individual DB. | Blocks deleting integrations, services, stacks, and providers. |
+
+The `Production` mode uses the resource's environment type, not its display name. Environment types are fixed and a
+resource cannot be reclassified as a way to bypass a protected deletion.
+
+For clusters, the selected environment type is also its visual classification. Existing production workloads remain
+an independent protection signal, so changing the cluster away from `prod` does not make it deletable while it still
+hosts a non-infrastructure `prod` app environment.
+
+For integrations, the primary environment type is a descriptive classification and determines the integration's
+current `Production` protection.
+
+Protection applies to deletion requests from both the dashboard and API, and a force-delete option does not bypass it.
+It also applies when another operation would delete a protected resource, such as a stack upgrade that removes an
+app-owned database. Deletion workflows that already started before protection was enabled can finish.
+
+Demo clusters and preview environments still expire
+
+Temporary Wodby Cloud demo clusters are deleted automatically after 24 hours, together with their applications,
+even when termination protection is set to `All`. Automatic deletion of
+[preview environments](https://wodby.com/docs/2.0/apps/preview-environments/) after their pull request closes or goes idle is not blocked
+either.
+
+## Editing the organization
+
+`Organization > Edit` manages the organization record itself.
+
+From there you can:
+
+- review the organization ID
+- review join date
+- review the machine name
+- change the organization title
+- delete the organization
+
+## Single Sign-On
+
+Organization owners can configure Single Sign-On providers for the organization, and admins can view them. Enabling providers and
+signing in with organization SSO require an active paid subscription.
+
+SSO lets users sign in through your identity provider, such as Okta, Microsoft Entra ID, Google Workspace, GitHub, Auth0, ZITADEL, Keycloak, or a SAML identity provider. It is currently an additional sign-in option and does not disable existing sign-in methods or API keys.
+
+See [Single Sign-On](https://wodby.com/docs/2.0/sso/) for setup, domain verification, and login behavior.
+
+## Related pages
+
+- [Projects](https://wodby.com/docs/2.0/projects/)
+- [Teams](https://wodby.com/docs/2.0/teams/)
+- [Access control](https://wodby.com/docs/2.0/access-control/)
+- [Single Sign-On](https://wodby.com/docs/2.0/sso/)
+- [Billing](https://wodby.com/docs/2.0/pricing/)

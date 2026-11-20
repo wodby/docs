@@ -1,0 +1,24 @@
+Source: https://wodby.com/docs/2.0/user/identities/
+
+# Identities
+
+The `Identities` page lists external sign-in providers linked to your Wodby user.
+
+The dashboard can show linked identities such as:
+
+- Google
+- GitHub
+- organization SSO providers
+
+For each linked identity, Wodby shows the associated email address and lets you unlink that identity. Unlinking may ask
+you to [confirm it's you](https://wodby.com/docs/2.0/user/security/#changes-to-how-you-sign-in).
+
+Organization SSO identities are created when you sign in through an organization's configured SSO provider.
+
+Google Workspace SSO and GitHub Organization SSO identities are separate from personal Google and GitHub sign-in identities. Signing in through organization SSO does not automatically link the regular Google or GitHub sign-in method to your Wodby user.
+
+## Related pages
+
+- [User settings](https://wodby.com/docs/2.0/user/)
+- [Emails](https://wodby.com/docs/2.0/user/emails/)
+- [Single Sign-On](https://wodby.com/docs/2.0/sso/)

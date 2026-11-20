@@ -1,0 +1,72 @@
+Source: https://wodby.com/docs/2.0/providers/gcp/
+
+# Google Cloud Platform provider
+
+## Auth
+
+We support two methods of authenticating your GCP account:
+
+### 1. OAuth2
+
+This is the simplest method. After creating the integration and passing through the OAuth2 authentication flow you will be asked to select an appropriate GCP project. All resources we create will be created under the selected project.
+
+The selected project ID is stored as `GOOGLE_CLOUD_PROJECT` for provider operations.
+
+### 2. Creating service account for GKE
+
+1. Select a project in GCP where you want to create your cluster. We recommend creating a separate project for Wodby resources to keep track on your cloud costs
+2. Go to *IAM & Admin*, select *Service Accounts* on the left menu
+3. Click *CREATE SERVICE ACCOUNT*
+4. On step 1 enter a unique name (we recommend using prefix `wodby` for identification)
+5. On step 2 add following roles:
+   - Kubernetes Engine Admin (`roles/container.admin`)
+   - Compute Viewer (`roles/compute.admin`)
+   - Service Account User (`roles/iam.serviceAccountUser`)
+   - Viewer (`roles/viewer`)
+6. On step 3 click *Done*
+7. Click on the newly created service account
+8. Add a new key with `JSON` type
+9. Download JSON key and upload it on the new GCP integration form
+
+## GKE
+
+Wodby provides native integration with Google Kubernetes Engine.
+
+- We use deployment manager to create and manage all resources we create
+- We currently do not support serverless clusters
+- All resources we create have `wodby-gke-` prefix
+- GKE cluster can be either highly available (multi-AZ) or not (single zone)
+- Since GKE cluster comes with a metrics server we use it for the basic Wodby kubernetes monitoring
+- Node disk size can be configured upon creation
+
+### Storage
+
+Persistent storage is provided by GCP Compute Engine Persistent Disks through the cluster's selectable storage classes.
+Wodby creates a new block storage volume for each persistent volume claim and uses the default class when no other
+class is selected.
+
+## Cloud SQL
+
+Wodby provides native integration with Google Cloud SQL.
+
+- We support MySQL and PostgreSQL
+- All resources we create have `wodby-sql-` prefix
+- Databases can be resided with a GKE cluster created under the same integration
+- We create database with SSD disks
+- Auto resize can be optionally enabled (with the limit of twice the size)
+- Database server can either be highly available (regional) or not (zonal)
+- We use backend type `SECOND_GEN`
+- You can manage your DBs and users form Wodby dashboard
+
+## Cloud Storage
+
+Wodby provides a native integration with Google Cloud Storage. You can use it to store your applications' backups.
+
+- When configuring backups, select an available bucket or enter its exact name. You do not need to select a region
+  separately
+- For a manually supplied service account, grant `roles/storage.objectAdmin` on each bucket Wodby may use. Project-level
+  bucket listing is not required when you enter the bucket name manually
+- To populate the bucket selector for a manually supplied service account, also grant a project-level role containing
+  `storage.buckets.list`. OAuth integrations request bucket listing for this convenience
+- Supported storage classes: `STANDARD`, `NEARLINE`, `COLDLINE`, `ARCHIVE`
+- The storage class override is optional. If you leave it empty, the bucket's default storage class will be used

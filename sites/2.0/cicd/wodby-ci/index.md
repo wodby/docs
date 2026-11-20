@@ -1,0 +1,167 @@
+Source: https://wodby.com/docs/2.0/cicd/wodby-ci/
+
+# Wodby CI
+
+Wodby CI is the built-in CI system for Wodby 2. Add the pipeline files to the repository you selected as the build source for an app service. Wodby installs Wodby CLI during the `Setting up build environment` step and provides `WODBY_BUILD_ID`, which you pass to `wodby ci init` inside the pipeline.
+
+## Pipeline
+
+To use Wodby CI, create `.wodby/pipeline.yml` in the repository that you selected as the build source of an app service in your app.
+
+Example:
+
+```
+version: 0.1
+
+workflows:
+  main:
+    jobs:
+      - build
+
+jobs:
+  build:
+    steps:
+      - clone
+
+      - cache_restore:
+          path: ~/.composer/cache
+          key: 'composer-{{ hash "composer.lock" }}-v1'
+
+      - run: wodby ci init $WODBY_BUILD_ID
+      - run: wodby ci run -- composer install -n --no-ansi
+
+      - cache_save:
+          key: 'composer-{{ hash "composer.lock" }}-v1'
+          path: ~/.composer/cache
+
+      - run: wodby ci build
+      - run: wodby ci push
+      - run: wodby ci deploy
+
+```
+
+[`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) has a Wodby CI pipeline for every Wodby build
+boilerplate:
+
+- [PHP Wodby CI pipeline](https://github.com/wodby/wodby-ci/blob/2.0/php/wodby/pipeline.yml)
+- [Node Wodby CI pipeline](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/pipeline.yml)
+- [All examples by application stack](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example)
+
+If you need tooling that is not part of your stack, `wodby ci run` can use an explicit image, for example `wodby ci run -i wodby/node:24 -- npm ci`.
+
+Wodby CI runs the CLI natively against its local Docker daemon. For supported images, `wodby ci run` automatically
+mounts npm, Composer, Bundler, and uv download caches from `~/.npm`, `~/.composer/cache`, `~/.bundle/cache`, and
+`~/.cache/uv`. Wodby runtime images declare their cache profile in image metadata, and derived application images
+inherit it. Persist the applicable home path with `cache_restore` and `cache_save`, as shown above. Use `--cache` to
+force a profile for another image or `--no-cache` to disable automatic caching. See the
+[CI/CD overview](https://wodby.com/docs/2.0/cicd/#2-run-commands-in-the-build-environment) for ownership, override, and docker-in-docker
+behavior.
+
+### Reference
+
+#### Version
+
+Supported pipeline version is `0.1`.
+
+#### Workflow
+
+A workflow defines which [jobs](https://wodby.com/docs/2.0/cicd/wodby-ci/#job) run and in what order.
+
+#### Job
+
+A job is a collection of steps. Jobs can run in parallel.
+
+### Step
+
+Step is a single executable command. The official examples use these built-in step types:
+
+- `clone` (to clone your git repository)
+- `cache_restore`
+- `cache_save`
+
+You can run arbitrary shell commands by using a `run` key:
+
+```
+jobs:
+  build:
+    steps:
+      - run: echo "run shell command"
+
+```
+
+### Env
+
+You can define environment variables for the entire pipeline at the top level or for a specific job:
+
+```
+version: 0.1
+
+env:
+  FOO: bar
+
+workflows:
+  main:
+    jobs:
+      - build
+
+jobs:
+  build:
+    env:
+      FOO: bar
+    steps:
+      - clone
+
+```
+
+### Predefined env vars
+
+Wodby CI injects the following environment variables into every job:
+
+- `WODBY_CI` set to `true`
+- `WODBY_BUILD_NUMBER` with the Wodby build number
+- `WODBY_BUILD_ID` with the Wodby app build ID. This is the value passed to `wodby ci init`
+- `WODBY_APP_NAME` with the app name
+- `WODBY_ENV_ID` with the app environment ID
+- `WODBY_ENV_NAME` with the app environment machine name
+- `WODBY_ENV_TYPE` with the fixed app environment type
+- `WODBY_APP_INSTANCE_ID` and `WODBY_APP_INSTANCE_NAME` as deprecated aliases for the corresponding `WODBY_ENV_*` variables
+
+In addition to the predefined variables above, Wodby exports build-scoped app-service environment variables and
+build-scoped setting-derived variables for the main service container into the build environment. Runtime-only values,
+stack env vars, and variable integrations are not exported to builds.
+
+Secret build-scoped values are injected as secret environment variables and are hidden from build logs.
+
+## Post-deployment scripts
+
+You can additionally create `.wodby/post-deployment.yml` to define post-deployment scripts that run after an eligible
+application rollout using that build has completed.
+
+The syntax is the same as the [Wodby CI pipeline](https://wodby.com/docs/2.0/cicd/wodby-ci/#pipeline) except it does not have workflows. All defined jobs run in parallel.
+
+Example:
+
+```
+version: 0.1
+
+jobs:
+  drush-status:
+    steps:
+      - run: drush status
+
+```
+
+Every example in [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) has a post-deployment script:
+
+- [PHP post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/php/wodby/post-deployment.yml)
+- [Node post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/post-deployment.yml)
+- [All examples by application stack](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example)
+
+You can skip execution of post-deployment scripts by passing `--skip-post-deploy` to `wodby ci deploy`. Wodby also skips
+these scripts when some automated redeployments reuse an unchanged build, including a redeploy-only service after an
+app stack upgrade.
+
+Post-deployment scripts run as a separate task after a successful application rollout. A script failure is reported as a
+post-deployment warning with its own logs; it does not mark the deployment or app as failed and does not trigger
+rollback. You can retry the post-deployment task without redeploying. See
+[Application deployments](https://wodby.com/docs/2.0/apps/deploys/#post-deployment-scripts) for status and CLI behavior.

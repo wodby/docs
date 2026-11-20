@@ -1,0 +1,396 @@
+Source: https://wodby.com/docs/2.0/services/workloads/
+
+# Service workloads
+
+## Overview
+
+Workloads describe the Kubernetes resources that Wodby manages for a service.
+
+Use workloads to define:
+
+- which Kubernetes controller Wodby should target
+- which containers exist inside that controller
+- which workload is considered primary
+- where Wodby should inject workload- and container-level Helm values
+
+For non-external services, workloads are normally required unless they are inherited from `from`.
+
+External services do not define workloads.
+
+## Why workloads exist
+
+A service is no longer treated as a single Deployment with a single container.
+
+Charts can expose multiple resources, for example:
+
+- a web workload and a daemon workload
+- a Deployment plus a StatefulSet
+- one workload with more than one container
+
+Wodby uses workload definitions to resolve the correct target for:
+
+- logs and shell
+- endpoints
+- cron jobs
+- backups
+- imports
+- actions
+- database actions
+- container-scoped env vars and resources
+
+## Template
+
+Workloads are defined under the [`workloads` section](https://wodby.com/docs/2.0/services/template/#workloads) in a service template.
+
+### Single-workload example
+
+```
+workloads:
+- name: main
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: "{{helm.release}}"
+  kind: deployment
+  primary: true
+  helm:
+    labels: commonLabels
+    annotations: commonAnnotations
+    volumes: extraVolumes
+    sidecars: extraSidecars
+  containers:
+  - name: php
+    image: wodby/php
+    build: true
+    helm:
+      resources: resources
+      env: extraEnvVars
+      mounts: extraVolumeMounts
+      image:
+        repository: image.repository
+        tag: image.tag
+        registry: image.registry
+        pullPolicy: image.pullPolicy
+
+```
+
+### Multi-workload example
+
+```
+workloads:
+- name: webserver
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: "{{helm.release}}"
+      component: dagster-webserver
+  kind: deployment
+  primary: true
+  containers:
+  - name: dagster
+    image: dagster/dagster-celery-k8s
+
+- name: daemon
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: "{{helm.release}}"
+      component: dagster-daemon
+  kind: deployment
+  containers:
+  - name: dagster
+    image: dagster/dagster-celery-k8s
+
+```
+
+## Workload fields
+
+Each `workloads[]` item supports:
+
+- `name`: required stable workload name used by stack, app, and GraphQL overrides.
+- `selector`: required Kubernetes selector used by Wodby to find the rendered workload resource.
+- `kind`: required workload kind. Allowed values: `deployment`, `statefulset`, `daemonset`.
+- `primary`: optional boolean. Marks the default workload for runtime operations.
+- `deployment`: optional workload-specific rollout, readiness, and graceful-shutdown settings.
+- `helm`: optional workload-level Helm mappings.
+- `containers`: required list of containers for this workload.
+
+Workload deployment settings override service-wide defaults one field at a time. See
+[Deployment configuration](https://wodby.com/docs/2.0/services/deployment/) for supported settings and workload-kind restrictions.
+
+### Workload names
+
+`workloads[].name` is a Wodby identifier, not the rendered Kubernetes workload resource name. It must still follow the [general Kubernetes name rules](https://wodby.com/docs/2.0/naming/#general-kubernetes-names), because Wodby also uses it in generated Kubernetes configuration.
+
+Use it consistently in:
+
+- `endpoints[].workload`
+- `cron[].workload`
+- `backups[].workload`
+- `imports[].workload`
+- `actions[].workload`
+- `database.actions[].workload`
+- stack overrides
+- app-level mutations that target a specific workload/container
+
+Keep workload names stable once a service is published. Renaming or removing workloads can break existing stack and app data.
+
+### Selectors
+
+`selector.matchLabels` must point to exactly one rendered workload of the declared `kind`.
+
+Example:
+
+```
+selector:
+  matchLabels:
+    app.kubernetes.io/instance: "{{helm.release}}"
+    wodby.workload: php
+
+```
+
+Selectors are preferred over resource names because they survive chart naming differences and helper logic.
+
+Do not hard-code `app.kubernetes.io/name` to the service template name for a workload service. Wodby sets that label to
+the stack-local app-service name for new installations, so it can differ when a stack reuses the same service more than
+once. Select workloads with labels that remain stable when the application name changes, such as the Helm release and
+a workload or component label.
+
+For Wodby charts, use stable workload labels whenever possible. For third-party charts, use the labels that uniquely
+identify each workload in the rendered chart.
+
+Resolvable selectors are also required for force deployments. During a forced app-service upgrade, Wodby uses these
+selectors to find each rendered Deployment, StatefulSet, or DaemonSet and update its pod template so Kubernetes starts a
+new rollout. If the selector contains unresolved tokens or does not point to the rendered workload, Wodby cannot force a
+restart for that workload.
+
+## Primary workload
+
+One workload should be treated as primary.
+
+If a service has only one workload, Wodby uses it as primary automatically.
+
+If a service has multiple workloads, mark one with `primary: true`.
+
+When no explicit workload is selected, Wodby falls back to the primary workload for:
+
+- shell
+- logs
+- endpoints
+- cron jobs
+- backups
+- imports
+- actions
+- database actions
+
+## Containers
+
+Every workload must define at least one container.
+
+Each `workloads[].containers[]` item supports:
+
+- `name`: required pod container name
+- `image`: optional runtime image reference
+- `build`: optional boolean for build target containers
+- `routeMetadata`: optional boolean that passes the app environment's hostnames to a container that is not a build
+  target
+- `hostname`: optional container hostname
+- `env`: optional container-scoped env vars
+- `resources`: optional default resources for the container; see the [resources object](https://wodby.com/docs/2.0/services/template/#resources-object)
+- `helm`: optional container-level Helm mappings
+
+Container names must match the real container names created by the chart.
+
+### Build targets
+
+Services with build configuration mark target containers with `build: true`.
+
+- At least one container must be marked when the service defines `build`.
+- Containers must not use `build: true` when the service has no `build` section.
+- Multiple containers can be marked only when they are intended to receive the same built image.
+
+See also: [Service build](https://wodby.com/docs/2.0/services/build/).
+
+### Route hostnames
+
+Build target containers receive the app environment's hostnames in
+[`WODBY_HOSTS`, `WODBY_PRIMARY_HOST`, and `WODBY_PRIMARY_URL`](https://wodby.com/docs/2.0/apps/environment-variables/#system-environment-variables).
+Other containers do not, so adding a domain doesn't affect databases, caches, and similar services.
+
+Set `routeMetadata: true` on a container that runs a ready-made application image and needs these variables, for
+example to build a trusted host list:
+
+```
+containers:
+- name: nextcloud
+  image: docker.io/library/nextcloud
+  routeMetadata: true
+
+```
+
+When a domain or [Private App Access](https://wodby.com/docs/2.0/apps/access/) hostname is added, removed, or made primary, Wodby marks
+services with such a container as needing a redeploy, the same as services with build targets.
+
+## Helm mappings
+
+### Workload-level Helm mappings
+
+`workloads[].helm` supports:
+
+- `replicas`
+- `managedReplicas`
+- `labels`
+- `annotations`
+- `volumes`
+- `sidecars`
+- `strategy`
+- `minReady`
+- `progressDeadline`
+- `shutdownGracePeriod`
+
+These are Helm value paths used when Wodby injects workload-scoped data.
+
+Use `replicas` to map the app service's effective replica count to a value path for this workload. This is useful for a
+multi-workload chart whose Deployments or StatefulSets have independent replica values:
+
+```
+workloads:
+- name: web
+  kind: deployment
+  primary: true
+  helm:
+    replicas: web.replicas
+
+- name: worker
+  kind: deployment
+  helm:
+    replicas: worker.replicas
+
+```
+
+Wodby writes the same effective app-service replica count to every mapped path, including `0` while the app service is
+disabled or its app environment is paused. Import validation verifies each mapped workload at the supported replica
+counts. A workload can omit this mapping when its replica count intentionally remains controlled by the chart.
+
+Use `managedReplicas: true` only when the chart cannot expose an ordinary replica value without also creating its own
+HorizontalPodAutoscaler. Wodby then writes `spec.replicas` directly to the rendered Deployment or StatefulSet and
+removes only the chart HPA that targets that workload. Any unrelated chart HPA still fails import validation.
+
+`managedReplicas` cannot be combined with `replicas` on the same workload and is not supported for DaemonSets. In a
+service marked as `scalable`, the primary workload cannot use `managedReplicas`: Wodby's autoscaler controls that
+workload's replica count, so use `replicas` there.
+
+The four deployment paths are required for charts with multiple workloads when the corresponding setting needs to be
+passed to Helm. Service-level deployment mapping defaults apply only to single-workload services. See
+[Deployment value mappings](https://wodby.com/docs/2.0/services/helm/#deployment-value-mappings).
+
+### Container-level Helm mappings
+
+`workloads[].containers[].helm` supports:
+
+- `resources`
+- `env`
+- `envKV`
+- `secretEnvFrom`
+- `mounts`
+- `image`
+
+These are Helm value paths used when Wodby injects container-scoped data.
+
+Use `secretEnvFrom` for a chart that accepts an `envFrom` list but cannot keep `valueFrom` entries in its environment
+list. Wodby passes an `envFrom` entry that loads the app service's secret environment variables from the
+[`service.secrets.env`](https://wodby.com/docs/2.0/apps/tokens/#service) Secret, so secret values stay out of Helm values. Only secret
+variables are available this way; also map `env` when the container needs the other variables. `envKV` is ignored when
+`secretEnvFrom` is set. When a secret value changes, the next deployment restarts the workload, as it does for `env`.
+
+```
+workloads:
+- name: app
+  kind: deployment
+  containers:
+  - name: app
+    helm:
+      env: app.extraEnv
+      secretEnvFrom: app.extraEnvFrom
+
+```
+
+### Container image Helm mappings
+
+`workloads[].containers[].helm.image` supports:
+
+- `repository`
+- `tag`
+- `registry`
+- `pullPolicy`
+- `references`
+
+Defaults:
+
+- `repository`: `image.repository`
+- `tag`: `image.tag`
+- `registry`: `image.registry`
+- `pullPolicy`: `image.pullPolicy`
+
+By default, Wodby splits an image like `registry.example.com/team/app:1.2.3` into:
+
+- `registry`: `registry.example.com`
+- `repository`: `team/app`
+- `tag`: `1.2.3`
+
+Set `registry: ""` when the chart expects the full image path to stay in `repository` instead of splitting registry and repository into separate values.
+
+Example:
+
+```
+image:
+  repository: dagsterWebserver.image.repository
+  tag: dagsterWebserver.image.tag
+  registry: ""
+
+```
+
+With this configuration, Wodby writes the full repository path such as `registry.example.com/team/app` into
+`dagsterWebserver.image.repository` and does not inject a separate registry value.
+
+#### Image references for other containers
+
+`references` lists more Helm value paths that receive the container's whole image, such as
+`registry.example.com/team/app:1.2.3`. Use it when a chart runs sidecars or init containers that must run the same
+image, built or not, and takes their images as single strings. A path can point into a list, such as
+`extraContainers[0].image`. Wodby sets each path after the service's own Helm values, and only when that list item
+exists, so a stack or app that removes a sidecar doesn't get an image without a container.
+
+```
+workloads:
+- name: main
+  containers:
+  - name: airflow-api-server
+    build: true
+    helm:
+      image:
+        references:
+        - initContainers[0].image
+        - extraContainers[0].image
+
+```
+
+See also: [Helm](https://wodby.com/docs/2.0/services/helm/).
+
+### Fixed component image tags
+
+A service containing several components can specify an explicit tag in each container's `image`, for example
+`supabase/gotrue:v2.196.0`. That tag takes precedence over the selected service option's image tag. Untagged image
+repositories continue to use the option tag, or the option version when no tag is set. This allows one service option
+to identify a tested bundle whose components have different versions. Registry ports are not image tags.
+
+## Validation rules
+
+Service import validates workloads strictly.
+
+- Workload names must be unique.
+- Workload names and container names must follow the [general Kubernetes name rules](https://wodby.com/docs/2.0/naming/#general-kubernetes-names).
+- One workload can be primary.
+- Every workload must contain at least one container.
+- Container names must be unique within a workload.
+- Selectors must be structurally valid.
+- When the chart can be rendered during validation, each selector must resolve to exactly one rendered workload of the declared kind.
+- Workload references used by endpoints, cron jobs, backups, imports, actions, and database actions must point to existing workloads.
+- In inherited services, overridden workloads and containers must already exist in the base service.

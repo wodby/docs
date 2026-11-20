@@ -1,0 +1,74 @@
+Source: https://wodby.com/docs/2.0/dev/cli/
+
+# Wodby CLI
+
+The official Wodby CLI provides command-line automation for Wodby 2 resources and CI workflows.
+
+Repository: <https://github.com/wodby/wodby-cli>
+
+## Install
+
+Install the latest release from the project releases page:
+
+- <https://github.com/wodby/wodby-cli/releases>
+
+## CLI reference
+
+See the command reference for syntax, flags, and examples:
+
+- [Wodby CLI reference](https://wodby.com/docs/2.0/cli/)
+
+The reference includes commands for apps, backups, builds, deployments, environments, imports, instances, organizations, projects, routes, tasks, CI, shell completion, and version checks.
+
+## Authentication
+
+For public usage, authenticate the CLI with an API key.
+
+```
+export WODBY_API_KEY=...
+
+```
+
+## CI workflow
+
+Wodby CI and third-party CI providers use the same CLI-driven workflow: initialize the build context, build images, push them to the registry, and deploy the pushed images.
+
+```
+export WODBY_API_KEY=...
+
+wodby ci init 12345
+wodby ci build php nginx
+wodby ci push php nginx
+wodby ci deploy php nginx
+
+```
+
+One-off commands can run inside the build context before building:
+
+```
+wodby ci run --service php composer install -n --no-ansi
+
+```
+
+For built-in Wodby CI pipeline configuration, see [Wodby CI](https://wodby.com/docs/2.0/cicd/wodby-ci/). For more pipeline examples, see [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci).
+
+For command-specific options and generated usage output, use the [CLI reference](https://wodby.com/docs/2.0/cli/). For provider setup and build behavior details, use the CI/CD pages below.
+
+## Deployment completion
+
+`wodby ci deploy` is asynchronous. It submits the deployment and exits after Wodby accepts it.
+
+Operational deployment commands that stream logs or wait for completion, including `wodby ops deployment wait ID`,
+treat application rollout and repository post-deployment scripts as two phases of the requested operation. They wait for
+the rollout and then follow the separate post-deployment task when one exists.
+
+If the rollout succeeds but a post-deployment script fails, the CLI returns a non-zero exit code and identifies the
+post-deployment failure. The deployment itself remains completed, the app remains successful, and Wodby does not attempt
+rollback. Deployment list and detail output include the separate post-deployment status, and detail output includes the
+post-deployment task.
+
+## Related pages
+
+- [Wodby API](https://wodby.com/docs/2.0/dev/api/)
+- [CI/CD overview](https://wodby.com/docs/2.0/cicd/)
+- [Third-party CI](https://wodby.com/docs/2.0/cicd/third-party/)

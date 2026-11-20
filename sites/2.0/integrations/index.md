@@ -1,0 +1,123 @@
+Source: https://wodby.com/docs/2.0/integrations/
+
+# Integrations
+
+Integrations are reusable connections between Wodby and third-party services. You create an integration from a [provider](https://wodby.com/docs/2.0/providers/), choose an owner, and then use sharing when the integration should be available to additional projects.
+
+An integration can represent a cloud account, a Git provider connection, an SMTP relay, a registry account, an
+Private App Access connection, a private-network node, or a set of provider-managed environment variables.
+
+## When to use integrations
+
+Use integrations when:
+
+- Wodby needs to connect to an external account or service on your behalf
+- you want to reuse the same credentials or connection across multiple apps or projects
+- you want provider-backed environment variables instead of repeating raw values manually
+
+In the dashboard, the integration creation form has an `Owner` selector. Choose `Organization <organization>` for an organization-owned integration or `Project <project>` for a project-owned integration. Use the integration's `Ownership` page later when other projects need `Read/Use` or `Modify/Delete` access. Eligible canonical OAuth integrations can also be [shared with another Wodby organization](https://wodby.com/docs/2.0/integrations/organization-sharing/) through an owner-approved invitation.
+
+If you are unsure about the difference between providers and integrations, start with [Provider vs integration](https://wodby.com/docs/2.0/integrations/providers-vs-integrations/).
+
+## Providers vs integrations
+
+- A **provider** is the definition of how Wodby works with a third-party service, including its kinds, fields, auth methods, and any variables it exposes.
+- An **integration** is your actual connection created from that provider, such as a specific AWS account, GitHub installation, or Sentry DSN.
+
+Wodby ships built-in providers, and you can also create your own variable-only providers when you need custom environment variables that are not covered by the built-in catalog.
+
+## Kinds
+
+Each integration exposes one or more [types](https://wodby.com/docs/2.0/integrations/types/). The type-specific overviews live in the [Providers](https://wodby.com/docs/2.0/providers/) section because providers are grouped that way in the documentation navigation.
+
+- [Kubernetes providers](https://wodby.com/docs/2.0/providers/kubernetes/) for provider-managed cluster provisioning
+- [Database providers](https://wodby.com/docs/2.0/providers/databases/) for managed database provisioning
+- [Storage providers](https://wodby.com/docs/2.0/providers/storage/) for backup destinations
+- [Git providers](https://wodby.com/docs/2.0/providers/git/) for remote repositories used as build sources
+- [CI providers](https://wodby.com/docs/2.0/providers/ci/) for build and deployment pipelines
+- [Registry providers](https://wodby.com/docs/2.0/providers/registry/) for container image registries
+- [SMTP providers](https://wodby.com/docs/2.0/providers/smtp/) for outbound mail relays
+- [Private App Access providers](https://wodby.com/docs/2.0/providers/access/) for identity-protected or private-network HTTP access
+- [VPN providers](https://wodby.com/docs/2.0/providers/vpn/) for persistent service-managed private-network nodes
+- [Variable integrations](https://wodby.com/docs/2.0/integrations/variable/) for reusable provider-backed environment variables
+
+The selected type determines where the integration can be used in the dashboard.
+
+## Environment availability
+
+An integration can have a primary [environment type](https://wodby.com/docs/2.0/apps/environment-types/) and an availability policy:
+
+- `Any environment type` allows the integration to be used by app environments and resources of every type.
+- `Restricted` allows only the selected environment types.
+
+The primary type is descriptive and must be included when a restricted policy is used. The same fixed type list is
+used for clusters, managed databases, backup presets, and app environments, so policies do not depend on custom
+organization-level environment records.
+
+### Add kinds to an existing integration
+
+When a provider supports more than one kind, you can open the integration's **Edit** page and select additional kinds.
+Existing kinds stay selected and cannot be removed. Create another integration when you need a narrower set of kinds,
+different credentials, or a different permission scope.
+
+The dashboard submits the integration details, selected kinds, and changed credential fields as one update. If any part
+is invalid, none of the changes are saved.
+
+Most new kinds become available immediately. AWS, GCP, and Azure integrations also start a read-only permission test.
+GCP and Azure OAuth integrations may first start a provider setup task; only the new kinds remain in **Activating**
+state while that task runs. Existing kinds remain available. A failed activation is shown only on the affected new kind.
+
+Permission findings do not undo the update or disable the integration. Review the task warnings before using a newly
+added kind. Some resource-creation permissions cannot be proven without changing provider resources and are therefore
+reported as unverifiable rather than treated as an update failure. For AWS, GCP, and Azure, you can rerun the permission
+test from the integration's **Edit** page.
+
+### Reconnect an expired sign-in
+
+Integrations that you connect by signing in to the provider, such as Google Cloud, Azure, DigitalOcean, OVHcloud,
+GitLab, and Bitbucket, keep working as long as the provider accepts that sign-in. Wodby renews it automatically, but a
+provider can stop accepting it, for example when you revoke Wodby's access in your provider account or after a long
+period without use. The integration is then marked **Expired**.
+
+To restore it, open the integration and click **Reconnect**, then sign in with the same provider account. The
+integration keeps its name, kinds, sharing, and everything that uses it. Signing in with a different account is refused.
+You need permission to modify the integration to reconnect it. An integration shared with your organization can only
+be reconnected by the organization that owns it.
+
+Creating a new integration for an account that is already connected in your organization is refused; reconnect the
+existing integration instead.
+
+You can delete an expired integration without reconnecting it. Wodby then cannot remove what it created in your provider
+account, such as a Google Cloud service account and its role bindings; the deletion task warns about this so that you
+can remove them in the provider console.
+
+## Provider revisions and updates
+
+Provider changes create new revisions. When an integration remains on the provider revision it was configured against,
+it is marked **Outdated** if a newer revision is available. Compatible integrations can be updated explicitly from
+their detail page; incompatible integrations remain pinned and show why a migration is required.
+
+See [Integration provider updates](https://wodby.com/docs/2.0/integrations/updates/) for the update workflow and compatibility rules.
+
+## Where integrations are used
+
+Depending on the provider and type, integrations can be used for:
+
+- Kubernetes cluster creation
+- Managed database creation
+- App service and stack integrations
+- SMTP relay configuration
+- External container registries
+- Backup storage destinations
+- CI/CD workflows
+- Private App Access through Cloudflare or Tailscale
+- Tailscale Node services that join a tailnet as persistent workloads
+
+## Related pages
+
+- [Provider vs integration](https://wodby.com/docs/2.0/integrations/providers-vs-integrations/)
+- [Providers overview](https://wodby.com/docs/2.0/providers/)
+- [Integration types](https://wodby.com/docs/2.0/integrations/types/)
+- [Integration provider updates](https://wodby.com/docs/2.0/integrations/updates/)
+- [Share an OAuth integration with another organization](https://wodby.com/docs/2.0/integrations/organization-sharing/)
+- [Variable integration](https://wodby.com/docs/2.0/integrations/variable/)

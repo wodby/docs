@@ -1,0 +1,54 @@
+# Wodby 2 documentation
+
+> Self-contained technical guidance for deploying and operating applications on Wodby 2.
+
+These docs apply to Wodby 2, not Wodby 1. Start with MCP to connect your client and verify access.
+Use live MCP tool schemas for available operations and inputs. Guidance does not authorize changes.
+Markdown links below contain the same page content as the HTML docs, without site navigation.
+
+## Start here
+
+- [Wodby 2 overview](https://wodby.com/docs/2.0/index.md)
+- [MCP: connect and get started](https://wodby.com/docs/2.0/dev/mcp/index.md)
+- [App model](https://wodby.com/docs/2.0/apps/app-vs-environment-vs-service/index.md)
+- [Glossary](https://wodby.com/docs/2.0/glossary/index.md)
+
+## Using MCP
+
+- [Permissions and audit history](https://wodby.com/docs/2.0/agents/permissions/index.md)
+- [Skills and compatibility](https://wodby.com/docs/2.0/agents/skills/index.md)
+- [Plan a migration](https://wodby.com/docs/2.0/agents/workflows/migrate/index.md)
+- [Deploy staging](https://wodby.com/docs/2.0/agents/workflows/staging/index.md)
+- [Diagnose failures](https://wodby.com/docs/2.0/agents/workflows/troubleshoot/index.md)
+- [Connection troubleshooting](https://wodby.com/docs/2.0/agents/troubleshooting/index.md)
+
+## Technical interfaces
+
+- [Technical reference](https://wodby.com/docs/2.0/dev/mcp/reference/index.md)
+- [Tool reference](https://wodby.com/docs/2.0/dev/mcp/tools/index.md)
+- [API](https://wodby.com/docs/2.0/dev/api/index.md)
+- [SDKs](https://wodby.com/docs/2.0/dev/sdks/index.md)
+- [CLI](https://wodby.com/docs/2.0/dev/cli/index.md)
+
+## Operate applications
+
+- [Tasks](https://wodby.com/docs/2.0/tasks/index.md)
+- [Deploys](https://wodby.com/docs/2.0/apps/deploys/index.md)
+- [Observability](https://wodby.com/docs/2.0/apps/observability/index.md)
+- [Imports](https://wodby.com/docs/2.0/apps/imports/index.md)
+- [Backups](https://wodby.com/docs/2.0/apps/backups/index.md)
+- [Application stack configuration](https://wodby.com/docs/2.0/apps/stack/index.md)
+- [Stack updates](https://wodby.com/docs/2.0/stacks/updates/index.md)
+- [Access control](https://wodby.com/docs/2.0/access-control/index.md)
+
+## Reusable definitions
+
+- [Services overview](https://wodby.com/docs/2.0/services/index.md)
+- [Create a service](https://wodby.com/docs/2.0/services/create/index.md)
+- [Create a stack](https://wodby.com/docs/2.0/stacks/create/index.md)
+- [Providers overview](https://wodby.com/docs/2.0/providers/index.md)
+
+## Schemas
+
+- [OpenAPI JSON](https://wodby.com/docs/2.0/api/openapi.json)
+- [OpenAPI YAML](https://wodby.com/docs/2.0/api/openapi.yaml)
