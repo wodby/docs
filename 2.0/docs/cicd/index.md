@@ -26,9 +26,9 @@ The environment CI selection is the **Default CI** for connected build sources. 
 or clones a boilerplate into a new repository uses Wodby CI instead. This lets one app environment contain Wodby CI and
 third-party CI build sources at the same time. The container registry remains an environment-wide selection.
 
-Change an existing environment from `Apps > [App] > [Environment] > Settings > CI/CD`. Changing Default CI applies to future
-builds for connected sources that inherit it; boilerplate sources continue to use Wodby CI. Historical builds retain
-their recorded CI provider, registry, and registry repository.
+Change an existing environment from `Apps > [App] > [Environment] > CI/CD > Builds > Settings`. Changing Default CI
+applies to future builds for connected sources that inherit it; boilerplate sources continue to use Wodby CI. Historical
+builds retain their recorded CI provider, registry, and registry repository.
 
 If no external default is configured, new environments use [Wodby CI](wodby-ci.md) and
 [Wodby Registry](wodby-registry.md).
