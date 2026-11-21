@@ -292,6 +292,7 @@ nav:
               - Discourse (buildable): stacks/catalog/discourse-buildable/index.md
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
+              - eLabFTW: stacks/catalog/elabftw/index.md
               - Nextcloud: stacks/catalog/nextcloud/index.md
               - Odoo: stacks/catalog/odoo/index.md
               - Odoo (buildable): stacks/catalog/odoo-buildable/index.md
