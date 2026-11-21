@@ -167,6 +167,7 @@ These tools require `mcp:operate` when using OAuth.
 | `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
+| `rescan_cluster_vulnerabilities` | Scan a cluster for vulnerabilities again now instead of on the daily schedule: the operating system packages of a K3s cluster's servers, such as after updating them outside Wodby, and the infrastructure app images. An image scanned in the last hour keeps its result. Refused while a scan of the cluster is running, and for Wodby Cloud and serverless clusters. |
 | `test_integration_permissions` | Check that an integration's credentials have the permissions its provider needs, for example after a failed cluster or database operation. Available for providers with a permission check, such as AWS, Google Cloud, Azure, and Cloudflare. Requires `Modify/Delete` access to the integration. |
 | `retry_app_route_certificate` | Request a domain's Let's Encrypt certificate again, for example after fixing its DNS. A certificate is issued only once the domain's DNS reaches the cluster, so retrying before that fails again. |
 | `retry_app_access_cleanup` | Repeat the cleanup left over from removed Private App Access, such as Cloudflare or Tailscale resources Wodby could not delete. The failed removal's task gives the cleanup ID. |
