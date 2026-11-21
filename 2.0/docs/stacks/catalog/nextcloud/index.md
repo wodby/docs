@@ -47,6 +47,16 @@ Wodby runs Nextcloud's background jobs every five minutes. On the first run, Nex
 setting to **Cron**. You do not need a Wodby [cron schedule](../../../apps/cron.md). Keep
 **Cron** selected under **Administration settings > Basic settings > Background jobs**.
 
+Heavy daily background jobs run in a six-hour maintenance window, from 01:00 to 07:00 UTC by default. To move it to
+your quietest hours, set **Maintenance window start** on the Nextcloud service to the starting hour in UTC, from `0` to
+`23`, then deploy the Nextcloud service. Leave the setting empty to let these jobs run at any time. The setting takes
+precedence over a maintenance window set with an [occ command](#run-occ-commands).
+
+## Phone numbers
+
+To let people enter phone numbers in their profile without a country code, set **Default phone region** on the
+Nextcloud service to a two-letter country code, such as `US` or `DE`, then deploy the Nextcloud service.
+
 ## Mail delivery
 
 While the Nextcloud service is linked to OpenSMTPD, Nextcloud sends mail through it and takes its email server settings
@@ -142,7 +152,13 @@ minutes before the container is restarted.
 - Apps that are not compatible with the new version are disabled during the upgrade. The Nextcloud service log lists
   them.
 
+After the first installation and after each upgrade, Wodby adds the optional database indices and runs the file type
+migrations that Nextcloud reports on **Administration settings > Overview**. After an upgrade they run while Nextcloud
+serves requests, which can take a while on a large installation.
+
 ## Limits
 
 - Nextcloud runs as one replica. Nextcloud is unavailable while its service is deployed.
 - The stack does not include an online office server, such as Collabora Online.
+- The stack does not include a deploy daemon for external apps (ExApps), so AppAPI is turned off on new installations.
+  Enable it in Nextcloud after you register a deploy daemon.
