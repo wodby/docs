@@ -10,8 +10,9 @@ Cluster vulnerability checks run on every plan.
 Wodby Cloud and serverless clusters don't list vulnerabilities, because Wodby or the provider runs every part of them.
 
 While a cluster has vulnerabilities that raise an alert and aren't fixed, mitigated, or
-[ignored](#ignore-a-vulnerability), its `Security` tab shows a red dot. The cluster's status also shows a red bug tag
-with their number, in the `Clusters` list, at the top of the cluster page and on its `Overview` tab.
+[ignored](#ignore-a-vulnerability), its `Security` tab shows a red dot, and so does `Clusters` in the sidebar. The
+cluster's status also shows a red bug tag with their number, in the `Clusters` list, at the top of the cluster page and
+on its `Overview` tab.
 
 A vulnerability raises an alert when it's known to be exploited, at least 10% likely to be exploited in the next 30
 days, or tracked by Wodby, whatever its severity. See [Vulnerabilities that raise an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert).
