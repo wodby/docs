@@ -55,6 +55,8 @@ The generated script sets up the server for you. It:
 
 - installs the rollback command at `/usr/local/bin/wodby-k3s-uninstall`
 - disables swap
+- raises the server's limit on inotify instances (`fs.inotify.max_user_instances`) to 8192, so a node with many
+  [pods](#pods-per-node) doesn't run out
 - installs required NFS client packages
 - installs firewall rules that restrict public access to the K3s API endpoint
 - [reduces exposure to CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414) by dropping incoming IPv4 TCP
@@ -233,6 +235,7 @@ The task log shows the package manager's output for each node. Wodby:
   example from Ubuntu 24.04 to 26.04.
 - Keeps configuration files you changed.
 - Installs the new packages an update needs, such as a new kernel.
+- Raises the server's limit on inotify instances to 8192 when it's lower. See [Pods per node](#pods-per-node).
 - Doesn't restart your services. A package may restart its own service while it updates; other services that use
   updated libraries pick up the update when they restart, or when the server does.
 
@@ -508,7 +511,7 @@ refuses it while app operations, such as deployments, are running; start it agai
 3. Wait until the node shows as `Ready` in the node list.
 
 The join command checks the worker's network access, then sets up the worker the same way as the K3s server: the
-rollback command, host CA certificates, NFS client packages, the host firewall and
+rollback command, host CA certificates, NFS client packages, the inotify limit, the host firewall and
 [protections against CVE-2026-98432](updates.md#k3s-host-protection-for-cve-2026-98432-414), and the daily host check.
 It installs the same K3s version as the server.
 
@@ -546,6 +549,11 @@ changed. Wodby sets K3s nodes to 250, the most that a node's pod network allows.
 New K3s clusters and new worker nodes start at 250. Existing clusters move to 250 with infrastructure version
 [`4.1.7`](infrastructure.md#417). Until then, their nodes run up to 110 pods.
 
+A node with about 100 pods or more can run out of inotify instances, which many distributions, including Ubuntu and
+Debian, limit to 128. Commands on the node then fail with `Too many open files`. Wodby raises
+`fs.inotify.max_user_instances` to 8192 on each node when it installs the node, changes its pods per node or
+[updates its packages](#update-server-packages). A higher value you set yourself stays.
+
 To change the limit:
 
 1. Open `Clusters > [Cluster] > Settings`.
@@ -579,6 +587,9 @@ balancer for K3s clusters.
   network and that its firewall allows the [worker node ports](#worker-node-requirements).
 - If new pods stay `Pending` while the node has free CPU and memory, the node may have reached its
   [pods per node](#pods-per-node) limit. Raise the limit or add a [worker node](#worker-nodes).
+- If `systemctl`, `apt` or following an app's logs fails on a node with `Too many open files`, the node has run out of
+  inotify instances. [Update server packages](#update-server-packages) on that node, or add
+  `fs.inotify.max_user_instances = 8192` to a file in `/etc/sysctl.d/` and run `sudo sysctl --system`.
 - If the join command says the K3s server uses its public address, connect the server to a private network and
   [switch it to its private address](#switch-an-installed-server-to-its-private-address).
 - Without a proxy, make sure the server can reach the public internet, Wodby API endpoints, and
