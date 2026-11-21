@@ -90,17 +90,23 @@ guide](../redis/index.md).
 
 ## Object storage for files
 
-Nextcloud can store file contents in Amazon S3, Cloudflare R2, or Backblaze B2 instead of the Nextcloud volume. Set it
-up before the first deployment:
+Nextcloud can store file contents in Amazon S3, Cloudflare R2, Backblaze B2, Wasabi, or an S3-compatible service
+instead of the Nextcloud volume. Set it up before the first deployment:
 
 1. Create an empty bucket used only by this app environment's Nextcloud. For Amazon S3, create it in the region selected
    in the AWS integration.
-2. Create an [AWS](../../../providers/aws.md#s3), [Cloudflare R2](../../../providers/cloudflare.md#r2), or
-   [Backblaze B2](../../../providers/backblaze.md#b2-cloud-storage) integration whose credentials can read, write, and
-   delete objects in that bucket.
+2. Create an [AWS](../../../providers/aws.md#s3), [Cloudflare R2](../../../providers/cloudflare.md#r2),
+   [Backblaze B2](../../../providers/backblaze.md#b2-cloud-storage), [Wasabi](../../../providers/wasabi.md#object-storage),
+   or [S3-compatible](../../../providers/s3-compatible.md#object-storage) integration whose credentials can read,
+   write, and delete objects in that bucket.
 3. On the Nextcloud service, attach the integration to **S3 primary storage** on the
    [Integrations tab](../../../apps/services.md#integrations-tab) and enter the bucket name in the **S3 bucket**
    setting. Nextcloud uses the bucket only when both are set.
+4. For Wasabi or an S3-compatible service, enter the bucket's region in the **S3 region** setting, for example
+   `eu-central-1`. Leave it empty for `us-east-1`. The other providers take the region from their integration.
+
+To use a bucket with an installation that already has files, mount it as a folder instead with Nextcloud's
+**External storage support** app, under **Administration settings > External storage**.
 
 !!! warning "Data loss"
     Do not enable object storage on an installation that already has files: files stored on the volume become
