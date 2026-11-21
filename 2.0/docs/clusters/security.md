@@ -30,7 +30,7 @@ The same vulnerability can appear several times, once for each server or image i
 | Column | What it shows |
 | --- | --- |
 | `Vulnerability` | Its ID, linked to its public record, or a Wodby check such as `Outdated node image` |
-| `Summary` | A short description, or the affected package and its version |
+| `Summary` | A short description, or the affected packages and their versions |
 | `Component` | Where the vulnerability is: `Operating system`, `Node image`, `Kubernetes`, or `Infrastructure app` |
 | `Affected` | The server, node pool, or image that has it. An infrastructure app's image starts with the app's name, for example `Monitoring` |
 | `Severity` | `Critical`, `High`, `Medium`, `Low`, or `Unknown` |
