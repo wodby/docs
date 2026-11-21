@@ -15,7 +15,7 @@ PUBLIC_SKILLS = "https://mcp.wodby.com/agent-skills"
 TOOL_VERBS = ("add", "cancel", "check", "cleanup", "close", "commit", "create", "delete", "deploy", "diagnose", "disable",
               "discard", "duplicate", "enable", "exec", "find", "get", "ignore", "import", "list", "migrate", "pause",
               "prepare", "preview", "publish", "pull", "read", "reconcile", "recycle", "redeploy", "remove", "rename",
-              "repeat", "restart", "resume", "retry", "rollback", "run", "scale", "search", "set", "show", "start", "stop",
+              "repeat", "rescan", "restart", "resume", "retry", "rollback", "run", "scale", "search", "set", "show", "start", "stop",
               "switch", "sync", "test", "unpublish", "update", "upgrade", "validate", "verify", "void", "wait")
 # Tool arguments and result fields that start with one of those verbs but are not tools.
 NON_TOOL_NAMES = ("cleanup_id", "disable_monitoring", "preview_host", "preview_urls", "retry_ambiguous")

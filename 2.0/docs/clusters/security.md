@@ -57,6 +57,16 @@ successful check stay in the table.
 Wodby doesn't scan your own apps here. See [Vulnerability scanning](../apps/vulnerability-scanning.md) for the images
 your app environments run.
 
+## Scan again now
+
+To check a cluster without waiting for the next scan, for example after you updated its servers over SSH, open
+`Clusters > [Cluster] > Security` and click `Rescan`. Wodby checks the packages of each K3s server and the
+infrastructure app images again. An image checked in the last hour keeps its result. While the scan runs, the tab shows
+`Scanning` with the earlier results, and the table updates when the scan ends.
+
+`Rescan` needs permission to modify the cluster, and the cluster's status must be `OK`. You can't start another scan
+while one is running.
+
 ## Fix a vulnerability
 
 The `Fix` column links to what fixes the vulnerability:
@@ -138,7 +148,7 @@ a maintenance window with [Restart servers](k3s.md#restart-servers), which also 
 the server restarts.
 
 After you update or restart servers from Wodby, the table shows the new state within about 15 minutes. After changes
-you make over SSH, it shows it after the next daily scan.
+you make over SSH, click [`Rescan`](#scan-again-now) to see them right away, or wait for the next daily scan.
 
 ## Node images on managed Kubernetes
 
@@ -188,4 +198,5 @@ separately and lists them in the same table:
 ## API and MCP
 
 The same list is available through the [API](../api/index.html) as `GET /v1/cluster-vulnerabilities/{id}` and the
-[MCP tool](../dev/mcp/tools.md) `list_cluster_vulnerabilities`.
+[MCP tool](../dev/mcp/tools.md) `list_cluster_vulnerabilities`. To scan again now, use
+`POST /v1/clusters/{id}/actions/rescan-vulnerabilities` or the MCP tool `rescan_cluster_vulnerabilities`.
