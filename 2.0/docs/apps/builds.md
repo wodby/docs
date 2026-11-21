@@ -119,8 +119,8 @@ deployment choices.
 Rolling back to a previous build changes only the container images produced by that build. The app environment continues
 to use its current stack revision, configuration, secrets, volumes, linked services, databases, and persistent data. The
 dashboard therefore shows a risk warning and requires confirmation when a build is older than the currently deployed
-build or belongs to another stack revision. Post-deployment scripts are skipped by default for this shortcut; pre-deployment scripts of the older build still
-run.
+build or belongs to another stack revision. Deployment scripts are skipped by default for this shortcut, unless the environment's
+[deployment settings](deploys.md#environment-deployment-settings) run them for older builds.
 
 For per-service selection, compatibility risks, and how to intentionally enable post-deployment scripts, see
 [Roll back to previous builds and deployments](deploys.md#roll-back-to-previous-builds-and-deployments).
