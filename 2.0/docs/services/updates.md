@@ -1,5 +1,5 @@
 ---
-description: Wodby services are versioned. Update a service from Git, turn on auto-update, and see how new revisions reach stacks and inherited services.
+description: Wodby services are versioned. Update a service from Git or a manifest, turn on auto-update, and see how new revisions reach stacks and inherited services.
 ---
 
 # Service updates
@@ -22,6 +22,22 @@ configs, links, integrations, volumes, cron schedules, or other manifest section
 
 The update form is available only on the latest service revision. Older service revisions can be viewed, but they
 cannot be updated from Git.
+
+## Update from a local manifest
+
+Use this for services created from a manifest rather than imported from Git.
+
+Open `Services`, select the service, and go to `Edit`. The `Manual update from manifest` card shows the current
+manifest. Edit it, or select `Read manifest from file` to load an updated `service.yml`. If the manifest references
+local files such as configs or Dockerfiles, add them under `Additional files` with the same paths the manifest uses.
+Set the `Version` of the new revision and click `Update`.
+
+Wodby creates a new service revision from the manifest. Keep in mind:
+
+- The manifest `name` and `type` cannot change.
+- If the manifest matches the current revision, no new revision is created.
+- If you clear `Version`, the new revision keeps the current version.
+- The update form is available only on the latest service revision.
 
 ## Updates to inherited services
 
