@@ -34,7 +34,8 @@ In that flow you can:
 
 - choose which services to deploy
 - force deployment even when manifests have not changed
-- disable post-deployment scripts for services that provide them
+- disable post-deployment scripts for services that provide them; [pre-deployment scripts](#pre-deployment-scripts)
+  cannot be disabled
 - use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment
 - choose from available successful builds for services with build sources, including eligible older builds
 - choose **New build** only when the app service's CI provider and build source support dashboard-triggered builds
@@ -87,6 +88,9 @@ older builds because they can run migrations or other data-changing operations. 
 explicitly turn a service's scripts back on after reviewing them. The build and deployment detail shortcuts keep those
 scripts off; use **New Deployment** if you intentionally need to run them.
 
+Pre-deployment scripts cannot be turned off. If the older build has `.wodby/pre-deployment.yml`, its scripts run before
+the older build rolls out.
+
 Deployment history keeps the original build transition visible after the selected build becomes current:
 
 - **Build rollback** means the deployment replaced newer builds entirely with older builds that had been deployed
@@ -106,6 +110,32 @@ downgrade the stack.
 The generic task **Repeat** action remains limited to the latest deployment. To restore an earlier deployment, open its
 deployment details and use its **Roll back to this deployment** or **Redeploy** action, which applies the older-build
 eligibility checks and confirmation.
+
+### Pre-deployment scripts
+
+CI scripts defined in `.wodby/pre-deployment.yml` run as part of the deployment, before the new build rolls out. Use
+them for work the new version needs before it serves traffic, such as database migrations.
+
+- They run when the deployment brings in a build other than the one the app service currently runs: a new build, an
+  older build, or a rollback to an earlier deployment.
+- They do not run when the deployment keeps the current build, for example a redeploy after a configuration change, an
+  automated redeployment, or a stack upgrade that reuses the build.
+- They run once per deployment, for the app service that owns the build, and only when that service is included in the
+  deployment.
+- They run with the new build's image, environment variables and settings. The running version keeps serving until
+  they succeed and the rollout finishes.
+- If a script fails, the deployment fails before the new version is installed and the previous version keeps serving.
+  The deployment's task log shows the script output.
+- Deploying the same build again after a failure runs the scripts again, so make them safe to repeat.
+- On an app service's first deployment there is no previous version, so the scripts run right after the service is
+  installed.
+- They cannot be turned off for a deployment. Disabling post-deployment scripts, in **New Deployment** or with
+  `--skip-post-deploy`, does not affect them.
+
+!!! warning "Keep migrations compatible with the running version"
+    The previous version keeps serving while pre-deployment scripts run and until the rollout finishes. A migration
+    that removes or renames a table or column the previous version uses breaks it during that time. Add columns and
+    tables before the rollout, and remove or rename them in a later release.
 
 ### Post-deployment scripts
 
@@ -180,6 +210,8 @@ are no rollback hooks to run. Reapplying that release would not correct the unhe
 why rollback was skipped.
 
 Failures in `.wodby/post-deployment.yml` happen after a successful rollout and never trigger deployment rollback.
+Failures in `.wodby/pre-deployment.yml` happen before the new version is installed, so the previous version keeps
+running and there is nothing to roll back.
 
 If rollback is not attempted, the failed release state remains in the cluster. If rollback is attempted but fails, the
 deployment remains failed and the task logs include the rollback error.
@@ -246,7 +278,7 @@ Parallel deployments remain in progress until their shared routing and DNS updat
 can succeed even if another fails or is canceled. If the shared routing or DNS update fails, all deployments waiting
 for that update fail. Check the task logs before retrying.
 
-First and full deployments, migrations, imports, repository post-deployment scripts, and deployments of external,
+First and full deployments, migrations, imports, repository pre- and post-deployment scripts, and deployments of external,
 storage, infrastructure, or operator services run one at a time. Environments on older routing infrastructure or with
 an unfinished routing migration also run deployments one at a time.
 
@@ -301,7 +333,8 @@ An automatic stack upgrade runs repository-defined `.wodby/post-deployment.yml` 
 when the upgrade rebuilds that service. If the service needs only a runtime redeployment, Wodby reuses the existing
 build and records its post-deployment scripts as `skipped`. This prevents an unchanged build from automatically
 repeating migrations or other data-changing jobs. Service-manifest [`post_deploy`](../services/operations.md#post_deploy)
-actions are separate lifecycle hooks and are not disabled by this repository-script skip.
+actions are separate lifecycle hooks and are not disabled by this repository-script skip. Repository
+`.wodby/pre-deployment.yml` scripts follow the same rule: they run only when the upgrade rebuilds the service.
 
 Automatic selection does not search arbitrary build history. Once a newer build is successfully deployed, the previous
 build is no longer considered the last known-good image and is not selected automatically across stack revisions. Any

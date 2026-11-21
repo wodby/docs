@@ -65,7 +65,7 @@ wodby ci deploy
 
 ## 1. Init
 
-`wodby ci init` creates or loads the app build, logs Docker in to the associated [registry](docker-registry.md), prepares the working directory, and reads `.wodby/post-deployment.yml` from the build context when present.
+`wodby ci init` creates or loads the app build, logs Docker in to the associated [registry](docker-registry.md), prepares the working directory, and reads `.wodby/pre-deployment.yml` and `.wodby/post-deployment.yml` from the build context when present.
 
 Use `--dind` when your CI provider builds through docker-in-docker. In that mode the Docker daemon does not need to
 see host paths. The application image does not need to provide `chown`, a shell, or a special entrypoint, and

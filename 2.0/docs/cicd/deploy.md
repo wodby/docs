@@ -1,5 +1,5 @@
 ---
-description: Deploy pushed images from CI with wodby ci deploy, review the deployment history of an app environment, and run post-deployment scripts.
+description: Deploy pushed images from CI with wodby ci deploy, review the deployment history of an app environment, and run pre- and post-deployment scripts.
 ---
 
 # Continuous deployments
@@ -12,6 +12,12 @@ Each CI deployment is associated with the Wodby build created during `wodby ci i
 history, including failed deployments, from `Apps > [App] > [Environment] > CI/CD > Deploys`.
 
 CI-triggered deployments use the same [rollback behavior](../apps/deploys.md#deployment-rollback) as manual deployments.
+
+## Pre-deployment scripts
+
+If the build contains `.wodby/pre-deployment.yml`, Wodby runs those jobs as part of the deployment, before the new
+build rolls out. If a job fails, the deployment fails and the previous version keeps serving. `--skip-post-deploy`
+does not skip them. See [Pre-deployment scripts](../apps/deploys.md#pre-deployment-scripts).
 
 ## Post-deployment scripts
 
@@ -29,7 +35,7 @@ post-deployment task without redeploying the application.
 post-deployment task. The deployment can remain `Awaiting` while other selected builds finish or the cluster completes
 infrastructure maintenance. When all inputs are ready, its normal deployment task becomes `Queued` until execution
 capacity is available. Eligible independent partial deployments can roll out concurrently; conflicting deployments and
-deployments with post-deployment scripts remain ordered. See
+deployments with pre- or post-deployment scripts remain ordered. See
 [Deployment readiness and queueing](../apps/deploys.md#deployment-readiness-and-queueing) and
 [parallel partial deployments](../apps/deploys.md#parallel-partial-deployments).
 
