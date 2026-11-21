@@ -65,8 +65,8 @@ Runtime-only changes reuse the last safely deployable build and redeploy that im
 services are omitted from the deployment.
 
 When an affected build-source service reuses an existing build, Wodby skips that build's repository-defined
-`.wodby/post-deployment.yml` scripts. If the upgrade creates a new build, its post-deployment scripts run normally after
-the rollout succeeds. This skip does not apply to service-manifest `post_deploy` actions. See
+`.wodby/pre-deployment.yml` and `.wodby/post-deployment.yml` scripts. If the upgrade creates a new build, its
+pre-deployment scripts run before the rollout and its post-deployment scripts run after the rollout succeeds. This skip does not apply to service-manifest `post_deploy` actions. See
 [Automated redeployments](deploys.md#automated-redeployments) for details.
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.

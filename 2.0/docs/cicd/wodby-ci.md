@@ -1,5 +1,5 @@
 ---
-description: Wodby CI is the built-in CI system. Add a .wodby/pipeline.yml file to your repository to build and deploy app services and run post-deployment scripts.
+description: Wodby CI is the built-in CI system. Add a .wodby/pipeline.yml file to your repository to build and deploy app services and run deployment scripts.
 ---
 
 # Wodby CI
@@ -129,6 +129,31 @@ build-scoped setting-derived variables for the main service container into the b
 stack env vars, and variable integrations are not exported to builds.
 
 Secret build-scoped values are injected as secret environment variables and are hidden from build logs.
+
+## Pre-deployment scripts
+
+Create `.wodby/pre-deployment.yml` to run jobs that a new build needs before it serves traffic, such as database
+migrations. The file uses the same syntax as [post-deployment scripts](#post-deployment-scripts).
+
+Example:
+
+```yml
+version: 0.1
+
+jobs:
+  migrate:
+    steps:
+      - run: php artisan migrate --force
+```
+
+When a deployment brings a different build to an app service, Wodby runs these jobs with the new build's image,
+environment variables and settings, and starts the rollout only after they succeed. The previous version keeps serving
+while they run. If a job fails, the deployment fails and the previous version stays in place.
+
+The previous version also keeps serving until the rollout finishes, so a migration must work with both versions. Add
+columns and tables in one release, and remove or rename them in a later one.
+
+See [Pre-deployment scripts](../apps/deploys.md#pre-deployment-scripts) for when they run and when they are skipped.
 
 ## Post-deployment scripts
 

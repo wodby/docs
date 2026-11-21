@@ -147,6 +147,12 @@ contents after cache-enabled commands. Set `WODBY_CI_CACHE_DIR` only when an
 environment requires a different root. This persistence is optional: the directory does not need to exist before the
 job, and an automatic cache restore, setup, or save failure only produces a warning.
 
+## Pre-deployment scripts
+
+You can use [`.wodby/pre-deployment.yml`](wodby-ci.md#pre-deployment-scripts) with third-party CI. Wodby CLI 2.15.0 or
+later reads it during `wodby ci init` and attaches it to the build; builds created with an older CLI carry no
+pre-deployment scripts. `--skip-post-deploy` does not skip pre-deployment scripts.
+
 ## Post-deployment scripts
 
 You can still use [`.wodby/post-deployment.yml`](wodby-ci.md#post-deployment-scripts) with third-party CI. Wodby CLI reads it during `wodby ci init` and attaches it to the build. Pass `--skip-post-deploy` to `wodby ci deploy` when you want to skip those jobs.
