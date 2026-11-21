@@ -34,9 +34,11 @@ In that flow you can:
 
 - choose which services to deploy
 - force deployment even when manifests have not changed
-- disable post-deployment scripts for services that provide them; [pre-deployment scripts](#pre-deployment-scripts)
-  cannot be disabled
-- use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment
+- turn deployment scripts on or off for services that provide them (see
+  [pre-deployment scripts](#pre-deployment-scripts) for what this switch covers)
+- use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment;
+  it is checked and locked when the environment turns rollback off in its
+  [deployment settings](#environment-deployment-settings)
 - choose from available successful builds for services with build sources, including eligible older builds
 - choose **New build** only when the app service's CI provider and build source support dashboard-triggered builds
 
@@ -83,13 +85,12 @@ selector groups eligible previous choices under **Older builds**.
     using an image from another revision adds stack-compatibility risk.
 
 Before starting a build rollback or older-build deployment, the dashboard lists the affected services, build numbers,
-and build stack revisions and requires an acknowledgment checkbox. Post-deployment scripts are turned off by default for
-older builds because they can run migrations or other data-changing operations. In **New Deployment**, you can
+and build stack revisions and requires an acknowledgment checkbox. Pre- and post-deployment scripts are turned off by
+default for older builds because they can run migrations or other data-changing operations. A migration tool can also
+fail on a database that is newer than the older code, which would stop the rollback. In **New Deployment**, you can
 explicitly turn a service's scripts back on after reviewing them. The build and deployment detail shortcuts keep those
-scripts off; use **New Deployment** if you intentionally need to run them.
-
-Pre-deployment scripts cannot be turned off. If the older build has `.wodby/pre-deployment.yml`, its scripts run before
-the older build rolls out.
+scripts off. To run them by default for older builds, including from the shortcuts, turn on **Run deployment scripts
+for older builds** in the environment's [deployment settings](#environment-deployment-settings).
 
 Deployment history keeps the original build transition visible after the selected build becomes current:
 
@@ -103,7 +104,8 @@ Deployment details show the tags per app service together with the previous and 
 `Build #7 → #5`. These build-selection tags describe the intentional version change; they are separate from automatic
 [rollback on rollout failure](#deployment-rollback).
 
-Automatic rollback on rollout failure remains enabled unless you select **Skip rollback on failure**. That rollback can
+Automatic rollback on rollout failure remains enabled unless you select **Skip rollback on failure** or the environment
+turns it off in its [deployment settings](#environment-deployment-settings). That rollback can
 restore the previous Kubernetes release after a rollout failure, but it still does not restore application data or
 downgrade the stack.
 
@@ -116,8 +118,11 @@ eligibility checks and confirmation.
 CI scripts defined in `.wodby/pre-deployment.yml` run as part of the deployment, before the new build rolls out. Use
 them for work the new version needs before it serves traffic, such as database migrations.
 
-- They run when the deployment brings in a build other than the one the app service currently runs: a new build, an
-  older build, or a rollback to an earlier deployment.
+- They run when the deployment brings in a new build. A new build always runs them: turning off post-deployment
+  scripts, in **New Deployment** or with `--skip-post-deploy`, does not skip them.
+- For an older build, including a rollback to an earlier deployment, they follow the service's deployment scripts
+  switch, which is off by default for older builds. See
+  [Roll back to previous builds and deployments](#roll-back-to-previous-builds-and-deployments).
 - They do not run when the deployment keeps the current build, for example a redeploy after a configuration change, an
   automated redeployment, or a stack upgrade that reuses the build.
 - They run once per deployment, for the app service that owns the build, and only when that service is included in the
@@ -129,8 +134,6 @@ them for work the new version needs before it serves traffic, such as database m
 - Deploying the same build again after a failure runs the scripts again, so make them safe to repeat.
 - On an app service's first deployment there is no previous version, so the scripts run right after the service is
   installed.
-- They cannot be turned off for a deployment. Disabling post-deployment scripts, in **New Deployment** or with
-  `--skip-post-deploy`, does not affect them.
 
 !!! warning "Keep migrations compatible with the running version"
     The previous version keeps serving while pre-deployment scripts run and until the rollout finishes. A migration
@@ -199,7 +202,8 @@ the same deployment.
 
 Rollback is not always possible. Wodby does not attempt rollback when:
 
-- `Skip rollback on failure` is selected or `--skip-rollback` is used
+- `Skip rollback on failure` is selected, `--skip-rollback` is used, or the environment turns rollback off in its
+  [deployment settings](#environment-deployment-settings)
 - the service is being installed for the first time
 - the service has no previous successful release
 - the failure happens before the Helm upgrade is applied
@@ -391,6 +395,23 @@ automatically after the cluster returns to `ok`; you do not need to trigger the 
 upgrade fails, the deployment continues waiting until the cluster recovers to `ok`.
 
 ## Deployment settings
+
+### Environment deployment settings
+
+`Apps > [App] > [Environment] > CI/CD > Deploys > Settings` has a **Deployment behavior** card with defaults for every
+deployment of the environment:
+
+- **Run deployment scripts for older builds**, off by default. On, deployments that go back to an older build run its
+  pre- and post-deployment scripts, including the **Roll back to this build** and **Roll back to this deployment**
+  shortcuts, and **New Deployment** starts with the scripts on. Turn it on only if your scripts are safe to run with
+  older code against a newer database.
+- **Roll back automatically when a rollout fails**, on by default. Off, a failed rollout stays in place for every
+  deployment, including automatic and CI deployments, so you can inspect it. A single deployment cannot turn rollback
+  back on while it is off for the environment.
+
+Changing these settings needs permission to configure the environment. They do not require a redeploy.
+
+### App service deployment settings
 
 To change how an app service's pods are replaced during a deployment, open
 `Apps > [App] > [Environment] > CI/CD > Deploys > Settings` and select the service in the `App service` selector. See
