@@ -246,10 +246,13 @@ cluster's `Security` tab shows the result.
 
 ### Restart servers
 
-Wodby restarts one node at a time and waits until it's back and `Ready` before the next one.
+Wodby first installs the available package updates on the nodes, as [Update server packages](#update-server-packages)
+does, so one restart applies them all. It then restarts one node at a time and waits until it's back and `Ready` before
+the next one.
 
 1. Open `Clusters > [Cluster] > Nodes`, or the cluster's `Security` tab, and click `Restart servers`.
-2. Leave `Nodes` empty to restart only the nodes that need a restart, or choose the nodes to restart.
+2. Leave `Nodes` empty to update every node and restart only the nodes that need a restart after the update, or choose
+   the nodes to update and restart.
 3. Click `Restart`.
 
 Before it restarts a node, Wodby moves the node's apps to the other nodes when they have room. While the K3s server
@@ -259,6 +262,8 @@ restarts, the Kubernetes API is unavailable. New deployments wait until the rest
 
     When the cluster has only its server, every app on the cluster is unavailable until the server and K3s have started
     again, usually for a few minutes. Restart it during a maintenance window.
+
+If an update fails, no node restarts. Fix the problem the task log shows, then restart the servers again.
 
 If Wodby can't move a node's apps within 20 minutes, for example because a pod disruption budget doesn't allow it, the
 task fails before that node restarts. If a node isn't back within 20 minutes, the task fails and Wodby doesn't restart
