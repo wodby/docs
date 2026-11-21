@@ -26,6 +26,10 @@ When updates are available, the card lists the affected services and shows the c
 versions. When every unpinned service already uses the latest available service revision, the card shows an `Up to date`
 tag and the update button is disabled.
 
+A red bug tag on a row means the update fixes vulnerabilities known or likely to be exploited in the images the stack
+uses now. Update those services first. See
+[Stack updates that fix vulnerabilities](../apps/vulnerability-scanning.md#stack-updates-that-fix-vulnerabilities).
+
 Select `Ignore this version` on an update row when that exact target revision should not be used by this stack. Confirming
 the action removes it from the update suggestions and prevents service revision auto-update from selecting it. Ignoring
 does not create a stack draft or change running app environments. If the service later publishes another revision, that
