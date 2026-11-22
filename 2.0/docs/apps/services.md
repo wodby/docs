@@ -345,6 +345,9 @@ These settings often flow into environment variables or runtime configuration ge
 The service template decides whether each setting is runtime-scoped, build-scoped, or both. Changing a build-scoped
 setting marks the app service for rebuild; changing a runtime-only setting marks it for redeploy.
 
+A service can set [requirements](../services/configuration.md#value-requirements) for a setting value, such as a
+minimum password length. A value that does not meet them is refused with a list of what is missing.
+
 ## Configs tab
 
 The `Configuration > Configs` subtab lets you view default [configs](../services/configuration.md#configs) and override them for this app

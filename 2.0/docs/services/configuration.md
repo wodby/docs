@@ -77,6 +77,15 @@ map-style `helm.envKV` mapping places values directly in Helm values and therefo
 Build-scoped secret settings are redacted from API responses. The Dockerfile must
 still handle its matching `ARG` safely: copying a build argument into an image layer, file, or build log can expose it.
 
+### Value requirements
+
+A service template can set [requirements](template.md#setting-validation) for a setting, such as a minimum length or
+characters the value must contain. Wodby refuses a value that does not meet them when you save it on a stack service
+or app service, or enter it while creating an app or environment, and lists what is missing.
+
+A value saved before the requirements existed, or taken unchanged from the stack, is not refused. The app service
+reports it as a configuration problem until you change the value.
+
 ## Configs
 
 Services can define configs that represent configuration files or config payloads overridden at stack or app level.

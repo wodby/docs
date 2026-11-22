@@ -1074,6 +1074,7 @@ Each item supports:
 - `var`: required environment variable name created from this setting.
 - `runtime`: optional boolean. Defaults to `true`. When `false`, Wodby does not inject the setting-derived variable into runtime containers.
 - `build`: optional boolean. Defaults to `false`. When `true`, Wodby can pass the setting-derived variable to CI builds as a Docker build argument when the Dockerfile declares a matching `ARG`.
+- `validation`: optional [requirements](#setting-validation) a value must meet.
 
 At least one of `runtime` or `build` must be enabled. Use `build: true` for settings such as document root paths that
 must be available while building an image.
@@ -1098,6 +1099,46 @@ settings:
 
 Wodby never returns the configured value for a secret setting. API responses return an empty `value` and expose `secret` and `hasValue` so clients can render a password control and configured state without revealing the
 credential.
+
+#### Setting validation
+
+`validation` lists requirements a setting value must meet. Wodby refuses a value that does not meet them when it is
+saved, and lists every unmet requirement in the error. An empty value is not checked; use `required` for that.
+
+- `minLength`: optional minimum number of characters.
+- `maxLength`: optional maximum number of characters.
+- `rules`: optional list of requirements. Each item has:
+  - `regex`: required regular expression in [RE2 syntax](https://github.com/google/re2/wiki/Syntax). It must match
+    somewhere in the value; anchor it with `^` and `$` to match the whole value.
+  - `message`: required text shown when the value does not match, for example `Include a digit.`
+
+RE2 has no lookahead, so write a requirement such as "contains a digit and a special character" as separate rules.
+A setting with `from` cannot define `validation`, and a `default` must meet the setting's own requirements.
+
+Add requirements only for values the service cannot run with. An app service whose stored value does not meet them
+reports a configuration problem until the value is changed.
+
+Example:
+
+```yaml
+settings:
+  - name: admin-password
+    title: Admin password
+    var: ADMIN_PASSWORD
+    required: true
+    secret: true
+    validation:
+      minLength: 24
+      rules:
+        - regex: '[A-Z]'
+          message: Include an uppercase letter.
+        - regex: '[a-z]'
+          message: Include a lowercase letter.
+        - regex: '[0-9]'
+          message: Include a digit.
+        - regex: '[^A-Za-z0-9]'
+          message: Include a special character.
+```
 
 ### `imports`
 
