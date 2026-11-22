@@ -282,10 +282,12 @@ passed to Helm. Service-level deployment mapping defaults apply only to single-w
 - `env`
 - `envKV`
 - `secretEnvFrom`
+- `sharedEnvFrom`
 - `mounts`
 - `image`
 
-These are Helm value paths used when Wodby injects container-scoped data.
+These are Helm value paths used when Wodby injects container-scoped data, except `sharedEnvFrom`, which names a
+container.
 
 Use `secretEnvFrom` for a chart that accepts an `envFrom` list but cannot keep `valueFrom` entries in its environment
 list. Wodby passes an `envFrom` entry that loads the app service's secret environment variables from the
@@ -302,6 +304,31 @@ workloads:
     helm:
       env: app.extraEnv
       secretEnvFrom: app.extraEnvFrom
+```
+
+Use `sharedEnvFrom` for a container that the chart already gives the environment of another container in the same
+workload, such as a cron sidecar that runs with the main container's environment. Set it to the name of that other
+container, which must map `env`, `envKV` or `secretEnvFrom`. Without it, every deployment logs a warning that
+environment variables are skipped for the sidecar.
+
+A container with `sharedEnvFrom` receives only the other container's environment, so:
+
+- it cannot set `env`, `envKV` or `secretEnvFrom`, or declare environment variables of its own in the service manifest
+- environment variables for it alone are refused, in the dashboard, the API and stack manifests. Set them on the
+  other container, or for the whole app service, and the sidecar gets them too.
+
+```yaml
+workloads:
+- name: main
+  kind: deployment
+  containers:
+  - name: app
+    helm:
+      env: app.extraEnv
+  - name: app-cron
+    helm:
+      resources: cronjob.resources
+      sharedEnvFrom: app
 ```
 
 ### Container image Helm mappings
