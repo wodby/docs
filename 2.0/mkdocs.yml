@@ -293,6 +293,7 @@ nav:
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
               - eLabFTW: stacks/catalog/elabftw/index.md
+              - SENAITE LIMS: stacks/catalog/senaite/index.md
               - Nextcloud: stacks/catalog/nextcloud/index.md
               - Odoo: stacks/catalog/odoo/index.md
               - Odoo (buildable): stacks/catalog/odoo-buildable/index.md
