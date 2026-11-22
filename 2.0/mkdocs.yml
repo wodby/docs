@@ -302,6 +302,7 @@ nav:
               - Dagster: stacks/catalog/dagster/index.md
               - Zammad: stacks/catalog/zammad/index.md
               - Redmine: stacks/catalog/redmine/index.md
+              - Plane: stacks/catalog/plane/index.md
               - n8n: stacks/catalog/n8n/index.md
               - Metabase: stacks/catalog/metabase/index.md
               - Slack Inviter: stacks/catalog/slack-inviter/index.md
