@@ -103,7 +103,7 @@ These tools require `mcp:read` when using OAuth.
 | `list_imports` | List the imports into an app environment, app service, database or database DB, newest first. The source URL of an import is not shown. |
 | `get_import` | Get one import: its status, source, the backup it restores, and the task that runs it. |
 | `list_public_services` | List public service catalog items. |
-| `list_services` | List services in an organization. |
+| `list_services` | List services in an organization. Archived services are left out unless `archived` is `include` (listed last) or `only`. |
 | `get_service` | Get a service by name and optional revision number. |
 | `get_service_contract` | Inspect revision-specific resolved service metadata; configuration values and source contents are omitted. Not an editable manifest. |
 | `list_service_link_candidates` | List, for each link of a catalog service, the public catalog services that can satisfy it, such as the databases a PHP service can connect to. |
@@ -220,6 +220,8 @@ configuration changes.
 | `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
 | `update_service_from_manifest` | Update an existing non-Git service from a Wodby service manifest. Requires `confirm: true`. |
 | `update_service_from_git` | Update a service from its Git source. Requires `confirm: true`. |
+| `archive_service` | [Archive a service](../../services/updates.md#archive-a-service) that earlier stack revisions keep from being deleted. Refused while the current or draft revision of a stack, or a service that is not archived, still uses it. |
+| `unarchive_service` | Unarchive a service, so stacks can use it again and it is updated and scanned as before. |
 | `create_git_repository` | Create a private repository under a Git integration you may modify, with a first commit holding a README. Not for a new app's code: creating an app that copies a boilerplate creates its repository. Refused on Bitbucket, where you create the repository yourself. |
 | `create_git_branch` | Create a branch at the head of another branch, through a Git integration you may modify. It never moves or replaces an existing branch. |
 | `create_git_pull_request` | Open a pull request (a merge request on GitLab) from one branch of a repository into another, through a Git integration you may modify. It never merges anything. |
