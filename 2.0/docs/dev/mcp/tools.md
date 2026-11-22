@@ -131,7 +131,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
 | `get_stack_examples` | Get concise Wodby stack manifest examples. |
 | `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
-| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector. |
+| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector, including why a pod can't be scheduled or isn't ready, and why each container last stopped, such as `OOMKilled`, with its exit code. |
+| `get_app_environment_events` | Get an app environment's recent Kubernetes events, newest first, such as a pod that can't be scheduled, fails its health checks, can't pull its image or mount a volume. Returns warnings only unless asked otherwise, and can be limited to one app service. Kubernetes keeps events for a limited time, usually about an hour. Known secret values are masked. |
 | `get_app_service_volume_storage_classes` | Compare the storage class each volume of an app service is configured with to the class its Kubernetes volumes use, read from the cluster. |
 | `get_app_service_logs` | Read bounded current or previous-container logs and return a log-access task ID. |
 | `start_app_service_log_watch` | Open an audited, short-lived watch for new logs from one pod and container execution. |

@@ -51,7 +51,8 @@ the Dashboard. Sign in, choose the organization to grant, and approve the reques
 
 Wodby currently exposes these MCP OAuth scopes:
 
-- `mcp:read` for discovery, diagnostics, deployment status, task status, bounded metrics, pod status, and logs.
+- `mcp:read` for discovery, diagnostics, deployment status, task status, bounded metrics, pod status, Kubernetes
+  events, and logs.
 - `mcp:operate` for task-backed operations such as deployments, builds, backups, cron runs, app service actions, and
   task repeats.
 - `mcp:exec` for [container commands](#container-commands), where enabled, and for handing a task to Wodby Agent in a
@@ -123,6 +124,9 @@ runtime state.
   entries have `messageTruncated`. Use the task-log download in the Dashboard when inline limits are insufficient.
 - `collectionComplete=false` means more logs may arrive. A retrieval error is missing evidence, not an empty log.
 - Discover the workload, container, and pod with `get_app_service_pods`, then use `get_app_service_logs`.
+- When a pod isn't ready or a container restarted, `get_app_environment_events` usually says why, for example
+  insufficient cluster resources, a failed health check, or an image that can't be pulled. Kubernetes keeps events for
+  a limited time, so an empty result for an older failure means the evidence expired, not that nothing happened.
   Set `previous=true` for the preceding terminated container. Reads are limited to 200 lines and 64 KiB.
 - Each application-log read records a `read_app_service_logs` access task. Its completion does not mean the read
   succeeded or the application is healthy. Reuse the returned `podUid` as `pod_uid` to pin subsequent reads to the
