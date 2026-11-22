@@ -9,18 +9,15 @@ Cluster vulnerability checks run on every plan.
 
 Wodby Cloud and serverless clusters don't list vulnerabilities, because Wodby or the provider runs every part of them.
 
-While a cluster has vulnerabilities that raise an alert and aren't fixed, mitigated, or
-[ignored](#ignore-a-vulnerability), its `Security` tab shows a red dot, and so does `Clusters` in the sidebar. The
-cluster's status also shows a red bug tag with their number, in the `Clusters` list, at the top of the cluster page and
-on its `Overview` tab.
-
-A vulnerability raises an alert when it's known to be exploited, at least 10% likely to be exploited in the next 30
-days, or tracked by Wodby, whatever its severity. See [Vulnerabilities that raise an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert).
+A cluster raises an alert while it has vulnerabilities that raise one and aren't fixed, mitigated, or
+[ignored](#ignore-a-vulnerability). A vulnerability raises an alert when it's known to be exploited, at least 10% likely
+to be exploited in the next 30 days, or tracked by Wodby, whatever its severity. See
+[Vulnerabilities that raise an alert](../apps/vulnerability-scanning.md#vulnerabilities-that-raise-an-alert).
 The [security advisories](#security-advisories) Wodby tracks always raise an alert until they're fixed or mitigated.
 An outdated node image isn't a single vulnerability, so it doesn't raise an alert.
 
-When nothing raises an alert, the cluster page shows the number of critical and high vulnerabilities that aren't fixed
-in a grey bug tag, and the `Clusters` list shows none.
+Critical and high vulnerabilities that don't raise an alert still appear in the table. Fix them too when you can, but
+they are less urgent.
 
 ## Read the table
 
@@ -98,7 +95,7 @@ affected. An ignored vulnerability:
 
 - Shows `Ignored` as its status. Hover over the status to see the real status and the reason.
 - Moves to the end of the table.
-- Doesn't count toward the red dot on the `Security` tab or the red bug tag in the cluster's status.
+- Doesn't count toward the cluster's alert.
 - Isn't shown by the `Not fixed or mitigated` filter.
 
 To count it again, click `Stop ignoring` in its row.
