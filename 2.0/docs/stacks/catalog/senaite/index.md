@@ -79,8 +79,9 @@ Wodby can't import this archive into the database service. Restoring one needs a
 1. Download the backup.
 2. Stop the SENAITE LIMS and database services, for example by
    [pausing the environment](../../../apps/environments.md#pausing-and-resuming-an-environment).
-3. Empty the database service's volume and unpack the archive into it, so the volume holds the `filestorage` and
-   `blobstorage` folders.
+3. In your cluster, start a temporary pod in the environment's namespace that mounts the database service's volume.
+   From it, empty the volume and unpack the archive into it, so the volume holds the `filestorage` and `blobstorage`
+   folders. Then delete the temporary pod.
 4. Start the services again, for example by resuming the environment.
 
 Don't unpack an archive into the volume while the database server runs.
