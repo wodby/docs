@@ -1,5 +1,5 @@
 ---
-description: Wodby services are versioned. Update a service from Git or a manifest, turn on auto-update, and see how new revisions reach stacks and inherited services.
+description: Update a Wodby service from Git or a manifest, turn on auto-update, see how revisions reach stacks, and archive services you no longer need.
 ---
 
 # Service updates
@@ -81,6 +81,40 @@ Open `Services`, select the service, and go to `Edit`. Git-backed services show 
 not on the `Operations` tab. The delete action is available only on the latest service revision.
 
 A base service cannot be deleted while inherited service revisions reference its revision history.
+
+## Archive a service
+
+Archive a service you no longer need but cannot delete because earlier stack revisions still use it. The stack
+revisions and app environments that already use the service keep working, including deployments and stack upgrades.
+
+An archived service:
+
+- is listed after the services in use on the `Services` page and marked `Archived`
+- cannot be added to a stack, used by a new or copied stack, or used as the base service of another service
+- is not updated from Git, manually or automatically, and its update settings cannot be changed
+- is not scanned for vulnerabilities
+
+To archive a service, open `Services`, select the service, go to `Edit`, and click `Archive service`. To use it again,
+click `Unarchive service` on the same tab. Both actions are available only on the latest service revision.
+
+You cannot archive a service while:
+
+- the current or draft revision of a stack uses it. Remove or replace the service in those stacks first.
+- a service that is not archived inherits from it. Archive or delete that service first.
+
+The error message lists the stacks or services to change. You can still delete an archived service once no stack
+revision uses it.
+
+### Services removed from Git
+
+A Git repository can hold several services. When you remove one of them from the repository, Wodby keeps the service
+at its last revision and archives it the next time the service is updated from Git, if the rules above allow it.
+Otherwise the update task ends with a warning that lists what still uses the service. Wodby does not delete services
+removed from Git.
+
+If the service returns to the repository and the service updates from Git automatically, the next automatic update
+unarchives it and imports the new revision. Otherwise, unarchive the service and update it from Git. A service you
+archived yourself stays archived until you unarchive it.
 
 ## Auto-update from Git
 
