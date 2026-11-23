@@ -20,7 +20,7 @@ storage, and defaults. Browse all available stacks in the [Wodby stack catalog](
 [Ghost](ghost/index.md), [Matomo](matomo/index.md) ([buildable](matomo-buildable/index.md)), [Mautic](mautic/index.md) ([buildable](mautic-buildable/index.md)), [Moodle](moodle/index.md) ([buildable](moodle-buildable/index.md)),
 [Discourse](discourse/index.md) ([buildable](discourse-buildable/index.md)), [Chatwoot](chatwoot/index.md), [Mattermost](mattermost/index.md), [eLabFTW](elabftw/index.md), [SENAITE LIMS](senaite/index.md),
 [Nextcloud](nextcloud/index.md), [Odoo](odoo/index.md) ([buildable](odoo-buildable/index.md)), [GitLab](gitlab/index.md), [Gitea](gitea/index.md),
-[Forgejo](forgejo/index.md), [Dagster](dagster/index.md), [Zammad](zammad/index.md), [Redmine](redmine/index.md), [Plane](plane/index.md), [n8n](n8n/index.md),
+[Forgejo](forgejo/index.md), [Dagster](dagster/index.md), [Zammad](zammad/index.md), [Redmine](redmine/index.md), [Plane](plane/index.md), [Jitsi Meet](jitsi/index.md), [n8n](n8n/index.md),
 [Metabase](metabase/index.md), [Slack Inviter](slack-inviter/index.md)
 
 ## Framework stacks
