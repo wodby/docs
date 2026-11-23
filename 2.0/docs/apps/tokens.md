@@ -186,6 +186,8 @@ Available when the current app-service context exposes a database.
 - `database.db.name`: database name for the current app-service context
 - `database.db.charset`: database charset for the current app-service context
 - `database.db.collation`: database collation for the current app-service context
+- `database.dbs.[name].name`: name of an extra database that a link asks for next to the main database. See
+  [Extra databases on a link](../services/template.md#extra-databases-on-a-link)
 
 ## `links`
 
@@ -200,6 +202,8 @@ Accessed as `links.[name].[token]`.
 - `links.[name].database.*`: database token from the linked app service. See [`database`](#database)
 - `links.[name].database.caFile`: path of the linked managed database server's CA certificate, mounted at the link's
   [`database.ca.filepath`](../services/template.md#links). Empty when the server has no CA certificate
+- `links.[name].database.dbs.[db-name].name`: name of an extra database the link asks for in its
+  [`database.dbs`](../services/template.md#extra-databases-on-a-link), on the linked database server
 - `links.[name].values.[value-name]`: a [link value](../services/template.md#links): the value a user entered for a
   custom target, or the value's `from` evaluated against the linked app service. Empty for an optional value that is
   not set

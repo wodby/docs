@@ -764,6 +764,9 @@ Each item supports:
 - `database.ca.filepath`: optional absolute path where Wodby mounts the CA certificate of the linked managed database
   server, when the server has one. Use it with
   [`{{link.database.caFile}}`](../apps/tokens.md#links) to connect to the server with TLS.
+- `database.dbs`: optional extra databases the service needs next to its main database, up to 10. Each item has a
+  `name`: a lowercase letter followed by up to 15 lowercase letters and digits. See
+  [Extra databases on a link](#extra-databases-on-a-link).
 - `values`: optional values the link hands to the service, whatever the link points at. Each item has `name`,
   optional `title`, `secret`, `optional`, and `from`. `from` says how a target service provides the value, usually
   with [`{{link.exports.<name>}}`](../apps/tokens.md#links). Read a value with `{{link.values.<name>}}` in the link's
@@ -825,6 +828,50 @@ links:
     value: '{{link.values.authorization}}'
     secret: true
 ```
+
+#### Extra databases on a link
+
+Some applications keep their data in more than one database on the same server. A link to a database service can ask
+for them with `database.dbs`. When the service deploys, Wodby creates each extra database on the linked database
+server, if it doesn't exist yet, and gives the linked database user full access to it. This works for databases that
+run in the app and for standalone and cloud databases.
+
+An extra database is named after the environment's main database with an underscore and the item's `name` at the end,
+such as `main_messages`. Read the name with `{{link.database.dbs.<name>.name}}` in the link's own `env` and `helm`, or
+with `{{links.<link>.database.dbs.<name>.name}}` elsewhere. See [Tokens](../apps/tokens.md#links).
+
+For example, a service that keeps messages in a second PostgreSQL database:
+
+```yaml
+links:
+- name: postgres
+  title: PostgreSQL
+  required: true
+  database:
+    dbs:
+    - name: messages
+  env:
+  - name: DB_NAME
+    value: '{{link.database.db.name}}'
+  - name: MESSAGES_DB_NAME
+    value: '{{link.database.dbs.messages.name}}'
+  selectors:
+  - type: db
+    labels:
+    - postgres
+```
+
+Importing the service fails when:
+
+- a link with `database.dbs` has a selector whose `type` is not `db`
+- a link lists the same name twice
+- a token reads an extra database that its link does not list
+
+The deployment fails when the linked database service can't create databases or grant access to them.
+
+Backups, imports, environment migrations and preview environments cover only the main database. In a new environment,
+and after a restore that replaces the database server's data, the extra databases start empty, so the application must
+be able to set them up again. Removing an item from `database.dbs` in a newer revision keeps the database and its data.
 
 ### `linkGroups`
 
