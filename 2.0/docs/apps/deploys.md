@@ -134,6 +134,8 @@ them for work the new version needs before it serves traffic, such as database m
 - Deploying the same build again after a failure runs the scripts again, so make them safe to repeat.
 - On an app service's first deployment there is no previous version, so the scripts run right after the service is
   installed.
+- The service's own [`pre_deploy`](../services/operations.md#pre_deploy) actions, such as a catalog service's
+  database migrations, run before the scripts.
 
 !!! warning "Keep migrations compatible with the running version"
     The previous version keeps serving while pre-deployment scripts run and until the rollout finishes. A migration
@@ -214,8 +216,8 @@ are no rollback hooks to run. Reapplying that release would not correct the unhe
 why rollback was skipped.
 
 Failures in `.wodby/post-deployment.yml` happen after a successful rollout and never trigger deployment rollback.
-Failures in `.wodby/pre-deployment.yml` happen before the new version is installed, so the previous version keeps
-running and there is nothing to roll back.
+Failures in `.wodby/pre-deployment.yml` and in service-manifest `pre_deploy` actions happen before the new version is
+installed, so the previous version keeps running and there is nothing to roll back.
 
 If rollback is not attempted, the failed release state remains in the cluster. If rollback is attempted but fails, the
 deployment remains failed and the task logs include the rollback error.
@@ -336,8 +338,8 @@ this happens and shows the selected build and both revision numbers.
 An automatic stack upgrade runs repository-defined `.wodby/post-deployment.yml` scripts for a build-source service only
 when the upgrade rebuilds that service. If the service needs only a runtime redeployment, Wodby reuses the existing
 build and records its post-deployment scripts as `skipped`. This prevents an unchanged build from automatically
-repeating migrations or other data-changing jobs. Service-manifest [`post_deploy`](../services/operations.md#post_deploy)
-actions are separate lifecycle hooks and are not disabled by this repository-script skip. Repository
+repeating migrations or other data-changing jobs. Service-manifest [`pre_deploy`](../services/operations.md#pre_deploy) and
+[`post_deploy`](../services/operations.md#post_deploy) actions are separate lifecycle hooks and are not disabled by this repository-script skip. Repository
 `.wodby/pre-deployment.yml` scripts follow the same rule: they run only when the upgrade rebuilds the service.
 
 Automatic selection does not search arbitrary build history. Once a newer build is successfully deployed, the previous

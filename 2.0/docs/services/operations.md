@@ -33,6 +33,28 @@ Each run creates a task; command output is available in the task logs.
 User-runnable action. Actions of this type are shown on the app service's `Actions` tab. Running the action creates a
 task; output is associated with the task logs and is not returned directly by the run operation.
 
+#### `pre_deploy`
+
+Runs on every service deployment, before the new version of the service is installed, with the new version's image,
+environment variables and settings. Use it for work the new version needs before it serves traffic, such as database
+migrations. It can be limited to a specific build boilerplate.
+
+- The previous version keeps serving while the action runs and until the rollout finishes.
+- If the action fails, the deployment fails before the new version is installed and the previous version keeps
+  serving. The deployment's task log shows the action output.
+- On the service's first deployment there is no previous version, so the action runs right after the service is
+  installed.
+- When the deployment imports data, the action runs after the rollout instead, like `post_deploy`, so it never runs
+  against data the import is about to replace.
+- [Derivative services](derivatives.md) of the service are updated only after the action succeeds.
+- It runs before the build's repository [pre-deployment scripts](../apps/deploys.md#pre-deployment-scripts).
+- A `pre_deploy` action can depend only on other `pre_deploy` actions. Other deployment actions can depend on it.
+
+!!! warning "Keep migrations compatible with the running version"
+    A migration that removes or renames a table or column the previous version uses breaks it until the rollout
+    finishes, and for good if the deployment fails. Add columns and tables first, and remove or rename them in a later
+    release. Use `post_deploy` for updates the previous version can't run against.
+
 #### `post_deploy`
 
 Runs after every service deployment. If a deployment includes more than one service, the action runs only after all
