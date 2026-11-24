@@ -1288,7 +1288,7 @@ Each item supports:
 - `command`: optional command override.
 - `type`: required action type.
 - `workload`: optional workload name. If omitted, Wodby targets the primary workload.
-- `boilerplate`: optional build boilerplate name filter for `post_deploy` and `post_deploy_once` actions.
+- `boilerplate`: optional build boilerplate name filter for `pre_deploy`, `post_deploy` and `post_deploy_once` actions.
 - `depends`: optional list of actions that must run first.
 - `timeoutSeconds`: optional limit on how long the action may run, from `1` to `3600` seconds. Without it, an action is
   stopped after 5 minutes and its deployment or task fails. Set it for slow actions such as a first install.
@@ -1301,6 +1301,8 @@ Allowed `type` values:
 - `button`: user-runnable action shown on the app service's `Actions` tab
 - `output`: user-runnable action shown on the app service's `Actions` tab; output is available through the task logs
 - `post_upgrade`: runs after an app environment is upgraded to a new stack revision
+- `pre_deploy`: runs on every deployment, before the new version of the service is installed; see
+  [`pre_deploy`](operations.md#pre_deploy)
 - `post_deploy`
 - `post_deploy_once`
 - `empty`: no-op placeholder action, not user-runnable
