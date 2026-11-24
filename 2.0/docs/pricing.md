@@ -200,9 +200,11 @@ reduces the remaining storage charge; it does not retroactively remove storage b
 [Uptime checks](apps/uptime-checks.md) for 10 custom domains are included in paid plans. Each extra domain with its
 check switched on costs $1 a month and appears as `Uptime checks` on the billing page and invoices.
 
-New domains are switched on automatically only within the included 10. You switch on extra domains yourself, and
-switching a check off stops its charge. If switching on another check would exceed the uptime checks spending limit,
-Wodby refuses it.
+New domains are switched on automatically only within the included 10. You switch on extra domains yourself. If
+switching on another check would exceed the uptime checks spending limit, Wodby refuses it.
+
+Charges are prorated: an extra domain switched on mid-month costs only for the rest of the month, and switching it
+off credits the unused part on your next invoice.
 
 ### Wodby Cloud usage
 

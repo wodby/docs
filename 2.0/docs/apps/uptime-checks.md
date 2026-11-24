@@ -27,8 +27,10 @@ their check switched off. A domain whose check started switched off stays off un
 ## Extra domains
 
 You can switch on checks for more than 10 domains yourself. Each extra domain with its check switched on costs $1 a
-month. Switching a check off stops its charge. The charge appears as `Uptime checks` on your organization's billing
-page and invoices. See [billing](../pricing.md#uptime-checks).
+month. The charge appears as `Uptime checks` on your organization's billing page and invoices.
+
+Charges are prorated: an extra domain switched on mid-month costs only for the rest of the month, and switching it
+off credits the unused part on your next invoice. See [billing](../pricing.md#uptime-checks).
 
 Extra checks count toward your organization's [spending limit](../pricing.md#spending-limits) like other addons. If
 switching on another check would exceed the limit, Wodby refuses it. You can always switch a check off or change its
