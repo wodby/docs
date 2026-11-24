@@ -130,8 +130,8 @@ Wodby support can't read them either, unless you allow it. There are two ways:
 - **Let Wodby support read my chats**, below the message box, lets Wodby support read all your chats in that
   organization, including the chats of workspaces you own. It is off until you turn it on, and you choose separately
   in each organization. Turn it off at any time to make your chats private again.
-- **Send to Wodby support**, below the message box of an organization chat, shares only that chat. When the agent
-  stops with an error, the error offers the same. The chat stays shared until you select **Stop sharing**.
+- **Share with Wodby support**, below the message box of an organization chat, shares only that chat. When the
+  agent stops with an error, the error offers the same. The chat stays shared until you select **Stop sharing**.
 
 Share a chat when you [contact support](../support.md) about something the agent did, so they can see what happened.
 Support can only read a shared chat: they can't send messages in it, answer for you or delete it.
