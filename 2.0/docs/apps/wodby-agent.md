@@ -27,8 +27,8 @@ You don't need SSH or an account with a model provider. It pays with your organi
 Your first message starts a new chat, named after that message. Your chats are listed beside the open one: select one
 to continue it, or select **New chat**. To interrupt the agent, select the stop button in the message box.
 
-Only the workspace owner can use the agent. Chats are kept in the workspace, private to the owner, and survive runner
-restarts and pauses.
+Only the workspace owner can use the agent. Chats are kept in the workspace and survive runner restarts and pauses.
+They are private to the owner; see [Who can read your chats](#who-can-read-your-chats).
 
 The agent sends the whole chat with every request, so a longer chat uses more AI credits for each step. **Context**,
 below the message box, shows how full the chat is. When it fills up, the agent summarizes the earlier conversation
@@ -83,9 +83,9 @@ Services you write yourself can describe themselves the same way. See
 
 ## Organization chats
 
-Open **Chats** in the organization's menu, type a request and press Enter. Every member has their own chats; nobody
-else sees them. The agent acts for you in that organization only, with your access: it can do what you can do, and no
-more.
+Open **Chats** in the organization's menu, type a request and press Enter. Every member has their own chats, which
+are private; see [Who can read your chats](#who-can-read-your-chats). The agent acts for you in that organization
+only, with your access: it can do what you can do, and no more.
 
 What you can ask for:
 
@@ -119,6 +119,22 @@ While a chat waits for you it takes no new message. Select the stop button to en
 - Running a command in a container needs a paid plan, like the [web terminal](web-terminal.md).
 
 Organization chats use AI credits the same way as workspace chats.
+
+## Who can read your chats
+
+Your chats with Wodby Agent are private to you. Other members of the organization can't read them, and neither can
+its owners and admins.
+
+Wodby support can't read them either, unless you allow it. There are two ways:
+
+- **Let Wodby support read my chats**, below the message box, lets Wodby support read all your chats in that
+  organization, including the chats of workspaces you own. It is off until you turn it on, and you choose separately
+  in each organization. Turn it off at any time to make your chats private again.
+- **Send to Wodby support**, below the message box of an organization chat, shares only that chat. When the agent
+  stops with an error, the error offers the same. The chat stays shared until you select **Stop sharing**.
+
+Share a chat when you [contact support](../support.md) about something the agent did, so they can see what happened.
+Support can only read a shared chat: they can't send messages in it, answer for you or delete it.
 
 ## AI credits
 
