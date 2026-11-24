@@ -1,3 +1,7 @@
+---
+description: Wodby checks custom domains from outside once a minute and alerts you when one stops answering. Learn what counts as down, settings, alerts and billing.
+---
+
 # Uptime checks
 
 Wodby requests your custom domains once a minute from outside Wodby, from more than one location. If a domain stops
@@ -20,8 +24,15 @@ environment its domain is in.
 New domains are switched on automatically, oldest first, until all 10 are in use. After that, new domains start with
 their check switched off. A domain whose check started switched off stays off until you switch it on.
 
-When all 10 are in use, you can't switch on another check. Switch one off first to free its place. You can always switch
-a check off or change its settings.
+## Extra domains
+
+You can switch on checks for more than 10 domains yourself. Each extra domain with its check switched on costs $1 a
+month. Switching a check off stops its charge. The charge appears as `Uptime checks` on your organization's billing
+page and invoices. See [billing](../pricing.md#uptime-checks).
+
+Extra checks count toward your organization's [spending limit](../pricing.md#spending-limits) like other addons. If
+switching on another check would exceed the limit, Wodby refuses it. You can always switch a check off or change its
+settings.
 
 Domains that can't be checked, listed below, don't use any of the included checks.
 
@@ -85,8 +96,8 @@ settings. The settings apply to every path of that hostname.
 You can also use the API: send `PUT /v1/app-routes/{id}/uptime-check` with any of `enabled`, `path`, and
 `requireSuccess`, for example `{"enabled": false}`.
 
-Switching a check back on requires a paid plan and a free included check. The domain must pass once again before it
-can alert.
+Switching a check back on requires a paid plan. Beyond the included 10, it becomes an
+[extra domain](#extra-domains). The domain must pass once again before it can alert.
 
 ## See all checks
 

@@ -34,7 +34,7 @@ Designed for small teams and production workloads. Limits can be increased with 
 Team includes everything in Developer, plus production-focused features such as:
 
 - custom domains
-- [uptime checks](apps/uptime-checks.md) for 10 custom domains
+- [uptime checks](apps/uptime-checks.md) for 10 custom domains, with more as an [addon](#uptime-checks)
 - auto-renewed SSL certificates
 - uploaded custom TLS certificates
 - autoscaling tools
@@ -91,7 +91,7 @@ Addons let you extend included limits and pay for extra usage when needed.
 From `Organization > Billing > Usage`, organization owners on paid subscriptions can set optional spending limits for:
 
 - the main app-service plan usage
-- individual addons such as Wodby CI minutes, registry storage, Wodby Blob Storage, and Wodby Cloud usage
+- individual addons such as Wodby CI minutes, registry storage, Wodby Blob Storage, uptime checks, and Wodby Cloud usage
 - additional [AI credits](#ai-credits) usage
 
 In practice:
@@ -194,6 +194,15 @@ per stored GB and has no included free storage. Data transfer is not billed.
 
 Usage reflects the organization's completed backup data currently stored in Wodby Blob Storage. Removing backups
 reduces the remaining storage charge; it does not retroactively remove storage billed earlier in the cycle.
+
+### Uptime checks
+
+[Uptime checks](apps/uptime-checks.md) for 10 custom domains are included in paid plans. Each extra domain with its
+check switched on costs $1 a month and appears as `Uptime checks` on the billing page and invoices.
+
+New domains are switched on automatically only within the included 10. You switch on extra domains yourself, and
+switching a check off stops its charge. If switching on another check would exceed the uptime checks spending limit,
+Wodby refuses it.
 
 ### Wodby Cloud usage
 
