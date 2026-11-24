@@ -125,13 +125,14 @@ Organization chats use AI credits the same way as workspace chats.
 Your chats with Wodby Agent are private to you. Other members of the organization can't read them, and neither can
 its owners and admins.
 
-Wodby support can't read them either, unless you allow it. There are two ways:
+Wodby support can't read them either, unless you allow it. Both ways are in the options menu (three dots) below the
+message box:
 
-- **Let Wodby support read my chats**, below the message box, lets Wodby support read all your chats in that
-  organization, including the chats of workspaces you own. It is off until you turn it on, and you choose separately
-  in each organization. Turn it off at any time to make your chats private again.
-- **Share with Wodby support**, below the message box of an organization chat, shares only that chat. When the
-  agent stops with an error, the error offers the same. The chat stays shared until you select **Stop sharing**.
+- **Let Wodby support read all my chats** lets Wodby support read all your chats in that organization, including the
+  chats of workspaces you own. It is off until you turn it on, and you choose separately in each organization. Select
+  **Stop letting Wodby support read my chats** to make your chats private again.
+- **Share with Wodby support**, in an organization chat, shares only that chat. When the agent stops with an error,
+  the error offers the same. The chat stays shared until you select **Stop sharing with Wodby support**.
 
 Share a chat when you [contact support](../support.md) about something the agent did, so they can see what happened.
 Support can only read a shared chat: they can't send messages in it, answer for you or delete it.
