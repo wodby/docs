@@ -315,8 +315,8 @@ Supported route settings are:
 | `origin_access` | `any` (default) or `cloudflare`; see [Origin access](#origin-access) |
 
 Domains support every setting in this table. Redirects support `https_redirect`, `no_index`, `hsts`, and
-`origin_access`; settings that depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
-when you select an override target.
+`origin_access`; settings that depend on an application backend are not available for redirects. Domain and redirect
+options are grouped separately when you select an override target.
 
 ### HTTPS redirect
 
@@ -343,8 +343,12 @@ To recover, set origin access back to `any`.
 
 Origin access applies to the whole domain, so every path of the same domain must use the same value. Set it on each
 domain that is proxied by Cloudflare rather than as an app environment default: an environment default also applies
-to the environment's technical domains, which Cloudflare does not proxy, so they would become unreachable. Origin
-access requires a cluster on infrastructure version `4.0.0` or newer; Wodby rejects `cloudflare` otherwise.
+to the environment's technical domains, which Cloudflare does not proxy, so they would become unreachable.
+
+Origin access needs app-managed routing, which app environments get through
+[routing deployments](deploys.md#routing-deployments) on clusters with infrastructure version `4.0.0` or newer. An app
+environment that still uses legacy routing, for example one that has not finished `Migrating routing`, rejects
+`cloudflare`.
 
 The domain keeps answering plain HTTP with a redirect to HTTPS, and Let's Encrypt certificates keep renewing. Until
 the domain has its first TLS certificate, Wodby does not serve the app on it. Cloudflare's certificate proves that a
