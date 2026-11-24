@@ -1,4 +1,8 @@
-# Open WebUI
+---
+description: Deploy Open WebUI, a self-hosted chat interface for AI models, on Wodby with the Open WebUI catalog stack and PostgreSQL, and connect it to model APIs.
+---
+
+# Open WebUI stack guide
 
 The Wodby Open WebUI catalog stack runs [Open WebUI](https://openwebui.com/), a self-hosted chat interface for AI
 models, with PostgreSQL. The current composition is documented in
@@ -51,8 +55,7 @@ origins, set the `CORS_ALLOW_ORIGIN` environment variable on the service to a li
 `https://chat.example.com;https://intranet.example.com`. It replaces the computed list.
 
 Answers stream for as long as the model writes, so the route has no request timeout. Do not set the route's request
-body size: it makes the route hold each request in memory until it is complete, and the chat's live connection stops
-working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
+body size: the chat's live connection stops working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
 
 ## Data and backups
 
@@ -67,8 +70,7 @@ Large documents need memory and CPU in that container.
 
 ## Limits
 
-- The Open WebUI service is fixed to one replica. Several replicas would need pgvector, Redis, and storage shared
-  between replicas, which this stack does not set up.
+- The Open WebUI service is fixed to one replica.
 - There is no Ollama service in the catalog, so Open WebUI's Ollama connection is turned off.
 - Open WebUI's [license](https://docs.openwebui.com/license) requires keeping its branding in larger deployments.
   Wodby runs the official image unchanged.

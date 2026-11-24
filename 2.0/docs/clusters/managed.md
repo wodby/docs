@@ -1,3 +1,7 @@
+---
+description: Create managed Kubernetes clusters on GKE, EKS, AKS, DigitalOcean, OVH or UpCloud from Wodby. Supported versions, GPU node pools and single-node clusters.
+---
+
 # Managed Kubernetes cluster
 
 Wodby can deploy your applications to managed Kubernetes clusters in supported cloud providers such as:
@@ -7,24 +11,14 @@ Wodby can deploy your applications to managed Kubernetes clusters in supported c
 - [Azure Kubernetes Service (AKS)](../providers/azure.md#aks)
 - [DigitalOcean Kubernetes (DOKS)](../providers/digitalocean.md#doks)
 - [OVH Kubernetes](../providers/ovh.md#kubernetes)
+- [UpCloud Managed Kubernetes](../providers/upcloud.md#kubernetes)
 
 To create a managed cluster, first connect your cloud account to Wodby by creating an integration of type `Kubernetes`.
 
 ## Kubernetes versions
 
-The minimum Kubernetes version for new managed clusters is 1.35. Versions below 1.35 are not shown during cluster
-creation and cannot be selected for a new cluster.
-
-Kubernetes 1.36 is the default version for new managed clusters and Wodby Cloud. When a provider publishes full patch
-or build versions, Wodby selects the latest available release in the 1.36 series. When a provider accepts only a minor
-version such as `1.36`, the provider selects and maintains the patch release.
-
-Newer Kubernetes versions remain available when the cloud provider offers them, but Wodby does not select them by
-default. If a provider does not offer Kubernetes 1.36, Wodby selects its newest available supported version below 1.36,
-but never a version below the 1.35 minimum.
-
-Existing clusters use a provider-specific upgrade plan based on their current version. A legacy cluster below the
-current creation minimum may need to install a provider-approved patch before it can upgrade to the next minor version.
+The cluster creation form lists the Kubernetes versions your cloud provider offers. See
+[Kubernetes versions for new clusters](kubernetes.md#kubernetes-versions-for-new-clusters).
 
 In the cluster creation form, choose an `Owner`:
 
@@ -32,11 +26,29 @@ In the cluster creation form, choose an `Owner`:
 - `Project <project>` creates a project-owned cluster
 
 Automatic infrastructure upgrades are enabled by default during cluster creation for managed Kubernetes clusters. You can
-disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Operations`.
+disable them during creation or change them later from `Clusters > [Cluster] > Infrastructure > Updates`.
+
+[Automatic Kubernetes upgrades](kubernetes.md#automatic-kubernetes-upgrades), which also apply component updates, are off
+by default for managed clusters. Every Kubernetes upgrade of a managed cluster replaces all of its nodes, even for a
+patch, so every pod restarts and a single-node cluster is unavailable for a few minutes. To create the cluster with
+them, select `Auto upgrade Kubernetes and components`. You can change them later from
+`Clusters > [Cluster] > Kubernetes > Updates`.
 
 Use the cluster `Ownership` page later if other projects need `Read/Use` or `Modify/Delete` access.
 
 When you delete a managed cluster from Wodby, Wodby also deletes it in the cloud provider account.
+
+## Nodes
+
+`Clusters > [Cluster] > Nodes` lists the cluster's nodes as Kubernetes reports them. For each node you see its status,
+machine type, zone, Kubernetes version, CPU, memory, disk, private and public IP, and when it was created. When the
+cluster has a [GPU node pool](gpu.md), the list also shows each node's pool and its GPUs.
+
+A node marked `Cordoned` takes no new pods, for example while the provider replaces it during an upgrade.
+
+The cloud provider adds, replaces and removes the nodes, so you can't add or remove a node from the list. To change how
+many nodes the cluster has or replace its nodes, use `Nodes > Operations`. See [Cluster scalability](scalability.md) and
+[Worker node updates](kubernetes.md#worker-node-updates).
 
 ## GPU node pools
 
@@ -51,7 +63,7 @@ When enabled, Wodby creates a fixed one-node cluster:
 
 - minimum node count is fixed to `1`
 - maximum node count is fixed to `1`
-- cluster scaling is unavailable from `Infrastructure > Kubernetes`
+- cluster scaling is unavailable from `Nodes > Operations`
 - Wodby does not create a cloud provider load balancer
 - public app traffic is routed directly to the node IP
 

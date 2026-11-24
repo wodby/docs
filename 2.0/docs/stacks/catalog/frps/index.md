@@ -1,4 +1,8 @@
-# FRP Server
+---
+description: Run an frps server on Wodby with the FRP Server catalog stack to publish HTTP hostnames for workloads outside the cluster through a tunnel.
+---
+
+# FRP Server stack guide
 
 The Wodby FRP Server catalog stack runs an [`frps`](https://gofrp.org/en/)
 server for workloads that are outside the cluster. An external `frpc` client
@@ -6,9 +10,8 @@ connects to the server's published control port and registers one or more HTTP
 hostnames. Wodby terminates public TLS for those hostnames and forwards HTTP to
 FRPS, which sends the requests through the tunnel to the external workload.
 
-This application stack is separate from the FRPC infrastructure component
-installed on Kubernetes machines. It does not configure cluster connectivity
-or require Kubernetes permissions.
+This application stack is not related to how Wodby connects to your clusters.
+It does not require Kubernetes permissions.
 
 ## Deploy and expose FRPS
 

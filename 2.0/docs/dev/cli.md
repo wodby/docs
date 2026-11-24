@@ -1,3 +1,7 @@
+---
+description: Install the Wodby CLI, authenticate, and use it to automate Wodby 2 resources and CI workflows from the command line.
+---
+
 # Wodby CLI
 
 The official Wodby CLI provides command-line automation for Wodby 2 resources and CI workflows.

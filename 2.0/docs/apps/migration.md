@@ -1,3 +1,7 @@
+---
+description: Move an app environment and its persistent data to another Kubernetes cluster in the same organization. Requirements, steps, rollback and cleanup.
+---
+
 # App environment cluster migration
 
 App environment cluster migration moves an existing environment and its persistent data from one Kubernetes cluster to
@@ -18,9 +22,11 @@ Before starting a migration, make sure:
   mode.
 - The source and target clusters have status `OK`, belong to the same organization, and the target cluster is available
   to the app's owner project when the app is project-owned.
-- The source cluster supports the maintenance response required to freeze public traffic, and the target cluster supports
-  the current app-owned routing resources. Upgrade cluster infrastructure first if the migration reports a missing
-  routing capability.
+- The target cluster allows the environment's type. See [Cluster environments](../clusters/index.md#cluster-environments).
+- No other app environment on the target cluster uses the same Kubernetes namespace. The environment keeps its
+  namespace when it moves. See [App environment namespaces](../naming.md#app-environment-namespaces).
+- Both clusters have up-to-date routing infrastructure. Upgrade cluster infrastructure first if the migration reports
+  a missing routing capability.
 - [Wodby Blob Storage](../providers/wodby-blob-storage.md) is available. Migration backups always use Wodby Blob Storage,
   which requires a paid subscription.
 - Every app service that owns a persistent volume provides matching
@@ -28,7 +34,7 @@ Before starting a migration, make sure:
   service with a migration backup/import operation must be enabled first.
 - Every build-backed app service has an active build that Wodby can reuse on the target cluster.
 
-The first version of cluster migration supports only managed technical routes. Before migrating:
+Cluster migration supports only managed technical routes. Before migrating:
 
 - remove [Private App Access](access.md)
 - remove private routes
@@ -55,8 +61,8 @@ Changing the target cluster clears and revalidates the storage-class selections.
 another volume do not need an independent mapping; their owning storage service or source volume controls the class.
 
 The environment status changes to `Migrating`, and operations that could change its configuration or runtime are blocked
-until the migration completes or the source is restored. The source and target clusters also serialize conflicting app
-and storage work while the task is running.
+until the migration completes or the source is restored. Conflicting app and storage operations on the source and
+target clusters wait until the migration task finishes.
 
 ## What Wodby does
 
@@ -77,8 +83,7 @@ Expand a migration-history row to inspect the backup and restore created for eac
 If the migration task fails before completion, Wodby automatically attempts to:
 
 - remove the staged target runtime
-- restore the environment's source-cluster, deployment, storage, and database references
-- reinstall the source service releases
+- return the environment, its services, storage, and databases to the source cluster
 - restore source routing without the maintenance response
 - point managed technical DNS back to the source cluster
 
@@ -95,8 +100,8 @@ then start a new forward migration with the former source cluster as the new tar
 After a successful cutover, Wodby keeps the stopped source namespace for seven days. It does not receive traffic or new
 writes, but its Kubernetes resources and persistent volumes can continue to incur infrastructure and storage costs.
 
-Wodby schedules cleanup after the retention time expires. The cleanup job runs hourly, so deletion may begin after the
-displayed retention deadline rather than at the exact minute. To remove the retained source earlier, select `Clean up
+Wodby removes the retained source after the retention time expires. Deletion may begin some time after the displayed
+retention deadline rather than at the exact minute. To remove the retained source earlier, select `Clean up
 source` in migration history and confirm the permanent deletion.
 
 Source cleanup does not delete the migration backups. Those backups remain available according to the normal

@@ -1,4 +1,8 @@
-# Astro
+---
+description: Deploy an Astro application on Wodby with the Astro catalog stack, which runs the Astro Node.js server with optional PostgreSQL, Valkey and mail services.
+---
+
+# Astro stack guide
 
 The Wodby Astro catalog stack runs a Node.js (Astro) app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD,
 Gotenberg, and OpenTelemetry Collector services. The app runs Astro's Node.js server, which renders pages on demand and
@@ -118,8 +122,8 @@ needs one.
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail transport without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the

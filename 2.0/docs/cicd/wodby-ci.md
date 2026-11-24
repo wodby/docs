@@ -1,3 +1,7 @@
+---
+description: Wodby CI is the built-in CI system. Add a .wodby/pipeline.yml file to your repository to build and deploy app services and run deployment scripts.
+---
+
 # Wodby CI
 
 Wodby CI is the built-in CI system for Wodby 2. Add the pipeline files to the repository you selected as the build source for an app service. Wodby installs Wodby CLI during the `Setting up build environment` step and provides `WODBY_BUILD_ID`, which you pass to `wodby ci init` inside the pipeline.
@@ -37,17 +41,17 @@ jobs:
       - run: wodby ci deploy
 ```
 
-You can find more examples in [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0):
+[`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) has a Wodby CI pipeline for every Wodby build
+boilerplate:
 
 - [PHP Wodby CI pipeline](https://github.com/wodby/wodby-ci/blob/2.0/php/wodby/pipeline.yml)
 - [Node Wodby CI pipeline](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/pipeline.yml)
+- [All examples by application stack](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example)
 
 If you need tooling that is not part of your stack, `wodby ci run` can use an explicit image, for example `wodby ci run -i wodby/node:24 -- npm ci`.
 
-Wodby CI runs the CLI natively against its local Docker daemon. For supported images, `wodby ci run` automatically
-mounts npm, Composer, Bundler, and uv download caches from `~/.npm`, `~/.composer/cache`, `~/.bundle/cache`, and
-`~/.cache/uv`. Wodby runtime images declare their cache profile in image metadata, and derived application images
-inherit it. Persist the applicable home path with `cache_restore` and `cache_save`, as shown above. Use `--cache` to
+For supported images, `wodby ci run` automatically mounts npm, Composer, Bundler, and uv download caches from `~/.npm`,
+`~/.composer/cache`, `~/.bundle/cache`, and `~/.cache/uv`. Persist the applicable home path with `cache_restore` and `cache_save`, as shown above. Use `--cache` to
 force a profile for another image or `--no-cache` to disable automatic caching. See the
 [CI/CD overview](index.md#2-run-commands-in-the-build-environment) for ownership, override, and docker-in-docker
 behavior.
@@ -126,6 +130,31 @@ stack env vars, and variable integrations are not exported to builds.
 
 Secret build-scoped values are injected as secret environment variables and are hidden from build logs.
 
+## Pre-deployment scripts
+
+Create `.wodby/pre-deployment.yml` to run jobs that a new build needs before it serves traffic, such as database
+migrations. The file uses the same syntax as [post-deployment scripts](#post-deployment-scripts).
+
+Example:
+
+```yml
+version: 0.1
+
+jobs:
+  migrate:
+    steps:
+      - run: php artisan migrate --force
+```
+
+When a deployment brings a different build to an app service, Wodby runs these jobs with the new build's image,
+environment variables and settings, and starts the rollout only after they succeed. The previous version keeps serving
+while they run. If a job fails, the deployment fails and the previous version stays in place.
+
+The previous version also keeps serving until the rollout finishes, so a migration must work with both versions. Add
+columns and tables in one release, and remove or rename them in a later one.
+
+See [Pre-deployment scripts](../apps/deploys.md#pre-deployment-scripts) for when they run and when they are skipped.
+
 ## Post-deployment scripts
 
 You can additionally create `.wodby/post-deployment.yml` to define post-deployment scripts that run after an eligible
@@ -144,10 +173,11 @@ jobs:
       - run: drush status
 ```
 
-See also the example files in [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0):
+Every example in [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) has a post-deployment script:
 
 - [PHP post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/php/wodby/post-deployment.yml)
 - [Node post-deployment example](https://github.com/wodby/wodby-ci/blob/2.0/node/wodby/post-deployment.yml)
+- [All examples by application stack](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example)
 
 You can skip execution of post-deployment scripts by passing `--skip-post-deploy` to `wodby ci deploy`. Wodby also skips
 these scripts when some automated redeployments reuse an unchanged build, including a redeploy-only service after an

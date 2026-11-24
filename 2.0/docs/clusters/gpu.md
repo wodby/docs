@@ -1,3 +1,7 @@
+---
+description: Add a GPU node pool to a managed Kubernetes cluster in Wodby and run app services that need GPUs, such as model inference, on those nodes.
+---
+
 # GPU node pools
 
 A GPU node pool adds GPU nodes to a [managed Kubernetes](managed.md) cluster, next to its default node pool. Use it
@@ -16,7 +20,7 @@ GPU node pools are available for these managed Kubernetes clusters:
 | [Google Cloud (GKE)](../providers/gcp.md#gke) | G2 (NVIDIA L4), A2 (NVIDIA A100) and A3 (NVIDIA H100/H200) | `0` or more |
 
 GPU node pools are not available for AKS, OVH, serverless clusters, [single-node clusters](managed.md#single-node-clusters),
-[K3S](k3s.md) clusters, [Wodby Cloud](wodby-cloud.md) or the [demo cluster](demo.md).
+[K3s](k3s.md) clusters, [Wodby Cloud](wodby-cloud.md) or the [demo cluster](demo.md).
 
 GPU nodes use images with NVIDIA drivers from the cloud provider, so you do not need to install drivers yourself.
 
@@ -38,11 +42,12 @@ You can add a GPU node pool when you create a cluster, or later.
 - **Maximum # of GPU nodes**
 - **GPU node disk size**, in GB, on providers where you choose the node disk size; at least `20`
 
-**For an existing cluster**, go to `Clusters > [Cluster] > Infrastructure > Kubernetes`, and use **Add GPU node pool**
+**For an existing cluster**, go to `Clusters > [Cluster] > Nodes > Settings`, and use **Add GPU node pool**
 in the **GPU node pool** card. The cluster must be in the `OK` status. While Wodby creates the pool, the cluster status
 is `Scaling`.
 
-The cluster overview shows the pool's machine type and node counts in the **GPU node pool** row.
+The cluster overview shows the pool's machine type and node counts in the **GPU node pool** row. The pool's nodes are
+marked `GPU` in the [node list](managed.md#nodes), which also shows how many GPUs each one has.
 
 ### Minimum and maximum nodes
 
@@ -59,7 +64,7 @@ the selected machine type.
 
 ## Change or remove the pool
 
-Go to `Clusters > [Cluster] > Infrastructure > Kubernetes` and use the **GPU node pool** card:
+Go to `Clusters > [Cluster] > Nodes > Settings` and use the **GPU node pool** card:
 
 - **Update GPU node pool** with the same machine type resizes the pool.
 - **Update GPU node pool** with a different machine type creates a new pool first and removes the old pool after the new

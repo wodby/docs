@@ -1,4 +1,8 @@
-# ASP.NET Core
+---
+description: Deploy an ASP.NET Core application on .NET 10 with the Wodby ASP.NET Core catalog stack and optional PostgreSQL, Valkey, Mailpit and OpenSMTPD services.
+---
+
+# ASP.NET Core stack guide
 
 The Wodby ASP.NET Core catalog stack runs an ASP.NET Core app service on .NET 10 with optional PostgreSQL, Valkey,
 Mailpit, OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in
@@ -75,8 +79,8 @@ database.
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail client without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the

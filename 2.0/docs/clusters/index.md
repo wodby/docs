@@ -1,3 +1,7 @@
+---
+description: Manage Kubernetes clusters in Wodby. Set the environment type of a cluster, control which app environments may use it, and find related guides.
+---
+
 # Clusters
 
 Manage your clusters from `Clusters` in the dashboard. To create or connect your first cluster,
@@ -18,21 +22,22 @@ Restrictions use the same fixed environment types used by app environments, inte
 presets. Infrastructure apps that operate the cluster are not restricted by this setting. Wodby rejects a restriction
 change if an existing app environment on the cluster would become disallowed.
 
-Existing clusters are initially unrestricted. Their visual type is classified as `prod` when at least one
-non-infrastructure `prod` app environment is deployed there; otherwise it is classified as `dev`.
-
 ## Manage a cluster
 
 - [Monitor cluster health and resource usage](observability.md).
+- See the cluster's nodes and their resources: [managed clusters](managed.md#nodes), [K3s](k3s.md#worker-nodes).
+- [See the cluster's volumes and storage classes](storage.md).
 - [Scale cluster capacity](scalability.md).
 - [Update infrastructure and infrastructure apps](updates.md).
+- [Update the Kubernetes version, cluster components and worker nodes](kubernetes.md).
 - [Plan for high availability](high-availability.md).
 
 ## Related pages
 
 - [Choose a cluster option](choose-platform.md)
 - [Wodby Cloud](wodby-cloud.md)
-- [K3S](k3s.md)
+- [K3s](k3s.md)
 - [Cluster updates](updates.md)
+- [Kubernetes updates and node operations](kubernetes.md)
 - [App environments](../apps/environments.md)
 - [Environment types](../apps/environment-types.md)

@@ -1,4 +1,8 @@
-# Application Cron Schedules
+---
+description: Define cron schedules for app services at service, stack or app level, run cron jobs manually, and control overlapping runs and failure notifications.
+---
+
+# Application cron schedules
 
 You can run cron jobs manually for app services that expose cron schedules.
 
@@ -20,6 +24,19 @@ environment or service becomes runnable again.
 
 Manual cron-job runs use the same runtime checks. If the environment or target service is not ready, Wodby returns an
 error without creating a cron-job task. Retry the manual run after both are running if the missed work is still needed.
+
+## Permissions
+
+Cron jobs of an app environment follow its [environment permissions](../access-control.md#environment-permissions):
+
+| Action | Permission |
+| --- | --- |
+| Create a cron job, or change its command or the workload it runs in | `Shell` |
+| Change when a cron job runs or its title, turn it on or off, or delete it | `Configure` |
+| Run a cron job manually | `Operate` |
+
+A cron job's command runs with the credentials of the app service, like a command in the
+[web terminal](web-terminal.md), so it needs the same permission.
 
 ## Overlapping runs
 

@@ -1,3 +1,7 @@
+---
+description: Derivative services are additional services created from a parent service, such as an SSH variant of PHP. How they are defined and renamed.
+---
+
 # Derivative services
 
 A derivative service reuses most of a parent service's configuration. Unlike [inheritance](template.md#from),
@@ -25,3 +29,51 @@ services:
 
 In this example, the stack service is named `sshd`, while `service` points to the actual derivative declared by the
 referenced service.
+
+## Resources
+
+A derivative runs the parent service's containers with its own command, so by default it gets the same resource
+requests and limits as the parent. Set [`derivatives[].resources`](template.md#resources-object) to give it its own
+defaults for the main container, for example a smaller memory request for a cron runner:
+
+```yaml
+derivatives:
+- name: php-crond
+  title: Cron
+  type: service
+  args: ["crond"]
+  resources:
+    request:
+      cpu: 10
+      memory: 64
+```
+
+Each value replaces only that default of the parent service. Stacks and app environments can still override every
+value, as described in [Resources management](../apps/scalability.md#resources-management).
+
+## Rename a derivative
+
+When a new version of a service renames a derivative, list the old name under `previousNames`:
+
+```yaml
+derivatives:
+- name: php-jobs
+  previousNames:
+  - php-queue
+  title: Jobs
+  type: service
+  args: ['php', 'artisan', 'queue:work']
+```
+
+Stacks that update to this service version keep their derivative stack service. Its stack-local name and the stack's
+settings for it, such as replicas, environment variables, and Helm values, stay; only the derivative it runs changes.
+App environments keep their app service too. Stack templates that still name the derivative by an old name in
+`derivatives[].service` keep working.
+
+Without `previousNames`, a renamed derivative counts as removed and replaced by a new one, and stacks lose their settings
+for it.
+
+Previous names must start with the service name and a dash, like derivative names. A previous name can't be the name of
+another current derivative and can belong to only one derivative. When a service inherits from another service with
+`from`, the previous names of inherited derivatives get the child service name as their prefix, like the derivative
+names.

@@ -1,3 +1,7 @@
+---
+description: Variable providers give you a reusable set of environment variables for a third-party service. When to use one and the providers in this group.
+---
+
 # Variable providers
 
 Variable providers are providers whose integrations expose the `variable` type. Use this group when the main result you want is a reusable set of environment variables rather than a cloud resource created by Wodby.

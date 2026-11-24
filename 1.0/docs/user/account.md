@@ -1,4 +1,8 @@
-# Account
+---
+description: Your Wodby 1 account can belong to several organizations. Learn what deleting your account removes and what happens to the organizations you own.
+---
+
+# Account membership and deletion
 
 Your user account can belong to multiple [organizations](../org.md). Each
 organization controls access to its own resources through [roles](../access-control.md).

@@ -1,3 +1,7 @@
+---
+description: The containers available to Python projects in the Wodby stack, such as Python, Nginx, MariaDB, PostgreSQL, Redis and Varnish, and their settings.
+---
+
 # Python stack containers
 
 ## AthenaPDF

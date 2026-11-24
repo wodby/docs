@@ -1,4 +1,8 @@
-# VictoriaMetrics
+---
+description: Run single-node VictoriaMetrics with Grafana as its interface on Wodby with the VictoriaMetrics catalog stack to store and explore metrics.
+---
+
+# VictoriaMetrics stack guide
 
 The Wodby VictoriaMetrics catalog stack runs single-node VictoriaMetrics with Grafana as its interface. The current
 composition and defaults are in [`wodby/stack-victoria-metrics`](https://github.com/wodby/stack-victoria-metrics).
@@ -68,8 +72,7 @@ same app environment.
 
 ## Data
 
-The stack creates a 20 GB **VictoriaMetrics data** volume, mounted at `/victoria-metrics-data`. Grafana has its own
-10 GB volume. Wodby defines no backups or imports for these services.
+The stack creates a 20 GB **VictoriaMetrics data** volume. Grafana has its own 10 GB volume. Wodby defines no backups or imports for these services.
 
 ## Check that it is ready
 

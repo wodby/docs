@@ -1,3 +1,7 @@
+---
+description: Create a reusable Wodby service from a Wodby repository, your own Git repository, a local manifest or a Helm chart, then add it to a stack.
+---
+
 # Create a service
 
 A service is a reusable definition of software or behavior that can be added to a [stack](../stacks/index.md). Creating
@@ -35,8 +39,7 @@ names.
 ## Wodby Helm charts
 
 [`wodby/charts`](https://github.com/wodby/charts) contains Helm charts used by Wodby services. These charts are designed
-for deployment through Wodby services and may not be generic standalone charts. Wodby handles some platform concerns,
-such as certificates, selected config maps, and network policies, outside the chart manifests.
+for deployment through Wodby services and may not be generic standalone charts.
 
 Use a chart from this repository when the service should deploy with a Wodby-maintained chart. Use the boilerplate
 charts when you need a simple chart shape for a new service:
@@ -73,12 +76,7 @@ Each listed directory must contain its own `service.yml`. See the [service templ
    optional `Registry integration` that matches the image registry host.
 5. Create the service.
 
-Wodby checks service images anonymously first. It uses the selected registry integration only when the registry denies
-anonymous access, and records this choice for future Git updates and deployments. If the integration has pull-only
-credentials, Wodby prefers them over credentials that can also push. A Kubernetes image pull secret is created during
-deployment only when the image actually requires authentication.
-
-The integration must match the image registry host. If anonymous image access is denied and no matching integration is
+Wodby uses the selected registry integration only for images that cannot be pulled anonymously. The integration must match the image registry host. If anonymous image access is denied and no matching integration is
 selected, the import log tells you to select one and retry.
 
 Wodby checks images and downloads Helm charts from its own network, so registries and chart repositories must be

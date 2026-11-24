@@ -1,3 +1,8 @@
+---
+title: Tokens for environment variables and configuration
+description: Tokens are named values you reference from environment variables and generated configuration. See the token names and every available token group.
+---
+
 # Tokens
 
 Tokens are named text values that can be referenced from environment variables and other generated configuration.
@@ -17,8 +22,7 @@ the same token name and the same environment type:
 Tokens with different environment types are separate definitions. When a token is resolved at runtime, an
 environment-specific token takes precedence over a token without an environment type.
 
-After tokens are materialized on an app service, the app-service token records are the effective runtime values. During
-a stack upgrade, enabling `Override tokens` recreates those app-service tokens from the latest service and stack
+Once an app service is created, its own tokens hold the effective runtime values. During a stack upgrade, enabling `Override tokens` recreates those app-service tokens from the latest service and stack
 definitions; leaving it disabled keeps the existing app-service token values. Existing generated values are preserved
 when the latest definition still generates the same token name for the same environment type. This prevents a stack
 upgrade from rotating database passwords and other generated credentials. Rotate such a credential explicitly when a
@@ -182,6 +186,8 @@ Available when the current app-service context exposes a database.
 - `database.db.name`: database name for the current app-service context
 - `database.db.charset`: database charset for the current app-service context
 - `database.db.collation`: database collation for the current app-service context
+- `database.dbs.[name].name`: name of an extra database that a link asks for next to the main database. See
+  [Extra databases on a link](../services/template.md#extra-databases-on-a-link)
 
 ## `links`
 
@@ -196,6 +202,8 @@ Accessed as `links.[name].[token]`.
 - `links.[name].database.*`: database token from the linked app service. See [`database`](#database)
 - `links.[name].database.caFile`: path of the linked managed database server's CA certificate, mounted at the link's
   [`database.ca.filepath`](../services/template.md#links). Empty when the server has no CA certificate
+- `links.[name].database.dbs.[db-name].name`: name of an extra database the link asks for in its
+  [`database.dbs`](../services/template.md#extra-databases-on-a-link), on the linked database server
 - `links.[name].values.[value-name]`: a [link value](../services/template.md#links): the value a user entered for a
   custom target, or the value's `from` evaluated against the linked app service. Empty for an optional value that is
   not set

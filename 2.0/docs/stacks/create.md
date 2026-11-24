@@ -1,3 +1,7 @@
+---
+description: Create a Wodby stack from the catalog, from scratch, by duplicating one, from a Git repository, from a local manifest or from a Helm scaffold.
+---
+
 # Create a stack
 
 A stack is the blueprint used to create an app. It selects the [services](../services/index.md) an app uses and defines
@@ -45,6 +49,10 @@ Use a catalog stack when an existing public Wodby stack is close to what you nee
 The copied stack can be customized and deployed like any other stack. It keeps an origin, so you can later
 [sync catalog changes](updates.md#sync-with-origin). The add form lets you decide whether `Services auto update` and
 `Auto sync with origin` start enabled.
+
+Some catalog stacks come in variants, such as Matomo, which runs the prebuilt image, and Matomo (buildable), which builds
+Matomo from your own repository. The stack page lists them under `Other variants of this stack`, with a note on when to
+choose each one.
 
 ## Create a stack from scratch
 

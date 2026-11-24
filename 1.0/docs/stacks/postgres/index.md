@@ -1,4 +1,8 @@
-# PostgreSQL stack documentation
+---
+description: Run PostgreSQL on Wodby 1, configure it with environment variables and connect from outside through a published port or an SSH tunnel.
+---
+
+# PostgreSQL stack guide
 
 PostgreSQL can be configured with the following [environment variables](https://github.com/wodby/postgres#environment-variables)
 
@@ -32,6 +36,13 @@ If you deploy PostgreSQL as a service inside of a stack that comes with an SSHD 
 ## Changelog
 
 This changelog is for PostgreSQL stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/postgres/releases).
+
+### 2.0.23
+
+- ⬆️ PostgreSQL 15.20, 14.25
+- Adminer:
+    - 🐞 Fixed security issues in the PostgreSQL client library that Adminer uses to connect: libpq 18.7 fixes 52 CVEs, including CVE-2026-6460, CVE-2026-6467, CVE-2026-14661 and CVE-2026-18447
+    - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
 
 ### 2.0.22
 

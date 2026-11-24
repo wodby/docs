@@ -1,4 +1,8 @@
-# Ghost
+---
+description: Deploy Ghost on Wodby with the Ghost catalog stack, which combines Ghost, MySQL and OpenSMTPD. Set the email sender when you create the app.
+---
+
+# Ghost stack guide
 
 The Wodby Ghost catalog stack combines Ghost, MySQL, and OpenSMTPD services. The current composition is documented in
 [`wodby/stack-ghost`](https://github.com/wodby/stack-ghost).

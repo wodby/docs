@@ -1,10 +1,22 @@
-# Mautic
+---
+description: Deploy Mautic marketing automation on Wodby with the Mautic catalog stack, which runs it with MariaDB, shared NFS storage, OpenSMTPD and two workers.
+---
+
+# Mautic stack guide
 
 The Wodby Mautic catalog stack runs [Mautic](https://www.mautic.org/), the open source marketing automation platform,
 with MariaDB, shared NFS storage for Mautic's files, and OpenSMTPD for mail. Two workers run Mautic's cron jobs and
 its queue. The current composition is documented in [`wodby/stack-mautic`](https://github.com/wodby/stack-mautic).
 
 The stack runs Wodby's prebuilt Mautic image, so there's nothing to build and no repository to connect.
+
+## Your own plugins and themes
+
+To add your own plugins or themes, use the
+[buildable Mautic stack](../mautic-buildable/index.md) instead. You keep Mautic as a Composer project
+in a Git repository started from the [Mautic boilerplate](https://github.com/wodby/mautic-boilerplate), and Wodby builds
+it on every push. Each deployment runs Mautic's database migrations and registers new plugins. You decide when to update
+Mautic, so watch Mautic's releases for security fixes.
 
 ## Administrator account
 

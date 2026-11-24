@@ -1,20 +1,29 @@
+---
+description: Scale the worker capacity of a managed Kubernetes cluster in Wodby with minimum and maximum node counts and autoscaling.
+---
+
 # Cluster scalability
 
 ## Manual scaling
 
 For [managed Kubernetes](managed.md) clusters, you can scale worker capacity manually from
-`Clusters > [Cluster] > Infrastructure > Kubernetes`.
+`Clusters > [Cluster] > Nodes > Operations`.
 
 You can set:
 
 - minimum node count
 - maximum node count
 
-A [GPU node pool](gpu.md) has its own minimum and maximum node counts, set on the same page.
+[Amazon EKS](../providers/aws.md#eks) and [UpCloud](../providers/upcloud.md#kubernetes) clusters don't add or remove
+nodes automatically, so they have a fixed number of nodes. For these clusters you set one node count when you create
+the cluster and when you scale it.
 
-Clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later. They always have
-one node, and the dashboard does not show scaling controls for them. Create a regular managed Kubernetes or Wodby Cloud
-cluster if you need cluster autoscaling or future node growth.
+A [GPU node pool](gpu.md) has its own minimum and maximum node counts, set at `Clusters > [Cluster] > Nodes > Settings`.
+
+Managed Kubernetes clusters created with `Single-node cluster` cannot be scaled or changed into scalable clusters later.
+They always have one node, and the dashboard does not show scaling controls for them. Create a regular managed
+Kubernetes or Wodby Cloud cluster if you need cluster autoscaling or future node growth. Persistent Wodby Cloud
+clusters are never single-node.
 
 ## Autoscaling
 

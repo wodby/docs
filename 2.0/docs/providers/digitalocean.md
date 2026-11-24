@@ -1,4 +1,8 @@
-# DigitalOcean
+---
+description: Connect DigitalOcean to Wodby with OAuth to create DOKS Kubernetes clusters and managed databases, and to store backups in Spaces.
+---
+
+# DigitalOcean provider
 
 ## Auth
 
@@ -11,10 +15,11 @@ Wodby provides a native integration with DigitalOcean Kubernetes Service.
 - There's no multi-region cluster support
 - We create a kubernetes cluster without a control plane's High Availability (DO charges extra for the HA cluster)
 - We enable autoscaling by default unless the cluster is created as a single-node cluster
-- We do not allow creating cluster with shared CPU nodes (standard) and require the minimum size of a node to be 2 CPUs and at least 4GB of RAM to avoid performance issues
+- The node type selector shows the Droplet families DOKS supports in the selected region: Basic (shared CPU), general purpose, CPU optimized, memory optimized, storage optimized and GPU. Legacy Droplet classes are not offered
+- We require at least 4GB of RAM per node to avoid performance issues. Droplets with more than 16 vCPUs are offered only for [GPU node pools](../clusters/gpu.md)
 - DOKS has a limit of maximum 25 nodes per cluster. If you need to increase this limit please contact DigitalOcean support, then contact us
 - Node disk is not configurable upon creation
-- We create a single load balancer per regular cluster and deploy Envoy Gateway for public app entrypoints
+- We create a single load balancer per regular cluster for public app traffic
 - In single-node mode, Wodby does not create a DigitalOcean Load Balancer. Public app traffic is routed directly to the cluster node IP, and the endpoint is still shown in Wodby as a public IP or hostname.
 
 ### Storage

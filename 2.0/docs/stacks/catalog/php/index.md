@@ -1,4 +1,8 @@
-# PHP
+---
+description: Deploy a PHP application on Wodby with the PHP catalog stack, which runs PHP-FPM behind Nginx with MariaDB and Mailpit enabled by default.
+---
+
+# PHP stack guide
 
 The Wodby PHP catalog stack runs a PHP-FPM service behind Nginx, with MariaDB and Mailpit enabled by default. Apache
 HTTP Server, PostgreSQL, Valkey, OpenSMTPD and Gotenberg are available as optional services. The current services and
@@ -7,8 +11,7 @@ defaults are documented in [`wodby/stack-php`](https://github.com/wodby/stack-ph
 ## Build and deployment
 
 Start from the [Composer boilerplate](https://github.com/wodby/php-package-boilerplate) or connect your own repository.
-The web server has no repository of its own. Its image is built from the PHP service's source, so both images contain
-the code at the same path. A changed static file needs a new build and deployment. See
+The web server has no repository of its own. Its image is built from the PHP service's source. A changed static file needs a new build and deployment. See
 [Application Builds](../../../apps/builds.md).
 
 The **Nginx docroot** setting defaults to `public`. It must be the directory that holds your front controller.
@@ -30,7 +33,7 @@ exists and the linked service is enabled:
 PHP's `mail()` is delivered through the linked mail service, so no SMTP library or credentials are needed.
 
 Mailpit captures every message and delivers none of them. Use it to inspect mail in non-production environments. Its
-web interface is protected with basic auth. Reveal the password in **Endpoints > Auths**. For real delivery, enable
+web interface is protected with basic auth. Reveal the password in **Endpoints > Basic Auth**. For real delivery, enable
 OpenSMTPD, point the PHP service's **Mail Transfer Agent** link at it, and attach an [SMTP
 provider](../../../providers/smtp.md). See the [OpenSMTPD guide](../opensmtpd/index.md).
 

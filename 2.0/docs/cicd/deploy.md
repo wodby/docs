@@ -1,4 +1,8 @@
-# Continuous Deployments
+---
+description: Deploy pushed images from CI with wodby ci deploy, review the deployment history of an app environment, and run pre- and post-deployment scripts.
+---
+
+# Continuous deployments
 
 This page covers deployments triggered by CI. For more information about deployments in general see [app deploys](../apps/deploys.md).
 
@@ -9,13 +13,18 @@ history, including failed deployments, from `Apps > [App] > [Environment] > CI/C
 
 CI-triggered deployments use the same [rollback behavior](../apps/deploys.md#deployment-rollback) as manual deployments.
 
+## Pre-deployment scripts
+
+If the build contains `.wodby/pre-deployment.yml`, Wodby runs those jobs as part of the deployment, before the new
+build rolls out. If a job fails, the deployment fails and the previous version keeps serving. `--skip-post-deploy`
+does not skip them. See [Pre-deployment scripts](../apps/deploys.md#pre-deployment-scripts).
+
 ## Post-deployment scripts
 
 If the build contains `.wodby/post-deployment.yml`, Wodby runs those jobs in a separate task after the application
 rollout completes. Pass `--skip-post-deploy` to `wodby ci deploy` when you want to skip them for a specific deployment.
 
-When the deployment becomes ready, Wodby places an eligible post-deployment task immediately after its rollout in the
-app environment's queue. A later rollout cannot run between the rollout and its scripts. If the rollout fails or is
+No later rollout runs between a deployment's rollout and its post-deployment scripts. If the rollout fails or is
 canceled, the scripts do not run and the post-deployment status is `not run`.
 
 A post-deployment failure does not change the successful deployment or app status and does not trigger rollback.
@@ -26,7 +35,7 @@ post-deployment task without redeploying the application.
 post-deployment task. The deployment can remain `Awaiting` while other selected builds finish or the cluster completes
 infrastructure maintenance. When all inputs are ready, its normal deployment task becomes `Queued` until execution
 capacity is available. Eligible independent partial deployments can roll out concurrently; conflicting deployments and
-deployments with post-deployment scripts remain ordered. See
+deployments with pre- or post-deployment scripts remain ordered. See
 [Deployment readiness and queueing](../apps/deploys.md#deployment-readiness-and-queueing) and
 [parallel partial deployments](../apps/deploys.md#parallel-partial-deployments).
 

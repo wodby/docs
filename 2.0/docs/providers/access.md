@@ -1,3 +1,7 @@
+---
+description: Private App Access providers publish the HTTP endpoints of an app through an access provider instead of public routes. Use cases and supported providers.
+---
+
 # Private App Access providers
 
 Private App Access providers publish HTTP endpoints without exposing the matching routes through Wodby's ordinary

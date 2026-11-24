@@ -1,3 +1,7 @@
+---
+description: Build and deploy Wodby apps from GitHub Actions, GitLab CI, CircleCI or another CI provider with Wodby CLI. Required variables, flow and examples.
+---
+
 # Building with third-party CI
 
 If you prefer GitHub Actions, GitLab CI, CircleCI, or another CI provider, use [Wodby CLI](../dev/cli.md) inside that pipeline.
@@ -13,7 +17,7 @@ For unsupported providers, Wodby CLI falls back to git metadata from the checkou
 
 Use [Custom CI](../providers/custom-ci.md) when you do not want to connect the CI provider to Wodby, or when the CI
 provider is not supported directly. With Custom CI, Wodby accepts the provider value detected by the CLI, including
-`unknown`, `github`, `gitlab`, or `circleci`, but does not call provider APIs for status polling, run, or rerun actions.
+`unknown`, `github`, `gitlab`, or `circleci`, but cannot check build status in the provider or start or rerun builds there.
 
 ## Required variables
 
@@ -82,14 +86,14 @@ is awaiting that source owner. Otherwise, `wodby ci deploy` creates a standalone
 service outputs and does not wait for unrelated source owners. Custom CI always starts externally and follows this
 handoff flow.
 
-For a newly created app whose build-source owners all use third-party CI, Wodby does not pre-create a passive full
-deployment. The app remains `awaiting` until the first external build is deployed. If the app mixes Wodby CI and
-third-party CI, its initial Wodby CI group can deploy without waiting for passive external owners. The app itself stays
+For a newly created app whose build-source owners all use third-party CI, the app remains `awaiting` until the first
+external build is deployed. If the app mixes Wodby CI and third-party CI, its initial Wodby CI builds can deploy without
+waiting for the third-party CI builds. The app itself stays
 `awaiting` until every enabled service that requires a Wodby-managed runtime has a usable deployment.
 
 ## Builds without a linked Git repository
 
-Without a linked Git repository, Wodby cannot poll the CI provider for the build status. After `wodby ci init`, run
+Without a linked Git repository, Wodby cannot check the build status in the CI provider. After `wodby ci init`, run
 `wodby ci deploy` within three hours. Otherwise, Wodby marks the build as errored and cancels any awaiting deployment
 that expected it. A later deploy attempt cannot reopen the expired build; restart the CI workflow so it initializes a
 new build and deployment.
@@ -118,8 +122,10 @@ build config.
 
 ## Provider examples
 
-The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository contains complete provider examples for
-common PHP, Node.js, Python, Ruby, Go, and static application patterns:
+The [`wodby/wodby-ci`](https://github.com/wodby/wodby-ci/tree/2.0) repository has an example for every Wodby build
+boilerplate, plus a static frontend built with npm. Each example runs the same build as the boilerplate in GitHub
+Actions, GitLab CI, and CircleCI. Find your stack in the
+[example table](https://github.com/wodby/wodby-ci/tree/2.0#choose-an-example).
 
 - GitHub Actions examples use [`wodby/actions/setup-wodby-cli@v1`](https://github.com/wodby/actions/tree/main/setup-wodby-cli), which restores dependency caches detected from lockfiles, installs the CLI, exports `WODBY_API_KEY`, and runs `wodby ci init` automatically when `app-service-id` is provided.
 - CircleCI examples use [`wodby/setup-wodby-cli@1`](https://circleci.com/developer/orbs/orb/wodby/setup-wodby-cli), which installs the latest Wodby 2 CLI and runs `wodby ci init` when `app-service-id` is provided.
@@ -136,10 +142,16 @@ paths automatically when it detects a supported lockfile. The CircleCI examples 
 in their configuration.
 
 Docker-in-docker examples, such as GitLab CI with the `docker:dind` service, instead persist project-local
-`.wodby-ci-cache/<profile>` staging directories. The CLI imports them into its internal cache volume during
-`wodby ci init` and exports updated contents after cache-enabled commands. Set `WODBY_CI_CACHE_DIR` only when an
+`.wodby-ci-cache/<profile>` staging directories. The CLI restores them during `wodby ci init` and saves updated
+contents after cache-enabled commands. Set `WODBY_CI_CACHE_DIR` only when an
 environment requires a different root. This persistence is optional: the directory does not need to exist before the
-job, and an automatic cache import, setup, or export failure only produces a warning.
+job, and an automatic cache restore, setup, or save failure only produces a warning.
+
+## Pre-deployment scripts
+
+You can use [`.wodby/pre-deployment.yml`](wodby-ci.md#pre-deployment-scripts) with third-party CI. Wodby CLI 2.15.0 or
+later reads it during `wodby ci init` and attaches it to the build; builds created with an older CLI carry no
+pre-deployment scripts. `--skip-post-deploy` does not skip pre-deployment scripts.
 
 ## Post-deployment scripts
 

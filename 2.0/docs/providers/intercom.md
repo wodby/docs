@@ -1,4 +1,8 @@
-# Intercom
+---
+description: Use the Intercom provider in Wodby to inject Intercom credentials, such as an identity verification secret and an access token, into app services.
+---
+
+# Intercom provider
 
 Intercom is available in Wodby as a `variable` provider. Use it when you want to inject Intercom credentials into app services or stacks through an integration.
 

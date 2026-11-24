@@ -1,3 +1,7 @@
+---
+description: Create a custom variable provider in Wodby to define reusable environment variables for a third-party service, in the dashboard, from a manifest or from Git.
+---
+
 # Custom variable providers
 
 Custom variable providers define reusable environment-variable contracts for services that Wodby does not provide in
@@ -25,7 +29,7 @@ organization, producing a full name such as `acme/payments`. This lets different
 without colliding.
 
 Use the full namespaced name when a workflow asks for the provider machine name. The manifest itself keeps the local
-slug. Existing custom providers also appear under their organization namespace.
+slug.
 
 ## Create a variable provider in the dashboard
 
@@ -83,7 +87,7 @@ The top-level manifest supports:
 | `name` | Yes | Local machine-name slug using lowercase letters, numbers, and hyphens. |
 | `title` | Yes | Display name shown in the dashboard. |
 | `icon` | Yes | Provider icon identifier. Use `variable` for the generic variable-provider icon. |
-| `instructions` | No | Setup guidance shown when users configure an integration. |
+| `instructions` | No | Setup guidance shown when users configure an integration. See [Instructions](#instructions). |
 | `fields` | No | Fields shared by every kind in the provider. |
 | `kinds` | Yes | One or more variable integration kinds. |
 
@@ -111,12 +115,39 @@ defined, either at provider or kind level. The standard
 [environment-variable naming and reserved-name rules](../apps/environment-variables.md#names-and-reserved-variables)
 apply. Each manifest is limited to 1 MiB.
 
-Unknown manifest properties, duplicate YAML keys, and YAML aliases are rejected. This keeps the stored manifest
-unambiguous and prevents unsupported provider capabilities from being enabled accidentally.
+Unknown manifest properties, duplicate YAML keys, and YAML aliases are rejected.
 
-Custom provider manifests do not use a top-level `version`; Wodby records their history with provider revision
-numbers. Legacy custom manifests that still contain a semantic `version` remain importable during the transition, but
-Wodby ignores and removes that field from the stored manifest.
+Custom provider manifests do not use a top-level `version`; Wodby numbers provider revisions itself. A semantic
+`version` in an older manifest is ignored.
+
+### Instructions
+
+`instructions` is shown under `Setup instructions` when someone creates or edits an integration from the provider. It
+can be plain text or use formatting markup:
+
+```yaml
+instructions: |
+  <ol>
+    <li>Open <a href="https://example.com/settings/tokens">API tokens</a> and create a token.</li>
+    <li>Give the token the <Text code>read</Text> scope.</li>
+    <li>Paste this policy into the token settings:<CopyableCode text={`{"access": "read"}`} /></li>
+  </ol>
+```
+
+Supported markup:
+
+| Markup | Use |
+| --- | --- |
+| `p`, `div`, `span`, `br`, `hr`, `h1` to `h6` | Paragraphs, line breaks and headings. |
+| `ul`, `ol`, `li` | Lists. `ol` accepts `start`. |
+| `b`, `strong`, `i`, `em`, `u`, `small`, `sub`, `sup`, `code`, `pre` | Text formatting. |
+| `table`, `thead`, `tbody`, `tr`, `th`, `td` | Tables. Cells accept `colSpan` and `rowSpan`. |
+| `a` | A link. `href` must start with `http://`, `https://` or `mailto:`. Links open in a new tab. |
+| `Text` | Styled text: `<Text code>`, `<Text strong>`, `<Text italic>`, `<Text underline>`, `<Text mark>`, `<Text keyboard>`. |
+| `CopyableCode` | A code block with a copy button: ``<CopyableCode text={`...`} />``. |
+
+Any other tag or attribute is left out of the page, including images, embedded pages, forms, scripts, styles and class
+names. A link with any other kind of address is shown as plain text.
 
 ## Import from git
 
@@ -187,8 +218,7 @@ connection, so changing them from one resource also changes them for the other r
 - Compatible integrations can be updated explicitly from the integration detail page.
 - Incompatible integrations continue using their pinned revision until a migration or replacement path is available.
 
-Before updating an integration, Wodby checks its selected kinds, authentication, scope, stored fields, environment
-variables, secret storage, and validation against the current provider revision. Removing a stored field, adding a
+Before updating an integration, Wodby checks that it is compatible with the current provider revision. Removing a stored field, adding a
 required field without a value, or changing a field's type or variable mapping can require migration. See
 [Integration provider updates](../integrations/updates.md) for the full workflow.
 

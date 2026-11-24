@@ -1,3 +1,8 @@
+---
+title: Application endpoints
+description: Manage the endpoints of an app environment in Wodby, including domains, redirects, TLS certificates, HTTP settings, auths and published ports.
+---
+
 # Endpoints
 
 Endpoints are the public or private entry points to your app services. They consist of HTTP domains, redirects, and
@@ -7,12 +12,13 @@ From `Apps > [App] > [Environment] > Endpoints` you can manage:
 
 - `Domains`
 - `Ports`
-- `Settings` for HTTP routes and published ports
-- `Auths`
 - `Redirects`
+- `Basic Auth`
+- `Private App Access`, see [Private App Access](access.md)
+- `Settings` for HTTP routes and published ports
 
-Domains and redirects are stored as routes behind the scenes, so API, CLI, task, and infrastructure documentation may
-still use the term _route_. The dashboard separates them by what users configure.
+The API, CLI, task logs, and infrastructure documentation call both domains and redirects _routes_. The dashboard
+separates them by what users configure.
 
 To temporarily replace enabled public HTTP and HTTPS routes with a fixed `503 Service Unavailable` response, use
 [app environment maintenance mode](maintenance.md).
@@ -80,9 +86,8 @@ Changing the main app service retargets this existing root technical route to th
 endpoint. The hostname, certificate, and route settings stay with the route. This does not change which route is the
 app environment's `Main` route.
 
-Wodby automatically issues and renews Let's Encrypt certificates for these technical routes. Certificate validation for
-technical routes uses Wodby-managed DNS records, so the certificate can be issued before the app service itself is
-serving traffic.
+Wodby automatically issues and renews Let's Encrypt certificates for these technical routes. The certificate can be
+issued before the app service itself is serving traffic.
 
 Technical routes are managed by Wodby. You can disable one to stop serving it, but you cannot retarget it, change its
 generated hostname or path, or delete it. Wodby removes generated routes when the underlying endpoint structure no
@@ -155,20 +160,19 @@ The main route and the main app service are separate choices. The main route det
 the app, while the main app service determines where the root Wodby technical hostname sends traffic.
 
 An enabled main route remains main until it becomes unavailable or you explicitly replace it. A custom main route can
-also be deleted; a Wodby-generated technical route cannot. Wodby also preserves a valid primary route for an endpoint
-instead of replacing it during routine reconciliation.
+also be deleted; a Wodby-generated technical route cannot. A valid primary route for an endpoint likewise stays
+primary until it becomes unavailable or you replace it.
 
 When the selected main or primary route becomes unavailable, Wodby chooses a replacement. Enabled custom routes are
 preferred over generated technical routes only when such a replacement is necessary.
 
 ## TLS certificates
 
-Wodby can issue TLS certificates for endpoint routes. For public docs, treat [Let's Encrypt](https://letsencrypt.org/) as the supported issuer for managed certificate flows today. Wodby automatically renews Let's Encrypt certificates before they expire.
+Wodby can issue TLS certificates for endpoint routes. Managed certificates are issued by [Let's Encrypt](https://letsencrypt.org/). Wodby automatically renews Let's Encrypt certificates before they expire.
 
-For generated technical routes, Wodby validates certificates through managed DNS. Custom route certificates are
-validated through the public HTTP route. Before contacting Let's Encrypt, Wodby publishes a temporary challenge and
-checks that the hostname returns its exact challenge response. DNS resolution by itself, or an unrelated successful
-HTTP response from another server, is not enough.
+For generated technical routes, Wodby validates certificates through DNS. Custom route certificates are validated
+through the public HTTP route: the hostname must return Wodby's exact challenge response. DNS resolution by itself, or
+an unrelated successful HTTP response from another server, is not enough.
 
 A custom hostname can be proxied through Cloudflare or another reverse proxy. It is considered attached when requests
 to `/.well-known/acme-challenge/*` are forwarded to the Wodby route and return Wodby's challenge response. The public
@@ -181,7 +185,7 @@ New managed certificates have a `Pending` status until Wodby verifies the route 
 certificate. A requested issuer of `Let's Encrypt` does not by itself mean that a certificate has already been issued.
 If public DNS does not resolve, the route reports `Awaiting DNS`. If DNS resolves but the exact challenge does not reach
 Wodby, it reports `Not connected`. The separate certificate task fails, while the certificate remains `Pending` and
-Wodby retries pending routes hourly. This does not fail an application deployment or change the app environment status.
+Wodby retries pending routes automatically. This does not fail an application deployment or change the app environment status.
 Infrastructure errors are reported separately as `Error`.
 
 After fixing DNS or proxy routing, open the route and select `Reconcile certificate` to check attachment immediately
@@ -211,10 +215,8 @@ provide:
 - the server certificate and intermediate certificates in PEM format
 - the matching unencrypted private key in PEM format
 
-The certificate input can contain the leaf certificate and its intermediate chain in one text value. The order does not
-matter: Wodby identifies the leaf by matching it to the private key and stores the chain in the correct order. You may
-include a self-signed root certificate, but Wodby removes it because TLS servers normally send the leaf and
-intermediates, not the trusted root.
+The certificate input can contain the leaf certificate and its intermediate chain in one text value, in any order.
+You may include a self-signed root certificate; Wodby leaves it out of the chain it serves.
 
 Accepted private keys are:
 
@@ -336,8 +338,8 @@ Routes have no rate limit unless you set one. Set a limit as an app environment 
 domain-specific value when one endpoint needs a different limit. A service port can also declare a default for its
 routes.
 
-These are local Envoy Gateway limits. Each route and each Envoy data-plane replica maintains its own counters, so
-`rate_limit_total` is not one combined quota for the whole app environment or cluster. With multiple gateway replicas,
+Limits are counted separately for each route and each gateway replica, so `rate_limit_total` is not one combined
+quota for the whole app environment or cluster. With multiple gateway replicas,
 the effective traffic capacity can be higher than the configured value. The per-IP limit uses the client address after
 the configured proxy chain is processed; clients sharing a NAT address also share one limit.
 
@@ -348,8 +350,7 @@ the configured proxy chain is processed; clients sharing a NAT address also shar
 timeout cannot be longer than a finite request timeout.
 
 App environments use a `request_timeout` of `0s` by default, so requests have no total time limit. The gateway still
-closes requests that stop sending or receiving data. Existing app environments switch to it on their next deployment,
-unless you set a different app environment value.
+closes requests that stop sending or receiving data.
 
 A finite `request_timeout` also covers the time the gateway takes to send the whole response, so it cuts off downloads
 and streamed responses that take longer, for example a large file sent to a slow connection. Use `0s` for long-lived
@@ -389,9 +390,9 @@ needing redeploy.
 !!! note "Legacy ingress settings"
     Older clusters that still use Ingress Nginx may expose legacy ingress annotation settings. Envoy Gateway clusters use the route settings above. Kubernetes annotations are still available separately where service or stack templates support Kubernetes resource annotations.
 
-## Auths
+## Basic Auth
 
-The `Auths` screen manages HTTP basic authentication.
+The `Basic Auth` screen manages HTTP basic authentication.
 
 Each auth entry has:
 
@@ -445,12 +446,12 @@ On clusters with Wodby infrastructure version `4.0.0` or newer, TCP publishing r
 capability and UDP publishing requires its `UDPRoute` capability. Some provider-managed Gateway API installations use
 the Standard channel, which can support Wodby's HTTP/HTTPS routing without these optional route types. When a protocol
 is unavailable, the port page explains the limitation and prevents the port from being published. You can review the
-detected capabilities under `Clusters > [Cluster] > Infrastructure > Operations`; see
+detected capabilities under `Clusters > [Cluster] > Infrastructure > Overview`; see
 [Gateway API compatibility](../clusters/infrastructure.md#gateway-api-compatibility) for details.
 
-Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`. The first available port in that range is used.
+Wodby assigns the public port automatically from the cluster-wide range `31222`-`32222`.
 
-On [K3S](../clusters/k3s.md) clusters and [single-node clusters](../clusters/managed.md#single-node-clusters), a TCP port
+On [K3s](../clusters/k3s.md) clusters and [single-node clusters](../clusters/managed.md#single-node-clusters), a TCP port
 and a UDP port can share a public port number, which software such as a RustDesk server needs. When you publish a port
 whose counterpart on the same endpoint, with the same port number and the other protocol, is already published, it gets
 the same public port. On other clusters, every published port gets its own number.

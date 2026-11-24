@@ -1,4 +1,8 @@
-# New Relic
+---
+description: Use the New Relic provider in Wodby to store your New Relic license key and inject it into app services and stacks as NEWRELIC_LICENSE.
+---
+
+# New Relic provider
 
 New Relic is available in Wodby as a `variable` provider. Use it when you want to inject your New Relic license key into app services or stacks through an integration.
 

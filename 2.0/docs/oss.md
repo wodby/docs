@@ -1,3 +1,7 @@
+---
+description: Wodby publishes the services, stacks and boilerplates behind Wodby 2 on GitHub and its Docker images on Docker Hub. Find the projects here.
+---
+
 # Open Source
 
 Wodby publishes the core building blocks for Wodby 2 on GitHub. Public Docker images are available on

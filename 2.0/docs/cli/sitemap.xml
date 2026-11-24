@@ -367,6 +367,18 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_cron-schedule_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_custom-link.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_custom-link_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_custom-link_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_custom-link_set.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_database.html</loc>
   </url>
   <url>
@@ -425,6 +437,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_link_set.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_link-candidates.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_environment_service_list.html</loc>
@@ -553,6 +568,27 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_preview.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_preview_create.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_preview_pull-requests.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_preview_regenerate-password.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_settings.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_settings_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_settings_update.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_sharing.html</loc>
   </url>
   <url>
@@ -566,6 +602,18 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_app_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_vulnerability-ignore.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_vulnerability-ignore_create.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_vulnerability-ignore_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_app_vulnerability-ignore_list.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps.html</loc>
@@ -634,6 +682,18 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_cron-schedule_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_custom-link.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_custom-link_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_custom-link_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_custom-link_set.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_database.html</loc>
   </url>
   <url>
@@ -692,6 +752,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_link_set.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_aps_link-candidates.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_aps_list.html</loc>
@@ -856,6 +919,18 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_app_list.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_component.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_component_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_component_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_component_updates.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_create.html</loc>
   </url>
   <url>
@@ -874,13 +949,37 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_get-by-name.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_gpu-node-pool.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_host-checks.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_infra-app-upgrade-changelog.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_k3s-install-command.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_k3s-node.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_k3s-node_join-command.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_k3s-node_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_k3s-node_remove.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_k3s-private-addresses.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_kubernetes-version-upgrade-plan.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_kubernetes-vulnerabilities.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_list.html</loc>
@@ -889,10 +988,16 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_machine-types.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_nodes.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_recycle-nodes.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_scale.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_security-advisories.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_settings.html</loc>
@@ -910,10 +1015,16 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_sharing_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_switch-k3s-server-address.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_update.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_update-environment-policy.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_update-k3s-max-pods.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_update-k3s-public-ip.html</loc>
@@ -926,6 +1037,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_upgrade-infra-apps.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_cluster_vulnerabilities.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_completion.html</loc>
@@ -1381,6 +1495,18 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_cron-schedule_update.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_custom-link.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_custom-link_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_custom-link_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_custom-link_set.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_database.html</loc>
   </url>
   <url>
@@ -1439,6 +1565,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_link_set.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_link-candidates.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_environment_service_list.html</loc>
@@ -1606,9 +1735,6 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_get.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_integration_get-by-name.html</loc>
-  </url>
-  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_integration_list.html</loc>
   </url>
   <url>
@@ -1723,6 +1849,9 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_member_remove.html</loc>
   </url>
   <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_member_set-teams.html</loc>
+  </url>
+  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_member_update.html</loc>
   </url>
   <url>
@@ -1759,28 +1888,25 @@
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_create.html</loc>
-  </url>
-  <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_delete.html</loc>
-  </url>
-  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_get.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_list.html</loc>
   </url>
   <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_update.html</loc>
-  </url>
-  <url>
-    <loc>https://wodby.com/docs/2.0/cli/wodby_org_sso-provider_verify-domain.html</loc>
-  </url>
-  <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_subscription.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_org_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_org_usage.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_org_usage_csv.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_org_usage_periods.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_port.html</loc>
@@ -1847,6 +1973,27 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_project_member_update.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_project_permissions.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_project_role.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_project_role_create.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_project_role_delete.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_project_role_get.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_project_role_list.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_project_role_update.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_project_update.html</loc>
@@ -2102,6 +2249,9 @@
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_origin-sync-changelog.html</loc>
+  </url>
+  <url>
+    <loc>https://wodby.com/docs/2.0/cli/wodby_stack_preview-sync-origin.html</loc>
   </url>
   <url>
     <loc>https://wodby.com/docs/2.0/cli/wodby_stack_publish-draft.html</loc>

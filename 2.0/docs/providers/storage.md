@@ -1,3 +1,7 @@
+---
+description: Storage providers let Wodby send app and database backups to Wodby Blob Storage or a connected object storage service. Supported providers.
+---
+
 # Storage providers
 
 Storage providers expose the `storage` type. Use this group when you want Wodby to send backups to an object storage service, either through Wodby Blob Storage or a connected third-party storage provider.

@@ -1,3 +1,7 @@
+---
+description: CI providers let builds and deployments of Wodby apps run from an existing CI system. Supported options and how they compare with Wodby CI.
+---
+
 # CI providers
 
 CI providers are third-party services whose integrations expose the `ci` type. Use this group when you want builds and deploys to run from an existing CI system.

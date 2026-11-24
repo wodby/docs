@@ -1,3 +1,7 @@
+---
+description: Maintenance mode replaces the public HTTP routes of an app environment with a maintenance page while workloads keep running. How to turn it on and off.
+---
+
 # Maintenance mode
 
 App environment maintenance mode temporarily replaces enabled public HTTP and HTTPS routes with a Wodby maintenance
@@ -18,10 +22,10 @@ The maintenance status moves from `Off` to `Enabling` while Wodby applies the ro
 the public edge confirms it. The app environment keeps its normal lifecycle status, such as running, deploying, awaiting,
 or errored. Environment headers and lists show a separate maintenance badge.
 
-Enabling maintenance mode requires a non-infrastructure app environment with ready platform-managed routing. You can
-change maintenance mode while the environment is running, awaiting a deployment, errored, or deploying. The cluster must
-support the direct-response routing capability used for the fixed page. If the capability is unavailable, the
-dashboard leaves maintenance mode off and explains the requirement.
+Enabling maintenance mode requires a non-infrastructure app environment whose routing is managed by Wodby. You can
+change maintenance mode while the environment is running, awaiting a deployment, errored, or deploying. The cluster's
+routing must support serving the fixed page. If it does not, the dashboard leaves maintenance mode off and explains the
+requirement.
 
 ## Traffic behavior
 
@@ -72,8 +76,7 @@ restores application backends to the public routes, then returns to `Off` after 
 Visitors may continue to receive the maintenance response during this transition.
 
 You can reverse a pending request. For example, select `Disable maintenance mode` while the status is `Enabling`, or
-select `Enable maintenance mode` while it is `Disabling`. Wodby finishes or supersedes the in-progress routing change
-and converges on the latest requested state.
+select `Enable maintenance mode` while it is `Disabling`. Wodby then applies the latest requested state.
 
 If a routing task fails, the requested and active states can differ. The dashboard continues to show `Enabling` or
 `Disabling` instead of reporting a completed change. Review the task logs, correct the routing or cluster problem, and

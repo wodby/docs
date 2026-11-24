@@ -1,3 +1,7 @@
+---
+description: Preview environments are temporary app environments that Wodby creates for a pull request, built from its branch and seeded from a base environment.
+---
+
 # Preview environments
 
 A preview environment is a temporary [app environment](environments.md) that Wodby creates for a pull request. When a
@@ -53,6 +57,15 @@ CI/CD. You choose which services are seeded with data after the application is c
 For an existing application, open `Apps > [App] > Settings > Preview environments`. You need permission to modify the
 app.
 
+Turning previews on, choosing another base environment, or changing the environment type of previews also needs these
+[environment permissions](../access-control.md#environment-permissions):
+
+- `Configure` and `Shell` on the base environment. Previews are copies of it, with its variables and secrets, and the
+  pull request's code runs with them.
+- `Create` for the environment type of previews.
+
+Other preview settings, such as `Concurrent previews` or `Idle expiry (days)`, need only permission to modify the app.
+
 ## Settings
 
 | Setting | Description |
@@ -70,6 +83,9 @@ app.
 Seeding a service requires a [backup preset](backups.md) for the chosen backup in the base environment. Services
 without one are listed with a `No backup preset` tag and cannot be selected until a preset exists; the tag links to the
 base environment's presets.
+
+Selecting or changing seed data needs the `Back up` [permission](../access-control.md#environment-permissions) on the
+base environment, because every new preview receives a copy of its data.
 
 If seeding a selected service is not possible when a preview is created, the preview is still created and that service
 starts without data. This happens when the preset was deleted, or the service was removed, disabled, or not in `OK`
@@ -118,7 +134,7 @@ plan usage like any other environment while they exist.
 | Draft pull request | No preview is created unless `Draft pull requests` is enabled. |
 | Concurrent preview limit reached | The pull request is skipped and gets a failed `wodby/preview` status. It gets a preview on its next push once a preview has been deleted. |
 
-Wodby also checks open pull requests every 15 minutes, in case it missed a notification from your Git provider. A
+Wodby also checks open pull requests periodically, in case it missed a notification from your Git provider. A
 preview whose pull request was closed or merged is deleted. An open pull request that should have a preview gets one, for
 example right after you enable previews for an app with open pull requests. A pull request whose latest commit already has a
 `wodby/preview` status is left alone, so a preview you deleted is not recreated until the next push.

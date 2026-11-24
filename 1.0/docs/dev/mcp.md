@@ -1,3 +1,8 @@
+---
+title: Connect an AI client to Wodby 1 with MCP
+description: Connect an AI client to Wodby 1 over MCP to inspect resources, deploy applications, manage backups, apply updates and troubleshoot tasks.
+---
+
 # MCP
 
 Connect an AI client to Wodby 1 to inspect resources, deploy applications, manage backups, and troubleshoot tasks. You can also ask an agent to check and apply supported server infrastructure and application stack updates.

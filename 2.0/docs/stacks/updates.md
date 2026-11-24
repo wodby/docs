@@ -1,3 +1,7 @@
+---
+description: Update a Wodby stack by moving to new service revisions, updating from Git or syncing with its origin, then publish the draft and upgrade apps.
+---
+
 # Stack updates
 
 Stacks are versioned. Dashboard-managed stack configuration edits create or update an unpublished draft revision first.
@@ -21,6 +25,10 @@ updates and actions to update all eligible services.
 When updates are available, the card lists the affected services and shows the current and latest service revision
 versions. When every unpinned service already uses the latest available service revision, the card shows an `Up to date`
 tag and the update button is disabled.
+
+When a service's update fixes vulnerabilities known or likely to be exploited in the images the stack uses now, update
+that service first. See
+[Stack updates that fix vulnerabilities](../apps/vulnerability-scanning.md#stack-updates-that-fix-vulnerabilities).
 
 Select `Ignore this version` on an update row when that exact target revision should not be used by this stack. Confirming
 the action removes it from the update suggestions and prevents service revision auto-update from selecting it. Ignoring
@@ -70,16 +78,15 @@ want to change a pinned/versioned service reference from Git.
 Use this for stacks that should follow newer service revisions without a manual stack update step.
 
 When auto-update is enabled for stack service revisions, Wodby can create a new stack revision after a service used by
-the stack gets a newer revision. Before creating the revision, Wodby checks the eligible service updates against the
-stack's complete link graph. A service revision that would introduce an unresolved required link is skipped and the
+the stack gets a newer revision. A service revision that would introduce an unresolved required link is skipped and the
 update outcome reports why. Other safe service revision updates can continue in the same run.
 
-Automatic reconciliation preserves compatible mappings and removes invalid optional mappings. When an existing
+Automatic updates preserve compatible link mappings and remove invalid optional mappings. When an existing
 compatible mapping becomes required, its target and required dependencies are enabled automatically. Wodby never
 chooses a target for a missing required mapping.
 
 For custom stacks, auto-update is disabled by default. Git-backed stacks can use this setting for service revision
-updates; Wodby updates stack service rows in a new stack revision without fetching the stack repository.
+updates; Wodby updates the stack services in a new stack revision without fetching the stack repository.
 
 In the dashboard, open `Stacks`, select the stack, and go to `Operations`. Service revision automation is configured in
 the `Services auto update` card. For Git-backed stacks, this card is shown separately from `Auto update from git`, which
@@ -92,6 +99,10 @@ and minor updates, and disables major updates.
 Pinned stack services are skipped by manual and automatic service revision updates. They do not make the stack
 `Outdated`. Pin a stack service when it should stay on its current service revision until you explicitly unpin it or
 update the stack from Git with a different service reference.
+
+A stack service that `stack.yml` pins with [`serviceRevPinned`](template.md#servicesservicerevpinned) and an unversioned
+`service` reference keeps its current service revision when the stack is updated from Git or from a stack template.
+Remove the pin, or use a versioned reference such as `php:8.3`, to change it.
 
 Disabled stack services are still considered by manual and automatic service revision updates. If a disabled service
 should stay on its current service revision, pin it. To skip only the update currently being offered, use `Ignore this
@@ -140,6 +151,33 @@ stack-level defaults changed, or stack service configuration changed.
 The update form is available only on the latest stack revision. Older stack revisions can be viewed, but they cannot be
 updated from Git.
 
+### Service versions on updates from Git
+
+An update from Git decides what happens to existing stack services that `stack.yml` names without a version, such as
+`service: mariadb`:
+
+- **Automatic updates**, which run when the repository gets new commits or tags, follow `Service versions` in the
+  `Git auto update settings` card on `Operations`. The default is `Use service auto update settings`.
+- **Manual updates** move these stack services to the service's latest version, including major versions. This
+  covers the `Update from Git` form, the API, and updating every stack and service that uses the same repository. The
+  `Update from Git` form has its own `Service versions` choice for that one update.
+
+| Option | What the update does with existing stack services |
+| --- | --- |
+| Always update to latest | Moves them to the service's latest version, including major versions. |
+| Use service auto update settings | Moves them only when `Services auto update` is enabled and its policy allows the update, for example `Update stateless only` or no major updates. Otherwise they keep their version. |
+| Do not update services | Keeps their current versions. |
+
+In every mode:
+
+- a versioned reference such as `php:8.3` selects that version;
+- a stack service pinned with [`serviceRevPinned`](template.md#servicesservicerevpinned) keeps its version;
+- a stack service that is new in `stack.yml` uses the latest version;
+- a stack service whose `stack.yml` configuration needs a newer version, for example an option, volume, or link that
+  only the newer version has, moves to that version.
+
+The update task log lists the stack services it kept and the ones it moved anyway, with the reason.
+
 ## Delete a Git-backed stack
 
 Open `Stacks`, select the stack, and go to `Edit`. Git-backed stacks show the delete action on the `Edit` tab, not on
@@ -148,8 +186,7 @@ the `Operations` tab. The delete action is available only on the latest stack re
 ## Auto-update from Git
 
 Git-backed stacks can be updated automatically when a supported Git provider sends a push event for the stack source.
-Auto-update uses the same import logic as manual `Update from Git`, but it is started by the webhook instead of a
-dashboard action.
+Auto-update works like a manual `Update from Git`, but it is started by the push event instead of a dashboard action.
 
 In the dashboard, Git auto-update settings for stacks are shown in `Operations > Auto update from git`. Keep them
 separate from `Services auto update`: Git auto-update imports the stack manifest from Git, while service revision
@@ -175,27 +212,55 @@ has an unpublished draft. Resolve the draft first, then run the update again or 
 
 ## Sync with origin
 
-A copied catalog stack keeps a reference to the origin stack revision it was copied from. Syncing with origin creates a
-new stack revision from the latest origin revision.
+A copied catalog stack keeps a reference to the origin stack revision it was copied from or last synced to. Syncing with
+origin creates a new stack revision that brings in what changed in the origin since then.
 
 Open `Stacks`, select the copied stack, and go to `Operations`. If the stack has an origin, the `Sync with origin stack`
 card appears with a `Sync with origin` button.
 
-Sync is conservative by default:
+### How sync merges changes
 
-- missing origin stack tokens, environment variables, Helm values, annotations, stack services, and stack service
-  configuration are added to your stack
-- existing local values with the same names are kept, so customizations are not overwritten just because the origin
-  changed its default
-- if the origin introduces a main HTTP service and your stack already has another main service, Wodby clears the old
-  main flag when needed to keep only one main service
-- if the stack ends up without a main HTTP service, Wodby picks the first stack service whose main endpoint exposes a
-  public HTTP port
+Sync applies what changed in the origin since your stack was copied or last synced, item by item. Items include stack services, their settings, options, volumes, tokens, environment variables, Helm
+values, configs, cron schedules, annotations, links, resources, and fields such as the title or replicas.
 
-If the origin changes an existing value under the same name, sync keeps your local value. Review and update those values
-manually when you want to adopt the changed origin default.
+- What you left unchanged follows the origin: new items are added, changed values are updated, and items the origin
+  removed are removed.
+- What you changed in your stack keeps your value. When the origin changed the same item, the sync task log lists it
+  under `Kept this stack's own changes`.
+- What you removed from your stack stays removed.
+- A stack service that the origin removed is deleted only when you didn't change it in your stack and none of your app
+  environments turned it on. Otherwise it is kept, and the task log says why.
+- If the stack ends up without a main HTTP service, Wodby picks the first stack service whose main endpoint exposes a
+  public HTTP port.
 
-The sync form also has options for cases where you want the local stack to become closer to the origin:
+Each stack service keeps its own service version. The service revision, pin, build source, update schedule,
+integrations, and SSH keys of a stack service are never taken from the origin.
+
+### Service updates during sync
+
+When the origin moved a stack service to a newer service version and configured something only that version has, such as
+a new option, volume, or link, your stack service has to move to the same version to take the change. Sync updates only
+the stack services that need it, to the service version the origin uses, and lists them before it runs.
+
+Sync never updates a pinned stack service or a service version your stack ignores, and never moves a stack service to an
+older version. If such a stack service blocks the sync, the sync stops and names it. Update it yourself, or unpin it, and
+then sync again.
+
+### Preview and confirm
+
+Selecting `Sync with origin` first shows a preview of what the sync would do with the chosen options:
+
+- the stack services it has to update, with the current and target service versions and what needs the newer version;
+- the changes it would make, as its task log will list them;
+- the reason the sync can't run, if it can't.
+
+Nothing changes until you confirm. When the preview lists stack services to update, confirm with `Update services and
+sync`. When your stack already follows the latest origin revision, the sync runs without a preview.
+
+### Delete what the origin doesn't have
+
+The sync form also has options for cases where you want your stack to become closer to the origin. Each option deletes
+items that the origin doesn't have, including items you added or changed yourself:
 
 | Dashboard option | Effect |
 | --- | --- |
@@ -206,24 +271,18 @@ The sync form also has options for cases where you want the local stack to becom
 | Origin services only | Delete stack services that do not exist in the origin. |
 | Origin service config only | For services that exist in both stacks, delete service-level configuration entries that do not exist in the origin. |
 
-Stack service configuration includes service-level Helm values, environment variables, volumes, tokens, settings,
-options, resource overrides, cron schedules, configs, and links.
+Use the deletion options only when you are comfortable removing local stack customizations that are no longer present in
+the origin.
 
-Sync with origin is the right workflow when you copied a catalog stack and want to pull in catalog-side manifest
-changes such as newly introduced services, newly introduced stack service defaults, or removed services. Use the
-deletion options only when you are comfortable removing local stack customizations that are no longer present in the
-origin.
-
-After merging, Wodby enables explicitly configured required-link targets and validates the complete link graph. Sync
-does not publish a revision with a missing or incompatible required link.
+Sync enables explicitly configured required-link targets and does not publish a revision with a missing or
+incompatible required link.
 
 ## Auto-sync with origin
 
 Use this for copied catalog stacks that should follow their origin stack automatically.
 
 When origin auto-sync is enabled, Wodby can create a new stack revision after the origin stack publishes a new
-revision. The first check is revision-based: if your stack still points to an older origin revision, it becomes a
-candidate for sync.
+revision.
 
 When you add a Wodby catalog stack, the `Add stack` form shows `Auto sync with origin` enabled by default. Turning that
 switch off creates the stack with origin auto-sync disabled. When enabled by default, origin auto-sync uses
@@ -248,11 +307,13 @@ If the previously tracked origin version is not semantic-version compatible and 
 version compatible, semantic-version mode allows the sync as the first move to a stable semantic-version target.
 Non-semver mode still skips that change because it accepts only non-semver target versions.
 
-Sync behavior is conservative by default. Without deletion options, missing origin objects are added, and local objects
-that are not present in the origin are preserved.
+Automatic sync merges changes the same way as a [manual sync](#how-sync-merges-changes). When the origin's changes need
+a newer service version for some stack services, automatic sync updates them only if `Services auto update` is enabled
+for your stack and its policy allows each update, for example `Update stateless only` or the allowed version changes.
+Otherwise your stack keeps its current origin revision until you update those stack services or sync manually.
 
-You can also configure origin auto-sync to prune local objects that no longer exist in the origin. The available
-auto-sync deletion options match manual sync:
+You can also configure origin auto-sync to delete items that no longer exist in the origin, including items you added
+or changed yourself. The available auto-sync deletion options match manual sync:
 
 | Auto-sync option | Effect |
 | --- | --- |

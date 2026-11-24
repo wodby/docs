@@ -1,4 +1,8 @@
-# n8n
+---
+description: Deploy n8n, the workflow automation tool, on Wodby with the n8n catalog stack, which runs the Community Edition with PostgreSQL and optional OpenSMTPD.
+---
+
+# n8n stack guide
 
 The Wodby n8n catalog stack runs [n8n](https://n8n.io/), the workflow automation tool, from the official Community
 Edition image, with PostgreSQL and an optional OpenSMTPD service for mail. The current composition is documented in
@@ -31,8 +35,7 @@ primary domain, deploy the n8n service so that n8n shows webhook URLs with the n
 domain, update the webhook URLs in the systems that call them. See [Domains](../../../apps/endpoints.md#domains).
 
 The route has no request timeout, so a webhook can wait for its workflow to finish before it answers. Do not set the
-route's request body size: it makes the route hold each request in memory until it is complete, and the editor's live
-connection stops working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
+route's request body size: the editor's live connection stops working. See [HTTP settings](../../../apps/endpoints.md#http-settings).
 
 ## Code nodes
 

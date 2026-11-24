@@ -1,4 +1,8 @@
-# Prometheus
+---
+description: Run Prometheus on Wodby with the Prometheus catalog stack and an optional Grafana service that comes with a Prometheus data source set up for you.
+---
+
+# Prometheus stack guide
 
 The Wodby Prometheus catalog stack runs Prometheus and an optional Grafana service. The current composition and defaults
 are in [`wodby/stack-prometheus`](https://github.com/wodby/stack-prometheus).
@@ -6,14 +10,13 @@ are in [`wodby/stack-prometheus`](https://github.com/wodby/stack-prometheus).
 ## Choose services when you create the app
 
 Prometheus is the stack's main service. Grafana is enabled by default and can be excluded when you create the app.
-Wodby provisions a Prometheus data source in Grafana for you, and the Prometheus service is linked to it. Apps created
-before Grafana became a default keep their choice; enable the Grafana app service there to add it.
+Wodby provisions a Prometheus data source in Grafana for you, and the Prometheus service is linked to it.
 
 ## Open Prometheus
 
 Prometheus listens on port `9090`. Wodby protects the service's public domains with basic auth by default. Each app
-service gets its own generated password. Reveal it under **Endpoints > Auths** for the app environment. See
-[Auths](../../../apps/endpoints.md#auths).
+service gets its own generated password. Reveal it under **Endpoints > Basic Auth** for the app environment. See
+[Basic Auth](../../../apps/endpoints.md#basic-auth).
 
 ## Change the Prometheus configuration
 

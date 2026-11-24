@@ -1,3 +1,7 @@
+---
+description: Official Wodby SDKs generated from the OpenAPI schema. Find packages, install steps, authentication, and when to use the API, SDKs or CLI.
+---
+
 # Wodby SDKs
 
 Wodby publishes generated SDKs for API automation. The SDKs use API key authentication: send the key as `X-API-KEY`.

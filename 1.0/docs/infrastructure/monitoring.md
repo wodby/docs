@@ -1,4 +1,8 @@
-# Monitoring
+---
+description: Wodby 1 does not provide full host monitoring. Learn which server metrics to watch and how to check current resource use on each infrastructure version.
+---
+
+# Server monitoring
 
 Wodby reports server reachability and task results, but it does not provide a
 complete host-monitoring and alerting service. Install a monitoring agent from

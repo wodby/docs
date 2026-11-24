@@ -1,4 +1,8 @@
-# Cachet stack documentation
+---
+description: "Run the Cachet status page on Wodby 1: configure it with environment variables, see its scheduled cron job and containers, and read the changelog."
+---
+
+# Cachet stack guide
 
 Cachet can be configured with the following [environment variables](https://github.com/wodby/cachet#environment-variables)
 
@@ -29,6 +33,17 @@ By default, we run the following cron command from [crond container](#crond) eve
 ## Changelog
 
 This changelog is for Cachet stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/cachet/releases).
+
+### 3.1.9
+
+⬆️ PHP 8.4.28 with [security fixes](https://www.php.net/ChangeLog-8.php#8.4.28) in Adminer
+
+### 3.1.8
+
+- ⬆️ Nginx 1.31.9, 1.30.7 with fixes for the [nginx2root](https://xint.io/blog/nginx2root-remote-code-execution) remote code execution vulnerabilities (CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, CVE-2026-113425) and other [security issues](https://nginx.org/en/security_advisories.html)
+- Adminer:
+    - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
+- 🏔️ Alpine Linux updates for Nginx, including a zlib security fix (CVE-2026-4738)
 
 ### 3.1.7
 

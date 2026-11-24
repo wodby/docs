@@ -1,10 +1,22 @@
-# Matomo
+---
+description: Deploy Matomo web analytics on Wodby with the Matomo catalog stack, which runs a prebuilt Matomo image with MariaDB, shared NFS storage and OpenSMTPD.
+---
+
+# Matomo stack guide
 
 The Wodby Matomo catalog stack runs [Matomo](https://matomo.org/) web analytics with MariaDB, shared NFS storage for
 Matomo's files, and OpenSMTPD for mail. The current composition is documented in
 [`wodby/stack-matomo`](https://github.com/wodby/stack-matomo).
 
 The stack runs Wodby's prebuilt Matomo image, so there's nothing to build and no repository to connect.
+
+## Your own plugins
+
+To add your own Matomo plugins, use the
+[buildable Matomo stack](../matomo-buildable/index.md) instead. You keep them in a Git repository
+started from the [Matomo boilerplate](https://github.com/wodby/matomo-boilerplate), which also sets the Matomo release to
+run, and Wodby builds Matomo with them on every push. You decide when to upgrade Matomo, so watch Matomo's releases for
+security fixes.
 
 ## Superuser and first website
 

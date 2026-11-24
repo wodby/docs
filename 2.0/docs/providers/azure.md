@@ -1,4 +1,8 @@
-# Azure
+---
+description: Connect Azure to Wodby with OAuth to create AKS clusters and managed databases and to store backups in Blob storage in your Azure subscription.
+---
+
+# Azure provider
 
 ## Auth
 
@@ -6,14 +10,13 @@ We provide authentication via OAuth2. After creating the integration and passing
 
 ## AKS
 
-Wodby provides a native integration with Azure Kubernetes Service. We use deployment template to create a cluster, its network and node pools. 
+Wodby provides a native integration with Azure Kubernetes Service.
 
 - We place all resources we create in a resource group named `wodby-[your-wodby-org-name]-[region]`
 - AKS cluster we create always deployed with multi-az high availability in a chosen region
 - New clusters use Azure CNI Overlay with the AKS-managed Cilium dataplane and NetworkPolicy engine
 - We set a limit of 50 pods per node by default
-- Since AKS cluster comes with a metrics server we use it for the basic Wodby kubernetes monitoring
-- We create a single load balancer per cluster and deploy Envoy Gateway for public app entrypoints
+- We create a single load balancer per cluster for public app traffic
 - We disable native Azure monitoring when creating a cluster
 
 ### Networking
@@ -22,8 +25,7 @@ New AKS clusters created by Wodby use Azure CNI Overlay. Pods receive addresses 
 than consuming IP addresses from the Azure virtual network subnet. The pod address range is `10.244.0.0/16`, while the
 Kubernetes service address range is `10.0.0.0/16`.
 
-AKS manages the Cilium dataplane and uses Cilium to enforce the app environment network policies created by Wodby. This does
-not install a separate Wodby-managed Cilium release in the cluster.
+AKS manages the Cilium dataplane and uses Cilium to enforce the app environment network policies created by Wodby.
 
 This networking configuration applies to newly created clusters. Existing kubenet clusters are not migrated
 automatically because changing an AKS cluster's networking model is a separate, disruptive operation. Legacy or imported

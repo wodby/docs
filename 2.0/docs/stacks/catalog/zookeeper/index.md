@@ -1,4 +1,8 @@
-# ZooKeeper
+---
+description: Run a ZooKeeper service on Wodby with the ZooKeeper catalog stack. In Wodby stacks, ZooKeeper is the coordination store of SolrCloud.
+---
+
+# ZooKeeper stack guide
 
 The Wodby ZooKeeper catalog stack runs a ZooKeeper service. The current composition and defaults are in
 [`wodby/stack-zookeeper`](https://github.com/wodby/stack-zookeeper).
@@ -14,8 +18,7 @@ Use these values from a service in the same app environment:
 - Client port: `2181`
 
 No client authentication or TLS is configured, and Wodby generates no token. Only the environment's internal network
-reaches the service. A linked Solr service uses the host as its `ZK_HOST` and protects its own znodes with digest
-credentials.
+reaches the service.
 
 ## Change configuration
 

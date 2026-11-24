@@ -1,4 +1,8 @@
-# SvelteKit
+---
+description: Deploy a SvelteKit application on Wodby with the SvelteKit catalog stack, a Node.js server with optional PostgreSQL, Valkey and mail services.
+---
+
+# SvelteKit stack guide
 
 The Wodby SvelteKit catalog stack runs a Node.js (SvelteKit) app service with optional PostgreSQL, Valkey, Mailpit,
 OpenSMTPD, Gotenberg, and OpenTelemetry Collector services. The app renders pages, runs form actions, and serves API
@@ -94,8 +98,8 @@ Gotenberg has no link. Its address is `http://gotenberg:3000`; put it in your ow
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail transport without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the

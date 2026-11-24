@@ -1,4 +1,8 @@
-# Stack Template
+---
+description: Reference for stack.yml, the manifest that defines a custom Wodby stack imported from Git, with an example and every supported field.
+---
+
+# Stack template
 
 Custom stacks imported from Git are defined by `stack.yml`.
 
@@ -20,6 +24,7 @@ Only the fields documented on this page are supported. Unknown fields will be re
 name: php
 title: PHP
 icon: php
+category: runtimes
 
 env:
   - name: APP_TYPE
@@ -144,12 +149,82 @@ up. A copy of the stack in another organization or project uses the guide of the
 docs: https://wodby.com/docs/2.0/stacks/catalog/go/
 ```
 
+### `variantOf`
+
+Type: `string`. Optional.
+
+Name of the main stack this stack is a variant of. Use it for stacks that run the same application in a different way,
+for example a stack that builds Matomo from your repository next to a stack that runs the prebuilt Matomo image. The
+stack page in the dashboard lists the other variants under `Other variants of this stack`, so people can find the one
+that fits.
+
+- The main stack must belong to the same organization.
+- The main stack can't be a variant itself, and a stack that has variants can't become one.
+- The main stack can be imported later. The variants appear once both stacks exist.
+- A copy of the stack, for example one added from the catalog, is not a variant.
+
+```yaml
+name: matomo-buildable
+title: Matomo (buildable)
+variantOf: matomo
+```
+
+### `variant`
+
+Type: `string`. Optional. Requires `variantOf`.
+
+Short label that tells this variant apart, such as `Buildable`. Up to 64 characters.
+
+### `variantDescription`
+
+Type: `string`. Optional.
+
+When to choose this stack over its other variants. The stack page shows it under the link to this stack on the other
+variants' pages. Up to 500 characters. The main stack can have one too, without `variantOf`.
+
+```yaml
+variantDescription: >-
+  Choose this when you want to customize Matomo: pin the Matomo version and add
+  your own plugins in a Git repository, and Wodby builds Matomo from it.
+```
+
+### `category`
+
+Type: `string`. Optional.
+
+Catalog category of the stack. The stack catalog in the dashboard can be filtered by category, and a catalog stack's
+page suggests other stacks of the same category. A copy of the stack, for example one added from the catalog, keeps
+its category. Variants are listed in the catalog under their category but aren't suggested on other stacks' pages.
+
+| Value | Category in the dashboard |
+| --- | --- |
+| `javascript` | JavaScript frameworks |
+| `frameworks` | Backend frameworks |
+| `runtimes` | Language runtimes |
+| `cms` | CMS & publishing |
+| `databases` | Databases |
+| `datastores` | Datastores & messaging |
+| `search` | Search & indexing |
+| `observability` | Observability |
+| `data` | Data & automation |
+| `ai` | AI |
+| `devtools` | Developer platforms |
+| `collaboration` | Business apps |
+| `networking` | Networking & identity |
+| `platform` | Email & platform services |
+
+Any other value is rejected during import.
+
+```yaml
+category: cms
+```
+
 ### `access`
 
 Type: `object`.
 
 Optional [Private App Access](../apps/access.md) requirement for app environments created from the stack. This policy
-describes the access outcome the stack needs. The app environment still stores the actual access configuration and the
+describes the access outcome the stack needs. The actual access configuration is set on each app environment, where the
 user selects an eligible Private App Access integration.
 
 - `required`: required boolean. When `true`, Private App Access must be configured during app creation and cannot be
@@ -340,7 +415,7 @@ For field formats, workload-kind restrictions, and precedence, see
 Type: `boolean`.
 
 Marks the main service in the stack. Only one stack service can be main, and its main endpoint must expose a public HTTP
-port. A port the stack makes private with [`services[].endpoints`](#servicesendpoints) doesn't count. The corresponding app service owns the app environment's root technical route. This is independent of the app
+port. A port the stack makes private with [`services[].endpoints`](#servicesendpoints) doesn't count. The corresponding app service owns the app environment's root technical route. This is independent of the
 app environment's canonical `Main` route.
 
 If no service is marked as main, Wodby will automatically pick the first eligible service. The same fallback applies
@@ -407,7 +482,8 @@ Each `services[].workloads[].containers[]` item supports:
 
 - `name`: required container name from the referenced service manifest. It must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 - `env`: optional container-specific environment variables.
-- `resources`: optional resource overrides.
+- `resources`: optional resource overrides. Each value overrides only the service's default for that value; the values
+  you leave out keep the service's defaults.
 
 `resources` supports:
 

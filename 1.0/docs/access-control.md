@@ -1,4 +1,8 @@
-# Permissions
+---
+description: The Wodby 1 role hierarchy from Owner to Unprivileged, with the lowest organization and application role needed for each action.
+---
+
+# Roles and permissions
 
 Wodby roles form the following hierarchy:
 

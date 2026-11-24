@@ -1,4 +1,8 @@
-# Mailchimp
+---
+description: Use the Mailchimp provider in Wodby to store Mailchimp API credentials once and inject them into app services and stacks as environment variables.
+---
+
+# Mailchimp provider
 
 Mailchimp is available in Wodby as a `variable` provider. Use it when you want to inject Mailchimp API credentials into app services or stacks through an integration.
 

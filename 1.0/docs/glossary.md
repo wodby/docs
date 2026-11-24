@@ -1,3 +1,7 @@
+---
+description: Definitions of Wodby 1 terms such as app, instance, stack, build, container registry, edge and infrastructure, with links to the related pages.
+---
+
 # Glossary
 
 ## App

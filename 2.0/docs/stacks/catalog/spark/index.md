@@ -1,4 +1,8 @@
-# Apache Spark
+---
+description: Run an Apache Spark standalone cluster on Wodby with the Apache Spark catalog stack, with a Spark master and worker services linked for you.
+---
+
+# Apache Spark stack guide
 
 The Wodby Apache Spark catalog stack runs a Spark standalone cluster with a Spark master and Spark worker services.
 The current composition and defaults are in [`wodby/stack-spark`](https://github.com/wodby/stack-spark).
@@ -16,8 +20,8 @@ services in the same app environment can reach it, and Wodby creates no public r
 ## Open the master web interface
 
 The master web interface is on port 8080 and is protected with basic auth by default. Each app service gets its own
-generated password. Reveal it under **Endpoints > Auths** for the app environment. See
-[Auths](../../../apps/endpoints.md#auths). Services inside the environment reach the master directly, without the
+generated password. Reveal it under **Endpoints > Basic Auth** for the app environment. See
+[Basic Auth](../../../apps/endpoints.md#basic-auth). Services inside the environment reach the master directly, without the
 password.
 
 ## Add workers and size them

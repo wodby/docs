@@ -1,3 +1,7 @@
+---
+description: Databases in Wodby give you one place to manage DBs, users, backups and imports for container-based and managed database servers.
+---
+
 # Databases
 
 ## Overview

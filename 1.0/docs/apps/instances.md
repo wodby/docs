@@ -1,4 +1,8 @@
-# Instances
+---
+description: What a Wodby 1 application instance is, how instance types such as dev, staging and production differ, and what deleting an instance removes.
+---
+
+# Application instances
 
 Every application has at least one instance. See [App model](app-vs-instance-vs-service.md) for how apps, instances, and services relate.
 

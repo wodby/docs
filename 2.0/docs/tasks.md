@@ -1,3 +1,8 @@
+---
+title: Tasks and task history
+description: Most operations in Wodby run as tasks, which give you an audit trail of changes. Learn about jobs and steps, task types, reruns and cron runs.
+---
+
 # Tasks
 
 Most operations in Wodby run as tasks.
@@ -23,7 +28,7 @@ A task has the following information:
 
 Tasks initiated through MCP show an `MCP` label. The `MCP only` filter narrows task history to those operations.
 Task details can include the authorizing user, credential ID, client labels, initiating tool, and request ID.
-New OAuth-initiated tasks also link to their agent connection. Revoking the connection does not erase task history.
+OAuth-initiated tasks also link to their agent connection. Revoking the connection does not erase task history.
 Client names and versions are self-reported, not verified model identities. Missing attribution means unknown,
 not necessarily human activity.
 
@@ -58,8 +63,8 @@ the `Name` column heading to show them. See [Cron runs in task lists](apps/cron.
 
 ## Silent task
 
-Some immediate tasks are silent. They are still recorded, but they may not appear in the main tasks widget because they are not important enough to interrupt the normal activity stream.
+Some immediate tasks are silent. They are still recorded, but they may not appear in the main tasks widget.
 
 ## System jobs and steps
 
-Rarely, a task can fail because of an internal system job or step that is not shown in the regular task graph. If that happens, [contact support](support.md).
+Rarely, a task can fail in a job or step that the task graph does not show. If that happens, [contact support](support.md).

@@ -1,4 +1,8 @@
-# Brevo
+---
+description: Connect Brevo to Wodby to relay outbound email over SMTP, inject a Brevo API key into application containers, or both.
+---
+
+# Brevo provider
 
 Brevo exposes `smtp` and `variable` integration kinds in Wodby. Select SMTP to relay outbound mail, API Variable to
 inject a Brevo API key into application containers, or both. Brevo SMTP keys and API keys are separate credentials.

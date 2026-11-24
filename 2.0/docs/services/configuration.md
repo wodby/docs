@@ -1,3 +1,7 @@
+---
+description: Configure a Wodby service template with options, settings, configs, volumes, tokens, annotations, certificates and integrations.
+---
+
 # Service configuration
 
 Service configuration covers the values and generated resources that can be exposed from a service template and then
@@ -66,13 +70,21 @@ cannot embed an override value for a secret setting. Configure the value on the 
 service has been imported.
 
 A setting that uses `from` must have the same secret classification as the matching setting on the linked service.
-The consuming setting keeps a link to the source setting rather than storing another copy of its value.
 
 Runtime secret settings require the primary workload container to use the list-based `helm.env` mapping. The
 map-style `helm.envKV` mapping places values directly in Helm values and therefore cannot be used for secret settings.
 
-Build-scoped secret settings use the CI secret-argument path and are redacted from API responses. The Dockerfile must
+Build-scoped secret settings are redacted from API responses. The Dockerfile must
 still handle its matching `ARG` safely: copying a build argument into an image layer, file, or build log can expose it.
+
+### Value requirements
+
+A service template can set [requirements](template.md#setting-validation) for a setting, such as a minimum length or
+characters the value must contain. Wodby refuses a value that does not meet them when you save it on a stack service
+or app service, or enter it while creating an app or environment, and lists what is missing.
+
+A value saved before the requirements existed, or taken unchanged from the stack, is not refused. The app service
+reports it as a configuration problem until you change the value.
 
 ## Configs
 
@@ -83,7 +95,7 @@ through an environment variable.
 
 Service configs are defined under the [`configs` section](template.md#configs) in a service template.
 
-Config names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names), because Wodby may use them in generated ConfigMap names.
+Config names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 
 Each service config uses exactly one delivery mode:
 
@@ -104,18 +116,16 @@ A config default can come from either:
 
 Image-backed defaults let Wodby show the exact default for each service version without storing duplicate copies in the
 service repository. The config's top-level `filepath` remains the destination for an override, while
-`default.filepath` identifies the source file inside the image. Wodby resolves this content from the image registry
-while importing or updating the service revision; it does not run a discovery job in your cluster.
+`default.filepath` identifies the source file inside the image. Wodby reads this content from the image when the
+service revision is imported or updated.
 
-When an image-backed config has no stack or app override, Wodby does not create or mount a ConfigMap for it. The
-container continues to use the file supplied by its image. Resetting an override restores that behavior by deleting the
-override rather than saving a copy of the displayed default.
+When an image-backed config has no stack or app override, Wodby does not mount anything over it. The container
+continues to use the file supplied by its image. Resetting an override restores that behavior.
 
 The dashboard identifies whether a displayed default comes from the service repository or image. Wodby does not publish
 a new service revision if one of its declared image defaults cannot be resolved.
 
-If `processTokens: true` is set, Wodby resolves supported template tokens inside the effective config content before it
-is passed to Helm or written into the generated ConfigMap. See [app tokens](../apps/tokens.md) for the public
+If `processTokens: true` is set, Wodby resolves supported template tokens inside the effective config content. See [app tokens](../apps/tokens.md) for the public
 built-in token list. Leave it disabled for configs that use their own `{{ ... }}` template syntax literally.
 
 Stack and app overrides replace the config content or disable the config. They do not change the delivery mode or

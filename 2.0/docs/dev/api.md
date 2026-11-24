@@ -1,3 +1,7 @@
+---
+description: Automate Wodby with the public REST API. Find the API reference, base URL, authentication, covered resources, errors and limits.
+---
+
 # Wodby API
 
 Wodby exposes a public REST API for resource-oriented automation and OpenAPI-based tooling.

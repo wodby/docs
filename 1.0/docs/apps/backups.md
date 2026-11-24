@@ -1,4 +1,8 @@
-# Backups
+---
+description: Back up and restore Wodby 1 instance databases and files, schedule automatic backups, mirror archives to external storage and read failure reports.
+---
+
+# Application backups
 
 Stacks that define database or file backup operations can create backups from
 `Instance > Backups`. The primary backup archive is stored on the same server

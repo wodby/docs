@@ -1,3 +1,7 @@
+---
+description: An app environment is one isolated deployment of your application on a Kubernetes cluster. Copy, pause, resume, migrate or delete environments.
+---
+
 # App environments
 
 ```mermaid
@@ -45,7 +49,7 @@ All environments of the same app share the same stack, but different environment
 
 App environments do not have a separate project owner. They belong to the app and use the app's ownership and sharing settings.
 
-The environment machine name is permanent and must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter.
+The environment machine name is permanent and must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names). The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter, unique in the cluster and not reserved. See [App environment namespaces](../naming.md#app-environment-namespaces).
 
 You add or remove environments from `Apps > [App] > Environments`.
 
@@ -54,8 +58,8 @@ values are copied at creation time rather than inherited dynamically: changing a
 environments only. An environment retains its selection even when it currently has no enabled service with build
 configuration, so the same provider is ready if a buildable service is enabled or added later.
 
-To change an existing environment, open `Apps > [App] > [Environment] > Settings > CI/CD`. The tab remains available when
-the environment has no active buildable services, and saves the selection for services that are enabled or added later.
+To change an existing environment, open `Apps > [App] > [Environment] > CI/CD > Builds > Settings`. The **Builds** tab is
+shown when the environment has a service with a build source, including a disabled service, or has earlier builds.
 Changes apply to future builds. Existing builds keep the CI provider, registry, and registry repository recorded when
 those builds were created.
 
@@ -105,14 +109,13 @@ The status in this tab is `Running` during normal operation. It changes to `Paus
 
 Pausing cancels active work for the environment, then:
 
-- scales Deployments and StatefulSets to zero
-- stops scheduled jobs and removes other active Kubernetes workload resources
+- stops its application workloads and scheduled jobs
 - releases the workloads' requested compute and memory back to the cluster
-- leaves routes, configuration, secrets, persistent volumes, and Helm releases in place
+- leaves routes, configuration, secrets, and persistent volumes in place
 
 Automatic cron jobs and backups that become due while the environment is `Pausing`, `Paused`, or `Resuming` are skipped.
 Wodby advances each schedule to its next run instead of queueing the missed execution for after resume. Managed
-technical-domain certificates can still renew through DNS validation while the environment is paused, but renewal does
+technical-domain certificates can still renew while the environment is paused, but renewal does
 not restore or redeploy application workloads. On infrastructure version `4.0.0` or newer, routing changes made while
 the environment is paused remain pending and are applied after its workloads are restored.
 
@@ -142,12 +145,12 @@ where infrastructure costs are determined by your provider.
 
 Deleting an app environment marks it as `deleting` immediately and blocks new builds and deployments from starting.
 
-Before Kubernetes cleanup begins, the deletion task cancels active builds, deployments, and post-deployment script
-tasks for the environment and waits for each task to stop. It then removes the environment's Kubernetes resources and other
-generated resources. Follow the deletion task logs to see which active tasks were canceled and whether cleanup
+The deletion task first cancels active builds, deployments, and post-deployment script tasks for the environment, then
+removes the environment's Kubernetes resources and other resources Wodby created for it. Follow the deletion task logs to see which active tasks were canceled and whether cleanup
 completed.
 
-Deleting an app applies the same process to all of its environments.
+Deleting an app applies the same process to all of its environments. It needs the `Delete`
+[permission](../access-control.md#environment-permissions) in every environment of the app.
 
 ## Errored environments
 
@@ -157,7 +160,7 @@ Errored environments remain visible so you can inspect task logs and delete the 
 runtime work or change deployable configuration are blocked, including new builds and deployments, stack upgrades,
 service configuration changes, route and auth changes, app-scoped backups, cron jobs, shell sessions, live logs, pod
 queries, and container-backed database changes. Automatic app-scoped backups and cron jobs skip errored environments.
-Managed technical-domain certificates can still renew through DNS validation, without deploying application workloads.
+Managed technical-domain certificates can still renew, without deploying application workloads.
 
 Review the failed task to find the cause. After fixing the underlying problem, delete the errored environment and create a
 new one.

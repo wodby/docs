@@ -1,4 +1,8 @@
-# RabbitMQ
+---
+description: Run a single RabbitMQ service with the management UI on Wodby with the RabbitMQ catalog stack, and link your application to it.
+---
+
+# RabbitMQ stack guide
 
 The Wodby RabbitMQ catalog stack runs a single RabbitMQ service with the management UI. The current composition and
 defaults are documented in [`wodby/stack-rabbitmq`](https://github.com/wodby/stack-rabbitmq).

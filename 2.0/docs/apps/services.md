@@ -1,4 +1,8 @@
-# Application Services
+---
+description: An app service is one stack service inside an app environment. Configure its variables, resources, links, volumes, deployment and Helm values.
+---
+
+# Application services
 
 ## Overview
 
@@ -124,7 +128,7 @@ When cluster monitoring is enabled, non-external enabled app services expose a `
 
 It shows aggregate runtime metrics for the service and detailed per-pod and per-container metrics, including:
 
-- CPU and memory usage
+- CPU and memory usage, with the service's share of its limit, or of its request when only a request is set
 - CPU and memory requests and limits
 - persistent volume storage usage and capacity for volumes associated with the service
 - pod and container readiness
@@ -133,7 +137,7 @@ It shows aggregate runtime metrics for the service and detailed per-pod and per-
 - container start, finish, and exit data
 
 Storage usage is shown at the app service level. Per-pod and per-container storage usage is not reported separately,
-because Kubernetes exposes PVC usage for volumes rather than individual containers.
+because storage usage is measured per volume rather than per container.
 
 ## Actions
 
@@ -240,8 +244,8 @@ values are not passed to image builds.
 ## Deployment tab
 
 The `Configuration > Deployment` subtab controls rollout strategy, readiness timing, and graceful shutdown for this app
-service. Use `All workloads` for service-wide settings. Services with multiple workloads also show workload cards for
-targeted overrides.
+service. For a service with multiple workloads, select `All workloads` in the `Workload` selector for service-wide
+settings, or select a workload to override settings only for it.
 
 Each unset field inherits independently from the stack service or service manifest. If no inherited value exists, the
 Helm chart keeps its default. Saving a deployment override marks the app environment as needing redeploy. See
@@ -273,7 +277,11 @@ The `Runtime > Resources` subtab lets you configure CPU and memory requests and 
 
 CPU values are set in millicores, where `1000` means `1` CPU core. Memory values are set in megabytes in the dashboard UI.
 
-While you edit a container, **Preset** fills in the values of a [resource preset](scalability.md#resource-presets).
+Values the app service sets appear in regular text. Values it doesn't set appear in grey italics: these are the
+stack's or the service's defaults, or the minimum request. While you edit a container, a field left empty keeps its
+default, which the field shows as a placeholder, and **Preset** fills in the values of a
+[resource preset](scalability.md#resource-presets). See [Resources management](scalability.md#resources-management) for
+how set values and defaults combine.
 
 Resource requests directly affect whether the service can be scheduled. If the cluster does not have enough available CPU or memory for the requested pod size, the pod stays pending until enough capacity becomes available. If cluster autoscaling is enabled, the cluster may add nodes to satisfy that demand.
 
@@ -314,7 +322,7 @@ After changing a link, deploy the app service so it picks up the new values.
 ## Volumes tab
 
 The `Runtime > Volumes` subtab lists the volumes declared by the current service revision. Configured volumes show their app-level
-values and the effective storage class observed on the live Kubernetes claim. A healthy volume shows its effective
+values and the storage class the volume actually uses. A healthy volume shows its effective
 class once. When the selected and effective classes differ or cannot be verified, the dashboard expands the value to
 show both and adds a `Mismatch`, `Mixed`, `Unknown`, or `Unavailable` status.
 
@@ -322,7 +330,7 @@ An optional volume omitted during app creation remains in the table with an `Opt
 class values, and an `Add volume` action. This is a valid configuration, not a warning or configuration issue. Adding
 the volume asks for a positive size and, when supported, a storage class. Shared volumes and volumes that reuse a
 linked claim inherit their storage configuration. Saving the volume marks the app service and environment for redeploy;
-the claim is created by the subsequent deployment.
+the volume is created by the next deployment.
 
 After a volume has been added, it cannot be resized or removed from app-service settings, and its storage class cannot
 be changed. See [Current storage class](storage.md#current-storage-class) for the status definitions and
@@ -337,6 +345,9 @@ These settings often flow into environment variables or runtime configuration ge
 The service template decides whether each setting is runtime-scoped, build-scoped, or both. Changing a build-scoped
 setting marks the app service for rebuild; changing a runtime-only setting marks it for redeploy.
 
+A service can set [requirements](../services/configuration.md#value-requirements) for a setting value, such as a
+minimum password length. A value that does not meet them is refused with a list of what is missing.
+
 ## Configs tab
 
 The `Configuration > Configs` subtab lets you view default [configs](../services/configuration.md#configs) and override them for this app
@@ -344,8 +355,7 @@ service. The dashboard identifies whether a default comes from the service repos
 image and shows image source details when available.
 
 An app override takes precedence over the displayed default. Use `Reset override` to delete it. For an image-backed
-config, resetting means the next deployment stops mounting the override and the container uses the file supplied by its
-image; Wodby does not save a copy of the image default as another override.
+config, the container uses the file supplied by its image again after the next deployment.
 
 A changed or reset config takes effect when you deploy the app service. If Wodby mounts the config as a file in the
 container, that deployment restarts the service's pods so the application reads the new file. A config that Wodby passes

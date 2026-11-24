@@ -1,3 +1,7 @@
+---
+description: Wodby API keys authenticate automation against the public REST API. Each key belongs to one organization and acts with the permissions of its creator.
+---
+
 # Wodby API keys
 
 Wodby API keys are created from [User settings > API keys](../user/api-keys.md).

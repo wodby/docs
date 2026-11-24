@@ -1,4 +1,8 @@
-# Web Terminal
+---
+description: Open an interactive shell in a running app service container from the Wodby dashboard, without an SSH service or a published port.
+---
+
+# Web terminal
 
 The web terminal opens an interactive shell session in a running app-service container directly from the dashboard.
 
@@ -20,7 +24,7 @@ To start a session:
 - the app environment status must be `OK`
 - the app service status must be `OK`
 - the target service must have at least one workload container and a current pod to connect to
-- the cluster must have a current, available Wodby FRPC infrastructure proxy
+- the cluster's Wodby infrastructure must be up to date
 
 The dashboard disables `Connect via web terminal` when the organization does not have paid-plan access or when the app
 environment or app service is not `OK`. If paid-plan access is missing, hover over the disabled button to see the plan
@@ -28,10 +32,9 @@ requirement.
 
 If Wodby cannot find a current pod for the selected workload, the session cannot start.
 
-Web-terminal connections use the cluster's Wodby infrastructure proxy; they do not connect directly to GKE, EKS, or
-another provider's Kubernetes API. Clusters created with older infrastructure may need an infrastructure upgrade before
-the web terminal is available. This upgrade updates Wodby infrastructure applications and does not move your workloads
-or data. Until the proxy is available, Wodby rejects the session instead of falling back to direct provider access.
+Clusters created with older infrastructure may need an infrastructure upgrade before the web terminal is available.
+This upgrade updates Wodby infrastructure applications and does not move your workloads or data. Until then, the
+session cannot start.
 
 ## Target selection
 

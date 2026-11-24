@@ -1,4 +1,8 @@
-# Application Deployments
+---
+description: Deploy all or selected services of an app environment. Covers service ordering, automatic rollback, queueing, first deployments and redeployments.
+---
+
+# Application deployments
 
 Deployments can target all services in an app environment or only selected services.
 
@@ -30,8 +34,11 @@ In that flow you can:
 
 - choose which services to deploy
 - force deployment even when manifests have not changed
-- disable post-deployment scripts for services that provide them
-- use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment
+- turn deployment scripts on or off for services that provide them (see
+  [pre-deployment scripts](#pre-deployment-scripts) for what this switch covers)
+- use `Skip rollback on failure` when you want to inspect the failed state instead of restoring the previous deployment;
+  it is checked and locked when the environment turns rollback off in its
+  [deployment settings](#environment-deployment-settings)
 - choose from available successful builds for services with build sources, including eligible older builds
 - choose **New build** only when the app service's CI provider and build source support dashboard-triggered builds
 
@@ -39,15 +46,13 @@ If **New build** is unavailable, the build selector explains whether the service
 previously recorded GitHub Actions or CircleCI workflow from the selected ref, or whether it uses external-only Custom
 CI. A compatible previous successful build remains selectable even when the dashboard cannot start a new one.
 
-When you select **New build** for multiple source owners, Wodby creates one awaiting deployment and starts the supported
-builds together. That deployment waits for exactly the selected owners. Selecting only one source owner does not wait
-for other buildable services in the app; a full new-build deployment includes every build-source owner and waits for
-all of them.
+When you select **New build** for multiple source owners, Wodby starts the supported builds together and the
+deployment waits for exactly the selected owners. Selecting only one source owner does not wait for other buildable
+services in the app; a full new-build deployment includes every build-source owner and waits for all of them.
 
-When a selected source owner uses **New build**, selected linked image targets and derivatives that consume its output
-follow that same new build. Wodby does not keep an older image selection for one of those consumers inside the same
-deployment. A previous successful build selected for another service is treated only as a reusable image: it does not
-satisfy a selected **New build**, keep the deployment waiting, or make that deployment depend on another CI run.
+When a selected source owner uses **New build**, selected linked image targets and derivatives that use its output
+deploy that same new build, never an older image in the same deployment. A previous successful build selected for
+another service is only reused as an image: it does not keep the deployment waiting for another CI run.
 
 If you deploy only a subset of services, Wodby applies that ordering only inside the selected set. Repository
 post-deployment scripts run only when the app service that owns the corresponding build is included in the selected
@@ -80,10 +85,12 @@ selector groups eligible previous choices under **Older builds**.
     using an image from another revision adds stack-compatibility risk.
 
 Before starting a build rollback or older-build deployment, the dashboard lists the affected services, build numbers,
-and build stack revisions and requires an acknowledgment checkbox. Post-deployment scripts are turned off by default for
-older builds because they can run migrations or other data-changing operations. In **New Deployment**, you can
+and build stack revisions and requires an acknowledgment checkbox. Pre- and post-deployment scripts are turned off by
+default for older builds because they can run migrations or other data-changing operations. A migration tool can also
+fail on a database that is newer than the older code, which would stop the rollback. In **New Deployment**, you can
 explicitly turn a service's scripts back on after reviewing them. The build and deployment detail shortcuts keep those
-scripts off; use **New Deployment** if you intentionally need to run them.
+scripts off. To run them by default for older builds, including from the shortcuts, turn on **Run deployment scripts
+for older builds** in the environment's [deployment settings](#environment-deployment-settings).
 
 Deployment history keeps the original build transition visible after the selected build becomes current:
 
@@ -97,13 +104,41 @@ Deployment details show the tags per app service together with the previous and 
 `Build #7 → #5`. These build-selection tags describe the intentional version change; they are separate from automatic
 [rollback on rollout failure](#deployment-rollback).
 
-Automatic rollback on rollout failure remains enabled unless you select **Skip rollback on failure**. That rollback can
+Automatic rollback on rollout failure remains enabled unless you select **Skip rollback on failure** or the environment
+turns it off in its [deployment settings](#environment-deployment-settings). That rollback can
 restore the previous Kubernetes release after a rollout failure, but it still does not restore application data or
 downgrade the stack.
 
 The generic task **Repeat** action remains limited to the latest deployment. To restore an earlier deployment, open its
 deployment details and use its **Roll back to this deployment** or **Redeploy** action, which applies the older-build
 eligibility checks and confirmation.
+
+### Pre-deployment scripts
+
+CI scripts defined in `.wodby/pre-deployment.yml` run as part of the deployment, before the new build rolls out. Use
+them for work the new version needs before it serves traffic, such as database migrations.
+
+- They run when the deployment brings in a new build. A new build always runs them: turning off post-deployment
+  scripts, in **New Deployment** or with `--skip-post-deploy`, does not skip them.
+- For an older build, including a rollback to an earlier deployment, they follow the service's deployment scripts
+  switch, which is off by default for older builds. See
+  [Roll back to previous builds and deployments](#roll-back-to-previous-builds-and-deployments).
+- They do not run when the deployment keeps the current build, for example a redeploy after a configuration change, an
+  automated redeployment, or a stack upgrade that reuses the build.
+- They run once per deployment, for the app service that owns the build, and only when that service is included in the
+  deployment.
+- They run with the new build's image, environment variables and settings. The running version keeps serving until
+  they succeed and the rollout finishes.
+- If a script fails, the deployment fails before the new version is installed and the previous version keeps serving.
+  The deployment's task log shows the script output.
+- Deploying the same build again after a failure runs the scripts again, so make them safe to repeat.
+- On an app service's first deployment there is no previous version, so the scripts run right after the service is
+  installed.
+
+!!! warning "Keep migrations compatible with the running version"
+    The previous version keeps serving while pre-deployment scripts run and until the rollout finishes. A migration
+    that removes or renames a table or column the previous version uses breaks it during that time. Add columns and
+    tables before the rollout, and remove or rename them in a later release.
 
 ### Post-deployment scripts
 
@@ -134,28 +169,25 @@ their rollout: the requested replicas must be running the updated workload and p
 and DaemonSets must also report the replicas as available. A container can be running while its workload is still
 waiting for readiness or a configured minimum-ready interval.
 
-For workloads monitored by Wodby's Kubernetes watcher, failure handling depends on the condition:
+Failure handling depends on the condition:
 
-- **CrashLoopBackOff:** Wodby allows a one-minute recovery window from the first time it observes this state for a
-  container in a pod. This applies to both application and init containers. Restarts of that container do not reset
-  the window; a replacement pod gets its own window. If Wodby observes the container in `CrashLoopBackOff` after the
-  window expires, it fails the rollout. The first warning therefore does not immediately fail the deployment.
+- **CrashLoopBackOff:** Wodby allows a container about one minute to recover after it first enters this state. This
+  applies to both application and init containers. If the container is still in `CrashLoopBackOff` after that, Wodby
+  fails the rollout. The first warning therefore does not immediately fail the deployment.
 - **Image or container startup errors:** states such as `ErrImagePull`, `ImagePullBackOff`, `InvalidImageName`, and
   `CreateContainerConfigError` fail the rollout when detected, without the crash-loop recovery window.
 - **No rollout progress:** a Deployment reporting `ProgressDeadlineExceeded` fails the rollout. Increasing its
   progress deadline does not extend the separate crash-loop recovery window.
-- **Pods cannot be scheduled:** Wodby applies a separate scheduling limit of seven minutes, or three minutes on
-  serverless clusters, measured from when it starts inspecting each pod. Another deployment limit can end the wait
-  sooner.
+- **Pods cannot be scheduled:** the rollout fails if a pod still cannot be scheduled after about seven minutes, or
+  three minutes on serverless clusters. Another deployment limit can end the wait sooner.
 
-The one-minute window is not a total deployment timeout or a guarantee that the task will finish exactly one minute
-after the first warning. Pod inspection, failure diagnostics, and automatic rollback can add time. See
+The one-minute window is not a total deployment timeout: failure diagnostics and automatic rollback can add time. See
 [Deployment wait times](../services/deployment.md#deployment-wait-times) for how rollout settings affect other waits.
 
-When a watched workload fails, Wodby attempts to add pod conditions, container states, warning events, and the previous
+When a workload fails, Wodby attempts to add pod conditions, container states, warning events, and the previous
 container attempt's logs to the task log. Look for **Previous logs** when the current container is waiting in
-`CrashLoopBackOff`: the startup error may belong to its previous attempt. Diagnostic collection is bounded, so the
-task log may contain only a tail of the available output.
+`CrashLoopBackOff`: the startup error may belong to its previous attempt. The task log may contain only the end of
+long output.
 
 ### Deployment rollback
 
@@ -170,7 +202,8 @@ the same deployment.
 
 Rollback is not always possible. Wodby does not attempt rollback when:
 
-- `Skip rollback on failure` is selected or `--skip-rollback` is used
+- `Skip rollback on failure` is selected, `--skip-rollback` is used, or the environment turns rollback off in its
+  [deployment settings](#environment-deployment-settings)
 - the service is being installed for the first time
 - the service has no previous successful release
 - the failure happens before the Helm upgrade is applied
@@ -181,6 +214,8 @@ are no rollback hooks to run. Reapplying that release would not correct the unhe
 why rollback was skipped.
 
 Failures in `.wodby/post-deployment.yml` happen after a successful rollout and never trigger deployment rollback.
+Failures in `.wodby/pre-deployment.yml` happen before the new version is installed, so the previous version keeps
+running and there is nothing to roll back.
 
 If rollback is not attempted, the failed release state remains in the cluster. If rollback is attempted but fails, the
 deployment remains failed and the task logs include the rollback error.
@@ -247,7 +282,7 @@ Parallel deployments remain in progress until their shared routing and DNS updat
 can succeed even if another fails or is canceled. If the shared routing or DNS update fails, all deployments waiting
 for that update fail. Check the task logs before retrying.
 
-First and full deployments, migrations, imports, repository post-deployment scripts, and deployments of external,
+First and full deployments, migrations, imports, repository pre- and post-deployment scripts, and deployments of external,
 storage, infrastructure, or operator services run one at a time. Environments on older routing infrastructure or with
 an unfinished routing migration also run deployments one at a time.
 
@@ -286,9 +321,8 @@ environment and its services before any application workloads are started. The e
 explicitly start its first build or deployment.
 
 While the initial deployment is deferred, enabling a service saves the enabled state and marks the app environment as
-`needs redeploy`; it does not start an automatic partial deployment. This remains true until a deployment establishes
-the app's runtime and active route backends. Start a deployment that includes the app's required services after
-configuration is complete.
+`needs redeploy`; it does not start an automatic partial deployment. This remains true until the first deployment
+completes. Start a deployment that includes the app's required services after configuration is complete.
 
 ## Automated redeployments
 
@@ -303,7 +337,8 @@ An automatic stack upgrade runs repository-defined `.wodby/post-deployment.yml` 
 when the upgrade rebuilds that service. If the service needs only a runtime redeployment, Wodby reuses the existing
 build and records its post-deployment scripts as `skipped`. This prevents an unchanged build from automatically
 repeating migrations or other data-changing jobs. Service-manifest [`post_deploy`](../services/operations.md#post_deploy)
-actions are separate lifecycle hooks and are not disabled by this repository-script skip.
+actions are separate lifecycle hooks and are not disabled by this repository-script skip. Repository
+`.wodby/pre-deployment.yml` scripts follow the same rule: they run only when the upgrade rebuilds the service.
 
 Automatic selection does not search arbitrary build history. Once a newer build is successfully deployed, the previous
 build is no longer considered the last known-good image and is not selected automatically across stack revisions. Any
@@ -324,11 +359,10 @@ app-service workloads. Wodby can apply these changes without rebuilding images o
 - changing HTTP authentication
 - issuing or renewing a route certificate
 
-Routing deployments update the complete routing configuration for one app environment. Repeated changes made while an
-update is running are combined and followed by another routing update when necessary.
+Routing deployments update the complete routing configuration for one app environment.
 
-The app environment shows `Updating routing` while its desired routing configuration has not yet been applied. During the
-one-time upgrade from service-owned routing, it shows `Migrating routing`. These states are separate from `needs
+The app environment shows `Updating routing` while its routing changes have not yet been applied. During a one-time
+routing upgrade after the cluster infrastructure upgrade, it shows `Migrating routing`. These states are separate from `needs
 rebuild` and `needs redeploy`, which continue to describe app builds and service workloads.
 
 Automatic routing deployments, including deployments after certificate renewal, create background tasks for logs and
@@ -336,11 +370,10 @@ failure tracking. You do not need to start an app-service deployment after a suc
 the change adds or removes a hostname or changes the `Main` domain. Then the app environment is marked `needs redeploy`
 so your app receives its new hostnames. See [Domains](endpoints.md#domains).
 
-After a partial workload deployment, Wodby applies routing for app services that currently have a successful deployed
-runtime. Routes to services that have not deployed successfully are omitted instead of being applied to missing
-Kubernetes Services; redirects remain available because they do not require a service backend. The task log identifies
-omitted backends, the app environment returns to `awaiting`, and it remains marked `needs redeploy`. A later workload
-deployment reevaluates every service and adds each route after its backend becomes available.
+After a partial workload deployment, Wodby applies routes only for app services that have deployed successfully.
+Routes to other services are left out until those services deploy; redirects remain available. The task log identifies
+the omitted routes, the app environment returns to `awaiting`, and it remains marked `needs redeploy`. A later workload
+deployment adds each route after its service deploys successfully.
 
 Clusters older than infrastructure version `4.0.0` continue to apply route, auth, and certificate changes through the
 affected app-service releases. Those apps may still show `needs redeploy` until the cluster infrastructure is upgraded.
@@ -351,15 +384,39 @@ Deployments from CI are triggered with `wodby ci deploy`.
 
 Each build deployment creates a new deployment record associated with the selected build. One build can contain image outputs for multiple app services. CI-triggered deployments can also skip post-deployment scripts for the built services when needed.
 
-A CI build started outside an existing dashboard build group deploys its own pushed service images without waiting
-for unrelated build-source owners. On an app that has not established its runtime yet, Wodby also includes the enabled
-services without build sources required for that initial runtime. Other build owners remain independent and deploy
+A CI build that was not started as part of a dashboard **New build** deploys its own pushed service images without
+waiting for unrelated build-source owners. On an app that has not been deployed yet, Wodby also includes the enabled
+services without build sources that the first deployment needs. Other build owners remain independent and deploy
 when their own builds report back.
 
 Regular app builds can continue while the target cluster is undergoing an infrastructure upgrade. If all required
 builds become ready during the upgrade, the deployment remains `awaiting` without a deployment task. Wodby starts it
 automatically after the cluster returns to `ok`; you do not need to trigger the deployment again. If the infrastructure
 upgrade fails, the deployment continues waiting until the cluster recovers to `ok`.
+
+## Deployment settings
+
+### Environment deployment settings
+
+`Apps > [App] > [Environment] > CI/CD > Deploys > Settings` has a **Deployment behavior** card with defaults for every
+deployment of the environment:
+
+- **Run deployment scripts for older builds**, off by default. On, deployments that go back to an older build run its
+  pre- and post-deployment scripts, including the **Roll back to this build** and **Roll back to this deployment**
+  shortcuts, and **New Deployment** starts with the scripts on. Turn it on only if your scripts are safe to run with
+  older code against a newer database.
+- **Roll back automatically when a rollout fails**, on by default. Off, a failed rollout stays in place for every
+  deployment, including automatic and CI deployments, so you can inspect it. A single deployment cannot turn rollback
+  back on while it is off for the environment.
+
+Changing these settings needs permission to configure the environment. They do not require a redeploy.
+
+### App service deployment settings
+
+To change how an app service's pods are replaced during a deployment, open
+`Apps > [App] > [Environment] > CI/CD > Deploys > Settings` and select the service in the `App service` selector. See
+[Deployment configuration](../services/deployment.md) for the available settings. Saving a change marks the app
+environment as needing redeploy.
 
 ## Needs redeploy
 

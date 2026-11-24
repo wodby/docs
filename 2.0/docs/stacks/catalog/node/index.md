@@ -1,4 +1,8 @@
-# Node.js
+---
+description: Deploy a Node.js application on Wodby with the Node.js catalog stack, starting from the Express.js boilerplate, with optional PostgreSQL and Valkey.
+---
+
+# Node.js stack guide
 
 The Wodby Node.js catalog stack runs a Node.js app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD,
 Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented in
@@ -46,8 +50,8 @@ Gotenberg has no link. Its address is `http://gotenberg:3000`; put it in your ow
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail transport without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the

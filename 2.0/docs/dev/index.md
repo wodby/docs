@@ -1,3 +1,8 @@
+---
+title: "Developer tools: API, SDKs, CLI and MCP"
+description: Developer documentation for integrating with Wodby, covering the REST API, SDKs, API keys, the CLI and MCP for AI clients.
+---
+
 # Development
 
 Use these pages when you integrate external automation with Wodby.

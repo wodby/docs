@@ -1,3 +1,7 @@
+---
+description: "Keep a Wodby 1 server up to date: check infrastructure component versions, update Agent and Edge, watch Kubernetes certificate renewal and read the changelog."
+---
+
 # Infrastructure maintenance
 
 Check your server's infrastructure version on the servers list in the Dashboard. The current releases are **7.0.8** for Infrastructure 7 and **6.1.2** for existing Infrastructure 6 servers. Infrastructure and [stacks](../stacks/maintenance.md) are updated separately.
@@ -18,7 +22,7 @@ Open the server's settings to see its **Infrastructure components**: the install
 
 The list shows only components whose installed version is known.
 
-The **Linux kernel** row is near the end of the list, after the [operating system](#operating-system) and followed only by the [IPv4 options filter](#ipv4-options-filter) row while the kernel needs the fix. It shows the kernel the server is running, once the server has reported it. **Critical** means the server is below Infrastructure 6.1.2 or 7.0.8 and a fixed kernel is available to install. **Update recommended** means the kernel doesn't have the fix, but the server is on 6.1.2, 7.0.8 or later, or no fix is available for your system yet. The server's version can still be red in that last case. If **Latest** shows a version, a fixed kernel is available, so [install it](#install-a-fixed-kernel): updating infrastructure only reduces your exposure. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
+The **Linux kernel** row is near the end of the list, after the [operating system](#operating-system). While the kernel needs the fix, the [IPv4 options filter](#ipv4-options-filter) row follows it, and the [Edge nginx2root hotfix](#edge-nginx2root-hotfix) row comes last. It shows the kernel the server is running, once the server has reported it. **Critical** means the server is below Infrastructure 6.1.2 or 7.0.8 and a fixed kernel is available to install. **Update recommended** means the kernel doesn't have the fix, but the server is on 6.1.2, 7.0.8 or later, or no fix is available for your system yet. The server's version can still be red in that last case. If **Latest** shows a version, a fixed kernel is available, so [install it](#install-a-fixed-kernel): updating infrastructure only reduces your exposure. **Check manually** means Wodby can't tell whether this kernel has the fix, which is common with custom kernels, so check with your operating system.
 
 When a known issue affects a component, its advisory ID appears next to the status and links to the details.
 
@@ -27,10 +31,10 @@ New servers always receive the latest versions. On existing servers, Kubernetes,
 **Update** shows how each component is updated, and is empty when an up-to-date Agent or Edge needs nothing:
 
 * **Update** button: update Agent or Edge yourself, as described in [Updating Agent and Edge](#updating-agent-and-edge).
-* **Dashboard**: on Infrastructure 6 servers and Infrastructure 7 servers below 7.0.7, update Agent and Edge as described in [Updating from the Dashboard](#updating-from-the-dashboard). On newer servers, this appears instead of the button until the server reports its versions, or if you don't have permission to update the server. It also appears on the IPv4 options filter row of servers below 6.1.2 or 7.0.8, because updating their infrastructure adds the filter.
+* **Dashboard**: on servers below Infrastructure 6.1.1 or 7.0.7, update Agent and Edge as described in [Updating from the Dashboard](#updating-from-the-dashboard). On newer servers, this appears instead of the button until the server reports its versions, or if you don't have permission to update the server. It also appears on the IPv4 options filter row of servers below 6.1.2 or 7.0.8, because updating their infrastructure adds the filter.
 * **Manual update**: you install a fixed Linux kernel on the server, as described in [Install a fixed kernel](#install-a-fixed-kernel). Empty when the kernel has the fixes Wodby tracks.
 * **Self-updating**: the installer updates itself when Wodby rolls out a new version. You don't need to do anything, and applications aren't affected.
-* **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications, and restores a missing IPv4 options filter on servers already on 6.1.2 or 7.0.8. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
+* **Wodby support**: Wodby support updates etcd, Kubernetes, Docker Engine, containerd, cri-dockerd and Canal with you, at a time that suits your applications, restores a missing IPv4 options filter on servers already on 6.1.2 or 7.0.8, and turns HTTP/2 off in Edge when the [Edge nginx2root hotfix](#edge-nginx2root-hotfix) row shows **HTTP/2 on**. When an update is due, select **Request update** to start a support conversation, or contact [Wodby support](../support.md).
 * **Self-renewing**: the server renews its Kubernetes certificates itself. See [Kubernetes certificates](#kubernetes-certificates).
 
 ### Operating system
@@ -46,13 +50,22 @@ Wodby doesn't upgrade a server's operating system. To leave a release that has r
 
 ### IPv4 options filter
 
-While a server's kernel needs the [CVE-2026-98432](#linux-kernel-security-update-cve-2026-98432) fix, the last row shows whether the [packet filter that reduces your exposure](#update-infrastructure-to-reduce-your-exposure) is in place. Wodby checks it about once a day. Hover over the status to see when it was last checked.
+While a server's kernel needs the [CVE-2026-98432](#linux-kernel-security-update-cve-2026-98432) fix, a row near the end shows whether the [packet filter that reduces your exposure](#update-infrastructure-to-reduce-your-exposure) is in place. Wodby checks it about once a day. Hover over the status to see when it was last checked.
 
 * **Applied**: the filter is on.
 * **Not applied**: the filter isn't on, so the server is exposed until it runs a fixed kernel. [Install a fixed kernel](#install-a-fixed-kernel). On a server below 6.1.2 or 7.0.8, you can also [update its infrastructure](#update-infrastructure-to-reduce-your-exposure) from the Dashboard, which adds the filter. On other servers, select **Request update** to ask Wodby support to restore the filter.
 * **Not checked**: Wodby hasn't checked the server yet, or not in the last few days. This doesn't change the server's status.
 
 The row disappears once the server runs a fixed kernel.
+
+### Edge nginx2root hotfix
+
+While a server's Edge has the [nginx2root vulnerabilities](#nginx2root-security-update), the last row shows whether HTTP/2 is turned off in Edge, which blocks them until you [update Edge](#update-edge-to-fix-nginx2root). Wodby checks it every few hours and turns HTTP/2 off again if Edge restarts. Hover over the status to see when it was last checked.
+
+* **HTTP/2 off**: the protection is in place. Visitors connect over HTTP/1.1. The **Wodby Edge** row shows **Update recommended** until you update Edge.
+* **HTTP/2 on**: Edge is exposed. Select **Request update** to ask Wodby support to turn HTTP/2 off, or [update Edge](#update-edge-to-fix-nginx2root).
+* **Not checked**: Wodby hasn't checked the server recently. This doesn't change the server's status.
+* **Not needed**: Edge has the fix, so HTTP/2 is on again and safe. Servers that never needed the hotfix don't show the row.
 
 ## Kubernetes certificates
 
@@ -75,9 +88,9 @@ Certificate authorities last ten years and aren't renewed automatically.
 
 ## Updating Agent and Edge
 
-On Infrastructure 7.0.7 and later, you can update Agent and Edge without changing the server's infrastructure version. Servers on earlier versions first [update their infrastructure](#updating-from-the-dashboard).
+On Infrastructure 6.1.1 and later, and 7.0.7 and later, you can update Agent and Edge without changing the server's infrastructure version. Servers on earlier versions first [update their infrastructure](#updating-from-the-dashboard).
 
-These updates stay within the component's current release line. A larger version change arrives with a new infrastructure version.
+These updates usually stay within the component's current release line, and a larger version change arrives with a new infrastructure version. Edge 2.8 and 3.1, which [fix nginx2root](#nginx2root-security-update), are the exception: they are offered as Edge updates.
 
 | Component | During the update |
 | --- | --- |
@@ -218,6 +231,31 @@ sudo systemctl disable --now wodby-ipv4-options-filter.service
 ```
 
 Updating to 6.1.2 or 7.0.8 leaves it off. If the server's kernel still needs the fix, the **IPv4 options filter** row shows **Not applied**.
+
+## nginx2root security update
+
+On 18 November 2026, nginx released fixes for a group of vulnerabilities known as nginx2root. The two most serious, CVE-2026-123007 and CVE-2026-123633, are in nginx's HTTP/2 support: someone on the internet could use them to run code in nginx without logging in. See the [nginx security advisories](https://nginx.org/en/security_advisories.html).
+
+Wodby Edge, the nginx that receives all HTTP and HTTPS traffic for the applications on a server, serves HTTP/2, so every Edge before 2.8.1 on Infrastructure 6 and before 3.1.1 on Infrastructure 7 is affected. The other nginx2root vulnerabilities need nginx features Edge doesn't use.
+
+### What Wodby has done
+
+Wodby turned off HTTP/2 in Edge on servers whose Edge is affected. This doesn't restart Edge, so applications keep running, and it blocks both HTTP/2 vulnerabilities. Visitors' browsers connect over HTTP/1.1 instead, which can make pages with many files load a little slower. Applications see no difference.
+
+Wodby checks every few hours and turns HTTP/2 off again if Edge restarts, until Edge is updated. The [Edge nginx2root hotfix](#edge-nginx2root-hotfix) row in **Infrastructure components** shows the state. On Infrastructure 5 servers, which can't update Edge from the Dashboard, Wodby updated Edge to a fixed version.
+
+### Update Edge to fix nginx2root
+
+Turning off HTTP/2 protects the server, but the vulnerable nginx is still installed. The fix is the Edge release with nginx 1.31.9: **Edge 2.8.1** on Infrastructure 6 and **Edge 3.1.1** on Infrastructure 7. Updating Edge also turns HTTP/2 back on.
+
+| Current version | How to update |
+| --- | --- |
+| **6.1.1 and later, 7.0.7 and later** | [Update Edge](#updating-agent-and-edge): select **Update** on the **Wodby Edge** row. |
+| **6.0.x, 6.1.0, and 7.0.0–7.0.6** | [Update the infrastructure](#updating-from-the-dashboard) to 6.1.2 or 7.0.8 first, then update Edge. |
+
+Edge restarts during the update, which interrupts HTTP and HTTPS traffic for up to about 30 seconds, and twice when you update the infrastructure first. Choose a maintenance window. Certificates are kept: Edge moves its certificate data to a newer format automatically and keeps a backup next to it. Once Edge is updated, the hotfix row shows **Not needed**.
+
+If you can't update yet, HTTP/2 stays off and keeps protecting the server until you do.
 
 ## Changelog
 

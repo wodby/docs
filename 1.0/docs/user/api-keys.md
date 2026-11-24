@@ -1,3 +1,8 @@
+---
+title: Create and manage API keys
+description: Create organization-scoped API keys for the Wodby 1 API and CI pipelines, choose an expiry, review keys and revoke the ones you no longer need.
+---
+
 # API keys
 
 Create and manage API keys under `Account > API Keys` in the dashboard.

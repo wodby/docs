@@ -1,4 +1,8 @@
-# OVH
+---
+description: Connect OVHcloud to Wodby to create managed Kubernetes clusters. Pick the provider that matches the OVHcloud account system your account belongs to.
+---
+
+# OVH provider
 
 OVHcloud keeps three separate account systems. An account belongs to the one it was opened with and can sign in only
 there, so Wodby has one provider for each:
@@ -28,10 +32,8 @@ Wodby provides integration with OVH Managed Kubernetes service.
 
 - OVH does not support highly available multi-AZ clusters
 - We always enable autoscale for the cluster
-- We disable `AlwaysPullImages` plugin
-- We use the metrics server that comes by default for the basic Wodby kubernetes monitoring
 - Node disk cannot be configured upon creation
-- We create a single load balancer per cluster and deploy Envoy Gateway for public app entrypoints
+- We create a single load balancer per cluster for public app traffic
 - You can choose a [billing option: hourly or monthly](#billing) 
 
 #### Supported regions

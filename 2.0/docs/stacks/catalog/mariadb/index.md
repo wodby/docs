@@ -1,4 +1,8 @@
-# MariaDB
+---
+description: Run a MariaDB database server on Wodby with the MariaDB catalog stack, with a 20 GB data volume by default and optional Adminer and phpMyAdmin.
+---
+
+# MariaDB stack guide
 
 The Wodby MariaDB catalog stack runs a MariaDB database server, with optional Adminer and phpMyAdmin. The current
 composition is documented in [`wodby/stack-mariadb`](https://github.com/wodby/stack-mariadb).
@@ -39,7 +43,7 @@ To open a shell in the database container, use the [web terminal](../../../apps/
 ## Adminer and phpMyAdmin
 
 Both have no persistent data. Wodby protects their public domains with basic auth by default. Reveal the generated
-password on the environment's **Endpoints > Auths** page. See [Auths](../../../apps/endpoints.md#auths).
+password on the environment's **Endpoints > Basic Auth** page. See [Basic Auth](../../../apps/endpoints.md#basic-auth).
 
 - **Adminer:** the login form is prefilled with the system, server, and database. Type the user name and password.
 - **phpMyAdmin:** it connects only to the linked MariaDB server. Sign in with the environment's database user to see

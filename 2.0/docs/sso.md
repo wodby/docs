@@ -1,3 +1,7 @@
+---
+description: Set up Single Sign-On for a Wodby organization with OIDC, Google Workspace, GitHub Organization or SAML 2.0, including domain verification.
+---
+
 # Single Sign-On
 
 Single Sign-On (SSO) lets users sign in to Wodby through your organization's identity provider.
@@ -7,8 +11,8 @@ SSO is configured at the organization level from `Organization > SSO`. It is cur
 ## Subscription availability
 
 Enabling and using organization SSO requires an active paid subscription. On the free Developer plan, organization
-owners and admins can configure providers and verify domains, but providers remain disabled and cannot be used to sign
-in. After upgrading, enable each provider from `Organization > SSO`.
+owners can configure providers and verify domains, but providers remain disabled and cannot be used to sign in. After
+upgrading, enable each provider from `Organization > SSO`.
 
 Before scheduling a downgrade to Developer, disable every SSO provider. Disabled provider configuration and verified
 domains can remain in the organization and can be enabled again after upgrading.
@@ -39,7 +43,11 @@ Use these values when configuring identity-provider applications.
 
 ## Who can configure SSO
 
-Organization owners and admins can manage SSO providers.
+Only organization owners can add, change, enable, disable, or delete SSO providers and verify their domains. Wodby
+asks you to confirm your sign-in first if you have not signed in recently.
+
+Organization admins can view the configured providers but cannot change them. SSO providers cannot be changed with an
+API key or the Wodby CLI; use the dashboard.
 
 Users who sign in through SSO must match the access rules of the selected provider. Most providers require a verified email address on a verified domain configured in Wodby.
 
@@ -246,8 +254,8 @@ The SAML assertion must include a stable subject identifier and an email address
 
 Providers that require domain verification are created disabled.
 
-After every required domain is verified, organization owners and admins can enable the provider when the organization
-has an active paid subscription.
+After every required domain is verified, organization owners can enable the provider when the organization has an
+active paid subscription.
 
 Wodby does not enable an SSO provider while any configured domain is unverified. If you edit the domain list later, Wodby disables the provider until every configured domain is verified again.
 

@@ -1,4 +1,8 @@
-# Rails
+---
+description: Deploy a Rails application on Wodby with the Rails catalog stack, which runs it with a Sidekiq worker, PostgreSQL and Valkey.
+---
+
+# Rails stack guide
 
 The Wodby Rails catalog stack runs a Ruby (Rails) app service with a Sidekiq worker, PostgreSQL, and Valkey. Mailpit,
 OpenSMTPD, Gotenberg, and Cloud PostgreSQL are optional. The current services and defaults are documented in
@@ -63,8 +67,8 @@ The Sidekiq worker runs `bundle exec sidekiq` instead of Puma and reads `REDIS_U
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail transport without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the
@@ -93,4 +97,4 @@ In a [development workspace](../../../apps/workspaces.md):
 - The application starts with `bundle exec rails server` on port `8080`, and `RAILS_ENV` is `development` whatever the
   environment type.
 - Starting the server does not run migrations or seeds. Keep Rails' default `config.file_watcher`,
-  `ActiveSupport::FileUpdateChecker`, because an evented file watcher is not reliable on the checkout's network storage.
+  `ActiveSupport::FileUpdateChecker`, because an evented file watcher is not reliable in a workspace.

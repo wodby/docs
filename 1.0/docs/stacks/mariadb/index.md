@@ -1,4 +1,8 @@
-# MariaDB stack documentation
+---
+description: Run MariaDB on Wodby 1, configure it with environment variables and connect from outside through a published port or an SSH tunnel.
+---
+
+# MariaDB stack guide
 
 MariaDB can be configured with the following [environment variables](https://github.com/wodby/mariadb#environment-variables)
 
@@ -39,6 +43,13 @@ This changelog is for MariaDB stack on Wodby, to see image changes see tags desc
 
 !!! caution "MariaDB 10.1"
     If your app has MariaDB 10.1 service and the app was created (or its stack was upgraded) after June 2018, you're actually running MariaDB 10.2 (see https://twitter.com/wodbycloud/status/1206943424861102081 for more details).
+
+### 3.3.9
+
+- ⬆️ MariaDB 11.8.10, 11.4.14, 10.11.20
+- Adminer:
+    - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
+- 🏔️ Alpine Linux updates for MariaDB, including a zlib security fix (CVE-2026-4738)
 
 ### 3.3.8
 

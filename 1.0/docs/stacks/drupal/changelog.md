@@ -1,3 +1,7 @@
+---
+description: Release notes for the Wodby 1 Drupal stack, with the updated services and upgrade instructions to read before you upgrade an application.
+---
+
 # Drupal stack changelog
 
 This is the changelog for Drupal stack deployed via Wodby, for docker4drupal changes see [GitHub releases page](https://github.com/wodby/docker4drupal/releases).
@@ -6,6 +10,33 @@ This is the changelog for Drupal stack deployed via Wodby, for docker4drupal cha
 - We strongly recommend backing up your database before upgrading your application stack if the new version contains MariaDB updates
 - During MariaDB upgrade we run `mysql-check` and
 `mysql-upgrade`. This operation may take a few minutes for big databases
+
+## 6.2.18
+
+Applies to the Drupal 7–11 stacks.
+
+- PHP 8.2–8.5:
+    - ⬆️ PHP 8.5.13, 8.4.28, 8.3.37, 8.2.36 with [security fixes](https://www.php.net/ChangeLog-8.php#8.5.13), including request smuggling into PHP-FPM and use-after-free bugs that can let an attacker run code on the server, also in Adminer
+    - 📜 Session upload progress is now off by default. With it on, these PHP releases refuse session setting changes at runtime, which Drupal makes. Drupal's upload progress bar uses the uploadprogress extension and is not affected. Set `PHP_SESSION_UPLOAD_PROGRESS_ENABLED=1` on the PHP service to turn it on again only if your application does not change session settings at runtime
+    - ⚠️ Vanilla Drupal 7 apps keep their current image with PHP 8.2.35 and do not get this PHP update
+
+## 6.2.17
+
+Applies to the Drupal 7–11 stacks.
+
+- ⬆️ Vanilla Drupal 11.4.13, 10.6.22
+- PHP 8.2–8.5:
+    - ⭐️ Added the sysvsem, sysvshm and sysvmsg extensions that ship with PHP. They let PHP processes in one container share locks, memory and message queues
+    - ⬆️ MongoDB extension 2.5.7 with security fixes in its bundled client libraries (CVE-2026-120954, CVE-2026-120678, CVE-2026-114655)
+    - ⬆️ Event extension 3.2.0, which fixes heap buffer overflows in `EventBuffer::read()`, `copyout()` and `pullup()`
+    - ⬆️ OpenTelemetry extension 1.5.0, which fixes a crash in instrumentation hooks
+    - ⬆️ Brotli extension 0.21.1
+    - ⬆️ ast extension 1.1.4
+    - 🐞 Fixed security issues in the PostgreSQL client library used by the `pgsql` and `pdo_pgsql` extensions: libpq 18.7 fixes 52 CVEs, including CVE-2026-6460, CVE-2026-6467, CVE-2026-14661 and CVE-2026-18447
+- ⬆️ MariaDB 11.8.10, 11.4.14, 10.11.20
+- ⬆️ Nginx 1.31.9, 1.30.7 with fixes for the [nginx2root](https://xint.io/blog/nginx2root-remote-code-execution) remote code execution vulnerabilities (CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, CVE-2026-113425) and other [security issues](https://nginx.org/en/security_advisories.html)
+- ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163), also in Adminer
+- 🏔️ Alpine Linux updates for MariaDB, Nginx and Apache, including a zlib security fix (CVE-2026-4738)
 
 ## 6.2.16
 

@@ -1,4 +1,4 @@
-site_name: Wodby Documentation
+site_name: Wodby 2 documentation
 site_description: Wodby 2 Documentation
 site_author: Wodby, Inc.
 site_url: https://wodby.com/docs/2.0
@@ -182,10 +182,14 @@ plugins:
         'services/storage.md': 'services/types.md#storage'
         'services/tokens.md': 'services/configuration.md#tokens'
         'services/volumes.md': 'services/configuration.md#volumes'
+        'stacks/catalog/dagster-buildable/index.md': 'stacks/catalog/dagster/index.md'
+        'stacks/catalog/airflow-buildable/index.md': 'stacks/catalog/airflow/index.md'
 
 hooks:
   - ../scripts/version_assets.py
   - scripts/include_generated_reference_sitemap.py
+  - ../scripts/page_descriptions.py
+  - ../scripts/page_titles.py
   - scripts/agent_docs.py
 
 not_in_nav: |
@@ -245,15 +249,18 @@ nav:
   - Clusters:
       - Overview: clusters/index.md
       - Managed: clusters/managed.md
-      - K3S: clusters/k3s.md
+      - K3s: clusters/k3s.md
       - Demo Cluster: clusters/demo.md
       - Wodby Cloud: clusters/wodby-cloud.md
       - Infrastructure: clusters/infrastructure.md
+      - Kubernetes: clusters/kubernetes.md
       - High availability: clusters/high-availability.md
       - Scalability: clusters/scalability.md
+      - Storage: clusters/storage.md
       - GPU node pools: clusters/gpu.md
       - Observability: clusters/observability.md
       - Updates: clusters/updates.md
+      - Security: clusters/security.md
   - Databases:
       - Overview: databases/index.md
       - Managed: databases/managed.md
@@ -277,18 +284,29 @@ nav:
               - WordPress: stacks/catalog/wordpress/index.md
               - Ghost: stacks/catalog/ghost/index.md
               - Matomo: stacks/catalog/matomo/index.md
+              - Matomo (buildable): stacks/catalog/matomo-buildable/index.md
               - Mautic: stacks/catalog/mautic/index.md
+              - Mautic (buildable): stacks/catalog/mautic-buildable/index.md
               - Moodle: stacks/catalog/moodle/index.md
+              - Moodle (buildable): stacks/catalog/moodle-buildable/index.md
               - Discourse: stacks/catalog/discourse/index.md
+              - Discourse (buildable): stacks/catalog/discourse-buildable/index.md
               - Chatwoot: stacks/catalog/chatwoot/index.md
               - Mattermost: stacks/catalog/mattermost/index.md
+              - eLabFTW: stacks/catalog/elabftw/index.md
+              - SENAITE LIMS: stacks/catalog/senaite/index.md
+              - openBIS: stacks/catalog/openbis/index.md
               - Nextcloud: stacks/catalog/nextcloud/index.md
               - Odoo: stacks/catalog/odoo/index.md
+              - Odoo (buildable): stacks/catalog/odoo-buildable/index.md
               - GitLab: stacks/catalog/gitlab/index.md
               - Gitea: stacks/catalog/gitea/index.md
               - Forgejo: stacks/catalog/forgejo/index.md
               - Dagster: stacks/catalog/dagster/index.md
               - Zammad: stacks/catalog/zammad/index.md
+              - Redmine: stacks/catalog/redmine/index.md
+              - Plane: stacks/catalog/plane/index.md
+              - Jitsi Meet: stacks/catalog/jitsi/index.md
               - n8n: stacks/catalog/n8n/index.md
               - Metabase: stacks/catalog/metabase/index.md
               - Slack Inviter: stacks/catalog/slack-inviter/index.md
@@ -358,7 +376,9 @@ nav:
               - OpenClaw: stacks/catalog/openclaw/index.md
               - T3 Code: stacks/catalog/t3code/index.md
           - Identity and access:
+              - authentik: stacks/catalog/authentik/index.md
               - Keycloak: stacks/catalog/keycloak/index.md
+              - Keycloak (buildable): stacks/catalog/keycloak-buildable/index.md
           - AI inference:
               - vLLM: stacks/catalog/vllm/index.md
           - Observability:
@@ -398,6 +418,7 @@ nav:
           - Google Cloud Platform: providers/gcp.md
           - DigitalOcean: providers/digitalocean.md
           - OVH: providers/ovh.md
+          - UpCloud: providers/upcloud.md
       - Databases:
           - Overview: providers/databases.md
           - Amazon Web Services: providers/aws.md

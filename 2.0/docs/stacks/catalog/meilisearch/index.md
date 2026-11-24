@@ -1,4 +1,8 @@
-# Meilisearch
+---
+description: Run Meilisearch, a search engine for websites and apps, as a single instance on Wodby with the Meilisearch catalog stack and a generated master key.
+---
+
+# Meilisearch stack guide
 
 The Wodby Meilisearch catalog stack runs [Meilisearch](https://www.meilisearch.com/), a search engine for websites and
 apps, as a single instance. The current services and defaults are documented in
@@ -33,7 +37,7 @@ your clients need the new keys.
 Meilisearch has a public HTTPS domain, so browsers and mobile apps can search it directly. Services in the same app
 environment can use `http://<app service name>:7700` instead.
 
-Wodby does not protect the Meilisearch domain with basic auth, and you should not add one under **Endpoints > Auths**.
+Wodby does not protect the Meilisearch domain with basic auth, and you should not add one under **Endpoints > Basic Auth**.
 Meilisearch reads its API key from the `Authorization` header, the same header basic auth uses, so search and indexing
 requests would fail. The API keys protect the domain.
 

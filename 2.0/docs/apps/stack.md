@@ -1,3 +1,7 @@
+---
+description: Every Wodby application is built from a stack. Learn how app environments move between stack revisions with manual upgrades and auto-upgrade.
+---
+
 # Application stack
 
 ```mermaid
@@ -55,17 +59,14 @@ revision, the button says `Stack is up to date`.
 
 Wodby does not force every possible override during upgrade. Instead, the upgrade flow lets you decide which parts of the latest stack revision should replace the current app environment overrides.
 
-The reason is that app services can be customized per environment. Wodby cannot always tell whether an app-level value was
-changed intentionally or whether it simply has not received a newer stack default yet.
-
 Stack upgrades deploy only the app services affected by the target revision and the configuration changes applied during
 the upgrade. Changes to a build-source service's build inputs or selected service revision require a new build.
 Runtime-only changes reuse the last safely deployable build and redeploy that image without rebuilding it. Unaffected
 services are omitted from the deployment.
 
 When an affected build-source service reuses an existing build, Wodby skips that build's repository-defined
-`.wodby/post-deployment.yml` scripts. If the upgrade creates a new build, its post-deployment scripts run normally after
-the rollout succeeds. This skip does not apply to service-manifest `post_deploy` actions. See
+`.wodby/pre-deployment.yml` and `.wodby/post-deployment.yml` scripts. If the upgrade creates a new build, its
+pre-deployment scripts run before the rollout and its post-deployment scripts run after the rollout succeeds. This skip does not apply to service-manifest `post_deploy` actions. See
 [Automated redeployments](deploys.md#automated-redeployments) for details.
 
 The dashboard always upgrades to the latest stack revision. There is no revision selector in the upgrade form.
@@ -78,11 +79,25 @@ the new stack requires but preserves existing app environment choices where poss
 configuration` to review the options that let the stack replace those existing choices. The control stays collapsed
 by default and shows how many options are selected.
 
+### Deploy without rebuilding
+
+By default, an upgrade builds the services whose build inputs or service revision changed before deploying them. To
+deploy the new stack configuration now and let a later build pick up the image changes, clear `Rebuild affected services
+before deploying` and select `Upgrade`. The option is available only when `Deploy affected services after upgrade` is
+selected. API clients set `rebuild` to `false` in the stack upgrade request.
+
+Without the rebuild:
+
+- Each of those services is deployed with its last successfully deployed build and is marked
+  [`needs rebuild`](builds.md#needs-rebuild). Changes that need a new image, such as a new service version, take effect
+  after the service's next build, for example the next push your CI builds.
+- A service with no build to reuse, such as one the upgrade adds, is built as usual.
+- As with any reused build, the build's `.wodby/post-deployment.yml` scripts are skipped.
+
 ### Review the upgrade changelog
 
 Select `Show changelog` in the `Manual stack upgrade` card to load published release notes for service revision changes.
-Wodby recalculates the latest published stack upgrade target when the changelog opens, so it can reflect an update that
-was published after the page initially loaded.
+The changelog reflects the latest published stack revision, including one published after the page loaded.
 
 For a newer semantic service version, the changelog includes stable release tags after the current version through the
 target version. For same-version revision changes and other version formats, Wodby can show the target tag's notes when
@@ -105,6 +120,9 @@ they belong to the same app.
 Auto-upgrade uses the same settings as the manual `Upgrade stack` form. The saved settings decide which app environment
 overrides Wodby replaces with values from the latest stack revision.
 
+Turning auto-upgrade on or off, or changing its settings, needs the `Upgrade`
+[permission](../access-control.md#environment-permissions) in the environment, the same as upgrading the stack manually.
+
 Automatic stack updates, such as Git-backed stack auto-updates, automatic stack service revision updates, and automatic
 sync with origin, start auto-upgrades right away. Wodby also regularly checks for app environments with auto-upgrade
 enabled that run an older revision, so revisions you publish yourself are applied too.
@@ -126,7 +144,7 @@ During upgrade, Wodby matches existing app services to stack services by stack s
 
 - If a matching stack service still exists, the app service is moved to the new stack revision and the upgrade settings below decide which app-level values are replaced.
 - If a stack service was added, Wodby creates the missing app service during the upgrade.
-- If a stack service was removed, the obsolete app service is marked for deletion and its Kubernetes resources are uninstalled after the upgrade task.
+- If a stack service was removed, the obsolete app service is deleted and removed from the cluster after the upgrade.
 
 Wodby does not delete a customer route implicitly when its target disappears. If the target stack revision would
 remove an app service, endpoint, or port still used by a custom route, the upgrade stops before committing. Retarget or
@@ -145,8 +163,16 @@ An existing app service cannot silently change into an unrelated service or swit
 derivative during an upgrade. Wodby stops before committing such a change so the stack can be corrected. Renaming or
 moving a derivative under another compatible parent is reconciled safely.
 
+An upgrade also stops before changing anything when the new stack revision changes where a volume keeps its data, for
+example when a service that mounted another service's files now has storage of its own, or the other way round. An
+upgrade cannot move the data, and the service would see an empty or different volume. The error names the service and
+the volume, and the environment keeps running on its current stack revision. To use the new revision, back up the
+volume, create a new environment from the latest stack revision, and [import](imports.md) the backup into it. Automatic
+upgrades stop with the same message.
+
 New or updated app services may need app-specific configuration that cannot be selected safely at stack-upgrade time,
-such as a build source, an external database, a compatible integration, or a required setting. These gaps do not stop
+such as a build source, an external database, a compatible integration, or a required setting. This includes a required
+setting without a default that a newer service version adds to an app service you already have. These gaps do not stop
 the stack upgrade. Wodby records them as warnings on the upgrade task, creates or updates the app service, and waits for
 you to finish the service configuration before deploying.
 
@@ -189,8 +215,8 @@ root technical route does not target a service with no running pods.
 
 When enabled, Wodby updates resource requests and limits to the values from the latest stack revision.
 
-If disabled, existing app-level resource values are kept. Resource records for stack-defined containers can still be
-created when they did not exist before.
+If disabled, existing app-level resource values are kept. Stack-defined containers that had no resource values still
+receive them.
 
 ### Override integrations
 
@@ -260,24 +286,41 @@ overrides are kept when this setting is disabled.
 
 ### Override cron schedules
 
-When enabled, Wodby updates cron schedules to match the latest service and stack configuration.
+New cron schedules introduced by the service or stack are created during upgrade, and schedules they no longer define
+are removed. Cron schedules you created yourself are never changed.
 
-New cron schedules introduced by the service or stack are created during upgrade. Existing cron schedules are kept when
-this setting is disabled.
+When disabled, a cron schedule from the service or stack follows the latest definition in everything you have not
+changed: its title, command, workload, schedule, environment type, and whether it is enabled. What you changed is
+kept. For example, if you moved a nightly job to 3 AM and the service changes its command, the job gets the new command
+and still runs at 3 AM.
+
+When enabled, Wodby replaces your changes too, and every cron schedule from the service or stack matches the latest
+service and stack configuration.
 
 ### Override volumes
 
 The dashboard shows `May cause data loss` below the `Volumes` option.
 
-When enabled, Wodby deletes app-service volume records that no longer exist in the latest service manifest.
+When enabled, the upgrade deletes volumes, with their data, that the latest stack revision no longer uses:
+
+- a volume that the service no longer defines;
+- the volumes of an app service whose stack service the latest stack revision no longer has. The whole app service is
+  deleted.
+
+When disabled, an upgrade that would delete such a volume stops before changing anything and names the volumes. This
+also applies to automatic upgrades, which fail with the same message. Back up anything you need, then upgrade with
+`Volumes` enabled. An app service that was never deployed has no stored data, so it is removed without asking, and
+volumes an app service only mounts from another service don't count.
+
+When an upgrade would delete volumes, the `Manual stack upgrade` card shows a warning that lists them before you
+upgrade.
 
 New volumes introduced by the service revision are created during upgrade. Existing volume sizes are not changed for
 running app environments.
 
-Existing volume storage classes are also kept. For a new owned volume, Wodby refreshes the cluster's live
-storage-class inventory and reuses one class configured consistently across existing owned volumes when possible;
-otherwise it uses the one selectable default. The upgrade stops if the inventory cannot be refreshed or no unambiguous
-class is available.
+Existing volume storage classes are also kept. A new volume uses the storage class that the environment's existing
+volumes share when possible; otherwise it uses the cluster's single default class. The upgrade stops if Wodby cannot
+read the cluster's storage classes or cannot choose one class unambiguously.
 See [Application persistent storage](storage.md#changing-a-storage-class).
 
 ### Override main app service

@@ -1,4 +1,8 @@
-# Solr
+---
+description: Run SolrCloud with a required ZooKeeper service on Wodby with the Solr catalog stack. Linked applications receive the hostname and generated credentials.
+---
+
+# Solr stack guide
 
 The Wodby Solr catalog stack runs SolrCloud with a required ZooKeeper service. The current service composition and Solr
 version are documented in [`wodby/stack-solr`](https://github.com/wodby/stack-solr).
@@ -14,8 +18,8 @@ send two independent Basic authorization headers.
 
 ## Default collection
 
-The Solr post-deployment initialization creates a collection named `default` when the cluster has no collections. It
-uses Solr's `_default` configset.
+After a deployment, Wodby creates a collection named `default` when the cluster has no collections. It uses Solr's
+`_default` configset.
 
 `_default` is only a starting point. Applications that require a particular schema must install their own configset.
 For Drupal, follow [Connect Drupal to Solr](../drupal/solr.md) so Search API Solr generates and uploads a compatible

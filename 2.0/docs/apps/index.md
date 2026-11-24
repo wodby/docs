@@ -1,3 +1,7 @@
+---
+description: An application in Wodby is built on a stack and has one or more app environments. Learn the model and how to create a new application.
+---
+
 # Applications
 
 ## Overview
@@ -8,7 +12,7 @@ Each app environment is an isolated deployment with a fixed [environment type](e
 
 - Every app can have an unlimited number of environments but at least one
 - You can deploy as many environments as you want
-- You can deploy environments of the same app across different [Kubernetes clusters](../clusters/index.md), including self-hosted K3S clusters on different servers
+- You can deploy environments of the same app across different [Kubernetes clusters](../clusters/index.md), including self-hosted K3s clusters on different servers
 - One stack per application
 - Different environments can have different revisions of the same stack
 
@@ -61,9 +65,16 @@ There are 6 steps of creating a new application:
 - In the selected stack you can:
   - select a version (option) of a service 
   - enable/disable optional services and change their configuration
+  - set the number of [replicas](services.md#replicas) for each service. Each service starts with its stack's replica
+    count. Services that don't support horizontal scaling run at most one replica, and a service with autoscaling
+    starts with autoscaling's minimum replicas
   - configure resources request and limitation
   - configure autoscaling for scalable services
-  - use the icons under `TOTAL` to reset all services to the stack's defaults or [clear their resources](scalability.md#clearing-resources-when-creating-an-app)
+  - use the icons in the `TOTAL` row to reset all services to the stack's defaults, including replicas, or
+    [clear their resources](scalability.md#clearing-resources-when-creating-an-app)
+- The `TOTAL` row adds up the requests and limits of all enabled services: every container each service runs, times
+  its replicas. In step 2, Wodby [compares these requests](scalability.md#cluster-capacity) with what the selected
+  cluster can offer
 
 ### Step 2
 
@@ -72,11 +83,10 @@ Select where you want to run the first environment of your application. The form
 1. **My clusters**
    - Choose one of your existing clusters
    - This can be a managed Kubernetes cluster created from a cloud [integration](../integrations/index.md)
-   - It can also be a self-hosted [K3S](../clusters/k3s.md) cluster connected from _Clusters > Connect server_
+   - It can also be a self-hosted [K3s](../clusters/k3s.md) cluster connected from _Clusters > Connect server_
 2. **Wodby Cloud**
    - Wodby creates and manages a new cluster for this application
    - For persistent Wodby Cloud clusters you choose region, CPU type, machine type, and minimum and maximum node counts
-   - Enable `Single-node cluster` when one fixed node is acceptable and you do not need high availability or cluster scaling
    - Persistent Wodby Cloud clusters require a paid plan
    - For testing, enable `Demo` to create a free temporary single-node Wodby Cloud cluster that is deleted automatically after 24 hours together with its applications
 
@@ -89,7 +99,7 @@ You can also create a Wodby Cloud cluster before creating an app from `Clusters 
 
 - Enter the name of your application and your environment. Application and environment names are used to generate machine names. Machine names are permanent and cannot be changed
   - Application and environment machine names must follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names)
-  - The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter
+  - The generated namespace, `<app-name>-<environment-name>`, must be 63 characters or shorter, unique in the cluster and not reserved. See [App environment namespaces](../naming.md#app-environment-namespaces)
 - Select the [environment type](environment-types.md) (_Development_ by default)
 - Optionally, edit the root domain. By default it is `*.[environment-name].[app-name].[org-name].wodby.app`. This root domain is used to generate [technical domains](index.md) for services that expose public HTTP ports; ports marked `private` do not receive technical domains
 

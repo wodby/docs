@@ -1,3 +1,7 @@
+---
+description: Workloads describe the Kubernetes controllers and containers that Wodby manages for a service, and where it injects Helm values.
+---
+
 # Service workloads
 
 ## Overview
@@ -17,9 +21,7 @@ External services do not define workloads.
 
 ## Why workloads exist
 
-A service is no longer treated as a single Deployment with a single container.
-
-Charts can expose multiple resources, for example:
+A service is not limited to a single Deployment with a single container. Charts can expose multiple resources, for example:
 
 - a web workload and a daemon workload
 - a Deployment plus a StatefulSet
@@ -113,7 +115,7 @@ Workload deployment settings override service-wide defaults one field at a time.
 
 ### Workload names
 
-`workloads[].name` is a Wodby identifier, not the rendered Kubernetes workload resource name. It must still follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names), because Wodby also uses it in generated Kubernetes configuration.
+`workloads[].name` is a Wodby identifier, not the rendered Kubernetes workload resource name. It must still follow the [general Kubernetes name rules](../naming.md#general-kubernetes-names).
 
 Use it consistently in:
 
@@ -151,10 +153,8 @@ a workload or component label.
 For Wodby charts, use stable workload labels whenever possible. For third-party charts, use the labels that uniquely
 identify each workload in the rendered chart.
 
-Resolvable selectors are also required for force deployments. During a forced app-service upgrade, Wodby uses these
-selectors to find each rendered Deployment, StatefulSet, or DaemonSet and update its pod template so Kubernetes starts a
-new rollout. If the selector contains unresolved tokens or does not point to the rendered workload, Wodby cannot force a
-restart for that workload.
+Resolvable selectors are also required for force deployments. If the selector contains unresolved tokens or does not
+point to the rendered workload, Wodby cannot force a restart for that workload.
 
 ## Primary workload
 
@@ -282,10 +282,12 @@ passed to Helm. Service-level deployment mapping defaults apply only to single-w
 - `env`
 - `envKV`
 - `secretEnvFrom`
+- `sharedEnvFrom`
 - `mounts`
 - `image`
 
-These are Helm value paths used when Wodby injects container-scoped data.
+These are Helm value paths used when Wodby injects container-scoped data, except `sharedEnvFrom`, which names a
+container.
 
 Use `secretEnvFrom` for a chart that accepts an `envFrom` list but cannot keep `valueFrom` entries in its environment
 list. Wodby passes an `envFrom` entry that loads the app service's secret environment variables from the
@@ -304,6 +306,31 @@ workloads:
       secretEnvFrom: app.extraEnvFrom
 ```
 
+Use `sharedEnvFrom` for a container that the chart already gives the environment of another container in the same
+workload, such as a cron sidecar that runs with the main container's environment. Set it to the name of that other
+container, which must map `env`, `envKV` or `secretEnvFrom`. Without it, every deployment logs a warning that
+environment variables are skipped for the sidecar.
+
+A container with `sharedEnvFrom` receives only the other container's environment, so:
+
+- it cannot set `env`, `envKV` or `secretEnvFrom`, or declare environment variables of its own in the service manifest
+- environment variables for it alone are refused, in the dashboard, the API and stack manifests. Set them on the
+  other container, or for the whole app service, and the sidecar gets them too.
+
+```yaml
+workloads:
+- name: main
+  kind: deployment
+  containers:
+  - name: app
+    helm:
+      env: app.extraEnv
+  - name: app-cron
+    helm:
+      resources: cronjob.resources
+      sharedEnvFrom: app
+```
+
 ### Container image Helm mappings
 
 `workloads[].containers[].helm.image` supports:
@@ -312,6 +339,7 @@ workloads:
 - `tag`
 - `registry`
 - `pullPolicy`
+- `references`
 
 Defaults:
 
@@ -340,6 +368,27 @@ image:
 With this configuration, Wodby writes the full repository path such as `registry.example.com/team/app` into
 `dagsterWebserver.image.repository` and does not inject a separate registry value.
 
+#### Image references for other containers
+
+`references` lists more Helm value paths that receive the container's whole image, such as
+`registry.example.com/team/app:1.2.3`. Use it when a chart runs sidecars or init containers that must run the same
+image, built or not, and takes their images as single strings. A path can point into a list, such as
+`extraContainers[0].image`. Wodby sets each path after the service's own Helm values, and only when that list item
+exists, so a stack or app that removes a sidecar doesn't get an image without a container.
+
+```yaml
+workloads:
+- name: main
+  containers:
+  - name: airflow-api-server
+    build: true
+    helm:
+      image:
+        references:
+        - initContainers[0].image
+        - extraContainers[0].image
+```
+
 See also: [Helm](helm.md).
 
 ### Fixed component image tags
@@ -347,7 +396,7 @@ See also: [Helm](helm.md).
 A service containing several components can specify an explicit tag in each container's `image`, for example
 `supabase/gotrue:v2.196.0`. That tag takes precedence over the selected service option's image tag. Untagged image
 repositories continue to use the option tag, or the option version when no tag is set. This allows one service option
-to identify a tested bundle whose components have different versions. Registry ports are not image tags.
+to identify a bundle whose components have different versions. Registry ports are not image tags.
 
 ## Validation rules
 

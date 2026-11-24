@@ -1,4 +1,8 @@
-# Elasticsearch stack documentation
+---
+description: "Run Elasticsearch and Kibana on Wodby 1: install plugins and configure both with environment variables. Includes the stack changelog."
+---
+
+# Elasticsearch stack guide
 
 You can enable Elasticsearch plugins by listing them via the environment variable `$ES_PLUGINS_INSTALL` separated by comma.
 

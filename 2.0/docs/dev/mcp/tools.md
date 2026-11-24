@@ -1,3 +1,8 @@
+---
+title: MCP tool reference
+description: The catalog of Wodby MCP tools grouped by scope, from read and operation tools to configuration, provisioning, sensitive and destructive tools.
+---
+
 # MCP tools
 
 Use the connected server's `tools/list` response for input schemas and currently available tools. Do not assume
@@ -74,7 +79,13 @@ These tools require `mcp:read` when using OAuth.
 | `list_cluster_storage_classes` | List a cluster's Kubernetes storage classes, which ones can be chosen for a volume, and the default one. |
 | `get_kubernetes_version_upgrade_plan` | Read a cluster's current Kubernetes version, the versions it can move to directly, and anything blocking the upgrade or worth a warning. |
 | `get_cluster_infra_app_upgrade_changelog` | Preview what `upgrade_cluster_infra_apps` would change: per infrastructure app, the stack versions and per-service changes with release notes. |
-| `list_cluster_component_updates` | List the updates Wodby can apply to single components of a cluster, such as Cilium on K3S or EKS add-ons, without a Kubernetes or infrastructure upgrade. Most components can't be updated this way, so the list is often empty. |
+| `list_k3s_cluster_nodes` | List the nodes of a K3s cluster, the server first, with each node's role, readiness, K3s version and the persistent volumes stored on it. |
+| `list_k3s_server_private_addresses` | List the private addresses the server of a K3s cluster could switch to, read from the server itself, with each address's network interface, MTU and whether the server's network configuration keeps it after a reboot. Only for a K3s server that uses its public address for cluster traffic. Needs permission to modify the cluster. |
+| `list_cluster_host_checks` | List what a K3s cluster's server last reported about its protections against the Linux kernel bug CVE-2026-98432, such as the IPv4 options filter. Each check names the advisory it protects against and is protected, not protected or unknown, with a message on what to do. Managed clusters have no host checks. |
+| `list_cluster_security_advisories` | List where a cluster stands on each security advisory Wodby tracks, such as CVE-2026-98432. A K3s cluster is mitigated or not mitigated by Wodby's protections. A managed cluster is fixed or not fixed by its provider's node images, as Wodby last checked them: once a day and after tasks that replace nodes. Each advisory names the operation that fixes it, when there is one. Advisories Wodby can't judge are left out. |
+| `list_cluster_vulnerabilities` | List all of a cluster's known vulnerabilities in one list, as the cluster's `Security` tab shows them: the security advisories Wodby tracks, K3s server packages, outdated managed node images, the cluster's Kubernetes version, and infrastructure app images. Each entry names its component, severity, state, fixed version and the operation that fixes it, when there is one. Filter by component, severity or unresolved state, and page through the results. |
+| `list_cluster_kubernetes_vulnerabilities` | List the publicly known vulnerabilities of the Kubernetes version a cluster runs, from the OSV database, with each one's severity, record link and the closest Kubernetes version that fixes it. Provider and K3s builds can already include some fixes. Says when the vulnerabilities are unknown, such as for Wodby Cloud and serverless clusters. |
+| `list_cluster_component_updates` | List the updates Wodby can apply to single components of a cluster, such as Cilium on K3s or EKS add-ons, without a Kubernetes or infrastructure upgrade. Most components can't be updated this way, so the list is often empty. |
 | `get_kubernetes_cluster_options` | Get provider-backed Kubernetes regions or zones, machine types, versions, and settings for a Kubernetes integration. |
 | `get_wodby_cloud_options` | Get Wodby Cloud regions, machine types, pricing, and creation notes. |
 | `prepare_cluster_creation` | Resolve defaults and return missing questions for creating managed, k3s, demo, or Wodby Cloud clusters. This does not create anything. |
@@ -92,7 +103,7 @@ These tools require `mcp:read` when using OAuth.
 | `list_imports` | List the imports into an app environment, app service, database or database DB, newest first. The source URL of an import is not shown. |
 | `get_import` | Get one import: its status, source, the backup it restores, and the task that runs it. |
 | `list_public_services` | List public service catalog items. |
-| `list_services` | List services in an organization. |
+| `list_services` | List services in an organization. Archived services are left out unless `archived` is `include` (listed last) or `only`. |
 | `get_service` | Get a service by name and optional revision number. |
 | `get_service_contract` | Inspect revision-specific resolved service metadata; configuration values and source contents are omitted. Not an editable manifest. |
 | `list_service_link_candidates` | List, for each link of a catalog service, the public catalog services that can satisfy it, such as the databases a PHP service can connect to. |
@@ -120,7 +131,8 @@ These tools require `mcp:read` when using OAuth.
 | `get_stack_schema` | Get the Wodby stack manifest JSON schema. |
 | `get_stack_examples` | Get concise Wodby stack manifest examples. |
 | `validate_stack_manifest` | Validate a Wodby stack manifest without creating it. |
-| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector. |
+| `get_app_service_pods` | Get Kubernetes pod status for an app service selected by ID or by service name with an app environment selector, including why a pod can't be scheduled or isn't ready, and why each container last stopped, such as `OOMKilled`, with its exit code. |
+| `get_app_environment_events` | Get an app environment's recent Kubernetes events, newest first, such as a pod that can't be scheduled, fails its health checks, can't pull its image or mount a volume. Returns warnings only unless asked otherwise, and can be limited to one app service. Kubernetes keeps events for a limited time, usually about an hour. Known secret values are masked. |
 | `get_app_service_volume_storage_classes` | Compare the storage class each volume of an app service is configured with to the class its Kubernetes volumes use, read from the cluster. |
 | `get_app_service_logs` | Read bounded current or previous-container logs and return a log-access task ID. |
 | `start_app_service_log_watch` | Open an audited, short-lived watch for new logs from one pod and container execution. |
@@ -156,6 +168,7 @@ These tools require `mcp:operate` when using OAuth.
 | `run_app_service_cron` | Run a cron schedule immediately by schedule ID or by schedule title with an app service selector. |
 | `create_backup` | Create a backup for an app service or database DB. |
 | `repeat_task` | Rerun an existing task. |
+| `rescan_cluster_vulnerabilities` | Scan a cluster for vulnerabilities again now instead of on the daily schedule: the operating system packages of a K3s cluster's servers, such as after updating them outside Wodby, and the infrastructure app images. An image scanned in the last hour keeps its result. Refused while a scan of the cluster is running, and for Wodby Cloud and serverless clusters. |
 | `test_integration_permissions` | Check that an integration's credentials have the permissions its provider needs, for example after a failed cluster or database operation. Available for providers with a permission check, such as AWS, Google Cloud, Azure, and Cloudflare. Requires `Modify/Delete` access to the integration. |
 | `retry_app_route_certificate` | Request a domain's Let's Encrypt certificate again, for example after fixing its DNS. A certificate is issued only once the domain's DNS reaches the cluster, so retrying before that fails again. |
 | `retry_app_access_cleanup` | Repeat the cleanup left over from removed Private App Access, such as Cloudflare or Tailscale resources Wodby could not delete. The failed removal's task gives the cleanup ID. |
@@ -201,12 +214,14 @@ configuration changes.
 | `rename_app` | Change the title an app is shown with. Its machine name, which names its Kubernetes resources and domains, never changes. |
 | `rename_app_environment` | Change the title an app environment is shown with. Its machine name, which names its namespace and generated domains, never changes. |
 | `update_cluster` | Update a cluster title. |
-| `update_cluster_settings` | Update cluster settings such as automatic infrastructure upgrades. Requires `confirm: true`. |
-| `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted k3s cluster. Requires `confirm: true`. |
+| `update_cluster_settings` | Update cluster settings such as automatic infrastructure and Kubernetes version upgrades. Requires `confirm: true`. |
+| `update_k3s_cluster_public_ip` | Update the public IP for a self-hosted K3s cluster. Requires `confirm: true`. |
 | `update_database` | Update a database title. |
 | `update_database_user_dbs` | Update DB grants for a database user. Requires `confirm: true`. |
 | `update_service_from_manifest` | Update an existing non-Git service from a Wodby service manifest. Requires `confirm: true`. |
 | `update_service_from_git` | Update a service from its Git source. Requires `confirm: true`. |
+| `archive_service` | [Archive a service](../../services/updates.md#archive-a-service) that earlier stack revisions keep from being deleted. Refused while the current or draft revision of a stack, or a service that is not archived, still uses it. |
+| `unarchive_service` | Unarchive a service, so stacks can use it again and it is updated and scanned as before. |
 | `create_git_repository` | Create a private repository under a Git integration you may modify, with a first commit holding a README. Not for a new app's code: creating an app that copies a boilerplate creates its repository. Refused on Bitbucket, where you create the repository yourself. |
 | `create_git_branch` | Create a branch at the head of another branch, through a Git integration you may modify. It never moves or replaces an existing branch. |
 | `create_git_pull_request` | Open a pull request (a merge request on GitLab) from one branch of a repository into another, through a Git integration you may modify. It never merges anything. |
@@ -242,7 +257,7 @@ configuration changes.
 | `set_app_port_settings` | Change how the cluster's gateway handles connections to a published TCP port: idle timeout, connection limit, and TCP keepalive. Settings you leave out keep their value. Available for published TCP ports on clusters that use Envoy Gateway. The gateway is redeployed to apply them; your services are not. |
 | `create_backup_preset` | Create a backup preset: a saved destination that by default also runs backups every day in a time window. Presets need a paid subscription. |
 | `update_backup_preset` | Change a backup preset's destination or schedule. Settings you leave out stay as they are. The change applies to backups made afterward; existing backups stay where they are. |
-| `create_app_auth` | Put HTTP basic authentication in front of an app environment, some of its services, or one domain, or exempt services or a domain from it. The password is generated and never returned here; reveal it on the environment's **Domains > Auths** page in the dashboard. |
+| `create_app_auth` | Put HTTP basic authentication in front of an app environment, some of its services, or one domain, or exempt services or a domain from it. The password is generated and never returned here; reveal it on the environment's **Endpoints > Basic Auth** page in the dashboard. |
 | `update_app_auth` | Change a basic auth entry's username, realm, or scope, or replace its password with a newly generated one, which you reveal in the dashboard. |
 | `update_app_service` | Change the version an app service runs or where its code is built from, such as another branch. The result says whether the service needs a new build or only a deployment. A database's major version change can need a data migration. |
 | `update_app_environment_cicd_settings` | Choose the CI provider that builds an app environment's services and the container registry for their images. This applies to future builds; existing builds keep what they were built with. |
@@ -254,7 +269,7 @@ These tools require `mcp:provision` when using OAuth and require `confirm: true`
 | Tool | Use |
 | --- | --- |
 | `create_cluster` | Create a managed cluster. Minimal input is prepared with defaults; unresolved integration, location, sizing, or billing choices are returned as questions. |
-| `create_k3s_cluster` | Create a self-hosted k3s cluster record. |
+| `create_k3s_cluster` | Create a self-hosted K3s cluster record. |
 | `create_wodby_cloud_cluster` | Create a Wodby Cloud cluster. If demo or sizing choices are unresolved, they are returned as questions. |
 | `scale_cluster` | Scale a cluster node pool. |
 | `update_cluster_gpu_node_pool` | Add, resize, replace or remove a cluster's [GPU node pool](../../clusters/gpu.md), which adds or removes paid compute capacity. Removal is refused while pods request GPUs. Changing the machine type creates the new pool before deleting the old one. |
@@ -282,6 +297,7 @@ These tools require `mcp:sensitive` in addition to their other scope.
 | --- | --- |
 | `create_database_user` | Create a database user by submitting a password. The password is not returned in the MCP response. Requires `mcp:provision` and `confirm: true`. |
 | `get_backup_download` | Get a time-limited download link for a backup's file. Requires `mcp:read`. Anyone with the link can download the backup, which can contain your database and files, until it expires. Share it only with the person who asked for it, and do not store or repost it. |
+| `get_k3s_join_command` | Get a one-time command that joins another server to a K3s cluster as a worker node. Requires `mcp:provision`. It works for 15 minutes and lets whoever runs it add a server to the cluster. Share it only with the person who asked for it, and do not store or repost it. |
 
 ## Destructive tools
 
@@ -333,8 +349,10 @@ These tools require `mcp:destructive` when using OAuth and require `confirm: tru
 | `upgrade_cluster_infra` | Upgrade cluster infrastructure. |
 | `upgrade_cluster_infra_apps` | Upgrade infrastructure app stacks for a cluster. |
 | `update_cluster_component` | Apply one update that `list_cluster_component_updates` lists. Read the update's note first, then follow the task for the result. |
-| `upgrade_kubernetes_version` | Upgrade a cluster's Kubernetes to a version `get_kubernetes_version_upgrade_plan` lists. The provider can rotate control-plane components and worker nodes, and the Kubernetes API can be briefly unavailable, so run it for production in a maintenance window. It can't be undone. Supported for EKS, AKS, GKE Standard, DigitalOcean, OVH, and K3S clusters; Wodby Cloud and serverless clusters are refused. |
-| `recycle_cluster_nodes` | Refresh a managed cluster's worker nodes. EKS moves each node group to its latest node image and leaves a group that already runs it in place; AKS and DigitalOcean replace every node. Workloads move to the new nodes, so applications restart, and new deployments wait until it ends. The cluster must be in OK status with no active application operations. GKE, OVHcloud, Wodby Cloud, serverless, and single-node clusters are refused. |
+| `upgrade_kubernetes_version` | Upgrade a cluster's Kubernetes to a version `get_kubernetes_version_upgrade_plan` lists. The provider can rotate control-plane components and worker nodes, and the Kubernetes API can be briefly unavailable, so run it for production in a maintenance window. It can't be undone. Supported for EKS, AKS, GKE Standard, DigitalOcean, OVH, and K3s clusters; Wodby Cloud and serverless clusters are refused. |
+| `remove_k3s_cluster_node` | Take a worker node out of a K3s cluster: its pods move to other nodes, K3s stops on it and the node is removed. The K3s server can't be removed. A node that stores persistent volumes is refused unless `force` is true, which loses their data. Run `sudo /usr/local/bin/wodby-k3s-uninstall` on that server afterwards. |
+| `switch_k3s_server_address` | Switch a K3s server from its public address to a private one from `list_k3s_server_private_addresses` for cluster traffic, so worker nodes can join. The public address stays for public traffic. K3s restarts once: the Kubernetes API pauses for about a minute while apps keep running, and new deployments wait until it ends. If K3s doesn't come back on the private address, the server restores its previous settings. An address the server isn't known to keep after a reboot is refused unless `force` is true. |
+| `recycle_cluster_nodes` | Refresh a managed cluster's worker nodes. EKS moves each node group to its latest node image and leaves a group that already runs it in place; AKS and DigitalOcean replace every node. Workloads move to the new nodes, so applications restart, and new deployments wait until it ends. The cluster must be in OK status with no active application operations. GKE, OVHcloud, K3s, Wodby Cloud and serverless clusters are refused. |
 | `restart_wodby1_migration` | Start a Wodby 1 migration over with a new preview's choices: first delete what the migration created in Wodby 2, including its imported data, then apply the new plan. Apps and integrations that existed before stay, and so does the cluster. Preview again first and pass that preview's `planHash`. Takes no `confirm`. |
 | `rollback_wodby1_migration` | Delete the Wodby 2 resources a migration created, including its imported data. Apps and resources that existed before stay, and Wodby 1 isn't touched. Refused once the migration is verified. Takes no `confirm`. |
 

@@ -1,4 +1,8 @@
-# CI/CD
+---
+description: Choose between direct Git deployment and third-party CI builds in Wodby 1, and set up a pipeline with an API key, image builds and deploys.
+---
+
+# CI/CD workflows
 
 Wodby 1 supports direct Git deployment and container-image builds through third-party CI tools.
 

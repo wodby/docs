@@ -1,4 +1,8 @@
-# Mattermost
+---
+description: Deploy Mattermost Team Edition on Wodby with the Mattermost catalog stack, a single-replica installation with PostgreSQL and optional OpenSMTPD.
+---
+
+# Mattermost stack guide
 
 The Wodby Mattermost catalog stack runs Mattermost Team Edition with PostgreSQL and an optional OpenSMTPD service. The
 current composition is documented in [`wodby/stack-mattermost`](https://github.com/wodby/stack-mattermost).
@@ -30,8 +34,7 @@ Change them as environment variables on the app service and deploy it. Change ot
 are saved to `config.json` on the volume. See [Environment variables](../../../apps/environment-variables.md).
 
 Mattermost limits files to 100 MB. The route has no size limit of its own, so you can raise the Mattermost file limit
-without changing the route. Do not set the route's request body size: it makes the route hold each request in memory
-until it is complete, and Mattermost's live updates stop working.
+without changing the route. Do not set the route's request body size: Mattermost's live updates stop working.
 
 ## Data and backups
 

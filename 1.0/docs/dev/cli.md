@@ -1,3 +1,7 @@
+---
+description: Install Wodby CLI 1.x to automate Wodby 1 workflows and CI/CD deployments, and pick the CLI version that matches your Wodby platform.
+---
+
 # Wodby CLI
 
 Use **Wodby CLI 1.x** to automate Wodby 1 workflows, including [CI/CD deployments](../cicd/index.md). The CLI's [`master` branch](https://github.com/wodby/wodby-cli/tree/master) is the maintenance branch for Wodby 1.

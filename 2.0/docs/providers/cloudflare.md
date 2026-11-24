@@ -1,4 +1,8 @@
-# Cloudflare
+---
+description: Connect Cloudflare to Wodby for API variables, SMTP email relay, R2 backup storage, Private App Access and Turnstile keys.
+---
+
+# Cloudflare provider
 
 Cloudflare exposes five integration kinds in Wodby:
 
@@ -76,8 +80,9 @@ the product and logging.
     with the zone administrator to choose a configuration that permits automated validation. Adding a WAF Skip rule
     alone will not resolve it.
 
-Allowing only traffic recognized as a certificate-authority bot is insufficient: Wodby also probes the challenge before
-submitting it for validation. Testing from your own browser can succeed while the automated request is challenged.
+Allowing only traffic recognized as a certificate-authority bot is insufficient: Wodby's own automated requests to the
+validation path must also get through. Testing from your own browser can succeed while the automated request is
+challenged.
 
 For other errors and retry behavior, see [certificate troubleshooting](../apps/certificate-troubleshooting.md). For
 Cloudflare Tunnel hostnames created through Private App Access, use the certificate requirements in
@@ -98,7 +103,7 @@ The SMTP kind asks for one field:
 | --- | --- | --- |
 | Email Sending API Token | Yes | `CLOUDFLARE_API_TOKEN` |
 
-Wodby resolves the token to this fixed relay configuration:
+Wodby uses this fixed relay configuration:
 
 | Setting | Value |
 | --- | --- |
@@ -111,7 +116,7 @@ Wodby resolves the token to this fixed relay configuration:
 Cloudflare does not support outbound submission on port `587` with STARTTLS. The sender address must use a domain
 onboarded for Email Sending in the account that owns the token.
 
-The API and SMTP kinds reuse the same `api_token` field. Select both kinds when the application also sends through the
+The API and SMTP kinds reuse the same API token field. Select both kinds when the application also sends through the
 Cloudflare REST API; Wodby additionally asks for the Account ID and exposes `CLOUDFLARE_ACCOUNT_ID` with
 `CLOUDFLARE_API_TOKEN`. The token must have every permission needed by the selected use cases.
 
@@ -153,8 +158,6 @@ to that destination separately. The credentials must allow object reads and writ
 destination, including deleting backup objects during cleanup.
 
 When creating a backup or backup preset, select the Cloudflare R2 integration and then select or enter its destination bucket.
-Wodby uploads, restores, and downloads backup objects through R2's S3-compatible API. Download and restore operations
-use expiring provider-signed URLs.
 
 ## Private App Access
 
@@ -191,13 +194,11 @@ The `Cloudflare One Connector: cloudflared` permission covers both managed Tunne
     create an app, Wodby validates every permission required by the selected mode and prevents app creation if the
     token or resource scope is insufficient.
 
-The integration form asks for the Account ID and API token. When you save it, Wodby checks authentication and the
-shared cloudflared connector permission. The integration page reports mode-specific readiness notices; the selected
-mode's full permission check runs when you create an app. Wodby does not request certificate permissions.
+The integration form asks for the Account ID and API token. Wodby does not request certificate permissions.
 
 ### Configure an app
 
-Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
+Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Endpoints > Private App Access`. Choose the
 Cloudflare Private App Access integration, an access type, and whether the scope covers the Entire app or Selected
 endpoints.
 
@@ -227,9 +228,9 @@ wildcard children, then wait for it to become active.
 certificates for Cloudflare Tunnel hostnames. See
 [Primary hostname](../apps/access.md#primary-hostname).
 
-Wodby creates one protected hostname per distinct enabled external HTTP destination and manages the cloudflared tunnel,
-tunnel connector credentials, DNS records, and Cloudflare Access application. It
-attaches the selected reusable policy, but the policy itself remains customer-managed and determines who may sign in.
+Wodby creates one protected hostname per enabled external HTTP endpoint and manages the Tunnel, DNS records, and
+Cloudflare Access application for them. It attaches the selected reusable policy, but the policy itself remains
+customer-managed and determines who may sign in.
 
 #### Private network access
 
@@ -258,31 +259,23 @@ These are connectivity requirements, not optional Gateway inspection settings. W
 hostname may return `NXDOMAIN`. Without TCP proxying or the required Split Tunnel routes, DNS may succeed but the HTTPS
 connection will not reach the managed Tunnel.
 
-Wodby reuses each endpoint's stable technical hostname, creates a private hostname route to the app's managed tunnel,
-and serves its existing Wodby-managed HTTPS certificate through the connector. The matching route remains disabled at
-Wodby's public gateway. A device outside the configured Cloudflare network therefore cannot use that hostname to reach
-the app. The hostname itself is not secret and may still resolve outside WARP; private access comes from the disabled
-public route and the Cloudflare One traffic path. Certificate renewals and endpoint changes are reconciled
-automatically after deployment.
+Wodby reuses each endpoint's technical hostname and its existing Wodby-managed HTTPS certificate. The hostname is not
+served through Wodby's public gateway, so a device outside the configured Cloudflare network cannot use it to reach the
+app. The hostname itself is not secret and may still resolve outside WARP. Certificate renewals and endpoint changes are
+applied automatically after deployment.
 
 !!! note "HTTP endpoints only"
-    The Gateway TCP proxy setting above lets the Cloudflare One Client carry the HTTPS connection to Wodby's private
-    hostname route. It does not expose arbitrary app TCP or UDP ports through Private App Access. Entire app scope
+    The Gateway TCP proxy setting above lets the Cloudflare One Client carry the HTTPS connection to the app's private
+    hostname. It does not expose arbitrary app TCP or UDP ports through Private App Access. Entire app scope
     prevents public port publishing; with Selected endpoints scope, separately published TCP or UDP ports remain
     public and outside Cloudflare Private App Access.
 
 When access is removed or the app environment is deleted, Wodby removes the connector, tunnel connections, applicable
 managed DNS records or private hostname routes, the Tunnel, and the Access application. It does not delete the selected
-reusable Access policy, DNS zone, device settings, Gateway policies, or any customer-managed certificate. If a managed
-DNS record or private hostname route no longer has Wodby's ownership marker and expected target, Wodby leaves it
-untouched and reports a cleanup warning. Temporary API failures are retained as retryable cleanup obligations on the
-integration page; keep the integration and its permissions available until cleanup finishes.
-
-Wodby does not use Cloudflare Quick Tunnels or `*.trycloudflare.com` hostnames for either access type. Quick Tunnels
-generate random temporary addresses, are intended for testing and development, and have no uptime guarantee. Wodby
-instead creates a managed Tunnel: Protected publishing uses hostnames in your selected Cloudflare zone, while Private
-network access reuses Wodby technical hostnames. See
-[Cloudflare Quick Tunnels](https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/do-more-with-tunnels/trycloudflare/).
+reusable Access policy, DNS zone, device settings, Gateway policies, or any customer-managed certificate. If a DNS
+record or private hostname route was changed outside Wodby, Wodby leaves it untouched and reports a cleanup warning. If
+cleanup fails because of a temporary API error, the integration page shows the pending cleanup and Wodby retries it;
+keep the integration and its permissions available until cleanup finishes.
 
 ### Troubleshooting TLS
 
@@ -292,8 +285,8 @@ containing the hierarchical primary hostname and its wildcard child, then wait u
 
 Total TLS cannot resolve this for Tunnel hostnames because Cloudflare excludes them from Total TLS issuance.
 
-Private network access does not use a customer-zone Cloudflare edge certificate. The connector presents the existing
-Wodby-managed certificate for the technical hostname. If that hostname is unreachable, first confirm that the
+Private network access does not use a customer-zone Cloudflare edge certificate. It uses the existing Wodby-managed
+certificate for the technical hostname. If that hostname is unreachable, first confirm that the
 Cloudflare One Client is connected, TCP proxying is enabled, the private-hostname IP ranges are routed through WARP,
 and Local Domain Fallback does not capture the technical-domain suffix. Then review the app's Access task and status in
 Wodby.

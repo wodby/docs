@@ -1,3 +1,7 @@
+---
+description: Run one-off database backups and manage backup presets in Wodby, with automatic schedules, storage destinations and failure notifications.
+---
+
 # Database backups
 
 From `Databases > [Database] > Backups` you can run one-off backups and manage backup presets.
@@ -12,7 +16,7 @@ The database backup area has two tabs:
 - `Backups` for one-off backups
 - `Presets` for reusable destinations and automatic schedules
 
-Backups are different from snapshots. A backup is created by the database or service backup workflow and then mirrored to object storage.
+Backups are different from snapshots. Backups are stored in object storage.
 
 When preparing a new backup, you can select one of the backup presets for this database or an organization-wide backup preset.
 
@@ -34,8 +38,8 @@ backup, including exclusions inherited from the service default.
 
 A database backup preset can save explicit table exclusions only when it selects one backup type for a container-based
 database. Scheduled backups created from that preset use the saved exclusions. If the preset leaves the field
-untouched, each scheduled backup resolves the service default when it is created and stores that effective list with
-its own backup record. Presets that apply to any backup type, and organization-wide presets, do not store table
+untouched, each scheduled backup uses the service default at the time it runs, and its backup record shows the list
+used. Presets that apply to any backup type, and organization-wide presets, do not store table
 exclusions.
 
 ## Backup destination
@@ -92,6 +96,7 @@ An organization-wide preset stores:
 - the destination bucket for a third-party integration
 - an optional storage class override
 - an environment scope: any environment, one exact environment, or one or more environment types
+- a project scope: any project, or one or more projects
 - a backup category: any backup, files only, or databases only
 - an optional automatic schedule
 
@@ -99,6 +104,11 @@ Use an exact environment when the preset should apply only to that environment. 
 should follow every current and future environment of the selected types. Available types are `Production`, `Staging`,
 `Testing`, `Development`, and `Feature`. You cannot combine an exact environment with environment types. Leaving both
 selections empty applies the preset to every environment.
+
+Select projects when the preset should back up only the apps and databases of those projects. A project's apps and
+databases are the ones it owns and the ones shared with it. Leaving `Projects` empty applies the preset to every
+project, including apps and databases that are not in any project. A project that is the only project of a preset
+cannot be deleted; change or delete the preset first.
 
 The backup category is based on the resource that owns the backup:
 
@@ -112,13 +122,13 @@ storage integration must be available in all environments.
 When you create a manual backup, the dashboard combines:
 
 - matching database presets
-- organization-wide presets that match the database's environment and include database backups
+- organization-wide presets that match the database's environment and projects and include database backups
 
 If only one preset matches the selected DB and backup type, the dashboard can prefill it automatically.
 
-Automatic organization-wide presets use the same environment and category filters when selecting resources. An
-organization-wide override suppresses another matching scheduled preset only when the override also applies to that
-resource's environment and backup category.
+Automatic organization-wide presets use the same environment, project, and category filters when selecting resources.
+An organization-wide override suppresses another matching scheduled preset only when the override also applies to that
+resource's environment, projects, and backup category.
 
 Organization-wide presets are also available in [Application backups](../apps/backups.md).
 
@@ -144,9 +154,8 @@ Turning it on again resumes the saved schedule. A new preset saved with `Auto ba
 
 Use override when one preset should win over other matching scheduled presets.
 
-Automatic schedules created by the previous dashboard used exact UTC launch times. Daily and single-weekday schedules
-are migrated to three-hour UTC windows beginning at the same time, without changing the selected day or backup
-timeout. Custom cron expressions remain on the legacy exact-time schedule.
+A preset with a custom cron expression from an earlier version of the dashboard keeps starting at the exact times that
+expression sets.
 
 ## Failure and recovery notifications
 

@@ -1,3 +1,7 @@
+---
+description: Projects are the main isolation boundary inside a Wodby organization. Group resources, control access, and share resources between projects.
+---
+
 # Projects
 
 Projects are the main isolation boundary inside your [organization](org.md).
@@ -54,7 +58,7 @@ The project selector in the dashboard header sets the project you are working in
 
 - Lists of apps, clusters, databases, integrations, stacks, services, providers, and tasks follow the selected project. Resource lists also include resources shared with that project and organization-owned resources you can view.
 - Creation forms start with the selected project as the owner when you can create resources in it. You can choose another owner on the form.
-- Your selection is saved as your default for that organization. Until you pick one, the dashboard starts on the organization's oldest project. If you had selected several projects before, it starts on the oldest of them.
+- Your selection is saved as your default for that organization. Until you pick one, the dashboard starts on the organization's oldest project.
 - If you open a resource the selected project cannot see, for example from a link, the selector switches to the resource's project. Your saved default does not change.
 
 ## Access model
@@ -90,9 +94,9 @@ Projects are also resource boundaries.
 - Resources from one project are not automatically available in another.
 - Cross-project references are not allowed unless the resource is explicitly shared to the target project.
 - Organization-owned dependencies that use project sharing must also be shared with the project, or available to all projects, before a project-owned target can reference them.
-- An organization-owned target can reference only organization-owned resources in the same organization when the dependency uses organization/project ownership; access to a project-owned resource does not make it valid for that target.
-- Write-capable project-resource workflows require a `Modify/Delete` share and write-level access in the target project where that workflow supports shared-resource writes.
-- Direct resource update/delete operations still follow the resource owner scope.
+- An organization-owned resource can reference only organization-owned resources in the same organization; access to a project-owned resource does not make it valid for that resource.
+- Changing a shared resource from another project, where the workflow supports it, requires a `Modify/Delete` share and write-level access in that project.
+- Updating or deleting the resource itself is still limited to its owner.
 - Organization-owned resources are visible to regular project members only when shared to one of their projects or available to all projects.
 - For example, a project-owned app cannot use an organization/project-scoped cluster, database, integration, service, stack, or provider unless that resource is owned by or shared with the app's owner project, or available to all projects.
 - On creation forms, the selected resource owner defines this context. If Project B owns the new resource, referenced resources must be owned by or shared with Project B. Selecting Project A in the dashboard header does not make Project A-only resources valid for a Project B-owned resource.

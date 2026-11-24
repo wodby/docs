@@ -1,3 +1,7 @@
+---
+description: Connect Drupal to SolrCloud in the Wodby Drupal catalog stack. Enable the Solr and ZooKeeper services, then configure the Search API Solr module.
+---
+
 # Connect Drupal to Solr
 
 The Wodby Drupal catalog stack supports SolrCloud with ZooKeeper. Both the `solr` and `zookeeper` stack services are
@@ -33,9 +37,8 @@ connector, then enter:
 | Username | `solr` |
 | Password | Leave blank when the server machine name is `solr` |
 
-The Drupal PHP service receives the internal Solr hostname and generated password through its stack link. Wodby's
-generated `wodby.settings.php` applies the password to the Search API server whose machine name matches the linked Solr
-service. It does not replace the connector's `Solr node` value, so enter `solr` explicitly.
+Wodby's generated `wodby.settings.php` supplies the Solr password to the Search API server whose machine name is
+`solr`. It does not set the connector's `Solr node` value, so enter `solr` explicitly.
 
 `localhost` points back to the Drupal PHP container. A server saved with `localhost` cannot reach the separate Solr app
 service.

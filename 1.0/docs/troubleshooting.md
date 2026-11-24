@@ -1,3 +1,7 @@
+---
+description: "Fix common Wodby 1 problems: SSH access, email delivery, unreachable servers, task timeouts, file permissions, backup failures and WordPress updates."
+---
+
 # Troubleshooting
 
 ## Cannot connect by SSH

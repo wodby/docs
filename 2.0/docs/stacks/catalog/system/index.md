@@ -1,3 +1,7 @@
+---
+description: The Kubernetes system stacks that Wodby deploys as infrastructure apps to operate a cluster. Which ones run depends on the provider and features.
+---
+
 # Kubernetes system stacks
 
 Wodby deploys these stacks as [infrastructure apps](../../../clusters/infrastructure.md) that operate a cluster. You
@@ -11,7 +15,7 @@ don't create apps from them. Which ones a cluster runs depends on its provider a
 | AWS LB Controller | Connects clusters that need it to AWS load balancers | [stack-aws-lb-controller](https://github.com/wodby/stack-aws-lb-controller) |
 | FRPC | Provides tunneling for cluster networking configurations that need an FRP client | [stack-frpc](https://github.com/wodby/stack-frpc) |
 
-To update them, see [Kubernetes cluster updates](../../../clusters/updates.md). To view the metrics they collect, see
+To update them, see [Cluster updates](../../../clusters/updates.md). To view the metrics they collect, see
 [cluster observability](../../../clusters/observability.md).
 
 The FRPC stack is separate from the [FRP Server](../frps/index.md) application stack, which you deploy yourself for

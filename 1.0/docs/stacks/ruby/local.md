@@ -1,3 +1,7 @@
+---
+description: Run Ruby applications locally with Docker4Ruby, a Docker Compose environment consistent with the Wodby stack, including database import.
+---
+
 # Local environment with Docker4Ruby
 
 Docker4Ruby is an open-source project ([GitHub page](https://github.com/wodby/docker4ruby)) that provides pre-configured `compose.yml` file with images to spin up local environment on Linux, Mac OS X and Windows. 

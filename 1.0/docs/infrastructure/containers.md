@@ -1,4 +1,8 @@
-# Containers
+---
+description: Wodby 1 stack containers use public Alpine-based images. Open a shell in a container over SSH or from the server, and reach container data from the host.
+---
+
+# Access application containers
 
 Most of the container images provided in our managed stacks are based on the light-weight Linux distribution [Alpine Linux](https://alpinelinux.org/) (based on musl libc). All images are public and available on [Docker Hub](https://hub.docker.com/r/wodby/), their sources can be found on [GitHub](https://github.com/wodby/).
 

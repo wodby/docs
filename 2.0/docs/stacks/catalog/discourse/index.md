@@ -1,10 +1,22 @@
-# Discourse
+---
+description: Deploy Discourse on Wodby with the Discourse catalog stack, which runs a prebuilt Discourse image with PostgreSQL, Redis and OpenSMTPD.
+---
+
+# Discourse stack guide
 
 The Wodby Discourse catalog stack runs [Discourse](https://www.discourse.org/) with PostgreSQL, Redis, and OpenSMTPD.
 All four services are required. The current composition is documented in
 [`wodby/stack-discourse`](https://github.com/wodby/stack-discourse).
 
 The stack runs Wodby's prebuilt Discourse image, so there's nothing to build and no repository to connect.
+
+## Your own plugins
+
+To add plugins that don't ship with Discourse, use the
+[buildable Discourse stack](../discourse-buildable/index.md) instead. You list plugins by Git URL, or
+commit your own, in a repository started from the
+[Discourse boilerplate](https://github.com/wodby/discourse-boilerplate), and Wodby builds Discourse with them on every
+push.
 
 ## Before you create the app
 
@@ -18,7 +30,7 @@ The stack runs Wodby's prebuilt Discourse image, so there's nothing to build and
 ## Plugins and themes
 
 The plugins bundled with Discourse, such as chat, AI, solved, assign, reactions and voting, are available. Install
-themes and theme components from the Discourse administration interface. Other plugins are not supported.
+themes and theme components from the Discourse administration interface. Other plugins need the buildable Discourse stack.
 
 ## Mail delivery
 

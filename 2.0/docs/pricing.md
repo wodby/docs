@@ -1,3 +1,7 @@
+---
+description: How Wodby billing works, covering plans, what is billed separately, addons, spending limits, payment methods and downgrading a subscription.
+---
+
 # Billing
 
 ## Plans
@@ -43,7 +47,6 @@ Team includes everything in Developer, plus production-focused features such as:
 - [vulnerability scanning](apps/vulnerability-scanning.md) of deployed build images
 - [preview environments](apps/preview-environments.md) for pull requests
 - best-effort support
-- $30 of Wodby Cloud usage per month
 - 10M free [AI credits](#ai-credits) tokens in total for Wodby Agent, granted once
 
 The Team plan has a $48 minimum for each monthly billing cycle. It includes up to 24 billable
@@ -119,7 +122,7 @@ Invoices are in the Stripe customer portal.
 
 When you downgrade a paid subscription, the downgrade is scheduled for the end of the current billing cycle. The existing paid billing period continues for billing and existing resource usage until the current period ends, and the organization moves to the free Developer plan after that.
 
-Usage-based charges can still accrue until the end of the billing cycle. The final invoice can include addon usage and Wodby Cloud usage above the included amounts for the period.
+Usage-based charges can still accrue until the end of the billing cycle. The final invoice can include addon usage above the included amounts and Wodby Cloud usage for the period.
 
 After a downgrade is scheduled:
 
@@ -130,7 +133,7 @@ After a downgrade is scheduled:
 
 To schedule a downgrade, the organization must already fit the Developer plan limits and must not depend on paid-only
 features. Private App Access is a paid feature, so remove it from every app environment under **Apps > your app > your
-environment > Settings > Access** before scheduling a downgrade. The downgrade error identifies each affected app and
+environment > Endpoints > Private App Access** before scheduling a downgrade. The downgrade error identifies each affected app and
 environment.
 
 App environment pausing is also a paid feature, so no environment can be `Pausing` or `Paused` when a downgrade is
@@ -177,8 +180,8 @@ converts it to GiB, and rounds a non-whole value up to the next whole unit for b
 billing quantity of 6 GiB, of which 1 GiB is above the included amount.
 
 When the stored quantity changes, the storage charge is prorated for the portion of the billing cycle during which each
-quantity applied. Deleting images can therefore reduce the remaining storage charge after the next usage
-synchronization; it does not retroactively remove storage already used earlier in the cycle.
+quantity applied. Deleting images can therefore reduce the remaining storage charge; it does not retroactively remove
+storage already used earlier in the cycle.
 
 When you delete your app environment, we automatically delete all images associated with it.
 
@@ -189,17 +192,16 @@ You can selectively void older build images to clean up docker images while keep
 [Wodby Blob Storage](providers/wodby-blob-storage.md) is the built-in destination for backup archives. It costs $0.05
 per stored GB and has no included free storage. Data transfer is not billed.
 
-Usage reflects the organization's current completed backup data stored by Wodby. Removing backup objects reduces the
-quantity after cleanup and the next usage synchronization; it does not retroactively remove storage billed earlier in
-the cycle.
+Usage reflects the organization's completed backup data currently stored in Wodby Blob Storage. Removing backups
+reduces the remaining storage charge; it does not retroactively remove storage billed earlier in the cycle.
 
 ### Wodby Cloud usage
 
 Wodby Cloud is billed in dollars as Wodby Cloud usage.
 
-Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Scalable Wodby Cloud clusters incur an additional cluster fee.
+Compute usage is based on the selected machine type, node count, provisioned persistent storage, and cluster infrastructure during the billing period. Each persistent Wodby Cloud cluster also has a cluster fee.
 
-Paid plans include $30 of Wodby Cloud usage per month.
+Paid plans don't include Wodby Cloud usage. All of it is billed.
 
 ### AI credits
 

@@ -1,4 +1,8 @@
-# HTML stack documentation
+---
+description: Host static HTML sites on Wodby 1 with Nginx or Apache, deploy them through CI, and see the stack's containers and changelog.
+---
+
+# HTML stack guide
 
 ## Deployment
 
@@ -26,6 +30,12 @@ See [details](https://github.com/wodby/apache#html) about virtual host preset.
 ## Changelog
 
 This changelog is for HTML stack on Wodby, to see images changes see tags description on repository page: [nginx](https://github.com/wodby/nginx/releases) and [Apache](https://github.com/wodby/apache/releases).
+
+### 1.1.23
+
+- ⬆️ Nginx 1.31.9, 1.30.7 with fixes for the [nginx2root](https://xint.io/blog/nginx2root-remote-code-execution) remote code execution vulnerabilities (CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, CVE-2026-113425) and other [security issues](https://nginx.org/en/security_advisories.html)
+- ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
+- 🏔️ Alpine Linux updates for Nginx and Apache, including a zlib security fix (CVE-2026-4738)
 
 ### 1.1.22
 

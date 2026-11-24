@@ -1,3 +1,8 @@
+---
+title: Service deployment configuration
+description: Control how Kubernetes replaces pods during an update, with deployment settings and wait times set at service, stack or app service level.
+---
+
 # Deployment configuration
 
 Deployment configuration controls how Kubernetes replaces pods during an update, how long a new pod must stay ready,
@@ -17,9 +22,15 @@ For one app service, open
 `Apps > [App] > [Environment] > Stack > App services > [Service] > Configuration > Deployment`. Saving an override marks
 the app environment as needing redeploy.
 
-Use `All workloads` for service-wide settings. Services with multiple workloads also show a card for each workload, so
-a setting can be overridden only for the workload that needs different behavior. Leaving a field empty inherits the
-next applicable value; if no inherited value exists, the chart default is used.
+You can also change the same app service settings from `Apps > [App] > [Environment] > CI/CD > Deploys > Settings`.
+Select the service in the `App service` selector.
+
+For a service with one workload, the settings apply to that workload. For a service with multiple workloads, use the
+`Workload` selector: `All workloads` holds service-wide settings, and selecting a workload overrides a setting only for
+that workload. Changes for every workload are saved together when you select `Update`.
+
+An empty field shows the value it inherits, or `Chart default` if no value is inherited. Leave a field empty to keep
+the inherited value.
 
 ## Inheritance and precedence
 
@@ -66,13 +77,11 @@ The settings above control different parts of a rollout. `minReady` allows Kuber
 before considering it available, `progressDeadline` limits a Deployment's lack of progress, and
 `shutdownGracePeriod` gives terminating containers time to stop. None is a total deployment-task timeout.
 
-Wodby extends the Helm wait timeout when necessary to accommodate the rendered workload's progress deadline,
-minimum-ready interval, and shutdown grace period, plus time for Kubernetes to report the result. The outer service
-deployment task also allows preparation time. Long graceful shutdowns can therefore make a deployment take longer
-than a typical startup. The derived Helm timeout also applies to install/upgrade hooks and automatic rollback.
+Wodby waits long enough to cover the workload's progress deadline, minimum-ready interval, and shutdown grace period.
+Long graceful shutdowns can therefore make a deployment take longer than a typical startup.
 
 These longer waits do not suppress early failures. Image and container configuration errors, an exceeded Deployment
-progress deadline, or a crash loop that outlasts its one-minute recovery window can still fail the rollout earlier.
+progress deadline, or a persistent crash loop can still fail the rollout earlier.
 See [Rollout health checks and failure logs](../apps/deploys.md#rollout-health-checks-and-failure-logs).
 
 With `onDelete`, Kubernetes does not automatically replace existing pods. Wodby still waits for the updated workload

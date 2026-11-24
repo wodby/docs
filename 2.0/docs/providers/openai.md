@@ -1,4 +1,8 @@
-# OpenAI
+---
+description: Use the OpenAI provider in Wodby to store an OpenAI API key and inject it into app services and stacks as OPENAI_API_KEY.
+---
+
+# OpenAI provider
 
 OpenAI is available in Wodby as a `variable` provider. Use it when you want to inject an OpenAI API key into app services or stacks through an integration.
 

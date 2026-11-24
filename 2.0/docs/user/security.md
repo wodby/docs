@@ -1,3 +1,8 @@
+---
+title: Account security
+description: Change your Wodby password, set up two-factor authentication, manage recovery codes, and confirm it is you before revealing secrets.
+---
+
 # Security
 
 The `Security` section in user settings covers password management, two-factor authentication, and recovery codes.
@@ -42,7 +47,7 @@ for your account:
 An email code expires after five minutes, and requests and verification attempts are limited. After confirmation, the
 secret is displayed for 30 seconds and is then removed from the dialog. Closing the dialog removes it immediately.
 
-Secret reveal responses are not cached. API-key and token authentication cannot use direct reveal operations.
+API-key and token authentication cannot use direct reveal operations.
 
 Copying a value places it on your device's clipboard; Wodby cannot clear that copy automatically. Move long-lived
 credentials into an approved secrets manager and rotate any value that may have been exposed.
@@ -61,6 +66,12 @@ The enrollment flow is:
 4. enter the 6-digit verification code
 
 Recovery codes are shown before final verification so you can store them safely.
+
+### Wodby Registry with 2FA
+
+`docker login` cannot ask for a one-time code, so Wodby Registry does not accept the password of an account with 2FA.
+Sign in with your email and an [API key](api-keys.md) as the password. See
+[Wodby Registry](../cicd/wodby-registry.md#auth).
 
 ### Disabling 2FA
 

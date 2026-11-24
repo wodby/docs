@@ -1,3 +1,7 @@
+---
+description: Reference for service.yml, the manifest that defines a custom Wodby service imported from Git, with an example, general rules and every field.
+---
+
 # Service template
 
 Custom services imported from Git are defined by `service.yml`.
@@ -199,7 +203,7 @@ At least one of `runtime` or `build` must be enabled.
 When an environment-variable value directly references a named service, stack, or app-service token, Wodby carries
 that token's secret classification into the environment variable. This applies when the token is the complete value,
 such as `{{hash_salt}}`, and when it is embedded in a larger value. If any directly referenced named token is secret,
-Wodby stores the complete resolved environment-variable value in a Kubernetes Secret. Generated tokens are always
+the complete environment-variable value is stored as a secret. Generated tokens are always
 secret; fixed-value tokens are secret when their effective definition uses `secret: true`.
 
 Do not repeat `secret: true` on an environment variable solely because it references a secret named token. Continue
@@ -252,15 +256,22 @@ Used by `workloads[].containers[].resources` and `derivatives[].resources`.
 CPU values are in millicores (`1000` is one core) and must be multiples of `10`. Memory values are in MiB and must be
 multiples of `16`.
 
-Resources under `workloads[].containers[].resources` are defaults. A container deploys with them unless its stack
-service or app service sets resources for it, which replace the defaults as a whole. Set a memory limit for runtimes
-that size their memory from it, such as the JVM.
+Resources under `workloads[].containers[].resources` are defaults. A stack service or app service can override each
+value separately; the values it leaves out keep these defaults. A container that ends up with no request gets the
+minimum of 10m CPU and 16 MiB of memory. Set a memory limit for runtimes that size their memory from it, such as the
+JVM.
+
+Resources under `derivatives[].resources` are defaults for the main container (the first container of the primary
+workload) when that derivative runs. Each value replaces only that default of the main container, and the values left
+out keep it, so a worker can set a smaller memory request without repeating the rest. A value you set wins over a
+default it conflicts with, and `0` means none. A stack service or app service can still override each value.
+Derivatives can't set GPU resources.
 
 ### Selector object
 
 Used by `links[].selectors`.
 
-- `type`: service type to match.
+- `type`: required service type to match.
 - `option`: optional service option version to match.
 - `labels`: optional labels that the matching service must have.
 
@@ -316,11 +327,10 @@ Type: `string`.
 
 Exact base service version used when Wodby imports and merges the inherited service.
 
-When `from` is set, Wodby finds the base service revision with this version and merges that revision into the inherited
-service. The imported inherited service keeps this value so future automation can see the current base service version.
+When `from` is set, Wodby merges the base service revision with this version into the inherited service.
 
-Wodby searches the base service's revision history, not only its current revision. An exact version therefore remains
-usable after the base service publishes a newer revision. When the selected revision is older than the current base
+The version can be any revision in the base service's history, not only its current revision. An exact version
+therefore remains usable after the base service publishes a newer revision. When the selected revision is older than the current base
 service revision, the service page shows both versions and service update logs include a warning. The warning does not
 change the selected revision or fail the update. If the exact version does not exist in the available revision history,
 the import or update fails.
@@ -391,7 +401,7 @@ Rules:
 - The file must be UTF-8 text of at most 16 KiB.
 - A service that inherits another with [`from`](#from) gets the base service's notes followed by its own. Describe
   only what your service adds.
-- Wodby stores the text with the service revision, so an app sees the notes of the revision it runs.
+- An app sees the notes of the service revision it runs.
 - Everyone who can use the service can read the notes. Don't put secrets or internal host names in them.
 - Don't name the file `AGENTS.md`: agents that edit the service's own repository read that file as instructions for
   themselves.
@@ -477,8 +487,8 @@ it merely because the chart renders a Deployment or StatefulSet. Databases, queu
 other workloads with service-specific clustering or singleton semantics should remain fixed unless their scaling model
 has been explicitly integrated and validated.
 
-Wodby uses this flag for API validation, dashboard controls, Helm chart conformance, and backend-managed autoscaling.
-Fixed services accept zero or one replica; scalable services must render the requested replica count exactly.
+Only scalable services can run more than one replica and use autoscaling. Fixed services accept zero or one replica;
+scalable services must render the requested replica count exactly.
 
 ### `deployment`
 
@@ -520,13 +530,15 @@ Use `build: true` when a service Dockerfile needs the value as a build argument.
 
 Type: `array`.
 
-Application versions or deployment variants. Services that do not inherit from another service usually define at least
-one option, unless they are infrastructure services.
+Application versions or deployment variants. Every service except an infrastructure service needs at least one option,
+defined in its own manifest or inherited from its base service. Wodby refuses a service without one, because app
+environments need a version of each service. An empty list counts as no options.
 
 Each item supports:
 
 - `version`: required option version.
 - `tag`: optional image tag for that version.
+- `digest`: optional image digest that pins one build of the tag. See [Pin an image build](#pin-an-image-build).
 - `default`: optional boolean.
 - `eol`: optional end-of-life date in ISO datetime format.
 
@@ -547,6 +559,39 @@ product versions. Previously published image tags remain available. See the
 
 Wodby-managed service and stack release tags keep semantic versions for compatibility and automatic updates. An image
 revision number does not indicate compatibility; review the image's release notes before changing its tag.
+
+#### Pin an image build
+
+Image publishers can replace the build behind a tag, often to ship security fixes. A cluster that already has the tag
+keeps running the build it pulled first, and nothing in the service shows that a newer build exists.
+
+Set `digest` to deploy one exact build. The digest is `sha256:` followed by 64 lowercase hexadecimal characters:
+
+```yaml
+options:
+  - version: "5.2"
+    tag: "5.2.3"
+    digest: sha256:7d0b1d9826aa1345a4cab1feded7b19b5f8b1d90579b3180fbc1353157e35c7b
+    default: true
+```
+
+Wodby then deploys the image as `tag@digest`, so every cluster runs the same build. To move to a newer build, release
+a new service version with the new digest. Stacks that use the service see it as a regular service update.
+
+Use the digest of the tag's multi-platform image, which works on every node architecture. For example:
+
+```bash
+docker buildx imagetools inspect phpmyadmin:5.2.3
+```
+
+The `Digest` line at the top of the output is the value to use.
+
+- Wodby checks that the image with this digest exists when you create or update the service.
+- A digest identifies a single image. If the option's tag applies to more than one container image in the service,
+  Wodby refuses the digest. A container whose `image` already includes its own tag keeps that tag and is not pinned.
+- An inherited service keeps its base service's digest only for options that use the same tag. If it sets a
+  different `tag` without a `digest`, Wodby deploys that tag as before.
+- Options without a `digest` deploy by tag only.
 
 ### `workloads`
 
@@ -719,6 +764,9 @@ Each item supports:
 - `database.ca.filepath`: optional absolute path where Wodby mounts the CA certificate of the linked managed database
   server, when the server has one. Use it with
   [`{{link.database.caFile}}`](../apps/tokens.md#links) to connect to the server with TLS.
+- `database.dbs`: optional extra databases the service needs next to its main database, up to 10. Each item has a
+  `name`: a lowercase letter followed by up to 15 lowercase letters and digits. See
+  [Extra databases on a link](#extra-databases-on-a-link).
 - `values`: optional values the link hands to the service, whatever the link points at. Each item has `name`,
   optional `title`, `secret`, `optional`, and `from`. `from` says how a target service provides the value, usually
   with [`{{link.exports.<name>}}`](../apps/tokens.md#links). Read a value with `{{link.values.<name>}}` in the link's
@@ -781,6 +829,50 @@ links:
     secret: true
 ```
 
+#### Extra databases on a link
+
+Some applications keep their data in more than one database on the same server. A link to a database service can ask
+for them with `database.dbs`. When the service deploys, Wodby creates each extra database on the linked database
+server, if it doesn't exist yet, and gives the linked database user full access to it. This works for databases that
+run in the app and for standalone and cloud databases.
+
+An extra database is named after the environment's main database with an underscore and the item's `name` at the end,
+such as `main_messages`. Read the name with `{{link.database.dbs.<name>.name}}` in the link's own `env` and `helm`, or
+with `{{links.<link>.database.dbs.<name>.name}}` elsewhere. See [Tokens](../apps/tokens.md#links).
+
+For example, a service that keeps messages in a second PostgreSQL database:
+
+```yaml
+links:
+- name: postgres
+  title: PostgreSQL
+  required: true
+  database:
+    dbs:
+    - name: messages
+  env:
+  - name: DB_NAME
+    value: '{{link.database.db.name}}'
+  - name: MESSAGES_DB_NAME
+    value: '{{link.database.dbs.messages.name}}'
+  selectors:
+  - type: db
+    labels:
+    - postgres
+```
+
+Importing the service fails when:
+
+- a link with `database.dbs` has a selector whose `type` is not `db`
+- a link lists the same name twice
+- a token reads an extra database that its link does not list
+
+The deployment fails when the linked database service can't create databases or grant access to them.
+
+Backups, imports, environment migrations and preview environments cover only the main database. In a new environment,
+and after a restore that replaces the database server's data, the extra databases start empty, so the application must
+be able to set them up again. Removing an item from `database.dbs` in a newer revision keeps the database and its data.
+
 ### `linkGroups`
 
 Type: `array`.
@@ -805,7 +897,8 @@ linkGroups:
 ```
 
 Because a target in another app or a custom target can only be set after the app exists, start a service with a link
-group as disabled in the stack, then set its links and enable it.
+group as disabled in the stack, then set its links and enable it. Wodby refuses a stack in which an enabled service
+links fewer than `min` links of a group to enabled stack services, because no app environment could be created from it.
 
 ### `crossApp`
 
@@ -881,8 +974,7 @@ created by Wodby. Wodby applies the selected class directly to that claim.
 When the Helm chart creates the PVC, the volume must:
 
 - map the exact `{{volumes.<name>.storageClassName}}` token to the chart's storage-class value
-- set `volumes[].helm.labels` to the chart value path used for PVC labels, allowing Wodby to associate the live claim
-  with the app-service volume
+- set `volumes[].helm.labels` to the chart value path used for PVC labels
 
 For example:
 
@@ -958,8 +1050,7 @@ contract.
 
 When `variables` is present without `env`, Wodby injects only the variables declared by the service, using their
 provider variable names. Deployment fails if a required value is missing, resolves more than once, or is not stored
-with the declared secret classification. Without `variables`, the existing behavior remains: Wodby injects
-provider-wide fields plus fields belonging to the matching selected kinds. Fields belonging only to another selected
+with the declared secret classification. Without `variables`, Wodby injects provider-wide fields plus fields belonging to the matching selected kinds. Fields belonging only to another selected
 kind are not exposed through that service integration slot.
 
 Define `integrations[].env` when the service should own the final runtime names or add service-specific literal values.
@@ -1001,7 +1092,7 @@ Service-defined integration environment variables follow these rules:
 - Literal values are allowed. Every output is runtime-only and is never passed to an image build.
 
 This lets a service depend on a stable provider input shape while retaining control of the application-facing
-environment names. Existing service manifests without `env` keep the direct-export behavior.
+environment names.
 
 Do not combine `variables` with `providers`. A native variable contract consumes provider environment variables by
 their declared names, while `providers` defines provider-specific environment variables.
@@ -1030,6 +1121,7 @@ Each item supports:
 - `var`: required environment variable name created from this setting.
 - `runtime`: optional boolean. Defaults to `true`. When `false`, Wodby does not inject the setting-derived variable into runtime containers.
 - `build`: optional boolean. Defaults to `false`. When `true`, Wodby can pass the setting-derived variable to CI builds as a Docker build argument when the Dockerfile declares a matching `ARG`.
+- `validation`: optional [requirements](#setting-validation) a value must meet.
 
 At least one of `runtime` or `build` must be enabled. Use `build: true` for settings such as document root paths that
 must be available while building an image.
@@ -1052,9 +1144,48 @@ settings:
     secret: true
 ```
 
-Wodby never returns the configured value for a secret setting. API responses retain an empty `value` for compatibility
-and expose `secret` and `hasValue` so clients can render a password control and configured state without revealing the
+Wodby never returns the configured value for a secret setting. API responses return an empty `value` and expose `secret` and `hasValue` so clients can render a password control and configured state without revealing the
 credential.
+
+#### Setting validation
+
+`validation` lists requirements a setting value must meet. Wodby refuses a value that does not meet them when it is
+saved, and lists every unmet requirement in the error. An empty value is not checked; use `required` for that.
+
+- `minLength`: optional minimum number of characters.
+- `maxLength`: optional maximum number of characters.
+- `rules`: optional list of requirements. Each item has:
+  - `regex`: required regular expression in [RE2 syntax](https://github.com/google/re2/wiki/Syntax). It must match
+    somewhere in the value; anchor it with `^` and `$` to match the whole value.
+  - `message`: required text shown when the value does not match, for example `Include a digit.`
+
+RE2 has no lookahead, so write a requirement such as "contains a digit and a special character" as separate rules.
+A setting with `from` cannot define `validation`, and a `default` must meet the setting's own requirements.
+
+Add requirements only for values the service cannot run with. An app service whose stored value does not meet them
+reports a configuration problem until the value is changed.
+
+Example:
+
+```yaml
+settings:
+  - name: admin-password
+    title: Admin password
+    var: ADMIN_PASSWORD
+    required: true
+    secret: true
+    validation:
+      minLength: 24
+      rules:
+        - regex: '[A-Z]'
+          message: Include an uppercase letter.
+        - regex: '[a-z]'
+          message: Include a lowercase letter.
+        - regex: '[0-9]'
+          message: Include a digit.
+        - regex: '[^A-Za-z0-9]'
+          message: Include a special character.
+```
 
 ### `imports`
 
@@ -1113,8 +1244,8 @@ Each item supports:
 
 Wodby generates a named key once per app service. The private key is encoded as PKCS#8 PEM and stored as an encrypted
 secret; the public key is encoded as PKIX PEM. Ordinary deployments and service or stack upgrades preserve the pair.
-Changing the type or length of an existing named key fails deployment instead of rotating it. Key rotation is an
-explicit migration, not a manifest side effect; automatic rotation is not currently supported.
+Changing the type or length of an existing named key fails deployment instead of rotating it. Key rotation is not
+supported.
 
 ```yaml
 keys:
@@ -1223,8 +1354,7 @@ The object supports:
 - `chart`: required chart name.
 - `version`: required chart version.
 - `imagePullSecrets`: optional Helm value path for image pull secrets. Defaults to `image.pullSecrets`.
-- `valueMappings`: optional paths for backend-managed app-service values. Omitted mappings retain the documented
-  compatibility defaults.
+- `valueMappings`: optional paths for Wodby-managed app-service values. Omitted mappings use the documented defaults.
 - `crds`: optional CRD file list.
 - `crdCharts`: optional list of separate CRD charts. Each entry requires `name`, `chart`, and `version`, and can include
   `source` and `values` using the same value-entry format as `helm.values`. Available only to infrastructure services
@@ -1235,16 +1365,16 @@ The object supports:
 Workload- and container-specific Helm mappings are defined under `workloads[].helm` and
 `workloads[].containers[].helm`.
 
-When a service is imported, Wodby validates configured Helm value paths against the chart's merged values and schema
-when they are available. It also performs semantic rendering checks for backend-managed application names, replicas,
-and service-account values. See [Service Helm Integration](helm.md#backend-managed-value-mappings).
+When a service is imported, Wodby validates configured Helm value paths against the chart and checks that the chart
+renders Wodby-managed application names, replicas, and service-account values. See
+[Service Helm Integration](helm.md#wodby-managed-value-mappings).
 
 #### `helm.valueMappings`
 
 Type: `object`.
 
-Maps backend-managed app-service settings to chart-specific Helm value paths. The object and all its properties are
-optional. An omitted property uses its current compatibility default.
+Maps Wodby-managed app-service settings to chart-specific Helm value paths. The object and all its properties are
+optional. An omitted property uses its default.
 
 The object supports:
 
@@ -1259,7 +1389,7 @@ The object supports:
 - `fullnameOverride`: resource-name override path. Defaults to `fullnameOverride`.
 - `serviceAccountName`: Kubernetes service-account name path. Defaults to `serviceAccountName`.
 - `serviceAccountCreate`: optional chart-owned service-account creation path. Wodby sets it to `false` when it supplies
-  an annotated service account. There is no compatibility default because not every chart creates an account.
+  an annotated service account. There is no default because not every chart creates an account.
 - `strategy`: rollout-strategy path. Defaults to `strategy` for a Deployment and `updateStrategy` for a StatefulSet or
   DaemonSet.
 - `minReady`: minimum-ready-seconds path. Defaults to `minReadySeconds`.
@@ -1269,8 +1399,7 @@ The object supports:
 `serviceAccountName` must be explicit for service revisions that can use workload identity for an external database.
 If the chart creates the named account, `serviceAccountCreate` is required as well.
 
-Autoscaling paths are intentionally not part of `valueMappings`. Wodby owns the HorizontalPodAutoscaler and continues
-to pass the ordinary replica value to the chart.
+`valueMappings` has no autoscaling paths. Wodby manages autoscaling and passes the ordinary replica value to the chart.
 
 Deployment mappings at this level apply only to a service with one workload. Charts with multiple workloads define
 these mappings under `workloads[].helm`. Wodby writes only deployment fields that have an effective configured value;
@@ -1289,7 +1418,7 @@ helm:
 ```
 
 For the deployment contract, defaults, and import-time rendering checks, see
-[Service Helm Integration](helm.md#backend-managed-value-mappings).
+[Service Helm Integration](helm.md#wodby-managed-value-mappings).
 
 ### `certs`
 
@@ -1343,8 +1472,7 @@ Each item supports:
   config is used as the fallback.
 
 Each config must specify at least one default with `config`, `configContent`, or `default`. Do not specify both `config`
-and `configContent`. A content or file default can be present alongside `default` during migration, in which case it
-remains a fallback for service revisions created before import-time image resolution was enabled.
+and `configContent`. A content or file default can be present alongside `default`.
 
 `default` supports:
 
@@ -1505,6 +1633,8 @@ Derivative services created from the main service.
 Each item supports:
 
 - `name`: required derivative service name.
+- `previousNames`: optional names the derivative had in earlier versions of the service. See
+  [Rename a derivative](derivatives.md#rename-a-derivative).
 - `title`: required derivative title.
 - `icon`: optional icon.
 - `type`: required derivative service type.
@@ -1513,7 +1643,8 @@ Each item supports:
 - `required`: optional boolean.
 - `env`: optional environment variables.
 - `endpoints`: optional endpoint overrides.
-- `resources`: optional resource overrides.
+- `resources`: optional resource defaults for the main container when this derivative runs. See
+  [Resources object](#resources-object).
 - `helm`: optional Helm values.
 
 Derivative names must start with the parent service name followed by a dash and must follow the [Kubernetes service name rules](../naming.md#kubernetes-service-names). For example, derivatives of `php` should use names like `php-sshd`.

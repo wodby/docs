@@ -1,4 +1,8 @@
-# NetBird
+---
+description: Run a self-hosted NetBird server on Wodby with the NetBird catalog stack, a WireGuard-based private network that connects your devices and servers.
+---
+
+# NetBird stack guide
 
 The Wodby NetBird catalog stack runs a self-hosted [NetBird](https://netbird.io/) server: a WireGuard-based private
 network that connects your devices and servers wherever they are. One app service runs the management server, sign-in,
@@ -50,8 +54,8 @@ See [Endpoints](../../../apps/endpoints.md).
 ## How devices connect
 
 Devices connect to each other directly when their networks allow it. To find their public addresses they use
-Cloudflare's public STUN server (`stun:stun.cloudflare.com:3478`). NetBird's own STUN server isn't used: behind the
-cluster's gateway it can't see the devices' addresses. To use other STUN servers, set the `NETBIRD_STUN_URIS`
+Cloudflare's public STUN server (`stun:stun.cloudflare.com:3478`). NetBird's own STUN server isn't used. To use other
+STUN servers, set the `NETBIRD_STUN_URIS`
 [environment variable](../../../apps/environment-variables.md) to a space-separated list of `stun:` URLs, or to an
 empty value for none, and deploy the app service.
 

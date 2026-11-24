@@ -1,4 +1,8 @@
-# Mailpit
+---
+description: Run Mailpit on Wodby with the Mailpit catalog stack, a mail catcher for development and testing that accepts SMTP mail and shows it in a web interface.
+---
+
+# Mailpit stack guide
 
 The Wodby Mailpit catalog stack runs Mailpit, a mail catcher for development and testing. It accepts mail over SMTP and
 shows it in a web interface. It does not deliver mail to recipients. The current composition and defaults are in
@@ -24,8 +28,8 @@ Port `8025` serves the web interface and Mailpit's REST API under `/api/v1/`. Us
 messages.
 
 Captured mail can include password reset links and other secrets, so Wodby protects the public domains with basic auth
-by default. Each Mailpit app service gets its own generated password. Reveal it under **Endpoints > Auths** for the app
-environment. See [Auths](../../../apps/endpoints.md#auths). Services inside the environment reach port `8025`
+by default. Each Mailpit app service gets its own generated password. Reveal it under **Endpoints > Basic Auth** for the app
+environment. See [Basic Auth](../../../apps/endpoints.md#basic-auth). Services inside the environment reach port `8025`
 directly, without the password. A request to the REST API from outside the environment sends the same username and
 password.
 

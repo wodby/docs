@@ -1,4 +1,8 @@
-# PostgreSQL
+---
+description: Run a PostgreSQL database server on Wodby with the PostgreSQL catalog stack, with a 20 GB data volume by default and optional Adminer and pgAdmin.
+---
+
+# PostgreSQL stack guide
 
 The Wodby PostgreSQL catalog stack runs a PostgreSQL database server, with optional Adminer and pgAdmin. The current
 composition is documented in [`wodby/stack-postgres`](https://github.com/wodby/stack-postgres). For PostGIS, see the
@@ -58,7 +62,7 @@ but not enabled. Add `vector` to the list to enable it. To list the extensions i
 ## Adminer and pgAdmin
 
 Wodby protects their public domains with basic auth by default. Reveal the generated password on the environment's
-**Endpoints > Auths** page. See [Auths](../../../apps/endpoints.md#auths).
+**Endpoints > Basic Auth** page. See [Basic Auth](../../../apps/endpoints.md#basic-auth).
 
 - **Adminer:** it has no persistent data. The login form is prefilled with the system, server, and database. Type the
   user name and password.
@@ -96,8 +100,7 @@ A backup carries no role names and no grants. You can import it into a database 
 
 To restore, run a database import from a backup or an uploaded file. See
 [Application imports](../../../apps/imports.md). The import accepts `.gz`, `.tar.gz`, `.tgz`, and `.zip` archives.
-Wodby hands the imported objects to the database's owner role. Roles that a dump names, which this server does not
-have, exist only while the dump is loaded.
+Imported objects belong to the database's owner role.
 
 !!! warning
     A database import replaces the contents of the `data` volume. Data that is not in the dump is not kept.

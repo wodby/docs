@@ -1,4 +1,8 @@
-# ClickHouse
+---
+description: Run a single ClickHouse server on Wodby with the ClickHouse catalog stack, and link your application to it to receive the connection variables.
+---
+
+# ClickHouse stack guide
 
 The Wodby ClickHouse catalog stack runs a single ClickHouse server. The current service and defaults are documented in
 [`wodby/stack-clickhouse`](https://github.com/wodby/stack-clickhouse).

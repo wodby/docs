@@ -1,3 +1,7 @@
+---
+description: Try Wodby on a Demo cluster, a temporary single-node Wodby Cloud cluster that is deleted with its applications after 24 hours.
+---
+
 # Demo cluster
 
 Demo is the temporary Wodby Cloud option for testing.

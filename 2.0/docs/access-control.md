@@ -1,3 +1,7 @@
+---
+description: Understand how Wodby access is layered across organization roles, teams and project roles, and how ownership, sharing and secret reveal permissions apply.
+---
+
 # Access control
 
 Wodby access is layered. A user can have:
@@ -24,12 +28,8 @@ Organization membership is the top-level access gate. A user must have an active
 | `Owner`   | Full access to organization resources and billing. Owners can manage other owners.                                                       |
 | `Admin`   | Full access to organization resources, projects, teams, and org-owned resources. Admins do not manage billing, termination protection, owners, or other admins.  |
 | `Member`  | Works through project access. Members do not receive organization-wide resource access by default.                                       |
-| `Support` | Read-only access across the organization.                                                                                       |
-| `Robot`   | Internal automation role. Robot users are not assigned to teams or projects and are not managed through normal membership workflows.     |
 
 Organization owners and admins have full resource access across the organization. Project roles matter most for organization members.
-
-Support and robot users cannot be invited as normal users and cannot be assigned to teams or projects.
 
 ## Membership management
 
@@ -38,7 +38,6 @@ Organization membership changes follow role hierarchy rules.
 - Owners can manage owners, admins, and members.
 - Admins can manage members, but not owners or other admins.
 - Members cannot manage organization memberships.
-- Support and robot memberships are not managed through the normal organization membership UI.
 
 An invitation sets only the email address and the organization role. Give access to projects and teams afterwards from
 the member's page, `Organization > Members > [Member]`:
@@ -92,10 +91,21 @@ Organization owners and admins have every permission in every project. Project r
 
 ### Environment permissions
 
-Environment permissions apply to app environments of the matching type. For a database that belongs to an environment,
-they also decide backups, restores, deletion, and secret reveal; creating a database and changing its settings or users
-needs `Manage resources`. App-wide settings, creating apps, and other project resources also need `Manage resources`.
-Preview environments use the environment type configured for the app's previews.
+Environment permissions apply to app environments of the matching type. Preview environments use the environment type
+configured for the app's previews.
+
+Some actions need `Manage resources` and an environment permission together:
+
+- Creating an app also needs `Create` for the type of its first environment.
+- Deleting an app also needs `Delete` in every environment of the app.
+- Turning on [preview environments](apps/preview-environments.md), or changing their base environment or environment
+  type, also needs `Configure` and `Shell` on the base environment and `Create` for the type of previews.
+- For a database that belongs to an environment, creating a DB and adding, changing, or deleting database users also
+  need `Configure` in that environment type. Deleting a DB needs `Delete`.
+
+For a database that belongs to an environment, environment permissions also decide backups, restores, deletion, and
+secret reveal. Creating a database, changing its other settings, app-wide settings, and other project resources need
+`Manage resources` only.
 
 | Permission                | Allows                                                                                                         |
 |---------------------------|----------------------------------------------------------------------------------------------------------------|
@@ -103,10 +113,10 @@ Preview environments use the environment type configured for the app's previews.
 | `Logs`                    | Reading application logs.                                                                                      |
 | `Deploy`                  | Running builds and deployments, redeploying, and cancelling them.                                              |
 | `Operate`                 | Restarting, pausing, maintenance mode, and running actions and crons.                                          |
-| `Configure`               | Changing settings, variables, Helm values, resources, routes, ports, endpoint auth, tokens, links, integrations, and schedules. |
-| `Upgrade`                 | Upgrading and reconciling the stack, and moving the environment to another cluster.                            |
-| `Shell`                   | Opening the [web terminal](apps/web-terminal.md), running commands, controlling workspaces, and using workspace agents. A shell exposes the credentials the workload receives. |
-| `Back up`                 | Creating and downloading backups, managing backup presets, and voiding backup files.                           |
+| `Configure`               | Changing settings, variables, Helm values, resources, routes, ports, endpoint auth, tokens, links, integrations, and when cron jobs run. |
+| `Upgrade`                 | Upgrading and reconciling the stack, changing stack auto-upgrade, and moving the environment to another cluster. |
+| `Shell`                   | Opening the [web terminal](apps/web-terminal.md), running commands, setting the commands of cron jobs, controlling workspaces, and using workspace agents. A shell exposes the credentials the workload receives. |
+| `Back up`                 | Creating and downloading backups, importing the environment's backups elsewhere, seeding preview environments from it, managing backup presets, and voiding backup files. |
 | `Restore`                 | Importing data, which replaces existing data.                                                                  |
 | `Create`                  | Creating environments of this type.                                                                            |
 | `Delete`                  | Deleting environments and databases of this type.                                                              |
@@ -162,8 +172,7 @@ Example:
 - team project membership is a custom role that can deploy and upgrade production
 - the user can work in staging, development, test, and feature environments, and deploy and upgrade production
 
-Team access never includes managing the project. Even if older data contains an admin role for a team, Wodby treats that
-team role as `Write` during access checks.
+Team access never includes managing the project.
 
 ### Managing project access
 
@@ -182,10 +191,10 @@ Organization owners/admins and members whose role includes `Manage project` can:
 In the dashboard, only organization owners and admins can pick any member or team to add. Others with `Manage project`
 can change or remove existing memberships and add teams they lead.
 
-!!! warning "`Manage project` has no upper limit"
-    Someone with `Manage project` can give any project role to any membership in that project, including `Admin` for
-    themselves. Give it only to people you would trust with full access to the project, including its production
-    environments and master passwords.
+Members with `Manage project` can only give, change, or remove roles that grant no more than they hold in the project
+themselves. For example, a member whose custom role manages the project but cannot deploy to production cannot make
+anyone an `Admin`, and cannot change or remove an `Admin` membership. The system `Admin` role holds every permission,
+so this limit only affects custom roles. Organization owners and admins are not limited.
 
 ## Secret reveal permissions
 
@@ -210,11 +219,11 @@ organization owners and admins.
 
 The `Reveal secrets` switch is set per membership, on the project's `Access` page or the member's page. If a user has
 several memberships in the same project, secret reveal is allowed when at least one of them allows it. Access through a
-project that merely shares the resource does not grant direct reveal—the permission is evaluated through the resource's
-owner project.
+project that the resource is only shared with does not allow revealing its secrets; only access through the resource's
+owner project counts.
 
-Existing `Write` assignments may initially have `Reveal secrets` turned on to preserve their previous access. Project
-administrators should review those assignments from the project's `Access` page and turn it off where it is not needed.
+`Write` memberships can have `Reveal secrets` turned on. Project administrators should review them from the project's
+`Access` page and turn it off where it is not needed.
 
 Every direct reveal also requires an interactive user session with a recent login or step-up confirmation. Depending
 on the account, Wodby asks for a password, authenticator/recovery code, or a code sent to the verified primary email.
@@ -288,7 +297,7 @@ Access rules:
 
 | Action              | Allowed users                                                                                     |
 |---------------------|---------------------------------------------------------------------------------------------------|
-| Read/use            | Organization owners, admins, support users, or users who can access a project with `Read/Use` or `Modify/Delete` access. Every organization member when the resource is available to all projects |
+| Read/use            | Organization owners, admins, or users who can access a project with `Read/Use` or `Modify/Delete` access. Every organization member when the resource is available to all projects |
 | Modify/delete       | Organization owners and admins                                                                    |
 | Ownership & sharing | Organization owners and admins                                                                    |
 
@@ -306,11 +315,11 @@ Access rules:
 | Modify/delete       | Users whose role in the owner project includes `Manage resources`, plus organization owners/admins. App environments and their databases follow the [environment permissions](#environment-permissions) |
 | Ownership & sharing | Organization owners/admins. For project-owned resources that remain project-owned, users with owner-scope write access can update sharing or owner project when they also have project `Admin` access to every affected project |
 
-Sharing a project-owned resource to another project does not move ownership. A `Read/Use` share grants visibility and use only. A `Modify/Delete` share includes read/use and marks the project-resource link as write-capable for project-scoped ACL checks, but direct resource update/delete mutations still require access through the owner project or organization admin/owner access.
+Sharing a project-owned resource to another project does not move ownership. A `Read/Use` share grants visibility and use only. A `Modify/Delete` share includes read/use and lets the project change the resource where a workflow supports it, but changing or deleting the resource itself still requires access through the owner project or organization admin/owner access.
 
 ## Sharing
 
-Sharing makes a resource visible or usable outside its owner scope. A `Modify/Delete` share also marks the project-resource link as write-capable for workflows that check project-resource access.
+Sharing makes a resource visible or usable outside its owner scope. A `Modify/Delete` share also lets the project change the resource where a workflow supports it.
 
 Use sharing when:
 
@@ -324,7 +333,7 @@ Sharing does not grant project administration rights and does not transfer owner
 Project access entries have two access levels:
 
 - `Read/Use` lets the target project view, select, or reference the resource.
-- `Modify/Delete` includes `Read/Use` and marks the project-resource link as write-capable for workflows that check project-resource access.
+- `Modify/Delete` includes `Read/Use` and lets the project change the resource where a workflow supports it.
 
 For organization-owned resources, only organization owners and admins can change the resource owner or project access list. Changing any resource to organization ownership also requires organization owner/admin access. For project-owned resources that remain project-owned, a user must have resource write access through the owner scope and `Admin` access to each project whose share or owner is changed. Organization owners and admins satisfy these checks across the organization.
 

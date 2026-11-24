@@ -1,4 +1,8 @@
-# WordPress
+---
+description: Deploy WordPress on Wodby with the WordPress catalog stack, which combines a PHP runtime with web, database, shared storage, cache and mail services.
+---
+
+# WordPress stack guide
 
 The Wodby WordPress catalog stack combines a WordPress PHP runtime with its web, database, shared-storage, cache, mail,
 and optional utility services. The current composition and version choices are documented in

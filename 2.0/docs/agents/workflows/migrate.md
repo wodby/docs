@@ -1,3 +1,8 @@
+---
+title: Plan a migration with an AI agent
+description: Walk an AI agent through assessing an application that runs outside Wodby, mapping its components, reviewing the plan and rehearsing before cutover.
+---
+
 # Assess and plan a migration
 
 Use this walkthrough for an application running outside Wodby. Moving an existing Wodby environment between clusters

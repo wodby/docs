@@ -1,4 +1,8 @@
-# Cloud PostgreSQL
+---
+description: The Wodby Cloud PostgreSQL catalog stack declares a PostgreSQL server that runs at a cloud provider, outside the cluster, with no containers of its own.
+---
+
+# Cloud PostgreSQL stack guide
 
 The Wodby Cloud PostgreSQL catalog stack declares a PostgreSQL database server that runs at a cloud provider, outside
 the cluster. It has no containers, volumes, or configuration of its own. The current composition is documented in

@@ -1,4 +1,8 @@
-# GitLab
+---
+description: Connect GitLab to Wodby to build applications from your repositories, with build boilerplates, GitLab CI and preview environments.
+---
+
+# GitLab provider
 
 After connecting your GitLab account you can use your repositories as a build source for applications deployed via Wodby.
 
@@ -58,9 +62,9 @@ GitLab integrations can create [preview environments](../apps/preview-environmen
 - The connected account or token needs the `Maintainer` role on the project, and an access token needs the `api` scope.
   This is more than a build source needs: Wodby adds its webhook to the project and writes statuses and comments on merge
   requests.
-- If Wodby cannot add the webhook, the task shows a warning and Wodby retries every hour. Until the webhook exists, pushes
-  do not start builds or rebuild previews, and `/wodby` commands get no answer. Previews are still created and deleted
-  by the check that runs every 15 minutes.
+- If Wodby cannot add the webhook, the task shows a warning and Wodby keeps retrying. Until the webhook exists, pushes
+  do not start builds or rebuild previews, and `/wodby` commands get no answer. Previews are still created and deleted,
+  but can take up to 15 minutes to follow merge request changes.
 - Wodby reacts to merge requests that target the branch followed by the app's base environment. Merge requests from forks
   are ignored.
 - Each deployment is reported as a `wodby/preview` commit status on the commit it built, and Wodby keeps one comment

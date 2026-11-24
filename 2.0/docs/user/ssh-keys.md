@@ -1,3 +1,7 @@
+---
+description: Add SSH public keys in Wodby user settings. Keys are added to the SSHD app services you can modify and are used by your development workspaces.
+---
+
 # SSH keys
 
 Manage your SSH public keys from `User settings > SSH keys`.

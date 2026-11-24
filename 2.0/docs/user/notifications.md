@@ -1,3 +1,8 @@
+---
+title: Email notifications
+description: Choose which email notifications Wodby sends you for each organization, including cron and backup failures, certificates and weekly reports.
+---
+
 # Notifications
 
 Manage email notification preferences from `User settings > Notifications`.
@@ -27,7 +32,7 @@ Examples include:
 - failed app builds or deployments
 - app creation results
 - cluster creation or connection events
-- successful or failed automatic cluster infrastructure upgrades
+- successful or failed automatic cluster infrastructure and Kubernetes version upgrades
 - automatic service source updates, inherited-service base revision updates, Git-backed stack updates, stack service
   revision updates, origin stack syncs, and app stack upgrades
 - cron job and backup failures and recoveries, plus failed imports, certificate renewals, custom certificate expiration, service actions, or integration installs
@@ -42,7 +47,7 @@ clusters. These notices are separate from optional upgrade result emails and are
 toggles or newsletter preferences.
 
 A notice identifies clusters you can upgrade and explains the required action. The upcoming
-[K3S host CA security update](../clusters/updates.md#k3s-host-ca-security-update-412) applies only to self-hosted K3S
+[K3s host CA security update](../clusters/updates.md#k3s-host-ca-security-update-412) applies only to self-hosted K3s
 servers. Check the cluster's current version and task history before acting: an automatic upgrade may have completed
 since the notice was prepared.
 
@@ -72,13 +77,7 @@ A failed manual cron job or backup still emails the user who started it.
 For automatic Let's Encrypt renewal, Wodby notifies organization admins after every failed attempt. The first email
 uses **Certificate renewal failed**; later failures use **Certificate renewal still failing**.
 
-Retry delays increase with consecutive failures: **1 day, 2 days, 3 days, 4 days, 5 days, 6 days, then 7 days** between
-attempts. Further retries stay seven days apart. A small offset spreads attempts across certificates, and a longer
-certificate-authority retry delay takes precedence. Successful renewal resets the failure history.
-
-If a certificate expires before the next retry, Wodby schedules one additional renewal attempt at expiry, or when the
-app and cluster next become eligible. A later retry time required by the certificate authority still takes precedence.
-After this attempt, the ordinary backoff resumes.
+Wodby keeps retrying, with longer delays after each consecutive failure, up to seven days between attempts.
 
 If the certificate is already expired when a failure email is prepared, its subject says
 **Certificate expired; renewal failed**. The Cloudflare action suffix remains when that attempt confirmed a browser
@@ -111,12 +110,12 @@ when it has been down for 7 days. Turning it off doesn't stop the checks or thei
 
 ## Weekly organization report
 
-The weekly organization report includes an `Automation health` section with enabled cron schedules and automatic
-backup presets whose latest conclusive result is still failed. It also shows ongoing issues when a cron schedule has
-not produced another run eligible for a reminder.
+Organization owners and admins get a weekly email that sums up the organization's previous week: items that need
+attention, failed automation, automatic updates, outdated stacks and clusters, activity, and access and security
+issues.
 
-On the Team and Enterprise plans, the report also lists currently deployed builds with critical or high vulnerabilities.
-See [Vulnerability scanning](../apps/vulnerability-scanning.md#weekly-organization-report).
+To stop or restart it for an organization, use the weekly organization report toggle on this page, or the unsubscribe
+link in the email.
 
 ## Defaults
 

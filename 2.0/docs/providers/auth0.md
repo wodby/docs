@@ -1,4 +1,8 @@
-# Auth0
+---
+description: Use the Auth0 provider in Wodby to inject your Auth0 domain and client credentials into app services and stacks as environment variables.
+---
+
+# Auth0 provider
 
 Auth0 is available in Wodby as a `variable` provider. Use it when you want to inject Auth0 domain and client credentials into app services or stacks through an integration.
 

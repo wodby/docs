@@ -1,4 +1,8 @@
-# Application Observability
+---
+description: Monitor Wodby applications with metrics for clusters, environments, services and pods, view logs, and add an OpenTelemetry Collector to a stack.
+---
+
+# Application observability
 
 ## Monitoring
 
@@ -60,25 +64,26 @@ App environment metrics are available from `Apps > [App] > [Environment] > Metri
 
 That page shows:
 
-- CPU and memory usage
-- CPU and memory requests and limits
+- CPU and memory usage, with its share of the limit, or of the request when only a request is set
 - persistent volume storage usage and capacity for the app environment namespace
 - pod and container readiness
-- restart counts
-- Kubernetes workload summaries for the environment, including service-level storage usage where available
+- a row for each Kubernetes workload, with its service, pods, containers, CPU, memory, and storage usage
+
+Derivative services are listed under their main service. A workload name is shown only for services that run more than
+one workload. See [Resources management](scalability.md#resources-management) for how requests and limits work.
 
 App service metrics are available from `Apps > [App] > [Environment] > Stack > App services > [Service] > Metrics`.
 
 That page shows:
 
-- aggregated CPU and memory usage for the service
+- aggregated CPU and memory usage for the service, with its share of the limit, or of the request when only a request
+  is set
 - persistent volume storage usage and capacity for volumes associated with the service
 - pod readiness
 - per-pod and per-container metrics such as requests, limits, restarts, node placement, and lifecycle timestamps
 
-Storage metrics come from Kubernetes PVC stats. They are available at app environment, app service, and namespace levels.
-Per-pod and per-container tables do not show separate storage usage because PVC usage is reported for volumes rather
-than individual containers.
+Storage metrics are available at app environment, app service, and namespace levels. Per-pod and per-container tables
+do not show separate storage usage because storage usage is measured per volume rather than per container.
 
 If cluster monitoring is disabled, app environment and app-service metrics pages are not available.
 

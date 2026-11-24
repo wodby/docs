@@ -1,3 +1,7 @@
+---
+description: Definitions of Wodby terms such as app, app environment, app service, endpoint, integration, backup preset and preview environment.
+---
+
 # Glossary
 
 ## App
@@ -28,13 +32,13 @@ A network entry point exposed by an app service. In practice, endpoints back HTT
 ## Environment type
 
 A fixed deployment classification chosen from `prod`, `staging`, `test`, `dev`, or `feature`. App environments,
-clusters, databases, integration policies, and backup presets use the same enum.
+clusters, databases, integration policies, and backup presets use the same types.
 
 ## Integration
 
 A configured connection to a third-party service, created from a provider.
 
-## K3S
+## K3s
 
 A lightweight Kubernetes distribution used for self-hosted clusters connected from your own server.
 

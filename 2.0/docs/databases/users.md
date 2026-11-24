@@ -1,3 +1,7 @@
+---
+description: Create database users in Wodby, choose which DBs each user can access, reveal passwords on demand, and delete users you no longer need.
+---
+
 # Database users
 
 From `Databases > [Database] > Users` you can create database users.
@@ -14,6 +18,10 @@ From `Databases > [Database] > Users > [User]` you can:
 - reveal the current password on demand
 - change which DBs the user can access
 - delete the user
+
+Creating, changing, and deleting users requires permission to modify the database. For a database that belongs to an
+app environment, it also requires the `Configure` [permission](../access-control.md#environment-permissions) in that
+environment type.
 
 Revealing the current password requires
 [runtime secret reveal permission](../access-control.md#secret-reveal-permissions) and recent

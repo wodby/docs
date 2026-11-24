@@ -1,3 +1,7 @@
+---
+description: Update a Wodby service from Git or a manifest, turn on auto-update, see how revisions reach stacks, and archive services you no longer need.
+---
+
 # Service updates
 
 Services are versioned. Updating a service creates a new service revision. Stacks that use the service decide when to
@@ -18,6 +22,22 @@ configs, links, integrations, volumes, cron schedules, or other manifest section
 
 The update form is available only on the latest service revision. Older service revisions can be viewed, but they
 cannot be updated from Git.
+
+## Update from a local manifest
+
+Use this for services created from a manifest rather than imported from Git.
+
+Open `Services`, select the service, and go to `Edit`. The `Manual update from manifest` card shows the current
+manifest. Edit it, or select `Read manifest from file` to load an updated `service.yml`. If the manifest references
+local files such as configs or Dockerfiles, add them under `Additional files` with the same paths the manifest uses.
+Set the `Version` of the new revision and click `Update`.
+
+Wodby creates a new service revision from the manifest. Keep in mind:
+
+- The manifest `name` and `type` cannot change.
+- If the manifest matches the current revision, no new revision is created.
+- If you clear `Version`, the new revision keeps the current version.
+- The update form is available only on the latest service revision.
 
 ## Updates to inherited services
 
@@ -44,8 +64,7 @@ the following are true:
 
 After a successful compatible base service revision is published, Wodby imports the inherited service from its tracked
 branch and creates a new inherited service revision. The setting is independent of `Auto update from Git`, so the
-inherited service does not need a new commit. Wodby rebuilds the effective service definition against the compatible
-base revision, and the base service itself does not have to be Git-backed.
+inherited service does not need a new commit. The base service itself does not have to be Git-backed.
 
 Tag-backed, commit-pinned, non-Git-backed, and non-inherited services cannot enable base service auto-update. An exact
 `fromVersion` also remains pinned. Update the inherited service's source or manifest explicitly when it should move to
@@ -63,11 +82,44 @@ not on the `Operations` tab. The delete action is available only on the latest s
 
 A base service cannot be deleted while inherited service revisions reference its revision history.
 
+## Archive a service
+
+Archive a service you no longer need but cannot delete because earlier stack revisions still use it. The stack
+revisions and app environments that already use the service keep working, including deployments and stack upgrades.
+
+An archived service:
+
+- is listed after the services in use on the `Services` page and marked `Archived`
+- cannot be added to a stack, used by a new or copied stack, or used as the base service of another service
+- is not updated from Git, manually or automatically, and its update settings cannot be changed
+- is not scanned for vulnerabilities
+
+To archive a service, open `Services`, select the service, go to `Edit`, and click `Archive service`. To use it again,
+click `Unarchive service` on the same tab. Both actions are available only on the latest service revision.
+
+You cannot archive a service while:
+
+- the current or draft revision of a stack uses it. Remove or replace the service in those stacks first.
+- a service that is not archived inherits from it. Archive or delete that service first.
+
+The error message lists the stacks or services to change. You can still delete an archived service once no stack
+revision uses it.
+
+### Services removed from Git
+
+A Git repository can hold several services. When you remove one of them from the repository, Wodby keeps the service
+at its last revision and archives it the next time the service is updated from Git, if the rules above allow it.
+Otherwise the update task ends with a warning that lists what still uses the service. Wodby does not delete services
+removed from Git.
+
+If the service returns to the repository and the service updates from Git automatically, the next automatic update
+unarchives it and imports the new revision. Otherwise, unarchive the service and update it from Git. A service you
+archived yourself stays archived until you unarchive it.
+
 ## Auto-update from Git
 
 Git-backed services can be updated automatically when a supported Git provider sends a push event for the service
-source. Auto-update uses the same import logic as manual `Update from Git`, but it is started by the webhook instead of
-a dashboard action.
+source. Auto-update works like manual `Update from Git`, but starts on the push event instead of a dashboard action.
 
 The auto-update settings decide which push events are allowed:
 

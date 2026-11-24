@@ -1,3 +1,8 @@
+---
+title: Services
+description: A service is the reusable definition of one part of an application in Wodby. Learn the service model, authoring, runtime behavior and operations.
+---
+
 # Service
 
 ## Overview

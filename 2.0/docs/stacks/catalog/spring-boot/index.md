@@ -1,4 +1,8 @@
-# Spring Boot
+---
+description: Deploy a Spring Boot application with PostgreSQL on Wodby with the Spring Boot catalog stack and optional Valkey, Mailpit, OpenSMTPD and Gotenberg.
+---
+
+# Spring Boot stack guide
 
 The Wodby Spring Boot catalog stack runs a Spring Boot app service with PostgreSQL, and optional
 Valkey, Mailpit, OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented
@@ -74,8 +78,8 @@ schema.
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail settings without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the

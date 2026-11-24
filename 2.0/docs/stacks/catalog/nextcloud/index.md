@@ -1,4 +1,8 @@
-# Nextcloud
+---
+description: Deploy Nextcloud file storage and sharing on Wodby with the Nextcloud catalog stack, which runs it with PostgreSQL, Redis and an optional mail relay.
+---
+
+# Nextcloud stack guide
 
 The Wodby Nextcloud catalog stack runs [Nextcloud](https://nextcloud.com/) file storage and sharing with PostgreSQL,
 Redis, and an optional OpenSMTPD mail relay. Nextcloud uses the official Nextcloud Apache image. The current composition
@@ -39,9 +43,19 @@ client address headers Nextcloud trusts. Do not enter a range wider than your cl
 
 ## Background jobs
 
-A cron container in the Nextcloud pod runs Nextcloud's background jobs every five minutes. On the first run, Nextcloud
-switches its background jobs setting to **Cron**. You do not need a Wodby [cron schedule](../../../apps/cron.md). Keep
+Wodby runs Nextcloud's background jobs every five minutes. On the first run, Nextcloud switches its background jobs
+setting to **Cron**. You do not need a Wodby [cron schedule](../../../apps/cron.md). Keep
 **Cron** selected under **Administration settings > Basic settings > Background jobs**.
+
+Heavy daily background jobs run in a six-hour maintenance window, from 01:00 to 07:00 UTC by default. To move it to
+your quietest hours, set **Maintenance window start** on the Nextcloud service to the starting hour in UTC, from `0` to
+`23`, then deploy the Nextcloud service. Leave the setting empty to let these jobs run at any time. The setting takes
+precedence over a maintenance window set with an [occ command](#run-occ-commands).
+
+## Phone numbers
+
+To let people enter phone numbers in their profile without a country code, set **Default phone region** on the
+Nextcloud service to a two-letter country code, such as `US` or `DE`, then deploy the Nextcloud service.
 
 ## Mail delivery
 
@@ -76,17 +90,23 @@ guide](../redis/index.md).
 
 ## Object storage for files
 
-Nextcloud can store file contents in Amazon S3, Cloudflare R2, or Backblaze B2 instead of the Nextcloud volume. Set it
-up before the first deployment:
+Nextcloud can store file contents in Amazon S3, Cloudflare R2, Backblaze B2, Wasabi, or an S3-compatible service
+instead of the Nextcloud volume. Set it up before the first deployment:
 
 1. Create an empty bucket used only by this app environment's Nextcloud. For Amazon S3, create it in the region selected
    in the AWS integration.
-2. Create an [AWS](../../../providers/aws.md#s3), [Cloudflare R2](../../../providers/cloudflare.md#r2), or
-   [Backblaze B2](../../../providers/backblaze.md#b2-cloud-storage) integration whose credentials can read, write, and
-   delete objects in that bucket.
+2. Create an [AWS](../../../providers/aws.md#s3), [Cloudflare R2](../../../providers/cloudflare.md#r2),
+   [Backblaze B2](../../../providers/backblaze.md#b2-cloud-storage), [Wasabi](../../../providers/wasabi.md#object-storage),
+   or [S3-compatible](../../../providers/s3-compatible.md#object-storage) integration whose credentials can read,
+   write, and delete objects in that bucket.
 3. On the Nextcloud service, attach the integration to **S3 primary storage** on the
    [Integrations tab](../../../apps/services.md#integrations-tab) and enter the bucket name in the **S3 bucket**
    setting. Nextcloud uses the bucket only when both are set.
+4. For Wasabi or an S3-compatible service, enter the bucket's region in the **S3 region** setting, for example
+   `eu-central-1`. Leave it empty for `us-east-1`. The other providers take the region from their integration.
+
+To use a bucket with an installation that already has files, mount it as a folder instead with Nextcloud's
+**External storage support** app, under **Administration settings > External storage**.
 
 !!! warning "Data loss"
     Do not enable object storage on an installation that already has files: files stored on the volume become
@@ -138,8 +158,13 @@ minutes before the container is restarted.
 - Apps that are not compatible with the new version are disabled during the upgrade. The Nextcloud service log lists
   them.
 
+After the first installation and after each upgrade, Wodby adds the optional database indices and runs the file type
+migrations that Nextcloud reports on **Administration settings > Overview**. After an upgrade they run while Nextcloud
+serves requests, which can take a while on a large installation.
+
 ## Limits
 
-- Nextcloud runs as one replica, and the old pod stops before the new one starts. Nextcloud is unavailable while its
-  service is deployed.
+- Nextcloud runs as one replica. Nextcloud is unavailable while its service is deployed.
 - The stack does not include an online office server, such as Collabora Online.
+- The stack does not include a deploy daemon for external apps (ExApps), so AppAPI is turned off on new installations.
+  Enable it in Nextcloud after you register a deploy daemon.

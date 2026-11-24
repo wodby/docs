@@ -1,4 +1,8 @@
-# HSTS
+---
+description: Wodby 1 applications send the HSTS header by default so browsers use only HTTPS. Configure HSTS per domain or clear it from Chrome.
+---
+
+# HSTS (HTTP Strict Transport Security)
 
 HSTS (HTTP Strict Transport Security) is a security feature that lets a web site tell browsers that it should only be communicated with using HTTPS, instead of using HTTP. Read more details on [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security).
 

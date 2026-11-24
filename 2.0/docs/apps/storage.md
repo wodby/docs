@@ -1,6 +1,10 @@
-# Application Persistent Storage
+---
+description: Choose and change storage classes for the persistent volumes of your app services on managed Kubernetes and K3s clusters in Wodby.
+---
 
-Persistent storage options depend on the type of cluster you run: [managed Kubernetes](../clusters/managed.md) or [K3S](../clusters/k3s.md).
+# Application persistent storage
+
+Persistent storage options depend on the type of cluster you run: [managed Kubernetes](../clusters/managed.md) or [K3s](../clusters/k3s.md).
 
 ## Choose a storage class
 
@@ -38,9 +42,8 @@ storage-class rules apply. Adding the volume marks the app service and environme
 provisioned by the subsequent deployment. Once added, the volume cannot be resized, removed, or moved to another class
 from app-service settings.
 
-When an app and its cluster are created together, the cluster inventory is not available yet. Wodby leaves the class
-unset so Kubernetes can apply the cluster default after the cluster becomes ready. The dashboard reports this in the
-disabled selector until the cluster is provisioned.
+When an app and its cluster are created together, the volume uses the cluster's default storage class once the cluster
+is ready. The dashboard reports this in the disabled selector until the cluster is provisioned.
 
 When you copy settings from another app environment, Wodby copies a volume's class only when that class is selectable on
 the destination cluster. Otherwise the dashboard uses the destination cluster's sole selectable default or requires a
@@ -61,11 +64,13 @@ class used by the volume and warns if it differs from your selection or cannot b
 Refresh the app-service volume state after provisioning or a cluster storage change if the result is temporarily
 unknown.
 
+To see every volume on a cluster with its usage and owner, open the cluster's [Storage tab](../clusters/storage.md).
+
 ## Changing a storage class
 
-You can choose a class for a new volume during app creation or when adding an omitted optional volume later, but
-Kubernetes does not allow changing `storageClassName` on an existing bound PVC. Updating an app or upgrading its stack
-therefore does not move existing volume data to another class.
+You can choose a class for a new volume during app creation or when adding an omitted optional volume later, but the
+class of an existing volume cannot be changed. Updating an app or upgrading its stack does not move existing volume data
+to another class.
 
 Moving existing data to another class on the same cluster requires a separate migration: provision replacement storage,
 copy or restore the data, verify the new workload, and only then remove the old claim. Wodby does not currently automate
@@ -75,9 +80,9 @@ When moving the entire app environment to another cluster, Wodby's
 [app environment cluster migration](migration.md) restores supported root-volume data onto the storage classes selected
 for the target cluster.
 
-When a stack upgrade introduces a new volume, Wodby reuses one class already configured consistently across existing
-owned volumes when possible. Otherwise it uses the cluster's one selectable default. The upgrade stops before making
-changes if the live storage-class inventory cannot be refreshed or the choice is ambiguous.
+When a stack upgrade introduces a new volume, Wodby uses the class that the environment's existing volumes share when
+possible. Otherwise it uses the cluster's single default class. The upgrade stops before making changes if Wodby cannot
+read the cluster's storage classes or the choice is ambiguous.
 
 ## Storage types
 
@@ -90,23 +95,21 @@ Block storage is typically single-writer and attached to one node at a time.
 
 ### Local storage
 
-Local storage is typical for K3S clusters. By default, persistent volume claims use storage from the server where the
+Local storage is typical for K3s clusters. By default, persistent volume claims use storage from the server where the
 app service is running. New app creation, deployments that can create persistent volume claims, app-service backups,
 and imports perform a
 [storage-capacity preflight](../clusters/k3s.md#disk-capacity-and-persistent-volumes) before storage work begins.
 
-For a new app on an existing K3S cluster, Wodby adds the requested sizes of enabled, physical local-path volumes and
-checks them against measured free space after keeping a 10% host-disk safety reserve. It also compares the combined
-size claimed by existing and requested local-path volumes with usable host capacity. Shared volumes, volumes that reuse
-another claim, disabled services, and unselected optional volumes do not add another allocation. Wodby repeats the
-check in a deployment task immediately before it can create claims, including after an optional volume is added to an
-existing app service; retries exclude claims that already exist.
+For a new app on an existing K3s cluster, Wodby checks that the requested sizes of the new local volumes fit in the
+server's free disk space while keeping 10% of the disk in reserve. It also compares the combined size of existing and
+requested local volumes with the disk's usable capacity. Shared volumes, volumes that reuse another volume, disabled
+services, and unselected optional volumes are not counted. Wodby repeats the check before a deployment creates volumes,
+including after an optional volume is added to an existing app service.
 
-When the requested allocation does not fit in measured free space after the safety reserve, or Kubernetes reports
-`DiskPressure`, Wodby stops creation or deployment with an error. If only the combined claimed volume sizes exceed
-usable capacity, Wodby warns and continues because claims are maximum sizes rather than current disk usage. If K3S
-cannot report authoritative host-filesystem capacity, or a selected storage class uses a provisioner without a
-capacity resolver, Wodby also warns and continues instead of treating unknown capacity as zero.
+When the requested volumes do not fit in free space after the reserve, or Kubernetes reports `DiskPressure`, Wodby
+stops creation or deployment with an error. If only the combined volume sizes exceed usable capacity, Wodby warns and
+continues, because volume sizes are maximums rather than current disk usage. If the disk capacity cannot be determined,
+Wodby also warns and continues.
 
 ### Distributed storage
 

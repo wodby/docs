@@ -1,4 +1,8 @@
-# Go
+---
+description: Deploy a Go application on Wodby with the Go catalog stack, a Go app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD and Gotenberg.
+---
+
+# Go stack guide
 
 The Wodby Go catalog stack runs a Go app service with optional PostgreSQL, Valkey, Mailpit, OpenSMTPD, Gotenberg, and
 Cloud PostgreSQL services. The current services and defaults are documented in
@@ -45,8 +49,8 @@ Gotenberg has no link. Its address is `http://gotenberg:3000`; put it in your ow
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail transport without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the

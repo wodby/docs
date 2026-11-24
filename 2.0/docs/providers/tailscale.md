@@ -1,8 +1,12 @@
-# Tailscale
+---
+description: Connect Tailscale to Wodby for Private App Access to an app, or to run a persistent Tailscale Node service as part of an app stack.
+---
+
+# Tailscale provider
 
 Tailscale supports two separate integration types in Wodby:
 
-- `application_access` publishes an app or selected HTTP endpoints through a Wodby-managed connector.
+- `application_access` publishes an app or selected HTTP endpoints to your tailnet.
 - `vpn` supplies credentials to a persistent Tailscale Node service deployed as part of an app stack.
 
 Both use the same Tailscale provider and OAuth setup, but they have different lifecycles. Private App Access is managed
@@ -32,19 +36,19 @@ console's DNS page.
 
 ## Private App Access
 
-Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Settings > Access`. Choose the
+Select Protected mode during app creation, or open `Apps > [App] > [Environment] > Endpoints > Private App Access`. Choose the
 Tailscale integration and either Entire app or Selected endpoints scope.
 Tailscale provides the Private network access type automatically; there is no separate protected-publishing type.
 
 Wodby assigns one endpoint hostname for each distinct enabled external HTTP destination from the app, service, port,
-and tailnet names. It creates and retires the tagged Tailscale devices and manages the connector credentials. There is
+and tailnet names. It creates and removes the tagged Tailscale devices. There is
 no DNS-zone, policy, or primary-hostname input in Wodby because access is governed by your tailnet and Tailscale access
 controls.
 
-When access is removed or the app environment is deleted, Wodby removes each endpoint connector, tagged device, auth key,
-and Wodby-held auth-key secret. Wodby does not remove the `wodby` tag, MagicDNS settings, HTTPS certificate setting, or
-your tailnet access rules. Temporary cluster or Tailscale API failures are retained as retryable cleanup obligations on
-the integration page; keep the integration credentials available until cleanup finishes.
+When access is removed or the app environment is deleted, Wodby removes the tagged devices and auth keys it created.
+Wodby does not remove the `wodby` tag, MagicDNS settings, HTTPS certificate setting, or your tailnet access rules. If
+cleanup fails because of a temporary error, the integration page shows the pending cleanup and Wodby retries it; keep
+the integration credentials available until cleanup finishes.
 
 Tailscale Private App Access endpoints are not published through Wodby's public gateway. A service port's `private`
 flag alone does not create a Tailscale hostname; configure Private App Access explicitly for the app environment.
@@ -71,7 +75,7 @@ This is different from Private App Access. The node is visible and configurable 
 exist without publishing one of the app's HTTP endpoints. Removing Private App Access does not remove a standalone
 Tailscale Node, and deleting the node service does not change an app environment's Access setting.
 
-OpenClaw uses Private App Access and no longer embeds the Tailscale service. The standalone Tailscale stack and custom
+OpenClaw uses Private App Access, not a Tailscale Node. The standalone Tailscale stack and custom
 node-oriented stacks continue using the `vpn` integration type.
 
 ## Related pages

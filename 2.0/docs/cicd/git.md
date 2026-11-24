@@ -1,3 +1,7 @@
+---
+description: Connect a Git repository from GitHub, GitLab or Bitbucket as the build source of an app service, and choose the branch, tag or commit to build.
+---
+
 # Git repository
 
 Start by creating a Git integration from a supported Git provider such as [GitHub](../providers/github.md),
@@ -19,6 +23,7 @@ app service are not shared with other app services.
 If you use [Wodby CI](wodby-ci.md), keep the pipeline definition in the repository itself:
 
 - `.wodby/pipeline.yml`
+- `.wodby/pre-deployment.yml` (optional)
 - `.wodby/post-deployment.yml` (optional)
 
 If you use [third-party CI](third-party.md), keep the provider-native config in the repository root, for example:

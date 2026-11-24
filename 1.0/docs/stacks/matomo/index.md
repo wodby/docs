@@ -1,4 +1,8 @@
-# Matomo stack documentation
+---
+description: "Set up Matomo analytics on Wodby 1: database credentials, geolocation, customization, Redis, mail delivery, cron and the stack changelog."
+---
+
+# Matomo stack guide
 
 ## Setup
 
@@ -78,6 +82,38 @@ By default we run the following cron command from [crond container](#crond) ever
 ## Changelog
 
 This changelog is for Matomo stack on Wodby, to see image changes see tags description on [repository page](https://github.com/wodby/matomo/releases).
+
+### 1.4.23
+
+- Matomo PHP runtime:
+    - ⬆️ PHP 8.2.36 with [security fixes](https://www.php.net/ChangeLog-8.php#8.2.36), including request smuggling into PHP-FPM and use-after-free bugs that can let an attacker run code on the server
+    - 📜 Session upload progress is now off by default, because PHP 8.2.36 refuses session setting changes at runtime while it is on, which Matomo makes
+- ⬆️ PHP 8.4.28 with [security fixes](https://www.php.net/ChangeLog-8.php#8.4.28) in Adminer
+
+### 1.4.22
+
+- 🐞 Fixed deployments of existing Matomo sites failing after the update to 1.4.21 with `rm: can't remove '/var/www/html/plugins/CoreConsole/Commands/GenerateAngularComponent.php'`. If a deployment failed, Matomo asks for a database upgrade. Upgrade the instance to this stack version to complete it
+
+### 1.4.21
+
+- ⬆️ Matomo 5.14.3
+- Matomo PHP runtime:
+    - ⭐️ Added the sysvsem, sysvshm and sysvmsg extensions that ship with PHP. They let PHP processes in one container share locks, memory and message queues
+    - ⬆️ MongoDB extension 2.5.7 with security fixes in its bundled client libraries (CVE-2026-120954, CVE-2026-120678, CVE-2026-114655)
+    - ⬆️ Event extension 3.2.0, which fixes heap buffer overflows in `EventBuffer::read()`, `copyout()` and `pullup()`
+    - ⬆️ OpenTelemetry extension 1.5.0, which fixes a crash in instrumentation hooks
+    - ⬆️ Brotli extension 0.21.1
+    - ⬆️ ast extension 1.1.4
+    - 🐞 Fixed security issues in the PostgreSQL client library used by the `pgsql` and `pdo_pgsql` extensions: libpq 18.7 fixes 52 CVEs, including CVE-2026-6460, CVE-2026-6467, CVE-2026-14661 and CVE-2026-18447
+- 🏔️ Alpine Linux updates for the Matomo PHP runtime, including a zlib security fix (CVE-2026-4738)
+
+### 1.4.20
+
+- ⬆️ MariaDB 10.11.20
+- ⬆️ Nginx 1.31.9, 1.30.7 with fixes for the [nginx2root](https://xint.io/blog/nginx2root-remote-code-execution) remote code execution vulnerabilities (CVE-2026-123007, CVE-2026-123633, CVE-2026-121810, CVE-2026-123634, CVE-2026-113425) and other [security issues](https://nginx.org/en/security_advisories.html)
+- Adminer:
+    - ⬆️ Apache 2.4.71 with security fixes (CVE-2026-119618, CVE-2026-106023, CVE-2026-109163)
+- 🏔️ Alpine Linux updates for MariaDB and Nginx, including a zlib security fix (CVE-2026-4738)
 
 ### 1.4.19
 

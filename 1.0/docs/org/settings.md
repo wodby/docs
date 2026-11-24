@@ -1,3 +1,7 @@
+---
+description: Set how long Wodby 1 keeps images of unused CI builds for all apps in an organization, and manage connected AI agents.
+---
+
 # Organization settings
 
 Organization owners and administrators can open `Organization > Settings > Builds` to configure the default retention period for unused CI build images.

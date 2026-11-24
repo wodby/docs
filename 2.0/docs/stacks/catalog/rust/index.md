@@ -1,4 +1,8 @@
-# Rust
+---
+description: Deploy a Rust application, such as an axum web app, on Wodby with the Rust catalog stack on the latest stable Rust release, with optional PostgreSQL.
+---
+
+# Rust stack guide
 
 The Wodby Rust catalog stack runs a Rust app service on the latest stable Rust release, with optional PostgreSQL,
 Valkey, Mailpit, OpenSMTPD, Gotenberg, and Cloud PostgreSQL services. The current services and defaults are documented
@@ -56,8 +60,8 @@ Gotenberg has no link. Its address is `http://gotenberg:3000`; put it in your ow
 ## Mail
 
 Mailpit captures every message and delivers none, so use it for development and testing. Its public domains are
-protected by basic auth by default. Find the password under **Endpoints > Auths**, see
-[Endpoints](../../../apps/endpoints.md#auths). Mailpit accepts SMTP without authentication or TLS, so configure the
+protected by basic auth by default. Find the password under **Endpoints > Basic Auth**, see
+[Endpoints](../../../apps/endpoints.md#basic-auth). Mailpit accepts SMTP without authentication or TLS, so configure the
 application's mail client without them.
 
 For real delivery, enable OpenSMTPD, point the app service's mail link to it, and attach an SMTP provider. See the

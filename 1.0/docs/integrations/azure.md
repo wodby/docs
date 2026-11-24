@@ -1,4 +1,8 @@
-# Azure
+---
+description: Create an Azure virtual machine with a supported operating system and connect it to Wodby 1 as a server for your applications.
+---
+
+# Azure integration
 
 ## Connecting virtual machine
 

@@ -1,3 +1,7 @@
+---
+description: Kubernetes providers let Wodby create and manage a managed Kubernetes cluster in your own cloud account. Use cases and supported providers.
+---
+
 # Kubernetes providers
 
 Kubernetes providers are third-party services whose integrations expose the `kubernetes` type. Use this group when you want Wodby to create and manage a managed Kubernetes cluster inside your cloud account.
@@ -8,7 +12,7 @@ Use a Kubernetes provider when:
 
 - you want Wodby to provision a managed Kubernetes cluster in your own cloud account
 - you want cluster lifecycle operations to stay tied to a provider-backed integration
-- you want to deploy apps to managed Kubernetes rather than to Wodby Cloud or K3S
+- you want to deploy apps to managed Kubernetes rather than to Wodby Cloud or K3s
 
 ## Where it is used in Wodby
 
@@ -27,9 +31,10 @@ Kubernetes integrations are used for:
 | [Google Cloud Platform](gcp.md#gke) | GKE |
 | [DigitalOcean](digitalocean.md#doks) | DOKS |
 | [OVH EU, OVH CA, OVH US](ovh.md#kubernetes) | Managed Kubernetes |
+| [UpCloud](upcloud.md#kubernetes) | Managed Kubernetes |
 
 - Use [Wodby Cloud](../clusters/wodby-cloud.md) or [Demo Cluster](../clusters/demo.md) when you do not want to bring your own cloud account.
-- Use [K3S](../clusters/k3s.md) when you want to connect your own server instead of provisioning a managed Kubernetes service.
+- Use [K3s](../clusters/k3s.md) when you want to connect your own server instead of provisioning a managed Kubernetes service.
 
 ## Related pages
 

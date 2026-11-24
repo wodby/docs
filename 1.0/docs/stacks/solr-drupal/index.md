@@ -1,4 +1,8 @@
-# Solr for Drupal stack documentation
+---
+description: Run Solr for Drupal Search API on Wodby 1, with cores created from the module's config set, Solr Cloud with ZooKeeper and authentication.
+---
+
+# Solr for Drupal stack guide
 
 The only difference from the generic Solr stack is that core created with a config set from [Search API Solr module](https://www.drupal.org/project/search_api_solr) by default.
 

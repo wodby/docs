@@ -1,3 +1,7 @@
+---
+description: Projects isolate resources by default. Learn how ownership and sharing make a Wodby resource available to other projects, and what sharing does not do.
+---
+
 # Ownership and sharing
 
 Projects isolate resources by default. Sharing is how a resource becomes visible or usable outside its owner scope.
@@ -9,7 +13,7 @@ additional owner-approved flow for use across Wodby organizations; see
 Sharing works together with [access control](access-control.md):
 
 - ownership decides who can directly modify or delete a resource
-- sharing decides where the resource can be seen and used, and whether the project-resource link is read-only or write-capable
+- sharing decides where the resource can be seen and used, and whether each project can only use it or can also change it
 
 ## What sharing does
 
@@ -30,7 +34,7 @@ A share never changes the resource owner.
 
 | Ownership scope | Who can directly modify/delete the resource | Who can read/use it | Who can change ownership/sharing |
 | --- | --- | --- | --- |
-| Organization-owned | Organization owners/admins | Organization owners, admins, support users, and users in shared projects. Every organization member when the resource is [available to all projects](#make-a-resource-available-to-all-projects) | Organization owners/admins |
+| Organization-owned | Organization owners/admins | Organization owners, admins, and users in shared projects. Every organization member when the resource is [available to all projects](#make-a-resource-available-to-all-projects) | Organization owners/admins |
 | Project-owned | Users whose role in the owner project includes `Manage resources`, plus organization owners/admins | Users who can access the owner project or any shared project | Organization owners/admins. If the resource remains project-owned, users with owner-scope write access can update sharing or owner project when they also have project `Admin` access to every affected project |
 
 Project shares do not transfer ownership and do not grant project administration rights. Changing any resource to organization ownership requires organization owner/admin access.
@@ -42,9 +46,9 @@ On the resource's `Ownership` page, project access is controlled with two column
 | Access level | Meaning |
 | --- | --- |
 | `Read/Use` | Users in the project can view, select, or reference the resource in supported workflows. |
-| `Modify/Delete` | Includes `Read/Use` and marks the project-resource link as write-capable for workflows that check project-resource access. Users still need write-level access in that project. |
+| `Modify/Delete` | Includes `Read/Use` and lets the project change the resource in workflows that support changes to shared resources. Users still need write-level access in that project. |
 
-Neither access level transfers ownership. A `Modify/Delete` share to a non-owner project does not by itself authorize direct resource update/delete mutations or allow the target project to change the resource owner or sharing settings.
+Neither access level transfers ownership. A `Modify/Delete` share to a non-owner project does not by itself allow updating or deleting the resource directly, or allow the target project to change the resource owner or sharing settings.
 
 ## Read/use access
 
@@ -87,14 +91,14 @@ Sharing does not:
 
 - transfer ownership
 - grant project admin access
-- authorize direct resource update/delete mutations from a non-owner project
+- allow a non-owner project to update or delete the resource directly
 - allow the target project to change ownership or sharing
 - let project members bypass their project role; `Modify/Delete` still requires write-level access in that project
 - bypass resource-specific compatibility, status, provider, or type checks
 
 ## Supported resource types
 
-The ACL model supports ownership and sharing for:
+Ownership and sharing are supported for:
 
 - apps
 - Kubernetes clusters
@@ -113,7 +117,7 @@ Open the resource and go to `Ownership`. For a container-based database, open it
 The `Ownership` card has two areas:
 
 - `Owner` controls the resource owner.
-- `Project access` controls which projects can use the resource, and whether each project-resource link is read-only or write-capable.
+- `Project access` controls which projects can use the resource, and whether each project can only use it or can also change it.
 
 In `Owner`, the `Owned by` field can be:
 
@@ -125,7 +129,7 @@ When a resource is project-owned, the owner project is always included in projec
 In `Project access`, choose:
 
 - `Read/Use` when the project should be able to see and select the resource
-- `Modify/Delete` when the project-resource link should be write-capable where supported
+- `Modify/Delete` when the project should also be able to change the resource where supported
 
 For an organization-owned cluster, integration, stack, or service, `Available to` sets whether the resource is
 available to `Selected projects` or to `All projects`. See
@@ -145,7 +149,7 @@ Projects are grouped under `Projects` in the selector.
 When the organization is the owner of a new cluster, integration, stack, or service, select
 `Available to all projects` to let every project use it without sharing it project by project.
 
-The selected owner also controls which existing organization/project-scoped resources can be referenced. This applies
+The selected owner also controls which existing resources can be referenced. This applies
 when selecting a stack or cluster for an app, attaching integrations or databases, choosing a backup destination,
 copying configuration, and using other resource-backed settings.
 
@@ -156,7 +160,7 @@ copying configuration, and using other resource-backed settings.
 
 For a project-owned target, an organization-owned resource must be shared with the owner project or available to all
 projects. Your personal access to the resource through organization administration or another project does not replace
-that. `Read/Use` access is sufficient unless the workflow specifically requires a write-capable relationship.
+that. `Read/Use` access is sufficient unless the workflow specifically requires `Modify/Delete`.
 
 For an organization-owned target, a project-owned resource is not valid even when an organization owner or admin can
 access both. Move the dependency to organization ownership or choose another organization-owned dependency first.
@@ -190,9 +194,9 @@ For example, Wodby rejects an update that would:
 - move a dependency to project ownership while an organization-owned target still uses it
 - move a project-owned target to a project where its dependency is not shared
 
-App environment CI and registry selections are references too. A pending or active build retains its CI reference, and a
-non-voided build image retains its registry reference. Backup presets and backup records retain their
-storage-integration reference until those records are removed.
+App environment CI and registry selections are references too. A pending or active build still uses its CI integration,
+and a build image that is not voided still uses its registry. Backup presets and backups use their storage integration
+until they are removed.
 
 Before removing a project share or moving a resource to another owner project:
 

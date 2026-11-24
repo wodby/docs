@@ -1,3 +1,7 @@
+---
+description: Variable integrations store third-party credentials and settings once and inject them as environment variables into app services and stacks.
+---
+
 # Variable integration
 
 Variable integrations let you manage third-party credentials and configuration as reusable provider-backed environment variables.
