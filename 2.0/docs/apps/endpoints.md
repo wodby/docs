@@ -312,15 +312,47 @@ Supported route settings are:
 | `backend_request_timeout` | Gateway API duration such as `30s`, `5m`, or `1h`; `0s` disables the timeout |
 | `rate_limit_per_ip` | positive request count per period, such as `300/minute`; each client IP has a separate limit |
 | `rate_limit_total` | positive request count per period, such as `1000/second`; all clients share the route limit |
+| `origin_access` | `any` (default) or `cloudflare`; see [Origin access](#origin-access) |
 
-Domains support every setting in this table. Redirects support `https_redirect`, `no_index`, and `hsts`; settings that
-depend on an application backend are not available for redirects. Domain and redirect options are grouped separately
-when you select an override target.
+Domains support every setting in this table. Redirects support `https_redirect`, `no_index`, `hsts`, and
+`origin_access`; settings that depend on an application backend are not available for redirects. Domain and redirect
+options are grouped separately when you select an override target.
 
 ### HTTPS redirect
 
 With `https_redirect` set to `true`, the gateway redirects plain HTTP requests to HTTPS. With `false`, a domain that has
 a TLS certificate serves the app over both HTTP and HTTPS, with the same settings and basic authentication.
+
+### Origin access
+
+Origin access controls who can connect to a domain over HTTPS. With the default, `any`, every client can connect. With
+`cloudflare`, the domain accepts HTTPS only from Cloudflare, so visitors and bots that find your cluster's IP address
+cannot bypass Cloudflare's firewall, rate limiting, and bot rules. Direct requests are refused before they reach your
+app, including your own requests for debugging.
+
+Before you set `cloudflare`:
+
+- Proxy the domain through Cloudflare (orange cloud) with the SSL/TLS encryption mode **Full** or **Full (strict)**.
+- Turn on **global** Authenticated Origin Pulls for the Cloudflare zone, which uses Cloudflare's own certificate.
+  Zone-level and per-hostname Authenticated Origin Pulls with your own certificate are not supported.
+- Keep `https_redirect` set to `true`. Wodby rejects `cloudflare` when HTTPS redirect is turned off, because the app
+  would also answer plain HTTP requests that do not come through Cloudflare.
+
+If the domain is not proxied by Cloudflare or Authenticated Origin Pulls is off, the domain stops working for everyone.
+To recover, set origin access back to `any`.
+
+Origin access applies to the whole domain, so every path of the same domain must use the same value. Set it on each
+domain that is proxied by Cloudflare rather than as an app environment default: an environment default also applies
+to the environment's technical domains, which Cloudflare does not proxy, so they would become unreachable.
+
+Origin access needs app-managed routing, which app environments get through
+[routing deployments](deploys.md#routing-deployments) on clusters with infrastructure version `4.0.0` or newer. An app
+environment that still uses legacy routing, for example one that has not finished `Migrating routing`, rejects
+`cloudflare`.
+
+The domain keeps answering plain HTTP with a redirect to HTTPS, and Let's Encrypt certificates keep renewing. Until
+the domain has its first TLS certificate, Wodby does not serve the app on it. Cloudflare's certificate proves that a
+request comes through Cloudflare, not that it comes from your Cloudflare account.
 
 ### Request rate limits
 
