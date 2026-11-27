@@ -26,6 +26,17 @@ Infrastructure 7 is the default for newly connected servers. It supports fresh U
 
 Infrastructure 7 is not an in-place upgrade for Infrastructure 6. To move an existing server to Infrastructure 7, connect a fresh supported host and migrate or redeploy the applications to it.
 
+#### Connections between instances
+
+On Infrastructure 7, the services of an instance accept connections only from the same instance and from Edge. Another instance on the same server, of the same app or a different one, can't connect to them through their internal hostname. Infrastructure 6 doesn't isolate instances, so check these connections before you move apps to Infrastructure 7.
+
+To use a service, such as Solr or Redis, from another instance on Infrastructure 7, do one of the following:
+
+- Add the service to the stack of the instance that uses it.
+- [Publish the service's port](../stacks/config.md#ports) and connect to the published address: the technical domain for an HTTP port published through Edge, or the server's IP address and the generated port for a TCP port. If the server is behind NAT and its public IP address doesn't work from the server itself, use its private IP address.
+
+A published port accepts connections from anywhere your firewall allows. Protect the service with a password, and allow only the addresses that need it in your firewall.
+
 ### Infrastructure 6
 
 Infrastructure 6 is the legacy line used by existing Wodby 1 servers. Do not run the Infrastructure 7 installer on an existing Infrastructure 6 server.

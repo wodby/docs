@@ -61,7 +61,7 @@ Solr core: [NAME OF YOUR CORE (usually "default")]
 
 If your Solr config set version is older than `search_api_solr 8.x-3.0` you should specify `/solr` as a solr path.
 
-If you're connecting externally to the solr server you can use a technical domain as your host and port `80` (exposed via edge). If you're connecting from the same server but a different application you can use `Internal hostname` that can be found on `App instance > Stack > [Solr Service]` page.
+If you're connecting externally to the solr server you can use a technical domain as your host and port `80` (exposed via edge). If you're connecting from the same server but a different application you can use `Internal hostname` that can be found on `App instance > Stack > [Solr Service]` page. On Infrastructure 7, use the technical domain instead: instances can't connect to each other through their internal hostname. See [Connections between instances](../../infrastructure/index.md#connections-between-instances).
 
 ### Drupal 7
 
@@ -75,7 +75,7 @@ Solr path: /solr/[NAME OF YOUR CORE]
 ```
 
 !!! warning "Different hostname for stand-alone stacks"
-    If you use a stand-alone Solr for Drupal stack for `Solr host` use `Internal hostname` from `[Instance] > Stack > Search Engine` page in case Drupal and Solr stacks deployed on the same server. 
+    If you use a stand-alone Solr for Drupal stack for `Solr host` use `Internal hostname` from `[Instance] > Stack > Search Engine` page in case Drupal and Solr stacks deployed on the same server. On Infrastructure 7, use the Solr technical domain and port `80` instead. See [Connections between instances](../../infrastructure/index.md#connections-between-instances).
 
 ## Changelog
 
