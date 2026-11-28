@@ -4,9 +4,8 @@ description: Wodby checks custom domains from outside once a minute and alerts y
 
 # Uptime checks
 
-Wodby requests your custom domains once a minute from outside Wodby, from more than one location. If a domain stops
-answering, Wodby records a task on the app environment and emails your organization admins. It does the same when the
-domain comes back.
+Wodby requests your custom domains once a minute from outside Wodby. If a domain stops answering, Wodby records a task
+on the app environment and emails your organization admins. It does the same when the domain comes back.
 
 Uptime checks are available on paid plans. You don't need to set anything up: a check starts automatically once a
 domain has resolved.
@@ -60,7 +59,7 @@ A check fails when:
 - the TLS certificate can't be verified, for example because it expired or doesn't cover the hostname
 - the domain doesn't answer within 10 seconds
 - the response is a `5xx` status
-- the response is a `4xx` status, if the check requires a success response
+- the response is a `4xx` status, if `Require 2xx or 3xx` is on for the check
 
 A domain counts as down when this happens in two checks in a row and a second location agrees. A short network problem
 or a single failed request doesn't cause an alert.
@@ -78,7 +77,7 @@ that something answers, not that your app works correctly:
 - A domain behind a proxy or CDN may answer from the proxy while your app is down.
 - A firewall that answers checks with `403` counts as up, so a check can miss an outage behind it.
 
-To check more strictly, point the check at a health endpoint of your app and require a success response.
+To check more strictly, point the check at a health endpoint of your app and turn on `Require 2xx or 3xx`.
 
 Checks keep running during deployments. A deployment that makes a domain fail two checks in a row is reported as an
 outage.
@@ -91,7 +90,7 @@ settings. The settings apply to every path of that hostname.
 - **Path:** a path to request instead of the route's own, such as a health endpoint like `/health`. It can include a
   query string, for example `/health?full=1`. It must start with `/` and can't point to another host. Leave it empty to
   request the route's own path.
-- **Require a success response:** only `2xx` and `3xx` responses count as up, so `401`, `403`, or `404` counts as down.
+- **Require 2xx or 3xx:** only `2xx` and `3xx` responses count as up, so `401`, `403`, or `404` counts as down.
   This is off by default. If your domain uses Basic Auth, choose a path that doesn't require a password, or leave this
   off.
 
@@ -103,7 +102,7 @@ Switching a check back on requires a paid plan. Beyond the included 10, it becom
 
 ## See all checks
 
-The organization's list of uptime checks shows every checked domain in the environments you can access, with:
+`Organization > Uptime` lists every checked domain in the environments you can access, with:
 
 - its status and latest result
 - its uptime over the last 30 days
