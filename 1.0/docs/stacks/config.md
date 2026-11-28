@@ -74,6 +74,8 @@ You can publish container ports via two methods:
 1. For HTTP traffic expose the port via Edge (it's a reverse proxy [we install](../infrastructure/index.md#schema) per server). You'll find a technical domain generated for your service under Domains tab 
 2. For TCP traffic expose via a high port on a node. The port will be generated once and won't change, you can find the generated port on a service page. If you have a firewall make sure this port is open for the inbound traffic
 
+On Infrastructure 7, a published port is also how another instance on the same server reaches the service. See [Connections between instances](../infrastructure/index.md#connections-between-instances).
+
 ## Fork stack and use custom image
 
 If changes you need to make can't be done via environment variables there's always an option to use a custom docker image:

@@ -8,11 +8,14 @@ Redis can be configured with the following [environment variables](https://githu
 
 ## Connecting to redis
 
-If you want to access redis from the same server you can access it as:
+To access Redis from another instance on the same server, use the `Internal hostname` from `[Instance] > Stack > [Redis service]`:
 
 ```
-redis://default:[redis-pass]@[app-instance-uuid].redis:6379
+redis://default:[redis-pass]@redis.[app-instance-uuid]:6379
 ```
+
+!!! warning "Infrastructure 7"
+    On Infrastructure 7, instances can't connect to each other through their internal hostname. Publish the Redis port and connect to it as shown below. See [Connections between instances](../../infrastructure/index.md#connections-between-instances).
 
 If you're accessing redis externally, you should expose redis port dynamically via node and connect as following:
 
